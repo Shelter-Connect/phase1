@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'pages/volunteer_sign_up_page.dart';
 import 'pages/signup_page.dart';
 import 'pages/welcome_page.dart';
 
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         '/': (_) => WelcomePage(),
+        '/volunteer_sign_up': (_) => VolunteerSignUp(),
         '/signup': (_) => SignupPage(),
       },
       initialRoute: '/',
