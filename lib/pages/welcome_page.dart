@@ -22,8 +22,6 @@ class _WelcomePageState extends State<WelcomePage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Container(
-              height: MediaQuery.of(context).size.height / 2,
-              width: MediaQuery.of(context).size.width,
               color: Colors.white,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
