@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'pages/signup_page.dart';
 import 'pages/welcome_page.dart';
 
 void main() {
@@ -12,8 +13,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Shelter Connect',
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        buttonColor: Color(0xff26A0FF),
+      ),
       routes: {
         '/': (_) => WelcomePage(),
+        '/signup': (_) => SignupPage(),
       },
       initialRoute: '/',
     );
