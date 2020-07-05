@@ -14,134 +14,85 @@ class _WelcomePageState extends State<WelcomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(
-          constraints: BoxConstraints.expand(),
-          color: Color(0xFFDAE5F9),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Container(
-                height: MediaQuery.of(context).size.height / 2,
-                width: MediaQuery.of(context).size.width,
-                color: Colors.white,
-                child: Column(
+      body: Container(
+        constraints: BoxConstraints.expand(),
+        color: Color(0xFFDAE5F9),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              height: MediaQuery.of(context).size.height / 2,
+              width: MediaQuery.of(context).size.width,
+              color: Colors.white,
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    Align(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                      child: Container(
+                        child: Text(
+                          'Welcome!',
+                          style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 22.0),
+                    child: Align(
                       alignment: Alignment.centerLeft,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-                        child: Container(
-                          child: Text('Welcome!', style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
-                          ),
-                        ),
+                      child: FloatingTextField(
+                        hintText: 'Enter your email',
+                        onChanged: (val) {
+                          //TODO: Update Password Variable
+                        },
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 22.0),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: FloatingTextField(
-                          hintText: 'Enter your email',
-                          onChanged: (val) {
-                            //TODO: Update Password Variable
-                          },
-                        ),
+                  ),
+                  SizedBox(height: 20),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 22.0),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: FloatingTextField(
+                        hintText: 'Enter your password',
+                        onChanged: (val) {
+                          //TODO: Update Password Variable
+                        },
                       ),
                     ),
-                    SizedBox(height: 20),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 22.0),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: FloatingTextField(
-                          hintText: 'Enter your password',
-                          onChanged: (val) {
-                            //TODO: Update Password Variable
-                          },
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: RoundedButton(title: 'LOGIN', onPressed: (){
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: RoundedButton(
+                      title: 'LOGIN',
+                      onPressed: () {
                         //TODO Check for Existing user. IF true, log them in. IF false, show error message
-                      },),
+                      },
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: TextButton(text: 'New User? Sign Up Here', onPressed: (){
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: TextButton(
+                        text: 'New User? Sign Up Here',
+                        onPressed: () {
                           //TODO redirect to sign up page
-                        },),
+                        },
                       ),
-                    )
-                  ],
-                ),
-              )
-            ],
-          ),
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
 }
-
-//class VolunteerSignUp extends StatelessWidget {
-//  @override
-//  Widget build(BuildContext context) {
-//    return Scaffold(
-//      body: Container(
-//        padding: EdgeInsets.symmetric(horizontal: 24.0),
-//        child: SingleChildScrollView(
-//          child: Container(
-//            height: MediaQuery.of(context).size.height,
-//            child: Column(
-//              mainAxisAlignment: MainAxisAlignment.center,
-//              crossAxisAlignment: CrossAxisAlignment.start,
-//              children: <Widget>[
-//                Text('Volunteer Sign Up', style: titleStyle),
-//                SizedBox(height: 35),
-//                FloatingTextField(
-//                  hintText: 'Enter E-mail',
-//                  onChanged: (val) {
-//                    //TODO: Update E-mail variable
-//                  },
-//                ),
-//                SizedBox(height: 20),
-//                FloatingTextField(
-//                  hintText: 'Password',
-//                  onChanged: (val) {
-//                    //TODO: Update Password Variable
-//                  },
-//                ),
-//                SizedBox(height: 20),
-//                FloatingTextField(
-//                  hintText: 'Re-enter Password',
-//                  onChanged: (val) {
-//                    //TODO: Update Re-enter Password Variable
-//                  },
-//                ),
-//                SizedBox(height: 30),
-//                RoundedButton(
-//                  title: 'Sign Up',
-//                  onPressed: () {
-//                    //TODO: Make Sign up go to Volunteer Confirmation
-//                  },
-//                ),
-//                TextButton(
-//                  text: 'Not a Volunteer?',
-//                  onPressed: () {
-//                    Navigator.pop(context);
-//                  },
-//                ),
-//              ],
-//            ),
-//          ),
-//        ),
-//      ),
-//    );
-//  }
-//}
