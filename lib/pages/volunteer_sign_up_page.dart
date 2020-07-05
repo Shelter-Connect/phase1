@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../components/text_field.dart';
+import '../components/floating_text_field.dart';
 import '../components/rounded_button.dart';
 import '../components/text_button.dart';
 import '../constants.dart';
