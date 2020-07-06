@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:phase1/components/floating_text_fields.dart';
+import 'package:phase1/components/rounded_button.dart';
+import 'package:phase1/components/text_button.dart';
 import 'package:phase1/constants.dart';
 
 class ShelterSignUpExtended extends StatelessWidget {
@@ -37,30 +39,13 @@ class ShelterSignUpExtended extends StatelessWidget {
                   //TODO: Update Shelter Location Variable, have autocomplete feature to make it easy to find exact shelter location.
                 },
               ),
+              SizedBox(height: 30),
+              RoundedButton(title: 'NEXT', onPressed: (){
+                //TODO Update Shelter Profile and navigate to the verification page.
+              },)
+
             ],
           ),
-        ),
-      ),
-      bottomNavigationBar: BottomAppBar(
-        color: Colors.white,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 24),
-          child: Container(
-              height: 50,
-              child: FlatButton(
-                color: colorScheme.secondary,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30.0),
-                ),
-                onPressed: () {
-                  //TODO Update Shelter Profile and navigate to the verification page.
-                },
-                child: Container(
-                    child: Text(
-                  'NEXT',
-                  style: TextStyle(fontSize: 20, color: Colors.white),
-                )),
-              )),
         ),
       ),
     );
