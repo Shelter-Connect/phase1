@@ -19,13 +19,13 @@ class SignupPage extends StatelessWidget {
             RoundedButton(
               title: 'Sign Up As Shelter',
               onPressed: () {
-                //TODO: push to volunteer signup page
+                Navigator.pushNamed(context, '/shelter_sign_up');
               },
             ),
             RoundedButton(
               title: 'Sign Up As Volunteer',
               onPressed: () {
-                //TODO: push to volunteer signup page
+                Navigator.pushNamed(context, '/volunteer_sign_up');
               },
             ),
             Padding(
@@ -33,10 +33,10 @@ class SignupPage extends StatelessWidget {
               child: TextButton(
                 text: 'Existing User? Press here to sign in.',
                 onPressed: () {
-                  //TODO: push to sign in page
+                  Navigator.pop(context);
                 }
               ),
-            )
+            ),
           ],
         ),
       ),

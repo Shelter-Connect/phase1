@@ -16,11 +16,10 @@ class FloatingTextField extends StatelessWidget {
         onChanged: onChanged,
         maxLines: 1,
         decoration: InputDecoration(
+          contentPadding: EdgeInsets.symmetric(horizontal: 12.0),
           hintText: hintText,
           hintStyle: TextStyle(fontSize: 17),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
+          border: InputBorder.none,
         ),
       ),
     );
