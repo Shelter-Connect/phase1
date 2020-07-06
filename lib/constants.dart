@@ -6,6 +6,11 @@ final titleStyle = TextStyle(
   fontSize: 55.0,
 );
 
+final headerStyle = TextStyle(
+  fontWeight: FontWeight.w500,
+  fontSize: 30.0,
+);
+
 final colorScheme = ColorScheme(
     primary: Color(0xffbbdefb),
     primaryVariant: Color(0xff8aacc8),
