@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
-import '../components/floating_text_field.dart';
+import '../components/floating_text_fields.dart';
 import '../components/rounded_button.dart';
 import '../components/text_button.dart';
 
