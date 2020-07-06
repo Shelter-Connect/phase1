@@ -16,13 +16,11 @@ class _WelcomePageState extends State<WelcomePage> {
     return Scaffold(
       body: Container(
         constraints: BoxConstraints.expand(),
-        color: Color(0xFFDAE5F9),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Container(
-              color: Colors.white,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.start,

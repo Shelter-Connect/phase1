@@ -4,6 +4,7 @@ import 'pages/volunteer_sign_up_page.dart';
 import 'pages/shelter_sign_up_page.dart';
 import 'pages/signup_page.dart';
 import 'pages/welcome_page.dart';
+import 'constants.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
       title: 'Shelter Connect',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        buttonColor: Color(0xff26A0FF),
+        colorScheme : colorScheme,
       ),
       routes: {
         '/': (_) => WelcomePage(),
