@@ -4,7 +4,13 @@ import '../components/floating_text_fields.dart';
 import '../components/rounded_button.dart';
 import '../constants.dart';
 
-class ShelterSignUpExtended extends StatelessWidget {
+class ShelterSignUpExtended extends StatefulWidget {
+  @override
+  _ShelterSignUpExtendedState createState() => _ShelterSignUpExtendedState();
+}
+
+class _ShelterSignUpExtendedState extends State<ShelterSignUpExtended> {
+  String shelterName, description;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,14 +32,17 @@ class ShelterSignUpExtended extends StatelessWidget {
                 },
               ),
               SizedBox(height: 20),
-              FloatingTextField(
-                hintText: 'Enter a Brief Description',
+              BoxTextField(
                 onChanged: (val) {
-                  //TODO: Update Shelter Description Variable
+                  setState(() {
+                    description = val;
+                  });
                 },
+                maxLines: null,
+                hintText: 'Type in a short description of your shelter here.',
               ),
               SizedBox(height: 20),
-              DescriptionBox(
+              FloatingTextFieldWithSearch(
                 hintText: 'Search for Shelter Location',
                 onChanged: (val) {
                   //TODO: Update Shelter Location Variable, have autocomplete feature to make it easy to find exact shelter location.
@@ -53,3 +62,4 @@ class ShelterSignUpExtended extends StatelessWidget {
     );
   }
 }
+
