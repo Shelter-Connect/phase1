@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:phase1/components/floating_text_fields.dart';
-import 'package:phase1/components/rounded_button.dart';
-import 'package:phase1/components/text_button.dart';
-import 'package:phase1/constants.dart';
+
+import '../components/floating_text_fields.dart';
+import '../components/rounded_button.dart';
+import '../constants.dart';
 
 class ShelterSignUpExtended extends StatelessWidget {
   @override
@@ -40,10 +40,12 @@ class ShelterSignUpExtended extends StatelessWidget {
                 },
               ),
               SizedBox(height: 30),
-              RoundedButton(title: 'NEXT', onPressed: (){
-                //TODO Update Shelter Profile and navigate to the verification page.
-              },)
-
+              RoundedButton(
+                title: 'NEXT',
+                onPressed: () {
+                  //TODO Update Shelter Profile and navigate to the verification page.
+                },
+              )
             ],
           ),
         ),

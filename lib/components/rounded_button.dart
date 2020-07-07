@@ -4,16 +4,17 @@ import '../constants.dart';
 
 class RoundedButton extends StatelessWidget {
   final String title;
+  final Color color;
   final Function onPressed;
 
-  RoundedButton({@required this.title, @required this.onPressed});
+  RoundedButton({@required this.title, this.color, @required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 8.0),
       child: FlatButton(
-        color: colorScheme.secondary,
+        color: color ?? colorScheme.secondary,
         padding: EdgeInsets.all(16.0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.0),
@@ -24,7 +25,7 @@ class RoundedButton extends StatelessWidget {
           child: Center(
             child: Text(
               title,
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: color == null ? Colors.white : Colors.black),
             ),
           ),
         ),

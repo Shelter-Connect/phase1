@@ -34,7 +34,7 @@ class SignupPage extends StatelessWidget {
                 text: 'Existing User? Press here to sign in.',
                 onPressed: () {
                   Navigator.pop(context);
-                }
+                },
               ),
             ),
           ],

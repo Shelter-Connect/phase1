@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         '/shelter_sign_up_extended': (_) => ShelterSignUpExtended(),
         '/signup': (_) => SignupPage(),
       },
-      initialRoute: '/shelter_confirmation',
+      initialRoute: '/',
     );
   }
 }
