@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:phase1/pages/shelter_confirmation_page.dart';
-import 'package:phase1/pages/shelter_sign_up_extended_page.dart';
 
 import 'constants.dart';
+import 'pages/shelter_confirmation_page.dart';
+import 'pages/shelter_sign_up_extended_page.dart';
 import 'pages/shelter_sign_up_page.dart';
 import 'pages/signup_page.dart';
 import 'pages/volunteer_confirmation_page.dart';
