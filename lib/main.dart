@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:phase1/pages/shelter_confirmation_page.dart';
 import 'package:phase1/pages/shelter_sign_up_extended_page.dart';
 
-import 'constants.dart';
+import 'pages/volunteer_confirmation_page.dart';
+import 'pages/volunteer_sign_up_page.dart';
 import 'pages/shelter_sign_up_page.dart';
 import 'pages/signup_page.dart';
 import 'pages/volunteer_confirmation_page.dart';
 import 'pages/volunteer_sign_up_page.dart';
 import 'pages/welcome_page.dart';
+import 'constants.dart';
 
 void main() {
   runApp(MyApp());
@@ -20,7 +22,7 @@ class MyApp extends StatelessWidget {
       title: 'Shelter Connect',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: colorScheme,
+        colorScheme : colorScheme,
       ),
       routes: {
         '/': (_) => WelcomePage(),
@@ -31,6 +33,7 @@ class MyApp extends StatelessWidget {
         '/shelter_sign_up_extended': (_) => ShelterSignUpExtended(),
         '/signup': (_) => SignupPage(),
       },
+      initialRoute: '/shelter_confirmation',
     );
   }
 }
