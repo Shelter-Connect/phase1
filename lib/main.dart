@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:phase1/pages/shelter_confirmation_page.dart';
 import 'package:phase1/pages/shelter_sign_up_extended_page.dart';
 
+import 'pages/example.dart';
 import 'pages/volunteer_confirmation_page.dart';
 import 'pages/volunteer_sign_up_page.dart';
 import 'pages/shelter_sign_up_page.dart';
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         '/': (_) => WelcomePage(),
+        '/example': (_) => ExamplePage(),
         '/volunteer_confirmation':(_) => VolunteerConfirmation(),
         '/volunteer_sign_up': (_) => VolunteerSignUp(),
         '/shelter_confirmation': (_) => ShelterConfirmation(),
@@ -31,7 +33,7 @@ class MyApp extends StatelessWidget {
         '/shelter_sign_up_extended': (_) => ShelterSignUpExtended(),
         '/signup': (_) => SignupPage(),
       },
-      initialRoute: '/shelter_sign_up_extended',
+      initialRoute: '/example',
     );
   }
 }
