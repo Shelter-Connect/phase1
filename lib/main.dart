@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       title: 'Shelter Connect',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: colorScheme,
+        colorScheme : colorScheme,
       ),
       routes: {
         '/': (_) => WelcomePage(),
