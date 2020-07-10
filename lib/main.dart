@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
         '/organization_sign_up_extended': (_) => OrganizationSignUpExtended(),
         '/signup': (_) => SignupPage(),
       },
-      initialRoute: '/volunteer_navigation',
+      initialRoute: '/',
     );
   }
 }
