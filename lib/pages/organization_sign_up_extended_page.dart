@@ -10,8 +10,7 @@ class OrganizationSignUpExtended extends StatefulWidget {
       _OrganizationSignUpExtendedState();
 }
 
-class _OrganizationSignUpExtendedState
-    extends State<OrganizationSignUpExtended> {
+class _OrganizationSignUpExtendedState extends State<OrganizationSignUpExtended> {
   String shelterName, description;
   @override
   Widget build(BuildContext context) {
