@@ -6,11 +6,7 @@ class FloatingTextField extends StatelessWidget {
   final int maxLines;
   final bool obscureText;
 
-  FloatingTextField(
-      {this.hintText,
-      this.obscureText = false,
-      this.onChanged,
-      this.maxLines = 1});
+  FloatingTextField({this.hintText, this.obscureText = false, this.onChanged, this.maxLines = 1});
 
   @override
   Widget build(BuildContext context) {
