@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:phase1/constants.dart';
 
-import '../components/floating_text_fields.dart';
 import '../components/rounded_button.dart';
 import '../components/text_button.dart';
 
@@ -22,43 +22,48 @@ class _WelcomePageState extends State<WelcomePage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
+                Text('Welcome and Thank you!', style: titleStyle),
+                Image.asset('assets/ShelterConnectLogo.png'),
+                Image.asset('assets/LogoName.png'),
                 Text(
-                  'Welcome to Shelter Connect!',
+                  'Connecting non-profit organizations and kind hearted people',
                   style: TextStyle(
-                    fontSize: 25.0,
+                    fontSize: 15.0,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 SizedBox(height: 20.0),
                 Align(
                   alignment: Alignment.centerLeft,
-                  child: FloatingTextField(
-                    hintText: 'Enter your email',
-                    onChanged: (val) {
-                      //TODO: Update Password Variable
-                    },
+                  child: Material(
+                    elevation: 5,
+                    borderRadius: BorderRadius.circular(90.0),
+                    color: Color(0xffffff),
+                    child: RoundedButton(title: 'Continue as Volunteer', color: Color(0xff0075C1),
+                      onPressed: () {
+                        //TODO: Make Volunteer Dashboard and have this button go to Volunteer Dashboard
+                      },
+                    ),
                   ),
                 ),
                 SizedBox(height: 20.0),
-                FloatingTextField(
-                  hintText: 'Enter your password',
-                  onChanged: (val) {
-                    //TODO: Update Password Variable
-                  },
+                Material(
+                  elevation: 5,
+                  borderRadius: BorderRadius.circular(90.0),
+                  color: Color(0xffffff),
+                  child: RoundedButton(title: 'Continue as Shelter', color: Color(0xffffffff),
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/shelter_sign_up');
+                    },
+                  ),
                 ),
                 SizedBox(height: 10.0),
-                RoundedButton(
-                  title: 'LOGIN',
-                  onPressed: () {
-                    //TODO Check for Existing user. IF true, log them in. IF false, show error message
-                  },
-                ),
                 Padding(
                   padding: const EdgeInsets.only(left: 5.0),
                   child: TextButton(
-                    text: 'New User? Press here to sign up.',
+                    text: 'Existing User? Sign in here',
                     onPressed: () {
-                      Navigator.pushNamed(context, '/signup');
+                      //TODO: Make login page and redirect this button to that page
                     },
                   ),
                 ),

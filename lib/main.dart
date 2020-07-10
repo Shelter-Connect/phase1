@@ -6,8 +6,6 @@ import 'pages/volunteer_confirmation_page.dart';
 import 'pages/volunteer_sign_up_page.dart';
 import 'pages/shelter_sign_up_page.dart';
 import 'pages/signup_page.dart';
-import 'pages/volunteer_confirmation_page.dart';
-import 'pages/volunteer_sign_up_page.dart';
 import 'pages/welcome_page.dart';
 import 'constants.dart';
 
@@ -33,7 +31,7 @@ class MyApp extends StatelessWidget {
         '/shelter_sign_up_extended': (_) => ShelterSignUpExtended(),
         '/signup': (_) => SignupPage(),
       },
-      initialRoute: '/shelter_confirmation',
+      initialRoute: '/',
     );
   }
 }
