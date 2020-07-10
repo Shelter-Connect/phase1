@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
 
-class StandardLayout extends StatelessWidget {
-  final String title, drawerHeaderText;
+class StandardLayout extends StatelessWidget { // TODO: UI changes
+  final String title, drawerHeaderText, helpText;
   final bool menu, help;
+  final Widget body;
+  final List drawerOptions;
 
-  // TODO add more parameters for other things
-  StandardLayout({@required this.title, this.menu=true, this.help=true, this.drawerHeaderText='',});
+  // TODO: add more parameters for other things
+  StandardLayout({
+    @required this.title,
+    this.body,
+    this.menu = true,
+    this.drawerHeaderText = '',
+    this.drawerOptions, // TODO: change format from list to something else
+    this.help = true,
+    this.helpText = '',
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +48,7 @@ class StandardLayout extends StatelessWidget {
           ),
         ],
       ),
-      // TODO: add body to Scaffold
+      body: body,
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -46,9 +56,9 @@ class StandardLayout extends StatelessWidget {
             DrawerHeader(
               child: Text(drawerHeaderText),
             ),
-            ListTile( // TODO: add for loop functionality for more options
-              title: Text('Example Option 1'),
-              onTap: () {},
+            for (var option in drawerOptions) ListTile(
+              title: Text(option[0]),
+              onTap: () {Navigator.pushNamed(context, option[2]);}
             ),
           ],
         ),
@@ -72,7 +82,7 @@ class StandardLayout extends StatelessWidget {
             padding: EdgeInsets.all(25.0),
             child: Column(
               children: <Widget>[
-                Text('Example help text. Example help text. Example help text. Example help text. Example help text. Example help text. Example help text. Example help text. '),
+                Text(helpText),
               ],
             ),
           ),
