@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 class FloatingTextField extends StatelessWidget {
   final String hintText;
   final Function onChanged;
+  final bool obscureText;
 
-  FloatingTextField({this.hintText, this.onChanged});
+  FloatingTextField({this.hintText, this.onChanged, this.obscureText = false});
 
   @override
   Widget build(BuildContext context) {
@@ -12,6 +13,7 @@ class FloatingTextField extends StatelessWidget {
       elevation: 5,
       borderRadius: BorderRadius.circular(10),
       child: TextField(
+        obscureText: obscureText,
         onChanged: onChanged,
         maxLines: 1,
         decoration: InputDecoration(
@@ -40,7 +42,8 @@ class FloatingTextFieldWithSearch extends StatelessWidget {
         onChanged: onChanged,
         maxLines: 1,
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 13.0),
+          contentPadding:
+              EdgeInsets.symmetric(horizontal: 20.0, vertical: 13.0),
           hintText: hintText,
           hintStyle: TextStyle(fontSize: 17),
           prefixIcon: Icon(Icons.search),
@@ -51,15 +54,19 @@ class FloatingTextFieldWithSearch extends StatelessWidget {
   }
 }
 
-
-
 class BoxTextField extends StatelessWidget {
   final Function onChanged;
   final String hintText;
   final int maxLines;
   final Color colors;
 
-  BoxTextField({this.onChanged, this.hintText, this.maxLines = 1, this.colors, Color fillColor, InputDecoration decoration});
+  BoxTextField(
+      {this.onChanged,
+      this.hintText,
+      this.maxLines = 1,
+      this.colors,
+      Color fillColor,
+      InputDecoration decoration});
 
   @override
   Widget build(BuildContext context) {
@@ -68,10 +75,13 @@ class BoxTextField extends StatelessWidget {
       borderRadius: BorderRadius.circular(10),
       child: TextField(
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+          contentPadding:
+              EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
 //          fillColor: Colors.white,
 //          filled: true,
-          enabledBorder: OutlineInputBorder(borderRadius:BorderRadius.circular(5.0), borderSide: BorderSide(color: Colors.white, width: 1)),
+          enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(5.0),
+              borderSide: BorderSide(color: Colors.white, width: 1)),
           focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(5.0)),
               borderSide: BorderSide(color: Colors.white)),
@@ -85,9 +95,3 @@ class BoxTextField extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
-
