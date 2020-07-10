@@ -4,12 +4,14 @@ import '../components/floating_text_fields.dart';
 import '../components/rounded_button.dart';
 import '../constants.dart';
 
-class ShelterSignUpExtended extends StatefulWidget {
+class OrganizationSignUpExtended extends StatefulWidget {
   @override
-  _ShelterSignUpExtendedState createState() => _ShelterSignUpExtendedState();
+  _OrganizationSignUpExtendedState createState() =>
+      _OrganizationSignUpExtendedState();
 }
 
-class _ShelterSignUpExtendedState extends State<ShelterSignUpExtended> {
+class _OrganizationSignUpExtendedState
+    extends State<OrganizationSignUpExtended> {
   String shelterName, description;
   @override
   Widget build(BuildContext context) {
@@ -26,9 +28,9 @@ class _ShelterSignUpExtendedState extends State<ShelterSignUpExtended> {
               Text("We're so excited to partner with you!", style: headerStyle),
               SizedBox(height: 60),
               FloatingTextField(
-                hintText: 'Enter Shelter Name',
+                hintText: 'Enter Organization Name',
                 onChanged: (val) {
-                  //TODO: Update Shelter Name Variable
+                  //TODO: Update Organization Name Variable
                 },
               ),
               SizedBox(height: 20),
@@ -39,20 +41,21 @@ class _ShelterSignUpExtendedState extends State<ShelterSignUpExtended> {
                   });
                 },
                 maxLines: null,
-                hintText: 'Type in a short description of your shelter here.',
+                hintText:
+                    'Type in a short description of your organization here.',
               ),
               SizedBox(height: 20),
               FloatingTextFieldWithSearch(
-                hintText: 'Search for Shelter Location',
+                hintText: 'Search for Organization Location',
                 onChanged: (val) {
-                  //TODO: Update Shelter Location Variable, have autocomplete feature to make it easy to find exact shelter location.
+                  //TODO: Update Organization Location Variable, have autocomplete feature to make it easy to find exact shelter location.
                 },
               ),
               SizedBox(height: 30),
               RoundedButton(
-                title: 'NEXT',
+                title: 'Next',
                 onPressed: () {
-                  //TODO Update Shelter Profile and navigate to the verification page.
+                  Navigator.pushNamed(context, '/organization_confirmation');
                 },
               )
             ],
@@ -62,4 +65,3 @@ class _ShelterSignUpExtendedState extends State<ShelterSignUpExtended> {
     );
   }
 }
-
