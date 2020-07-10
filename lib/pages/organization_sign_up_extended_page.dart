@@ -52,9 +52,9 @@ class _OrganizationSignUpExtendedState
               ),
               SizedBox(height: 30),
               RoundedButton(
-                title: 'Next',
+                title: 'Create Account',
                 onPressed: () {
-                  Navigator.pushNamed(context, '/organization_confirmation');
+                  //TODO: Create account with auth
                 },
               )
             ],

@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         '/volunteer_navigation': (_) => OrganizationNavigationPage(),
         '/volunteer_sign_up': (_) => VolunteerSignUp(),
         '/organization_confirmation': (_) => OrganizationConfirmation(),
-        '/organization_sign_up': (_) => OrganizationSignUp(),
+        '/organization_sign_up': (_) => OrganizationSignUpPage(),
         '/organization_sign_up_extended': (_) => OrganizationSignUpExtended(),
         '/signup': (_) => SignupPage(),
       },

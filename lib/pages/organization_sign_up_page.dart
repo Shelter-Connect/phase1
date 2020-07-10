@@ -1,14 +1,17 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../components/floating_text_field.dart';
+import '../components/no_action_alert.dart';
 import '../components/rounded_button.dart';
 import '../components/text_button.dart';
 import '../constants.dart';
 
-class OrganizationSignUp extends StatelessWidget {
-  final _auth = FirebaseAuth.instance;
+class OrganizationSignUpPage extends StatefulWidget {
+  @override
+  _OrganizationSignUpPageState createState() => _OrganizationSignUpPageState();
+}
+
+class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
   String email, password, password2;
 
   @override
@@ -52,22 +55,12 @@ class OrganizationSignUp extends StatelessWidget {
                 onPressed: () async {
                   if (password != password2) {
                     showDialog(
-                        context: context,
-                        builder: (BuildContext context) => CupertinoAlertDialog(
-                              title: Text('Passwords do Not Match'),
-                            ));
+                      context: context,
+                      builder: (_) => NoActionAlert(title: 'Passwords do not match'),
+                    );
                   } else {
-                    try {
-                      final newUser =
-                          await _auth.createUserWithEmailAndPassword(
-                              email: email, password: password);
-                      if (newUser != null) {
-                        Navigator.pushNamed(
-                            context, '/organization_sign_up_extended');
-                      }
-                    } catch (e) {
-                      print(e);
-                    }
+                    //TODO: Somehow send the email and password to the organization extended sign up page
+                    Navigator.pushNamed(context, '/organization_sign_up_extended');
                   }
                 },
               ),

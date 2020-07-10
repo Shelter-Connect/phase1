@@ -11,6 +11,20 @@ class WelcomePage extends StatefulWidget {
 
 class _WelcomePageState extends State<WelcomePage> {
   @override
+  void initState() {
+    auth.onAuthStateChanged.listen((user) {
+      if (user == null) {
+        Navigator.popUntil(context, (route) => route.isFirst);
+      }
+      else {
+        Navigator.pushNamed(context, '/organization_navigation');
+      }
+    });
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
