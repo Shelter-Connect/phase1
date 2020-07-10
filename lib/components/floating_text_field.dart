@@ -26,29 +26,3 @@ class FloatingTextField extends StatelessWidget {
     );
   }
 }
-
-class FloatingTextFieldWithSearch extends StatelessWidget {
-  final String hintText;
-  final Function onChanged;
-
-  FloatingTextFieldWithSearch({this.hintText, this.onChanged});
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      elevation: 5,
-      borderRadius: BorderRadius.circular(10),
-      child: TextField(
-        onChanged: onChanged,
-        maxLines: 1,
-        decoration: InputDecoration(
-          contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 13.0),
-          hintText: hintText,
-          hintStyle: TextStyle(fontSize: 17),
-          prefixIcon: Icon(Icons.search),
-          border: InputBorder.none,
-        ),
-      ),
-    );
-  }
-}

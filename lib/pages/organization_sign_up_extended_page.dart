@@ -44,7 +44,7 @@ class _OrganizationSignUpExtendedState
                 hintText: 'Short Description of Organization',
               ),
               SizedBox(height: 20),
-              FloatingTextFieldWithSearch(
+              FloatingTextField(
                 hintText: 'Organization Location',
                 onChanged: (val) {
                   //TODO: Update Organization Location Variable, have autocomplete feature to make it easy to find exact shelter location.
