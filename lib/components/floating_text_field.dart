@@ -4,8 +4,13 @@ class FloatingTextField extends StatelessWidget {
   final String hintText;
   final Function onChanged;
   final int maxLines;
+  final bool obscureText;
 
-  FloatingTextField({this.hintText, this.onChanged, this.maxLines = 1});
+  FloatingTextField(
+      {this.hintText,
+      this.obscureText = false,
+      this.onChanged,
+      this.maxLines = 1});
 
   @override
   Widget build(BuildContext context) {
@@ -13,6 +18,7 @@ class FloatingTextField extends StatelessWidget {
       elevation: 5,
       borderRadius: BorderRadius.circular(10),
       child: TextField(
+        obscureText: obscureText,
         onChanged: onChanged,
         maxLines: maxLines,
         keyboardType: TextInputType.text,
