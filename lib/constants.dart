@@ -1,9 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 //Firebase
-String userId;
 FirebaseAuth auth = FirebaseAuth.instance;
 Firestore db = Firestore.instance;
 
@@ -32,4 +32,5 @@ final colorScheme = ColorScheme(
     onSurface: Color(0xffbbdefb),
     onBackground: Color(0xff000000),
     onError: Color(0xffbbdefb),
-    brightness: Brightness.light);
+    brightness: Brightness.light
+);

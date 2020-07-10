@@ -30,7 +30,7 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
               FloatingTextField(
                 hintText: 'Organization Email',
                 onChanged: (val) {
-                  email = val.trim();
+                  email = val;
                 },
               ),
               SizedBox(height: 20),
@@ -38,7 +38,7 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
                 obscureText: true,
                 hintText: 'Password',
                 onChanged: (val) {
-                  password = val.trim();
+                  password = val;
                 },
               ),
               SizedBox(height: 20),
@@ -46,7 +46,7 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
                 obscureText: true,
                 hintText: 'Re-enter Password',
                 onChanged: (val) {
-                  password2 = val.trim();
+                  password2 = val;
                 },
               ),
               SizedBox(height: 30),
@@ -56,29 +56,11 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
                   if (password != password2) {
                     showDialog(
                       context: context,
-                      builder: (_) =>
-                          NoActionAlert(title: 'Passwords do not match'),
+                      builder: (_) => NoActionAlert(title: 'Passwords do not match'),
                     );
                   } else {
-                    try {
-                      final newUser = await auth.createUserWithEmailAndPassword(
-                          email: email, password: password);
-                      if (newUser != null) {
-                        final dbUser = await db.collection('organizations').add({
-                          'description': null,
-                          'email': email,
-                          'id': null,
-                          'name': null,
-                          'password': password,
-                        });
-                        userId = dbUser.documentID;
-                        dbUser.updateData({'id': userId});
-                        Navigator.pushNamed(
-                            context, '/organization_sign_up_extended');
-                      }
-                    } catch (e) {
-                      print(e);
-                    }
+                    //TODO: Somehow send the email and password to the organization extended sign up page
+                    Navigator.pushNamed(context, '/organization_sign_up_extended');
                   }
                 },
               ),

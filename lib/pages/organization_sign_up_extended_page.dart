@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../components/floating_text_field.dart';
@@ -11,30 +10,8 @@ class OrganizationSignUpExtended extends StatefulWidget {
       _OrganizationSignUpExtendedState();
 }
 
-class _OrganizationSignUpExtendedState
-    extends State<OrganizationSignUpExtended> {
-  FirebaseUser loggedInUser;
-  String organizationName, description;
-
-  @override
-  void initState() {
-    super.initState();
-
-    getCurrentUser();
-  }
-
-  void getCurrentUser() async {
-    try {
-      final user = await auth.currentUser();
-      if (user != null) {
-        loggedInUser = user;
-        print(loggedInUser.email);
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
-
+class _OrganizationSignUpExtendedState extends State<OrganizationSignUpExtended> {
+  String shelterName, description;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,7 +29,7 @@ class _OrganizationSignUpExtendedState
               FloatingTextField(
                 hintText: 'Organization Name',
                 onChanged: (val) {
-                  organizationName = val.trim();
+                  //TODO: Update Organization Name Variable
                 },
               ),
               SizedBox(height: 20),
@@ -76,10 +53,7 @@ class _OrganizationSignUpExtendedState
               RoundedButton(
                 title: 'Create Account',
                 onPressed: () {
-                  db.collection('organizations').document(userId).updateData({
-                    'name': organizationName,
-                    'description': description,
-                  });
+                  //TODO: Create account with auth
                 },
               )
             ],
