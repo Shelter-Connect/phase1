@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../components/floating_text_fields.dart';
+import '../components/floating_text_field.dart';
 import '../components/rounded_button.dart';
 import '../constants.dart';
 
@@ -28,25 +28,24 @@ class _OrganizationSignUpExtendedState
               Text("We're so excited to partner with you!", style: headerStyle),
               SizedBox(height: 60),
               FloatingTextField(
-                hintText: 'Enter Organization Name',
+                hintText: 'Organization Name',
                 onChanged: (val) {
                   //TODO: Update Organization Name Variable
                 },
               ),
               SizedBox(height: 20),
-              BoxTextField(
+              FloatingTextField(
                 onChanged: (val) {
                   setState(() {
                     description = val;
                   });
                 },
                 maxLines: null,
-                hintText:
-                    'Type in a short description of your organization here.',
+                hintText: 'Short Description of Organization',
               ),
               SizedBox(height: 20),
-              FloatingTextFieldWithSearch(
-                hintText: 'Search for Organization Location',
+              FloatingTextField(
+                hintText: 'Organization Location',
                 onChanged: (val) {
                   //TODO: Update Organization Location Variable, have autocomplete feature to make it easy to find exact shelter location.
                 },
