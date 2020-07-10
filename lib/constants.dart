@@ -24,7 +24,7 @@ final colorScheme = ColorScheme(
     primaryVariant: Color(0xff8aacc8),
     secondary: Color(0xff42a5f5),
     secondaryVariant: Color(0xff0077c2),
-    surface: Color(0xffbbdefb),
+    surface: Color(0xffacc0e6),
     background: Color(0xffffffff),
     error: Color(0xfffe445c),
     onPrimary: Color(0xff000000),

@@ -25,7 +25,7 @@ class RoundedButton extends StatelessWidget {
           child: Center(
             child: Text(
               title,
-              style: TextStyle(color: color == null ? Colors.white : Colors.black),
+              style: TextStyle(color: color == null ? colorScheme.background : colorScheme.onBackground),
             ),
           ),
         ),

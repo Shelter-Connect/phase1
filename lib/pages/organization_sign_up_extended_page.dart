@@ -19,7 +19,7 @@ class _OrganizationSignUpExtendedState extends State<OrganizationSignUpExtended>
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 60.0),
           height: MediaQuery.of(context).size.height,
-          color: Colors.white,
+          color: colorScheme.background,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,

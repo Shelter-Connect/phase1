@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phase1/constants.dart';
 
 import 'organization_dashboard_page.dart';
 import 'organization_expected_deliveries_page.dart';
@@ -19,15 +20,15 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffacc0e6),
+      backgroundColor: colorScheme.surface,
       appBar: AppBar(
         title: Text(_pages[_selectedIndex].title),
-        backgroundColor: Color(0xffacc0e6),
+        backgroundColor: colorScheme.surface,
         elevation: 0.0,
         leading: Builder(
           builder: (context) => IconButton(
             icon: Icon(Icons.menu),
-            color: Colors.white,
+            color: colorScheme.background,
             onPressed: () {
               Scaffold.of(context).openDrawer();
             },
@@ -37,7 +38,7 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
           Visibility(
             child: IconButton(
               icon: Icon(Icons.help),
-              color: Colors.white,
+              color: colorScheme.background,
               onPressed: () {
                 _helpModalBottomSheet(context);
               },

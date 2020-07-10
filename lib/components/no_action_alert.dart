@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phase1/constants.dart';
 
 class NoActionAlert extends StatelessWidget {
   final String title;
@@ -13,7 +14,7 @@ class NoActionAlert extends StatelessWidget {
         FlatButton(
           child: Text(
             'OK',
-            style: TextStyle(color: Colors.blue),
+            style: TextStyle(color: colorScheme.secondary),
           ),
           onPressed: () {
             Navigator.pop(context);

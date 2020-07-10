@@ -18,7 +18,7 @@ class VolunteerConfirmation extends StatelessWidget {
             Text('A verification e-mail has been sent to this e-mail address: shelterconnect20@gmail.com', style: headerStyle), //TODO: Input User E-mail in this String
             RoundedButton(
               title: 'Change e-mail Address',
-              color: Colors.white,
+              color: colorScheme.background,
               onPressed: () {
                 //TODO: Get rid of Firebase user when this button is clicked
                 Navigator.pushNamed(context, '/volunteer_sign_up');
@@ -27,7 +27,7 @@ class VolunteerConfirmation extends StatelessWidget {
             SizedBox(height: 30),
             RoundedButton(
               title: 'Resend Verification E-mail',
-              color: Colors.white,
+              color: colorScheme.background,
               onPressed: () {
                 //TODO: Resend Verification E-mail
               },
