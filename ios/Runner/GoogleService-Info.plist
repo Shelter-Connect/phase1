@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>793826128569-ud3dn0mcf37d151mvi9ihegk3h0ga4qt.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.793826128569-ud3dn0mcf37d151mvi9ihegk3h0ga4qt</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDXHM_gZUSTM4wD3gzx---q3bxI7VKQf7c</string>
+	<key>GCM_SENDER_ID</key>
+	<string>793826128569</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>shelter-connect.phase1</string>
+	<key>PROJECT_ID</key>
+	<string>shelterconnect-6c32c</string>
+	<key>STORAGE_BUCKET</key>
+	<string>shelterconnect-6c32c.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:793826128569:ios:5e8edb77928bd9c6052168</string>
+	<key>DATABASE_URL</key>
+	<string>https://shelterconnect-6c32c.firebaseio.com</string>
+</dict>
+</plist>

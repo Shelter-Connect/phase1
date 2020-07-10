@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../components/floating_text_fields.dart';
 import '../components/rounded_button.dart';
 import '../components/text_button.dart';
+import '../constants.dart';
 
 class WelcomePage extends StatefulWidget {
   @override
@@ -13,59 +13,38 @@ class _WelcomePageState extends State<WelcomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 24.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  'Welcome to Shelter Connect!',
-                  style: TextStyle(
-                    fontSize: 25.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 20.0),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: FloatingTextField(
-                    hintText: 'Enter your email',
-                    onChanged: (val) {
-                      //TODO: Update Password Variable
-                    },
-                  ),
-                ),
-                SizedBox(height: 20.0),
-                FloatingTextField(
-                  hintText: 'Enter your password',
-                  onChanged: (val) {
-                    //TODO: Update Password Variable
-                  },
-                ),
-                SizedBox(height: 10.0),
-                RoundedButton(
-                  title: 'LOGIN',
-                  onPressed: () {
-                    //TODO Check for Existing user. IF true, log them in. IF false, show error message
-                  },
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 5.0),
-                  child: TextButton(
-                    text: 'New User? Press here to sign up.',
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/signup');
-                    },
-                  ),
-                ),
-              ],
+      body: Container(
+        padding: EdgeInsets.symmetric(horizontal: 24.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text('Welcome as;dlkfjasl;dfkj', style: titleStyle),
+            SizedBox(height: 20.0),
+            RoundedButton(
+              title: 'Continue as a Volunteer',
+              onPressed: () {
+                //TODO Check for Existing user. IF true, log them in. IF false, show error message
+              },
             ),
-          )
-        ],
+            RoundedButton(
+              title: 'Continue as an Organization',
+              onPressed: () {
+                Navigator.pushNamed(context, '/organization_sign_up');
+              },
+            ),
+            SizedBox(height: 10.0),
+            Padding(
+              padding: const EdgeInsets.only(left: 5.0),
+              child: TextButton(
+                text: 'Already Have an Account? Sign in Here.',
+                onPressed: () {
+                  Navigator.pushNamed(context, '/login');
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

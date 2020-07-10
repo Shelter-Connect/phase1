@@ -5,7 +5,7 @@ import '../components/rounded_button.dart';
 import '../components/text_button.dart';
 import '../constants.dart';
 
-class ShelterSignUp extends StatelessWidget {
+class OrganizationSignUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +17,7 @@ class ShelterSignUp extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text('Shelter Sign Up', style: titleStyle),
+              Text('Organization Sign Up', style: titleStyle),
               SizedBox(height: 35),
               FloatingTextField(
                 hintText: 'Enter Organization E-mail',
@@ -43,13 +43,14 @@ class ShelterSignUp extends StatelessWidget {
               RoundedButton(
                 title: 'Sign Up',
                 onPressed: () {
-                  //TODO: Make Sign up go to Volunteer Confirmation
+                  Navigator.pushNamed(
+                      context, '/organization_sign_up_extended');
                 },
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 5.0),
                 child: TextButton(
-                  text: 'Not a Shelter?',
+                  text: 'Not an Organization?',
                   onPressed: () {
                     Navigator.pop(context);
                   },
