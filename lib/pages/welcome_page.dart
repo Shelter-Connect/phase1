@@ -14,21 +14,22 @@ class _WelcomePageState extends State<WelcomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Container(
             padding: EdgeInsets.symmetric(horizontal: 24.0),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text('Welcome and Thank you!', style: titleStyle),
-                Image.asset('assets/ShelterConnectLogo.png'),
-                Image.asset('assets/LogoName.png'),
+                Image.asset('assets/ShelterConnectLogo.png', height: 250, width: 250 ),
+                Image.asset('assets/LogoName.png', width: 400),
                 Text(
                   'Connecting non-profit organizations and kind hearted people',
                   style: TextStyle(
-                    fontSize: 15.0,
+                    fontSize: 20.0,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -39,7 +40,9 @@ class _WelcomePageState extends State<WelcomePage> {
                     elevation: 5,
                     borderRadius: BorderRadius.circular(90.0),
                     color: Color(0xffffff),
-                    child: RoundedButton(title: 'Continue as Volunteer', color: Color(0xff0075C1),
+                    child: RoundedButton(
+                      title: 'Continue as Volunteer',
+                      color: Color(0xff0075C1),
                       onPressed: () {
                         //TODO: Make Volunteer Dashboard and have this button go to Volunteer Dashboard
                       },
@@ -51,7 +54,9 @@ class _WelcomePageState extends State<WelcomePage> {
                   elevation: 5,
                   borderRadius: BorderRadius.circular(90.0),
                   color: Color(0xffffff),
-                  child: RoundedButton(title: 'Continue as Shelter', color: Color(0xffffffff),
+                  child: RoundedButton(
+                    title: 'Continue as Shelter',
+                    color: Color(0xffffffff),
                     onPressed: () {
                       Navigator.pushNamed(context, '/shelter_sign_up');
                     },
