@@ -33,11 +33,9 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
               Text('Organization Sign Up', style: titleStyle),
               SizedBox(height: 35),
               FloatingTextField(
-                controller: controller,
                 hintText: 'Organization Email',
                 onChanged: (val) {
                   email = val.trim();
-                  controller.text = 'asdflkjasdf';
                 },
               ),
               SizedBox(height: 20),
@@ -83,7 +81,7 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
                   controller.text = location;
                 },
                 onChanged: (val) {
-                  val = 'hello';
+                  controller.text = val;
                 },
               ),
               SizedBox(height: 30),
