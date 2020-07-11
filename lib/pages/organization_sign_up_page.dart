@@ -1,5 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:geocoder/geocoder.dart';
 import 'package:google_maps_webservice/places.dart';
 
 import '../components/floating_text_field.dart';
@@ -15,7 +15,8 @@ class OrganizationSignUpPage extends StatefulWidget {
 }
 
 class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
-  String email, password, password2, organizationName, description, location = 'Organization Location';
+  String email, password, password2, organizationName, description;
+  GeoPoint location;
   TextEditingController controller = TextEditingController();
   GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: kGoogleApiKey);
 
@@ -77,11 +78,20 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
                 hintText: 'Organization Location',
                 onTapped: () async {
                   Prediction p = await PlacesAutocomplete.show(context: context, apiKey: kGoogleApiKey, mode: Mode.overlay, controller: controller);
-                  location = await displayPrediction(p);
-                  controller.text = location;
+                  controller.value = TextEditingValue(
+                    text: await displayPrediction(p),
+                    selection: TextSelection.fromPosition(
+                      TextPosition(offset: 0),
+                    ),
+                  );
                 },
                 onChanged: (val) {
-                  controller.text = val;
+                  controller.value = TextEditingValue(
+                    text: val,
+                    selection: TextSelection.fromPosition(
+                      TextPosition(offset: 0),
+                    ),
+                  );
                 },
               ),
               SizedBox(height: 30),
@@ -104,9 +114,9 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
                       if (newUser != null) {
                         await db.collection('organizations').document(newUser.user.uid).setData({
                           'description': description,
-                          'email': email,
+                          'email': [],
                           'name': organizationName,
-                          'location': null,
+                          'location': location,
                           'verified': false,
                         });
                       }
@@ -140,10 +150,9 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
       PlacesDetailsResponse detail = await _places.getDetailsByPlaceId(p.placeId);
 
       //var placeId = p.placeId;
-      double lat = detail.result.geometry.location.lat;
-      double lng = detail.result.geometry.location.lng;
+      //var address = await Geocoder.local.findAddressesFromQuery(p.description);
 
-      var address = await Geocoder.local.findAddressesFromQuery(p.description);
+      location = new GeoPoint(detail.result.geometry.location.lat, detail.result.geometry.location.lng);
 
       return detail.result.formattedAddress;
     }
