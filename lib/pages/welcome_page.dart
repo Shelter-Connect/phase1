@@ -15,9 +15,13 @@ class _WelcomePageState extends State<WelcomePage> {
     auth.onAuthStateChanged.listen((user) {
       if (user == null) {
         Navigator.popUntil(context, (route) => route.isFirst);
-      }
-      else {
-        Navigator.pushNamed(context, '/organization_navigation');
+      } else {
+        db.collection('organizations').document(user.uid).get().then((value) {
+          if (value['verified'])
+            Navigator.pushNamed(context, '/organization_navigation');
+          else
+            Navigator.pushNamed(context, '/organization_confirmation');
+        });
       }
     });
 

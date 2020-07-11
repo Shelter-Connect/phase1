@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'constants.dart';
 import 'pages/login_page.dart';
 import 'pages/organization_confirmation_page.dart';
-import 'pages/organization_sign_up_extended_page.dart';
 import 'pages/organization_sign_up_page.dart';
 import 'pages/shelter_navigation_page.dart';
 import 'pages/signup_page.dart';
@@ -32,7 +31,6 @@ class MyApp extends StatelessWidget {
         '/volunteer_sign_up': (_) => VolunteerSignUp(),
         '/organization_confirmation': (_) => OrganizationConfirmation(),
         '/organization_sign_up': (_) => OrganizationSignUpPage(),
-        '/organization_sign_up_extended': (_) => OrganizationSignUpExtended(),
         '/signup': (_) => SignupPage(),
       },
       initialRoute: '/organization_navigation',
