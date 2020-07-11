@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:phase1/constants.dart';
 
+import '../constants.dart';
 import 'navigation_tab.dart';
 import 'organization_dashboard_page.dart';
 import 'organization_expected_deliveries_page.dart';

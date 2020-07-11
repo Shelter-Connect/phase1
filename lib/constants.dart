@@ -31,4 +31,5 @@ final colorScheme = ColorScheme(
     onSurface: Color(0xffbbdefb),
     onBackground: Color(0xff000000),
     onError: Color(0xffbbdefb),
-    brightness: Brightness.light);
+    brightness: Brightness.light,
+);
