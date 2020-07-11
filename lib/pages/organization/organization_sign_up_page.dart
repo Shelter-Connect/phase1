@@ -3,11 +3,11 @@ import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:geocoder/geocoder.dart';
 import 'package:google_maps_webservice/places.dart';
 
-import '../components/floating_text_field.dart';
-import '../components/no_action_alert.dart';
-import '../components/rounded_button.dart';
-import '../components/text_button.dart';
-import '../constants.dart';
+import '../../components/floating_text_field.dart';
+import '../../components/no_action_alert.dart';
+import '../../components/rounded_button.dart';
+import '../../components/text_button.dart';
+import '../../constants.dart';
 
 class OrganizationSignUpPage extends StatefulWidget {
   @override
