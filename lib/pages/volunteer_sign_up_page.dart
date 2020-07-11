@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../components/floating_text_fields.dart';
+import '../components/floating_text_field.dart';
 import '../components/rounded_button.dart';
 import '../components/text_button.dart';
 import '../constants.dart';
@@ -10,9 +10,8 @@ class VolunteerSignUp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
+        padding: EdgeInsets.symmetric(horizontal: 24.0),
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 24.0),
-          height: MediaQuery.of(context).size.height,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,

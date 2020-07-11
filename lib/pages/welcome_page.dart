@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:phase1/constants.dart';
 
 import '../components/rounded_button.dart';
 import '../components/text_button.dart';
+import '../constants.dart';
 
 class WelcomePage extends StatefulWidget {
   @override
@@ -10,6 +10,24 @@ class WelcomePage extends StatefulWidget {
 }
 
 class _WelcomePageState extends State<WelcomePage> {
+  @override
+  void initState() {
+    auth.onAuthStateChanged.listen((user) {
+      if (user == null) {
+        Navigator.popUntil(context, (route) => route.isFirst);
+      } else {
+        db.collection('organizations').document(user.uid).get().then((value) {
+          if (value['verified'])
+            Navigator.pushNamed(context, '/organization_navigation');
+          else
+            Navigator.pushNamed(context, '/organization_confirmation');
+        });
+      }
+    });
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,8 +92,8 @@ class _WelcomePageState extends State<WelcomePage> {
                 ),
               ],
             ),
-          )
-        ],
+          ],
+        ),
       ),
     );
   }

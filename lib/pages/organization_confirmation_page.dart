@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 
-import '../components/floating_text_fields.dart';
+import '../components/floating_text_field.dart';
 import '../components/rounded_button.dart';
 import '../components/text_button.dart';
+import '../constants.dart';
 
-class ShelterConfirmation extends StatelessWidget {
+class OrganizationConfirmation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
+      backgroundColor: colorScheme.background,
+      body: SafeArea(
+        child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 24.0),
-          height: MediaQuery.of(context).size.height,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -23,7 +24,7 @@ class ShelterConfirmation extends StatelessWidget {
               FloatingTextField(
                 hintText: 'Enter Verification Code',
                 onChanged: (val) {
-                  //TODO: Update Shelter Verified or Not Variable
+                  //TODO: Update Organization Verified or Not Variable
                 },
               ),
               TextButton(
@@ -33,7 +34,7 @@ class ShelterConfirmation extends StatelessWidget {
                 },
               ),
               Text(
-                'WARNING: This account will be the only account your shelter will have',
+                'WARNING: This account will be the only account your organization will have',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
@@ -44,7 +45,7 @@ class ShelterConfirmation extends StatelessWidget {
               RoundedButton(
                 title: 'VERIFY',
                 onPressed: () {
-                  //TODO Update Shelter verification status
+                  //TODO Update Organization verification status
                 },
               )
             ],
