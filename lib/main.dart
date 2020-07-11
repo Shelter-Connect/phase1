@@ -3,9 +3,9 @@ import 'package:phase1/pages/volunteer/volunteer_navigation_page.dart';
 
 import 'constants.dart';
 import 'pages/login_page.dart';
+import 'pages/organization/shelter_navigation_page.dart';
 import 'pages/organization_confirmation_page.dart';
 import 'pages/organization_sign_up_page.dart';
-import 'pages/organization/shelter_navigation_page.dart';
 import 'pages/signup_page.dart';
 import 'pages/volunteer_confirmation_page.dart';
 import 'pages/volunteer_sign_up_page.dart';
@@ -27,7 +27,6 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (_) => WelcomePage(),
         '/login': (_) => LoginPage(),
-
         '/organization_confirmation': (_) => OrganizationConfirmation(),
         '/organization_navigation': (_) => OrganizationNavigationPage(),
         '/organization_sign_up': (_) => OrganizationSignUpPage(),
@@ -36,7 +35,7 @@ class MyApp extends StatelessWidget {
         '/volunteer_confirmation': (_) => VolunteerConfirmation(),
         '/volunteer_sign_up': (_) => VolunteerSignUp(),
       },
-      initialRoute: '/volunteer_navigation',
+      initialRoute: '/',
     );
   }
 }
