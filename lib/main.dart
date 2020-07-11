@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 import 'constants.dart';
 import 'pages/login_page.dart';
 import 'pages/organization_confirmation_page.dart';
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
         '/organization_sign_up_extended': (_) => OrganizationSignUpExtended(),
         '/signup': (_) => SignupPage(),
       },
-      initialRoute: '/',
+      initialRoute: '/organization_sign_up',
     );
   }
 }
