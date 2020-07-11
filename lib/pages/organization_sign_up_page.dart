@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_google_places/flutter_google_places.dart';
+import 'package:geocoder/geocoder.dart';
+import 'package:google_maps_webservice/places.dart';
 
 import '../components/floating_text_field.dart';
 import '../components/no_action_alert.dart';
@@ -12,17 +15,18 @@ class OrganizationSignUpPage extends StatefulWidget {
 }
 
 class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
-  String email, password, password2;
+  String email, password, password2, organizationName, description, location = 'Organization Location';
+  GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: kGoogleApiKey);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
+      backgroundColor: colorScheme.background,
+      body: SafeArea(
+        child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 24.0),
-          height: MediaQuery.of(context).size.height,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text('Organization Sign Up', style: titleStyle),
@@ -49,35 +53,64 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
                   password2 = val.trim();
                 },
               ),
+              SizedBox(height: 20),
+              FloatingTextField(
+                hintText: 'Organization Name',
+                onChanged: (val) {
+                  organizationName = val.trim();
+                },
+              ),
+              SizedBox(height: 20),
+              FloatingTextField(
+                onChanged: (val) {
+                  setState(() {
+                    description = val;
+                  });
+                },
+                maxLines: null,
+                hintText: 'Short Description of Organization',
+              ),
+              SizedBox(height: 20),
+              FloatingTextField(
+                hintText: location,
+                onTapped: () async {
+                  Prediction p = await PlacesAutocomplete.show(context: context, apiKey: kGoogleApiKey);
+                  displayPrediction(p);
+                  //TODO: update location variable within displayPrediciton function
+                },
+                onChanged: (val) {},
+              ),
               SizedBox(height: 30),
               RoundedButton(
-                title: 'Next',
+                title: 'Create Account',
                 onPressed: () async {
                   if (password != password2) {
                     showDialog(
                       context: context,
-                      builder: (_) =>
-                          NoActionAlert(title: 'Passwords do not match'),
+                      builder: (_) => NoActionAlert(title: 'Passwords do not match'),
+                    );
+                  } else if (password.length < 6) {
+                    showDialog(
+                      context: context,
+                      builder: (_) => NoActionAlert(title: 'Passwords needs to be at least 6 characters in length'),
                     );
                   } else {
                     try {
-                      final newUser = await auth.createUserWithEmailAndPassword(
-                          email: email, password: password);
+                      final newUser = await auth.createUserWithEmailAndPassword(email: email, password: password);
                       if (newUser != null) {
-                        final dbUser = await db.collection('organizations').add({
-                          'description': null,
+                        await db.collection('organizations').document(newUser.user.uid).setData({
+                          'description': description,
                           'email': email,
-                          'id': null,
-                          'name': null,
-                          'password': password,
+                          'name': organizationName,
+                          'location': null,
+                          'verified': false,
                         });
-                        userId = dbUser.documentID;
-                        dbUser.updateData({'id': userId});
-                        Navigator.pushNamed(
-                            context, '/organization_sign_up_extended');
                       }
                     } catch (e) {
-                      print(e);
+                      showDialog(
+                        context: context,
+                        builder: (_) => NoActionAlert(title: 'Invalid Email'),
+                      );
                     }
                   }
                 },
@@ -96,5 +129,24 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
         ),
       ),
     );
+  }
+
+  Future<Null> displayPrediction(Prediction p) async {
+    if (p != null) {
+      PlacesDetailsResponse detail = await _places.getDetailsByPlaceId(p.placeId);
+
+      var placeId = p.placeId;
+      double lat = detail.result.geometry.location.lat;
+      double lng = detail.result.geometry.location.lng;
+
+      var address = await Geocoder.local.findAddressesFromQuery(p.description);
+
+      //print(address['formatted_address']);
+      //print(address[1]);
+      //print(address[2]);
+
+      print(lat);
+      print(lng);
+    }
   }
 }

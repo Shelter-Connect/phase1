@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'navigation_tab.dart';
+import '../navigation_tab.dart';
 
 class OrganizationExpectedDeliveriesPage extends StatefulWidget with NavigationTab {
   @override
@@ -10,11 +10,9 @@ class OrganizationExpectedDeliveriesPage extends StatefulWidget with NavigationT
   String get helpDescription => 'This is a help description for the organization expected deliveries page.';
 
   @override
-  // TODO: implement icon
   IconData get icon => Icons.access_time;
 
   @override
-  // TODO: implement title
   String get title => 'Expected Deliveries';
 }
 

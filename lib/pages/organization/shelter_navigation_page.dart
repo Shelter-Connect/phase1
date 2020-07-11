@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:phase1/pages/volunteer/volunteer_account_settings.dart';
 
+import '../../constants.dart';
+import '../navigation_tab.dart';
 import 'organization_dashboard_page.dart';
 import 'organization_expected_deliveries_page.dart';
-import 'navigation_tab.dart';
 
 class OrganizationNavigationPage extends StatefulWidget {
   @override
@@ -14,20 +16,21 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
   final List<NavigationTab> _pages = [
     OrganizationDashboardPage(),
     OrganizationExpectedDeliveriesPage(),
+    VolunteerAccountPage(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffacc0e6),
+      backgroundColor: colorScheme.surface,
       appBar: AppBar(
         title: Text(_pages[_selectedIndex].title),
-        backgroundColor: Color(0xffacc0e6),
+        backgroundColor: colorScheme.surface,
         elevation: 0.0,
         leading: Builder(
           builder: (context) => IconButton(
             icon: Icon(Icons.menu),
-            color: Colors.white,
+            color: colorScheme.background,
             onPressed: () {
               Scaffold.of(context).openDrawer();
             },
@@ -35,9 +38,10 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
         ),
         actions: <Widget>[
           Visibility(
+            visible: _pages[_selectedIndex].helpDescription != '',
             child: IconButton(
               icon: Icon(Icons.help),
-              color: Colors.white,
+              color: colorScheme.background,
               onPressed: () {
                 _helpModalBottomSheet(context);
               },
@@ -64,16 +68,21 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
                 ],
               ),
             ),
-            ..._pages.asMap().map((index, tab) => MapEntry(index, ListTile(
-                title: Text(tab.title),
-                leading: Icon(tab.icon),
-                onTap: () {
-                  setState(() {
-                    _selectedIndex = index;
-                  });
-                  Navigator.pop(context);
-                }
-            ))).values.toList(),
+            ..._pages
+                .asMap()
+                .map((index, tab) => MapEntry(
+                    index,
+                    ListTile(
+                        title: Text(tab.title),
+                        leading: Icon(tab.icon),
+                        onTap: () {
+                          setState(() {
+                            _selectedIndex = index;
+                          });
+                          Navigator.pop(context);
+                        })))
+                .values
+                .toList(),
           ],
         ),
       ),

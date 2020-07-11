@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:phase1/pages/volunteer/volunteer_navigation_page.dart';
 
 
 import 'constants.dart';
 import 'pages/login_page.dart';
+import 'pages/organization/shelter_navigation_page.dart';
 import 'pages/organization_confirmation_page.dart';
-import 'pages/organization_sign_up_extended_page.dart';
 import 'pages/organization_sign_up_page.dart';
 import 'pages/signup_page.dart';
 import 'pages/volunteer_confirmation_page.dart';
-import 'pages/shelter_navigation_page.dart';
 import 'pages/volunteer_sign_up_page.dart';
 import 'pages/welcome_page.dart';
 
@@ -28,13 +28,13 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (_) => WelcomePage(),
         '/login': (_) => LoginPage(),
-        '/volunteer_confirmation': (_) => VolunteerConfirmation(),
-        '/volunteer_navigation': (_) => OrganizationNavigationPage(),
-        '/volunteer_sign_up': (_) => VolunteerSignUp(),
         '/organization_confirmation': (_) => OrganizationConfirmation(),
+        '/organization_navigation': (_) => OrganizationNavigationPage(),
         '/organization_sign_up': (_) => OrganizationSignUpPage(),
-        '/organization_sign_up_extended': (_) => OrganizationSignUpExtended(),
         '/signup': (_) => SignupPage(),
+        '/volunteer_navigation': (_) => VolunteerNavigationPage(),
+        '/volunteer_confirmation': (_) => VolunteerConfirmation(),
+        '/volunteer_sign_up': (_) => VolunteerSignUp(),
       },
       initialRoute: '/organization_sign_up',
     );
