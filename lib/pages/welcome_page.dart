@@ -49,6 +49,7 @@ class _WelcomePageState extends State<WelcomePage> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
+              SizedBox(height: 10.0),
               RoundedButton(
                 title: 'Continue as Volunteer',
                 onPressed: () {
