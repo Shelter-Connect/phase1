@@ -7,7 +7,7 @@ import '../components/no_action_alert.dart';
 import '../components/rounded_button.dart';
 import '../components/text_button.dart';
 import '../constants.dart';
-import '../packages/geo_autocomplete.dart';
+import '../components/geo_autocomplete.dart';
 
 class OrganizationSignUpPage extends StatefulWidget {
   @override
@@ -151,9 +151,7 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
 
       //var placeId = p.placeId;
       //var address = await Geocoder.local.findAddressesFromQuery(p.description);
-
       location = new GeoPoint(detail.result.geometry.location.lat, detail.result.geometry.location.lng);
-
       return detail.result.formattedAddress;
     }
   }

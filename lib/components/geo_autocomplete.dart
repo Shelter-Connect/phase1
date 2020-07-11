@@ -1,14 +1,11 @@
-library flutter_google_places.src;
-
 import 'dart:async';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:http/http.dart';
 import 'package:rxdart/rxdart.dart';
 
-import '../components/floating_text_field.dart';
+import 'floating_text_field.dart';
 
 class PlacesAutocompleteWidget extends StatefulWidget {
   final String apiKey;
@@ -299,6 +296,7 @@ abstract class PlacesAutocompleteState extends State<PlacesAutocompleteWidget> {
   PlacesAutocompleteResponse _response;
   GoogleMapsPlaces _places;
   bool _searching;
+  bool _disposed = false;
   Timer _debounce;
 
   final _queryBehavior = BehaviorSubject<String>.seeded('');
@@ -346,19 +344,21 @@ abstract class PlacesAutocompleteState extends State<PlacesAutocompleteWidget> {
   }
 
   void _onQueryChange() {
-    if (_debounce?.isActive ?? false) _debounce.cancel();
-    _debounce = Timer(Duration(milliseconds: widget.debounce), () {
-      _queryBehavior.add(_queryTextController.text);
-    });
+    if (!_disposed) {
+      if (_debounce?.isActive ?? false) _debounce.cancel();
+      _debounce = Timer(Duration(milliseconds: widget.debounce), () {
+        _queryBehavior.add(_queryTextController.text);
+      });
+    }
   }
 
   @override
   void dispose() {
-    super.dispose();
-
+    _queryTextController.removeListener(_onQueryChange);
     _places.dispose();
     _queryBehavior.close();
-    _queryTextController.removeListener(_onQueryChange);
+
+    super.dispose();
   }
 
   @mustCallSuper
