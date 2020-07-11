@@ -6,8 +6,7 @@ import '../constants.dart';
 
 class OrganizationSignUpExtended extends StatefulWidget {
   @override
-  _OrganizationSignUpExtendedState createState() =>
-      _OrganizationSignUpExtendedState();
+  _OrganizationSignUpExtendedState createState() => _OrganizationSignUpExtendedState();
 }
 
 class _OrganizationSignUpExtendedState extends State<OrganizationSignUpExtended> {
