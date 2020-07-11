@@ -30,7 +30,7 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
               FloatingTextField(
                 hintText: 'Organization Email',
                 onChanged: (val) {
-                  email = val;
+                  email = val.trim();
                 },
               ),
               SizedBox(height: 20),
@@ -38,7 +38,7 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
                 obscureText: true,
                 hintText: 'Password',
                 onChanged: (val) {
-                  password = val;
+                  password = val.trim();
                 },
               ),
               SizedBox(height: 20),
@@ -46,7 +46,7 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
                 obscureText: true,
                 hintText: 'Re-enter Password',
                 onChanged: (val) {
-                  password2 = val;
+                  password2 = val.trim();
                 },
               ),
               SizedBox(height: 30),

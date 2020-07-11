@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
 //Firebase
 FirebaseAuth auth = FirebaseAuth.instance;
@@ -10,7 +9,7 @@ Firestore db = Firestore.instance;
 // Text Styles
 final titleStyle = TextStyle(
   fontWeight: FontWeight.w900,
-  fontSize: 50.0,
+  fontSize: 47.0,
 );
 
 final headerStyle = TextStyle(
@@ -32,5 +31,4 @@ final colorScheme = ColorScheme(
     onSurface: Color(0xffbbdefb),
     onBackground: Color(0xff000000),
     onError: Color(0xffbbdefb),
-    brightness: Brightness.light
-);
+    brightness: Brightness.light);

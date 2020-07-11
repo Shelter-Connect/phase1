@@ -9,6 +9,7 @@ class NoActionAlert extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
       title: Text(title),
       actions: [
         FlatButton(

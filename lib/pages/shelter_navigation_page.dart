@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:phase1/constants.dart';
 
+import 'navigation_tab.dart';
 import 'organization_dashboard_page.dart';
 import 'organization_expected_deliveries_page.dart';
-import 'navigation_tab.dart';
 
 class OrganizationNavigationPage extends StatefulWidget {
   @override
@@ -36,6 +36,7 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
         ),
         actions: <Widget>[
           Visibility(
+            visible: _pages[_selectedIndex].helpDescription != '',
             child: IconButton(
               icon: Icon(Icons.help),
               color: colorScheme.background,
@@ -65,16 +66,21 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
                 ],
               ),
             ),
-            ..._pages.asMap().map((index, tab) => MapEntry(index, ListTile(
-                title: Text(tab.title),
-                leading: Icon(tab.icon),
-                onTap: () {
-                  setState(() {
-                    _selectedIndex = index;
-                  });
-                  Navigator.pop(context);
-                }
-            ))).values.toList(),
+            ..._pages
+                .asMap()
+                .map((index, tab) => MapEntry(
+                    index,
+                    ListTile(
+                        title: Text(tab.title),
+                        leading: Icon(tab.icon),
+                        onTap: () {
+                          setState(() {
+                            _selectedIndex = index;
+                          });
+                          Navigator.pop(context);
+                        })))
+                .values
+                .toList(),
           ],
         ),
       ),

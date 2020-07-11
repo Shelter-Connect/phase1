@@ -11,7 +11,7 @@ class OrganizationSignUpExtended extends StatefulWidget {
 }
 
 class _OrganizationSignUpExtendedState extends State<OrganizationSignUpExtended> {
-  String shelterName, description;
+  String organizationName, description;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +29,7 @@ class _OrganizationSignUpExtendedState extends State<OrganizationSignUpExtended>
               FloatingTextField(
                 hintText: 'Organization Name',
                 onChanged: (val) {
-                  //TODO: Update Organization Name Variable
+                  organizationName = val.trim();
                 },
               ),
               SizedBox(height: 20),
