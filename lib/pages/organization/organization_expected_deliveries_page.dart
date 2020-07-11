@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'navigation_tab.dart';
+import '../navigation_tab.dart';
 
 class OrganizationExpectedDeliveriesPage extends StatefulWidget with NavigationTab {
   @override

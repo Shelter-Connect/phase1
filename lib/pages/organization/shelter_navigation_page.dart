@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:phase1/pages/volunteer/volunteer_account_settings.dart';
 
-import '../constants.dart';
-import 'navigation_tab.dart';
+import '../../constants.dart';
+import '../navigation_tab.dart';
 import 'organization_dashboard_page.dart';
 import 'organization_expected_deliveries_page.dart';
 
@@ -15,6 +16,7 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
   final List<NavigationTab> _pages = [
     OrganizationDashboardPage(),
     OrganizationExpectedDeliveriesPage(),
+    VolunteerAccountPage(),
   ];
 
   @override
