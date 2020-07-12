@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-class StandardLayout extends StatelessWidget { // TODO: UI changes
+class StandardLayout extends StatelessWidget {
+  // TODO: UI changes
   final String title, helpText;
   final Widget body;
 

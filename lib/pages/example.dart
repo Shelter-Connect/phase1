@@ -13,6 +13,7 @@ class _ExamplePageState extends State<ExamplePage> {
     return StandardLayout(
       title: 'Example Title',
       helpText: 'example help text example help text example help text example help text example help text example help text ',
-      body: Column(),);
+      body: Column(),
+    );
   }
 }
