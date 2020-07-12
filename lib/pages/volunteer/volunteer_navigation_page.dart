@@ -41,7 +41,7 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
             visible: _pages[_selectedIndex].helpDescription != '',
             child: IconButton(
               icon: Icon(Icons.help),
-              color: Color(0xFFFFC300),
+              color: Colors.white,
               onPressed: () {
                 _helpModalBottomSheet(context);
               },
