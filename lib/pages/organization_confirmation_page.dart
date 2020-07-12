@@ -11,13 +11,13 @@ class OrganizationConfirmation extends StatelessWidget {
     return Scaffold(
       backgroundColor: colorScheme.background,
       body: SafeArea(
-        child: SingleChildScrollView(
+        child: Container(
           padding: EdgeInsets.symmetric(horizontal: 24.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
-                'You should have received an email back from shelterconnect20@gmail.com scheduling a zoom call. The zoom call will be used for visual confirmation and you will be sent a code.',
+                'Check your email for your verification code.',
                 style: TextStyle(fontSize: 20),
               ),
               SizedBox(height: 20),
@@ -47,7 +47,11 @@ class OrganizationConfirmation extends StatelessWidget {
                 onPressed: () {
                   //TODO Update Organization verification status
                 },
-              )
+              ),
+              Text(
+                'We have received your organization application. We will soon be following up with details on a zoom verification meeting through email.',
+                style: TextStyle(fontSize: 20),
+              ),
             ],
           ),
         ),

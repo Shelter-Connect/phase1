@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_webservice/places.dart';
 
 import '../components/floating_text_field.dart';
+import '../components/geo_autocomplete.dart';
 import '../components/no_action_alert.dart';
 import '../components/rounded_button.dart';
 import '../components/text_button.dart';
 import '../constants.dart';
-import '../components/geo_autocomplete.dart';
 
 class OrganizationSignUpPage extends StatefulWidget {
   @override
@@ -114,7 +114,7 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
                       if (newUser != null) {
                         await db.collection('organizations').document(newUser.user.uid).setData({
                           'description': description,
-                          'email': [],
+                          'email': email,
                           'name': organizationName,
                           'location': location,
                           'verified': false,

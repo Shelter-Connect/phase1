@@ -1,11 +1,12 @@
 import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:http/http.dart';
 import 'package:rxdart/rxdart.dart';
 
-import 'floating_text_field.dart';
+import '../components/floating_text_field.dart';
 
 class PlacesAutocompleteWidget extends StatefulWidget {
   final String apiKey;
@@ -92,9 +93,9 @@ class _PlacesAutocompleteOverlayState extends PlacesAutocompleteState {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    final headerTopLeftBorderRadius = widget.overlayBorderRadius != null ? widget.overlayBorderRadius.topLeft : Radius.circular(2);
+    final headerTopLeftBorderRadius = widget.overlayBorderRadius != null ? widget.overlayBorderRadius.topLeft : Radius.circular(10);
 
-    final headerTopRightBorderRadius = widget.overlayBorderRadius != null ? widget.overlayBorderRadius.topRight : Radius.circular(2);
+    final headerTopRightBorderRadius = widget.overlayBorderRadius != null ? widget.overlayBorderRadius.topRight : Radius.circular(10);
 
     final header = Column(children: <Widget>[
       Material(
@@ -115,6 +116,13 @@ class _PlacesAutocompleteOverlayState extends PlacesAutocompleteState {
                 child: _textField(context),
                 padding: const EdgeInsets.only(right: 8.0),
               )),
+              IconButton(
+                color: theme.brightness == Brightness.light ? Colors.black45 : null,
+                icon: Icon(Icons.close),
+                onPressed: () {
+                  _queryTextController.clear();
+                },
+              )
             ],
           )),
       Divider(
@@ -124,9 +132,9 @@ class _PlacesAutocompleteOverlayState extends PlacesAutocompleteState {
 
     Widget body;
 
-    final bodyBottomLeftBorderRadius = widget.overlayBorderRadius != null ? widget.overlayBorderRadius.bottomLeft : Radius.circular(2);
+    final bodyBottomLeftBorderRadius = widget.overlayBorderRadius != null ? widget.overlayBorderRadius.bottomLeft : Radius.circular(10);
 
-    final bodyBottomRightBorderRadius = widget.overlayBorderRadius != null ? widget.overlayBorderRadius.bottomRight : Radius.circular(2);
+    final bodyBottomRightBorderRadius = widget.overlayBorderRadius != null ? widget.overlayBorderRadius.bottomRight : Radius.circular(10);
 
     if (_searching) {
       body = Stack(
@@ -149,15 +157,18 @@ class _PlacesAutocompleteOverlayState extends PlacesAutocompleteState {
             bottomRight: bodyBottomRightBorderRadius,
           ),
           color: theme.dialogBackgroundColor,
-          child: ListBody(
-            children: _response.predictions
-                .map(
-                  (p) => PredictionTile(
-                    prediction: p,
-                    onTap: Navigator.of(context).pop,
-                  ),
-                )
-                .toList(),
+          child: Padding(
+            padding: EdgeInsets.only(bottom: 5.0),
+            child: ListBody(
+              children: _response.predictions
+                  .map(
+                    (p) => PredictionTile(
+                      prediction: p,
+                      onTap: Navigator.of(context).pop,
+                    ),
+                  )
+                  .toList(),
+            ),
           ),
         ),
       );
@@ -296,7 +307,6 @@ abstract class PlacesAutocompleteState extends State<PlacesAutocompleteWidget> {
   PlacesAutocompleteResponse _response;
   GoogleMapsPlaces _places;
   bool _searching;
-  bool _disposed = false;
   Timer _debounce;
 
   final _queryBehavior = BehaviorSubject<String>.seeded('');
@@ -344,21 +354,19 @@ abstract class PlacesAutocompleteState extends State<PlacesAutocompleteWidget> {
   }
 
   void _onQueryChange() {
-    if (!_disposed) {
-      if (_debounce?.isActive ?? false) _debounce.cancel();
-      _debounce = Timer(Duration(milliseconds: widget.debounce), () {
-        _queryBehavior.add(_queryTextController.text);
-      });
-    }
+    if (_debounce?.isActive ?? false) _debounce.cancel();
+    _debounce = Timer(Duration(milliseconds: widget.debounce), () {
+      _queryBehavior.add(_queryTextController.text);
+    });
   }
 
   @override
   void dispose() {
-    _queryTextController.removeListener(_onQueryChange);
+    super.dispose();
+
     _places.dispose();
     _queryBehavior.close();
-
-    super.dispose();
+    _queryTextController.removeListener(_onQueryChange);
   }
 
   @mustCallSuper

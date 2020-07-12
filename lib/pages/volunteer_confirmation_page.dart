@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../constants.dart';
 import '../components/rounded_button.dart';
+import '../constants.dart';
 
 class VolunteerConfirmation extends StatelessWidget {
   @override
@@ -16,7 +16,7 @@ class VolunteerConfirmation extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('A verification e-mail has been sent to this e-mail address: shelterconnect20@gmail.com', style: headerStyle), //TODO: Input User E-mail in this String
+                Text('A verification code has been sent to email address', style: headerStyle), //TODO: Input User E-mail in this String
                 RoundedButton(
                   title: 'Change e-mail Address',
                   color: colorScheme.background,

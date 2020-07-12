@@ -39,7 +39,10 @@ class _WelcomePageState extends State<WelcomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text('Welcome!', style: titleStyle),
-              Align(child: Image.asset('assets/ShelterConnectLogo.png', height: 150), alignment: Alignment.center,),
+              Align(
+                child: Image.asset('assets/ShelterConnectLogo.png', height: 150),
+                alignment: Alignment.center,
+              ),
               SizedBox(height: 10.0),
               Image.asset('assets/LogoName.png', width: 400),
               Text(
@@ -59,7 +62,7 @@ class _WelcomePageState extends State<WelcomePage> {
               RoundedButton(
                 title: 'Continue as Shelter',
                 onPressed: () {
-                  Navigator.pushNamed(context, '/shelter_sign_up');
+                  Navigator.pushNamed(context, '/organization_sign_up');
                 },
               ),
               Padding(
