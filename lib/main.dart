@@ -35,11 +35,12 @@ class MyApp extends StatelessWidget {
         '/organization_navigation': (_) => OrganizationNavigationPage(),
         '/organization_sign_up': (_) => OrganizationSignUpPage(),
         '/signup': (_) => SignupPage(),
+        '/shelter_sign_up': (_) => OrganizationSignUpPage(),
         '/volunteer_navigation': (_) => VolunteerNavigationPage(),
         '/volunteer_confirmation': (_) => VolunteerConfirmation(),
         '/volunteer_sign_up': (_) => VolunteerSignUp(),
       },
-      initialRoute: '/organization_sign_up',
+      initialRoute: '/organization_dashboard',
     );
   }
 }
