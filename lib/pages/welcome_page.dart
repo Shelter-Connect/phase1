@@ -13,9 +13,7 @@ class _WelcomePageState extends State<WelcomePage> {
   @override
   void initState() {
     auth.onAuthStateChanged.listen((user) {
-      if (user == null) {
-        Navigator.popUntil(context, (route) => route.isFirst);
-      } else {
+      if (user != null) {
         db.collection('volunteers').document(user.uid).get().then((value) {
           if (value.data != null) {
             if (user.isEmailVerified) {
@@ -28,7 +26,7 @@ class _WelcomePageState extends State<WelcomePage> {
 
         db.collection('organizations').document(user.uid).get().then((value) {
           if (value.data != null) {
-            if (value['verified']){
+            if (value['verified']) {
               Navigator.pushNamed(context, '/organization_navigation');
             } else {
               Navigator.pushNamed(context, '/organization_confirmation');
@@ -37,7 +35,6 @@ class _WelcomePageState extends State<WelcomePage> {
         });
       }
     });
-
     super.initState();
   }
 
@@ -69,11 +66,11 @@ class _WelcomePageState extends State<WelcomePage> {
               RoundedButton(
                 title: 'Continue as Volunteer',
                 onPressed: () {
-                  Navigator.pushNamed(context, '/volunteer_navigation');
+                  Navigator.pushNamed(context, '/volunteer_sign_up');
                 },
               ),
               RoundedButton(
-                title: 'Continue as Shelter',
+                title: 'Continue as Organization',
                 onPressed: () {
                   Navigator.pushNamed(context, '/organization_sign_up');
                 },

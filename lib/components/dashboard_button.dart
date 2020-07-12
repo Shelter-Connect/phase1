@@ -18,7 +18,7 @@ class DashboardButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(25.0),
         child: ListTile(
           onTap: onTap,
-          title: Text(title, style: subheaderStyle),
+          title: Text(title, style: subHeaderStyle),
           trailing:  Icon(Icons.arrow_right, size: 40,),
         ),
       ),

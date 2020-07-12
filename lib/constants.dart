@@ -20,7 +20,7 @@ final headerStyle = TextStyle(
   fontSize: 30.0,
 );
 
-final subheaderStyle = TextStyle(
+final subHeaderStyle = TextStyle(
   fontWeight: FontWeight.w400,
   fontSize: 20.0,
 );
