@@ -9,8 +9,8 @@ import 'pages/organization/organization_navigation_page.dart';
 import 'pages/organization/organization_sign_up_page.dart';
 import 'pages/signup_page.dart';
 import 'pages/volunteer/volunteer_navigation_page.dart';
-import 'pages/volunteer_confirmation_page.dart';
-import 'pages/volunteer_sign_up_page.dart';
+import 'pages/volunteer/volunteer_confirmation_page.dart';
+import 'pages/volunteer/volunteer_sign_up_page.dart';
 import 'pages/welcome_page.dart';
 
 void main() {
@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
         '/volunteer_confirmation': (_) => VolunteerConfirmation(),
         '/volunteer_sign_up': (_) => VolunteerSignUp(),
       },
-      initialRoute: '/',
+      initialRoute: '/volunteer_sign_up',
     );
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../components/rounded_button.dart';
-import '../constants.dart';
+import '../../components/rounded_button.dart';
+import '../../constants.dart';
 
 class VolunteerConfirmation extends StatelessWidget {
   @override
