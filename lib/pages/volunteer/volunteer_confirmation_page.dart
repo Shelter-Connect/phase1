@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../components/no_action_alert.dart';
@@ -10,12 +11,14 @@ class VolunteerConfirmation extends StatefulWidget {
 }
 
 class _VolunteerConfirmationState extends State<VolunteerConfirmation> {
+  FirebaseUser user;
+  
   @override
   void initState() {
     auth.currentUser().then((value) {
       user = value;
-      super.initState();
     });
+    super.initState();
   }
 
   @override
@@ -32,19 +35,24 @@ class _VolunteerConfirmationState extends State<VolunteerConfirmation> {
               Text('A verification email has been sent to }', style: headerStyle), //TODO: Input User E-mail in this String
               SizedBox(height: 20.0),
               RoundedButton(
-                title: 'Go Back to Change e-mail Address',
+                title: 'Go Back to Change Email Address',
                 onPressed: () {
-                  Navigator.pop(context);
+                  user.delete();
                 },
               ),
               RoundedButton(
                 title: 'Resend Verification E-mail',
                 onPressed: () {
-                  auth.currentUser().then((user) {
-                    user.sendEmailVerification();
+                  user.sendEmailVerification().then((res) {
+                      showDialog(
+                        context: context,
+                        builder: (_) => NoActionAlert(title: 'Verification Email Resent.'),
+                      );
+                    }
+                  ).catchError((e) {
                     showDialog(
                       context: context,
-                      builder: (_) => NoActionAlert(title: 'Verification E-mail Resent.'),
+                      builder: (_) => NoActionAlert(title: 'The email you signed up with does not exist.'),
                     );
                   });
                 },
@@ -54,12 +62,12 @@ class _VolunteerConfirmationState extends State<VolunteerConfirmation> {
                 onPressed: () async {
                   await user.reload();
                   user = await auth.currentUser();
-                  if (user.isEmailVerified)
+                  if (user.isEmailVerified) {
                     Navigator.pushNamed(context, '/');
-                  else {
+                  } else {
                     showDialog(
                       context: context,
-                      builder: (_) => NoActionAlert(title: 'You have not verified your account.'),
+                      builder: (_) => NoActionAlert(title: 'You have not verified your account yet.'),
                     );
                   }
                 },
