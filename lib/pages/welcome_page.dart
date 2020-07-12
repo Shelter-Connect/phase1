@@ -21,7 +21,6 @@ class _WelcomePageState extends State<WelcomePage> {
             Navigator.pushNamed(context, '/organization_navigation');
           else
             Navigator.pushNamed(context, '/organization_confirmation');
-
         });
       }
     });
@@ -57,7 +56,7 @@ class _WelcomePageState extends State<WelcomePage> {
               RoundedButton(
                 title: 'Continue as Volunteer',
                 onPressed: () {
-                  //TODO: Make Volunteer Dashboard and have this button go to Volunteer Dashboard
+                  Navigator.pushNamed(context, '/volunteer_navigation');
                 },
               ),
               RoundedButton(
