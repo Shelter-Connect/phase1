@@ -50,7 +50,6 @@ class _VolunteerAccountPageState extends State<VolunteerAccountPage> {
 }
 
 class UserInfo extends StatelessWidget {
-
   final String userName;
   final String userEmail;
   final String userPassword;
@@ -64,58 +63,68 @@ class UserInfo extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(20))),
         height: 224,
-        width: MediaQuery. of(context). size. width,
+        width: MediaQuery.of(context).size.width,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text('User Information', style: TextStyle(
-                fontSize: 24,
-              ),),
-              SizedBox(height: 5,),
+              Text(
+                'User Information',
+                style: TextStyle(
+                  fontSize: 24,
+                ),
+              ),
+              SizedBox(
+                height: 5,
+              ),
               Container(
                 height: 5,
                 width: 100,
-                decoration: BoxDecoration(
-                    color: Color(0xFF6576EC),
-                    borderRadius: BorderRadius.circular(21)
-                ),
+                decoration: BoxDecoration(color: Color(0xFF6576EC), borderRadius: BorderRadius.circular(21)),
               ),
               SizedBox(height: 20),
               RichText(
-                text: TextSpan(
-                  children: <TextSpan>[
-                    TextSpan(text: 'Email Address: ', style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.black,
-                    )),
-                    TextSpan(text: userEmail, style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black,
-                    ))
-                  ]
-                ),
-              ),
-              SizedBox(height: 10,),
-              RichText(
-                text: TextSpan(
-                    children: <TextSpan>[
-                      TextSpan(text: 'Email Address: ', style: TextStyle(
+                text: TextSpan(children: <TextSpan>[
+                  TextSpan(
+                      text: 'Email Address: ',
+                      style: TextStyle(
                         fontSize: 18,
                         color: Colors.black,
                       )),
-                      TextSpan(text: userPassword, style: TextStyle(
+                  TextSpan(
+                      text: userEmail,
+                      style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
                         color: Colors.black,
                       ))
-                    ]
-                ),
+                ]),
               ),
-              SizedBox(height: 15,),
+              SizedBox(
+                height: 10,
+              ),
+              RichText(
+                text: TextSpan(children: <TextSpan>[
+                  TextSpan(
+                      text: 'Email Address: ',
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.black,
+                      )),
+                  TextSpan(
+                      text: userPassword,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black,
+                      ))
+                ]),
+              ),
+              SizedBox(
+                height: 15,
+              ),
               FlatButton(
                 onPressed: () {
                   //TODO Edit Info
@@ -127,59 +136,19 @@ class UserInfo extends StatelessWidget {
                   ),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8.0),
-                    child: Text('Edit Information', style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16
-                    )),
+                    child: Text('Edit Information', style: TextStyle(color: Colors.white, fontSize: 16)),
                   ),
                 ),
               ),
             ],
           ),
         ),
-
       ),
     );
   }
 }
+
 class UserPrivacy extends StatelessWidget {
-
-@override
-Widget build(BuildContext context) {
-  return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-    child: Container(
-      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(20))),
-      height: 224,
-      width: MediaQuery. of(context). size. width,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text('User Privacy', style: TextStyle(
-              fontSize: 24,
-            ),),
-            SizedBox(height: 5,),
-            Container(
-              height: 5,
-              width: 100,
-              decoration: BoxDecoration(
-                  color: Color(0xFF6576EC),
-                  borderRadius: BorderRadius.circular(21)
-              ),
-            ),
-          ],
-        ),
-      ),
-
-    ),
-  );
-}
-}
-class UserNotifications extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -187,53 +156,157 @@ class UserNotifications extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(20))),
         height: 224,
-        width: MediaQuery. of(context). size. width,
+        width: MediaQuery.of(context).size.width,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text('Notifications', style: TextStyle(
-                fontSize: 24,
-              ),),
-              SizedBox(height: 5,),
+              Text(
+                'User Privacy',
+                style: TextStyle(
+                  fontSize: 24,
+                ),
+              ),
+              SizedBox(
+                height: 5,
+              ),
               Container(
                 height: 5,
                 width: 100,
-                decoration: BoxDecoration(
-                    color: Color(0xFF6576EC),
-                    borderRadius: BorderRadius.circular(21)
-                ),
+                decoration: BoxDecoration(color: Color(0xFF6576EC), borderRadius: BorderRadius.circular(21)),
               ),
+              PrivacyToggleSwitch(),
             ],
           ),
         ),
-
       ),
     );
   }
 }
+
+class UserNotifications extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Container(
+        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(20))),
+        height: 224,
+        width: MediaQuery.of(context).size.width,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                'Notifications',
+                style: TextStyle(
+                  fontSize: 24,
+                ),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Container(
+                height: 5,
+                width: 100,
+                decoration: BoxDecoration(color: Color(0xFF6576EC), borderRadius: BorderRadius.circular(21)),
+              ),
+              NotificationToggleSwitch(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class LogoutButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return FlatButton(onPressed: () {
-      //TODO Sign user out
-    },
-    child: Container(
-      height: 40,
-      width: MediaQuery.of(context).size.width,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(21),
-        color: Color(0xFFFE445C),
+    return FlatButton(
+        onPressed: () {
+          //TODO Sign user out
+        },
+        child: Container(
+          height: 40,
+          width: MediaQuery.of(context).size.width,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(21),
+            color: Color(0xFFFE445C),
+          ),
+          child: Center(
+            child: Text(
+              'Logout',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700, color: Colors.white),
+            ),
+          ),
+        ));
+  }
+}
+
+class PrivacyToggleSwitch extends StatefulWidget {
+
+  @override
+  _PrivacyToggleSwitchState createState() => _PrivacyToggleSwitchState();
+}
+class _PrivacyToggleSwitchState extends State<PrivacyToggleSwitch> {
+  bool isSwitched = false;
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      trailing: Switch(
+        value: isSwitched,
+        onChanged: (value){
+          setState(() {
+            isSwitched = value;
+            print(isSwitched);
+          });
+        },
+        activeTrackColor: Color(0xFFF9F9F9),
+        activeColor: Color(0xFF6576EC),
       ),
-      child: Center(
-        child: Text(
-          'Logout', style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700, color: Colors.white
-        ),
+      title: Text(
+          'Enable Location Tracking', style: TextStyle(
+        color: Colors.black,
+        fontSize: 18,
+      )
       ),
-    ),
-    ));
+    );
+  }
+}
+
+class NotificationToggleSwitch extends StatefulWidget {
+
+  @override
+  _NotificationToggleSwitchState createState() => _NotificationToggleSwitchState();
+}
+class _NotificationToggleSwitchState extends State<NotificationToggleSwitch> {
+  bool isSwitched = false;
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      trailing: Switch(
+        value: isSwitched,
+        onChanged: (value){
+          setState(() {
+            isSwitched = value;
+            print(isSwitched);
+          });
+        },
+        activeTrackColor: Color(0xFFF9F9F9),
+        activeColor: Color(0xFF6576EC),
+      ),
+      title: Text(
+          'Enable Push Notifications', style: TextStyle(
+        color: Colors.black,
+        fontSize: 18,
+      )
+      ),
+    );
   }
 }
 
