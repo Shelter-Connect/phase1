@@ -25,33 +25,3 @@ class DashboardButton extends StatelessWidget {
     );
   }
 }
-
-//child: RaisedButton(
-//elevation: 5,
-//color: color ?? colorScheme.secondary,
-//padding: EdgeInsets.all(16.0),
-//shape: RoundedRectangleBorder(
-//borderRadius: BorderRadius.circular(30.0),
-//),
-//onPressed: onPressed,
-//child: Container(
-//height: 25,
-//width: double.infinity,
-//child: Row(
-//children: <Widget>[
-//Text(
-//title,
-//style: subheaderStyle,
-//textAlign: TextAlign.left,
-//),
-//Align(
-//alignment: Alignment.centerRight,
-//child: Icon(Icons.arrow_right),
-//),
-//],
-//),
-//),
-//),
-//);
-//}
-//}

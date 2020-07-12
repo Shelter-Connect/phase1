@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:phase1/components/dashboard-buttons.dart';
+import 'package:phase1/components/dashboard_button.dart';
 import 'package:phase1/components/text_button.dart';
 import 'package:phase1/constants.dart';
 

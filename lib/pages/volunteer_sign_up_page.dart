@@ -11,51 +11,49 @@ class VolunteerSignUp extends StatelessWidget {
     return Scaffold(
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 24.0),
-        child: Container(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text('Volunteer Sign Up', style: titleStyle),
-              SizedBox(height: 35),
-              FloatingTextField(
-                hintText: 'Enter E-mail',
-                onChanged: (val) {
-                  //TODO: Update E-mail variable
-                },
-              ),
-              SizedBox(height: 20),
-              FloatingTextField(
-                hintText: 'Password',
-                onChanged: (val) {
-                  //TODO: Update Password Variable
-                },
-              ),
-              SizedBox(height: 20),
-              FloatingTextField(
-                hintText: 'Re-enter Password',
-                onChanged: (val) {
-                  //TODO: Update Re-enter Password Variable
-                },
-              ),
-              SizedBox(height: 30),
-              RoundedButton(
-                title: 'Sign Up',
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text('Volunteer Sign Up', style: titleStyle),
+            SizedBox(height: 35),
+            FloatingTextField(
+              hintText: 'Enter E-mail',
+              onChanged: (val) {
+                //TODO: Update E-mail variable
+              },
+            ),
+            SizedBox(height: 20),
+            FloatingTextField(
+              hintText: 'Password',
+              onChanged: (val) {
+                //TODO: Update Password Variable
+              },
+            ),
+            SizedBox(height: 20),
+            FloatingTextField(
+              hintText: 'Re-enter Password',
+              onChanged: (val) {
+                //TODO: Update Re-enter Password Variable
+              },
+            ),
+            SizedBox(height: 30),
+            RoundedButton(
+              title: 'Sign Up',
+              onPressed: () {
+                //TODO: Make Sign up go to Volunteer Confirmation
+              },
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 5.0),
+              child: TextButton(
+                text: 'Not a Volunteer?',
                 onPressed: () {
-                  //TODO: Make Sign up go to Volunteer Confirmation
+                  Navigator.pop(context);
                 },
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 5.0),
-                child: TextButton(
-                  text: 'Not a Volunteer?',
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

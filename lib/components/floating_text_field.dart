@@ -23,7 +23,7 @@ class FloatingTextField extends StatelessWidget {
       this.controller,
       this.textStyle,
       this.hintStyle,
-      this.autofocus = true});
+      this.autofocus = false});
 
   @override
   Widget build(BuildContext context) {
