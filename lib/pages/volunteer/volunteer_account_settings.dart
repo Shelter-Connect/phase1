@@ -40,6 +40,8 @@ class _VolunteerAccountPageState extends State<VolunteerAccountPage> {
             SizedBox(height: 20),
             UserNotifications(),
             SizedBox(height: 20),
+            LogoutButton(),
+            SizedBox(height: 20),
           ],
         ),
       ),
@@ -212,3 +214,26 @@ class UserNotifications extends StatelessWidget {
     );
   }
 }
+class LogoutButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return FlatButton(onPressed: () {
+      //TODO Sign user out
+    },
+    child: Container(
+      height: 40,
+      width: MediaQuery.of(context).size.width,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(21),
+        color: Color(0xFFFE445C),
+      ),
+      child: Center(
+        child: Text(
+          'Logout', style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700, color: Colors.white
+        ),
+      ),
+    ),
+    ));
+  }
+}
+
