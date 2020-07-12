@@ -3,18 +3,14 @@ import 'package:phase1/pages/volunteer/volunteer_navigation_page.dart';
 
 import 'constants.dart';
 import 'pages/login_page.dart';
-import 'pages/organization/organization_dashboard_page.dart';
-import 'pages/organization/shelter_navigation_page.dart';
 import 'pages/organization/organization_confirmation_page.dart';
-import 'pages/organization/organization_sign_up_page.dart';
+import 'pages/organization/organization_dashboard_page.dart';
 import 'pages/organization/organization_navigation_page.dart';
-import 'pages/organization_confirmation_page.dart';
-import 'pages/organization_sign_up_page.dart';
+import 'pages/organization/organization_sign_up_page.dart';
 import 'pages/signup_page.dart';
-import 'pages/volunteer_confirmation_page.dart';
 import 'pages/volunteer/volunteer_navigation_page.dart';
+import 'pages/volunteer_confirmation_page.dart';
 import 'pages/volunteer_sign_up_page.dart';
-import 'pages/signup_page.dart';
 import 'pages/welcome_page.dart';
 
 void main() {

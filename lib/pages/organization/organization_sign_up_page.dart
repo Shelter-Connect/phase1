@@ -1,8 +1,11 @@
+import 'dart:html';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_webservice/places.dart';
 
 import '../../components/floating_text_field.dart';
+import '../../components/geo_autocomplete.dart';
 import '../../components/no_action_alert.dart';
 import '../../components/rounded_button.dart';
 import '../../components/text_button.dart';
@@ -153,5 +156,6 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
       location = new GeoPoint(detail.result.geometry.location.lat, detail.result.geometry.location.lng);
       return detail.result.formattedAddress;
     }
+    throw new Exception('you' 're bad');
   }
 }
