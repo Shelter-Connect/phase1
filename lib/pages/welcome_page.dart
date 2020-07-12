@@ -13,9 +13,7 @@ class _WelcomePageState extends State<WelcomePage> {
   @override
   void initState() {
     auth.onAuthStateChanged.listen((user) {
-      if (user == null) {
-        Navigator.popUntil(context, (route) => route.isFirst);
-      } else {
+      if (user != null) {
         db.collection('volunteers').document(user.uid).get().then((value) {
           if (value.data != null) {
             if (user.isEmailVerified) {

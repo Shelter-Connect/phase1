@@ -38,6 +38,7 @@ class _VolunteerConfirmationState extends State<VolunteerConfirmation> {
                 title: 'Go Back to Change Email Address',
                 onPressed: () {
                   user.delete();
+                  Navigator.pop(context);
                 },
               ),
               RoundedButton(
@@ -49,21 +50,17 @@ class _VolunteerConfirmationState extends State<VolunteerConfirmation> {
                         builder: (_) => NoActionAlert(title: 'Verification Email Resent.'),
                       );
                     }
-                  ).catchError((e) {
-                    showDialog(
-                      context: context,
-                      builder: (_) => NoActionAlert(title: 'The email you signed up with does not exist.'),
-                    );
-                  });
+                  );
                 },
               ),
               RoundedButton(
                 title: 'Continue',
                 onPressed: () async {
+                  auth.signOut();
                   await user.reload();
                   user = await auth.currentUser();
                   if (user.isEmailVerified) {
-                    Navigator.pushNamed(context, '/');
+                    Navigator.pushNamed(context, '/volunteer_navigation');
                   } else {
                     showDialog(
                       context: context,
