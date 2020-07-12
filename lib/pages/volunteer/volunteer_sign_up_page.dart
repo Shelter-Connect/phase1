@@ -31,7 +31,7 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
                 FloatingTextField(
                   hintText: 'Email',
                   onChanged: (val) {
-                    email = val;
+                    email = val.trim();
                   },
                 ),
                 SizedBox(height: 20),
@@ -39,7 +39,7 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
                   hintText: 'Password',
                   obscureText: true,
                   onChanged: (val) {
-                    password = val;
+                    password = val.trim();
                   },
                 ),
                 SizedBox(height: 20),
@@ -47,7 +47,7 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
                   hintText: 'Re-enter Password',
                   obscureText: true,
                   onChanged: (val) {
-                    password2 = val;
+                    password2 = val.trim();
                   },
                 ),
                 SizedBox(height: 30),
