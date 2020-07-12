@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:phase1/components/dashboard_button.dart';
 import 'package:phase1/components/dashboard_components.dart';
 import 'package:phase1/components/text_button.dart';
-import 'package:phase1/constants.dart';
 
 import '../navigation_tab.dart';
 
@@ -12,7 +11,10 @@ class OrganizationDashboardPage extends StatefulWidget with NavigationTab {
   _OrganizationDashboardPageState createState() => _OrganizationDashboardPageState();
 
   @override
-  String get helpDescription => 'This is a help description for the organization dashboard.';
+  String get helpDescription => '''  Hello, and welcome to the Organization Dashboard! In this page, you can get a quick glimpse of deliveries that volunteers have agreed to donate, also known as "Expected Deliveries."
+  Current requests allow you to view the items that have not yet been claimed by a volunteer. You may edit those requests at any time. 
+  Have fun!
+      ''';
 
   @override
   IconData get icon => Icons.home;
