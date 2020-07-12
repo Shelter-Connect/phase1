@@ -6,8 +6,9 @@ class DashboardButton extends StatelessWidget {
   final String title;
   final Color color;
   final Function onTap;
+  final Widget icon;
 
-  DashboardButton({@required this.title, this.color, @required this.onTap});
+  DashboardButton({@required this.title, this.color, this.icon,@required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,7 @@ class DashboardButton extends StatelessWidget {
         child: ListTile(
           onTap: onTap,
           title: Text(title, style: subHeaderStyle),
-          trailing:  Icon(Icons.arrow_right, size: 40,),
+          trailing: icon
         ),
       ),
     );
