@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "793826128569",
+    "firebase_url": "https://shelterconnect-6c32c.firebaseio.com",
+    "project_id": "shelterconnect-6c32c",
+    "storage_bucket": "shelterconnect-6c32c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:793826128569:android:df61d46b11b5c105052168",
+        "android_client_info": {
+          "package_name": "shelterconnect.phase1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "793826128569-hl32kagvr9sfou1ngcusseseeo2730ui.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-7DlGNlaExRQW76pO8v6KQNQ42fMamnc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "793826128569-hl32kagvr9sfou1ngcusseseeo2730ui.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
