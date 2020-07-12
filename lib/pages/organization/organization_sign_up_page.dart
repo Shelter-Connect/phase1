@@ -1,6 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_google_places/flutter_google_places.dart';
-import 'package:geocoder/geocoder.dart';
 import 'package:google_maps_webservice/places.dart';
 
 import '../../components/floating_text_field.dart';
@@ -15,7 +14,9 @@ class OrganizationSignUpPage extends StatefulWidget {
 }
 
 class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
-  String email, password, password2, organizationName, description, location = 'Organization Location';
+  String email, password, password2, organizationName, description;
+  GeoPoint location;
+  TextEditingController controller = TextEditingController();
   GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: kGoogleApiKey);
 
   @override
@@ -72,13 +73,25 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
               ),
               SizedBox(height: 20),
               FloatingTextField(
-                hintText: location,
+                controller: controller,
+                hintText: 'Organization Location',
                 onTapped: () async {
-                  Prediction p = await PlacesAutocomplete.show(context: context, apiKey: kGoogleApiKey);
-                  displayPrediction(p);
-                  //TODO: update location variable within displayPrediciton function
+                  Prediction p = await PlacesAutocomplete.show(context: context, apiKey: kGoogleApiKey, mode: Mode.overlay, controller: controller);
+                  controller.value = TextEditingValue(
+                    text: await displayPrediction(p),
+                    selection: TextSelection.fromPosition(
+                      TextPosition(offset: 0),
+                    ),
+                  );
                 },
-                onChanged: (val) {},
+                onChanged: (val) {
+                  controller.value = TextEditingValue(
+                    text: val,
+                    selection: TextSelection.fromPosition(
+                      TextPosition(offset: 0),
+                    ),
+                  );
+                },
               ),
               SizedBox(height: 30),
               RoundedButton(
@@ -102,7 +115,7 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
                           'description': description,
                           'email': email,
                           'name': organizationName,
-                          'location': null,
+                          'location': location,
                           'verified': false,
                         });
                       }
@@ -131,22 +144,14 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
     );
   }
 
-  Future<Null> displayPrediction(Prediction p) async {
+  Future<String> displayPrediction(Prediction p) async {
     if (p != null) {
       PlacesDetailsResponse detail = await _places.getDetailsByPlaceId(p.placeId);
 
-      var placeId = p.placeId;
-      double lat = detail.result.geometry.location.lat;
-      double lng = detail.result.geometry.location.lng;
-
-      var address = await Geocoder.local.findAddressesFromQuery(p.description);
-
-      //print(address['formatted_address']);
-      //print(address[1]);
-      //print(address[2]);
-
-      print(lat);
-      print(lng);
+      //var placeId = p.placeId;
+      //var address = await Geocoder.local.findAddressesFromQuery(p.description);
+      location = new GeoPoint(detail.result.geometry.location.lat, detail.result.geometry.location.lng);
+      return detail.result.formattedAddress;
     }
   }
 }

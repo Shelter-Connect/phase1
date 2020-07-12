@@ -1,6 +1,6 @@
 import UIKit
 import Flutter
-import GoogleMaps
+//import GoogleMaps
 
 @UIApplicationMain
 @objc class AppDelegate: FlutterAppDelegate {
@@ -9,7 +9,7 @@ import GoogleMaps
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
       GeneratedPluginRegistrant.register(with: self)
-      GMSServices.provideAPIKey("AIzaSyDtBjj6ReiOlVtylupAx-wcLe2HmsJXXFs")
+      //GMSServices.provideAPIKey("AIzaSyDtBjj6ReiOlVtylupAx-wcLe2HmsJXXFs")
       return super.application(application, didFinishLaunchingWithOptions: launchOptions)
     }
 }

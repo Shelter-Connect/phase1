@@ -32,37 +32,51 @@ class _WelcomePageState extends State<WelcomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 24.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text('Welcome as;dlkfjasl;dfkj', style: titleStyle),
-            SizedBox(height: 20.0),
-            RoundedButton(
-              title: 'Continue as a Volunteer',
-              onPressed: () {
-                //TODO Check for Existing user. IF true, log them in. IF false, show error message
-              },
-            ),
-            RoundedButton(
-              title: 'Continue as an Organization',
-              onPressed: () {
-                Navigator.pushNamed(context, '/organization_sign_up');
-              },
-            ),
-            SizedBox(height: 10.0),
-            Padding(
-              padding: const EdgeInsets.only(left: 5.0),
-              child: TextButton(
-                text: 'Already Have an Account? Sign in Here.',
+      body: SafeArea(
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 24.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text('Welcome!', style: titleStyle),
+              Align(
+                child: Image.asset('assets/ShelterConnectLogo.png', height: 150),
+                alignment: Alignment.center,
+              ),
+              SizedBox(height: 10.0),
+              Image.asset('assets/LogoName.png', width: 400),
+              Text(
+                'Connecting non-profit organizations and kind hearted people',
+                style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 10.0),
+              RoundedButton(
+                title: 'Continue as Volunteer',
                 onPressed: () {
-                  Navigator.pushNamed(context, '/login');
+                  //TODO: Make Volunteer Dashboard and have this button go to Volunteer Dashboard
                 },
               ),
-            ),
-          ],
+              RoundedButton(
+                title: 'Continue as Shelter',
+                onPressed: () {
+                  Navigator.pushNamed(context, '/organization_sign_up');
+                },
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 5.0),
+                child: TextButton(
+                  text: 'Existing User? Sign in here',
+                  onPressed: () {
+                    //TODO: Make login page and redirect this button to that page
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

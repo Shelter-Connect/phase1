@@ -28,8 +28,6 @@ dependencies:
   firebase_auth: ^0.16.1
   cloud_firestore: ^0.13.7
   rxdart: ^0.24.1
-  # geoflutterfire: ^2.1.0
-  # google_maps_flutter: ^0.5.28+1
   flutter_google_places: ^0.2.5
   geocoder: ^0.2.1
 
@@ -53,9 +51,9 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - assets/LogoName.png
+    - assets/ShelterConnectLogo.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

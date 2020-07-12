@@ -19,7 +19,7 @@ class SignupPage extends StatelessWidget {
             RoundedButton(
               title: 'Sign Up As Shelter',
               onPressed: () {
-                Navigator.pushNamed(context, '/shelter_sign_up');
+                Navigator.pushNamed(context, '/organization_sign_up');
               },
             ),
             RoundedButton(
