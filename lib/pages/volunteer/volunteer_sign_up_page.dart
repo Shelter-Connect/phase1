@@ -71,6 +71,7 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
                           await db.collection('volunteers').document(newUser.user.uid).setData({
                             'email': email,
                           });
+                          newUser.user.sendEmailVerification();
                         }
                       } catch (e) {
                         showDialog(
