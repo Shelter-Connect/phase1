@@ -1,6 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../../components/no_action_alert.dart';
 import '../../components/rounded_button.dart';
 import '../../constants.dart';
 
@@ -10,12 +10,12 @@ class VolunteerConfirmation extends StatefulWidget {
 }
 
 class _VolunteerConfirmationState extends State<VolunteerConfirmation> {
-  FirebaseUser user;
-
   @override
-  void initState() async {
-    user = await auth.currentUser();
-    super.initState();
+  void initState() {
+    auth.currentUser().then((value) {
+      user = value;
+      super.initState();
+    });
   }
 
   @override
@@ -29,14 +29,12 @@ class _VolunteerConfirmationState extends State<VolunteerConfirmation> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text('A verification email has been sent to ${user.email}', style: headerStyle), //TODO: Input User E-mail in this String
+              Text('A verification email has been sent to }', style: headerStyle), //TODO: Input User E-mail in this String
               SizedBox(height: 20.0),
               RoundedButton(
-                title: 'Change e-mail Address',
+                title: 'Go Back to Change e-mail Address',
                 onPressed: () {
-                  auth.currentUser().then((user) {
-                    user.delete();
-                  });
+                  Navigator.pop(context);
                 },
               ),
               RoundedButton(
@@ -44,6 +42,10 @@ class _VolunteerConfirmationState extends State<VolunteerConfirmation> {
                 onPressed: () {
                   auth.currentUser().then((user) {
                     user.sendEmailVerification();
+                    showDialog(
+                      context: context,
+                      builder: (_) => NoActionAlert(title: 'Verification E-mail Resent.'),
+                    );
                   });
                 },
               ),
@@ -52,7 +54,14 @@ class _VolunteerConfirmationState extends State<VolunteerConfirmation> {
                 onPressed: () async {
                   await user.reload();
                   user = await auth.currentUser();
-                  Navigator.pushNamed(context, '/');
+                  if (user.isEmailVerified)
+                    Navigator.pushNamed(context, '/');
+                  else {
+                    showDialog(
+                      context: context,
+                      builder: (_) => NoActionAlert(title: 'You have not verified your account.'),
+                    );
+                  }
                 },
               )
             ],

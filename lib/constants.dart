@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 //Firebase
 FirebaseAuth auth = FirebaseAuth.instance;
 Firestore db = Firestore.instance;
+FirebaseUser user;
 
 //Google Maps
 final kGoogleApiKey = "AIzaSyDtBjj6ReiOlVtylupAx-wcLe2HmsJXXFs";
@@ -41,3 +42,6 @@ final colorScheme = ColorScheme(
   onError: Color(0xffbbdefb),
   brightness: Brightness.light,
 );
+
+//Miscellaneous
+bool notChangingEmail = true;
