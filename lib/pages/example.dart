@@ -12,12 +12,7 @@ class _ExamplePageState extends State<ExamplePage> {
   Widget build(BuildContext context) {
     return StandardLayout(
       title: 'Example Title',
-      menu: true,
-      help: true,
-      drawerHeaderText: 'Example Drawer Header',
-      helpText:
-      'Example help text. Example help text. Example help text. Example help text. Example help text. Example help text. Example help text. Example help text. ',
-      drawerOptions: [['Example 1', '/example']],
-    );
+      helpText: 'example help text example help text example help text example help text example help text example help text ',
+      body: Column(),);
   }
 }

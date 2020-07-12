@@ -1,19 +1,12 @@
 import 'package:flutter/material.dart';
 
 class StandardLayout extends StatelessWidget { // TODO: UI changes
-  final String title, drawerHeaderText, helpText;
-  final bool menu, help;
+  final String title, helpText;
   final Widget body;
-  final List drawerOptions;
 
-  // TODO: add more parameters for other things
   StandardLayout({
     @required this.title,
     this.body,
-    this.menu = true,
-    this.drawerHeaderText = '',
-    this.drawerOptions, // TODO: change format from list to something else
-    this.help = true,
     this.helpText = '',
   });
 
@@ -21,19 +14,6 @@ class StandardLayout extends StatelessWidget { // TODO: UI changes
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Visibility(
-          child: Builder(
-            builder: (context) => IconButton(
-              icon: Icon(Icons.menu),
-              color: Colors.white,
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              },
-            ),
-          ),
-          maintainSize: false,
-          visible: menu,
-        ),
         title: Text(title),
         actions: <Widget>[
           Visibility(
@@ -44,25 +24,11 @@ class StandardLayout extends StatelessWidget { // TODO: UI changes
                 _helpModalBottomSheet(context);
               },
             ),
-            visible: help,
+            visible: this.helpText != '',
           ),
         ],
       ),
       body: body,
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              child: Text(drawerHeaderText),
-            ),
-            for (var option in drawerOptions) ListTile(
-              title: Text(option[0]),
-              onTap: () {Navigator.pushNamed(context, option[2]);}
-            ),
-          ],
-        ),
-      ),
     );
   }
 
