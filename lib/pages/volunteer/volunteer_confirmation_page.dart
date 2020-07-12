@@ -12,7 +12,7 @@ class VolunteerConfirmation extends StatefulWidget {
 
 class _VolunteerConfirmationState extends State<VolunteerConfirmation> {
   FirebaseUser user;
-  
+
   @override
   void initState() {
     auth.currentUser().then((value) {
@@ -36,32 +36,37 @@ class _VolunteerConfirmationState extends State<VolunteerConfirmation> {
               SizedBox(height: 20.0),
               RoundedButton(
                 title: 'Go Back to Change Email Address',
-                onPressed: () {
+                onPressed: () async {
                   user.delete();
+                  await db.collection('volunteers').document(user.uid).delete();
                   Navigator.pop(context);
                 },
               ),
               RoundedButton(
                 title: 'Resend Verification E-mail',
                 onPressed: () {
-                  user.sendEmailVerification().then((res) {
+                  try {
+                    user.sendEmailVerification().then((res) {
                       showDialog(
                         context: context,
                         builder: (_) => NoActionAlert(title: 'Verification Email Resent.'),
                       );
-                    }
-                  );
+                    });
+                  } catch (e) {
+                    print(e);
+                  }
                 },
               ),
               RoundedButton(
                 title: 'Continue',
                 onPressed: () async {
-                  auth.signOut();
                   await user.reload();
                   user = await auth.currentUser();
                   if (user.isEmailVerified) {
+                    print('verified');
                     Navigator.pushNamed(context, '/volunteer_navigation');
                   } else {
+                    print('verified');
                     showDialog(
                       context: context,
                       builder: (_) => NoActionAlert(title: 'You have not verified your account yet.'),

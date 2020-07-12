@@ -48,7 +48,11 @@ class _WelcomePageState extends State<WelcomePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text('Welcome!', style: titleStyle),
+              Text(
+                'Welcome!',
+                style: titleStyle,
+                textAlign: TextAlign.center,
+              ),
               Align(
                 child: Image.asset('assets/ShelterConnectLogo.png', height: 150),
                 alignment: Alignment.center,

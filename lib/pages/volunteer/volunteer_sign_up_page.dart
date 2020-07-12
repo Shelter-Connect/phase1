@@ -68,9 +68,10 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
                       try {
                         final newUser = await auth.createUserWithEmailAndPassword(email: email, password: password);
                         if (newUser != null) {
-                          db.collection('volunteers').document(newUser.user.uid).setData({
+                          await db.collection('volunteers').document(newUser.user.uid).setData({
                             'email': email,
                           });
+                          newUser.user.sendEmailVerification();
                         }
                       } catch (e) {
                         showDialog(
