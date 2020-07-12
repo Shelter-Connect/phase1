@@ -21,6 +21,7 @@ class _WelcomePageState extends State<WelcomePage> {
             Navigator.pushNamed(context, '/organization_navigation');
           else
             Navigator.pushNamed(context, '/organization_confirmation');
+
         });
       }
     });

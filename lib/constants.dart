@@ -20,6 +20,11 @@ final headerStyle = TextStyle(
   fontSize: 30.0,
 );
 
+final subheaderStyle = TextStyle(
+  fontWeight: FontWeight.w400,
+  fontSize: 20.0,
+);
+
 //Color Scheme
 final colorScheme = ColorScheme(
   primary: Color(0xffbbdefb),
