@@ -16,11 +16,24 @@ class _WelcomePageState extends State<WelcomePage> {
       if (user == null) {
         Navigator.popUntil(context, (route) => route.isFirst);
       } else {
+        db.collection('volunteers').document(user.uid).get().then((value) {
+          if (value.data != null) {
+            if (user.isEmailVerified) {
+              Navigator.pushNamed(context, '/volunteer_navigation');
+            } else {
+              Navigator.pushNamed(context, '/volunteer_confirmation');
+            }
+          }
+        });
+
         db.collection('organizations').document(user.uid).get().then((value) {
-          if (value['verified'])
-            Navigator.pushNamed(context, '/organization_navigation');
-          else
-            Navigator.pushNamed(context, '/organization_confirmation');
+          if (value.data != null) {
+            if (value['verified']){
+              Navigator.pushNamed(context, '/organization_navigation');
+            } else {
+              Navigator.pushNamed(context, '/organization_confirmation');
+            }
+          }
         });
       }
     });
