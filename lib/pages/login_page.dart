@@ -6,6 +6,8 @@ import '../components/text_button.dart';
 import '../constants.dart';
 
 class LoginPage extends StatelessWidget {
+  String email, password;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,21 +24,23 @@ class LoginPage extends StatelessWidget {
               FloatingTextField(
                 hintText: 'Email',
                 onChanged: (val) {
-                  //TODO: Update E-mail variable
+                  email = val.trim();
                 },
               ),
               SizedBox(height: 20),
               FloatingTextField(
                 hintText: 'Password',
                 onChanged: (val) {
-                  //TODO: Update Password Variable
+                  password = val.trim();
                 },
               ),
               SizedBox(height: 30),
               RoundedButton(
                 title: 'Sign In',
                 onPressed: () {
-                  //TODO: Sign in with firebase
+                  auth.signInWithEmailAndPassword(email: email, password: password).catchError((error) {
+                    print(Future.error(error).toString());
+                  });
                 },
               ),
               Padding(

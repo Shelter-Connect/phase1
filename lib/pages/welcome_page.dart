@@ -12,6 +12,7 @@ class WelcomePage extends StatefulWidget {
 class _WelcomePageState extends State<WelcomePage> {
   @override
   void initState() {
+    auth.signOut();
     auth.onAuthStateChanged.listen((user) {
       if (user != null) {
         db.collection('volunteers').document(user.uid).get().then((value) {
@@ -82,9 +83,9 @@ class _WelcomePageState extends State<WelcomePage> {
               Padding(
                 padding: const EdgeInsets.only(left: 5.0),
                 child: TextButton(
-                  text: 'Existing User? Sign in here',
+                  text: 'Existing User? Login here',
                   onPressed: () {
-                    //TODO: Make login page and redirect this button to that page
+                    Navigator.pushNamed(context, '/login');
                   },
                 ),
               ),
