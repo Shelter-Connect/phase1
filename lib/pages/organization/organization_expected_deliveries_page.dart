@@ -43,7 +43,7 @@ class _OrganizationExpectedDeliveriesPageState extends State<OrganizationExpecte
                     value: dropdownValue,
                     icon: Icon(Icons.keyboard_arrow_down, color: Color(0xff6576EC)),
                     iconSize: 15,
-                    elevation: 16,
+                    elevation: 0,
                     style: TextStyle(
                         color: Color(0xff6576EC),
                     ),

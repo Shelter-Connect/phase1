@@ -15,9 +15,7 @@ class _ItemsToDeliverExpandedState extends State<ItemsToDeliverExpanded> {
         title: ' ',
         helpText: 'If u don\'t know how to use this app u stupid lmao',
         body: SingleChildScrollView(
-          child: Scaffold(
-            backgroundColor: Color(0xFFDAE5F9),
-            body: Column(
+          child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Padding(
@@ -35,78 +33,66 @@ class _ItemsToDeliverExpandedState extends State<ItemsToDeliverExpanded> {
                   ),
                 ),
                 SizedBox(height: 20),
-                SelectedDonations(),
-                SizedBox(height: 15),
-                SizedBox(height: 15),
-                SizedBox(height: 20),
-              ],
-            ),
-          ),
-        ));
-  }
-}
-
-class SelectedDonations extends StatefulWidget {
-  @override
-  _SelectedDonationsState createState() => _SelectedDonationsState();
-}
-
-class _SelectedDonationsState extends State<SelectedDonations> {
-  @override
-  Widget build(BuildContext context) {
-    return FlatButton(
-        onPressed: () {
+            FlatButton(
+                onPressed: () {
 //TODO
-        },
-        child: Container(
-          decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(20))),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                SizedBox(
-                  height: 10,
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Text('Selected Donations'),
-                SizedBox(
-                  height: 5,
-                ),
-                Container(
-                  height: 5,
-                  width: 50,
-                  decoration: BoxDecoration(color: Color(0xFF6576EC), borderRadius: BorderRadius.circular(21)),
-                ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: FlatButton(
-                    color: colorScheme.error,
-                    onPressed: () {},
-                    child: Container(child: Text('Edit Donations')),
+                },
+                child: Container(
+                  decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(20))),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        SizedBox(
+                          height: 10,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text('Selected Donations'),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Container(
+                          height: 5,
+                          width: 50,
+                          decoration: BoxDecoration(color: Color(0xFF6576EC), borderRadius: BorderRadius.circular(21)),
+                        ),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: FlatButton(
+                            color: colorScheme.error,
+                            onPressed: () {},
+                            child: Container(child: Text('Edit Donations')),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        ItemsToDeliver('Blankets', 4),
+                        SizedBox(
+                          height: 2.5,
+                        ),
+                        ItemsToDeliver('Bananas', 15),
+                        SizedBox(
+                          height: 2.5,
+                        ),
+                        ItemsToDeliver('Can of Beans', 10),
+                        SizedBox(
+                          height: 10,
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                ItemsToDeliver('Blankets', 4),
-                SizedBox(
-                  height: 2.5,
-                ),
-                ItemsToDeliver('Bananas', 15),
-                SizedBox(
-                  height: 2.5,
-                ),
-                ItemsToDeliver('Can of Beans', 10),
-                SizedBox(
-                  height: 10,
-                ),
+                )),
+
               ],
             ),
-          ),
+
         ));
   }
 }
+
+
