@@ -49,10 +49,7 @@ class _OrganizationDashboardPageState extends State<OrganizationDashboardPage> {
                   title: '3 sweaters',
                   color: Colors.white,
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => OrganizationExpectedDeliveriesPage()),
-                    );
+                    //TODO: Make new page, which is Expected Deliveries - Extended
                   },
                   icon: Icon(
                     Icons.arrow_right,
@@ -98,6 +95,7 @@ class _OrganizationDashboardPageState extends State<OrganizationDashboardPage> {
                   title: '6 beans',
                   color: Colors.white,
                   onTap: () {
+
                     //TODO: Make new page, which is Expected Deliveries - Extended
                   },
                 ),
@@ -106,6 +104,10 @@ class _OrganizationDashboardPageState extends State<OrganizationDashboardPage> {
                   child: TextButton(
                     text: 'See all',
                     onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => OrganizationExpectedDeliveriesPage()),
+                      );
                       //TODO: Make this button go to Expected Deliveries
                     },
                   ),
@@ -123,6 +125,7 @@ class _OrganizationDashboardPageState extends State<OrganizationDashboardPage> {
                 elevation: 5,
                 shape: CircleBorder(),
                 onPressed: (){
+
                   //TODO: Go to Create Request Page
                 },
                 child:
