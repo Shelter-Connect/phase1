@@ -94,21 +94,19 @@ class _OrganizationExpectedDeliveriesPageState extends State<OrganizationExpecte
           ],
         ),
         ExpectedDeliveryContainer(
-          Donor: 'Big boi',
-          Item: 'lil boi',
-          ExpectedDate: 'frick',
-        ),
+          Donor: 'Nathan',
+          Item: 'Beans',
+          ExpectedDate: '12/20',),
         ExpectedDeliveryContainer(
-          Donor: 'Big boi',
-          Item: 'lil boi',
-          ExpectedDate: 'frick',
-        ),
+          Donor: 'Nathan',
+          Item: 'Beans',
+          ExpectedDate: '12/20',),
         ExpectedDeliveryContainer(
-          Donor: 'Big boi',
-          Item: 'lil boi',
-          ExpectedDate: 'frick',
-        ),
-      ],
-    );
+          Donor: 'Nathan',
+          Item: 'Beans',
+          ExpectedDate: '12/20',),
+      ],);
   }
+
+
 }
