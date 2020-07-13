@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:phase1/constants.dart';
+
 import '../../components/standard_layout.dart';
-import 'volunteer_items_to_deliver_page.dart';
+import '../../constants.dart';
 
 class ItemsToDeliverExpanded extends StatefulWidget {
   @override
@@ -36,7 +35,7 @@ class _ItemsToDeliverExpandedState extends State<ItemsToDeliverExpanded> {
               SizedBox(height: 20),
               FlatButton(
                   onPressed: () {
-//TODO
+                    //TODO
                   },
                   child: Container(
                     decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(20))),
@@ -89,15 +88,15 @@ class _ItemsToDeliverExpandedState extends State<ItemsToDeliverExpanded> {
                               SizedBox(
                                 height: 10,
                               ),
-                              ItemsToDeliver('Blankets', 4),
+                              Text('Blankets x4'),
                               SizedBox(
                                 height: 2.5,
                               ),
-                              ItemsToDeliver('Bananas', 15),
+                              Text('Bananas x15'),
                               SizedBox(
                                 height: 2.5,
                               ),
-                              ItemsToDeliver('Can of Beans', 10),
+                              Text('Can of Beans x10'),
                               SizedBox(
                                 height: 10,
                               ),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:phase1/constants.dart';
 
+import '../../constants.dart';
 import '../navigation_tab.dart';
-import 'organization_donation_oppo_profile.dart';
+import '../../components/organization_donation_profile.dart';
 
 class DonationOpportunities extends StatefulWidget with NavigationTab {
   @override
@@ -58,16 +58,19 @@ class _DonationOpportunitiesState extends State<DonationOpportunities> {
                 ),
               ),
             ),
-            SizedBox(height: 20),
-            ShelterDonationProfile('City Team Men\'s Shelter', 5.2,
-                'Lorem ipsum dolor sit amet, sed eu mollis tibique. Cu decore nominavi splendide vel. Sit mazim simul feugait ea. Te usu nullam populo vivendo. Lorem ipsum dolor sit amet, sed eu mollis tibique.'),
-            SizedBox(height: 15),
-            ShelterDonationProfile('HomeFirst', 2.5,
-                'Lorem ipsum dolor sit amet, sed eu mollis tibique. Cu decore nominavi splendide vel. Sit mazim simul feugait ea. Te usu nullam populo vivendo. Lorem ipsum dolor sit amet, sed eu mollis tibique.'),
-            SizedBox(height: 15),
-            ShelterDonationProfile('Lifemoves', 8.9,
-                'Lorem ipsum dolor sit amet, sed eu mollis tibique. Cu decore nominavi splendide vel. Sit mazim simul feugait ea. Te usu nullam populo vivendo. Lorem ipsum dolor sit amet, sed eu mollis tibique.'),
-            SizedBox(height: 20),
+            SizedBox(height: 20.0),
+            OrganizationDonationProfile(
+              name: 'City Team Men\'s Shelter',
+              distance: 5.2,
+              description: 'Lorem ipsum dolor sit amet, sed eu mollis tibique. Cu decore nominavi splendide vel. Sit mazim simul feugait ea. Te usu nullam populo vivendo. Lorem ipsum dolor sit amet, sed eu mollis tibique.',
+            ),
+            SizedBox(height: 20.0),
+            OrganizationDonationProfile(
+              name: 'HomeFirst',
+              distance: 6.9,
+              description: 'Lorem ipsum dolor sit amet, sed eu mollis tibique. Cu decore nominavi splendide vel. Sit mazim simul feugait ea. Te usu nullam populo vivendo. Lorem ipsum dolor sit amet, sed eu mollis tibique.',
+            ),
+            SizedBox(height: 20.0),
           ],
         ),
       ),

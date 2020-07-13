@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../components/dashboard_components.dart';
+import '../../components/dashboard_component.dart';
 import '../navigation_tab.dart';
 
 class OrganizationContactUsPage extends StatefulWidget with NavigationTab {
@@ -20,7 +20,7 @@ class OrganizationContactUsPage extends StatefulWidget with NavigationTab {
 class _OrganizationContactUsPageState extends State<OrganizationContactUsPage> {
   @override
   Widget build(BuildContext context) {
-    return DashboardComp(
+    return DashboardComponent(
       boxTitle: 'Shelter Connect',
       column: Column(
         children: <Widget>[

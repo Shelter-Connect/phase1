@@ -38,6 +38,7 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(height: 20),
                 FloatingTextField(
                   hintText: 'Password',
+                  obscureText: true,
                   controller: passwordController,
                   onChanged: (val) {
                     password = val.trim();
