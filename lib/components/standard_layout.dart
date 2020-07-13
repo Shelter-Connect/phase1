@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../constants.dart';
 
 class StandardLayout extends StatelessWidget {
-  // TODO: UI changes
   final String title, helpText;
   final Widget body;
 
