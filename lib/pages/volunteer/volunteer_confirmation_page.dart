@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../components/no_action_alert.dart';
 import '../../components/rounded_button.dart';
@@ -32,13 +33,18 @@ class _VolunteerConfirmationState extends State<VolunteerConfirmation> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text('A verification email has been sent to }', style: headerStyle), //TODO: Input User E-mail in this String
+              Text(
+                'A verification email has been sent to ${Provider.of<FirebaseUser>(context)?.email}',
+                style: headerStyle.copyWith(
+                  fontSize: 23.0,
+                ),
+              ),
               SizedBox(height: 20.0),
               RoundedButton(
                 title: 'Go Back to Change Email Address',
                 onPressed: () async {
                   user.delete();
-                  await db.collection('volunteers').document(user.uid).delete();
+                  db.collection('volunteers').document(user.uid).delete();
                   Navigator.pop(context);
                 },
               ),
@@ -66,7 +72,6 @@ class _VolunteerConfirmationState extends State<VolunteerConfirmation> {
                     print('verified');
                     Navigator.pushNamed(context, '/volunteer_navigation');
                   } else {
-                    print('verified');
                     showDialog(
                       context: context,
                       builder: (_) => NoActionAlert(title: 'You have not verified your account yet.'),

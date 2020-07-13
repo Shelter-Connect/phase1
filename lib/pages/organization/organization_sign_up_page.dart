@@ -154,6 +154,6 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
       location = new GeoPoint(detail.result.geometry.location.lat, detail.result.geometry.location.lng);
       return detail.result.formattedAddress;
     }
-    throw new Exception('you' 're bad');
+    throw new Exception('Illegal Argument Exception: Prediction is null');
   }
 }

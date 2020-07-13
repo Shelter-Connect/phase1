@@ -12,7 +12,6 @@ class WelcomePage extends StatefulWidget {
 class _WelcomePageState extends State<WelcomePage> {
   @override
   void initState() {
-    auth.signOut();
     auth.onAuthStateChanged.listen((user) {
       if (user != null) {
         db.collection('volunteers').document(user.uid).get().then((value) {

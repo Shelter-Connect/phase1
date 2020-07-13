@@ -62,13 +62,13 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
                     } else if (password.length < 6) {
                       showDialog(
                         context: context,
-                        builder: (_) => NoActionAlert(title: 'Passwords needs to be at least 6 characters in length'),
+                        builder: (_) => NoActionAlert(title: 'Password needs to be at least 6 characters long'),
                       );
                     } else {
                       try {
                         final newUser = await auth.createUserWithEmailAndPassword(email: email, password: password);
                         if (newUser != null) {
-                          await db.collection('volunteers').document(newUser.user.uid).setData({
+                          db.collection('volunteers').document(newUser.user.uid).setData({
                             'email': email,
                           });
                           newUser.user.sendEmailVerification();
