@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../constants.dart';
 import '../navigation_tab.dart';
 
 class VolunteerAccountPage extends StatefulWidget with NavigationTab {
@@ -21,7 +22,7 @@ class _VolunteerAccountPageState extends State<VolunteerAccountPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFDAE5F9),
+      backgroundColor: colorScheme.surface,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -30,7 +31,7 @@ class _VolunteerAccountPageState extends State<VolunteerAccountPage> {
               padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
               child: Text(
                 'Account Settings',
-                style: TextStyle(fontSize: 35, fontWeight: FontWeight.w900, color: Color(0xFF6576EC)),
+                style: TextStyle(fontSize: 35, fontWeight: FontWeight.w900, color: purpleAccent),
               ),
             ),
             SizedBox(height: 20),
@@ -61,7 +62,7 @@ class UserInfo extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Container(
-        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(20))),
+        decoration: BoxDecoration(color: colorScheme.onSecondary, borderRadius: BorderRadius.all(Radius.circular(20))),
         height: 224,
         width: MediaQuery.of(context).size.width,
         child: Padding(
@@ -82,7 +83,7 @@ class UserInfo extends StatelessWidget {
               Container(
                 height: 5,
                 width: 100,
-                decoration: BoxDecoration(color: Color(0xFF6576EC), borderRadius: BorderRadius.circular(21)),
+                decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
               ),
               SizedBox(height: 20),
               RichText(
@@ -91,14 +92,14 @@ class UserInfo extends StatelessWidget {
                       text: 'Email Address: ',
                       style: TextStyle(
                         fontSize: 18,
-                        color: Colors.black,
+                        color: colorScheme.onBackground,
                       )),
                   TextSpan(
                       text: userEmail,
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
-                        color: Colors.black,
+                        color: colorScheme.onBackground,
                       ))
                 ]),
               ),
@@ -111,14 +112,14 @@ class UserInfo extends StatelessWidget {
                       text: 'Email Address: ',
                       style: TextStyle(
                         fontSize: 18,
-                        color: Colors.black,
+                        color: colorScheme.onBackground,
                       )),
                   TextSpan(
                       text: userPassword,
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
-                        color: Colors.black,
+                        color: colorScheme.onBackground,
                       ))
                 ]),
               ),
@@ -131,12 +132,12 @@ class UserInfo extends StatelessWidget {
                 },
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Color(0xFF6576E6),
+                    color: purpleAccent,
                     borderRadius: BorderRadius.circular(21),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8.0),
-                    child: Text('Edit Information', style: TextStyle(color: Colors.white, fontSize: 16)),
+                    child: Text('Edit Information', style: TextStyle(color: colorScheme.onSecondary, fontSize: 16)),
                   ),
                 ),
               ),
@@ -154,7 +155,7 @@ class UserPrivacy extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Container(
-        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(20))),
+        decoration: BoxDecoration(color: colorScheme.onSecondary, borderRadius: BorderRadius.all(Radius.circular(20))),
         height: 224,
         width: MediaQuery.of(context).size.width,
         child: Padding(
@@ -175,7 +176,7 @@ class UserPrivacy extends StatelessWidget {
               Container(
                 height: 5,
                 width: 100,
-                decoration: BoxDecoration(color: Color(0xFF6576EC), borderRadius: BorderRadius.circular(21)),
+                decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
               ),
               PrivacyToggleSwitch(),
             ],
@@ -192,7 +193,7 @@ class UserNotifications extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Container(
-        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(20))),
+        decoration: BoxDecoration(color: colorScheme.onSecondary, borderRadius: BorderRadius.all(Radius.circular(20))),
         height: 224,
         width: MediaQuery.of(context).size.width,
         child: Padding(
@@ -213,7 +214,7 @@ class UserNotifications extends StatelessWidget {
               Container(
                 height: 5,
                 width: 100,
-                decoration: BoxDecoration(color: Color(0xFF6576EC), borderRadius: BorderRadius.circular(21)),
+                decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
               ),
               NotificationToggleSwitch(),
             ],
@@ -236,12 +237,12 @@ class LogoutButton extends StatelessWidget {
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(21),
-            color: Color(0xFFFE445C),
+            color: colorScheme.onError,
           ),
           child: Center(
             child: Text(
               'Logout',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700, color: Colors.white),
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700, color: colorScheme.onSecondary),
             ),
           ),
         ));
@@ -249,10 +250,10 @@ class LogoutButton extends StatelessWidget {
 }
 
 class PrivacyToggleSwitch extends StatefulWidget {
-
   @override
   _PrivacyToggleSwitchState createState() => _PrivacyToggleSwitchState();
 }
+
 class _PrivacyToggleSwitchState extends State<PrivacyToggleSwitch> {
   bool isSwitched = false;
   @override
@@ -260,30 +261,29 @@ class _PrivacyToggleSwitchState extends State<PrivacyToggleSwitch> {
     return ListTile(
       trailing: Switch(
         value: isSwitched,
-        onChanged: (value){
+        onChanged: (value) {
           setState(() {
             isSwitched = value;
             print(isSwitched);
           });
         },
-        activeTrackColor: Color(0xFFF9F9F9),
-        activeColor: Color(0xFF6576EC),
+        activeTrackColor: colorScheme.onSecondary,
+        activeColor: purpleAccent,
       ),
-      title: Text(
-          'Enable Location Tracking', style: TextStyle(
-        color: Colors.black,
-        fontSize: 18,
-      )
-      ),
+      title: Text('Enable Location Tracking',
+          style: TextStyle(
+            color: colorScheme.onBackground,
+            fontSize: 18,
+          )),
     );
   }
 }
 
 class NotificationToggleSwitch extends StatefulWidget {
-
   @override
   _NotificationToggleSwitchState createState() => _NotificationToggleSwitchState();
 }
+
 class _NotificationToggleSwitchState extends State<NotificationToggleSwitch> {
   bool isSwitched = false;
   @override
@@ -291,22 +291,20 @@ class _NotificationToggleSwitchState extends State<NotificationToggleSwitch> {
     return ListTile(
       trailing: Switch(
         value: isSwitched,
-        onChanged: (value){
+        onChanged: (value) {
           setState(() {
             isSwitched = value;
             print(isSwitched);
           });
         },
-        activeTrackColor: Color(0xFFF9F9F9),
-        activeColor: Color(0xFF6576EC),
+        activeTrackColor: colorScheme.onSecondary,
+        activeColor: purpleAccent,
       ),
-      title: Text(
-          'Enable Push Notifications', style: TextStyle(
-        color: Colors.black,
-        fontSize: 18,
-      )
-      ),
+      title: Text('Enable Push Notifications',
+          style: TextStyle(
+            color: colorScheme.onBackground,
+            fontSize: 18,
+          )),
     );
   }
 }
-

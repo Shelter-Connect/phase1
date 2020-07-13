@@ -25,7 +25,7 @@ final subHeaderStyle = TextStyle(
   fontSize: 17.0,
 );
 
-//Color Scheme
+//Colors
 final colorScheme = ColorScheme(
   primary: Color(0xffbbdefb),
   primaryVariant: Color(0xff8aacc8),
@@ -41,3 +41,6 @@ final colorScheme = ColorScheme(
   onError: Color(0xffbbdefb),
   brightness: Brightness.light,
 );
+
+Color purpleAccent = Color(0xFF6576EC);
+Color blueAccent = Color(0xff187CFF);

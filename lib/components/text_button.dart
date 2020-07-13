@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../constants.dart';
 
 class TextButton extends StatelessWidget {
   final String text;
@@ -15,7 +16,7 @@ class TextButton extends StatelessWidget {
       child: Text(
         text,
         style: TextStyle(
-          color: Color(0xff187CFF),
+          color: blueAccent,
           fontSize: 15.0,
         ),
       ),

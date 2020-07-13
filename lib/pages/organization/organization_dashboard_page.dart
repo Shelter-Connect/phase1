@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:phase1/components/dashboard_button.dart';
 import 'package:phase1/components/dashboard_components.dart';
 import 'package:phase1/components/text_button.dart';
+import 'package:phase1/constants.dart';
 
 import '../navigation_tab.dart';
 import 'organization_expected_deliveries_page.dart';
@@ -12,7 +13,8 @@ class OrganizationDashboardPage extends StatefulWidget with NavigationTab {
   _OrganizationDashboardPageState createState() => _OrganizationDashboardPageState();
 
   @override
-  String get helpDescription => '''  Hello, and welcome to the Organization Dashboard! In this page, you can get a quick glimpse of deliveries that volunteers have agreed to donate, also known as "Expected Deliveries."
+  String get helpDescription =>
+      '''  Hello, and welcome to the Organization Dashboard! In this page, you can get a quick glimpse of deliveries that volunteers have agreed to donate, also known as "Expected Deliveries."
   Current requests allow you to view the items that have not yet been claimed by a volunteer. You may edit those requests at any time. 
   Have fun!
       ''';
@@ -36,7 +38,7 @@ class _OrganizationDashboardPageState extends State<OrganizationDashboardPage> {
               children: <Widget>[
                 DashboardButton(
                   title: '6 blankets',
-                  color: Colors.white,
+                  color: colorScheme.onSecondary,
                   onTap: () {
                     //TODO: Make new page, which is Expected Deliveries - Extended
                   },
@@ -47,7 +49,7 @@ class _OrganizationDashboardPageState extends State<OrganizationDashboardPage> {
                 ),
                 DashboardButton(
                   title: '3 sweaters',
-                  color: Colors.white,
+                  color: colorScheme.onSecondary,
                   onTap: () {
                     //TODO: Make new page, which is Expected Deliveries - Extended
                   },
@@ -58,7 +60,7 @@ class _OrganizationDashboardPageState extends State<OrganizationDashboardPage> {
                 ),
                 DashboardButton(
                   title: '4 sweaters',
-                  color: Colors.white,
+                  color: colorScheme.onSecondary,
                   onTap: () {
                     //TODO: Make new page, which is Expected Deliveries - Extended
                   },
@@ -86,16 +88,15 @@ class _OrganizationDashboardPageState extends State<OrganizationDashboardPage> {
               children: <Widget>[
                 DashboardButton(
                   title: '5 blankets',
-                  color: Colors.white,
+                  color: colorScheme.onSecondary,
                   onTap: () {
                     //TODO: Make new page, which is Expected Deliveries - Extended
                   },
                 ),
                 DashboardButton(
                   title: '6 beans',
-                  color: Colors.white,
+                  color: colorScheme.onSecondary,
                   onTap: () {
-
                     //TODO: Make new page, which is Expected Deliveries - Extended
                   },
                 ),
@@ -120,19 +121,17 @@ class _OrganizationDashboardPageState extends State<OrganizationDashboardPage> {
             child: Padding(
               padding: EdgeInsets.all(16.0),
               child: FloatingActionButton(
-                backgroundColor: Color(0xff6474E1),
-                focusColor: Color(0xffffffff),
+                backgroundColor: purpleAccent,
+                focusColor: colorScheme.onSecondary,
                 elevation: 5,
                 shape: CircleBorder(),
-                onPressed: (){
-
+                onPressed: () {
                   //TODO: Go to Create Request Page
                 },
-                child:
-                Icon(
-                Icons.add,
-                size: 30,
-              ),
+                child: Icon(
+                  Icons.add,
+                  size: 30,
+                ),
               ),
             ),
           )

@@ -24,7 +24,7 @@ class StandardLayout extends StatelessWidget {
           Visibility(
             child: IconButton(
               icon: Icon(Icons.help),
-              color: Colors.white,
+              color: colorScheme.background,
               onPressed: () {
                 _helpModalBottomSheet(context);
               },

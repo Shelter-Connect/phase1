@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import '../../constants.dart';
 import '../navigation_tab.dart';
 import '../volunteer/donation_opportunities_page.dart';
 import '../volunteer/volunteer_items_to_deliver_page.dart';
@@ -20,17 +22,20 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFDAE5F9),
+      backgroundColor: colorScheme.background,
       appBar: AppBar(
-        title: Text(_pages[_selectedIndex].title, style: TextStyle(
-          color: Color(0xFFDAE5F9),
-        ),),
-        backgroundColor: Color(0xFFDAE5F9),
+        title: Text(
+          _pages[_selectedIndex].title,
+          style: TextStyle(
+            color: colorScheme.onSecondary,
+          ),
+        ),
+        backgroundColor: colorScheme.background,
         elevation: 0.0,
         leading: Builder(
           builder: (context) => IconButton(
             icon: Icon(Icons.menu),
-            color: Color(0xFF6576E6),
+            color: purpleAccent,
             onPressed: () {
               Scaffold.of(context).openDrawer();
             },
@@ -41,7 +46,7 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
             visible: _pages[_selectedIndex].helpDescription != '',
             child: IconButton(
               icon: Icon(Icons.help),
-              color: Colors.white,
+              color: colorScheme.onSecondary,
               onPressed: () {
                 _helpModalBottomSheet(context);
               },
@@ -71,16 +76,16 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
             ..._pages
                 .asMap()
                 .map((index, tab) => MapEntry(
-                index,
-                ListTile(
-                    title: Text(tab.title),
-                    leading: Icon(tab.icon),
-                    onTap: () {
-                      setState(() {
-                        _selectedIndex = index;
-                      });
-                      Navigator.pop(context);
-                    })))
+                    index,
+                    ListTile(
+                        title: Text(tab.title),
+                        leading: Icon(tab.icon),
+                        onTap: () {
+                          setState(() {
+                            _selectedIndex = index;
+                          });
+                          Navigator.pop(context);
+                        })))
                 .values
                 .toList(),
           ],
