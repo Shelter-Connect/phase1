@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../components/organization_donation_profile.dart';
 import '../../constants.dart';
 import '../navigation_tab.dart';
-import '../../components/organization_donation_profile.dart';
 
 class DonationOpportunities extends StatefulWidget with NavigationTab {
   @override
@@ -22,7 +22,7 @@ class _DonationOpportunitiesState extends State<DonationOpportunities> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFDAE5F9),
+      backgroundColor: blueBackground,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,13 +62,15 @@ class _DonationOpportunitiesState extends State<DonationOpportunities> {
             OrganizationDonationProfile(
               name: 'City Team Men\'s Shelter',
               distance: 5.2,
-              description: 'Lorem ipsum dolor sit amet, sed eu mollis tibique. Cu decore nominavi splendide vel. Sit mazim simul feugait ea. Te usu nullam populo vivendo. Lorem ipsum dolor sit amet, sed eu mollis tibique.',
+              description:
+                  'Lorem ipsum dolor sit amet, sed eu mollis tibique. Cu decore nominavi splendide vel. Sit mazim simul feugait ea. Te usu nullam populo vivendo. Lorem ipsum dolor sit amet, sed eu mollis tibique.',
             ),
             SizedBox(height: 20.0),
             OrganizationDonationProfile(
               name: 'HomeFirst',
               distance: 6.9,
-              description: 'Lorem ipsum dolor sit amet, sed eu mollis tibique. Cu decore nominavi splendide vel. Sit mazim simul feugait ea. Te usu nullam populo vivendo. Lorem ipsum dolor sit amet, sed eu mollis tibique.',
+              description:
+                  'Lorem ipsum dolor sit amet, sed eu mollis tibique. Cu decore nominavi splendide vel. Sit mazim simul feugait ea. Te usu nullam populo vivendo. Lorem ipsum dolor sit amet, sed eu mollis tibique.',
             ),
             SizedBox(height: 20.0),
           ],

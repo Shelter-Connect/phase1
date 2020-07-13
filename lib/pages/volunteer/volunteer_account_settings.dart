@@ -21,7 +21,7 @@ class _VolunteerAccountPageState extends State<VolunteerAccountPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFDAE5F9),
+      backgroundColor: blueBackground,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

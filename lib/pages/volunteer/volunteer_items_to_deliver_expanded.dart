@@ -22,14 +22,14 @@ class _ItemsToDeliverExpandedState extends State<ItemsToDeliverExpanded> {
                 padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
                 child: Text(
                   'Items to Deliver for (Organization Name)',
-                  style: TextStyle(fontSize: 35, fontWeight: FontWeight.w900, color: Color(0xFF6576EC)),
+                  style: TextStyle(fontSize: 35, fontWeight: FontWeight.w900, color: purpleAccent),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
                 child: Text(
                   'Distance: (Distance away)',
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700, color: Color(0xFF6576EC)),
+                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700, color: purpleAccent),
                 ),
               ),
               SizedBox(height: 20),
@@ -38,7 +38,7 @@ class _ItemsToDeliverExpandedState extends State<ItemsToDeliverExpanded> {
                     //TODO
                   },
                   child: Container(
-                    decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(20))),
+                    decoration: BoxDecoration(color: colorScheme.background, borderRadius: BorderRadius.all(Radius.circular(20))),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
                       child: Column(
@@ -65,7 +65,7 @@ class _ItemsToDeliverExpandedState extends State<ItemsToDeliverExpanded> {
                               Container(
                                 height: 5,
                                 width: 100,
-                                decoration: BoxDecoration(color: Color(0xFF6576EC), borderRadius: BorderRadius.circular(21)),
+                                decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
                               ),
                               SizedBox(
                                 height: 15,
@@ -81,7 +81,7 @@ class _ItemsToDeliverExpandedState extends State<ItemsToDeliverExpanded> {
                                   child: Container(
                                       child: Text(
                                     'Edit Donations',
-                                    style: TextStyle(color: Colors.white),
+                                    style: TextStyle(color: colorScheme.onSecondary),
                                   )),
                                 ),
                               ),
@@ -112,7 +112,7 @@ class _ItemsToDeliverExpandedState extends State<ItemsToDeliverExpanded> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: Container(
-                      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(20))),
+                      decoration: BoxDecoration(color: colorScheme.background, borderRadius: BorderRadius.all(Radius.circular(20))),
                       width: MediaQuery.of(context).size.width,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16.0),
@@ -132,7 +132,7 @@ class _ItemsToDeliverExpandedState extends State<ItemsToDeliverExpanded> {
                             Container(
                               height: 5,
                               width: 100,
-                              decoration: BoxDecoration(color: Color(0xFF6576EC), borderRadius: BorderRadius.circular(21)),
+                              decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
                             ),
                             SizedBox(
                               height: 10,
@@ -173,14 +173,14 @@ class InfoText extends StatelessWidget {
                 text: 'Email Address: ',
                 style: TextStyle(
                   fontSize: 18,
-                  color: Colors.black,
+                  color: colorScheme.onBackground,
                 )),
             TextSpan(
                 text: orgEmail,
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
-                  color: Colors.black,
+                  color: colorScheme.onBackground,
                 ))
           ]),
         ),
@@ -190,12 +190,15 @@ class InfoText extends StatelessWidget {
             },
             child: Container(
               decoration: BoxDecoration(
-                color: Color(0xFF6576EC),
+                color: purpleAccent,
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 20),
-                child: Text('Open in Mail', style: TextStyle(fontSize: 15, color: colorScheme.background),),
+                child: Text(
+                  'Open in Mail',
+                  style: TextStyle(fontSize: 15, color: colorScheme.background),
+                ),
               ),
             )),
         SizedBox(
@@ -207,14 +210,14 @@ class InfoText extends StatelessWidget {
                 text: 'Phone Number: ',
                 style: TextStyle(
                   fontSize: 18,
-                  color: Colors.black,
+                  color: colorScheme.onBackground,
                 )),
             TextSpan(
                 text: orgPhone,
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
-                  color: Colors.black,
+                  color: colorScheme.onBackground,
                 ))
           ]),
         ),
@@ -224,12 +227,15 @@ class InfoText extends StatelessWidget {
             },
             child: Container(
               decoration: BoxDecoration(
-                color: Color(0xFF6576EC),
+                color: purpleAccent,
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 20),
-                child: Text('Call', style: TextStyle(fontSize: 15, color: colorScheme.background),),
+                child: Text(
+                  'Call',
+                  style: TextStyle(fontSize: 15, color: colorScheme.background),
+                ),
               ),
             )),
         RichText(
@@ -238,14 +244,14 @@ class InfoText extends StatelessWidget {
                 text: 'Donation Location: ',
                 style: TextStyle(
                   fontSize: 18,
-                  color: Colors.black,
+                  color: colorScheme.onBackground,
                 )),
             TextSpan(
                 text: orgAddress,
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
-                  color: Colors.black,
+                  color: colorScheme.onBackground,
                 ))
           ]),
         ),
@@ -255,12 +261,15 @@ class InfoText extends StatelessWidget {
             },
             child: Container(
               decoration: BoxDecoration(
-                color: Color(0xFF6576EC),
+                color: purpleAccent,
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 20),
-                child: Text('Open in Maps', style: TextStyle(fontSize: 15, color: colorScheme.background),),
+                child: Text(
+                  'Open in Maps',
+                  style: TextStyle(fontSize: 15, color: colorScheme.background),
+                ),
               ),
             )),
       ],
