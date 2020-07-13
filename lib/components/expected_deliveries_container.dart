@@ -28,7 +28,7 @@ ExpectedDeliveryContainer({this.Item, this.Donor, this.ExpectedDate});
               elevation: 5,
               child: Container(
                   padding: EdgeInsets.all(16.0),
-                width: MediaQuery.of(context).size.width * 3/4,
+                width: MediaQuery.of(context).size.width * 5/8,
                 height: 100,
                 color: Color(0xff8BAAFF),
                 child: Text(

@@ -3,6 +3,7 @@ import 'package:phase1/pages/volunteer/volunteer_account_settings.dart';
 
 import '../../constants.dart';
 import '../navigation_tab.dart';
+import 'organization_contact_us.dart';
 import 'organization_dashboard_page.dart';
 import 'organization_expected_deliveries_page.dart';
 
@@ -17,6 +18,7 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
     OrganizationDashboardPage(),
     OrganizationExpectedDeliveriesPage(),
     VolunteerAccountPage(),
+    OrganizationContactUsPage(),
   ];
 
   @override
