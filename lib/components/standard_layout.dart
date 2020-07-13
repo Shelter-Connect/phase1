@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../constants.dart';
+
 class StandardLayout extends StatelessWidget {
   // TODO: UI changes
   final String title, helpText;
@@ -14,7 +16,10 @@ class StandardLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: colorScheme.surface,
       appBar: AppBar(
+        backgroundColor: colorScheme.surface,
+        elevation: 0.0,
         title: Text(title),
         actions: <Widget>[
           Visibility(
@@ -49,7 +54,10 @@ class StandardLayout extends StatelessWidget {
             padding: EdgeInsets.all(25.0),
             child: Column(
               children: <Widget>[
-                Text(helpText),
+                Text(
+                  helpText,
+                  style: subHeaderStyle,
+                ),
               ],
             ),
           ),
