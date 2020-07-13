@@ -22,7 +22,7 @@ class _VolunteerAccountPageState extends State<VolunteerAccountPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: colorScheme.surface,
+      backgroundColor: Color(0xFFDAE5F9),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -109,7 +109,7 @@ class UserInfo extends StatelessWidget {
               RichText(
                 text: TextSpan(children: <TextSpan>[
                   TextSpan(
-                      text: 'Email Address: ',
+                      text: 'Password: ',
                       style: TextStyle(
                         fontSize: 18,
                         color: colorScheme.onBackground,

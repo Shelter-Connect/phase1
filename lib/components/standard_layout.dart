@@ -15,9 +15,9 @@ class StandardLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: colorScheme.surface,
+      backgroundColor: Color(0xFFDAE5F9),
       appBar: AppBar(
-        backgroundColor: colorScheme.surface,
+        backgroundColor: Color(0xFFDAE5F9),
         elevation: 0.0,
         title: Text(title),
         actions: <Widget>[
