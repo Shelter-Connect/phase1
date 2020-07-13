@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phase1/pages/volunteer/volunteer_items_to_deliver_expanded.dart';
 import 'package:phase1/pages/volunteer/volunteer_navigation_page.dart';
 
 
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         '/': (_) => WelcomePage(),
+        '/items_deliver_extended': (_) => ItemsToDeliverExpanded(),
         '/login': (_) => LoginPage(),
         '/organization_confirmation': (_) => OrganizationConfirmation(),
         '/organization_dashboard': (_) => OrganizationDashboardPage(),
