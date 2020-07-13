@@ -27,10 +27,10 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
         title: Text(
           _pages[_selectedIndex].title,
           style: TextStyle(
-            color: colorScheme.surface,
+            color: Color(0xFFDAE5F9),
           ),
         ),
-        backgroundColor: colorScheme.background,
+        backgroundColor: Color(0xFFDAE5F9),
         elevation: 0.0,
         leading: Builder(
           builder: (context) => IconButton(

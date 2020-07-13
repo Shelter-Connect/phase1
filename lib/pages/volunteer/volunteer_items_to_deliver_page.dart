@@ -21,7 +21,7 @@ class _ItemsToDeliverPageState extends State<ItemsToDeliverPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: colorScheme.background,
+      backgroundColor: Color(0xFFDAE5F9),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,7 +66,7 @@ class _ItemsToDeliverBoxState extends State<ItemsToDeliverBox> {
           Navigator.pushNamed(context, '/items_deliver_extended');
         },
         child: Container(
-          decoration: BoxDecoration(color: colorScheme.onSecondary, borderRadius: BorderRadius.all(Radius.circular(20))),
+          decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(20))),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
             child: Column(
