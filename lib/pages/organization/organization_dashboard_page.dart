@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:phase1/components/dashboard_button.dart';
-import 'package:phase1/components/dashboard_components.dart';
+import 'package:phase1/components/dashboard_component.dart';
 import 'package:phase1/components/text_button.dart';
 import 'package:phase1/constants.dart';
 
@@ -32,7 +32,7 @@ class _OrganizationDashboardPageState extends State<OrganizationDashboardPage> {
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
-          DashboardComp(
+          DashboardComponent(
             boxTitle: '# Expected Deliveries',
             column: Column(
               children: <Widget>[
@@ -81,7 +81,7 @@ class _OrganizationDashboardPageState extends State<OrganizationDashboardPage> {
               ],
             ),
           ),
-          DashboardComp(
+          DashboardComponent(
             boxTitle: '# Current Requests',
             height: 250,
             column: Column(

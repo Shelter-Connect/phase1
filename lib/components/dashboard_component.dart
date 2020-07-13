@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:phase1/constants.dart';
 
-class DashboardComp extends StatelessWidget {
+import '../constants.dart';
+
+class DashboardComponent extends StatelessWidget {
   final String boxTitle;
   final Widget column;
   final double height;
-  DashboardComp({@required this.boxTitle, this.column, this.height});
+  DashboardComponent({@required this.boxTitle, this.column, this.height});
 
   @override
   Widget build(BuildContext context) {

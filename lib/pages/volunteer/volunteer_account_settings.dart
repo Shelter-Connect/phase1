@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants.dart';
@@ -35,7 +34,7 @@ class _VolunteerAccountPageState extends State<VolunteerAccountPage> {
               ),
             ),
             SizedBox(height: 20),
-            UserInfo('Example Name', 'exampleemail@email.com', 'example_password'),
+            UserInfo('Example Name', 'exampleemail@email.com', '*******'),
             SizedBox(height: 20),
             UserPrivacy(),
             SizedBox(height: 20),
@@ -87,48 +86,56 @@ class UserInfo extends StatelessWidget {
               ),
               SizedBox(height: 20),
               RichText(
-                text: TextSpan(children: <TextSpan>[
-                  TextSpan(
+                text: TextSpan(
+                  children: <TextSpan>[
+                    TextSpan(
                       text: 'Email Address: ',
                       style: TextStyle(
                         fontSize: 18,
                         color: colorScheme.onBackground,
-                      )),
-                  TextSpan(
+                      ),
+                    ),
+                    TextSpan(
                       text: userEmail,
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
                         color: colorScheme.onBackground,
-                      ))
-                ]),
+                      ),
+                    )
+                  ],
+                ),
               ),
               SizedBox(
                 height: 10,
               ),
               RichText(
-                text: TextSpan(children: <TextSpan>[
-                  TextSpan(
+                text: TextSpan(
+                  children: <TextSpan>[
+                    TextSpan(
                       text: 'Password: ',
                       style: TextStyle(
                         fontSize: 18,
                         color: colorScheme.onBackground,
-                      )),
-                  TextSpan(
+                      ),
+                    ),
+                    TextSpan(
                       text: userPassword,
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
                         color: colorScheme.onBackground,
-                      ))
-                ]),
+                      ),
+                    )
+                  ],
+                ),
               ),
               SizedBox(
                 height: 15,
               ),
-              FlatButton(
-                onPressed: () {
-                  //TODO Edit Info
+              InkWell(
+                onTap: () {
+                  //TODO
                 },
                 child: Container(
                   decoration: BoxDecoration(
@@ -136,8 +143,15 @@ class UserInfo extends StatelessWidget {
                     borderRadius: BorderRadius.circular(21),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8.0),
-                    child: Text('Edit Information', style: TextStyle(color: colorScheme.onSecondary, fontSize: 16)),
+                    padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+                    child: Text(
+                      'Edit Information',
+                      style: TextStyle(
+                        color: colorScheme.onSecondary,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16.0,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -228,24 +242,28 @@ class UserNotifications extends StatelessWidget {
 class LogoutButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return FlatButton(
-        onPressed: () {
-          //TODO Sign user out
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 16.0),
+      child: InkWell(
+        onTap: () {
+          auth.signOut();
+          Navigator.popUntil(context, ModalRoute.withName('/'));
         },
         child: Container(
-          height: 40,
-          width: MediaQuery.of(context).size.width,
+          height: 45.0,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(21),
             color: colorScheme.error,
           ),
           child: Center(
             child: Text(
-              'Logout',
+              'Sign Out',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700, color: colorScheme.onSecondary),
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
 
@@ -270,11 +288,13 @@ class _PrivacyToggleSwitchState extends State<PrivacyToggleSwitch> {
         activeTrackColor: colorScheme.onSecondary,
         activeColor: purpleAccent,
       ),
-      title: Text('Enable Location Tracking',
-          style: TextStyle(
-            color: colorScheme.onBackground,
-            fontSize: 18,
-          )),
+      title: Text(
+        'Enable Location Tracking',
+        style: TextStyle(
+          color: colorScheme.onBackground,
+          fontSize: 18,
+        ),
+      ),
     );
   }
 }
@@ -300,11 +320,13 @@ class _NotificationToggleSwitchState extends State<NotificationToggleSwitch> {
         activeTrackColor: colorScheme.onSecondary,
         activeColor: purpleAccent,
       ),
-      title: Text('Enable Push Notifications',
-          style: TextStyle(
-            color: colorScheme.onBackground,
-            fontSize: 18,
-          )),
+      title: Text(
+        'Enable Push Notifications',
+        style: TextStyle(
+          color: colorScheme.onBackground,
+          fontSize: 18,
+        ),
+      ),
     );
   }
 }
