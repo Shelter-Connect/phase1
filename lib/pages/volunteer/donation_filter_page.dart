@@ -18,7 +18,7 @@ class _DonationFilterPageState extends State<DonationFilterPage> {
         leading: IconButton(
             icon: Icon(
               Icons.clear,
-              color: colorScheme.onError,
+              color: colorScheme.error,
             ),
             onPressed: () {}),
         title: Text(

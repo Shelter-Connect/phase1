@@ -237,7 +237,7 @@ class LogoutButton extends StatelessWidget {
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(21),
-            color: colorScheme.onError,
+            color: colorScheme.error,
           ),
           child: Center(
             child: Text(

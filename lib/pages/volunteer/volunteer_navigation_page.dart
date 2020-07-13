@@ -27,7 +27,7 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
         title: Text(
           _pages[_selectedIndex].title,
           style: TextStyle(
-            color: colorScheme.onSecondary,
+            color: colorScheme.surface,
           ),
         ),
         backgroundColor: colorScheme.background,
