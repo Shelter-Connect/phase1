@@ -22,7 +22,7 @@ final headerStyle = TextStyle(
 
 final subHeaderStyle = TextStyle(
   fontWeight: FontWeight.w400,
-  fontSize: 20.0,
+  fontSize: 17.0,
 );
 
 //Color Scheme

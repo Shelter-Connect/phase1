@@ -106,7 +106,7 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
             padding: EdgeInsets.all(25.0),
             child: Column(
               children: <Widget>[
-                Text(_pages[_selectedIndex].helpDescription),
+                Text(_pages[_selectedIndex].helpDescription, style: subHeaderStyle),
               ],
             ),
           ),
