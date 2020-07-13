@@ -5,6 +5,7 @@ import 'package:phase1/components/dashboard_components.dart';
 import 'package:phase1/components/text_button.dart';
 
 import '../navigation_tab.dart';
+import 'organization_expected_deliveries_page.dart';
 
 class OrganizationDashboardPage extends StatefulWidget with NavigationTab {
   @override
@@ -48,7 +49,10 @@ class _OrganizationDashboardPageState extends State<OrganizationDashboardPage> {
                   title: '3 sweaters',
                   color: Colors.white,
                   onTap: () {
-                    //TODO: Make new page, which is Expected Deliveries - Extended
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => OrganizationExpectedDeliveriesPage()),
+                    );
                   },
                   icon: Icon(
                     Icons.arrow_right,
@@ -109,6 +113,26 @@ class _OrganizationDashboardPageState extends State<OrganizationDashboardPage> {
               ],
             ),
           ),
+          Align(
+            alignment: Alignment.centerRight,
+            child: Padding(
+              padding: EdgeInsets.all(16.0),
+              child: FloatingActionButton(
+                backgroundColor: Color(0xff6474E1),
+                focusColor: Color(0xffffffff),
+                elevation: 5,
+                shape: CircleBorder(),
+                onPressed: (){
+                  //TODO: Go to Create Request Page
+                },
+                child:
+                Icon(
+                Icons.add,
+                size: 30,
+              ),
+              ),
+            ),
+          )
         ],
       ),
     );

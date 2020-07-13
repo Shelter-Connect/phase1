@@ -13,8 +13,6 @@ class DashboardComp extends StatelessWidget {
       padding: const EdgeInsets.all(16.0),
       child: Container(
         decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(20))),
-        height: height,
-//        width: MediaQuery. of(context). size. width,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
           child: SingleChildScrollView(
