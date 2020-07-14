@@ -44,7 +44,7 @@ class _DonationOpportunitiesState extends State<DonationOpportunities> {
                   //TODO Navigate to donation_filter page
                 },
                 child: Container(
-                  width: 92,
+                  width: 100,
                   child: Row(
                     children: <Widget>[
                       Text('Filters', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 20, color: purpleAccent)),
