@@ -48,6 +48,8 @@ class _VolunteerDonatePageState extends State<VolunteerDonatePage> {
     );
   }
 }
+
+
 class DonatePageItemSelection extends StatelessWidget {
   final String boxTitle;
 
@@ -89,7 +91,6 @@ class DonatePageItemSelection extends StatelessWidget {
             SizedBox(
               height: 20,
             ),
-            ItemIncrement(itemName: 'Beans'),
             SizedBox(height: 10),
             ItemIncrement(itemName: 'Toilet paper'),
             SizedBox(height: 10),
@@ -103,4 +104,9 @@ class DonatePageItemSelection extends StatelessWidget {
     );
   }
 }
+
+
+
+
+
 
