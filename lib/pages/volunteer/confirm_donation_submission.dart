@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:phase1/components/rounded_button.dart';
 
 import '../../components/standard_layout.dart';
 import '../../constants.dart';
 
-class ItemsToDeliverExpanded extends StatefulWidget {
+class DonationConfirmation extends StatefulWidget {
   @override
-  _ItemsToDeliverExpandedState createState() => _ItemsToDeliverExpandedState();
+  _DonationConfirmationState createState() => _DonationConfirmationState();
 }
 
-class _ItemsToDeliverExpandedState extends State<ItemsToDeliverExpanded> {
+class _DonationConfirmationState extends State<DonationConfirmation> {
   @override
   Widget build(BuildContext context) {
     return StandardLayout(
@@ -21,7 +22,7 @@ class _ItemsToDeliverExpandedState extends State<ItemsToDeliverExpanded> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
                 child: Text(
-                  'Items to Deliver for (Organization Name)',
+                  'Confirm Donations for (Organization Name)',
                   style: TextStyle(fontSize: 35, fontWeight: FontWeight.w900, color: purpleAccent),
                 ),
               ),
@@ -33,79 +34,80 @@ class _ItemsToDeliverExpandedState extends State<ItemsToDeliverExpanded> {
                 ),
               ),
               SizedBox(height: 20),
-              FlatButton(
-                  onPressed: () {
-                    //TODO
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(color: colorScheme.background, borderRadius: BorderRadius.all(Radius.circular(20))),
-                    width: MediaQuery.of(context).size.width,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              SizedBox(
-                                height: 10,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Container(
+                  decoration: BoxDecoration(color: colorScheme.background, borderRadius: BorderRadius.all(Radius.circular(20))),
+                  width: MediaQuery.of(context).size.width,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal : 20.0, vertical: 4.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              'Selected Donations',
+                              style: TextStyle(
+                                fontSize: 20,
                               ),
-                              Text(
-                                'Selected Donations',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                ),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              height: 5,
+                              width: 100,
+                              decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
+                            ),
+                            SizedBox(
+                              height: 15,
+                            ),
+                            Container(
+                              height: 30,
+                              decoration: BoxDecoration(
+                                color: colorScheme.error,
+                                borderRadius: BorderRadius.circular(20),
                               ),
-                              SizedBox(
-                                height: 10,
+                              child: FlatButton(
+                                onPressed: () {
+                                  //TODO EDiT DONATIONS
+                                },
+                                child: Container(
+                                    child: Text(
+                                      'Edit Donations',
+                                      style: TextStyle(color: colorScheme.onSecondary),
+                                    )),
                               ),
-                              Container(
-                                height: 5,
-                                width: 100,
-                                decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
-                              ),
-                              SizedBox(
-                                height: 15,
-                              ),
-                              Container(
-                                height: 30,
-                                decoration: BoxDecoration(
-                                  color: colorScheme.error,
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                child: FlatButton(
-                                  onPressed: () {},
-                                  child: Container(
-                                      child: Text(
-                                    'Edit Donations',
-                                    style: TextStyle(color: colorScheme.onSecondary),
-                                  )),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Text('Blankets x4'),
-                              SizedBox(
-                                height: 2.5,
-                              ),
-                              Text('Bananas x15'),
-                              SizedBox(
-                                height: 2.5,
-                              ),
-                              Text('Can of Beans x10'),
-                              SizedBox(
-                                height: 10,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text('Blankets x4'),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Text('Bananas x15'),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Text('Can of Beans x10'),
+                            SizedBox(
+                              height: 10,
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-                  )),
+                  ),
+                ),
+              ),
               SizedBox(height: 20),
               Column(
                 children: <Widget>[
@@ -144,6 +146,13 @@ class _ItemsToDeliverExpandedState extends State<ItemsToDeliverExpanded> {
                     ),
                   ),
                 ],
+              ),
+              SizedBox(height: 20),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: RoundedButton(onPressed: (){
+                  //TODO Update Firebase and input new order
+                }, title: 'Confirm Donation Submission'),
               ),
               SizedBox(height: 20),
             ],

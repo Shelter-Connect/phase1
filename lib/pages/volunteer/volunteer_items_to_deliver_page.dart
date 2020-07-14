@@ -11,7 +11,7 @@ class ItemsToDeliverPage extends StatefulWidget with NavigationTab {
   String get helpDescription => 'This is a help description for the volunteer: items to deliver page';
 
   @override
-  IconData get icon => Icons.home;
+  IconData get icon => Icons.local_shipping;
 
   @override
   String get title => 'Items To Deliver';
