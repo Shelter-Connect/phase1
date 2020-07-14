@@ -1,10 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../constants.dart';
 import '../navigation_tab.dart';
 import '../volunteer/donation_opportunities_page.dart';
 import '../volunteer/items_to_deliver_page.dart';
-import 'volunteer_account_settings.dart';
+import 'settings_page.dart';
 
 class VolunteerNavigationPage extends StatefulWidget {
   @override
@@ -16,7 +18,7 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
   final List<NavigationTab> _pages = [
     DonationOpportunities(),
     ItemsToDeliverPage(),
-    VolunteerAccountPage(),
+    SettingsPage(),
   ];
 
   @override
@@ -69,7 +71,8 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Text('useremail@email.com'),
+                  SizedBox(height: 10.0),
+                  Text(Provider.of<FirebaseUser>(context)?.email ?? ' '),
                 ],
               ),
             ),

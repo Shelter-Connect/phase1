@@ -1,11 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../constants.dart';
 import '../navigation_tab.dart';
 
-class VolunteerAccountPage extends StatefulWidget with NavigationTab {
+class SettingsPage extends StatefulWidget with NavigationTab {
   @override
-  _VolunteerAccountPageState createState() => _VolunteerAccountPageState();
+  _SettingsPageState createState() => _SettingsPageState();
 
   @override
   String get helpDescription => 'This is a help description for your account settings.';
@@ -17,7 +19,7 @@ class VolunteerAccountPage extends StatefulWidget with NavigationTab {
   String get title => 'Account Settings';
 }
 
-class _VolunteerAccountPageState extends State<VolunteerAccountPage> {
+class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +36,7 @@ class _VolunteerAccountPageState extends State<VolunteerAccountPage> {
               ),
             ),
             SizedBox(height: 20),
-            UserInfo('Example Name', 'exampleemail@email.com', '*******'),
+            UserInfo(email: Provider.of<FirebaseUser>(context).email, password: '*******'),
             SizedBox(height: 20),
             UserPrivacy(),
             SizedBox(height: 20),
@@ -50,11 +52,10 @@ class _VolunteerAccountPageState extends State<VolunteerAccountPage> {
 }
 
 class UserInfo extends StatelessWidget {
-  final String userName;
-  final String userEmail;
-  final String userPassword;
+  final String email;
+  final String password;
 
-  UserInfo(this.userName, this.userEmail, this.userPassword);
+  UserInfo({this.email, this.password});
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +97,7 @@ class UserInfo extends StatelessWidget {
                       ),
                     ),
                     TextSpan(
-                      text: userEmail,
+                      text: email,
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
@@ -120,7 +121,7 @@ class UserInfo extends StatelessWidget {
                       ),
                     ),
                     TextSpan(
-                      text: userPassword,
+                      text: password,
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w600,

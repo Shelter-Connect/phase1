@@ -28,7 +28,7 @@ class _DonationOpportunitiesState extends State<DonationOpportunities> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
               child: Text(
                 'Donation Opportunities',
                 style: TextStyle(fontSize: 35, fontWeight: FontWeight.w900, color: purpleAccent),
@@ -36,22 +36,27 @@ class _DonationOpportunitiesState extends State<DonationOpportunities> {
             ),
             SizedBox(height: 20),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              padding: const EdgeInsets.only(left: 16.0),
               child: FlatButton(
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                 color: colorScheme.onSecondary,
                 onPressed: () {
                   //TODO Navigate to donation_filter page
                 },
-                child: Container(
-                  width: 100,
+                child: IntrinsicWidth(
                   child: Row(
                     children: <Widget>[
-                      Text('Filters', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 20, color: purpleAccent)),
-                      Icon(
-                        Icons.keyboard_arrow_down,
-                        color: purpleAccent,
-                        size: 35,
+                      Text('Filter', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 20, color: purpleAccent)),
+                      SizedBox(width: 5.0),
+                      Column(
+                        children: [
+                          SizedBox(height: 5.0),
+                          Icon(
+                            Icons.keyboard_arrow_down,
+                            color: purpleAccent,
+                            size: 30.0,
+                          ),
+                        ],
                       ),
                     ],
                   ),
