@@ -36,16 +36,34 @@ class _ItemIncrementState extends State<ItemIncrement> {
               child: Text(widget.itemName)),
           Row(
             children: <Widget>[
-              IconButton(
-                onPressed: _decrementCounter,
-                icon: Icon(Icons.remove),
-                tooltip: 'Decrement',
+              Container(
+                height: 30,
+                width: 30,
+                decoration: BoxDecoration(
+                  color: Color(0xFFCCCCCC),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: IconButton(
+                  onPressed: _decrementCounter,
+                  icon: Icon(Icons.remove, size: 15,),
+                  tooltip: 'Decrement',
+                ),
               ),
+              SizedBox(width: 25),
               Text('$_counter'),
-              IconButton(
-                onPressed: _incrementCounter,
-                icon: Icon(Icons.add),
-                tooltip: 'Increment',
+              SizedBox(width: 25),
+              Container(
+                height: 30,
+                width: 30,
+                decoration: BoxDecoration(
+                  color: Color(0xFF26A0FF),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: IconButton(
+                  onPressed: _incrementCounter,
+                  icon: Icon(Icons.add, size: 15),
+                  tooltip: 'Increment',
+                ),
               ),
             ],
           ),

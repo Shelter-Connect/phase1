@@ -174,7 +174,7 @@ class InfoText extends StatelessWidget {
 
   final String orgAddress;
 
-  InfoText(this.orgEmail, this.orgPhone, this.orgAddress);
+  InfoText({this.orgEmail, this.orgPhone, this.orgAddress});
 
   @override
   Widget build(BuildContext context) {
