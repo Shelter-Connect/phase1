@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:phase1/loading_page.dart';
 import 'package:provider/provider.dart';
 
 import 'constants.dart';
@@ -10,8 +11,8 @@ import 'pages/organization/organization_navigation_page.dart';
 import 'pages/organization/organization_sign_up_page.dart';
 import 'pages/signup_page.dart';
 import 'pages/volunteer/donation_confirmation_page.dart';
-import 'pages/volunteer/organization_profile_page.dart';
 import 'pages/volunteer/items_to_deliver_extended.dart';
+import 'pages/volunteer/organization_profile_page.dart';
 import 'pages/volunteer/volunteer_confirmation_page.dart';
 import 'pages/volunteer/volunteer_donate_page.dart';
 import 'pages/volunteer/volunteer_navigation_page.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         ),
         routes: {
           '/': (_) => WelcomePage(),
+          '/loading_page': (_) => LoadingPage(),
           '/confirm_donation': (_) => DonationConfirmationPage(),
           '/donate': (_) => VolunteerDonatePage(),
           '/items_to_deliver_extended': (_) => ItemsToDeliverExtended(),
@@ -50,7 +52,7 @@ class MyApp extends StatelessWidget {
           '/volunteer_confirmation': (_) => VolunteerConfirmation(),
           '/volunteer_sign_up': (_) => VolunteerSignUp(),
         },
-        initialRoute: '/',
+        initialRoute: '/loading_page',
       ),
     );
   }
