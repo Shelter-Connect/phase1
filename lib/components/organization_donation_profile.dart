@@ -33,7 +33,7 @@ class OrganizationDonationProfile extends StatelessWidget {
                     name,
                     style: TextStyle(
                       fontSize: 20,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                   SizedBox(
@@ -50,7 +50,7 @@ class OrganizationDonationProfile extends StatelessWidget {
                 ],
               ),
               Text(
-                '$distance mi',
+                '$distance miles',
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
                 ),

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../constants.dart';
 import '../navigation_tab.dart';
 import '../volunteer/donation_opportunities_page.dart';
-import '../volunteer/volunteer_items_to_deliver_page.dart';
+import '../volunteer/items_to_deliver_page.dart';
 import 'volunteer_account_settings.dart';
 
 class VolunteerNavigationPage extends StatefulWidget {

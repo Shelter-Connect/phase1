@@ -156,7 +156,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: RoundedButton(onPressed: (){
-                Navigator.pushNamed(context, '/donate_page');
+                Navigator.pushNamed(context, '/donate');
               }, title: 'Continue to Requests'),
             ),
             SizedBox(height: 10),
