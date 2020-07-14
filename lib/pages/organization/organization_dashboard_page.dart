@@ -6,6 +6,7 @@ import 'package:phase1/components/text_button.dart';
 import 'package:phase1/constants.dart';
 
 import '../navigation_tab.dart';
+import 'organization_create_request_page.dart';
 import 'organization_expected_deliveries_page.dart';
 
 class OrganizationDashboardPage extends StatefulWidget with NavigationTab {
@@ -120,17 +121,24 @@ class _OrganizationDashboardPageState extends State<OrganizationDashboardPage> {
             alignment: Alignment.centerRight,
             child: Padding(
               padding: EdgeInsets.all(16.0),
-              child: FloatingActionButton(
-                backgroundColor: purpleAccent,
-                focusColor: colorScheme.onSecondary,
-                elevation: 5,
-                shape: CircleBorder(),
-                onPressed: () {
-                  //TODO: Go to Create Request Page
-                },
-                child: Icon(
-                  Icons.add,
-                  size: 30,
+              child: Hero(
+                tag: 'create request',
+                child: Container(
+                  padding: EdgeInsets.all(13.0),
+                  decoration: BoxDecoration(
+                    color: Color(0xff6474E1),
+                    shape: BoxShape.circle,
+                  ),
+                  child: IconButton(
+                    icon: Icon(Icons.add, size: 30,),
+                    color: Colors.white,
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => OrganizationRequestPage()),
+                      );
+                    }
+                  ),
                 ),
               ),
             ),
