@@ -5,19 +5,21 @@ import '../constants.dart';
 class StandardLayout extends StatelessWidget {
   final String title, helpText;
   final Widget body;
+  final Color color;
 
   StandardLayout({
     @required this.title,
     this.body,
     this.helpText = '',
+    this.color
   });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFDAE5F9),
+      backgroundColor: color ?? Color(0xFFDAE5F9),
       appBar: AppBar(
-        backgroundColor: Color(0xFFDAE5F9),
+        backgroundColor: color ?? Color(0xFFDAE5F9),
         elevation: 0.0,
         title: Text(title),
         actions: <Widget>[

@@ -29,6 +29,7 @@ class LoginPage extends StatelessWidget {
               ),
               SizedBox(height: 20),
               FloatingTextField(
+                obscureText: true,
                 hintText: 'Password',
                 onChanged: (val) {
                   password = val.trim();

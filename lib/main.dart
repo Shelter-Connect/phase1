@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phase1/pages/organization/organization_create_request_page.dart';
 import 'package:phase1/pages/volunteer/volunteer_items_to_deliver_expanded.dart';
 import 'package:phase1/pages/volunteer/volunteer_navigation_page.dart';
 
@@ -32,16 +33,16 @@ class MyApp extends StatelessWidget {
         '/items_deliver_extended': (_) => ItemsToDeliverExpanded(),
         '/login': (_) => LoginPage(),
         '/organization_confirmation': (_) => OrganizationConfirmation(),
+        '/organization_create_request': (_) => OrganizationRequestPage(),
         '/organization_dashboard': (_) => OrganizationDashboardPage(),
         '/organization_navigation': (_) => OrganizationNavigationPage(),
         '/organization_sign_up': (_) => OrganizationSignUpPage(),
         '/signup': (_) => SignupPage(),
-        '/shelter_sign_up': (_) => OrganizationSignUpPage(),
         '/volunteer_navigation': (_) => VolunteerNavigationPage(),
         '/volunteer_confirmation': (_) => VolunteerConfirmation(),
         '/volunteer_sign_up': (_) => VolunteerSignUp(),
       },
-      initialRoute: '/volunteer_navigation',
+      initialRoute: '/login',
     );
   }
 }
