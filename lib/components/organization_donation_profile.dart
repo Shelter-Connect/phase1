@@ -14,7 +14,7 @@ class OrganizationDonationProfile extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: RawMaterialButton(
         onPressed: () {
-          //TODO
+          Navigator.pushNamed(context, '/org_profile');
         },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20.0),
