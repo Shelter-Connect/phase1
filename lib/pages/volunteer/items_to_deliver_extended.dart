@@ -137,7 +137,7 @@ class _ItemsToDeliverExtendedState extends State<ItemsToDeliverExtended> {
                             SizedBox(
                               height: 10,
                             ),
-                            InfoText('loavesandfishes@gmail.com', '408-164-1745', '8164 Fish Pasta Dr.'),
+                            InfoText(orgEmail: 'loavesandfishes@gmail.com', orgPhone: '408-164-1745', orgAddress: '8164 Fish Pasta Dr.'),
                           ],
                         ),
                       ),
@@ -159,7 +159,7 @@ class InfoText extends StatelessWidget {
 
   final String orgAddress;
 
-  InfoText(this.orgEmail, this.orgPhone, this.orgAddress);
+  InfoText({this.orgEmail, this.orgPhone, this.orgAddress});
 
   @override
   Widget build(BuildContext context) {
