@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:phase1/components/rounded_button.dart';
-import 'package:phase1/components/standard_layout.dart';
-import 'package:phase1/constants.dart';
+
+import '../../components/increment-counter.dart';
+import '../../components/rounded_button.dart';
+import '../../components/standard_layout.dart';
+import '../../constants.dart';
 
 class VolunteerDonatePage extends StatefulWidget {
   @override
@@ -101,57 +103,4 @@ class DonatePageItemSelection extends StatelessWidget {
     );
   }
 }
-class ItemIncrement extends StatefulWidget {
-  final String itemName;
 
-  ItemIncrement({this.itemName});
-
-  @override
-  _ItemIncrementState createState() => _ItemIncrementState();
-}
-
-class _ItemIncrementState extends State<ItemIncrement> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  void _decrementCounter() {
-    setState(() {
-      _counter--;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-        children: <Widget>[
-          Text(widget.itemName),
-          Container(
-            child: Align(
-              alignment: Alignment.centerRight,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  IconButton(
-                    onPressed: _decrementCounter,
-                    icon: Icon(Icons.remove),
-                    tooltip: 'Decrement',
-                  ),
-                  Text('$_counter'),
-                  IconButton(
-                    onPressed: _incrementCounter,
-                    icon: Icon(Icons.add),
-                    tooltip: 'Increment',
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      );
-  }
-}
