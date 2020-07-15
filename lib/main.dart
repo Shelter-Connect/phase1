@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phase1/pages/organization/organization_confirmation_page.dart';
 import 'package:provider/provider.dart';
 
 import 'constants.dart';
@@ -13,6 +14,7 @@ import 'pages/signup_page.dart';
 import 'pages/volunteer/donation_confirmation_page.dart';
 import 'pages/volunteer/items_to_deliver_extended.dart';
 import 'pages/volunteer/organization_profile_page.dart';
+import 'pages/volunteer/volunteer_donate_page.dart';
 import 'pages/volunteer/volunteer_confirmation_page.dart';
 import 'pages/volunteer/volunteer_navigation_page.dart';
 import 'pages/volunteer/volunteer_sign_up_page.dart';

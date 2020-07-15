@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import '../constants.dart';
 
 class DashboardComponent extends StatelessWidget {
-  final String boxTitle;
+  final String boxTitle, expectedDate;
   final Widget column;
   final double height;
-  DashboardComponent({@required this.boxTitle, this.column, this.height});
+  DashboardComponent({@required this.boxTitle, this.column, this.height, this.expectedDate});
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +23,7 @@ class DashboardComponent extends StatelessWidget {
               children: <Widget>[
                 Text(
                   boxTitle,
+//                  textAlign: TextAlign.spaceBetween,
                   style: TextStyle(
                     fontSize: 24,
                   ),
