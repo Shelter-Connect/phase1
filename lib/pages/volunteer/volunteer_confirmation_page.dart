@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../../components/no_action_alert.dart';
 import '../../components/rounded_button.dart';
 import '../../constants.dart';
+import '../../models/user.dart';
 
 class VolunteerConfirmation extends StatefulWidget {
   @override
@@ -34,7 +35,7 @@ class _VolunteerConfirmationState extends State<VolunteerConfirmation> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                'A verification email has been sent to ${Provider.of<FirebaseUser>(context)?.email}',
+                'A verification email has been sent to ${Provider.of<User>(context).user.email}',
                 style: headerStyle.copyWith(
                   fontSize: 23.0,
                 ),

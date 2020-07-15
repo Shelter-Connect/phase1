@@ -94,7 +94,15 @@ class _OrganizationExpectedDeliveriesPageState extends State<OrganizationExpecte
           ],
         ),
         ExpectedDeliveryContainer( // TODO: for firebase, need to query all information for these containers
-          itemName: "Beans",
+          itemName: "Can",
+          itemQuantity: 4,
+          dateRequested: "dateRequested",
+          dateExpected: "12/20",
+          donorName: "Nathan",
+          donorEmail: "donorEmail",
+        ),
+        ExpectedDeliveryContainer(
+          itemName: "of",
           itemQuantity: 5,
           dateRequested: "dateRequested",
           dateExpected: "12/20",
@@ -103,15 +111,7 @@ class _OrganizationExpectedDeliveriesPageState extends State<OrganizationExpecte
         ),
         ExpectedDeliveryContainer(
           itemName: "Beans",
-          itemQuantity: 5,
-          dateRequested: "dateRequested",
-          dateExpected: "12/20",
-          donorName: "Nathan",
-          donorEmail: "donorEmail",
-        ),
-        ExpectedDeliveryContainer(
-          itemName: "Beans",
-          itemQuantity: 5,
+          itemQuantity: 6,
           dateRequested: "dateRequested",
           dateExpected: "12/20",
           donorName: "Nathan",

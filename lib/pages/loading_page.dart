@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import 'constants.dart';
+import '../constants.dart';
+import '../models/user.dart';
 
 class LoadingPage extends StatefulWidget {
-  void firebasAuth(BuildContext context) {
+  @override
+  _LoadingPageState createState() => _LoadingPageState();
+}
+
+class _LoadingPageState extends State<LoadingPage> {
+  @override
+  void initState() {
     auth.onAuthStateChanged.listen((user) {
+      print(context);
+      Provider.of<User>(context, listen: false).user = user;
       if (user != null) {
         db.collection('volunteers').document(user.uid).get().then((value) {
           if (value.data != null) {
@@ -25,26 +35,22 @@ class LoadingPage extends StatefulWidget {
             }
           }
         });
-      } else
-        Navigator.pushNamed(context, '/');
+      } else {
+        if (ModalRoute.of(context).isCurrent) {
+          Navigator.pushNamed(context, '/');
+        }
+      }
     });
-  }
 
-  @override
-  _LoadingPageState createState() => _LoadingPageState();
-}
-
-class _LoadingPageState extends State<LoadingPage> {
-  @override
-  void initState() {
     super.initState();
-    widget.firebasAuth(context);
   }
-
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: colorScheme.surface,
+    return Container(
+      color: Colors.white,
+      child: Center(
+        child: Image.asset('assets/ShelterConnectLogo.png', width: MediaQuery.of(context).size.width*0.6),
+      ),
     );
   }
 }
