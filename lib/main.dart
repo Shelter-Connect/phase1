@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
         ),
         routes: {
           '/': (_) => WelcomePage(),
-          '/loading_page': (_) => LoadingPage(),
+          '/loading': (_) => LoadingPage(),
           '/confirm_donation': (_) => DonationConfirmationPage(),
           '/donate': (_) => VolunteerDonatePage(),
           '/items_to_deliver_extended': (_) => ItemsToDeliverExtended(),
@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
           '/volunteer_confirmation': (_) => VolunteerConfirmation(),
           '/volunteer_sign_up': (_) => VolunteerSignUp(),
         },
-        initialRoute: '/',
+        initialRoute: '/loading',
       ),
     );
   }
