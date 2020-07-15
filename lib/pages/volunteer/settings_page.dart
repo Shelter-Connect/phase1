@@ -1,8 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants.dart';
+import '../../models/user.dart';
 import '../navigation_tab.dart';
 
 class SettingsPage extends StatefulWidget with NavigationTab {
@@ -36,7 +36,7 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
             ),
             SizedBox(height: 20),
-            UserInfo(email: Provider.of<FirebaseUser>(context).email, password: '*******'),
+            UserInfo(email: Provider.of<User>(context, listen: false).user.email, password: '*******'),
             SizedBox(height: 20),
             UserPrivacy(),
             SizedBox(height: 20),

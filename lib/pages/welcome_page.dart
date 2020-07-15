@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:phase1/models/user.dart';
+import 'package:provider/provider.dart';
 
 import '../components/rounded_button.dart';
 import '../components/text_button.dart';
@@ -13,6 +15,8 @@ class _WelcomePageState extends State<WelcomePage> {
   @override
   void initState() {
     auth.onAuthStateChanged.listen((user) {
+      print(context);
+      Provider.of<User>(context, listen: false).user = user;
       if (user != null) {
         db.collection('volunteers').document(user.uid).get().then((value) {
           if (value.data != null) {
@@ -35,6 +39,7 @@ class _WelcomePageState extends State<WelcomePage> {
         });
       }
     });
+
     super.initState();
   }
 

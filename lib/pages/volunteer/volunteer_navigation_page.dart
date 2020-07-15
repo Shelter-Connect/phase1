@@ -1,8 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants.dart';
+import '../../models/user.dart';
 import '../navigation_tab.dart';
 import '../volunteer/donation_opportunities_page.dart';
 import '../volunteer/items_to_deliver_page.dart';
@@ -72,7 +72,7 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
                     ),
                   ),
                   SizedBox(height: 10.0),
-                  Text(Provider.of<FirebaseUser>(context)?.email ?? ' '),
+                  Text(Provider.of<User>(context).user?.email ?? ' '),
                 ],
               ),
             ),

@@ -1,9 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:phase1/loading_page.dart';
 import 'package:provider/provider.dart';
 
 import 'constants.dart';
+import 'models/user.dart';
+import 'pages/loading_page.dart';
 import 'pages/login_page.dart';
 import 'pages/organization/organization_confirmation_page.dart';
 import 'pages/organization/organization_dashboard_page.dart';
@@ -26,8 +26,10 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<FirebaseUser>.value(
-      value: auth.onAuthStateChanged,
+    precacheImage(AssetImage('assets/ShelterConnectLogo.png'), context);
+
+    return ChangeNotifierProvider<User>(
+      create: (_) => User(),
       child: MaterialApp(
         title: 'Shelter Connect',
         debugShowCheckedModeBanner: false,
@@ -41,7 +43,7 @@ class MyApp extends StatelessWidget {
           '/donate': (_) => VolunteerDonatePage(),
           '/items_to_deliver_extended': (_) => ItemsToDeliverExtended(),
           '/login': (_) => LoginPage(),
-          '/organization_confirmation': (_) => OrganizationConfirmation(),
+          '/organization_confirmation': (_) => OrganizationConfirmationPage(),
           '/organization_dashboard': (_) => OrganizationDashboardPage(),
           '/organization_navigation': (_) => OrganizationNavigationPage(),
           '/organization_sign_up': (_) => OrganizationSignUpPage(),
@@ -52,7 +54,7 @@ class MyApp extends StatelessWidget {
           '/volunteer_confirmation': (_) => VolunteerConfirmation(),
           '/volunteer_sign_up': (_) => VolunteerSignUp(),
         },
-        initialRoute: '/loading_page',
+        initialRoute: '/',
       ),
     );
   }
