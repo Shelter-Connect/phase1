@@ -11,7 +11,7 @@ class OrganizationExpectedDeliveryInformationPage extends StatefulWidget {
       {@required this.itemName, @required this.itemQuantity, @required this.dateRequested, @required this.dateExpected, @required this.donorName, @required this.donorEmail});
 
   @override
-  _OrganizationExpectedDeliveryInformationPageState createState() => _OrganizationExpectedDeliveryInformationPageState( // TODO: might need to add documentId parameter
+  _OrganizationExpectedDeliveryInformationPageState createState() => _OrganizationExpectedDeliveryInformationPageState( // TODO: add documentId parameter
         itemName: itemName,
         itemQuantity: itemQuantity,
         dateRequested: dateRequested,
@@ -40,7 +40,6 @@ class _OrganizationExpectedDeliveryInformationPageState extends State<Organizati
             padding: const EdgeInsets.all(16.0),
             child: Container(
               decoration: BoxDecoration(color: colorScheme.onSecondary, borderRadius: BorderRadius.all(Radius.circular(20))),
-              width: MediaQuery.of(context).size.width * 0.9, // TODO: figure out width problem
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
                 child: SingleChildScrollView(
@@ -70,7 +69,7 @@ class _OrganizationExpectedDeliveryInformationPageState extends State<Organizati
                             child: Align(
                               alignment: Alignment.topLeft,
                               child: Text(
-                                "Item: itemQuantity itemName",
+                                "Item: $itemQuantity $itemName",
                                 style: TextStyle(fontSize: 20),
                               ),
                             ),
@@ -80,7 +79,7 @@ class _OrganizationExpectedDeliveryInformationPageState extends State<Organizati
                             child: Align(
                               alignment: Alignment.topLeft,
                               child: Text(
-                                "Date Requested: dateRequested",
+                                "Date Requested: $dateRequested",
                                 style: TextStyle(fontSize: 20),
                               ),
                             ),
@@ -90,7 +89,7 @@ class _OrganizationExpectedDeliveryInformationPageState extends State<Organizati
                             child: Align(
                               alignment: Alignment.topLeft,
                               child: Text(
-                                "Date Expected: dateExpected",
+                                "Date Expected: $dateExpected",
                                 style: TextStyle(fontSize: 20),
                               ),
                             ),
@@ -137,7 +136,7 @@ class _OrganizationExpectedDeliveryInformationPageState extends State<Organizati
                             child: Align(
                               alignment: Alignment.topLeft,
                               child: Text(
-                                "Donor Name: donorName",
+                                "Donor Name: $donorName",
                                 style: TextStyle(fontSize: 20),
                               ),
                             ),
@@ -147,7 +146,7 @@ class _OrganizationExpectedDeliveryInformationPageState extends State<Organizati
                             child: Align(
                               alignment: Alignment.topLeft,
                               child: Text(
-                                "Donor Email: donorEmail",
+                                "Donor Email: $donorEmail",
                                 style: TextStyle(fontSize: 20),
                               ),
                             ),
