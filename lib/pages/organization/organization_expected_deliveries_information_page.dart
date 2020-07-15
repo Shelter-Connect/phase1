@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phase1/components/increment-counter.dart';
 
 import '../../components/standard_layout.dart';
 import '../../constants.dart';
@@ -34,6 +35,7 @@ class _OrganizationExpectedDeliveryInformationPageState extends State<Organizati
 
   @override
   Widget build(BuildContext context) {
+    bool True = true;
     // TODO: clean, clean, clean, clean, clean, and clean again
     return StandardLayout(
       title: "Delivery Information",
@@ -78,6 +80,8 @@ class _OrganizationExpectedDeliveryInformationPageState extends State<Organizati
                                     ],
                                   )
                               ),
+                              True != false ?
+                              ItemIncrement(itemName: 'hi',):Container(),
                               Padding(
                                   padding: EdgeInsets.all(10),
                                   child: Column(
@@ -138,6 +142,19 @@ class _OrganizationExpectedDeliveryInformationPageState extends State<Organizati
               ),
             ),
           ),
+          Column(
+            children: <Widget>[
+              FlatButton(
+                color: Colors.blue,
+                onPressed: (){
+                  setState(() {
+                    True = false;
+                  });
+                },
+                child: Text('hello'),
+              ),
+            ],
+          )
         ],),
     );
   }
