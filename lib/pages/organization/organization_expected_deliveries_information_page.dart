@@ -72,14 +72,19 @@ class _OrganizationExpectedDeliveryInformationPageState extends State<Organizati
                             children: <Widget>[
                               Padding(
                                 padding: EdgeInsets.all(10),
-                                  child: Text(
-                                    "$itemName",
-                                    style: TextStyle(fontSize: 20),
-                                  ),
+                                  child: Column(
+                                    children: <Widget>[
+                                      ...itemName.map((string) => Text(string, style: TextStyle(fontSize: 20))).toList(),
+                                    ],
+                                  )
                               ),
-                              Text(
-                                "$itemQuantity",
-                                style: TextStyle(fontSize: 20),
+                              Padding(
+                                  padding: EdgeInsets.all(10),
+                                  child: Column(
+                                    children: <Widget>[
+                                      ...itemQuantity.map((string) => Text(string, style: TextStyle(fontSize: 20))).toList(),
+                                    ],
+                                  )
                               ),
                             ],
                           ),

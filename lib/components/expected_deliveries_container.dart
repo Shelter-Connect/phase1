@@ -69,19 +69,12 @@ class ExpectedDeliveryContainer extends StatelessWidget {
                     children: <Widget>[
                       Column(
                         children: <Widget>[
-                          Text('$itemName',
-                            style: TextStyle(
-                              fontSize: 17,
-                            ),),
-
+                          ...itemName.map((string) => Text(string, style: TextStyle(fontSize: 20))).toList()
                         ],
                       ),
                       Column(
                         children: <Widget>[
-                          Text('$itemQuantity',
-                        style: TextStyle(
-                        fontSize: 17,
-                      ),),
+                          ...itemQuantity.map((string) => Text(string, style: TextStyle(fontSize: 20))).toList()
                         ],
                       )
                     ],
