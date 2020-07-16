@@ -20,104 +20,113 @@ class OrganizationExpectedDeliveriesPage extends StatefulWidget with NavigationT
 
 class _OrganizationExpectedDeliveriesPageState extends State<OrganizationExpectedDeliveriesPage> {
   String dropdownValue = 'Sort by';
-
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Row(
-          children: <Widget>[
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  alignment: Alignment.centerLeft,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(41),
-                    color: colorScheme.onSecondary,
-                  ),
-                  width: 100,
-                  height: 50,
-                  padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 0),
-                  child: DropdownButton<String>(
-                    value: dropdownValue,
-                    icon: Icon(Icons.keyboard_arrow_down, color: purpleAccent),
-                    iconSize: 15,
-                    elevation: 0,
-                    style: TextStyle(
-                      color: purpleAccent,
+    return SingleChildScrollView(
+      child: Column(
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    alignment: Alignment.centerLeft,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(41),
+                      color: colorScheme.onSecondary,
                     ),
-                    onChanged: (String newValue) {
-                      setState(
-                        () {
-                          dropdownValue = newValue;
-                        },
-                      );
-                    },
-                    items: <String>['Sort by', 'Hygiene', 'Clothing', 'Food', 'Warmth'].map<DropdownMenuItem<String>>(
-                      (String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
+                    width: 100,
+                    height: 50,
+                    padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 0),
+                    child: DropdownButton<String>(
+                      value: dropdownValue,
+                      icon: Icon(Icons.keyboard_arrow_down, color: purpleAccent),
+                      iconSize: 15,
+                      elevation: 0,
+                      style: TextStyle(
+                        color: purpleAccent,
+                      ),
+                      onChanged: (String newValue) {
+                        setState(
+                          () {
+                            dropdownValue = newValue;
+                          },
                         );
                       },
-                    ).toList(),
+                      items: <String>['Sort by', 'Hygiene', 'Clothing', 'Food', 'Warmth'].map<DropdownMenuItem<String>>(
+                        (String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        },
+                      ).toList(),
+                    ),
                   ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                  width: 100,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(41),
-                    color: colorScheme.onSecondary,
-                  ),
-                  padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 0),
-                  child: FlatButton(
-                    padding: EdgeInsets.all(0),
-                    onPressed: () {
-                      //TODO: Make Editing Feature
-                    },
-                    child: Row(
-                      children: <Widget>[
-                        Text('Edit', style: TextStyle(color: purpleAccent)),
-                        Spacer(),
-                        Icon(Icons.edit, color: purpleAccent),
-                      ],
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                    width: 100,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(41),
+                      color: colorScheme.onSecondary,
                     ),
-                  )),
-            )
-          ],
-        ),
-        ExpectedDeliveryContainer( // TODO: for firebase, need to query all information for these containers
-          itemName: "Can",
-          itemQuantity: 4,
-          dateRequested: "dateRequested",
-          dateExpected: "12/20",
-          donorName: "Nathan",
-          donorEmail: "donorEmail",
-        ),
-        ExpectedDeliveryContainer(
-          itemName: "of",
-          itemQuantity: 5,
-          dateRequested: "dateRequested",
-          dateExpected: "12/20",
-          donorName: "Nathan",
-          donorEmail: "donorEmail",
-        ),
-        ExpectedDeliveryContainer(
-          itemName: "Beans",
-          itemQuantity: 6,
-          dateRequested: "dateRequested",
-          dateExpected: "12/20",
-          donorName: "Nathan",
-          donorEmail: "donorEmail",
-        ),
-      ],
+                    padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 0),
+                    child: FlatButton(
+                      padding: EdgeInsets.all(0),
+                      onPressed: () {
+                        //TODO: Make Editing Feature
+                      },
+                      child: Row(
+                        children: <Widget>[
+                          Text('Edit', style: TextStyle(color: purpleAccent)),
+                          Spacer(),
+                          Icon(Icons.edit, color: purpleAccent),
+                        ],
+                      ),
+                    )),
+              )
+            ],
+          ),
+          ExpectedDeliveryContainer( // TODO: for firebase, need to query all information for these containers
+            itemName: <String>['Toothbrushes\nShirts\nHam\nBlankets'],
+            itemQuantity: <String>['6\n7\n8\n9'],
+            dateRequested: "dateRequested",
+            dateExpected: "12/20",
+            donorName: "Eric",
+            donorEmail: "eric@gmail.com",
+          ),
+          ExpectedDeliveryContainer(
+            itemName: <String>['Toothpaste\nPants\nSocks\nSleeping Bags'],
+            itemQuantity: <String>['6\n7\n8\n9'],
+            dateRequested: "6/9",
+            dateExpected: "12/20",
+            donorName: "Nathan",
+            donorEmail: "donorEmail",
+          ),
+          ExpectedDeliveryContainer(
+            itemName: <String>['Floss\nBelts\nHam\nCaps'],
+            itemQuantity: <String>['6\n7\n8\n9'],
+            dateRequested: "dateRequested",
+            dateExpected: "9/6",
+            donorName: "Nathan",
+            donorEmail: "donorEmail",
+          ),
+          ExpectedDeliveryContainer(
+            itemName: <String>['Floss\nBelts\nHam\nCaps'],
+            itemQuantity: <String>['6\n7\n8\n9'],
+            dateRequested: "dateRequested",
+            dateExpected: "9/6",
+            donorName: "Nathan",
+            donorEmail: "donorEmail",
+          ),
+        ],
+      ),
     );
   }
 }
