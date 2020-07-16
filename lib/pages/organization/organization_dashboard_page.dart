@@ -25,6 +25,9 @@ class OrganizationDashboardPage extends StatefulWidget with NavigationTab {
 
   @override
   String get title => 'Dashboard';
+
+  @override
+  FloatingActionButton get floatingActionButton => throw UnimplementedError();
 }
 
 class _OrganizationDashboardPageState extends State<OrganizationDashboardPage> {
@@ -120,28 +123,19 @@ class _OrganizationDashboardPageState extends State<OrganizationDashboardPage> {
           Align(
             alignment: Alignment.centerRight,
             child: Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Hero(
-                tag: 'create request',
-                child: Container(
-                  padding: EdgeInsets.all(13.0),
-                  decoration: BoxDecoration(
-                    color: Color(0xff6474E1),
-                    shape: BoxShape.circle,
-                  ),
-                  child: Material(
-                    color: Colors.transparent,
-                    child: IconButton(
-                      icon: Icon(Icons.add, size: 30,),
-                      color: colorScheme.onSecondary,
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => OrganizationRequestPage()),
-                        );
-                      }
-                    ),
-                  ),
+              padding: const EdgeInsets.only(right: 16.0, left: 16.0, bottom: 16.0),
+              child: FloatingActionButton(
+                backgroundColor: Color(0xff6474E1),
+                heroTag: 'create request',
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => OrganizationRequestPage()),
+                  );
+                },
+                child: Icon(
+                  Icons.add,
+                  color: colorScheme.onSecondary,
                 ),
               ),
             ),

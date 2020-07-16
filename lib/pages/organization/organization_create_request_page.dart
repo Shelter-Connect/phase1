@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../components/create_request_container.dart';
@@ -57,7 +56,6 @@ class _OrganizationRequestPageState extends State<OrganizationRequestPage> {
                       CreateRequestContainer(
                         asset: 'assets/water.svg',
                         name: 'Hydration',
-                        fontSize: 23,
                         onPressed: () {
                           //TODO: Go to Hygiene Page
                         },

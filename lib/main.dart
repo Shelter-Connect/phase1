@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:phase1/pages/organization/organization_confirmation_page.dart';
 import 'package:provider/provider.dart';
 
 import 'constants.dart';
