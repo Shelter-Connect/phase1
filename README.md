@@ -11,10 +11,11 @@ Phase 1 of the Shelter Connect App.
   - Finish Prototype ✔️
   - Finish Coding ✔️
 - Integrate Firebase 
-  - User Login
+  - User Login ✔️
   - Organization Sign Up ✔️
-  - Volunteer Sign Up
+  - Volunteer Sign Up ✔️
 - Finish Donation Functionality for Organizations
   - Finish Prototype ✔️
-  - Finish Coding
+  - Finish UI ✔️
+  - Finish Backend
 - Finalize major UI themes ✔️
