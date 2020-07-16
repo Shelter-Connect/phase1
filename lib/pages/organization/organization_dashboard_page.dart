@@ -129,15 +129,18 @@ class _OrganizationDashboardPageState extends State<OrganizationDashboardPage> {
                     color: Color(0xff6474E1),
                     shape: BoxShape.circle,
                   ),
-                  child: IconButton(
-                    icon: Icon(Icons.add, size: 30,),
-                    color: Colors.white,
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => OrganizationRequestPage()),
-                      );
-                    }
+                  child: Material(
+                    color: Colors.transparent,
+                    child: IconButton(
+                      icon: Icon(Icons.add, size: 30,),
+                      color: colorScheme.onSecondary,
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => OrganizationRequestPage()),
+                        );
+                      }
+                    ),
                   ),
                 ),
               ),

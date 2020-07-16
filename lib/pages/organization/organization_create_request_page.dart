@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../components/floating_text_field.dart';
 import '../../components/create_request_container.dart';
 import '../../components/standard_layout.dart';
 
@@ -11,7 +10,6 @@ class OrganizationRequestPage extends StatefulWidget {
 }
 
 class _OrganizationRequestPageState extends State<OrganizationRequestPage> {
-  int _itemCount = 0;
   @override
   Widget build(BuildContext context) {
     return Hero(
@@ -71,44 +69,17 @@ class _OrganizationRequestPageState extends State<OrganizationRequestPage> {
                           //TODO: Go to Hygiene Page
                         },
                       ),
+                      CreateRequestContainer(
+                        asset: 'assets/blanket.svg',
+                        name: 'Other',
+                        onPressed: () {
+                          //TODO: Go to Hygiene Page
+                        },
+                      ),
                     ],
                   ),
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.all(20),
-                child: FloatingTextField(
-                  width: 200,
-                  hintText: 'Specific Brand/Model',
-                ),
-              ),
-        Material(
-          elevation: 5,
-          borderRadius: BorderRadius.circular(10),
-          child: Container(
-            width: 200,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.white,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                _itemCount != 0
-                    ? new IconButton(
-                  icon: new Icon(Icons.remove),
-                  color: Colors.black,
-                  onPressed: () => setState(() => _itemCount--),
-                )
-                    : Container(),
-                SizedBox(width: 20),
-                new Text(_itemCount.toString(), style: TextStyle(color: Colors.black)),
-                SizedBox(width: 20),
-                new IconButton(icon: new Icon(Icons.add, color: Colors.black), onPressed: () => setState(() => _itemCount++))
-              ],
-            ),
-          ),
-        ),
             ],
           ),
         ),
