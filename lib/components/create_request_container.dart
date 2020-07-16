@@ -14,22 +14,26 @@ class CreateRequestContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(21),
-        color: Colors.white,
-      ),
-      height: height ?? 125,
-      width: width ?? 125,
-      padding: EdgeInsets.all(10.0),
-      child: Column(
-        children: <Widget>[
-          FlatButton(
-            onPressed: onPressed,
-            child: WebsafeSvg.asset(asset, height: 75, width: 75),
-          ),
-          Text(name, style: TextStyle(fontSize: fontSize ?? 25, fontWeight: FontWeight.w400)),
-        ],
+    return FlatButton(
+      onPressed: () {
+        //TODO send to create request choose item
+      },
+      child: Container(
+        height: MediaQuery.of(context).size.width / 4.5,
+        width: MediaQuery.of(context).size.width / 4.5,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(21),
+          color: Colors.white,
+        ),
+//        height: height ?? 125,
+//        width: width ?? 125,
+        padding: EdgeInsets.all(5.0),
+        child: Column(
+          children: <Widget>[
+            WebsafeSvg.asset(asset, height: 55, width: 55),
+            Text(name, style: TextStyle(fontSize: fontSize ?? 15, fontWeight: FontWeight.w400)),
+          ],
+        ),
       ),
     );
   }
