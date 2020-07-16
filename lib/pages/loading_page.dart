@@ -13,7 +13,6 @@ class _LoadingPageState extends State<LoadingPage> {
   @override
   void initState() {
     auth.onAuthStateChanged.listen((user) {
-      print(context);
       Provider.of<User>(context, listen: false).user = user;
       if (user != null) {
         db.collection('volunteers').document(user.uid).get().then((value) {

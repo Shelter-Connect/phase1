@@ -23,78 +23,81 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: colorScheme.background,
-      appBar: AppBar(
-        title: Text(
-          _pages[_selectedIndex].title,
-          style: TextStyle(
-            color: blueBackground,
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        backgroundColor: colorScheme.background,
+        appBar: AppBar(
+          title: Text(
+            _pages[_selectedIndex].title,
+            style: TextStyle(
+              color: blueBackground,
+            ),
           ),
-        ),
-        backgroundColor: blueBackground,
-        elevation: 0.0,
-        leading: Builder(
-          builder: (context) => IconButton(
-            icon: Icon(Icons.menu),
-            color: purpleAccent,
-            onPressed: () {
-              Scaffold.of(context).openDrawer();
-            },
-          ),
-        ),
-        actions: <Widget>[
-          Visibility(
-            visible: _pages[_selectedIndex].helpDescription != '',
-            child: IconButton(
-              icon: Icon(Icons.help),
+          backgroundColor: blueBackground,
+          elevation: 0.0,
+          leading: Builder(
+            builder: (context) => IconButton(
+              icon: Icon(Icons.menu),
               color: purpleAccent,
               onPressed: () {
-                _helpModalBottomSheet(context);
+                Scaffold.of(context).openDrawer();
               },
             ),
           ),
-        ],
-      ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Shelter Connect',
-                    style: TextStyle(
-                      fontSize: 30.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 10.0),
-                  Text(Provider.of<User>(context).user?.email ?? ' '),
-                ],
+          actions: <Widget>[
+            Visibility(
+              visible: _pages[_selectedIndex].helpDescription != '',
+              child: IconButton(
+                icon: Icon(Icons.help),
+                color: purpleAccent,
+                onPressed: () {
+                  _helpModalBottomSheet(context);
+                },
               ),
             ),
-            ..._pages
-                .asMap()
-                .map((index, tab) => MapEntry(
-                    index,
-                    ListTile(
-                        title: Text(tab.title),
-                        leading: Icon(tab.icon),
-                        onTap: () {
-                          setState(() {
-                            _selectedIndex = index;
-                          });
-                          Navigator.pop(context);
-                        })))
-                .values
-                .toList(),
           ],
         ),
+        drawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              DrawerHeader(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Shelter Connect',
+                      style: TextStyle(
+                        fontSize: 30.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 10.0),
+                    Text(Provider.of<User>(context).user?.email ?? ' '),
+                  ],
+                ),
+              ),
+              ..._pages
+                  .asMap()
+                  .map((index, tab) => MapEntry(
+                      index,
+                      ListTile(
+                          title: Text(tab.title),
+                          leading: Icon(tab.icon),
+                          onTap: () {
+                            setState(() {
+                              _selectedIndex = index;
+                            });
+                            Navigator.pop(context);
+                          })))
+                  .values
+                  .toList(),
+            ],
+          ),
+        ),
+        body: _pages[_selectedIndex],
       ),
-      body: _pages[_selectedIndex],
     );
   }
 

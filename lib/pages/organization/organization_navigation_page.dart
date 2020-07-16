@@ -23,70 +23,73 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: colorScheme.surface,
-      appBar: AppBar(
-        title: Text(_pages[_selectedIndex].title),
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
         backgroundColor: colorScheme.surface,
-        elevation: 0.0,
-        leading: Builder(
-          builder: (context) => IconButton(
-            icon: Icon(Icons.menu),
-            color: colorScheme.background,
-            onPressed: () {
-              Scaffold.of(context).openDrawer();
-            },
-          ),
-        ),
-        actions: <Widget>[
-          Visibility(
-            visible: _pages[_selectedIndex].helpDescription != '',
-            child: IconButton(
-              icon: Icon(Icons.help),
+        appBar: AppBar(
+          title: Text(_pages[_selectedIndex].title),
+          backgroundColor: colorScheme.surface,
+          elevation: 0.0,
+          leading: Builder(
+            builder: (context) => IconButton(
+              icon: Icon(Icons.menu),
               color: colorScheme.background,
               onPressed: () {
-                _helpModalBottomSheet(context);
+                Scaffold.of(context).openDrawer();
               },
             ),
           ),
-        ],
-      ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Shelter Connect',
-                    style: TextStyle(
-                      fontSize: 30.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text('useremail@email.com'),
-                ],
+          actions: <Widget>[
+            Visibility(
+              visible: _pages[_selectedIndex].helpDescription != '',
+              child: IconButton(
+                icon: Icon(Icons.help),
+                color: colorScheme.background,
+                onPressed: () {
+                  _helpModalBottomSheet(context);
+                },
               ),
             ),
-            ..._pages.asMap().map((index, tab) => MapEntry(
-              index,
-              ListTile(
-                title: Text(tab.title),
-                leading: Icon(tab.icon),
-                onTap: () {
-                  setState(() {
-                    _selectedIndex = index;
-                  });
-                  Navigator.pop(context);
-                }
-              )
-            )).values.toList(),
           ],
         ),
+        drawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              DrawerHeader(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Shelter Connect',
+                      style: TextStyle(
+                        fontSize: 30.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text('useremail@email.com'),
+                  ],
+                ),
+              ),
+              ..._pages.asMap().map((index, tab) => MapEntry(
+                index,
+                ListTile(
+                  title: Text(tab.title),
+                  leading: Icon(tab.icon),
+                  onTap: () {
+                    setState(() {
+                      _selectedIndex = index;
+                    });
+                    Navigator.pop(context);
+                  }
+                )
+              )).values.toList(),
+            ],
+          ),
+        ),
+        body: _pages[_selectedIndex],
       ),
-      body: _pages[_selectedIndex],
     );
   }
 
