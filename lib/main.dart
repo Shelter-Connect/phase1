@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
           '/volunteer_confirmation': (_) => VolunteerConfirmation(),
           '/volunteer_sign_up': (_) => VolunteerSignUp(),
         },
-        initialRoute: '/',
+        initialRoute: '/loading',
       ),
     );
   }
