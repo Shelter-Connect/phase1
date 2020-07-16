@@ -26,15 +26,15 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
-        backgroundColor: colorScheme.surface,
+        backgroundColor: blueBackground,
         appBar: AppBar(
-          title: Text(_pages[_selectedIndex].title),
-          backgroundColor: colorScheme.surface,
+          title: Text(_pages[_selectedIndex].title, style: TextStyle(color: purpleAccent),),
+          backgroundColor: blueBackground,
           elevation: 0.0,
           leading: Builder(
             builder: (context) => IconButton(
               icon: Icon(Icons.menu),
-              color: colorScheme.background,
+              color: purpleAccent,
               onPressed: () {
                 Scaffold.of(context).openDrawer();
               },
@@ -45,7 +45,7 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
               visible: _pages[_selectedIndex].helpDescription != '',
               child: IconButton(
                 icon: Icon(Icons.help),
-                color: colorScheme.background,
+                color: purpleAccent,
                 onPressed: () {
                   _helpModalBottomSheet(context);
                 },
