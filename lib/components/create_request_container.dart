@@ -27,7 +27,7 @@ class CreateRequestContainer extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             WebsafeSvg.asset(asset, height: 55, width: 55),
-            Text(name, style: TextStyle(fontSize: 20)),
+            Text(name, style: TextStyle(fontSize: 15)),
           ],
         ),
       ),
