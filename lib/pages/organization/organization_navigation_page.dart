@@ -26,10 +26,13 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
-        backgroundColor: blueBackground,
+        backgroundColor: whiteBackground,
         appBar: AppBar(
-          title: Text(_pages[_selectedIndex].title, style: TextStyle(color: purpleAccent),),
-          backgroundColor: blueBackground,
+          title: Text(
+            _pages[_selectedIndex].title,
+            style: TextStyle(color: purpleAccent),
+          ),
+          backgroundColor: whiteBackground,
           elevation: 0.0,
           leading: Builder(
             builder: (context) => IconButton(
@@ -72,19 +75,21 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
                   ],
                 ),
               ),
-              ..._pages.asMap().map((index, tab) => MapEntry(
-                index,
-                ListTile(
-                  title: Text(tab.title),
-                  leading: Icon(tab.icon),
-                  onTap: () {
-                    setState(() {
-                      _selectedIndex = index;
-                    });
-                    Navigator.pop(context);
-                  }
-                )
-              )).values.toList(),
+              ..._pages
+                  .asMap()
+                  .map((index, tab) => MapEntry(
+                      index,
+                      ListTile(
+                          title: Text(tab.title),
+                          leading: Icon(tab.icon),
+                          onTap: () {
+                            setState(() {
+                              _selectedIndex = index;
+                            });
+                            Navigator.pop(context);
+                          })))
+                  .values
+                  .toList(),
             ],
           ),
         ),

@@ -43,12 +43,13 @@ class _LoadingPageState extends State<LoadingPage> {
 
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      color: colorScheme.background,
       child: Center(
-        child: Image.asset('assets/ShelterConnectLogo.png', width: MediaQuery.of(context).size.width*0.6),
+        child: Image.asset('assets/ShelterConnectLogo.png', width: MediaQuery.of(context).size.width * 0.6),
       ),
     );
   }

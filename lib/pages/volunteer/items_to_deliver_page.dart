@@ -21,7 +21,7 @@ class _ItemsToDeliverPageState extends State<ItemsToDeliverPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: blueBackground,
+      backgroundColor: whiteBackground,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

@@ -92,7 +92,7 @@ class OrganizationDonationProfile extends StatelessWidget {
                 children: <Widget>[
                   Container(
                     decoration: BoxDecoration(
-                      color: blueBackground,
+                      color: whiteBackground,
                       borderRadius: BorderRadius.circular(21),
                     ),
                     child: Padding(
@@ -108,7 +108,7 @@ class OrganizationDonationProfile extends StatelessWidget {
                   SizedBox(width: 10),
                   Container(
                     decoration: BoxDecoration(
-                      color: blueBackground,
+                      color: whiteBackground,
                       borderRadius: BorderRadius.circular(21),
                     ),
                     child: Padding(
@@ -124,7 +124,7 @@ class OrganizationDonationProfile extends StatelessWidget {
                   SizedBox(width: 10),
                   Container(
                     decoration: BoxDecoration(
-                      color: blueBackground,
+                      color: whiteBackground,
                       borderRadius: BorderRadius.circular(21),
                     ),
                     child: Padding(

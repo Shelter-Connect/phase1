@@ -125,7 +125,7 @@ class _OrganizationDashboardPageState extends State<OrganizationDashboardPage> {
             child: Padding(
               padding: const EdgeInsets.only(right: 16.0, left: 16.0, bottom: 16.0),
               child: FloatingActionButton(
-                backgroundColor: Color(0xff6474E1),
+                backgroundColor: purpleAccent,
                 heroTag: 'create request',
                 onPressed: () {
                   Navigator.push(

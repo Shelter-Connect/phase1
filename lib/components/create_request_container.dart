@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:phase1/constants.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
 class CreateRequestContainer extends StatelessWidget {
   final Function onPressed;
   final String asset, name;
 
-  CreateRequestContainer({@required this.onPressed, @required this.asset,@required this.name});
+  CreateRequestContainer({@required this.onPressed, @required this.asset, @required this.name});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class CreateRequestContainer extends StatelessWidget {
         width: 100.0,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(21),
-          color: Colors.white,
+          color: colorScheme.onSecondary,
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

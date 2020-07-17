@@ -10,11 +10,16 @@ class OrganizationExpectedDeliveryInformationPage extends StatefulWidget {
   final List itemName;
 
   OrganizationExpectedDeliveryInformationPage(
-      {@required this.itemName, @required this.itemQuantity, @required this.dateRequested, @required this.dateExpected, @required this.donorName, @required this.donorEmail});
+      {@required this.itemName,
+      @required this.itemQuantity,
+      @required this.dateRequested,
+      @required this.dateExpected,
+      @required this.donorName,
+      @required this.donorEmail});
 
   @override
-  _OrganizationExpectedDeliveryInformationPageState createState() =>
-      _OrganizationExpectedDeliveryInformationPageState( // TODO: add documentId parameter
+  _OrganizationExpectedDeliveryInformationPageState createState() => _OrganizationExpectedDeliveryInformationPageState(
+        // TODO: add documentId parameter
         itemName: itemName,
         itemQuantity: itemQuantity,
         dateRequested: dateRequested,
@@ -31,7 +36,8 @@ class _OrganizationExpectedDeliveryInformationPageState extends State<Organizati
   final List itemQuantity;
   final List itemName;
 
-  _OrganizationExpectedDeliveryInformationPageState({ this.itemName, this.itemQuantity, this.dateRequested, this.dateExpected, this.donorName, this.donorEmail});
+  _OrganizationExpectedDeliveryInformationPageState(
+      {this.itemName, this.itemQuantity, this.dateRequested, this.dateExpected, this.donorName, this.donorEmail});
 
   @override
   Widget build(BuildContext context) {
@@ -73,23 +79,24 @@ class _OrganizationExpectedDeliveryInformationPageState extends State<Organizati
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Padding(
-                                padding: EdgeInsets.all(10),
+                                  padding: EdgeInsets.all(10),
                                   child: Column(
                                     children: <Widget>[
                                       ...itemName.map((string) => Text(string, style: TextStyle(fontSize: 20))).toList(),
                                     ],
-                                  )
-                              ),
-                              True != false ?
-                              ItemIncrement(itemName: 'hi',):Container(),
+                                  )),
+                              True != false
+                                  ? ItemIncrement(
+                                      itemName: 'hi',
+                                    )
+                                  : Container(),
                               Padding(
                                   padding: EdgeInsets.all(10),
                                   child: Column(
                                     children: <Widget>[
                                       ...itemQuantity.map((string) => Text(string, style: TextStyle(fontSize: 20))).toList(),
                                     ],
-                                  )
-                              ),
+                                  )),
                             ],
                           ),
                           Padding(
@@ -145,8 +152,8 @@ class _OrganizationExpectedDeliveryInformationPageState extends State<Organizati
           Column(
             children: <Widget>[
               FlatButton(
-                color: Colors.blue,
-                onPressed: (){
+                color: secondaryTertiary,
+                onPressed: () {
                   setState(() {
                     True = false;
                   });
@@ -155,7 +162,8 @@ class _OrganizationExpectedDeliveryInformationPageState extends State<Organizati
               ),
             ],
           )
-        ],),
+        ],
+      ),
     );
   }
 }

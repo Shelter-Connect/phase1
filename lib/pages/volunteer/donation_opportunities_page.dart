@@ -22,7 +22,7 @@ class _DonationOpportunitiesState extends State<DonationOpportunities> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: blueBackground,
+      backgroundColor: whiteBackground,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

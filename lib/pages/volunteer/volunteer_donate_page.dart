@@ -24,11 +24,11 @@ class _VolunteerDonatePageState extends State<VolunteerDonatePage> {
             children: <Widget>[
               Text(
                 '(Organization Name)',
-                style: TextStyle(fontSize: 35, fontWeight: FontWeight.w900, color: Color(0xFF6576EC)),
+                style: TextStyle(fontSize: 35, fontWeight: FontWeight.w900, color: purpleAccent),
               ),
               Text(
                 ' 5 miles away',
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700, color: Color(0xFF6576EC)),
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700, color: purpleAccent),
               ),
               SizedBox(height: 20),
               DonatePageItemSelection(boxTitle: 'Hygiene'),
@@ -37,9 +37,11 @@ class _VolunteerDonatePageState extends State<VolunteerDonatePage> {
               SizedBox(height: 15),
               DonatePageItemSelection(boxTitle: 'Food'),
               SizedBox(height: 15),
-              RoundedButton(onPressed: (){
-                Navigator.pushNamed(context, '/confirm_donation');
-              }, title: 'Create Donation'),
+              RoundedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/confirm_donation');
+                  },
+                  title: 'Create Donation'),
               SizedBox(height: 15),
             ],
           ),
@@ -48,7 +50,6 @@ class _VolunteerDonatePageState extends State<VolunteerDonatePage> {
     );
   }
 }
-
 
 class DonatePageItemSelection extends StatelessWidget {
   final String boxTitle;
@@ -104,9 +105,3 @@ class DonatePageItemSelection extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
-

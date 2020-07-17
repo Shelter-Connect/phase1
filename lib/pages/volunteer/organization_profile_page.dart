@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:phase1/components/rounded_button.dart';
 import 'package:phase1/constants.dart';
+
 import '../../components/standard_layout.dart';
+
 class OrganizationProfilePage extends StatefulWidget {
   @override
   _OrganizationProfilePageState createState() => _OrganizationProfilePageState();
@@ -22,14 +24,14 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
               padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
               child: Text(
                 '(Organization Name)',
-                style: TextStyle(fontSize: 35, fontWeight: FontWeight.w900, color: Color(0xFF6576EC)),
+                style: TextStyle(fontSize: 35, fontWeight: FontWeight.w900, color: purpleAccent),
               ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
               child: Text(
                 'Distance: (Distance away)',
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700, color: Color(0xFF6576EC)),
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700, color: purpleAccent),
               ),
             ),
             SizedBox(height: 20),
@@ -39,7 +41,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                 },
                 child: Container(
                   width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(20))),
+                  decoration: BoxDecoration(color: colorScheme.onSecondary, borderRadius: BorderRadius.all(Radius.circular(20))),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
                     child: Column(
@@ -65,12 +67,13 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                             Container(
                               height: 5,
                               width: 100,
-                              decoration: BoxDecoration(color: Color(0xFF6576EC), borderRadius: BorderRadius.circular(21)),
+                              decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
                             ),
                             SizedBox(
                               height: 10,
                             ),
-                            Text('The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.'),
+                            Text(
+                                'The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.'),
                             SizedBox(
                               height: 10,
                             ),
@@ -102,7 +105,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: Container(
-                    decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(20))),
+                    decoration: BoxDecoration(color: colorScheme.secondary, borderRadius: BorderRadius.all(Radius.circular(20))),
                     width: MediaQuery.of(context).size.width,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16.0),
@@ -122,7 +125,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                           Container(
                             height: 5,
                             width: 100,
-                            decoration: BoxDecoration(color: Color(0xFF6576EC), borderRadius: BorderRadius.circular(21)),
+                            decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
                           ),
                           SizedBox(
                             height: 20,
@@ -155,9 +158,11 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
             SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: RoundedButton(onPressed: (){
-                Navigator.pushNamed(context, '/donate');
-              }, title: 'Continue to Requests'),
+              child: RoundedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/donate');
+                  },
+                  title: 'Continue to Requests'),
             ),
             SizedBox(height: 10),
           ],
@@ -188,14 +193,14 @@ class InfoText extends StatelessWidget {
                 text: 'Email Address: ',
                 style: TextStyle(
                   fontSize: 18,
-                  color: Colors.black,
+                  color: colorScheme.onBackground,
                 )),
             TextSpan(
                 text: orgEmail,
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
-                  color: Colors.black,
+                  color: colorScheme.onBackground,
                 ))
           ]),
         ),
@@ -205,12 +210,15 @@ class InfoText extends StatelessWidget {
             },
             child: Container(
               decoration: BoxDecoration(
-                color: Color(0xFF6576EC),
+                color: purpleAccent,
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 20),
-                child: Text('Open in Mail', style: TextStyle(fontSize: 15, color: colorScheme.background),),
+                child: Text(
+                  'Open in Mail',
+                  style: TextStyle(fontSize: 15, color: colorScheme.background),
+                ),
               ),
             )),
         SizedBox(
@@ -222,14 +230,14 @@ class InfoText extends StatelessWidget {
                 text: 'Phone Number: ',
                 style: TextStyle(
                   fontSize: 18,
-                  color: Colors.black,
+                  color: colorScheme.onBackground,
                 )),
             TextSpan(
                 text: orgPhone,
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
-                  color: Colors.black,
+                  color: colorScheme.onBackground,
                 ))
           ]),
         ),
@@ -239,12 +247,15 @@ class InfoText extends StatelessWidget {
             },
             child: Container(
               decoration: BoxDecoration(
-                color: Color(0xFF6576EC),
+                color: purpleAccent,
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 20),
-                child: Text('Call', style: TextStyle(fontSize: 15, color: colorScheme.background),),
+                child: Text(
+                  'Call',
+                  style: TextStyle(fontSize: 15, color: colorScheme.background),
+                ),
               ),
             )),
         RichText(
@@ -253,14 +264,14 @@ class InfoText extends StatelessWidget {
                 text: 'Donation Location: ',
                 style: TextStyle(
                   fontSize: 18,
-                  color: Colors.black,
+                  color: colorScheme.onBackground,
                 )),
             TextSpan(
                 text: orgAddress,
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
-                  color: Colors.black,
+                  color: colorScheme.onBackground,
                 ))
           ]),
         ),
@@ -270,12 +281,15 @@ class InfoText extends StatelessWidget {
             },
             child: Container(
               decoration: BoxDecoration(
-                color: Color(0xFF6576EC),
+                color: purpleAccent,
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 20),
-                child: Text('Open in Maps', style: TextStyle(fontSize: 15, color: colorScheme.background),),
+                child: Text(
+                  'Open in Maps',
+                  style: TextStyle(fontSize: 15, color: colorScheme.background),
+                ),
               ),
             )),
       ],

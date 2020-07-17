@@ -15,9 +15,9 @@ class StandardLayout2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF6576EC),
+      backgroundColor: purpleAccent,
       appBar: AppBar(
-        backgroundColor: Color(0xFF6576EC),
+        backgroundColor: purpleAccent,
         elevation: 0.0,
         title: Text(title),
         actions: <Widget>[
