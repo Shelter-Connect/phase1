@@ -59,40 +59,50 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
           ],
         ),
         drawer: Drawer(
-          child: ListView(
-            padding: EdgeInsets.zero,
+          child: Column(
             children: <Widget>[
-              DrawerHeader(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Shelter Connect',
-                      style: TextStyle(
-                        fontSize: 30.0,
-                        fontWeight: FontWeight.bold,
+              Expanded(
+                child: ListView(
+                  padding: EdgeInsets.zero,
+                  children: <Widget>[
+                    DrawerHeader(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Shelter Connect',
+                            style: TextStyle(
+                              fontSize: 30.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(height: 10.0),
+                          Text(Provider.of<User>(context).user?.email ?? ' '),
+                        ],
                       ),
                     ),
-                    SizedBox(height: 10.0),
-                    Text(Provider.of<User>(context).user?.email ?? ' '),
+                    ..._pages
+                        .asMap()
+                        .map((index, tab) => MapEntry(
+                            index,
+                            ListTile(
+                                title: Text(tab.title),
+                                leading: Icon(tab.icon),
+                                onTap: () {
+                                  setState(() {
+                                    _selectedIndex = index;
+                                  });
+                                  Navigator.pop(context);
+                                })))
+                        .values
+                        .toList(),
                   ],
                 ),
               ),
-              ..._pages
-                  .asMap()
-                  .map((index, tab) => MapEntry(
-                      index,
-                      ListTile(
-                          title: Text(tab.title),
-                          leading: Icon(tab.icon),
-                          onTap: () {
-                            setState(() {
-                              _selectedIndex = index;
-                            });
-                            Navigator.pop(context);
-                          })))
-                  .values
-                  .toList(),
+              Container(
+                child: Align(alignment: FractionalOffset.bottomCenter, child: Container(child: LogoutButton())),
+                padding: const EdgeInsets.symmetric(vertical: 25.0),
+              )
             ],
           ),
         ),
@@ -123,6 +133,34 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
           ),
         );
       },
+    );
+  }
+}
+
+class LogoutButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 16.0),
+      child: InkWell(
+        onTap: () {
+          auth.signOut();
+          Navigator.popUntil(context, ModalRoute.withName('/'));
+        },
+        child: Container(
+          height: 45.0,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(21),
+            color: colorScheme.error,
+          ),
+          child: Center(
+            child: Text(
+              'Sign Out',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700, color: colorScheme.onSecondary),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

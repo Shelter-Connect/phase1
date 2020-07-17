@@ -42,7 +42,7 @@ class _SettingsPageState extends State<SettingsPage> {
             SizedBox(height: 20),
             UserNotifications(),
             SizedBox(height: 20),
-            LogoutButton(),
+            DeleteAccount(),
             SizedBox(height: 20),
           ],
         ),
@@ -240,15 +240,42 @@ class UserNotifications extends StatelessWidget {
   }
 }
 
-class LogoutButton extends StatelessWidget {
+class DeleteAccount extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.0),
       child: InkWell(
         onTap: () {
-          auth.signOut();
-          Navigator.popUntil(context, ModalRoute.withName('/'));
+          showDialog(
+            context: context,
+            builder: (_) => AlertDialog(
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+              title:
+                  Text('You cannot recover your account once you delete it. All progress, past donations, and current donations will be deleted too. '
+                      'Are you sure to complete this process?'),
+              actions: [
+                FlatButton(
+                  child: Text(
+                    'Cancel',
+                    style: TextStyle(color: colorScheme.secondary),
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                FlatButton(
+                  child: Text(
+                    'Delete My Account',
+                    style: TextStyle(color: colorScheme.error),
+                  ),
+                  onPressed: () {
+                    //TODO: Delete the account
+                  },
+                ),
+              ],
+            ),
+          );
         },
         child: Container(
           height: 45.0,
@@ -258,7 +285,7 @@ class LogoutButton extends StatelessWidget {
           ),
           child: Center(
             child: Text(
-              'Sign Out',
+              'Delete Account',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700, color: colorScheme.onSecondary),
             ),
           ),
@@ -275,6 +302,7 @@ class PrivacyToggleSwitch extends StatefulWidget {
 
 class _PrivacyToggleSwitchState extends State<PrivacyToggleSwitch> {
   bool isSwitched = false;
+
   @override
   Widget build(BuildContext context) {
     return ListTile(
@@ -307,6 +335,7 @@ class NotificationToggleSwitch extends StatefulWidget {
 
 class _NotificationToggleSwitchState extends State<NotificationToggleSwitch> {
   bool isSwitched = false;
+
   @override
   Widget build(BuildContext context) {
     return ListTile(

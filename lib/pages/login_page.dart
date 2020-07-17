@@ -63,7 +63,8 @@ class _LoginPageState extends State<LoginPage> {
                           loading = false;
                         });
                         FocusScope.of(context).unfocus();
-                      } catch(e) {
+                      } catch (e) {
+                        print(e);
                         passwordController.clear();
                         setState(() {
                           loading = false;
