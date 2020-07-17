@@ -33,10 +33,12 @@ class CreateRequestChooseItem extends StatelessWidget {
                     child: Wrap(
                       crossAxisAlignment: WrapCrossAlignment.center,
                       children: <Widget>[
-                        CreateRequestContainer(name: 'Soap', asset: 'assets/soap.svg', onPressed: (){},),
-                        CreateRequestContainer(name: 'Blanket', asset: 'assets/blanket.svg', onPressed: (){},),
-                        CreateRequestContainer(name: 'Clothes', asset: 'assets/clothes.svg', onPressed: (){},),
-                        CreateRequestContainer(name: 'Water', asset: 'assets/water.svg', onPressed: (){},),
+                        CreateRequestContainer(name: 'Body Soap', asset: 'assets/hygiene_svgs/body_soap.svg', onPressed: (){},),
+                        CreateRequestContainer(name: 'Nail Clipper', asset: 'assets/hygiene_svgs/nail_clipper.svg', onPressed: (){},),
+                        CreateRequestContainer(name: 'Soap', asset: 'assets/hygiene_svgs/soap.svg', onPressed: (){},),
+                        CreateRequestContainer(name: 'Toilet Paper', asset: 'assets/hygiene_svgs/toilet_paper.svg', onPressed: (){},),
+                        CreateRequestContainer(name: 'Tooth Brush', asset: 'assets/hygiene_svgs/toothbrush.svg', onPressed: (){},),
+                        CreateRequestContainer(name: 'Tooth Paste', asset: 'assets/hygiene_svgs/toothpaste.svg', onPressed: (){},),
                       ],
                     ),
                   ),
@@ -45,45 +47,6 @@ class CreateRequestChooseItem extends StatelessWidget {
             ),
           ),
         )
-    );
-  }
-}
-
-class ItemBox extends StatelessWidget {
-  final String itemName;
-  final String iconFile;
-
-  ItemBox({this.itemName, this.iconFile});
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(4.0),
-      child: Container(
-        decoration: BoxDecoration(
-          boxShadow: <BoxShadow>[
-            BoxShadow(
-              color: Colors.black12.withOpacity(0.1),
-              blurRadius: 1,
-              offset: Offset(0, 2),
-            ),
-          ],
-          color: Colors.white,
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(4.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-            Container(
-              height: MediaQuery.of(context).size.width / 4,
-              width: MediaQuery.of(context).size.width / 4,
-              child: Text('hello'),
-            ),
-              Text(itemName),
-            ],
-          ),
-        )
-      ),
     );
   }
 }

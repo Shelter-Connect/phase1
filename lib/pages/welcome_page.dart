@@ -26,7 +26,7 @@ class _WelcomePageState extends State<WelcomePage> {
                 textAlign: TextAlign.center,
               ),
               Align(
-                child: Image.asset('assets/ShelterConnectLogo.png', height: 150),
+                child: Image.asset('assets/logo_svgs/ShelterConnectLogo.png', height: 150),
                 alignment: Alignment.center,
               ),
               SizedBox(height: 10.0),
