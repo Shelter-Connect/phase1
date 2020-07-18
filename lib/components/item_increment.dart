@@ -30,7 +30,10 @@ class _ItemIncrementState extends State<ItemIncrement> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        Container(child: Text(widget.itemName)),
+        Container(child: Text(widget.itemName, style: TextStyle(
+          fontSize: 17,
+          fontWeight: FontWeight.w400
+        ),)),
         Row(
           children: <Widget>[
             Container(

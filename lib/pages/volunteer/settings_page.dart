@@ -38,10 +38,6 @@ class _SettingsPageState extends State<SettingsPage> {
             SizedBox(height: 20),
             UserInfo(email: Provider.of<User>(context, listen: false).user.email, password: '*******'),
             SizedBox(height: 20),
-            UserPrivacy(),
-            SizedBox(height: 20),
-            UserNotifications(),
-            SizedBox(height: 20),
             DeleteAccount(),
             SizedBox(height: 20),
           ],
@@ -146,7 +142,7 @@ class UserInfo extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
                     child: Text(
-                      'Edit Information',
+                      'Change Password',
                       style: TextStyle(
                         color: colorScheme.onSecondary,
                         fontWeight: FontWeight.w500,
@@ -164,82 +160,6 @@ class UserInfo extends StatelessWidget {
   }
 }
 
-class UserPrivacy extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Container(
-        decoration: BoxDecoration(color: colorScheme.onSecondary, borderRadius: BorderRadius.all(Radius.circular(20))),
-        height: 224,
-        width: MediaQuery.of(context).size.width,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                'User Privacy',
-                style: TextStyle(
-                  fontSize: 24,
-                ),
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              Container(
-                height: 5,
-                width: 100,
-                decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
-              ),
-              PrivacyToggleSwitch(),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class UserNotifications extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Container(
-        decoration: BoxDecoration(color: colorScheme.onSecondary, borderRadius: BorderRadius.all(Radius.circular(20))),
-        height: 224,
-        width: MediaQuery.of(context).size.width,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                'Notifications',
-                style: TextStyle(
-                  fontSize: 24,
-                ),
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              Container(
-                height: 5,
-                width: 100,
-                decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
-              ),
-              NotificationToggleSwitch(),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
 class DeleteAccount extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -247,35 +167,38 @@ class DeleteAccount extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 16.0),
       child: InkWell(
         onTap: () {
-          showDialog(
-            context: context,
-            builder: (_) => AlertDialog(
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-              title:
-                  Text('You cannot recover your account once you delete it. All progress, past donations, and current donations will be deleted too. '
-                      'Are you sure to complete this process?'),
-              actions: [
-                FlatButton(
-                  child: Text(
-                    'Cancel',
-                    style: TextStyle(color: colorScheme.secondary),
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
-                FlatButton(
-                  child: Text(
-                    'Delete My Account',
-                    style: TextStyle(color: colorScheme.error),
-                  ),
-                  onPressed: () {
-                    //TODO: Delete the account
-                  },
-                ),
-              ],
-            ),
-          );
+          auth.signOut();
+//          showDialog(
+//            context: context,
+//            builder: (_) => AlertDialog(
+//              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+//              title:
+//                  Text('You cannot recover your account once you delete it. All progress, past donations, and current donations will be deleted too. '
+//                      'Are you sure to complete this process?'),
+//              actions: [
+//                FlatButton(
+//                  child: Text(
+//                    'Cancel',
+//                    style: TextStyle(color: colorScheme.secondary),
+//                  ),
+//                  onPressed: () {
+//                    Navigator.pop(context);
+//                  },
+//                ),
+//                FlatButton(
+//                  child: Text(
+//                    'Delete My Account',
+//                    style: TextStyle(color: colorScheme.error),
+//                  ),
+//                  onPressed: () {
+////                    auth.currentUser().then((user) => user.delete());
+//                  auth.signOut();
+//                    //TODO Delete DB
+//                  },
+//                ),
+//              ],
+//            ),
+//          );
         },
         child: Container(
           height: 45.0,
@@ -360,3 +283,41 @@ class _NotificationToggleSwitchState extends State<NotificationToggleSwitch> {
     );
   }
 }
+
+//class UserPrivacy extends StatelessWidget {
+//  @override
+//  Widget build(BuildContext context) {
+//    return Padding(
+//      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+//      child: Container(
+//        decoration: BoxDecoration(color: colorScheme.onSecondary, borderRadius: BorderRadius.all(Radius.circular(20))),
+//        height: 224,
+//        width: MediaQuery.of(context).size.width,
+//        child: Padding(
+//          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16.0),
+//          child: Column(
+//            mainAxisAlignment: MainAxisAlignment.start,
+//            crossAxisAlignment: CrossAxisAlignment.start,
+//            children: <Widget>[
+//              Text(
+//                'User Privacy',
+//                style: TextStyle(
+//                  fontSize: 24,
+//                ),
+//              ),
+//              SizedBox(
+//                height: 5,
+//              ),
+//              Container(
+//                height: 5,
+//                width: 100,
+//                decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
+//              ),
+//              PrivacyToggleSwitch(),
+//            ],
+//          ),
+//        ),
+//      ),
+//    );
+//  }
+//}

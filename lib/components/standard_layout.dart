@@ -16,12 +16,21 @@ class StandardLayout extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: color ?? whiteBackground,
         elevation: 0.0,
-        title: Text(title),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back, color: purpleAccent),
+        ),
+        title: Text(title,
+            style: TextStyle(
+              color: purpleAccent,
+            )),
         actions: <Widget>[
           Visibility(
             child: IconButton(
               icon: Icon(Icons.help),
-              color: colorScheme.background,
+              color: purpleAccent,
               onPressed: () {
                 _helpModalBottomSheet(context);
               },

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:phase1/components/rounded_button.dart';
+import 'package:phase1/pages/volunteer/volunteer_donate_page.dart';
 
 import '../../components/standard_layout.dart';
 import '../../constants.dart';
@@ -40,7 +40,7 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                   decoration: BoxDecoration(color: colorScheme.background, borderRadius: BorderRadius.all(Radius.circular(20))),
                   width: MediaQuery.of(context).size.width,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal : 20.0, vertical: 4.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 4.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,14 +52,35 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                             SizedBox(
                               height: 10,
                             ),
-                            Text(
-                              'Selected Donations',
-                              style: TextStyle(
-                                fontSize: 20,
-                              ),
+                            Row(
+                              children: <Widget>[
+                                Text(
+                                  'Selected Donations',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                  ),
+                                ),
+                                SizedBox(width: 5),
+                                FlatButton(
+                                  padding: EdgeInsets.all(0.0),
+                                  splashColor: transparent,
+                                  highlightColor: transparent,
+                                  child: Text(
+                                    'Edit',
+                                    style: TextStyle(
+                                        decoration: TextDecoration.underline,
+                                      color: colorScheme.error,
+                                      fontSize: 17.0,
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) => VolunteerDonatePage()));
+                                  },
+                                ),
+                              ],
                             ),
                             SizedBox(
-                              height: 10,
+                              height: 5,
                             ),
                             Container(
                               height: 5,
@@ -67,37 +88,17 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                               decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
                             ),
                             SizedBox(
-                              height: 15,
-                            ),
-                            Container(
-                              height: 30,
-                              decoration: BoxDecoration(
-                                color: colorScheme.error,
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: FlatButton(
-                                onPressed: () {
-                                  //TODO EDiT DONATIONS
-                                },
-                                child: Container(
-                                    child: Text(
-                                      'Edit Donations',
-                                      style: TextStyle(color: colorScheme.onSecondary),
-                                    )),
-                              ),
-                            ),
-                            SizedBox(
                               height: 10,
                             ),
-                            Text('Blankets x4'),
+                            Text('Blankets x4', style: TextStyle(fontSize: 17)),
                             SizedBox(
                               height: 5,
                             ),
-                            Text('Bananas x15'),
+                            Text('Bananas x15', style: TextStyle(fontSize: 17)),
                             SizedBox(
                               height: 5,
                             ),
-                            Text('Can of Beans x10'),
+                            Text('Can of Beans x10', style: TextStyle(fontSize: 17)),
                             SizedBox(
                               height: 10,
                             ),
@@ -129,7 +130,7 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                               ),
                             ),
                             SizedBox(
-                              height: 10,
+                              height: 5,
                             ),
                             Container(
                               height: 5,
@@ -147,14 +148,30 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                   ),
                 ],
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 25),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: RoundedButton(onPressed: (){
-                  //TODO Update Firebase and input new order
-                }, title: 'Confirm Donation Submission'),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: FlatButton(
+                    onPressed: () {
+                      //TODO Update Firebase and input new order
+                    },
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                    color: purpleAccent,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 20),
+                      child: Text(
+                        'Confirm Donation Submission',
+                        style: TextStyle(color: Colors.white, fontSize: 15),
+                      ),
+                    ),
+                  ),
+                ),
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 10)
             ],
           ),
         ));
@@ -178,109 +195,27 @@ class InfoText extends StatelessWidget {
       children: <Widget>[
         RichText(
           text: TextSpan(children: <TextSpan>[
-            TextSpan(
-                text: 'Email Address: ',
-                style: TextStyle(
-                  fontSize: 18,
-                  color: colorScheme.onBackground,
-                )),
-            TextSpan(
-                text: orgEmail,
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                  color: colorScheme.onBackground,
-                ))
+            TextSpan(text: 'Email Address: ', style: TextStyle(fontSize: 17, color: Colors.black)),
+            TextSpan(text: orgEmail, style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600, color: Colors.black))
           ]),
         ),
-        FlatButton(
-            onPressed: () {
-              //TODO Redirect
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                color: purpleAccent,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 20),
-                child: Text(
-                  'Open in Mail',
-                  style: TextStyle(fontSize: 15, color: colorScheme.background),
-                ),
-              ),
-            )),
         SizedBox(
           height: 10,
         ),
         RichText(
           text: TextSpan(children: <TextSpan>[
-            TextSpan(
-                text: 'Phone Number: ',
-                style: TextStyle(
-                  fontSize: 18,
-                  color: colorScheme.onBackground,
-                )),
-            TextSpan(
-                text: orgPhone,
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                  color: colorScheme.onBackground,
-                ))
+            TextSpan(text: 'Phone Number: ', style: TextStyle(fontSize: 17, color: Colors.black)),
+            TextSpan(text: orgPhone, style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600, color: Colors.black))
           ]),
         ),
-        FlatButton(
-            onPressed: () {
-              //TODO Redirect
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                color: purpleAccent,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 20),
-                child: Text(
-                  'Call',
-                  style: TextStyle(fontSize: 15, color: colorScheme.background),
-                ),
-              ),
-            )),
+        SizedBox(height: 10),
         RichText(
           text: TextSpan(children: <TextSpan>[
-            TextSpan(
-                text: 'Donation Location: ',
-                style: TextStyle(
-                  fontSize: 18,
-                  color: colorScheme.onBackground,
-                )),
-            TextSpan(
-                text: orgAddress,
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                  color: colorScheme.onBackground,
-                ))
+            TextSpan(text: 'Donation Location: ', style: TextStyle(fontSize: 17, color: Colors.black)),
+            TextSpan(text: orgAddress, style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600, color: Colors.black))
           ]),
         ),
-        FlatButton(
-            onPressed: () {
-              //TODO Redirect
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                color: purpleAccent,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 20),
-                child: Text(
-                  'Open in Maps',
-                  style: TextStyle(fontSize: 15, color: colorScheme.background),
-                ),
-              ),
-            )),
+        SizedBox(height: 10),
       ],
     );
   }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:phase1/pages/volunteer/donation_confirmation_page.dart';
 
 import '../../components/item_increment.dart';
-import '../../components/rounded_button.dart';
 import '../../components/standard_layout.dart';
 import '../../constants.dart';
 
@@ -37,11 +37,29 @@ class _VolunteerDonatePageState extends State<VolunteerDonatePage> {
               SizedBox(height: 15),
               DonatePageItemSelection(boxTitle: 'Food'),
               SizedBox(height: 15),
-              RoundedButton(
+              Container(
+                width: MediaQuery.of(context).size.width,
+                child: FlatButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/confirm_donation');
+                    Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => DonationConfirmationPage()),);
                   },
-                  title: 'Create Donation'),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
+                  color: purpleAccent,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 20),
+                    child: Text(
+                      'Continue',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 15
+                      ),
+                    ),
+                  ),
+                ),
+              ),
               SizedBox(height: 15),
             ],
           ),
@@ -74,6 +92,7 @@ class DonatePageItemSelection extends StatelessWidget {
                   boxTitle,
                   style: TextStyle(
                     fontSize: 20,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ],
@@ -81,18 +100,14 @@ class DonatePageItemSelection extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
-            SizedBox(
-              height: 5,
-            ),
             Container(
               height: 5,
               width: 50,
               decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
             ),
             SizedBox(
-              height: 20,
+              height: 10,
             ),
-            SizedBox(height: 10),
             ItemIncrement(itemName: 'Toilet paper'),
             SizedBox(height: 10),
             ItemIncrement(itemName: 'Pillow'),

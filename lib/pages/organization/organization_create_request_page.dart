@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:phase1/components/standard_layout_purple.dart';
 
 import '../../components/create_request_container.dart';
-import '../../components/standard_layout.dart';
-import '../../constants.dart';
 
 class OrganizationRequestPage extends StatefulWidget {
   @override
@@ -14,8 +13,7 @@ class _OrganizationRequestPageState extends State<OrganizationRequestPage> {
   Widget build(BuildContext context) {
     return Hero(
       tag: 'create request',
-      child: StandardLayout(
-        color: purpleAccent,
+      child: StandardLayout2(
         title: 'Create Requests',
         helpText: '''   This is the Create Requests Page. Choose any category from which you would like to request and specify the amount desired. 
    You could also name a specific item from this page and specify the quantity desired.''',

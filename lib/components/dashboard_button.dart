@@ -13,11 +13,11 @@ class DashboardButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
+      padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
       child: Container(
         child: Material(
           elevation: 5,
-          borderRadius: BorderRadius.circular(35.0),
+          borderRadius: BorderRadius.circular(20.0),
           child: ListTile(
             contentPadding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 18.0),
             onTap: onTap,
