@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:phase1/components/rounded_button.dart';
 import 'package:phase1/constants.dart';
+import 'package:phase1/pages/volunteer/volunteer_donate_page.dart';
 
 import '../../components/standard_layout.dart';
 
@@ -59,10 +59,11 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                               'Description',
                               style: TextStyle(
                                 fontSize: 20,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
                             SizedBox(
-                              height: 10,
+                              height: 5,
                             ),
                             Container(
                               height: 5,
@@ -73,23 +74,91 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                               height: 10,
                             ),
                             Text(
-                                'The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.'),
+                                'The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.',
+                              style: TextStyle(
+                                fontSize: 17.0,
+                                fontWeight: FontWeight.w400,
+                              ),),
                             SizedBox(
                               height: 10,
                             ),
-                            Text('Address: 7213 City Street'),
+                            RichText(
+                              text: TextSpan(children: <TextSpan>[
+                                TextSpan(
+                                    text: 'Address: ',
+                                    style: TextStyle(
+                                      fontSize: 17,
+                                      color: Colors.black,
+                                    )),
+                                TextSpan(
+                                    text: 'hello',
+                                    style: TextStyle(
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.black,
+                                    ))
+                              ]),
+                            ),
                             SizedBox(
                               height: 10,
                             ),
-                            Text('Website: cityteammens.org'),
+                            RichText(
+                              text: TextSpan(children: <TextSpan>[
+                                TextSpan(
+                                    text: 'Website: ',
+                                    style: TextStyle(
+                                      fontSize: 17,
+                                      color: Colors.black,
+                                    )),
+                                TextSpan(
+                                    text: 'hello',
+                                    style: TextStyle(
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.black,
+                                    ))
+                              ]),
+                            ),
                             SizedBox(
                               height: 10,
                             ),
-                            Text('Phone Number: 408 131 4356'),
+                            RichText(
+                              text: TextSpan(children: <TextSpan>[
+                                TextSpan(
+                                    text: 'Phone Number: ',
+                                    style: TextStyle(
+                                      fontSize: 17,
+                                      color: Colors.black,
+                                    )),
+                                TextSpan(
+                                    text: 'hello',
+                                    style: TextStyle(
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.black,
+                                    ))
+                              ]),
+                            ),
                             SizedBox(
                               height: 10,
                             ),
-                            Text('Email: cityteammens@gmail.com'),
+                            RichText(
+                              text: TextSpan(children: <TextSpan>[
+                                TextSpan(
+                                    text: 'Email: ',
+                                    style: TextStyle(
+                                      fontSize: 17,
+                                      color: Colors.black,
+                                    )),
+                                TextSpan(
+                                    text: 'hello',
+                                    style: TextStyle(
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.black,
+                                    ))
+                              ]),
+                            ),
                             SizedBox(
                               height: 10,
                             ),
@@ -105,7 +174,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: Container(
-                    decoration: BoxDecoration(color: colorScheme.secondary, borderRadius: BorderRadius.all(Radius.circular(20))),
+                    decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(20))),
                     width: MediaQuery.of(context).size.width,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16.0),
@@ -117,6 +186,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                             'Requested Items',
                             style: TextStyle(
                               fontSize: 20,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
                           SizedBox(
@@ -130,23 +200,59 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                           SizedBox(
                             height: 20,
                           ),
-                          Text('Hygiene', style: subHeaderStyle),
+                          Text('Hygiene', style: TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.w500,
+                          )),
                           SizedBox(height: 5),
-                          Text('Toothbrushes x 4'),
-                          Text('Towels x 2'),
-                          Text('Floss x 10'),
+                          Text('Toothbrushes x 4', style: TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.w400,
+                          )),
+                          Text('Towels x 2', style: TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.w400,
+                          )),
+                          Text('Floss x 10', style: TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.w400,
+                          )),
                           SizedBox(height: 20),
-                          Text('Clothing', style: subHeaderStyle),
+                          Text('Clothing', style: TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.w500,
+                          )),
                           SizedBox(height: 5),
-                          Text('Pair of Socks x 15'),
-                          Text('T-shirt x 10'),
+                          Text('Pair of Socks x 15', style: TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.w400,
+                          )),
+                          Text('T-shirt x 10', style: TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.w400,
+                          )),
                           SizedBox(height: 20),
-                          Text('Food', style: subHeaderStyle),
+                          Text('Food', style: TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.w500,
+                          )),
                           SizedBox(height: 5),
-                          Text('Can of Beans x 4'),
-                          Text('Whole Wheat Bread x 2'),
-                          Text('Potatoes x 15'),
-                          Text('Pizza x 4'),
+                          Text('Can of Beans x 4', style: TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.w400,
+                          )),
+                          Text('Whole Wheat Bread x 2', style: TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.w400,
+                          )),
+                          Text('Potatoes x 15', style: TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.w400,
+                          )),
+                          Text('Pizza x 4', style: TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.w400,
+                          )),
                           SizedBox(height: 5),
                         ],
                       ),
@@ -155,16 +261,34 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                 ),
               ],
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: RoundedButton(
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                child: FlatButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/donate');
+                    Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => VolunteerDonatePage()),);
                   },
-                  title: 'Continue to Requests'),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
+                  color: purpleAccent,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 20),
+                    child: Text(
+                      'Continue to Requests',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 15
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 20),
           ],
         ),
       ),
