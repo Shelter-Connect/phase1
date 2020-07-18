@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phase1/pages/volunteer/donation_filter_page.dart';
 
 import '../../components/organization_donation_profile.dart';
 import '../../constants.dart';
@@ -41,7 +42,10 @@ class _DonationOpportunitiesState extends State<DonationOpportunities> {
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                 color: colorScheme.onSecondary,
                 onPressed: () {
-                  //TODO Navigate to donation_filter page
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => DonationFilterPage()),
+                  );
                 },
                 child: IntrinsicWidth(
                   child: Row(

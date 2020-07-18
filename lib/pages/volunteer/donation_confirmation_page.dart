@@ -68,7 +68,7 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                                   child: Text(
                                     'Edit',
                                     style: TextStyle(
-                                        decoration: TextDecoration.underline,
+                                      decoration: TextDecoration.underline,
                                       color: colorScheme.error,
                                       fontSize: 17.0,
                                     ),
@@ -79,9 +79,6 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                                 ),
                               ],
                             ),
-                            SizedBox(
-                              height: 5,
-                            ),
                             Container(
                               height: 5,
                               width: 100,
@@ -90,15 +87,15 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                             SizedBox(
                               height: 10,
                             ),
-                            Text('Blankets x4', style: TextStyle(fontSize: 17)),
+                            Text('Blankets x 4', style: TextStyle(fontSize: 17)),
                             SizedBox(
                               height: 5,
                             ),
-                            Text('Bananas x15', style: TextStyle(fontSize: 17)),
+                            Text('Bananas x 15', style: TextStyle(fontSize: 17)),
                             SizedBox(
                               height: 5,
                             ),
-                            Text('Can of Beans x10', style: TextStyle(fontSize: 17)),
+                            Text('Can of Beans x 10', style: TextStyle(fontSize: 17)),
                             SizedBox(
                               height: 10,
                             ),
@@ -162,10 +159,10 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                     ),
                     color: purpleAccent,
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 20),
+                      padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 20),
                       child: Text(
                         'Confirm Donation Submission',
-                        style: TextStyle(color: Colors.white, fontSize: 15),
+                        style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
                     ),
                   ),
