@@ -4,9 +4,9 @@ import '../pages/organization/organization_expected_deliveries_information_page.
 
 class ExpectedDeliveryContainer extends StatelessWidget {
   final String dateRequested, dateExpected, donorName, donorEmail;
-  final List itemQuantity, itemName;
+  final  List itemName, itemQuantity;
 
-  ExpectedDeliveryContainer({ this.itemName,  this.itemQuantity,  this.dateRequested, this.dateExpected,  this.donorName,  this.donorEmail});
+  ExpectedDeliveryContainer( { this.itemName, this.itemQuantity, this.dateRequested, this.dateExpected,  this.donorName,  this.donorEmail});
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +28,7 @@ class ExpectedDeliveryContainer extends StatelessWidget {
             ),
           );
         },
+
         child: Container(
           decoration: BoxDecoration(color: colorScheme.onSecondary, borderRadius: BorderRadius.all(Radius.circular(20))),
           child: Padding(
@@ -74,7 +75,7 @@ class ExpectedDeliveryContainer extends StatelessWidget {
                       ),
                       Column(
                         children: <Widget>[
-                          ...itemQuantity.map((string) => Text(string, style: TextStyle(fontSize: 20))).toList()
+                          ...itemQuantity.map((int) => Text('$int', style: TextStyle(fontSize: 20))).toList()
                         ],
                       )
                     ],
@@ -87,6 +88,7 @@ class ExpectedDeliveryContainer extends StatelessWidget {
         ),
       ),
     );
+
   }
 }
 
