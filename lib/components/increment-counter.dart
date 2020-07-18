@@ -1,10 +1,14 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../pages/organization/organization_expected_deliveries_page.dart';
 
 class ItemIncrement extends StatefulWidget {
   final String itemName;
+//  final List itemQuantity;
 
-  ItemIncrement({this.itemName});
+  ItemIncrement( {this.itemName});
 
   @override
   _ItemIncrementState createState() => _ItemIncrementState();
@@ -12,6 +16,7 @@ class ItemIncrement extends StatefulWidget {
 
 class _ItemIncrementState extends State<ItemIncrement> {
   int _counter = 0;
+
 
   void _incrementCounter() {
     setState(() {
@@ -21,14 +26,13 @@ class _ItemIncrementState extends State<ItemIncrement> {
 
   void _decrementCounter() {
     setState(() {
-      _counter--;
+      _counter = max(0, _counter - 1);
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return
-
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[

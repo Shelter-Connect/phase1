@@ -193,26 +193,7 @@ class InfoText extends StatelessWidget {
                 ))
           ]),
         ),
-        FlatButton(
-            onPressed: () {
-              //TODO Redirect
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                color: purpleAccent,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 20),
-                child: Text(
-                  'Open in Mail',
-                  style: TextStyle(fontSize: 15, color: colorScheme.background),
-                ),
-              ),
-            )),
-        SizedBox(
-          height: 10,
-        ),
+SizedBox(height:10),
         RichText(
           text: TextSpan(children: <TextSpan>[
             TextSpan(
@@ -230,23 +211,7 @@ class InfoText extends StatelessWidget {
                 ))
           ]),
         ),
-        FlatButton(
-            onPressed: () {
-              //TODO Redirect
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                color: purpleAccent,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 20),
-                child: Text(
-                  'Call',
-                  style: TextStyle(fontSize: 15, color: colorScheme.background),
-                ),
-              ),
-            )),
+SizedBox(height: 10),
         RichText(
           text: TextSpan(children: <TextSpan>[
             TextSpan(
@@ -264,23 +229,7 @@ class InfoText extends StatelessWidget {
                 ))
           ]),
         ),
-        FlatButton(
-            onPressed: () {
-              //TODO Redirect
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                color: purpleAccent,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 20),
-                child: Text(
-                  'Open in Maps',
-                  style: TextStyle(fontSize: 15, color: colorScheme.background),
-                ),
-              ),
-            )),
+
       ],
     );
   }
