@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../components/increment-counter.dart';
+import '../../components/item_increment.dart';
 import '../../components/rounded_button.dart';
 import '../../components/standard_layout.dart';
 import '../../constants.dart';

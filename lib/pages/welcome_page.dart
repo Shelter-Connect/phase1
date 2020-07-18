@@ -30,7 +30,7 @@ class _WelcomePageState extends State<WelcomePage> {
                 alignment: Alignment.center,
               ),
               SizedBox(height: 10.0),
-              Image.asset('assets/LogoName.png', width: 400),
+              Image.asset('assets/logo_svgs/LogoName.png', width: 400),
               Text(
                 'Connecting non-profit organizations and kind hearted people',
                 style: TextStyle(

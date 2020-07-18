@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 import '../components/floating_text_field.dart';
-import '../components/no_action_alert.dart';
+import '../components/alerts.dart';
 import '../components/rounded_button.dart';
 import '../components/text_button.dart';
 import '../constants.dart';

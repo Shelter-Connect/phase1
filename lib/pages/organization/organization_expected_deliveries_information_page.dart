@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:phase1/components/increment-counter.dart';
+import 'package:phase1/components/item_increment.dart';
 
 import '../../components/standard_layout.dart';
 import '../../constants.dart';

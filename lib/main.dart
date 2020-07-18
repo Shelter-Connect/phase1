@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import 'constants.dart';
@@ -26,7 +27,11 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    precacheImage(AssetImage('assets/ShelterConnectLogo.png'), context);
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+    precacheImage(AssetImage('assets/logo_svgs/ShelterConnectLogo.png'), context);
 
     return ChangeNotifierProvider<User>(
       create: (_) => User(),
@@ -37,8 +42,8 @@ class MyApp extends StatelessWidget {
           colorScheme: colorScheme,
         ),
         routes: {
-          '/': (_) => WelcomePage(),
-          '/loading': (_) => LoadingPage(),
+          '/welcome': (_) => WelcomePage(),
+          '/': (_) => LoadingPage(),
           '/confirm_donation': (_) => DonationConfirmationPage(),
           '/donate': (_) => VolunteerDonatePage(),
           '/items_to_deliver_extended': (_) => ItemsToDeliverExtended(),
@@ -54,7 +59,7 @@ class MyApp extends StatelessWidget {
           '/volunteer_confirmation': (_) => VolunteerConfirmation(),
           '/volunteer_sign_up': (_) => VolunteerSignUp(),
         },
-        initialRoute: '/loading',
+        initialRoute: '/',
       ),
     );
   }

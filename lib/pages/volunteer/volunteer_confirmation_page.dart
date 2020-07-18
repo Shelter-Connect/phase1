@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../components/no_action_alert.dart';
+import '../../components/alerts.dart';
 import '../../components/rounded_button.dart';
 import '../../constants.dart';
 import '../../models/user.dart';
@@ -35,7 +35,7 @@ class _VolunteerConfirmationState extends State<VolunteerConfirmation> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                'A verification email has been sent to ${Provider.of<User>(context).user.email}',
+                'A verification email has been sent to ${Provider.of<User>(context, listen: false).user.email}',
                 style: headerStyle.copyWith(
                   fontSize: 23.0,
                 ),
@@ -46,7 +46,6 @@ class _VolunteerConfirmationState extends State<VolunteerConfirmation> {
                 onPressed: () async {
                   user.delete();
                   db.collection('volunteers').document(user.uid).delete();
-                  Navigator.pop(context);
                 },
               ),
               RoundedButton(
@@ -71,7 +70,7 @@ class _VolunteerConfirmationState extends State<VolunteerConfirmation> {
                   user = await auth.currentUser();
                   if (user.isEmailVerified) {
                     print('verified');
-                    Navigator.pushNamed(context, '/volunteer_navigation');
+                    Navigator.pushReplacementNamed(context, '/volunteer_navigation');
                   } else {
                     showDialog(
                       context: context,
