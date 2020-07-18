@@ -35,6 +35,10 @@ class _OrganizationRequestPageState extends State<OrganizationRequestPage> {
                         asset: 'assets/hygiene_svgs/hygiene.svg',
                         name: 'Hygiene',
                         onPressed: () {
+//                          Navigator.push(
+//                            context,
+//                            MaterialPageRoute(builder: (context) => SecondRoute()),
+//                          );
                           //TODO: Go to Hygiene Page
                         },
                       ),
@@ -42,6 +46,7 @@ class _OrganizationRequestPageState extends State<OrganizationRequestPage> {
                         asset: 'assets/clothing_svgs/clothes.svg',
                         name: 'Clothing',
                         onPressed: () {
+
                           //TODO: Go to Clothes Page
                         },
                       ),
