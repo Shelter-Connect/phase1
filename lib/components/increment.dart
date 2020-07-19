@@ -4,52 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 
-//class Increment extends StatelessWidget {
-//  @override
-//  Widget build(BuildContext context) {
-//    return new Scaffold(
-//      body: new ListView(
-//        children: new List.generate(5, (i)=>new ListTileItem(
-//          title: "Item#$i",
-//        )),
-//      ),
-//    );
-//  }
-//}
-//class ListTileItem extends StatefulWidget {
-//  String title;
-//  List itemQuantity;
-//  ListTileItem({this.title, this.itemQuantity});
-//  @override
-//  _ListTileItemState createState() => new _ListTileItemState();
-//}
-//
-//class _ListTileItemState extends State<ListTileItem> {
-//  List _itemCount = widget.itemQuantity;
-//  @override
-//  Widget build(BuildContext context) {
-//    return new ListTile(
-//      title: new Text(widget.title),
-//      trailing: new Row(
-//        children: <Widget>[
-//          _itemCount!=0? new  IconButton(icon: new Icon(Icons.remove),onPressed: ()=>setState(()=>_itemCount--),):new Container(),
-//          new Text(_itemCount.toString()),
-//          new IconButton(icon: new Icon(Icons.add),onPressed: ()=>setState(()=>_itemCount++))
-//        ],
-//      ),
-//    );
-//  }
-//}
-
-
-
-
-
-
 class Increment extends StatefulWidget {
 final int itemQuantity;
 
-//  Increment(itemQuantity);
+
   Increment({this.itemQuantity});
   @override
   _ItemIncrementState createState() => _ItemIncrementState();
