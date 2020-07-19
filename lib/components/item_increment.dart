@@ -1,17 +1,21 @@
+import 'dart:math';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:phase1/constants.dart';
 
-class ItemIncrementWithText extends StatefulWidget {
+class ItemIncrement extends StatefulWidget {
   final String itemName;
+//  final List itemQuantity;
 
-  ItemIncrementWithText({this.itemName});
+  ItemIncrement( {this.itemName});
 
   @override
-  _ItemIncrementWithTextState createState() => _ItemIncrementWithTextState();
+  _ItemIncrementState createState() => _ItemIncrementState();
 }
 
-class _ItemIncrementWithTextState extends State<ItemIncrementWithText> {
+class _ItemIncrementState extends State<ItemIncrement> {
   int _counter = 0;
+
 
   void _incrementCounter() {
     setState(() {
@@ -21,127 +25,103 @@ class _ItemIncrementWithTextState extends State<ItemIncrementWithText> {
 
   void _decrementCounter() {
     setState(() {
-      _counter--;
+      _counter = max(0, _counter - 1);
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        Container(child: Text(widget.itemName, style: TextStyle(
-          fontSize: 17,
-          fontWeight: FontWeight.w400
-        ),)),
-        Row(
-          children: <Widget>[
-            Container(
-              height: 30,
-              width: 30,
-              decoration: BoxDecoration(
-                color: whiteBackground,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: IconButton(
-                onPressed: _decrementCounter,
-                icon: Icon(
-                  Icons.remove,
-                  size: 15,
+    return
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Container(
+              child: Text(widget.itemName)),
+          Row(
+            children: <Widget>[
+              Container(
+                height: 30,
+                width: 30,
+                decoration: BoxDecoration(
+                  color: Color(0xFFCCCCCC),
+                  borderRadius: BorderRadius.circular(10),
                 ),
-                tooltip: 'Decrement',
-              ),
-            ),
-            SizedBox(width: 25),
-            Text('$_counter'),
-            SizedBox(width: 25),
-            Container(
-              height: 30,
-              width: 30,
-              decoration: BoxDecoration(
-                color: blueAccent,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: IconButton(
-                onPressed: _incrementCounter,
-                icon: Icon(Icons.add, size: 15),
-                tooltip: 'Increment',
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-}
-
-class ItemIncrementWithoutText extends StatefulWidget {
-
-  @override
-  _ItemIncrementWithoutTextState createState() => _ItemIncrementWithoutTextState();
-}
-
-class _ItemIncrementWithoutTextState extends State<ItemIncrementWithoutText> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  void _decrementCounter() {
-    setState(() {
-      _counter--;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        Row(
-          children: <Widget>[
-            Container(
-              height: 30,
-              width: 30,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: IconButton(
-                onPressed: _decrementCounter,
-                icon: Icon(
-                  Icons.remove,
-                  size: 15,
+                child: IconButton(
+                  onPressed: _decrementCounter,
+                  icon: Icon(Icons.remove, size: 15,),
+                  tooltip: 'Decrement',
                 ),
-                tooltip: 'Decrement',
               ),
-            ),
-            SizedBox(width: 25),
-            Text('$_counter'),
-            SizedBox(width: 25),
-            Container(
-              height: 30,
-              width: 30,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
+              SizedBox(width: 25),
+              Text('$_counter'),
+              SizedBox(width: 25),
+              Container(
+                height: 30,
+                width: 30,
+                decoration: BoxDecoration(
+                  color: Color(0xFF26A0FF),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: IconButton(
+                  onPressed: _incrementCounter,
+                  icon: Icon(Icons.add, size: 15),
+                  tooltip: 'Increment',
+                ),
               ),
-              child: IconButton(
-                onPressed: _incrementCounter,
-                icon: Icon(Icons.add, size: 15),
-                tooltip: 'Increment',
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
+            ],
+          ),
+
+        ],
+      );
+
+//    return Row(
+//      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//      children: <Widget>[
+//        Container(child: Text(widget.itemName, style: TextStyle(
+//          fontSize: 17,
+//          fontWeight: FontWeight.w400
+//        ),)),
+//        Row(
+//          children: <Widget>[
+//            Container(
+//              height: 30,
+//              width: 30,
+//              decoration: BoxDecoration(
+//                color: whiteBackground,
+//                borderRadius: BorderRadius.circular(10),
+//              ),
+//              child: IconButton(
+//                onPressed: _decrementCounter,
+//                icon: Icon(
+//                  Icons.remove,
+//                  size: 15,
+//                ),
+//                tooltip: 'Decrement',
+//              ),
+//            ),
+//            SizedBox(width: 25),
+//            Text('$_counter'),
+//            SizedBox(width: 25),
+//            Container(
+//              height: 30,
+//              width: 30,
+//              decoration: BoxDecoration(
+//                color: blueAccent,
+//                borderRadius: BorderRadius.circular(10),
+//              ),
+//              child: IconButton(
+//                onPressed: _incrementCounter,
+//                icon: Icon(Icons.add, size: 15),
+//                tooltip: 'Increment',
+//              ),
+//            ),
+//          ],
+//        ),
+//      ],
+//    );
+//  }
   }
 }
-
 //Widget build(BuildContext context) {
 //  return Wrap(
 //    children: <Widget>[
