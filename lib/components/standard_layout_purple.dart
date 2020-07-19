@@ -19,7 +19,9 @@ class StandardLayout2 extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: purpleAccent,
         elevation: 0.0,
-        title: Text(title),
+        title: Text(title, style: TextStyle(
+          color: purpleAccent,
+        ),),
         actions: <Widget>[
           Visibility(
             child: IconButton(
