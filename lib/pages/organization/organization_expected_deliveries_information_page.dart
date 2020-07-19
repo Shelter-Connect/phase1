@@ -40,15 +40,15 @@ class _OrganizationExpectedDeliveryInformationPageState extends State<Organizati
     // TODO: clean, clean, clean, clean, clean, and clean again
     return StandardLayout(
       title: "Delivery Information",
-      body: Column(
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Container(
-              decoration: BoxDecoration(color: colorScheme.onSecondary, borderRadius: BorderRadius.all(Radius.circular(20))),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
-                child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Container(
+                decoration: BoxDecoration(color: colorScheme.onSecondary, borderRadius: BorderRadius.all(Radius.circular(20))),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -75,7 +75,14 @@ class _OrganizationExpectedDeliveryInformationPageState extends State<Organizati
                               padding: EdgeInsets.all(10),
                               child: Column(
                                 children: <Widget>[
-                                  ...itemName.map((string) => Text(string, style: TextStyle(fontSize: 25))).toList(),
+                                  ...itemName.map((string) => Text(string, style: TextStyle(fontSize: 20))).toList(),
+                                ],
+                              )),
+                          Padding(
+                              padding: EdgeInsets.all(10),
+                              child: Column(
+                                children: <Widget>[
+                                  ...itemQuantity.map((int) => Text('$int', style: TextStyle(fontSize: 20))).toList(),
                                 ],
                               )),
                           Padding(
@@ -137,42 +144,42 @@ class _OrganizationExpectedDeliveryInformationPageState extends State<Organizati
                 ),
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: 50,
-              child: FlatButton(
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(21.0)),
-                color: secondaryTertiary,
-                onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (_) => AlertDialog(
-                    title: Text('Confirm Order?'),
-                    content: Text('Once you confirm, it will be removed from your requested items'),
-                    actions: [
-                      FlatButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/organization_dashboard');
-                        },
-                        child: Text('Confirm', style: TextStyle(color: secondaryTertiary)),
-                      ),
-                      FlatButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: Text('Go back', style: TextStyle(color: secondaryTertiary)),
-                      ),
-                    ],
-                  ));
-                },
-                child: Text('Confirm', style: TextStyle(fontSize: 20, color: Colors.white)),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: 50,
+                child: FlatButton(
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(21.0)),
+                  color: secondaryTertiary,
+                  onPressed: () {
+                    showDialog(
+                        context: context,
+                        builder: (_) => AlertDialog(
+                      title: Text('Confirm Order?'),
+                      content: Text('Once you confirm, it will be removed from your requested items'),
+                      actions: [
+                        FlatButton(
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/organization_dashboard');
+                          },
+                          child: Text('Confirm', style: TextStyle(color: secondaryTertiary)),
+                        ),
+                        FlatButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text('Go back', style: TextStyle(color: secondaryTertiary)),
+                        ),
+                      ],
+                    ));
+                  },
+                  child: Text('Confirm', style: TextStyle(fontSize: 20, color: Colors.white)),
+                ),
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

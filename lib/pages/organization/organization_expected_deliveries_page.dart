@@ -94,7 +94,7 @@ class _OrganizationExpectedDeliveriesPageState extends State<OrganizationExpecte
             ],
           ),
           ExpectedDeliveryContainer( // TODO: for firebase, need to query all information for these containers
-            itemName: <String>['Toothbrushes3\nShirts4\nHam5\nBlankets6'],
+            itemName: <String>['Toothbrushes\nShirts\nHam\nBlankets'],
             itemQuantity: <int>[9, 10, 100, 59,],
             dateRequested: "dateRequested",
             dateExpected: "12/20",
@@ -102,7 +102,7 @@ class _OrganizationExpectedDeliveriesPageState extends State<OrganizationExpecte
             donorEmail: "eric@gmail.com",
           ),
           ExpectedDeliveryContainer(
-            itemName: <String>['Toothpaste2\nPants2\nSocks2\nSleeping Bags2'],
+            itemName: <String>['Toothpaste\nPants\nSocks\nSleeping Bags'],
             itemQuantity: <int>[66, 57, 48, 93,],
             dateRequested: "6/9",
             dateExpected: "12/20",
@@ -110,7 +110,7 @@ class _OrganizationExpectedDeliveriesPageState extends State<OrganizationExpecte
             donorEmail: "donorEmail",
           ),
           ExpectedDeliveryContainer(
-            itemName: <String>['Floss1\nBelts1\nHam1\nCaps1'],
+            itemName: <String>['Floss\nBelts\nHam\nCaps'],
             itemQuantity: <int>[16, 27, 38, 49,],
             dateRequested: "dateRequested",
             dateExpected: "9/6",
