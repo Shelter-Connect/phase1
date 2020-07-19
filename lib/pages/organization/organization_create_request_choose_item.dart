@@ -1,11 +1,38 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:phase1/components/create_request_container.dart';
+import 'package:phase1/components/create_request_info_container.dart';
+import 'package:phase1/components/floating_text_field.dart';
+import 'package:phase1/components/item_increment.dart';
 import 'package:phase1/constants.dart';
+import 'package:phase1/pages/organization/organization_create_request_confirm_request.dart';
 
 import '../../components/standard_layout_purple.dart';
 
 class CreateRequestChooseItem extends StatelessWidget {
+  final String categoryName;
+  final String categoryIcon;
+  final String categoryInfo;
+  final String name1, name2, name3, name4, name5, name6;
+  final String itemIcons1, itemIcons2,itemIcons3,itemIcons4,itemIcons5,itemIcons6;
+
+  CreateRequestChooseItem({
+    @required this.categoryName,
+    @required this.categoryIcon,
+    @required this.categoryInfo,
+    this.name1,
+    this.name2,
+    this.name3,
+    this.name4,
+    this.name5,
+    this.name6,
+    this.itemIcons1,
+    this.itemIcons2,
+    this.itemIcons3,
+    this.itemIcons4,
+    this.itemIcons5,
+    this.itemIcons6,
+  });
   @override
   Widget build(BuildContext context) {
     return StandardLayout2(
@@ -18,10 +45,25 @@ class CreateRequestChooseItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  'Create Requests',
-                  style: TextStyle(fontSize: 35, fontWeight: FontWeight.w800, color: colorScheme.onSecondary),
+                RichText(
+                  text: TextSpan(children: <TextSpan>[
+                    TextSpan(
+                        text: 'Create Requests: ',
+                        style: TextStyle(
+                            fontSize: 35,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w900
+                        )),
+                    TextSpan(
+                        text: 'Choose Item',
+                        style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white,
+                        ))
+                  ]),
                 ),
+                SizedBox(height: 20),
                 Container(
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
@@ -29,44 +71,86 @@ class CreateRequestChooseItem extends StatelessWidget {
                     color: colorScheme.background,
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
                     child: Wrap(
                       crossAxisAlignment: WrapCrossAlignment.center,
                       children: <Widget>[
                         CreateRequestContainer(
-                          name: 'Body Soap',
-                          asset: 'assets/hygiene_svgs/body_soap.svg',
-                          onPressed: () {},
+                          name: categoryName,
+                          asset:categoryIcon,
+                          onPressed: (){
+                            Navigator.pop(context);
+                          },
+                        ),
+                        CreateRequestInfoContainer(info: categoryInfo),
+                        CreateRequestContainer(
+                          name: name1,
+                          asset: itemIcons1,
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => CreateRequestConfirmRequest(itemIcon: itemIcons1, itemName: name1,)));
+                          },
                         ),
                         CreateRequestContainer(
-                          name: 'Nail Clipper',
-                          asset: 'assets/hygiene_svgs/nail_clipper.svg',
-                          onPressed: () {},
+                          name: name2,
+                          asset: itemIcons2,
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => CreateRequestConfirmRequest(itemIcon: itemIcons2, itemName: name2,)));
+                          },
                         ),
                         CreateRequestContainer(
-                          name: 'Soap',
-                          asset: 'assets/hygiene_svgs/soap.svg',
-                          onPressed: () {},
+                          name: name3,
+                          asset: itemIcons3,
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => CreateRequestConfirmRequest(itemIcon: itemIcons3, itemName: name3,)));
+                          },
                         ),
                         CreateRequestContainer(
-                          name: 'Toilet Paper',
-                          asset: 'assets/hygiene_svgs/toilet_paper.svg',
-                          onPressed: () {},
+                          name: name4,
+                          asset: itemIcons4,
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => CreateRequestConfirmRequest(itemIcon: itemIcons4, itemName: name4,)));
+                          },
                         ),
                         CreateRequestContainer(
-                          name: 'Tooth Brush',
-                          asset: 'assets/hygiene_svgs/toothbrush.svg',
-                          onPressed: () {},
+                          name: name5,
+                          asset: itemIcons5,
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => CreateRequestConfirmRequest(itemIcon: itemIcons5, itemName: name5,)));
+                          },
                         ),
                         CreateRequestContainer(
-                          name: 'Tooth Paste',
-                          asset: 'assets/hygiene_svgs/toothpaste.svg',
-                          onPressed: () {},
+                          name: name6,
+                          asset: itemIcons6,
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => CreateRequestConfirmRequest(itemIcon: itemIcons6, itemName: name6,)));
+                          },
                         ),
                       ],
                     ),
                   ),
                 ),
+                SizedBox(height: 20),
+                FloatingTextField(
+                  hintText: 'Specific Item and/or Brand',
+                  width: 225,
+                  maxLines: 1,
+                  //TODO Save Information to Firebase
+                ),
+                SizedBox(height: 20),
+                ItemIncrementWithoutText(),
+                SizedBox(height: 20),
               ],
             ),
           ),

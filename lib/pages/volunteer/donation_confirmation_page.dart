@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:phase1/pages/volunteer/volunteer_donate_page.dart';
 
@@ -53,6 +54,7 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                               height: 10,
                             ),
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
                                 Text(
                                   'Selected Donations',
@@ -60,22 +62,24 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                                     fontSize: 20,
                                   ),
                                 ),
-                                SizedBox(width: 5),
-                                FlatButton(
-                                  padding: EdgeInsets.all(0.0),
-                                  splashColor: transparent,
-                                  highlightColor: transparent,
-                                  child: Text(
-                                    'Edit',
-                                    style: TextStyle(
-                                      decoration: TextDecoration.underline,
-                                      color: colorScheme.error,
-                                      fontSize: 17.0,
+                                Container(
+                                  height: 35,
+                                  child: FlatButton(
+                                    padding: EdgeInsets.all(0.0),
+                                    splashColor: transparent,
+                                    highlightColor: transparent,
+                                    child: Text(
+                                      'Edit',
+                                      style: TextStyle(
+                                        decoration: TextDecoration.underline,
+                                        color: colorScheme.error,
+                                        fontSize: 17.0,
+                                      ),
                                     ),
+                                    onPressed: () {
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => VolunteerDonatePage()));
+                                    },
                                   ),
-                                  onPressed: () {
-                                    Navigator.push(context, MaterialPageRoute(builder: (context) => VolunteerDonatePage()));
-                                  },
                                 ),
                               ],
                             ),

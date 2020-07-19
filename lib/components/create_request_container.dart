@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:phase1/constants.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
 class CreateRequestContainer extends StatelessWidget {
@@ -14,15 +13,13 @@ class CreateRequestContainer extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(21),
       ),
-      onPressed: () {
-        //TODO send to create request choose item
-      },
+      onPressed: onPressed,
       child: Container(
-        height: 100.0,
-        width: 100.0,
+        height: 110.0,
+        width: 110.0,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(21),
-          color: colorScheme.onSecondary,
+          color: Colors.white,
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

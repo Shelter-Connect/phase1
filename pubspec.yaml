@@ -83,11 +83,12 @@ flutter:
     - assets/nutrition_svgs/eggs.svg
     - assets/nutrition_svgs/energy_bar.svg
     - assets/nutrition_svgs/water.svg
+    - assets/nutrition_svgs/potato.svg
     - assets/warmth_svgs/warmth.svg
     - assets/warmth_svgs/blanket.svg
     - assets/warmth_svgs/sleeping_bag.svg
     - assets/warmth_svgs/sleeping_pad.svg
-    - assets/more.svg
+    - assets/other_svgs/other.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
