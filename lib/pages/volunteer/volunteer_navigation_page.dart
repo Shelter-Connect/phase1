@@ -31,6 +31,7 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
       child: Scaffold(
         backgroundColor: colorScheme.background,
         appBar: AppBar(
+          brightness: Brightness.light,
           title: Text(
             _pages[_selectedIndex].title,
             style: TextStyle(
