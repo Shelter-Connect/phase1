@@ -1,35 +1,36 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:phase1/constants.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
-
 class CreateRequestContainer extends StatelessWidget {
-
-  final double height, width, fontSize;
   final Function onPressed;
   final String asset, name;
 
-  CreateRequestContainer({this.height,this.width, @required this.onPressed, @required this.asset,@required this.name, this.fontSize});
+  CreateRequestContainer({@required this.onPressed, @required this.asset, @required this.name});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
+    return RawMaterialButton(
+      shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(21),
-        color: Colors.white,
       ),
-      height: height ?? 125,
-      width: width ?? 125,
-      padding: EdgeInsets.all(10.0),
-      child: Column(
-        children: <Widget>[
-          FlatButton(
-            onPressed: onPressed,
-            child: WebsafeSvg.asset(asset, height: 75, width: 75),
-          ),
-          Text(name, style: TextStyle(fontSize: fontSize ?? 25, fontWeight: FontWeight.w400)),
-        ],
+      onPressed: () {
+        //TODO send to create request choose item
+      },
+      child: Container(
+        height: 100.0,
+        width: 100.0,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(21),
+          color: colorScheme.onSecondary,
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            WebsafeSvg.asset(asset, height: 55, width: 55),
+            Text(name, style: TextStyle(fontSize: 15)),
+          ],
+        ),
       ),
     );
   }

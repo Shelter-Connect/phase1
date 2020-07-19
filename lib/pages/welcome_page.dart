@@ -26,11 +26,11 @@ class _WelcomePageState extends State<WelcomePage> {
                 textAlign: TextAlign.center,
               ),
               Align(
-                child: Image.asset('assets/ShelterConnectLogo.png', height: 150),
+                child: Image.asset('assets/logo_svgs/ShelterConnectLogo.png', height: 150),
                 alignment: Alignment.center,
               ),
               SizedBox(height: 10.0),
-              Image.asset('assets/LogoName.png', width: 400),
+              Image.asset('assets/logo_svgs/LogoName.png', width: 400),
               Text(
                 'Connecting non-profit organizations and kind hearted people',
                 style: TextStyle(

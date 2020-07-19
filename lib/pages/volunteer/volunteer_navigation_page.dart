@@ -1,6 +1,9 @@
+import 'dart:math' show pi;
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../components/alerts.dart';
 import '../../constants.dart';
 import '../../models/user.dart';
 import '../navigation_tab.dart';
@@ -31,10 +34,10 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
           title: Text(
             _pages[_selectedIndex].title,
             style: TextStyle(
-              color: blueBackground,
+              color: whiteBackground,
             ),
           ),
-          backgroundColor: blueBackground,
+          backgroundColor: whiteBackground,
           elevation: 0.0,
           leading: Builder(
             builder: (context) => IconButton(
@@ -59,41 +62,62 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
           ],
         ),
         drawer: Drawer(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              DrawerHeader(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Shelter Connect',
-                      style: TextStyle(
-                        fontSize: 30.0,
-                        fontWeight: FontWeight.bold,
+          child: SafeArea(
+            child: Column(
+              children: <Widget>[
+                Expanded(
+                  child: Column(
+                    children: <Widget>[
+                      DrawerHeader(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Shelter Connect',
+                              style: TextStyle(
+                                fontSize: 30.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(height: 10.0),
+                            Text(Provider.of<User>(context, listen: false).user.email),
+                          ],
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 10.0),
-                    Text(Provider.of<User>(context).user?.email ?? ' '),
-                  ],
+                      ..._pages.asMap().map((index, tab) => MapEntry(index, ListTile(
+                        title: Text(tab.title),
+                        leading: Icon(tab.icon),
+                        onTap: () {
+                          setState(() {
+                            _selectedIndex = index;
+                          });
+                          Navigator.pop(context);
+                        },
+                      ))).values.toList(),
+                    ],
+                  ),
                 ),
-              ),
-              ..._pages
-                  .asMap()
-                  .map((index, tab) => MapEntry(
-                      index,
-                      ListTile(
-                          title: Text(tab.title),
-                          leading: Icon(tab.icon),
-                          onTap: () {
-                            setState(() {
-                              _selectedIndex = index;
-                            });
-                            Navigator.pop(context);
-                          })))
-                  .values
-                  .toList(),
-            ],
+                ListTile(
+                  title: Text('Sign Out'),
+                  leading: Transform.rotate(angle: pi, child: Icon(Icons.exit_to_app, color: Colors.red)),
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (_) => SingleActionAlert(
+                        title: 'Sign Out?',
+                        subtitle: 'Your login information will not be remembered.',
+                        actionName: 'Sign Out',
+                        action: () {
+                          Navigator.pop(context);
+                          Navigator.pop(context);
+                          auth.signOut();
+                        },
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
         ),
         body: _pages[_selectedIndex],

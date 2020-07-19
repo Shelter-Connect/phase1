@@ -55,14 +55,39 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/LogoName.png
-    - assets/ShelterConnectLogo.png
-    - assets/clean_hands-24px.svg
-    - assets/clothes.svg
-    - assets/water.svg
-    - assets/viburnum-fruit.svg
-    - assets/blanket.svg
-
+    - assets/clothing_svgs/clothes.svg
+    - assets/clothing_svgs/beanie.svg
+    - assets/clothing_svgs/gloves.svg
+    - assets/clothing_svgs/hats.svg
+    - assets/clothing_svgs/shirt.svg
+    - assets/clothing_svgs/socks.svg
+    - assets/clothing_svgs/underwear.svg
+    - assets/covid-19_response_svg/covid_19.svg
+    - assets/covid-19_response_svg/face_shield.svg
+    - assets/covid-19_response_svg/hand_sanitizer.svg
+    - assets/covid-19_response_svg/latex_gloves.svg
+    - assets/covid-19_response_svg/mask.svg
+    - assets/covid-19_response_svg/wipes.svg
+    - assets/hygiene_svgs/hygiene.svg
+    - assets/hygiene_svgs/body_soap.svg
+    - assets/hygiene_svgs/nail_clipper.svg
+    - assets/hygiene_svgs/soap.svg
+    - assets/hygiene_svgs/toilet_paper.svg
+    - assets/hygiene_svgs/toothbrush.svg
+    - assets/hygiene_svgs/toothpaste.svg
+    - assets/logo_svgs/LogoName.png
+    - assets/logo_svgs/ShelterConnectLogo.png
+    - assets/nutrition_svgs/nutrition.svg
+    - assets/nutrition_svgs/beans.svg
+    - assets/nutrition_svgs/bread.svg
+    - assets/nutrition_svgs/eggs.svg
+    - assets/nutrition_svgs/energy_bar.svg
+    - assets/nutrition_svgs/water.svg
+    - assets/warmth_svgs/warmth.svg
+    - assets/warmth_svgs/blanket.svg
+    - assets/warmth_svgs/sleeping_bag.svg
+    - assets/warmth_svgs/sleeping_pad.svg
+    - assets/more.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

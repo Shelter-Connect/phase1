@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../pages/organization/organization_expected_deliveries_page.dart';
 
 class ItemIncrement extends StatefulWidget {
   final String itemName;
@@ -75,10 +74,54 @@ class _ItemIncrementState extends State<ItemIncrement> {
         ],
       );
 
+//    return Row(
+//      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//      children: <Widget>[
+//        Container(child: Text(widget.itemName, style: TextStyle(
+//          fontSize: 17,
+//          fontWeight: FontWeight.w400
+//        ),)),
+//        Row(
+//          children: <Widget>[
+//            Container(
+//              height: 30,
+//              width: 30,
+//              decoration: BoxDecoration(
+//                color: whiteBackground,
+//                borderRadius: BorderRadius.circular(10),
+//              ),
+//              child: IconButton(
+//                onPressed: _decrementCounter,
+//                icon: Icon(
+//                  Icons.remove,
+//                  size: 15,
+//                ),
+//                tooltip: 'Decrement',
+//              ),
+//            ),
+//            SizedBox(width: 25),
+//            Text('$_counter'),
+//            SizedBox(width: 25),
+//            Container(
+//              height: 30,
+//              width: 30,
+//              decoration: BoxDecoration(
+//                color: blueAccent,
+//                borderRadius: BorderRadius.circular(10),
+//              ),
+//              child: IconButton(
+//                onPressed: _incrementCounter,
+//                icon: Icon(Icons.add, size: 15),
+//                tooltip: 'Increment',
+//              ),
+//            ),
+//          ],
+//        ),
+//      ],
+//    );
+//  }
   }
 }
-
-
 //Widget build(BuildContext context) {
 //  return Wrap(
 //    children: <Widget>[

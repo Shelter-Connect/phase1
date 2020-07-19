@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:phase1/components/volunteer_donate_page_item_selection.dart';
+import 'package:phase1/pages/volunteer/donation_confirmation_page.dart';
 
-import '../../components/increment-counter.dart';
-import '../../components/rounded_button.dart';
 import '../../components/standard_layout.dart';
 import '../../constants.dart';
 
@@ -24,11 +24,11 @@ class _VolunteerDonatePageState extends State<VolunteerDonatePage> {
             children: <Widget>[
               Text(
                 '(Organization Name)',
-                style: TextStyle(fontSize: 35, fontWeight: FontWeight.w900, color: Color(0xFF6576EC)),
+                style: TextStyle(fontSize: 35, fontWeight: FontWeight.w900, color: purpleAccent),
               ),
               Text(
                 ' 5 miles away',
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700, color: Color(0xFF6576EC)),
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700, color: purpleAccent),
               ),
               SizedBox(height: 20),
               DonatePageItemSelection(boxTitle: 'Hygiene'),
@@ -37,9 +37,29 @@ class _VolunteerDonatePageState extends State<VolunteerDonatePage> {
               SizedBox(height: 15),
               DonatePageItemSelection(boxTitle: 'Food'),
               SizedBox(height: 15),
-              RoundedButton(onPressed: (){
-                Navigator.pushNamed(context, '/confirm_donation');
-              }, title: 'Create Donation'),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                child: FlatButton(
+                  onPressed: () {
+                    Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => DonationConfirmationPage()),);
+                  },
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
+                  color: purpleAccent,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 20),
+                    child: Text(
+                      'Continue',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20
+                      ),
+                    ),
+                  ),
+                ),
+              ),
               SizedBox(height: 15),
             ],
           ),
@@ -48,65 +68,3 @@ class _VolunteerDonatePageState extends State<VolunteerDonatePage> {
     );
   }
 }
-
-
-class DonatePageItemSelection extends StatelessWidget {
-  final String boxTitle;
-
-  DonatePageItemSelection({this.boxTitle});
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(color: colorScheme.onSecondary, borderRadius: BorderRadius.all(Radius.circular(20))),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            SizedBox(
-              height: 10,
-            ),
-            Row(
-              children: <Widget>[
-                Text(
-                  boxTitle,
-                  style: TextStyle(
-                    fontSize: 20,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Container(
-              height: 5,
-              width: 50,
-              decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            SizedBox(height: 10),
-            ItemIncrement( itemName: 'Toilet paper'),
-            SizedBox(height: 10),
-            ItemIncrement( itemName: 'Pillow'),
-            SizedBox(height: 10),
-            ItemIncrement( itemName: 'Shoes'),
-            SizedBox(height: 10),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-
-
-
-
-

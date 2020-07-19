@@ -20,7 +20,9 @@ class _DonationFilterPageState extends State<DonationFilterPage> {
               Icons.clear,
               color: colorScheme.error,
             ),
-            onPressed: () {}),
+            onPressed: () {
+              Navigator.pop(context);
+            }),
         title: Text(
           "Filters",
           style: TextStyle(color: purpleAccent),

@@ -36,19 +36,22 @@ class _LoadingPageState extends State<LoadingPage> {
         });
       } else {
         if (ModalRoute.of(context).isCurrent) {
-          Navigator.pushNamed(context, '/');
+          Navigator.pushNamed(context, '/welcome');
+        } else {
+          Navigator.pop(context);
         }
       }
     });
 
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      color: colorScheme.background,
       child: Center(
-        child: Image.asset('assets/ShelterConnectLogo.png', width: MediaQuery.of(context).size.width*0.6),
+        child: Image.asset('assets/logo_svgs/ShelterConnectLogo.png', width: MediaQuery.of(context).size.width * 0.6),
       ),
     );
   }

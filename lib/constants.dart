@@ -44,5 +44,6 @@ final colorScheme = ColorScheme(
 
 Color purpleAccent = Color(0xFF6576EC);
 Color blueAccent = Color(0xff187CFF);
-Color blueBackground = Color(0xffdae5f9);
-Color secondaryTertiary = Color(0xff2892D8);
+Color whiteBackground = Color(0xFFDAE5F9);
+Color secondaryTertiary = Colors.blue;
+Color transparent = Colors.transparent;

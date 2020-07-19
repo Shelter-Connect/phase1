@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:phase1/pages/volunteer/settings_page.dart';
 
+import '../../components/alerts.dart';
 import '../../constants.dart';
 import '../navigation_tab.dart';
 import 'organization_contact_us.dart';
@@ -26,15 +27,18 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
-        backgroundColor: colorScheme.surface,
+        backgroundColor: whiteBackground,
         appBar: AppBar(
-          title: Text(_pages[_selectedIndex].title),
-          backgroundColor: colorScheme.surface,
+          title: Text(
+            _pages[_selectedIndex].title,
+            style: TextStyle(color: whiteBackground),
+          ),
+          backgroundColor: whiteBackground,
           elevation: 0.0,
           leading: Builder(
             builder: (context) => IconButton(
               icon: Icon(Icons.menu),
-              color: colorScheme.background,
+              color: purpleAccent,
               onPressed: () {
                 Scaffold.of(context).openDrawer();
               },
@@ -45,7 +49,7 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
               visible: _pages[_selectedIndex].helpDescription != '',
               child: IconButton(
                 icon: Icon(Icons.help),
-                color: colorScheme.background,
+                color: purpleAccent,
                 onPressed: () {
                   _helpModalBottomSheet(context);
                 },
@@ -54,38 +58,67 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
           ],
         ),
         drawer: Drawer(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              DrawerHeader(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Shelter Connect',
-                      style: TextStyle(
-                        fontSize: 30.0,
-                        fontWeight: FontWeight.bold,
+          child: SafeArea(
+            child: Column(
+              children: <Widget>[
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      DrawerHeader(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Shelter Connect',
+                              style: TextStyle(
+                                fontSize: 30.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text('useremail@email.com'),
+                          ],
+                        ),
                       ),
-                    ),
-                    Text('useremail@email.com'),
-                  ],
+                      ..._pages
+                          .asMap()
+                          .map((index, tab) => MapEntry(
+                          index,
+                          ListTile(
+                              title: Text(tab.title),
+                              leading: Icon(tab.icon),
+                              onTap: () {
+                                setState(() {
+                                  _selectedIndex = index;
+                                });
+                                Navigator.pop(context);
+                              })))
+                          .values
+                          .toList(),
+                    ],
+                  ),
                 ),
-              ),
-              ..._pages.asMap().map((index, tab) => MapEntry(
-                index,
                 ListTile(
-                  title: Text(tab.title),
-                  leading: Icon(tab.icon),
+                  title: Text('Sign Out'),
+                  leading: Icon(Icons.exit_to_app, color: Colors.red),
                   onTap: () {
-                    setState(() {
-                      _selectedIndex = index;
-                    });
-                    Navigator.pop(context);
-                  }
-                )
-              )).values.toList(),
-            ],
+                    showDialog(
+                      context: context,
+                      builder: (_) => SingleActionAlert(
+                        title: 'Sign Out?',
+                        subtitle: 'Your login information will not be remembered.',
+                        actionName: 'Sign Out',
+                        action: () {
+                          Navigator.pop(context);
+                          Navigator.pop(context);
+                          auth.signOut();
+                        },
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
         ),
         body: _pages[_selectedIndex],

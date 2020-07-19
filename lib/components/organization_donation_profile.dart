@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phase1/pages/volunteer/organization_profile_page.dart';
 
 import '../constants.dart';
 
@@ -14,7 +15,8 @@ class OrganizationDonationProfile extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: RawMaterialButton(
         onPressed: () {
-          Navigator.pushNamed(context, '/org_profile');
+          Navigator.push(context,
+            MaterialPageRoute(builder: (context) => OrganizationProfilePage()),);
         },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20.0),
@@ -33,7 +35,7 @@ class OrganizationDonationProfile extends StatelessWidget {
                     name,
                     style: TextStyle(
                       fontSize: 20,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                   SizedBox(
@@ -52,6 +54,7 @@ class OrganizationDonationProfile extends StatelessWidget {
               Text(
                 '$distance miles',
                 style: TextStyle(
+                  fontSize: 15,
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -64,35 +67,35 @@ class OrganizationDonationProfile extends StatelessWidget {
                 decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
               ),
               SizedBox(
-                height: 15,
+                height: 10,
               ),
               Text(
                 description,
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
-                  fontSize: 13.0,
-                  fontWeight: FontWeight.bold,
+                  fontSize: 17.0,
+                  fontWeight: FontWeight.w400,
                 ),
               ),
               SizedBox(
                 height: 15,
               ),
               Text(
-                'Looking to Receive',
+                'Looking to Receive:',
                 style: TextStyle(
                   fontSize: 15,
-                  fontWeight: FontWeight.w700,
+                  fontWeight: FontWeight.w500
                 ),
               ),
-              SizedBox(height: 10.0),
+              SizedBox(height: 15.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Container(
                     decoration: BoxDecoration(
-                      color: blueBackground,
+                      color: whiteBackground,
                       borderRadius: BorderRadius.circular(21),
                     ),
                     child: Padding(
@@ -108,7 +111,7 @@ class OrganizationDonationProfile extends StatelessWidget {
                   SizedBox(width: 10),
                   Container(
                     decoration: BoxDecoration(
-                      color: blueBackground,
+                      color: whiteBackground,
                       borderRadius: BorderRadius.circular(21),
                     ),
                     child: Padding(
@@ -124,7 +127,7 @@ class OrganizationDonationProfile extends StatelessWidget {
                   SizedBox(width: 10),
                   Container(
                     decoration: BoxDecoration(
-                      color: blueBackground,
+                      color: whiteBackground,
                       borderRadius: BorderRadius.circular(21),
                     ),
                     child: Padding(

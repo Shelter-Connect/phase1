@@ -7,26 +7,30 @@ class StandardLayout extends StatelessWidget {
   final Widget body;
   final Color color;
 
-  StandardLayout({
-    @required this.title,
-    this.body,
-    this.helpText = '',
-    this.color
-  });
+  StandardLayout({@required this.title, this.body, this.helpText = '', this.color});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: color ?? Color(0xFFDAE5F9),
+      backgroundColor: color ?? whiteBackground,
       appBar: AppBar(
-        backgroundColor: color ?? Color(0xFFDAE5F9),
+        backgroundColor: color ?? whiteBackground,
         elevation: 0.0,
-        title: Text(title),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back, color: purpleAccent),
+        ),
+        title: Text(title,
+            style: TextStyle(
+              color: purpleAccent,
+            )),
         actions: <Widget>[
           Visibility(
             child: IconButton(
               icon: Icon(Icons.help),
-              color: colorScheme.background,
+              color: purpleAccent,
               onPressed: () {
                 _helpModalBottomSheet(context);
               },
