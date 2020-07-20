@@ -10,7 +10,7 @@ class DashboardComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return  Container(
       decoration: BoxDecoration(color: colorScheme.onSecondary, borderRadius: BorderRadius.all(Radius.circular(20))),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
@@ -24,7 +24,8 @@ class DashboardComponent extends StatelessWidget {
                 boxTitle,
 //                  textAlign: TextAlign.spaceBetween,
                 style: TextStyle(
-                  fontSize: 24,
+                  fontSize: 26,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
               SizedBox(

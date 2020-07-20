@@ -21,24 +21,37 @@ class OrganizationContactUsPage extends StatefulWidget with NavigationTab {
 class _OrganizationContactUsPageState extends State<OrganizationContactUsPage> {
   @override
   Widget build(BuildContext context) {
-    return DashboardComponent(
-      boxTitle: 'Shelter Connect',
-      column: Column(children: <Widget>[
-        Text(
-          'E-mail address: shelterconnect20@gmail.com',
-          style: TextStyle(fontSize: 25, color: secondaryTertiary),
-        ),
-        SizedBox(height: 30),
-        Text(
-          'Phone Number: 408-999-9999',
-          style: TextStyle(fontSize: 25, color: secondaryTertiary),
-        ),
-        SizedBox(height: 30),
-        Text(
-          'Location: 960 W Hedding St, San Jose, CA 95126',
-          style: TextStyle(fontSize: 25, color: secondaryTertiary),
-        )
-      ]),
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            'Contact Us',
+            style: TextStyle(fontSize: 35, fontWeight: FontWeight.w900, color: purpleAccent),
+          ),
+          DashboardComponent(
+            boxTitle: 'Shelter Connect',
+            column: Column(children: <Widget>[
+              Text(
+                'E-mail address: shelterconnect20@gmail.com',
+                style: TextStyle(fontSize: 25, color: Colors.black),
+              ),
+              SizedBox(height: 30),
+              Text(
+                'Phone Number: 408-999-9999',
+                style: TextStyle(fontSize: 25, color: Colors.black),
+              ),
+              SizedBox(height: 30),
+              Text(
+                'Location: 960 W Hedding St, San Jose, CA 95126',
+                style: TextStyle(fontSize: 25, color: Colors.black),
+              )
+            ]),
+          ),
+        ],
+      ),
     );
   }
 }

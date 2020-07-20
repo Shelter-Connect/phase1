@@ -9,7 +9,8 @@ class OrganizationExpectedDeliveriesPage extends StatefulWidget with NavigationT
   _OrganizationExpectedDeliveriesPageState createState() => _OrganizationExpectedDeliveriesPageState();
 
   @override
-  String get helpDescription => '';
+  String get helpDescription => '''   This is the Organization Expected Deliveries Page! Here you can see all the items that the volunteers have confirmed to deliver to your organization! 
+  Click on each delivery to see more information regarding the arrival time, donor contact information, and much more!''';
 
   @override
   IconData get icon => Icons.access_time;
@@ -105,8 +106,8 @@ class _OrganizationExpectedDeliveriesPageState extends State<OrganizationExpecte
               ],
             ),
             ExpectedDeliveryContainer( // TODO: for firebase, need to query all information for these containers
-              itemName: <String>['Toothbrushes\nShirts\nHam\nBlankets'],
-              itemQuantity: <int>[9, 10, 100, 59],
+              itemName: <String>['Toothbrushes\nShirts\nHam\nBlankets\nfdsakl'],
+              itemQuantity: <int>[9, 10, 100, 59, 32],
               dateRequested: "dateRequested",
               dateExpected: "12/20",
               donorName: "Eric",
@@ -114,7 +115,7 @@ class _OrganizationExpectedDeliveriesPageState extends State<OrganizationExpecte
             ),
             ExpectedDeliveryContainer(
               itemName: <String>['Toothpaste\nPants\nSocks\nSleeping Bags'],
-              itemQuantity: <int>[66, 57, 48, 93,],
+              itemQuantity: <int>[66, 57, 48, 93],
               dateRequested: "6/9",
               dateExpected: "12/20",
               donorName: "Nathan",

@@ -40,6 +40,7 @@ class _OrganizationExpectedDeliveryInformationPageState extends State<Organizati
     // TODO: clean, clean, clean, clean, clean, and clean again
     return StandardLayout(
       title: "Delivery Information",
+      helpText: 'Click on the Specify Items Button to specify the number of items the volunteer donated!',
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
@@ -57,6 +58,7 @@ class _OrganizationExpectedDeliveryInformationPageState extends State<Organizati
                         'Items to be Delivered',
                         style: TextStyle(
                           fontSize: 24,
+                            fontWeight: FontWeight.w600
                         ),
                       ),
                       SizedBox(
@@ -95,6 +97,7 @@ class _OrganizationExpectedDeliveryInformationPageState extends State<Organizati
                             "Expected Date: $dateExpected",
                             style: TextStyle(
                               fontSize: 20,
+
                             ),
                           ),
                         ),

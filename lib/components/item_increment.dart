@@ -95,6 +95,7 @@ class _ItemIncrementWithoutTextState extends State<ItemIncrementWithoutText> {
   void _decrementCounter() {
     setState(() {
       _counter--;
+      _counter = max(0, _counter - 1);
     });
   }
 

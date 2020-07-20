@@ -7,6 +7,7 @@ class OrganizationItemSection extends StatelessWidget {
   final String organizationName;
   final double organizationDistance;
 
+
   OrganizationItemSection({this.organizationName, this.organizationDistance});
 
   @override

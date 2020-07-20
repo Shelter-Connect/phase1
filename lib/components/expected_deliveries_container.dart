@@ -4,9 +4,9 @@ import 'package:phase1/pages/organization/organization_delivery_information_page
 
 class ExpectedDeliveryContainer extends StatelessWidget {
   final String dateRequested, dateExpected, donorName, donorEmail;
-  final  List itemName, itemQuantity;
+  final List itemName, itemQuantity;
 
-  ExpectedDeliveryContainer( { this.itemName, this.itemQuantity, this.dateRequested, this.dateExpected,  this.donorName,  this.donorEmail});
+  ExpectedDeliveryContainer({this.itemName, this.itemQuantity, this.dateRequested, this.dateExpected, this.donorName, this.donorEmail});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,6 @@ class ExpectedDeliveryContainer extends StatelessWidget {
             ),
           );
         },
-
         child: Container(
           decoration: BoxDecoration(color: colorScheme.onSecondary, borderRadius: BorderRadius.all(Radius.circular(20))),
           child: Padding(
@@ -45,13 +44,12 @@ class ExpectedDeliveryContainer extends StatelessWidget {
                         '$donorName',
                         style: TextStyle(
                           fontSize: 24,
+                            fontWeight: FontWeight.w600,
                         ),
                       ),
                       Text(
                         '$dateExpected',
-                        style: TextStyle(
-                          fontSize: 24,
-                        ),
+                        style: TextStyle(fontSize: 26, fontWeight: FontWeight.w600),
                       ),
                     ],
                   ),
@@ -69,14 +67,10 @@ class ExpectedDeliveryContainer extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Column(
-                        children: <Widget>[
-                          ...itemName.map((string) => Text(string, style: TextStyle(fontSize: 20))).toList()
-                        ],
+                        children: <Widget>[...itemName.map((string) => Text(string, style: TextStyle(fontSize: 21, ))).toList()],
                       ),
                       Column(
-                        children: <Widget>[
-                          ...itemQuantity.map((int) => Text('$int', style: TextStyle(fontSize: 20))).toList()
-                        ],
+                        children: <Widget>[...itemQuantity.map((int) => Text('$int', style: TextStyle(fontSize: 21,))).toList()],
                       )
                     ],
                   ),
@@ -88,7 +82,5 @@ class ExpectedDeliveryContainer extends StatelessWidget {
         ),
       ),
     );
-
   }
 }
-
