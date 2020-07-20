@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:phase1/constants.dart';
-import '../pages/organization/organization_expected_deliveries_information_page.dart';
+import 'package:phase1/pages/organization/organization_delivery_information_page.dart';
 
 class ExpectedDeliveryContainer extends StatelessWidget {
   final String dateRequested, dateExpected, donorName, donorEmail;

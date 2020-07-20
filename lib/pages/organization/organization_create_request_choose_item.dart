@@ -84,17 +84,17 @@ class CreateRequestChooseItem extends StatelessWidget {
                         ),
                         CreateRequestInfoContainer(info: categoryInfo),
                         CreateRequestContainer(
-                          name: name1,
+                          name: name1 ,
                           asset: itemIcons1,
                           onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => CreateRequestConfirmRequest(itemIcon: itemIcons1, itemName: name1,)));
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => CreateRequestConfirmRequest(itemIcon: itemIcons1 ?? null, itemName: name1 ?? null,)));
                           },
                         ),
                         CreateRequestContainer(
                           name: name2,
-                          asset: itemIcons2,
+                          asset: itemIcons2 ?? null,
                           onPressed: () {
                             Navigator.push(
                                 context,
@@ -102,8 +102,8 @@ class CreateRequestChooseItem extends StatelessWidget {
                           },
                         ),
                         CreateRequestContainer(
-                          name: name3,
-                          asset: itemIcons3,
+                          name: name3 ?? null,
+                          asset: itemIcons3 ?? null,
                           onPressed: () {
                             Navigator.push(
                                 context,
@@ -111,8 +111,8 @@ class CreateRequestChooseItem extends StatelessWidget {
                           },
                         ),
                         CreateRequestContainer(
-                          name: name4,
-                          asset: itemIcons4,
+                          name: name4  ?? null,
+                          asset: itemIcons4 ?? null,
                           onPressed: () {
                             Navigator.push(
                                 context,
@@ -120,21 +120,21 @@ class CreateRequestChooseItem extends StatelessWidget {
                           },
                         ),
                         CreateRequestContainer(
-                          name: name5,
-                          asset: itemIcons5,
+                      name: name5 ?? null,
+                     asset: itemIcons5?? null,
                           onPressed: () {
                             Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => CreateRequestConfirmRequest(itemIcon: itemIcons5, itemName: name5,)));
+                                MaterialPageRoute(builder: (context) => CreateRequestConfirmRequest(itemIcon: itemIcons5 ?? null, itemName: name5 ?? null,)));
                           },
-                        ),
+                  ),
                         CreateRequestContainer(
-                          name: name6,
-                          asset: itemIcons6,
+                          name: name6 ?? null,
+                          asset: itemIcons6 ?? null,
                           onPressed: () {
                             Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => CreateRequestConfirmRequest(itemIcon: itemIcons6, itemName: name6,)));
+                                MaterialPageRoute(builder: (context) => CreateRequestConfirmRequest(itemIcon: itemIcons6 ?? null, itemName: name6 ?? null,)));
                           },
                         ),
                       ],

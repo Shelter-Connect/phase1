@@ -14,8 +14,8 @@ class CreateRequestConfirmRequest extends StatelessWidget {
   final String itemName, itemIcon;
 
   CreateRequestConfirmRequest({
-    @required this.itemName,
-    @required this.itemIcon,
+    this.itemName,
+     this.itemIcon,
   });
   @override
   Widget build(BuildContext context) {
@@ -61,8 +61,8 @@ class CreateRequestConfirmRequest extends StatelessWidget {
                           crossAxisAlignment: WrapCrossAlignment.center,
                           children: <Widget>[
                             CreateRequestContainer(
-                              name: itemName,
-                              asset: itemIcon,
+                              name: itemName ?? null,
+                              asset: itemIcon ?? null,
                               onPressed: () {
                                 Navigator.pop(context);
                               },

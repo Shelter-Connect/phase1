@@ -32,7 +32,7 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
           brightness: Brightness.light,
           title: Text(
             _pages[_selectedIndex].title,
-            style: TextStyle(color: whiteBackground),
+            style: TextStyle(color: purpleAccent),
           ),
           backgroundColor: whiteBackground,
           elevation: 0.0,
