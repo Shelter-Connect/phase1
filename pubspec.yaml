@@ -89,6 +89,8 @@ flutter:
     - assets/warmth_svgs/sleeping_bag.svg
     - assets/warmth_svgs/sleeping_pad.svg
     - assets/other_svgs/other.svg
+    - assets/whitebackground.JPG
+    - assets/whitebackground2.JPG
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
