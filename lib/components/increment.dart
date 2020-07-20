@@ -15,79 +15,80 @@ class Increment extends StatefulWidget {
 
 class _ItemIncrementState extends State<Increment> {
   int _counter;
+  TextEditingController controller = TextEditingController();
 
   @override
   void initState() {
     _counter = widget.itemQuantity ?? 0;
+    controller.text = _counter.toString();
     super.initState();
   }
 
   void _incrementCounter() {
     setState(() {
-      _counter++;
+      controller.text = (++_counter).toString();
     });
   }
 
   void _decrementCounter() {
     setState(() {
       _counter = max(0, _counter - 1);
+      controller.text = _counter.toString();
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.only(right: 16.0),
-          child: Container(
-            height: 17,
-            width: 17,
+        Container(
+          height: 17,
+          width: 17,
+          padding: EdgeInsets.all(0),
+          decoration: BoxDecoration(
+            color: Color(0xFFCCCCCC),
+            borderRadius: BorderRadius.circular(5),
+          ),
+          child: IconButton(
             padding: EdgeInsets.all(0),
-            decoration: BoxDecoration(
-              color: Color(0xFFCCCCCC),
-              borderRadius: BorderRadius.circular(5),
+            onPressed: _decrementCounter,
+            icon: Icon(
+              Icons.remove,
+              size: 15,
             ),
-            child: IconButton(
-              padding: EdgeInsets.all(0),
-              onPressed: _decrementCounter,
-              icon: Icon(
-                Icons.remove,
-                size: 15,
-              ),
-              tooltip: 'Decrement',
-            ),
+            tooltip: 'Decrement',
           ),
         ),
         Container(
-          width: 30,
-          height: 22,
-          child: Padding(
-            padding: const EdgeInsets.only(left: 8.0, right: 4, bottom: 4, top: 4),
-            child: TextField(
-              maxLength: 2,
-                style: TextStyle(fontSize: 15),
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                focusedBorder: InputBorder.none,
-                enabledBorder: InputBorder.none,
-                errorBorder: InputBorder.none,
-                disabledBorder: InputBorder.none,
-                counterText: "",
-    contentPadding: EdgeInsets.only(top: 200, bottom: 3,),
-hintText: _counter.toString(),
-    ),
-              keyboardType: TextInputType.number,
-              inputFormatters: <TextInputFormatter>[
-                WhitelistingTextInputFormatter.digitsOnly
-              ],
-
+          width: 50,
+          height: 23,
+          padding: EdgeInsets.only(left: 15),
+          child: TextField(
+            controller: controller,
+            onChanged: (val) {
+              _counter = int.parse(val);
+            },
+            style: TextStyle(fontSize: 15),
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              focusedBorder: InputBorder.none,
+              enabledBorder: InputBorder.none,
+              errorBorder: InputBorder.none,
+              disabledBorder: InputBorder.none,
+              counterText: "",
             ),
+            keyboardType: TextInputType.number,
+            inputFormatters: <TextInputFormatter>[
+              WhitelistingTextInputFormatter.digitsOnly
+            ],
+
           ),
         ),
         Padding(
           padding: const EdgeInsets.only(left: 16.0),
-          child: Container(
+          child:
+          Container(
             height: 17,
             width: 17,
             padding: EdgeInsets.all(0),

@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:phase1/components/alerts.dart';
 import 'package:phase1/components/increment.dart';
 
 import '../../components/standard_layout.dart';
 import '../../constants.dart';
 
-
-class OrganizationExpectedDeliveryInformationPage extends StatefulWidget {
+class OrganizationExpectedDeliveryConfirmationPage extends StatefulWidget {
   final String dateRequested, dateExpected, donorName, donorEmail;
   final List itemQuantity;
   final List itemName;
 
-  OrganizationExpectedDeliveryInformationPage(
+  OrganizationExpectedDeliveryConfirmationPage(
       {@required this.itemName, @required this.itemQuantity, @required this.dateRequested, @required this.dateExpected, @required this.donorName, @required this.donorEmail});
 
   @override
-  _OrganizationExpectedDeliveryInformationPageState createState() => _OrganizationExpectedDeliveryInformationPageState(
+  _OrganizationExpectedDeliveryConfirmationPageState createState() => _OrganizationExpectedDeliveryConfirmationPageState(
         // TODO: add documentId parameter
         itemName: itemName,
         itemQuantity: itemQuantity,
@@ -27,13 +27,12 @@ class OrganizationExpectedDeliveryInformationPage extends StatefulWidget {
 
 // donorName, donorEmail, itemName, itemQuantity, dateRequested, dateExpected
 
-class _OrganizationExpectedDeliveryInformationPageState extends State<OrganizationExpectedDeliveryInformationPage> {
+class _OrganizationExpectedDeliveryConfirmationPageState extends State<OrganizationExpectedDeliveryConfirmationPage> {
   final String dateRequested, dateExpected, donorName, donorEmail;
   final List itemQuantity;
   final List itemName;
 
-  _OrganizationExpectedDeliveryInformationPageState({this.itemName, this.itemQuantity, this.dateRequested, this.dateExpected, this.donorName, this.donorEmail});
-
+  _OrganizationExpectedDeliveryConfirmationPageState({this.itemName, this.itemQuantity, this.dateRequested, this.dateExpected, this.donorName, this.donorEmail});
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +53,7 @@ class _OrganizationExpectedDeliveryInformationPageState extends State<Organizati
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        "Request",
+                        'Amount Received',
                         style: TextStyle(
                           fontSize: 24,
                         ),
@@ -79,22 +78,11 @@ class _OrganizationExpectedDeliveryInformationPageState extends State<Organizati
                                 ],
                               )),
                           Padding(
-                              padding: EdgeInsets.all(10),
-                              child: Column(
-                                children: <Widget>[
-                                  ...itemQuantity.map((int) => Text('$int', style: TextStyle(fontSize: 20))).toList(),
-                                ],
-                              )),
-                          Padding(
-                              padding: EdgeInsets.all(10),
-                              child: Column(
-                                children: <Widget>[
-                                  Increment(),
-                                  Increment(),
-                                  Increment(),
-                                  Increment(),
-                                ],
-                              )),
+                            padding: EdgeInsets.all(1),
+                            child: Column(
+                              children: itemQuantity.map((quantity) => Increment(itemQuantity: quantity)).toList(),
+                            ),
+                          )
                         ],
                       ),
                       Padding(
@@ -155,26 +143,20 @@ class _OrganizationExpectedDeliveryInformationPageState extends State<Organizati
                   onPressed: () {
                     showDialog(
                         context: context,
-                        builder: (_) => AlertDialog(
-                      title: Text('Confirm Order?'),
-                      content: Text('Once you confirm, it will be removed from your requested items'),
-                      actions: [
-                        FlatButton(
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/organization_dashboard');
-                          },
-                          child: Text('Confirm', style: TextStyle(color: secondaryTertiary)),
-                        ),
-                        FlatButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: Text('Go back', style: TextStyle(color: secondaryTertiary)),
-                        ),
-                      ],
-                    ));
+                        builder: (_) => SingleActionAlert(
+                              actionName: 'Confirm',
+                              subtitle: 'Once you confirm, it will be removed from your requested items',
+                              action: () {
+                                //TODO: Make this go back to dashboard page
+                                Navigator.pop(context);
+                                Navigator.pop(context);
+                                Navigator.pop(context);
+                                Navigator.pop(context);
+                              },
+                              title: 'Confirm Order',
+                            ));
                   },
-                  child: Text('Confirm', style: TextStyle(fontSize: 20, color: Colors.white)),
+                  child: Text('Confirm Items Delivered', style: TextStyle(fontSize: 20, color: Colors.white)),
                 ),
               ),
             )
@@ -184,4 +166,3 @@ class _OrganizationExpectedDeliveryInformationPageState extends State<Organizati
     );
   }
 }
-

@@ -95,7 +95,7 @@ class _OrganizationExpectedDeliveriesPageState extends State<OrganizationExpecte
           ),
           ExpectedDeliveryContainer( // TODO: for firebase, need to query all information for these containers
             itemName: <String>['Toothbrushes\nShirts\nHam\nBlankets'],
-            itemQuantity: <int>[9, 10, 100, 59,],
+            itemQuantity: <int>[9, 10, 100, 59],
             dateRequested: "dateRequested",
             dateExpected: "12/20",
             donorName: "Eric",
