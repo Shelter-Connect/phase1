@@ -68,6 +68,7 @@ class _DonationOpportunitiesState extends State<DonationOpportunities> {
               ),
             ),
             SizedBox(height: 20.0),
+
             OrganizationDonationProfile(
               name: 'City Team Men\'s Shelter',
               distance: 5.2,
