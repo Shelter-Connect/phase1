@@ -4,6 +4,8 @@ import 'package:phase1/components/dashboard_button.dart';
 import 'package:phase1/components/dashboard_component.dart';
 import 'package:phase1/components/text_button.dart';
 import 'package:phase1/constants.dart';
+import 'package:phase1/models/item.dart';
+import 'package:phase1/services/firestore_helper.dart';
 
 import '../navigation_tab.dart';
 import 'organization_create_request_page.dart';
@@ -163,7 +165,28 @@ class _OrganizationDashboardPageState extends State<OrganizationDashboardPage> {
         floatingActionButton: FloatingActionButton(
           backgroundColor: purpleAccent,
           heroTag: 'create request',
-          onPressed: () {
+          // Create request testing code
+          onPressed: () async {
+            await FirestoreHelper.createRequest(
+              context: context,
+              items: [
+                Item(
+                  name: 'Blanket',
+                  type: 'Warmth',
+                  amount: 10,
+                ),
+                Item(
+                  name: 'Blanket',
+                  type: 'Warmth',
+                  amount: 5,
+                ),
+                Item(
+                  name: 'Apple',
+                  type: 'Food',
+                  amount: 5,
+                ),
+              ]
+            );
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => OrganizationRequestPage()),

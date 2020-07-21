@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:phase1/pages/volunteer/donation_filter_page.dart';
 
@@ -68,20 +69,30 @@ class _DonationOpportunitiesState extends State<DonationOpportunities> {
               ),
             ),
             SizedBox(height: 20.0),
-            OrganizationDonationProfile(
-              name: 'City Team Men\'s Shelter',
-              distance: 5.2,
-              description:
-                  'Lorem ipsum dolor sit amet, sed eu mollis tibique. Cu decore nominavi splendide vel. Sit mazim simul feugait ea. Te usu nullam populo vivendo. Lorem ipsum dolor sit amet, sed eu mollis tibique.',
+
+            StreamBuilder(
+              stream: db.collection('organizations').snapshots(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return CircularProgressIndicator();
+                }
+
+                List<Widget> widgets = [];
+                for (DocumentSnapshot organizationSnapshot in snapshot.data.documents) {
+                  if (organizationSnapshot['requestTypes'] != null) {
+                    widgets.add(OrganizationDonationProfile(
+                      name: organizationSnapshot['name'],
+                      description: organizationSnapshot['description'],
+                      distance: 6.9,
+                      requestTypes: organizationSnapshot['requestTypes'].cast<String>(),
+                    ));
+                  }
+                }
+                return Column(
+                  children: widgets,
+                );
+              }
             ),
-            SizedBox(height: 20.0),
-            OrganizationDonationProfile(
-              name: 'HomeFirst',
-              distance: 6.9,
-              description:
-                  'Lorem ipsum dolor sit amet, sed eu mollis tibique. Cu decore nominavi splendide vel. Sit mazim simul feugait ea. Te usu nullam populo vivendo. Lorem ipsum dolor sit amet, sed eu mollis tibique.',
-            ),
-            SizedBox(height: 20.0),
           ],
         ),
       ),

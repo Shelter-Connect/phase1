@@ -7,16 +7,19 @@ class OrganizationDonationProfile extends StatelessWidget {
   final String name;
   final double distance;
   final String description;
+  final List<String> requestTypes;
 
-  OrganizationDonationProfile({this.name, this.distance, this.description});
+  OrganizationDonationProfile({this.name, this.distance, this.description, this.requestTypes});
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: RawMaterialButton(
         onPressed: () {
-          Navigator.push(context,
-            MaterialPageRoute(builder: (context) => OrganizationProfilePage()),);
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => OrganizationProfilePage()),
+          );
         },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20.0),
@@ -83,65 +86,27 @@ class OrganizationDonationProfile extends StatelessWidget {
               ),
               Text(
                 'Looking to Receive:',
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500
-                ),
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
               ),
-              SizedBox(height: 15.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Container(
-                    decoration: BoxDecoration(
-                      color: whiteBackground,
-                      borderRadius: BorderRadius.circular(21),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-                      child: Text(
-                        'Hygiene',
-                        style: TextStyle(
-                          color: colorScheme.secondaryVariant,
-                        ),
+              SizedBox(height: 5.0),
+              Wrap(
+                spacing: 5.0,
+                runSpacing: 5.0,
+                children: requestTypes.map((type) => Container(
+                  decoration: BoxDecoration(
+                    color: whiteBackground,
+                    borderRadius: BorderRadius.circular(21),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                    child: Text(
+                      type,
+                      style: TextStyle(
+                        color: colorScheme.secondaryVariant,
                       ),
                     ),
                   ),
-                  SizedBox(width: 10),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: whiteBackground,
-                      borderRadius: BorderRadius.circular(21),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-                      child: Text(
-                        'Food',
-                        style: TextStyle(
-                          color: colorScheme.secondaryVariant,
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 10),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: whiteBackground,
-                      borderRadius: BorderRadius.circular(21),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-                      child: Text(
-                        'Warmth',
-                        style: TextStyle(
-                          color: colorScheme.secondaryVariant,
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 35),
-                ],
+                )).toList(),
               ),
             ],
           ),
