@@ -82,11 +82,14 @@ class _DonationOpportunitiesState extends State<DonationOpportunities> {
                     widgets.add(OrganizationDonationProfile(
                       name: organizationSnapshot['name'],
                       description: organizationSnapshot['description'],
-                      distance: 6.9,
+                      distance: 5.6, //distance(organizationSnapshot['location'].latitude(), organizationSnapshot['location'].longitutde(), 0.0, 0.0),
                       itemCategories: organizationSnapshot['itemCategories'].cast<String>(),
                     ));
                   }
                 }
+                /*widgets.sort((a, b) {
+                  return distance();
+                });*/
                 return Column(
                   children: widgets,
                 );
