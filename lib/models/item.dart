@@ -1,14 +1,14 @@
 class Item {
-  String name, type;
+  String name, category;
   String specificDescription;
   int amount;
 
-  Item({this.name, this.type, this.amount});
+  Item({this.name, this.category, this.amount});
 
   Map<String, dynamic> toFirestoreMap() {
     return {
       'name': name,
-      'type': type,
+      'category': category,
       'specificDescription': specificDescription,
       'amount': amount,
     };

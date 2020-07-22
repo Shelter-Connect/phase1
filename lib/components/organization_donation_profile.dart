@@ -7,9 +7,9 @@ class OrganizationDonationProfile extends StatelessWidget {
   final String name;
   final double distance;
   final String description;
-  final List<String> requestTypes;
+  final List<String> requestCategories;
 
-  OrganizationDonationProfile({this.name, this.distance, this.description, this.requestTypes});
+  OrganizationDonationProfile({this.name, this.distance, this.description, this.requestCategories});
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -92,21 +92,23 @@ class OrganizationDonationProfile extends StatelessWidget {
               Wrap(
                 spacing: 5.0,
                 runSpacing: 5.0,
-                children: requestTypes.map((type) => Container(
-                  decoration: BoxDecoration(
-                    color: whiteBackground,
-                    borderRadius: BorderRadius.circular(21),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-                    child: Text(
-                      type,
-                      style: TextStyle(
-                        color: colorScheme.secondaryVariant,
-                      ),
-                    ),
-                  ),
-                )).toList(),
+                children: requestCategories
+                    .map((category) => Container(
+                          decoration: BoxDecoration(
+                            color: whiteBackground,
+                            borderRadius: BorderRadius.circular(21),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                            child: Text(
+                              category,
+                              style: TextStyle(
+                                color: colorScheme.secondaryVariant,
+                              ),
+                            ),
+                          ),
+                        ))
+                    .toList(),
               ),
             ],
           ),

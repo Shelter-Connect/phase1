@@ -15,10 +15,10 @@ class FirestoreHelper {
     DocumentReference organizationReference = getOrganizationReference(context);
     CollectionReference requestsReference = organizationReference.collection('requests');
 
-    Set<String> requestTypes = Set<String>();
+    Set<String> requestCategories = Set<String>();
     for (Item item in items) {
-      requestTypes.add(item.type);
-      QuerySnapshot document = await requestsReference.where('name', isEqualTo: item.name).where('type', isEqualTo: item.type).getDocuments();
+      requestCategories.add(item.category);
+      QuerySnapshot document = await requestsReference.where('name', isEqualTo: item.name).where('category', isEqualTo: item.category).getDocuments();
       if (document.documents.length == 0) {
         await requestsReference.add(item.toFirestoreMap());
       } else if (document.documents.length == 1) {
@@ -27,18 +27,18 @@ class FirestoreHelper {
           'amount': item.amount + itemSnapshot['amount'],
         });
       } else {
-        throw new Exception('ERROR: Cannot have duplicate items with same name and type in collection');
+        throw new Exception('ERROR: Cannot have duplicate items with same name and category in collection');
       }
     }
 
-    List<String> itemTypes = (await organizationReference.get())['itemTypes'];
-    if (itemTypes != null) {
-      for (String type in itemTypes) {
-        requestTypes.add(type);
+    List<String> itemCategories = (await organizationReference.get())['itemCategories'];
+    if (itemCategories != null) {
+      for (String category in itemCategories) {
+        requestCategories.add(category);
       }
     }
     await organizationReference.updateData({
-      'requestTypes': requestTypes.toList(),
+      'requestCategories': requestCategories.toList(),
     });
   }
 }

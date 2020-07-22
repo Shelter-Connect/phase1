@@ -65,7 +65,7 @@ class _DonationFilterPageState extends State<DonationFilterPage> {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                'Choose Organization Types',
+                'Choose Organization Categories',
                 style: TextStyle(color: purpleAccent, fontSize: 24.0, fontWeight: FontWeight.bold),
               ),
             ),
