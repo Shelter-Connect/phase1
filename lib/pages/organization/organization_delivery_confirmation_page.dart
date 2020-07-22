@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:phase1/components/alerts.dart';
 import 'package:phase1/components/increment.dart';
@@ -15,30 +16,28 @@ class OrganizationExpectedDeliveryConfirmationPage extends StatefulWidget {
 
   @override
   _OrganizationExpectedDeliveryConfirmationPageState createState() => _OrganizationExpectedDeliveryConfirmationPageState(
-        // TODO: add documentId parameter
-        itemName: itemName,
-        itemQuantity: itemQuantity,
-        dateRequested: dateRequested,
-        dateExpected: dateExpected,
-        donorName: donorName,
-        donorEmail: donorEmail,
+      // TODO: add documentId parameter
       );
 }
 
 // donorName, donorEmail, itemName, itemQuantity, dateRequested, dateExpected
 
 class _OrganizationExpectedDeliveryConfirmationPageState extends State<OrganizationExpectedDeliveryConfirmationPage> {
-  final String dateRequested, dateExpected, donorName, donorEmail;
-  final List itemQuantity;
-  final List itemName;
+  List<int> itemQuantity;
 
-  _OrganizationExpectedDeliveryConfirmationPageState({this.itemName, this.itemQuantity, this.dateRequested, this.dateExpected, this.donorName, this.donorEmail});
+  @override
+  void initState() {
+    setState(() {
+      itemQuantity = widget.itemQuantity;
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     // TODO: clean, clean, clean, clean, clean, and clean again
     return StandardLayout(
-      title: "Delivery Information",
+      title: "Confirm Delivery",
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
@@ -73,14 +72,27 @@ class _OrganizationExpectedDeliveryConfirmationPageState extends State<Organizat
                           Padding(
                               padding: EdgeInsets.all(10),
                               child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  ...itemName.map((string) => Text(string, style: TextStyle(fontSize: 20))).toList(),
+                                  ...widget.itemName.map((string) => Text(string, style: TextStyle(fontSize: 20))).toList(),
                                 ],
                               )),
                           Padding(
                             padding: EdgeInsets.all(1),
                             child: Column(
-                              children: itemQuantity.map((quantity) => Increment(itemQuantity: quantity)).toList(),
+                              children: itemQuantity.asMap().map(
+                                (index, quantity) => MapEntry(
+                                  index,
+                                  Increment(
+                                    itemQuantity: quantity,
+                                    onChanged: (val) {
+                                      setState(() {
+                                        itemQuantity[index] = val;
+                                      });
+                                    },
+                                  ),
+                                ),
+                              ).values.toList(),
                             ),
                           )
                         ],
@@ -90,7 +102,7 @@ class _OrganizationExpectedDeliveryConfirmationPageState extends State<Organizat
                         child: Align(
                           alignment: Alignment.topLeft,
                           child: Text(
-                            "Expected Date: $dateExpected",
+                            "Expected Date: ${widget.dateExpected}",
                             style: TextStyle(
                               fontSize: 20,
                             ),
@@ -102,7 +114,7 @@ class _OrganizationExpectedDeliveryConfirmationPageState extends State<Organizat
                         child: Align(
                           alignment: Alignment.topLeft,
                           child: Text(
-                            "Date Requested: $dateRequested",
+                            "Date Requested: ${widget.dateRequested}",
                             style: TextStyle(fontSize: 20),
                           ),
                         ),
@@ -112,7 +124,7 @@ class _OrganizationExpectedDeliveryConfirmationPageState extends State<Organizat
                         child: Align(
                           alignment: Alignment.topLeft,
                           child: Text(
-                            "Donor Name: $donorName",
+                            "Donor Name: ${widget.donorName}",
                             style: TextStyle(fontSize: 20),
                           ),
                         ),
@@ -122,7 +134,7 @@ class _OrganizationExpectedDeliveryConfirmationPageState extends State<Organizat
                         child: Align(
                           alignment: Alignment.topLeft,
                           child: Text(
-                            "Donor Email: $donorEmail",
+                            "Donor Email: ${widget.donorEmail}",
                             style: TextStyle(fontSize: 20),
                           ),
                         ),
@@ -141,11 +153,12 @@ class _OrganizationExpectedDeliveryConfirmationPageState extends State<Organizat
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(21.0)),
                   color: secondaryTertiary,
                   onPressed: () {
+                    print(itemQuantity);
                     showDialog(
                         context: context,
                         builder: (_) => SingleActionAlert(
                               actionName: 'Confirm',
-                              subtitle: 'Once you confirm, it will be removed from your requested items',
+                              subtitle: 'Once you confirm, the delivered items will be removed from your requested items',
                               action: () {
                                 //TODO: Make this go back to dashboard page
                                 Navigator.pop(context);

@@ -4,22 +4,21 @@ import 'package:phase1/constants.dart';
 import '../../components/expected_deliveries_container.dart';
 import '../navigation_tab.dart';
 
-class OrganizationExpectedDeliveriesPage extends StatefulWidget with NavigationTab {
+class CurrentRequestsPage extends StatefulWidget with NavigationTab {
   @override
-  _OrganizationExpectedDeliveriesPageState createState() => _OrganizationExpectedDeliveriesPageState();
+  _CurrentRequestsPageState createState() => _CurrentRequestsPageState();
 
   @override
-  String get helpDescription => '''   This is the Organization Expected Deliveries Page! Here you can see all the items that the volunteers have confirmed to deliver to your organization! 
-  Click on each delivery to see more information regarding the arrival time, donor contact information, and much more!''';
+  String get helpDescription => '''   This is the Organization Current Requests Page Page! Here you can see all the items that the you have ordered but that volunteers have not committed to yet!''';
 
   @override
-  IconData get icon => Icons.access_time;
+  IconData get icon => Icons.list;
 
   @override
-  String get title => 'Expected Deliveries';
+  String get title => 'Current Requests';
 }
 
-class _OrganizationExpectedDeliveriesPageState extends State<OrganizationExpectedDeliveriesPage> {
+class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
   String dropdownValue = 'Sort by';
   @override
   Widget build(BuildContext context) {
@@ -39,48 +38,6 @@ class _OrganizationExpectedDeliveriesPageState extends State<OrganizationExpecte
             ),
             Row(
               children: <Widget>[
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      alignment: Alignment.centerLeft,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(41),
-                        color: colorScheme.onSecondary,
-                      ),
-                      width: 100,
-                      height: 50,
-                      padding: EdgeInsets.symmetric(horizontal: 7.0, vertical: 0),
-                      child: DropdownButton<String>(
-                        value: dropdownValue,
-                        icon: Icon(Icons.keyboard_arrow_down, color: purpleAccent),
-                        iconSize: 20,
-                        elevation: 0,
-                        underline: Container(),
-                        style: TextStyle(
-                          color: purpleAccent,
-                          fontSize: 17,
-                        ),
-                        onChanged: (String newValue) {
-                          setState(
-                            () {
-                              dropdownValue = newValue;
-                            },
-                          );
-                        },
-                        items: <String>['Sort by', 'Hygiene', 'Clothing', 'Food', 'Warmth'].map<DropdownMenuItem<String>>(
-                          (String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          },
-                        ).toList(),
-                      ),
-                    ),
-                  ),
-                ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
@@ -112,28 +69,32 @@ class _OrganizationExpectedDeliveriesPageState extends State<OrganizationExpecte
               itemName: <String>['Toothbrushes', 'Shirts', 'Ham', 'Blankets', 'fdsakl'],
               itemQuantity: <int>[9, 10, 100, 59, 32],
               dateRequested: "dateRequested",
-             category: 'hygiene',
+              dateExpected: "12/20",
+              donorName: "Eric",
               donorEmail: "eric@gmail.com",
             ),
             ExpectedDeliveryContainer(
               itemName: <String>['Toothpaste','Pants', 'Socks','Sleeping Bags'],
               itemQuantity: <int>[66, 57, 48, 93],
               dateRequested: "6/9",
-              category: 'hygiene',
+              dateExpected: "12/20",
+              donorName: "Nathan",
               donorEmail: "donorEmail",
             ),
             ExpectedDeliveryContainer(
               itemName: <String>['Floss', 'Belts', 'Ham', 'Caps'],
               itemQuantity: <int>[16, 27, 38, 49,],
               dateRequested: "dateRequested",
-              category: 'hygiene',
+              dateExpected: "9/6",
+              donorName: "Nathan",
               donorEmail: "donorEmail",
             ),
             ExpectedDeliveryContainer(
               itemName: <String>['Floss', 'Belts', 'Ham', 'Caps'],
               itemQuantity: <int>[5, 7, 8, 9,],
               dateRequested: "dateRequested",
-              category: 'hygiene',
+              dateExpected: "9/6",
+              donorName: "Nathan",
               donorEmail: "donorEmail",
             ),
           ],

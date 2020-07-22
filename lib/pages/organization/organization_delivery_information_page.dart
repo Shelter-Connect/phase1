@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../components/standard_layout.dart';
@@ -6,34 +7,22 @@ import 'organization_delivery_confirmation_page.dart';
 
 
 class OrganizationExpectedDeliveryInformationPage extends StatefulWidget {
-  final String dateRequested, dateExpected, donorName, donorEmail;
+  final String dateRequested, dateExpected, donorName, donorEmail, deliveryId;
   final List itemQuantity;
   final List itemName;
 
   OrganizationExpectedDeliveryInformationPage(
-      {@required this.itemName, @required this.itemQuantity, @required this.dateRequested, @required this.dateExpected, @required this.donorName, @required this.donorEmail});
+      {@required this.itemName, @required this.itemQuantity, @required this.dateRequested, @required this.dateExpected, @required this.donorName, @required this.donorEmail, this.deliveryId});
 
   @override
   _OrganizationExpectedDeliveryInformationPageState createState() => _OrganizationExpectedDeliveryInformationPageState(
     // TODO: add documentId parameter
-    itemName: itemName,
-    itemQuantity: itemQuantity,
-    dateRequested: dateRequested,
-    dateExpected: dateExpected,
-    donorName: donorName,
-    donorEmail: donorEmail,
   );
 }
 
 // donorName, donorEmail, itemName, itemQuantity, dateRequested, dateExpected
 
 class _OrganizationExpectedDeliveryInformationPageState extends State<OrganizationExpectedDeliveryInformationPage> {
-  final String dateRequested, dateExpected, donorName, donorEmail;
-  final List itemQuantity;
-  final List itemName;
-
-  _OrganizationExpectedDeliveryInformationPageState({this.itemName, this.itemQuantity, this.dateRequested, this.dateExpected, this.donorName, this.donorEmail});
-
 
   @override
   Widget build(BuildContext context) {
@@ -76,15 +65,16 @@ class _OrganizationExpectedDeliveryInformationPageState extends State<Organizati
                           Padding(
                               padding: EdgeInsets.all(10),
                               child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  ...itemName.map((string) => Text(string, style: TextStyle(fontSize: 20))).toList(),
+                                  ...widget.itemName.map((string) => Text(string, style: TextStyle(fontSize: 20))).toList(),
                                 ],
                               )),
                           Padding(
                               padding: EdgeInsets.all(10),
                               child: Column(
                                 children: <Widget>[
-                                  ...itemQuantity.map((int) => Text('$int', style: TextStyle(fontSize: 20))).toList(),
+                                  ...widget.itemQuantity.map((int) => Text('$int', style: TextStyle(fontSize: 20))).toList(),
                                 ],
                               )),
                         ],
@@ -94,7 +84,7 @@ class _OrganizationExpectedDeliveryInformationPageState extends State<Organizati
                         child: Align(
                           alignment: Alignment.topLeft,
                           child: Text(
-                            "Expected Date: $dateExpected",
+                            "Expected Date: ${widget.dateExpected}",
                             style: TextStyle(
                               fontSize: 20,
 
@@ -107,7 +97,7 @@ class _OrganizationExpectedDeliveryInformationPageState extends State<Organizati
                         child: Align(
                           alignment: Alignment.topLeft,
                           child: Text(
-                            "Date Requested: $dateRequested",
+                            "Date Requested: ${widget.dateRequested}",
                             style: TextStyle(fontSize: 20),
                           ),
                         ),
@@ -117,7 +107,7 @@ class _OrganizationExpectedDeliveryInformationPageState extends State<Organizati
                         child: Align(
                           alignment: Alignment.topLeft,
                           child: Text(
-                            "Donor Name: $donorName",
+                            "Donor Name: ${widget.donorName}",
                             style: TextStyle(fontSize: 20),
                           ),
                         ),
@@ -127,7 +117,7 @@ class _OrganizationExpectedDeliveryInformationPageState extends State<Organizati
                         child: Align(
                           alignment: Alignment.topLeft,
                           child: Text(
-                            "Donor Email: $donorEmail",
+                            "Donor Email: ${widget.donorEmail}",
                             style: TextStyle(fontSize: 20),
                           ),
                         ),
@@ -150,17 +140,17 @@ class _OrganizationExpectedDeliveryInformationPageState extends State<Organizati
                         context,
                         MaterialPageRoute(
                           builder: (context) => OrganizationExpectedDeliveryConfirmationPage(
-                            itemName: itemName,
-                            itemQuantity: itemQuantity,
-                            dateRequested: dateRequested,
-                            dateExpected: dateExpected,
-                            donorName: donorName,
-                            donorEmail: donorEmail,
+                            itemName: widget.itemName,
+                            itemQuantity: widget.itemQuantity,
+                            dateRequested: widget.dateRequested,
+                            dateExpected: widget.dateExpected,
+                            donorName: widget.donorName,
+                            donorEmail: widget.donorEmail,
                           ),
 
                     ));
                   },
-                  child: Text('Specify Items', style: TextStyle(fontSize: 20, color: Colors.white)),
+                  child: Text('Confirm Delivery', style: TextStyle(fontSize: 20, color: Colors.white)),
                 ),
               ),
             )

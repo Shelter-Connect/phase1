@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:phase1/components/create_request_container.dart';
+import 'package:phase1/components/category_icon_button.dart';
 import 'package:phase1/components/create_request_info_container.dart';
 import 'package:phase1/components/floating_text_field.dart';
 import 'package:phase1/components/item_increment.dart';
@@ -10,13 +9,13 @@ import 'package:phase1/pages/organization/organization_create_request_confirm_re
 import '../../components/standard_layout_purple.dart';
 
 
-class CreateRequestChooseItem extends StatelessWidget {
+class OrganizationSelectItemPage extends StatelessWidget {
   final Map<String, String> items;
   final String categoryName;
   final String categoryIcon;
   final String categoryInfo;
 
-  CreateRequestChooseItem({
+  OrganizationSelectItemPage({
     @required this.categoryName,
     @required this.categoryIcon,
     @required this.categoryInfo,
@@ -68,7 +67,7 @@ class CreateRequestChooseItem extends StatelessWidget {
                     child: Wrap(
                       crossAxisAlignment: WrapCrossAlignment.center,
                       children: <Widget>[
-                        CreateRequestContainer(
+                        CategoryIconButton(
                           name: categoryName,
                           asset: categoryIcon,
                           onPressed: () {
@@ -77,7 +76,7 @@ class CreateRequestChooseItem extends StatelessWidget {
                         ),
                         CreateRequestInfoContainer(info: categoryInfo),
                         ...items.map((name, icon) =>
-                            MapEntry(name, CreateRequestContainer(
+                            MapEntry(name, CategoryIconButton(
                                 name: name,
                                 asset: icon,
                                 onPressed: () {

@@ -6,8 +6,9 @@ import 'package:flutter/services.dart';
 
 class Increment extends StatefulWidget {
   final int itemQuantity;
+  final Function onChanged;
 
-  Increment({this.itemQuantity});
+  Increment({this.itemQuantity, this.onChanged});
 
   @override
   _ItemIncrementState createState() => _ItemIncrementState();
@@ -27,6 +28,7 @@ class _ItemIncrementState extends State<Increment> {
   void _incrementCounter() {
     setState(() {
       controller.text = (++_counter).toString();
+      widget.onChanged(_counter);
     });
   }
 
@@ -34,6 +36,7 @@ class _ItemIncrementState extends State<Increment> {
     setState(() {
       _counter = max(0, _counter - 1);
       controller.text = _counter.toString();
+      widget.onChanged(_counter);
     });
   }
 
@@ -67,9 +70,11 @@ class _ItemIncrementState extends State<Increment> {
             height: 23,
             padding: EdgeInsets.only(left: 15),
             child: TextField(
+              textAlign: TextAlign.center,
               controller: controller,
               onChanged: (val) {
                 _counter = int.parse(val);
+                widget.onChanged(_counter);
               },
               style: TextStyle(fontSize: 17),
               decoration: InputDecoration(

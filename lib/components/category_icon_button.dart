@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
-class CreateRequestContainer extends StatelessWidget {
+class CategoryIconButton extends StatelessWidget {
   final Function onPressed;
   final String asset, name;
 
-  CreateRequestContainer({ this.onPressed,  this.asset, this.name});
+  CategoryIconButton({ this.onPressed,  this.asset, this.name});
 
   @override
   Widget build(BuildContext context) {

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:phase1/components/floating_text_field.dart';
 import 'package:phase1/components/item_increment.dart';
 import 'package:phase1/components/standard_layout_purple.dart';
-import 'package:phase1/pages/organization/organization_create_request_choose_item.dart';
+import 'package:phase1/pages/organization/organization_select_item_page.dart';
 
-import '../../components/create_request_container.dart';
+import '../../components/category_icon_button.dart';
 
 class OrganizationRequestPage extends StatefulWidget {
   @override
@@ -55,13 +55,13 @@ class _OrganizationRequestPageState extends State<OrganizationRequestPage> {
                     direction: Axis.horizontal,
                     crossAxisAlignment: WrapCrossAlignment.center,
                     children: <Widget>[
-                      CreateRequestContainer(
+                      CategoryIconButton(
                         asset: 'assets/hygiene_svgs/hygiene.svg',
                         name: 'Hygiene',
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => CreateRequestChooseItem(
+                            MaterialPageRoute(builder: (context) => OrganizationSelectItemPage(
                               categoryIcon: 'assets/hygiene_svgs/hygiene.svg',
                               categoryName: 'Hygiene',
                               items: {
@@ -76,13 +76,13 @@ class _OrganizationRequestPageState extends State<OrganizationRequestPage> {
                           );
                         },
                       ),
-                      CreateRequestContainer(
+                      CategoryIconButton(
                         asset: 'assets/clothing_svgs/clothes.svg',
                         name: 'Clothes',
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => CreateRequestChooseItem(
+                            MaterialPageRoute(builder: (context) => OrganizationSelectItemPage(
                                 categoryIcon: 'assets/clothing_svgs/clothes.svg',
                                 categoryName: 'Clothes',
                                 items: {
@@ -97,13 +97,13 @@ class _OrganizationRequestPageState extends State<OrganizationRequestPage> {
                           );
                         },
                       ),
-                      CreateRequestContainer(
+                      CategoryIconButton(
                         asset: 'assets/nutrition_svgs/nutrition.svg',
                         name: 'Nutrition',
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => CreateRequestChooseItem(
+                            MaterialPageRoute(builder: (context) => OrganizationSelectItemPage(
                                 categoryIcon: 'assets/nutrition_svgs/nutrition.svg',
                                 categoryName: 'Nutrition',
                                 items: {
@@ -118,13 +118,13 @@ class _OrganizationRequestPageState extends State<OrganizationRequestPage> {
                           );
                         },
                       ),
-                      CreateRequestContainer(
+                      CategoryIconButton(
                         asset: 'assets/covid-19_response_svg/covid_19.svg',
                         name: 'COVID-19',
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => CreateRequestChooseItem(
+                            MaterialPageRoute(builder: (context) => OrganizationSelectItemPage(
                                 categoryIcon: 'assets/covid-19_response_svg/covid_19.svg',
                                 categoryName: 'COVID-19',
                                 items: {
@@ -138,13 +138,13 @@ class _OrganizationRequestPageState extends State<OrganizationRequestPage> {
                           );
                         },
                       ),
-                      CreateRequestContainer(
+                      CategoryIconButton(
                         asset: 'assets/warmth_svgs/warmth.svg',
                         name: 'Warmth',
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => CreateRequestChooseItem(
+                            MaterialPageRoute(builder: (context) => OrganizationSelectItemPage(
                                 categoryIcon: 'assets/warmth_svgs/warmth.svg',
                                 categoryName: 'Warmth',
                                 items: {
@@ -156,13 +156,13 @@ class _OrganizationRequestPageState extends State<OrganizationRequestPage> {
                           );
                         },
                       ),
-                      CreateRequestContainer(
+                      CategoryIconButton(
                         asset: 'assets/other_svgs/other.svg',
                         name: 'Other',
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => CreateRequestChooseItem(
+                            MaterialPageRoute(builder: (context) => OrganizationSelectItemPage(
                                 categoryIcon: 'assets/other_svgs/other.svg',
                                 categoryName: 'Other',
                                 items: {

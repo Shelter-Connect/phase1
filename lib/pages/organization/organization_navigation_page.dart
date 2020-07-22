@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:phase1/models/user.dart';
+import 'package:phase1/pages/organization/current_request.dart';
 import 'package:phase1/pages/volunteer/settings_page.dart';
+import 'package:provider/provider.dart';
 
 import '../../components/alerts.dart';
 import '../../constants.dart';
@@ -19,7 +22,7 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
     OrganizationDashboardPage(),
     OrganizationExpectedDeliveriesPage(),
     SettingsPage(),
-    OrganizationContactUsPage(),
+    CurrentRequestsPage()
   ];
 
   @override
@@ -77,7 +80,7 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            Text('useremail@email.com'),
+                            Text(Provider.of<User>(context, listen: false).user.email),
                           ],
                         ),
                       ),
@@ -131,8 +134,8 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
     showModalBottomSheet(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(40.0),
-          topRight: Radius.circular(40.0),
+          topLeft: Radius.circular(20.0),
+          topRight: Radius.circular(20.0),
         ),
       ),
       context: context,
@@ -143,7 +146,17 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
             padding: EdgeInsets.all(25.0),
             child: Column(
               children: <Widget>[
-                Text(_pages[_selectedIndex].helpDescription, style: subHeaderStyle),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8, top: 0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text('Help', style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
+                      Icon(Icons.help, size: 30),
+                    ],
+                  ),
+                ),
+                Text(_pages[_selectedIndex].helpDescription, style: TextStyle(fontSize: 17)),
               ],
             ),
           ),

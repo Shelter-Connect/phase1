@@ -5,8 +5,10 @@ import 'package:phase1/pages/organization/organization_delivery_information_page
 class ExpectedDeliveryContainer extends StatelessWidget {
   final String dateRequested, dateExpected, donorName, donorEmail;
   final List itemName, itemQuantity;
+  final String deliveryId;
+  final String category;
 
-  ExpectedDeliveryContainer({this.itemName, this.itemQuantity, this.dateRequested, this.dateExpected, this.donorName, this.donorEmail});
+  ExpectedDeliveryContainer({this.itemName, this.itemQuantity, this.dateRequested, this.dateExpected, this.donorName, this.donorEmail, this.deliveryId, this.category});
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +26,7 @@ class ExpectedDeliveryContainer extends StatelessWidget {
                 dateExpected: dateExpected,
                 donorName: donorName,
                 donorEmail: donorEmail,
+                deliveryId: deliveryId,
               ),
             ),
           );
@@ -41,16 +44,10 @@ class ExpectedDeliveryContainer extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text(
-                        '$donorName',
-                        style: TextStyle(
-                          fontSize: 24,
-                            fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      Text(
-                        '$dateExpected',
+                        '$donorName $dateExpected' ?? '$category',
                         style: TextStyle(fontSize: 26, fontWeight: FontWeight.w600),
                       ),
+                      Icon(Icons.keyboard_arrow_right),
                     ],
                   ),
                   SizedBox(
@@ -64,13 +61,17 @@ class ExpectedDeliveryContainer extends StatelessWidget {
                   ),
                   SizedBox(height: 10),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
                       Column(
-                        children: <Widget>[...itemName.map((string) => Text(string, style: TextStyle(fontSize: 21, ))).toList()],
+
+                        children:  <Widget>[...itemQuantity.map((int) => Text('$int', style: TextStyle(fontSize: 21,))).toList()],
                       ),
+                      SizedBox(width: 5,),
                       Column(
-                        children: <Widget>[...itemQuantity.map((int) => Text('$int', style: TextStyle(fontSize: 21,))).toList()],
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children:
+                        <Widget>[...itemName.map((string) => Text(string, style: TextStyle(fontSize: 21, ))).toList()],
                       )
                     ],
                   ),

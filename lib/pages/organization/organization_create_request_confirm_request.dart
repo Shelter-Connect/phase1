@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:phase1/components/alerts.dart';
-import 'package:phase1/components/create_request_container.dart';
+import 'package:phase1/components/category_icon_button.dart';
 import 'package:phase1/components/floating_text_field.dart';
 import 'package:phase1/components/item_increment.dart';
 import 'package:phase1/constants.dart';
@@ -60,7 +60,7 @@ class CreateRequestConfirmRequest extends StatelessWidget {
                         child: Wrap(
                           crossAxisAlignment: WrapCrossAlignment.center,
                           children: <Widget>[
-                            CreateRequestContainer(
+                            CategoryIconButton(
                               name: itemName ?? null,
                               asset: itemIcon ?? null,
                               onPressed: () {
