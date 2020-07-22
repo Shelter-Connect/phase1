@@ -83,7 +83,7 @@ class _DonationOpportunitiesState extends State<DonationOpportunities> {
                       name: organizationSnapshot['name'],
                       description: organizationSnapshot['description'],
                       distance: 6.9,
-                      requestCategories: organizationSnapshot['requestCategories'].cast<String>(),
+                      requestCategories: organizationSnapshot['itemCategories'].cast<String>(),
                     ));
                   }
                 }
