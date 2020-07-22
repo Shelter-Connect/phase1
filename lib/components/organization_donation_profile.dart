@@ -7,9 +7,9 @@ class OrganizationDonationProfile extends StatelessWidget {
   final String name;
   final double distance;
   final String description;
-  final List<String> requestCategories;
+  final List<String> itemCategories;
 
-  OrganizationDonationProfile({this.name, this.distance, this.description, this.requestCategories});
+  OrganizationDonationProfile({this.name, this.distance, this.description, this.itemCategories});
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -92,7 +92,7 @@ class OrganizationDonationProfile extends StatelessWidget {
               Wrap(
                 spacing: 5.0,
                 runSpacing: 5.0,
-                children: requestCategories
+                children: itemCategories
                     .map((category) => Container(
                           decoration: BoxDecoration(
                             color: whiteBackground,

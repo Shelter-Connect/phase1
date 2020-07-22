@@ -15,9 +15,9 @@ class FirestoreHelper {
     DocumentReference organizationReference = getOrganizationReference(context);
     CollectionReference requestsReference = organizationReference.collection('requests');
 
-    Set<String> requestCategories = Set<String>();
+    Set<String> itemCategories = Set<String>();
     for (Item item in items) {
-      requestCategories.add(item.category);
+      itemCategories.add(item.category);
       QuerySnapshot document = await requestsReference.where('name', isEqualTo: item.name).where('category', isEqualTo: item.category).getDocuments();
       if (document.documents.length == 0) {
         await requestsReference.add(item.toFirestoreMap());
@@ -34,11 +34,11 @@ class FirestoreHelper {
     List<String> itemCategories = (await organizationReference.get())['itemCategories'];
     if (itemCategories != null) {
       for (String category in itemCategories) {
-        requestCategories.add(category);
+        itemCategories.add(category);
       }
     }
     await organizationReference.updateData({
-      'requestCategories': requestCategories.toList(),
+      'itemCategories': itemCategories.toList(),
     });
   }
 }

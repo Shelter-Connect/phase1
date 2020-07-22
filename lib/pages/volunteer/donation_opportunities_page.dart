@@ -78,12 +78,12 @@ class _DonationOpportunitiesState extends State<DonationOpportunities> {
 
                 List<Widget> widgets = [];
                 for (DocumentSnapshot organizationSnapshot in snapshot.data.documents) {
-                  if (organizationSnapshot['requestCategories'] != null) {
+                  if (organizationSnapshot['itemCategories'] != null) {
                     widgets.add(OrganizationDonationProfile(
                       name: organizationSnapshot['name'],
                       description: organizationSnapshot['description'],
                       distance: 6.9,
-                      requestCategories: organizationSnapshot['itemCategories'].cast<String>(),
+                      itemCategories: organizationSnapshot['itemCategories'].cast<String>(),
                     ));
                   }
                 }
