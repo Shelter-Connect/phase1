@@ -70,27 +70,28 @@ class _DonationOpportunitiesState extends State<DonationOpportunities> {
             ),
             SizedBox(height: 20.0),
             StreamBuilder(
-                stream: db.collection('organizations').snapshots(),
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
-                    return CircularProgressIndicator();
-                  }
+              stream: db.collection('organizations').snapshots(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return CircularProgressIndicator();
+                }
 
-                  List<Widget> widgets = [];
-                  for (DocumentSnapshot organizationSnapshot in snapshot.data.documents) {
-                    if (organizationSnapshot['requestCategories'] != null) {
-                      widgets.add(OrganizationDonationProfile(
-                        name: organizationSnapshot['name'],
-                        description: organizationSnapshot['description'],
-                        distance: 6.9,
-                        requestCategories: organizationSnapshot['requestCategories'].cast<String>(),
-                      ));
-                    }
+                List<Widget> widgets = [];
+                for (DocumentSnapshot organizationSnapshot in snapshot.data.documents) {
+                  if (organizationSnapshot['requestCategories'] != null) {
+                    widgets.add(OrganizationDonationProfile(
+                      name: organizationSnapshot['name'],
+                      description: organizationSnapshot['description'],
+                      distance: 6.9,
+                      requestCategories: organizationSnapshot['requestCategories'].cast<String>(),
+                    ));
                   }
-                  return Column(
-                    children: widgets,
-                  );
-                }),
+                }
+                return Column(
+                  children: widgets,
+                );
+              },
+            ),
           ],
         ),
       ),
