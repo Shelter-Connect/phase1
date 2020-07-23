@@ -38,6 +38,8 @@ class _OrganizationSettingsPageState extends State<OrganizationSettingsPage> {
             SizedBox(height: 20),
             UserInfo(email: Provider.of<User>(context, listen: false).user.email, password: '*******'),
             SizedBox(height: 20),
+            OrganizationInfo(),
+            SizedBox(height: 20),
             DeleteAccount(),
             SizedBox(height: 20),
           ],
@@ -69,6 +71,119 @@ class UserInfo extends StatelessWidget {
             children: <Widget>[
               Text(
                 'User Information',
+                style: TextStyle(
+                  fontSize: 24,
+                ),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Container(
+                height: 5,
+                width: 100,
+                decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
+              ),
+              SizedBox(height: 20),
+              RichText(
+                text: TextSpan(
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: 'Email Address: ',
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: colorScheme.onBackground,
+                      ),
+                    ),
+                    TextSpan(
+                      text: email,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        color: colorScheme.onBackground,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              RichText(
+                text: TextSpan(
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: 'Password: ',
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: colorScheme.onBackground,
+                      ),
+                    ),
+                    TextSpan(
+                      text: password,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        color: colorScheme.onBackground,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              InkWell(
+                onTap: () {
+                  //TODO
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: purpleAccent,
+                    borderRadius: BorderRadius.circular(21),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+                    child: Text(
+                      'Change Password',
+                      style: TextStyle(
+                        color: colorScheme.onSecondary,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16.0,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class OrganizationInfo extends StatelessWidget {
+  final String email;
+  final String password;
+
+  OrganizationInfo({this.email, this.password});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Container(
+        decoration: BoxDecoration(color: colorScheme.onSecondary, borderRadius: BorderRadius.all(Radius.circular(20))),
+        height: 224,
+        width: MediaQuery.of(context).size.width,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                'Organization Information',
                 style: TextStyle(
                   fontSize: 24,
                 ),

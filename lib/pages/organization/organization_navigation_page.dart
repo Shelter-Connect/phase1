@@ -20,8 +20,8 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
   final List<NavigationTab> _pages = [
     OrganizationDashboardPage(),
     OrganizationExpectedDeliveriesPage(),
-    OrganizationSettingsPage(),
-    CurrentRequestsPage()
+    CurrentRequestsPage(),
+    OrganizationSettingsPage()
   ];
 
   @override
