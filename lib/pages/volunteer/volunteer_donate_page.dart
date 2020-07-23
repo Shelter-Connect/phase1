@@ -32,7 +32,7 @@ class _VolunteerDonatePageState extends State<VolunteerDonatePage> {
                 ' 5 miles away',
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700, color: purpleAccent),
               ),
-BasicDateField(),
+              BasicDateField(),
               SizedBox(height: 20),
               DonatePageItemSelection(boxTitle: 'Hygiene'),
               SizedBox(height: 15),
@@ -44,8 +44,10 @@ BasicDateField(),
                 width: MediaQuery.of(context).size.width,
                 child: FlatButton(
                   onPressed: () {
-                    Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => DonationConfirmationPage()),);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => DonationConfirmationPage()),
+                    );
                   },
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30.0),
@@ -55,10 +57,7 @@ BasicDateField(),
                     padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 20),
                     child: Text(
                       'Continue',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20
-                      ),
+                      style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
                   ),
                 ),
