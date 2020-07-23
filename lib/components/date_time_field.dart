@@ -1,0 +1,110 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+
+import '../constants.dart';
+
+// ...
+
+class BasicDateField extends StatelessWidget {
+  final format = DateFormat("MM-dd-yyyy");
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 16.0),
+      child: Container(
+        decoration: BoxDecoration(
+          color: colorScheme.onSecondary,
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+        ),
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+            child: Text('Enter Delivery Date', style: TextStyle(fontSize: 20,
+              fontWeight: FontWeight.w500,)),
+          ),
+//      Basic date field (${format.pattern})
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(topLeft: Radius.circular(0), topRight: Radius.circular(0), bottomLeft: Radius.circular(20), bottomRight: Radius.circular(20)),
+
+            ),
+            child: Padding(
+              padding: EdgeInsets.only(left: 20, right: 20, bottom: 0),
+              child: Column(
+                children: <Widget>[
+                  DateTimeField(
+                    format: format,
+                    onShowPicker: (context, currentValue) {
+                      return showDatePicker(context: context, firstDate: DateTime(1900), initialDate: currentValue ?? DateTime.now(), lastDate: DateTime(2100));
+                    },
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 20.0),
+                    child: Container(
+                      width: 1001,
+                      height: 1,
+                      color: Colors.black,
+
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+        ]),
+      ),
+    );
+  }
+}
+
+class BasicTimeField extends StatelessWidget {
+  final format = DateFormat("HH:mm");
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(children: <Widget>[
+      Text('Basic time field (${format.pattern})'),
+      DateTimeField(
+        format: format,
+        onShowPicker: (context, currentValue) async {
+          final time = await showTimePicker(
+            context: context,
+            initialTime: TimeOfDay.fromDateTime(currentValue ?? DateTime.now()),
+          );
+          return DateTimeField.convert(time);
+        },
+      ),
+    ]);
+  }
+}
+
+class BasicDateTimeField extends StatelessWidget {
+  final format = DateFormat("yyyy-MM-dd HH:mm");
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(children: <Widget>[
+      Text('Basic date & time field (${format.pattern})'),
+      DateTimeField(
+        format: format,
+        onShowPicker: (context, currentValue) async {
+          final date = await showDatePicker(context: context, firstDate: DateTime(1900), initialDate: currentValue ?? DateTime.now(), lastDate: DateTime(2100));
+          if (date != null) {
+            final time = await showTimePicker(
+              context: context,
+              initialTime: TimeOfDay.fromDateTime(currentValue ?? DateTime.now()),
+            );
+            return DateTimeField.combine(date, time);
+          } else {
+            return currentValue;
+          }
+        },
+      ),
+    ]);
+  }
+}
