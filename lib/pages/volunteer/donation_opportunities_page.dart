@@ -1,5 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'org_donation_oppo_profile.dart';
+import 'package:phase1/pages/volunteer/donation_filter_page.dart';
+
+import '../../components/organization_donation_profile.dart';
+import '../../constants.dart';
 import '../navigation_tab.dart';
 
 class DonationOpportunities extends StatefulWidget with NavigationTab {
@@ -20,45 +24,77 @@ class _DonationOpportunitiesState extends State<DonationOpportunities> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFDAE5F9),
+      backgroundColor: whiteBackground,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
               child: Text(
                 'Donation Opportunities',
-                style: TextStyle(fontSize: 35, fontWeight: FontWeight.w900, color: Color(0xFF6576EC)),
+                style: TextStyle(fontSize: 35, fontWeight: FontWeight.w900, color: purpleAccent),
               ),
             ),
             SizedBox(height: 20),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              padding: const EdgeInsets.only(left: 16.0),
               child: FlatButton(
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                color: Colors.white,
+                color: colorScheme.onSecondary,
                 onPressed: () {
-                  //TODO Navigate to donation_filter page
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => DonationFilterPage()),
+                  );
                 },
-                child: Container(
-                  width: 92,
+                child: IntrinsicWidth(
                   child: Row(
                     children: <Widget>[
-                      Text('Filters', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 20, color: Color(0xFF6576EC))),
-                      Icon(Icons.keyboard_arrow_down, color: Color(0xFF6576EC), size: 35,),
+                      Text('Filter', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 20, color: purpleAccent)),
+                      SizedBox(width: 5.0),
+                      Column(
+                        children: [
+                          SizedBox(height: 5.0),
+                          Icon(
+                            Icons.keyboard_arrow_down,
+                            color: purpleAccent,
+                            size: 30.0,
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ),
               ),
             ),
-            SizedBox(height: 20),
-            ShelterDonationProfile('City Team Men\'s Shelter', 5.2, 'Lorem ipsum dolor sit amet, sed eu mollis tibique. Cu decore nominavi splendide vel. Sit mazim simul feugait ea. Te usu nullam populo vivendo. Lorem ipsum dolor sit amet, sed eu mollis tibique.'),
-            SizedBox(height: 15),
-            ShelterDonationProfile('HomeFirst', 2.5, 'Lorem ipsum dolor sit amet, sed eu mollis tibique. Cu decore nominavi splendide vel. Sit mazim simul feugait ea. Te usu nullam populo vivendo. Lorem ipsum dolor sit amet, sed eu mollis tibique.'),
-            SizedBox(height: 15),
-            ShelterDonationProfile('Lifemoves', 8.9, 'Lorem ipsum dolor sit amet, sed eu mollis tibique. Cu decore nominavi splendide vel. Sit mazim simul feugait ea. Te usu nullam populo vivendo. Lorem ipsum dolor sit amet, sed eu mollis tibique.'),
-            SizedBox(height: 20),
+            SizedBox(height: 20.0),
+            StreamBuilder(
+              stream: db.collection('organizations').snapshots(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return CircularProgressIndicator();
+                }
+
+                List<Widget> widgets = [];
+                for (DocumentSnapshot organizationSnapshot in snapshot.data.documents) {
+                  if (organizationSnapshot['itemCategories'] != null) {
+                    widgets.add(OrganizationDonationProfile(
+                      name: organizationSnapshot['name'],
+                      description: organizationSnapshot['description'],
+                      distance: 5.6, //distance(organizationSnapshot['location'].latitude(), organizationSnapshot['location'].longitutde(), 0.0, 0.0),
+                      itemCategories: organizationSnapshot['itemCategories'].cast<String>(),
+                    ));
+                  }
+                }
+                /*widgets.sort((a, b) {
+                  return distance();
+                });*/
+                return Column(
+                  children: widgets,
+                );
+              },
+            ),
           ],
         ),
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phase1/constants.dart';
 
 class DonationFilterPage extends StatefulWidget {
   @override
@@ -6,66 +7,72 @@ class DonationFilterPage extends StatefulWidget {
 }
 
 class _DonationFilterPageState extends State<DonationFilterPage> {
-
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return new Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: colorScheme.background,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: colorScheme.background,
         elevation: 0,
         leading: IconButton(
-            icon: Icon(Icons.clear, color: Color(0xFFFF5151),),
-            onPressed: () {}),
-        title: Text("Filters", style: TextStyle(color: Color(0xFF6576EC)),),
+            icon: Icon(
+              Icons.clear,
+              color: colorScheme.error,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            }),
+        title: Text(
+          "Filters",
+          style: TextStyle(color: purpleAccent),
+        ),
         actions: <Widget>[
           //TODO A button can be implemented if needed.
         ],
       ),
       body: Column(
         children: <Widget>[
-          Align
-            (
+          Align(
             alignment: Alignment.centerLeft,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text("Choose Item Categories",style: TextStyle(
-                  color: Color(0xFF6576EC), fontSize: 24.0, fontWeight: FontWeight.bold),),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left:8.0),
-            child: Align
-              (
-              alignment: Alignment.centerLeft,
-              child: Container(
-                  child: Wrap(
-                    spacing: 5.0,
-                    runSpacing: 3.0,
-                    children: <Widget>[
-                      filterChipWidget(chipName: 'Hygiene'),
-                      filterChipWidget(chipName: 'Food'),
-                      filterChipWidget(chipName: 'Warmth'),
-                      filterChipWidget(chipName: 'Utilities'),
-                    ],
-                  )
+              child: Text(
+                "Choose Item Categories",
+                style: TextStyle(color: purpleAccent, fontSize: 24.0, fontWeight: FontWeight.bold),
               ),
             ),
           ),
-          Align
-            (
+          Padding(
+            padding: const EdgeInsets.only(left: 8.0),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Container(
+                  child: Wrap(
+                spacing: 5.0,
+                runSpacing: 3.0,
+                children: <Widget>[
+                  filterChipWidget(chipName: 'Hygiene'),
+                  filterChipWidget(chipName: 'Food'),
+                  filterChipWidget(chipName: 'Warmth'),
+                  filterChipWidget(chipName: 'Utilities'),
+                ],
+              )),
+            ),
+          ),
+          Align(
             alignment: Alignment.centerLeft,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text('Choose Organization Types', style: TextStyle(
-                  color: Color(0xFF6576EC), fontSize: 24.0, fontWeight: FontWeight.bold),),
+              child: Text(
+                'Choose Organization Categories',
+                style: TextStyle(color: purpleAccent, fontSize: 24.0, fontWeight: FontWeight.bold),
+              ),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left:8.0),
-            child: Align
-              (
+            padding: const EdgeInsets.only(left: 8.0),
+            child: Align(
               alignment: Alignment.centerLeft,
               child: Container(
                 child: Wrap(
@@ -81,18 +88,19 @@ class _DonationFilterPageState extends State<DonationFilterPage> {
               ),
             ),
           ),
-          Align
-            (
+          Align(
             alignment: Alignment.centerRight,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: FlatButton(
                 onPressed: () {
                   //TODO: Apply filters, delete unselected filters, send back to donation opportunities.
-                   },
+                },
                 child: Container(
-                  child: Text('Apply Changes', style: TextStyle(
-                      color: Color(0xFF6576EC), fontSize: 18.0, fontWeight: FontWeight.w600),),
+                  child: Text(
+                    'Apply Changes',
+                    style: TextStyle(color: purpleAccent, fontSize: 18.0, fontWeight: FontWeight.w600),
+                  ),
                 ),
               ),
             ),
@@ -101,7 +109,6 @@ class _DonationFilterPageState extends State<DonationFilterPage> {
       ),
     );
   }
-
 }
 
 // ignore: camel_case_types
@@ -122,17 +129,18 @@ class _filterChipWidgetState extends State<filterChipWidget> {
   Widget build(BuildContext context) {
     return FilterChip(
       label: Text(widget.chipName),
-      labelStyle: TextStyle(color: Color(0xFF187CFF),fontSize: 16.0,fontWeight: FontWeight.bold),
+      labelStyle: TextStyle(color: blueAccent, fontSize: 16.0, fontWeight: FontWeight.bold),
       selected: _isSelected,
-      shape:RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(
-            30.0),),
-      backgroundColor: Color(0xFFF2F2F2),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(30.0),
+      ),
+      backgroundColor: colorScheme.background,
       onSelected: (isSelected) {
         setState(() {
           _isSelected = isSelected;
         });
       },
-      selectedColor: Color(0xFFD5E7FF),);
+      selectedColor: colorScheme.onSecondary,
+    );
   }
 }

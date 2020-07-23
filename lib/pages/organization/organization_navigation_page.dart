@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:phase1/pages/volunteer/volunteer_account_settings.dart';
+import 'package:phase1/models/user.dart';
+import 'package:phase1/pages/organization/current_request.dart';
+import 'package:phase1/pages/volunteer/settings_page.dart';
+import 'package:provider/provider.dart';
 
+import '../../components/alerts.dart';
 import '../../constants.dart';
 import '../navigation_tab.dart';
 import 'organization_dashboard_page.dart';
@@ -16,77 +20,112 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
   final List<NavigationTab> _pages = [
     OrganizationDashboardPage(),
     OrganizationExpectedDeliveriesPage(),
-    VolunteerAccountPage(),
+    SettingsPage(),
+    CurrentRequestsPage()
   ];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: colorScheme.surface,
-      appBar: AppBar(
-        title: Text(_pages[_selectedIndex].title),
-        backgroundColor: colorScheme.surface,
-        elevation: 0.0,
-        leading: Builder(
-          builder: (context) => IconButton(
-            icon: Icon(Icons.menu),
-            color: colorScheme.background,
-            onPressed: () {
-              Scaffold.of(context).openDrawer();
-            },
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        backgroundColor: whiteBackground,
+        appBar: AppBar(
+          brightness: Brightness.light,
+          title: Text(
+            _pages[_selectedIndex].title,
+            style: TextStyle(color: whiteBackground),
           ),
-        ),
-        actions: <Widget>[
-          Visibility(
-            visible: _pages[_selectedIndex].helpDescription != '',
-            child: IconButton(
-              icon: Icon(Icons.help),
-              color: colorScheme.background,
+          backgroundColor: whiteBackground,
+          elevation: 0.0,
+          leading: Builder(
+            builder: (context) => IconButton(
+              icon: Icon(Icons.menu),
+              color: purpleAccent,
               onPressed: () {
-                _helpModalBottomSheet(context);
+                Scaffold.of(context).openDrawer();
               },
             ),
           ),
-        ],
-      ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Shelter Connect',
-                    style: TextStyle(
-                      fontSize: 30.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text('useremail@email.com'),
-                ],
+          actions: <Widget>[
+            Visibility(
+              visible: _pages[_selectedIndex].helpDescription != '',
+              child: IconButton(
+                icon: Icon(Icons.help),
+                color: purpleAccent,
+                onPressed: () {
+                  _helpModalBottomSheet(context);
+                },
               ),
             ),
-            ..._pages
-                .asMap()
-                .map((index, tab) => MapEntry(
-                    index,
-                    ListTile(
-                        title: Text(tab.title),
-                        leading: Icon(tab.icon),
-                        onTap: () {
-                          setState(() {
-                            _selectedIndex = index;
-                          });
-                          Navigator.pop(context);
-                        })))
-                .values
-                .toList(),
           ],
         ),
+        drawer: Drawer(
+          child: SafeArea(
+            child: Column(
+              children: <Widget>[
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      DrawerHeader(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Shelter Connect',
+                              style: TextStyle(
+                                fontSize: 30.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(Provider.of<User>(context, listen: false).user.email),
+                          ],
+                        ),
+                      ),
+                      ..._pages
+                          .asMap()
+                          .map((index, tab) => MapEntry(
+                              index,
+                              ListTile(
+                                  title: Text(tab.title),
+                                  leading: Icon(tab.icon),
+                                  onTap: () {
+                                    setState(() {
+                                      _selectedIndex = index;
+                                    });
+                                    Navigator.pop(context);
+                                  })))
+                          .values
+                          .toList(),
+                    ],
+                  ),
+                ),
+                ListTile(
+                  title: Text('Sign Out'),
+                  leading: Icon(Icons.exit_to_app, color: Colors.red),
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (_) => SingleActionAlert(
+                        title: 'Sign Out?',
+                        subtitle: 'Your login information will not be remembered.',
+                        actionName: 'Sign Out',
+                        action: () {
+                          Navigator.pop(context);
+                          Navigator.pop(context);
+                          auth.signOut();
+                        },
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
+        ),
+        body: _pages[_selectedIndex],
       ),
-      body: _pages[_selectedIndex],
     );
   }
 
@@ -94,8 +133,8 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
     showModalBottomSheet(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(40.0),
-          topRight: Radius.circular(40.0),
+          topLeft: Radius.circular(20.0),
+          topRight: Radius.circular(20.0),
         ),
       ),
       context: context,
@@ -106,7 +145,17 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
             padding: EdgeInsets.all(25.0),
             child: Column(
               children: <Widget>[
-                Text(_pages[_selectedIndex].helpDescription),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8, top: 0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text('Help', style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
+                      Icon(Icons.help, size: 30),
+                    ],
+                  ),
+                ),
+                Text(_pages[_selectedIndex].helpDescription, style: TextStyle(fontSize: 17)),
               ],
             ),
           ),

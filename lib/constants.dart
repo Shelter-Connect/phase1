@@ -20,12 +20,12 @@ final headerStyle = TextStyle(
   fontSize: 30.0,
 );
 
-final subheaderStyle = TextStyle(
+final subHeaderStyle = TextStyle(
   fontWeight: FontWeight.w400,
-  fontSize: 20.0,
+  fontSize: 17.0,
 );
 
-//Color Scheme
+//Colors
 final colorScheme = ColorScheme(
   primary: Color(0xffbbdefb),
   primaryVariant: Color(0xff8aacc8),
@@ -41,3 +41,9 @@ final colorScheme = ColorScheme(
   onError: Color(0xffbbdefb),
   brightness: Brightness.light,
 );
+
+Color purpleAccent = Color(0xFF6576EC);
+Color blueAccent = Color(0xff187CFF);
+Color whiteBackground = Color(0xFFDAE5F9);
+Color secondaryTertiary = Colors.blue;
+Color transparent = Colors.transparent;

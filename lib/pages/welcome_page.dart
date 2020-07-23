@@ -11,25 +11,6 @@ class WelcomePage extends StatefulWidget {
 
 class _WelcomePageState extends State<WelcomePage> {
   @override
-  void initState() {
-    auth.onAuthStateChanged.listen((user) {
-      if (user == null) {
-        Navigator.popUntil(context, (route) => route.isFirst);
-      } else {
-        db.collection('organizations').document(user.uid).get().then((value) {
-          if (value['verified'])
-            Navigator.pushNamed(context, '/organization_navigation');
-          else
-            Navigator.pushNamed(context, '/organization_confirmation');
-
-        });
-      }
-    });
-
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
@@ -39,13 +20,17 @@ class _WelcomePageState extends State<WelcomePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text('Welcome!', style: titleStyle),
+              Text(
+                'Welcome!',
+                style: titleStyle,
+                textAlign: TextAlign.center,
+              ),
               Align(
-                child: Image.asset('assets/ShelterConnectLogo.png', height: 150),
+                child: Image.asset('assets/logo_svgs/ShelterConnectLogo.png', height: 150),
                 alignment: Alignment.center,
               ),
               SizedBox(height: 10.0),
-              Image.asset('assets/LogoName.png', width: 400),
+              Image.asset('assets/logo_svgs/LogoName.png', width: 400),
               Text(
                 'Connecting non-profit organizations and kind hearted people',
                 style: TextStyle(
@@ -57,11 +42,11 @@ class _WelcomePageState extends State<WelcomePage> {
               RoundedButton(
                 title: 'Continue as Volunteer',
                 onPressed: () {
-                  //TODO: Make Volunteer Dashboard and have this button go to Volunteer Dashboard
+                  Navigator.pushNamed(context, '/volunteer_sign_up');
                 },
               ),
               RoundedButton(
-                title: 'Continue as Shelter',
+                title: 'Continue as Organization',
                 onPressed: () {
                   Navigator.pushNamed(context, '/organization_sign_up');
                 },
@@ -69,9 +54,9 @@ class _WelcomePageState extends State<WelcomePage> {
               Padding(
                 padding: const EdgeInsets.only(left: 5.0),
                 child: TextButton(
-                  text: 'Existing User? Sign in here',
+                  text: 'Existing User? Sign in here.',
                   onPressed: () {
-                    //TODO: Make login page and redirect this button to that page
+                    Navigator.pushNamed(context, '/login');
                   },
                 ),
               ),
