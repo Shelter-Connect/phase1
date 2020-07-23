@@ -5,9 +5,9 @@ import '../../constants.dart';
 import '../../models/user.dart';
 import '../navigation_tab.dart';
 
-class SettingsPage extends StatefulWidget with NavigationTab {
+class OrganizationSettingsPage extends StatefulWidget with NavigationTab {
   @override
-  _SettingsPageState createState() => _SettingsPageState();
+  _OrganizationSettingsPageState createState() => _OrganizationSettingsPageState();
 
   @override
   String get helpDescription => 'This is a help description for your account settings.';
@@ -19,7 +19,7 @@ class SettingsPage extends StatefulWidget with NavigationTab {
   String get title => 'Account Settings';
 }
 
-class _SettingsPageState extends State<SettingsPage> {
+class _OrganizationSettingsPageState extends State<OrganizationSettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -191,7 +191,7 @@ class DeleteAccount extends StatelessWidget {
                   ),
                   onPressed: () {
 //                    auth.currentUser().then((user) => user.delete());
-                  auth.signOut();
+                    auth.signOut();
                     //TODO Delete DB
                   },
                 ),
