@@ -34,11 +34,14 @@ class OrganizationDonationProfile extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text(
-                    name,
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
+                  Container(
+                    width: MediaQuery.of(context).size.width * 7 / 10,
+                    child: Text(
+                      name,
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                   SizedBox(
@@ -55,7 +58,7 @@ class OrganizationDonationProfile extends StatelessWidget {
                 ],
               ),
               Text(
-                '$distance miles',
+                '${distance.toStringAsFixed(1)} miles',
                 style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w500,
