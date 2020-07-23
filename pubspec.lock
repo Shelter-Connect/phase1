@@ -85,10 +85,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.3"
-current_reqeusts
   datetime_picker_formfield:
     dependency: "direct main"
-
+    description:
+      name: datetime_picker_formfield
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   equatable:
     dependency: transitive
     description:
@@ -96,14 +99,6 @@ current_reqeusts
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.2"
-  fake_async:
-    dependency: transitive
-beta
-    description:
-      name: datetime_picker_formfield
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.0"
   firebase:
     dependency: transitive
     description:

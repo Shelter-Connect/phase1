@@ -73,6 +73,7 @@ class PlacesAutocompleteWidget extends StatefulWidget {
     return _PlacesAutocompleteOverlayState();
   }
 
+  // ignore: deprecated_member_use
   static PlacesAutocompleteState of(BuildContext context) => context.ancestorStateOfType(const TypeMatcher<PlacesAutocompleteState>());
 }
 
@@ -108,6 +109,12 @@ class _PlacesAutocompleteOverlayState extends PlacesAutocompleteState {
                 color: theme.brightness == Brightness.light ? Colors.black45 : null,
                 icon: _iconBack,
                 onPressed: () {
+                  widget.controller.value = TextEditingValue(
+                    text: widget.controller.value.text,
+                    selection: TextSelection.fromPosition(
+                      TextPosition(offset: 0),
+                    ),
+                  );
                   Navigator.pop(context);
                 },
               ),
