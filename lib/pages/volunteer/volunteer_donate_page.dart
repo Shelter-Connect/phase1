@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:phase1/components/date_time_field.dart';
 import 'package:phase1/components/volunteer_donate_page_item_selection.dart';
 import 'package:phase1/pages/volunteer/donation_confirmation_page.dart';
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 
 import '../../components/standard_layout.dart';
 import '../../constants.dart';
@@ -30,6 +32,7 @@ class _VolunteerDonatePageState extends State<VolunteerDonatePage> {
                 ' 5 miles away',
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700, color: purpleAccent),
               ),
+              BasicDateField(),
               SizedBox(height: 20),
               DonatePageItemSelection(boxTitle: 'Hygiene'),
               SizedBox(height: 15),
@@ -41,8 +44,10 @@ class _VolunteerDonatePageState extends State<VolunteerDonatePage> {
                 width: MediaQuery.of(context).size.width,
                 child: FlatButton(
                   onPressed: () {
-                    Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => DonationConfirmationPage()),);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => DonationConfirmationPage()),
+                    );
                   },
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30.0),
@@ -52,10 +57,7 @@ class _VolunteerDonatePageState extends State<VolunteerDonatePage> {
                     padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 20),
                     child: Text(
                       'Continue',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20
-                      ),
+                      style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
                   ),
                 ),
