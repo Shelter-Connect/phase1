@@ -241,27 +241,27 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                             category,
                                             Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
                                               SizedBox(height: 10.0),
-                                              Align(
-                                                child: Text(
-                                                  category,
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 17.0,
-                                                  ),
+                                              Text(
+                                                category,
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 17.0,
                                                 ),
-                                                alignment: Alignment.center,
                                               ),
-                                              ...items.map((item) => Padding(
-                                                padding: const EdgeInsets.only(top: 3.0),
-                                                child: Text(
-                                                    '${item.name} x ${item.amount}',
-                                                    style: TextStyle(
-                                                      fontSize: 17.0,
-                                                      fontWeight: FontWeight.w400,
+                                              ...items
+                                                  .map(
+                                                    (item) => Padding(
+                                                      padding: const EdgeInsets.only(top: 3.0),
+                                                      child: Text(
+                                                        '${item.name} x ${item.amount}',
+                                                        style: TextStyle(
+                                                          fontSize: 17.0,
+                                                          fontWeight: FontWeight.w400,
+                                                        ),
+                                                      ),
                                                     ),
-                                                  ),
-                                              ),
-                                              ).toList(),
+                                                  )
+                                                  .toList(),
                                             ])))
                                         .values
                                         .toList(),
@@ -279,7 +279,8 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                           onPressed: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => VolunteerDonatePage(items: requestedItems, organizationId: widget.organizationId)),
+                              MaterialPageRoute(
+                                  builder: (context) => VolunteerDonatePage(items: requestedItems, organizationId: widget.organizationId)),
                             );
                           },
                           shape: RoundedRectangleBorder(

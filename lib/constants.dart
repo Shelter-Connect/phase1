@@ -27,7 +27,7 @@ final subHeaderStyle = TextStyle(
 
 //Colors
 final colorScheme = ColorScheme(
-  primary: Color(0xffbbdefb),
+  primary: Color(0xff42a5f5), //Color(0xffbbdefb),
   primaryVariant: Color(0xff8aacc8),
   secondary: Color(0xff42a5f5),
   secondaryVariant: Color(0xff0077c2),

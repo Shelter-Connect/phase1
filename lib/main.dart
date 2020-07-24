@@ -14,8 +14,8 @@ import 'pages/signup_page.dart';
 import 'pages/volunteer/donation_confirmation_page.dart';
 import 'pages/volunteer/items_to_deliver_extended.dart';
 import 'pages/volunteer/organization_profile_page.dart';
-import 'pages/volunteer/volunteer_donate_page.dart';
 import 'pages/volunteer/volunteer_confirmation_page.dart';
+import 'pages/volunteer/volunteer_donate_page.dart';
 import 'pages/volunteer/volunteer_navigation_page.dart';
 import 'pages/volunteer/volunteer_sign_up_page.dart';
 import 'pages/welcome_page.dart';
@@ -38,6 +38,9 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Shelter Connect',
         debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          colorScheme: colorScheme,
+        ),
         routes: {
           '/welcome': (_) => WelcomePage(),
           '/': (_) => LoadingPage(),
