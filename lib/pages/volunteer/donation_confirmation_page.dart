@@ -62,25 +62,6 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                                     fontSize: 20,
                                   ),
                                 ),
-                                Container(
-                                  height: 35,
-                                  child: FlatButton(
-                                    padding: EdgeInsets.all(0.0),
-                                    splashColor: transparent,
-                                    highlightColor: transparent,
-                                    child: Text(
-                                      'Edit',
-                                      style: TextStyle(
-                                        decoration: TextDecoration.underline,
-                                        color: colorScheme.error,
-                                        fontSize: 17.0,
-                                      ),
-                                    ),
-                                    onPressed: () {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => VolunteerDonatePage()));
-                                    },
-                                  ),
-                                ),
                               ],
                             ),
                             Container(

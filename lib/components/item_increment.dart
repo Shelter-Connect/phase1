@@ -64,7 +64,7 @@ class _ItemIncrementWithTextState extends State<ItemIncrementWithText> {
                 ),
                 child: IconButton(
                   onPressed: _incrementCounter,
-                  icon: Icon(Icons.add, size: 15),
+                  icon: Icon(Icons.add, size: 15, color: Colors.white),
                   tooltip: 'Increment',
                 ),
               ),

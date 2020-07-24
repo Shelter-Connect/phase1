@@ -27,7 +27,6 @@ class BasicDateField extends StatelessWidget {
             child: Text('Enter Delivery Date', style: TextStyle(fontSize: 20,
               fontWeight: FontWeight.w500,)),
           ),
-//      Basic date field (${format.pattern})
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.only(topLeft: Radius.circular(0), topRight: Radius.circular(0), bottomLeft: Radius.circular(20), bottomRight: Radius.circular(20)),
@@ -41,15 +40,14 @@ class BasicDateField extends StatelessWidget {
                     format: format,
                     onShowPicker: (context, currentValue) {
                       return showDatePicker(context: context, firstDate: DateTime(1900), initialDate: currentValue ?? DateTime.now(), lastDate: DateTime(2100));
-                    },
+  },
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 20.0),
+                    padding: const EdgeInsets.only(bottom: 20.0, top: 0),
                     child: Container(
                       width: 1001,
                       height: 1,
                       color: Colors.black,
-
                     ),
                   )
                 ],

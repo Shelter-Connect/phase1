@@ -96,6 +96,7 @@ class _DonationOpportunitiesState extends State<DonationOpportunities> {
                       for (DocumentSnapshot organizationSnapshot in snapshot.data.documents) {
                         if (organizationSnapshot['itemCategories'] != null) {
                           widgets.add(OrganizationDonationProfile(
+                            organizationId: organizationSnapshot.documentID,
                             name: organizationSnapshot['name'],
                             description: organizationSnapshot['description'],
                             distance: FirestoreHelper.distance(organizationSnapshot['location'].latitude, organizationSnapshot['location'].longitude,
