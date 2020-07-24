@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:phase1/components/date_time_field.dart';
 import 'package:phase1/components/volunteer_donate_page_item_selection.dart';
 import 'package:phase1/pages/volunteer/donation_confirmation_page.dart';
-import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 
 import '../../components/standard_layout.dart';
 import '../../constants.dart';
@@ -62,7 +61,7 @@ class _VolunteerDonatePageState extends State<VolunteerDonatePage> {
                     padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 20),
                     child: Text(
                       'Continue',
-                      style: TextStyle(color: Colors.white, fontSize: 20),
+                      style: TextStyle(color: colorScheme.onSecondary, fontSize: 20),
                     ),
                   ),
                 ),

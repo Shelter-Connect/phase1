@@ -103,7 +103,7 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
                 ),
                 ListTile(
                   title: Text('Sign Out'),
-                  leading: Icon(Icons.exit_to_app, color: Colors.red),
+                  leading: Icon(Icons.exit_to_app, color: colorScheme.error),
                   onTap: () {
                     showDialog(
                       context: context,

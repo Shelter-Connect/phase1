@@ -5,25 +5,29 @@ import '../../components/standard_layout.dart';
 import '../../constants.dart';
 import 'organization_delivery_confirmation_page.dart';
 
-
 class OrganizationExpectedDeliveryInformationPage extends StatefulWidget {
   final String dateRequested, dateExpected, donorName, donorEmail, deliveryId;
   final List itemQuantity;
   final List itemName;
 
   OrganizationExpectedDeliveryInformationPage(
-      {@required this.itemName, @required this.itemQuantity, @required this.dateRequested, @required this.dateExpected, @required this.donorName, @required this.donorEmail, this.deliveryId});
+      {@required this.itemName,
+      @required this.itemQuantity,
+      @required this.dateRequested,
+      @required this.dateExpected,
+      @required this.donorName,
+      @required this.donorEmail,
+      this.deliveryId});
 
   @override
   _OrganizationExpectedDeliveryInformationPageState createState() => _OrganizationExpectedDeliveryInformationPageState(
-    // TODO: add documentId parameter
-  );
+      // TODO: add documentId parameter
+      );
 }
 
 // donorName, donorEmail, itemName, itemQuantity, dateRequested, dateExpected
 
 class _OrganizationExpectedDeliveryInformationPageState extends State<OrganizationExpectedDeliveryInformationPage> {
-
   @override
   Widget build(BuildContext context) {
     // TODO: clean, clean, clean, clean, clean, and clean again
@@ -45,10 +49,7 @@ class _OrganizationExpectedDeliveryInformationPageState extends State<Organizati
                     children: <Widget>[
                       Text(
                         'Items to be Delivered',
-                        style: TextStyle(
-                          fontSize: 24,
-                            fontWeight: FontWeight.w600
-                        ),
+                        style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
                       ),
                       SizedBox(
                         height: 5,
@@ -87,7 +88,6 @@ class _OrganizationExpectedDeliveryInformationPageState extends State<Organizati
                             "Expected Date: ${widget.dateExpected}",
                             style: TextStyle(
                               fontSize: 20,
-
                             ),
                           ),
                         ),
@@ -147,10 +147,9 @@ class _OrganizationExpectedDeliveryInformationPageState extends State<Organizati
                             donorName: widget.donorName,
                             donorEmail: widget.donorEmail,
                           ),
-
-                    ));
+                        ));
                   },
-                  child: Text('Confirm Delivery', style: TextStyle(fontSize: 20, color: Colors.white)),
+                  child: Text('Confirm Delivery', style: TextStyle(fontSize: 20, color: colorScheme.onSecondary)),
                 ),
               ),
             )
@@ -160,4 +159,3 @@ class _OrganizationExpectedDeliveryInformationPageState extends State<Organizati
     );
   }
 }
-

@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:phase1/constants.dart';
 
 class Increment extends StatefulWidget {
   final int itemQuantity;
@@ -52,7 +53,7 @@ class _ItemIncrementState extends State<Increment> {
             width: 17,
             padding: EdgeInsets.all(0),
             decoration: BoxDecoration(
-              color: Color(0xFFCCCCCC),
+              color: whiteBackground,
               borderRadius: BorderRadius.circular(5),
             ),
             child: IconButton(
@@ -86,21 +87,17 @@ class _ItemIncrementState extends State<Increment> {
                 counterText: "",
               ),
               keyboardType: TextInputType.number,
-              inputFormatters: <TextInputFormatter>[
-                WhitelistingTextInputFormatter.digitsOnly
-              ],
-
+              inputFormatters: <TextInputFormatter>[WhitelistingTextInputFormatter.digitsOnly],
             ),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 16.0),
-            child:
-            Container(
+            child: Container(
               height: 17,
               width: 17,
               padding: EdgeInsets.all(0),
               decoration: BoxDecoration(
-                color: Color(0xFF26A0FF),
+                color: secondaryTertiary,
                 borderRadius: BorderRadius.circular(5),
               ),
               child: IconButton(

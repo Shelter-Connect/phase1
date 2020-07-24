@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:phase1/pages/volunteer/volunteer_donate_page.dart';
 
 import '../../components/standard_layout.dart';
 import '../../constants.dart';
@@ -147,7 +146,7 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                       padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 20),
                       child: Text(
                         'Confirm Donation Submission',
-                        style: TextStyle(color: Colors.white, fontSize: 20),
+                        style: TextStyle(color: colorScheme.onSecondary, fontSize: 20),
                       ),
                     ),
                   ),
@@ -177,8 +176,8 @@ class InfoText extends StatelessWidget {
       children: <Widget>[
         RichText(
           text: TextSpan(children: <TextSpan>[
-            TextSpan(text: 'Email Address: ', style: TextStyle(fontSize: 17, color: Colors.black)),
-            TextSpan(text: orgEmail, style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600, color: Colors.black))
+            TextSpan(text: 'Email Address: ', style: TextStyle(fontSize: 17, color: colorScheme.onBackground)),
+            TextSpan(text: orgEmail, style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600, color: colorScheme.onBackground))
           ]),
         ),
         SizedBox(
@@ -186,15 +185,15 @@ class InfoText extends StatelessWidget {
         ),
         RichText(
           text: TextSpan(children: <TextSpan>[
-            TextSpan(text: 'Phone Number: ', style: TextStyle(fontSize: 17, color: Colors.black)),
-            TextSpan(text: orgPhone, style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600, color: Colors.black))
+            TextSpan(text: 'Phone Number: ', style: TextStyle(fontSize: 17, color: colorScheme.onBackground)),
+            TextSpan(text: orgPhone, style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600, color: colorScheme.onBackground))
           ]),
         ),
         SizedBox(height: 10),
         RichText(
           text: TextSpan(children: <TextSpan>[
-            TextSpan(text: 'Donation Location: ', style: TextStyle(fontSize: 17, color: Colors.black)),
-            TextSpan(text: orgAddress, style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600, color: Colors.black))
+            TextSpan(text: 'Donation Location: ', style: TextStyle(fontSize: 17, color: colorScheme.onBackground)),
+            TextSpan(text: orgAddress, style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600, color: colorScheme.onBackground))
           ]),
         ),
         SizedBox(height: 10),

@@ -12,7 +12,12 @@ class OrganizationExpectedDeliveryConfirmationPage extends StatefulWidget {
   final List itemName;
 
   OrganizationExpectedDeliveryConfirmationPage(
-      {@required this.itemName, @required this.itemQuantity, @required this.dateRequested, @required this.dateExpected, @required this.donorName, @required this.donorEmail});
+      {@required this.itemName,
+      @required this.itemQuantity,
+      @required this.dateRequested,
+      @required this.dateExpected,
+      @required this.donorName,
+      @required this.donorEmail});
 
   @override
   _OrganizationExpectedDeliveryConfirmationPageState createState() => _OrganizationExpectedDeliveryConfirmationPageState(
@@ -80,19 +85,23 @@ class _OrganizationExpectedDeliveryConfirmationPageState extends State<Organizat
                           Padding(
                             padding: EdgeInsets.all(1),
                             child: Column(
-                              children: itemQuantity.asMap().map(
-                                (index, quantity) => MapEntry(
-                                  index,
-                                  Increment(
-                                    itemQuantity: quantity,
-                                    onChanged: (val) {
-                                      setState(() {
-                                        itemQuantity[index] = val;
-                                      });
-                                    },
-                                  ),
-                                ),
-                              ).values.toList(),
+                              children: itemQuantity
+                                  .asMap()
+                                  .map(
+                                    (index, quantity) => MapEntry(
+                                      index,
+                                      Increment(
+                                        itemQuantity: quantity,
+                                        onChanged: (val) {
+                                          setState(() {
+                                            itemQuantity[index] = val;
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                  )
+                                  .values
+                                  .toList(),
                             ),
                           )
                         ],
@@ -169,7 +178,7 @@ class _OrganizationExpectedDeliveryConfirmationPageState extends State<Organizat
                               title: 'Confirm Order',
                             ));
                   },
-                  child: Text('Confirm Items Delivered', style: TextStyle(fontSize: 20, color: Colors.white)),
+                  child: Text('Confirm Items Delivered', style: TextStyle(fontSize: 20, color: colorScheme.onSecondary)),
                 ),
               ),
             )

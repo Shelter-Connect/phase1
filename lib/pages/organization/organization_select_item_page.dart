@@ -8,7 +8,6 @@ import 'package:phase1/pages/organization/organization_create_request_confirm_re
 
 import '../../components/standard_layout_purple.dart';
 
-
 class OrganizationSelectItemPage extends StatelessWidget {
   final Map<String, String> items;
   final String categoryName;
@@ -36,28 +35,19 @@ class OrganizationSelectItemPage extends StatelessWidget {
               children: <Widget>[
                 RichText(
                   text: TextSpan(children: <TextSpan>[
-                    TextSpan(
-                        text: 'Create Requests: ',
-                        style: TextStyle(
-                            fontSize: 35,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w900
-                        )),
+                    TextSpan(text: 'Create Requests: ', style: TextStyle(fontSize: 35, color: colorScheme.onSecondary, fontWeight: FontWeight.w900)),
                     TextSpan(
                         text: 'Choose Item',
                         style: TextStyle(
                           fontSize: 30,
                           fontWeight: FontWeight.w600,
-                          color: Colors.white,
+                          color: colorScheme.onSecondary,
                         ))
                   ]),
                 ),
                 SizedBox(height: 20),
                 Container(
-                  width: MediaQuery
-                      .of(context)
-                      .size
-                      .width,
+                  width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     color: colorScheme.background,
@@ -75,15 +65,24 @@ class OrganizationSelectItemPage extends StatelessWidget {
                           },
                         ),
                         CreateRequestInfoContainer(info: categoryInfo),
-                        ...items.map((name, icon) =>
-                            MapEntry(name, CategoryIconButton(
-                                name: name,
-                                asset: icon,
-                                onPressed: () {
-                                  Navigator.push(
-                                      context, MaterialPageRoute(builder: (context) => CreateRequestConfirmRequest(itemName: name, itemIcon: icon,)));
-                                },
-                            ))).values.toList()
+                        ...items
+                            .map((name, icon) => MapEntry(
+                                name,
+                                CategoryIconButton(
+                                  name: name,
+                                  asset: icon,
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => CreateRequestConfirmRequest(
+                                                  itemName: name,
+                                                  itemIcon: icon,
+                                                )));
+                                  },
+                                )))
+                            .values
+                            .toList()
                       ],
                     ),
                   ),
