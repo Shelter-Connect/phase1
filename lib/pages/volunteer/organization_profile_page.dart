@@ -238,7 +238,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                   Container(
                                     child: new ListView.builder(
                                         shrinkWrap: true,
-                                        itemCount: 4,
+                                        itemCount: requestedItems.length,
                                         itemBuilder: (context, i) {
                                           if (items.keys.contains(requestedItems[i]))
                                             return Padding(
