@@ -57,7 +57,7 @@ class _DonatePageItemSelectionState extends State<DonatePageItemSelection> {
                   itemName: item.name,
                   maxQuantity: item.amount,
                   onChanged: (val) {
-
+                    //TODO
                   },
                 ),
                 SizedBox(height: 10.0),

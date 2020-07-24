@@ -88,7 +88,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                     height: 10,
                                   ),
                                   Text(
-                                    'Description',
+                                    'About This Shelter',
                                     style: TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.w600,
@@ -251,13 +251,16 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                                 ),
                                                 alignment: Alignment.center,
                                               ),
-                                              ...items.map((item) => Text(
-                                                  '${item.name} x ${item.amount}',
-                                                  style: TextStyle(
-                                                    fontSize: 17.0,
-                                                    fontWeight: FontWeight.w400,
+                                              ...items.map((item) => Padding(
+                                                padding: const EdgeInsets.only(top: 3.0),
+                                                child: Text(
+                                                    '${item.name} x ${item.amount}',
+                                                    style: TextStyle(
+                                                      fontSize: 17.0,
+                                                      fontWeight: FontWeight.w400,
+                                                    ),
                                                   ),
-                                                ),
+                                              ),
                                               ).toList(),
                                             ])))
                                         .values
