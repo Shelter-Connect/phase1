@@ -276,7 +276,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                           onPressed: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => VolunteerDonatePage()),
+                              MaterialPageRoute(builder: (context) => VolunteerDonatePage(items: requestedItems, organizationId: widget.organizationId)),
                             );
                           },
                           shape: RoundedRectangleBorder(

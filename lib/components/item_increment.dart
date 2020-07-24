@@ -6,9 +6,10 @@ import 'package:phase1/constants.dart';
 
 class ItemIncrementWithText extends StatefulWidget {
   final String itemName;
-//  final List itemQuantity;
+  final int maxQuantity;
+  final Function(int) onChanged;
 
-  ItemIncrementWithText({this.itemName});
+  ItemIncrementWithText({this.itemName, this.maxQuantity, this.onChanged});
 
   @override
   _ItemIncrementWithTextState createState() => _ItemIncrementWithTextState();
@@ -19,14 +20,16 @@ class _ItemIncrementWithTextState extends State<ItemIncrementWithText> {
 
   void _incrementCounter() {
     setState(() {
-      _counter++;
+      _counter = min(_counter+1, widget.maxQuantity);
     });
+    widget.onChanged(_counter);
   }
 
   void _decrementCounter() {
     setState(() {
       _counter = max(0, _counter - 1);
     });
+    widget.onChanged(_counter);
   }
 
   @override
