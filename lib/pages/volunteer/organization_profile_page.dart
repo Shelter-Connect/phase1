@@ -18,7 +18,8 @@ class OrganizationProfilePage extends StatefulWidget {
 class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
   String address, website, number, email;
   bool loading = true;
-  Map<String, List<String>> requestedItems;
+  Map<String, List<String>> items = new Map();
+  List<String> requestedItems = new List();
 
   @override
   void initState() {
@@ -28,13 +29,18 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
       website = organizationSnapshot['website'];
       number = organizationSnapshot['number'];
       email = organizationSnapshot['email'];
-      for (String category in organizationSnapshot['itemCategories']) requestedItems[category] = new List<String>();
-    });
-    organizationReference.collection('requests').getDocuments().then((documents) {
-      for (DocumentSnapshot document in documents.documents) requestedItems[document['category']] = document['name'] + ' x ' + document['amount'];
-    });
-    setState(() {
-      loading = false;
+      for (String category in organizationSnapshot['itemCategories']) items[category] = new List<String>();
+      organizationReference.collection('requests').getDocuments().then((documents) {
+        for (DocumentSnapshot document in documents.documents)
+          items[document.data['category']].add('${document.data['name']} x ${document.data['amount']}');
+        for (List<String> itemList in items.values) {
+          requestedItems.add(items.keys.firstWhere((element) => items[element] == itemList));
+          for (String item in itemList) requestedItems.add(item);
+        }
+        setState(() {
+          loading = false;
+        });
+      });
     });
     super.initState();
   }
@@ -229,75 +235,31 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                     width: 100,
                                     decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
                                   ),
-                                  SizedBox(
-                                    height: 10,
+                                  Container(
+                                    child: new ListView.builder(
+                                        shrinkWrap: true,
+                                        itemCount: 4,
+                                        itemBuilder: (context, i) {
+                                          if (items.keys.contains(requestedItems[i]))
+                                            return Padding(
+                                              padding: const EdgeInsets.only(top: 4.0, bottom: 4.0),
+                                              child: Text(requestedItems[i],
+                                                  style: TextStyle(
+                                                    fontSize: 17,
+                                                    fontWeight: FontWeight.w500,
+                                                  )),
+                                            );
+                                          else
+                                            return Padding(
+                                              padding: const EdgeInsets.all(0.0),
+                                              child: Text(requestedItems[i],
+                                                  style: TextStyle(
+                                                    fontSize: 17,
+                                                    fontWeight: FontWeight.w400,
+                                                  )),
+                                            );
+                                        }),
                                   ),
-                                  Text('Hygiene',
-                                      style: TextStyle(
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.w500,
-                                      )),
-                                  SizedBox(height: 5),
-                                  Text('Toothbrushes x 4',
-                                      style: TextStyle(
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.w400,
-                                      )),
-                                  Text('Towels x 2',
-                                      style: TextStyle(
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.w400,
-                                      )),
-                                  Text('Floss x 10',
-                                      style: TextStyle(
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.w400,
-                                      )),
-                                  SizedBox(height: 20),
-                                  Text('Clothing',
-                                      style: TextStyle(
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.w500,
-                                      )),
-                                  SizedBox(height: 5),
-                                  Text('Pair of Socks x 15',
-                                      style: TextStyle(
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.w400,
-                                      )),
-                                  Text('T-shirt x 10',
-                                      style: TextStyle(
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.w400,
-                                      )),
-                                  SizedBox(height: 20),
-                                  Text('Food',
-                                      style: TextStyle(
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.w500,
-                                      )),
-                                  SizedBox(height: 5),
-                                  Text('Can of Beans x 4',
-                                      style: TextStyle(
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.w400,
-                                      )),
-                                  Text('Whole Wheat Bread x 2',
-                                      style: TextStyle(
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.w400,
-                                      )),
-                                  Text('Potatoes x 15',
-                                      style: TextStyle(
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.w400,
-                                      )),
-                                  Text('Pizza x 4',
-                                      style: TextStyle(
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.w400,
-                                      )),
-                                  SizedBox(height: 5),
                                 ],
                               ),
                             ),
