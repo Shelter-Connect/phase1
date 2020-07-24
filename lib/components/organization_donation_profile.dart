@@ -18,12 +18,13 @@ class OrganizationDonationProfile extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => OrganizationProfilePage(
-                      name: name,
-                      description: description,
-                      distance: distance,
-                      organizationId: organizationId,
-                    )),
+              builder: (context) => OrganizationProfilePage(
+                name: name,
+                description: description,
+                distance: distance,
+                organizationId: organizationId,
+              ),
+            ),
           );
         },
         shape: RoundedRectangleBorder(

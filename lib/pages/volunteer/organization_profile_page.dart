@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:phase1/components/standard_layout.dart';
 import 'package:phase1/constants.dart';
+import 'package:phase1/models/item.dart';
 import 'package:phase1/pages/volunteer/volunteer_donate_page.dart';
 
 class OrganizationProfilePage extends StatefulWidget {
@@ -18,8 +19,7 @@ class OrganizationProfilePage extends StatefulWidget {
 class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
   String address, website, number, email;
   bool loading = true;
-  Map<String, List<String>> items = new Map();
-  List<String> requestedItems = new List();
+  Map<String, List<Item>> requestedItems = new Map();
 
   @override
   void initState() {
@@ -29,13 +29,13 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
       website = organizationSnapshot['website'];
       number = organizationSnapshot['number'];
       email = organizationSnapshot['email'];
-      for (String category in organizationSnapshot['itemCategories']) items[category] = new List<String>();
+      for (String category in organizationSnapshot['itemCategories']) {
+        requestedItems[category] = new List<Item>();
+      }
+
       organizationReference.collection('requests').getDocuments().then((documents) {
-        for (DocumentSnapshot document in documents.documents)
-          items[document.data['category']].add('${document.data['name']} x ${document.data['amount']}');
-        for (List<String> itemList in items.values) {
-          requestedItems.add(items.keys.firstWhere((element) => items[element] == itemList));
-          for (String item in itemList) requestedItems.add(item);
+        for (DocumentSnapshot document in documents.documents) {
+          requestedItems[document['category']].add(Item(name: document['name'], amount: document['amount'], category: document['category']));
         }
         setState(() {
           loading = false;
@@ -235,31 +235,34 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                     width: 100,
                                     decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
                                   ),
-                                  Container(
-                                    child: new ListView.builder(
-                                        shrinkWrap: true,
-                                        itemCount: requestedItems.length,
-                                        itemBuilder: (context, i) {
-                                          if (items.keys.contains(requestedItems[i]))
-                                            return Padding(
-                                              padding: const EdgeInsets.only(top: 4.0, bottom: 4.0),
-                                              child: Text(requestedItems[i],
+                                  Column(
+                                    children: requestedItems
+                                        .map((String category, List<Item> items) => MapEntry(
+                                            category,
+                                            Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+                                              SizedBox(height: 10.0),
+                                              Align(
+                                                child: Text(
+                                                  category,
                                                   style: TextStyle(
-                                                    fontSize: 17,
-                                                    fontWeight: FontWeight.w500,
-                                                  )),
-                                            );
-                                          else
-                                            return Padding(
-                                              padding: const EdgeInsets.all(0.0),
-                                              child: Text(requestedItems[i],
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 17.0,
+                                                  ),
+                                                ),
+                                                alignment: Alignment.center,
+                                              ),
+                                              ...items.map((item) => Text(
+                                                  '${item.name} x ${item.amount}',
                                                   style: TextStyle(
-                                                    fontSize: 17,
+                                                    fontSize: 17.0,
                                                     fontWeight: FontWeight.w400,
-                                                  )),
-                                            );
-                                        }),
-                                  ),
+                                                  ),
+                                                ),
+                                              ).toList(),
+                                            ])))
+                                        .values
+                                        .toList(),
+                                  )
                                 ],
                               ),
                             ),
