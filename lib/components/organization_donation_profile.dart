@@ -4,12 +4,11 @@ import 'package:phase1/pages/volunteer/organization_profile_page.dart';
 import '../constants.dart';
 
 class OrganizationDonationProfile extends StatelessWidget {
-  final String name;
+  final String name, description, organizationId;
   final double distance;
-  final String description;
   final List<String> itemCategories;
 
-  OrganizationDonationProfile({this.name, this.distance, this.description, this.itemCategories});
+  OrganizationDonationProfile({this.name, this.distance, this.description, this.itemCategories, this.organizationId});
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -18,7 +17,13 @@ class OrganizationDonationProfile extends StatelessWidget {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => OrganizationProfilePage()),
+            MaterialPageRoute(
+                builder: (context) => OrganizationProfilePage(
+                      name: name,
+                      description: description,
+                      distance: distance,
+                      organizationId: organizationId,
+                    )),
           );
         },
         shape: RoundedRectangleBorder(

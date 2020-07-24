@@ -101,6 +101,7 @@ class _DonationOpportunitiesState extends State<DonationOpportunities> {
                             distance: FirestoreHelper.distance(organizationSnapshot['location'].latitude, organizationSnapshot['location'].longitude,
                                 userPosition.latitude, userPosition.longitude),
                             itemCategories: organizationSnapshot['itemCategories'].cast<String>(),
+                            organizationId: organizationSnapshot.documentID,
                           ));
                         }
                       }
