@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:phase1/pages/volunteer/donation_filter_page.dart';
-import 'package:phase1/services/firestore_helper.dart';
 import 'package:phase1/services/location_helper.dart';
 
 import '../../components/organization_donation_profile.dart';
@@ -98,7 +97,7 @@ class _DonationOpportunitiesState extends State<DonationOpportunities> {
                           widgets.add(OrganizationDonationProfile(
                             name: organizationSnapshot['name'],
                             description: organizationSnapshot['description'],
-                            distance: FirestoreHelper.distance(organizationSnapshot['location'].latitude, organizationSnapshot['location'].longitude,
+                            distance: LocationHelper.distance(organizationSnapshot['location'].latitude, organizationSnapshot['location'].longitude,
                                 userPosition.latitude, userPosition.longitude),
                             itemCategories: organizationSnapshot['itemCategories'].cast<String>(),
                             organizationId: organizationSnapshot.documentID,

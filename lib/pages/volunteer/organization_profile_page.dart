@@ -18,6 +18,7 @@ class OrganizationProfilePage extends StatefulWidget {
 class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
   String address, website, number, email;
   bool loading = true;
+  Map<String, List<String>> requestedItems;
 
   @override
   void initState() {
@@ -27,9 +28,13 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
       website = organizationSnapshot['website'];
       number = organizationSnapshot['number'];
       email = organizationSnapshot['email'];
-      setState(() {
-        loading = false;
-      });
+      for (String category in organizationSnapshot['itemCategories']) requestedItems[category] = new List<String>();
+    });
+    organizationReference.collection('requests').getDocuments().then((documents) {
+      for (DocumentSnapshot document in documents.documents) requestedItems[document['category']] = document['name'] + ' x ' + document['amount'];
+    });
+    setState(() {
+      loading = false;
     });
     super.initState();
   }
