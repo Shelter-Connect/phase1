@@ -38,9 +38,6 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Shelter Connect',
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          colorScheme: colorScheme,
-        ),
         routes: {
           '/welcome': (_) => WelcomePage(),
           '/': (_) => LoadingPage(),

@@ -8,8 +8,10 @@ class OrganizationDonationProfile extends StatelessWidget {
   final double distance;
   final String description;
   final List<String> itemCategories;
+  final String organizationId;
 
-  OrganizationDonationProfile({this.name, this.distance, this.description, this.itemCategories});
+  OrganizationDonationProfile({this.name, this.distance, this.description, this.itemCategories, this.organizationId});
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -18,7 +20,11 @@ class OrganizationDonationProfile extends StatelessWidget {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => OrganizationProfilePage()),
+            MaterialPageRoute(
+              builder: (context) => OrganizationProfilePage(
+                organizationId: organizationId,
+              ),
+            ),
           );
         },
         shape: RoundedRectangleBorder(

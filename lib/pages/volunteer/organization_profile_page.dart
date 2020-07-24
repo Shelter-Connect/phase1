@@ -5,6 +5,10 @@ import 'package:phase1/constants.dart';
 import 'package:phase1/pages/volunteer/volunteer_donate_page.dart';
 
 class OrganizationProfilePage extends StatefulWidget {
+  final String organizationId;
+
+  OrganizationProfilePage({this.organizationId});
+
   @override
   _OrganizationProfilePageState createState() => _OrganizationProfilePageState();
 }
@@ -67,11 +71,12 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                               height: 10,
                             ),
                             Text(
-                                'The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.',
+                              'The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.',
                               style: TextStyle(
                                 fontSize: 17.0,
                                 fontWeight: FontWeight.w400,
-                              ),),
+                              ),
+                            ),
                             SizedBox(
                               height: 10,
                             ),
@@ -79,46 +84,6 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                               text: TextSpan(children: <TextSpan>[
                                 TextSpan(
                                     text: 'Address: ',
-                                    style: TextStyle(
-                                      fontSize: 17,
-                                      color: Colors.black,
-                                    )),
-                                TextSpan(
-                                    text: 'hello',
-                                    style: TextStyle(
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.black,
-                                    ))
-                              ]),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            RichText(
-                              text: TextSpan(children: <TextSpan>[
-                                TextSpan(
-                                    text: 'Website: ',
-                                    style: TextStyle(
-                                      fontSize: 17,
-                                      color: Colors.black,
-                                    )),
-                                TextSpan(
-                                    text: 'hello',
-                                    style: TextStyle(
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.black,
-                                    ))
-                              ]),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            RichText(
-                              text: TextSpan(children: <TextSpan>[
-                                TextSpan(
-                                    text: 'Phone Number: ',
                                     style: TextStyle(
                                       fontSize: 17,
                                       color: Colors.black,
@@ -191,59 +156,71 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                             SizedBox(
                               height: 10,
                             ),
-                            Text('Hygiene', style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w500,
-                            )),
+                            Text('Hygiene',
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w500,
+                                )),
                             SizedBox(height: 5),
-                            Text('Toothbrushes x 4', style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w400,
-                            )),
-                            Text('Towels x 2', style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w400,
-                            )),
-                            Text('Floss x 10', style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w400,
-                            )),
+                            Text('Toothbrushes x 4',
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w400,
+                                )),
+                            Text('Towels x 2',
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w400,
+                                )),
+                            Text('Floss x 10',
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w400,
+                                )),
                             SizedBox(height: 20),
-                            Text('Clothing', style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w500,
-                            )),
+                            Text('Clothing',
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w500,
+                                )),
                             SizedBox(height: 5),
-                            Text('Pair of Socks x 15', style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w400,
-                            )),
-                            Text('T-shirt x 10', style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w400,
-                            )),
+                            Text('Pair of Socks x 15',
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w400,
+                                )),
+                            Text('T-shirt x 10',
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w400,
+                                )),
                             SizedBox(height: 20),
-                            Text('Food', style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w500,
-                            )),
+                            Text('Food',
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w500,
+                                )),
                             SizedBox(height: 5),
-                            Text('Can of Beans x 4', style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w400,
-                            )),
-                            Text('Whole Wheat Bread x 2', style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w400,
-                            )),
-                            Text('Potatoes x 15', style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w400,
-                            )),
-                            Text('Pizza x 4', style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w400,
-                            )),
+                            Text('Can of Beans x 4',
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w400,
+                                )),
+                            Text('Whole Wheat Bread x 2',
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w400,
+                                )),
+                            Text('Potatoes x 15',
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w400,
+                                )),
+                            Text('Pizza x 4',
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w400,
+                                )),
                             SizedBox(height: 5),
                           ],
                         ),
@@ -256,8 +233,14 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                   width: MediaQuery.of(context).size.width,
                   child: FlatButton(
                     onPressed: () {
-                      Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => VolunteerDonatePage()),);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => VolunteerDonatePage(
+                            organizationId: widget.organizationId,
+                          ),
+                        ),
+                      );
                     },
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30.0),
@@ -267,10 +250,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                       padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 20),
                       child: Text(
                         'Continue to Requests',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20
-                        ),
+                        style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
                     ),
                   ),

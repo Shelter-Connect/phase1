@@ -8,6 +8,11 @@ import '../../components/standard_layout.dart';
 import '../../constants.dart';
 
 class VolunteerDonatePage extends StatefulWidget {
+  final String organizationId;
+  final List items;
+
+  const VolunteerDonatePage({this.organizationId, this.items});
+
   @override
   _VolunteerDonatePageState createState() => _VolunteerDonatePageState();
 }
