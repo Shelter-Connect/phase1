@@ -17,11 +17,24 @@ class ItemIncrementWithText extends StatefulWidget {
 }
 
 class _ItemIncrementWithTextState extends State<ItemIncrementWithText> {
- int _counter = 0;
+  int _counter = 0;
+  bool isSnackBarActive = false;
 
   void _incrementCounter() {
     if (_counter == widget.maxQuantity) {
-      Scaffold.of(context).showSnackBar(SnackBar(content: Text('You have reached the maximum amount of items this shelter is requesting.')));
+      if (isSnackBarActive == false) {
+        setState(() {
+          isSnackBarActive = true;
+        });
+
+        Scaffold.of(context).showSnackBar(
+          SnackBar(content: Text('You have reached the maximum amount of items this shelter is requesting.'))
+        ).closed.then((SnackBarClosedReason reason) {
+          setState(() {
+            isSnackBarActive = false;
+          });
+        });
+      }
     }
     setState(() {
       _counter = min(_counter + 1, widget.maxQuantity);
