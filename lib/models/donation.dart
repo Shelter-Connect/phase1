@@ -3,7 +3,7 @@ import 'item.dart';
 class Donation {
   String volunteerId, organizationId;
   DateTime date;
-  List<Item> items;
+  Map<String, List<Item>> items = Map();
 
   Donation({
     this.volunteerId,

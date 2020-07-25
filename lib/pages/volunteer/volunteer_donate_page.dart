@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:phase1/components/date_time_field.dart';
 import 'package:phase1/components/volunteer_donate_page_item_selection.dart';
+import 'package:phase1/models/donation.dart';
 import 'package:phase1/models/organization.dart';
+import 'package:phase1/models/user.dart';
 import 'package:phase1/pages/volunteer/donation_confirmation_page.dart';
+import 'package:provider/provider.dart';
 
 import '../../components/standard_layout.dart';
 import '../../constants.dart';
@@ -17,6 +20,14 @@ class VolunteerDonatePage extends StatefulWidget {
 }
 
 class _VolunteerDonatePageState extends State<VolunteerDonatePage> {
+  Donation donation;
+
+  @override
+  void initState() {
+    donation = Donation(organizationId: widget.organization.id, volunteerId: Provider.of<User>(context, listen: false).user.uid);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return StandardLayout(
@@ -36,7 +47,7 @@ class _VolunteerDonatePageState extends State<VolunteerDonatePage> {
                 '${widget.organization.distance.toStringAsFixed(1)} miles away',
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700, color: purpleAccent),
               ),
-              BasicDateField(),
+              BasicDateTimeField(donation: donation,),
               SizedBox(height: 20),
               ...widget.organization.requestedItems
                   .map((category, categoryItems) => MapEntry(
@@ -56,7 +67,7 @@ class _VolunteerDonatePageState extends State<VolunteerDonatePage> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => DonationConfirmationPage(widget.organization)),
+                      MaterialPageRoute(builder: (context) => DonationConfirmationPage(widget.organization, donation)),
                     );
                   },
                   shape: RoundedRectangleBorder(

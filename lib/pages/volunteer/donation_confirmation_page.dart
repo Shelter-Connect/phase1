@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:phase1/components/item_increment.dart';
+import 'package:phase1/models/donation.dart';
 import 'package:phase1/models/item.dart';
 import 'package:phase1/models/organization.dart';
 
@@ -9,8 +9,9 @@ import '../../constants.dart';
 
 class DonationConfirmationPage extends StatefulWidget {
   final Organization organization;
+  final Donation donation;
 
-  const DonationConfirmationPage(this.organization);
+  DonationConfirmationPage(this.organization, this.donation);
 
   @override
   _DonationConfirmationPageState createState() => _DonationConfirmationPageState();
@@ -57,73 +58,73 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                 width: MediaQuery.of(context).size.width,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 4.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Text(
-                                'Selected Donations',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                ),
+                  child: Column(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text(
+                              'Selected Donations',
+                              style: TextStyle(
+                                fontSize: 20,
                               ),
-                            ],
-                          ),
-                          Container(
-                            height: 5,
-                            width: 100,
-                            decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Column(
-                            children: widget.organization.requestedItems
-                                .map((String category, List<Item> items) => MapEntry(
-                                category,
-                                Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-                                  SizedBox(height: 10.0),
-                                  Text(
-                                    category,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 17.0,
-                                    ),
-                                  ),
-                                  ...items
-                                      .map(
-                                        (item) => Padding(
-                                      padding: const EdgeInsets.only(top: 3.0),
-                                      child: Text(
-                                        '${item.name} x ${item.amount}',
-                                        style: TextStyle(
-                                          fontSize: 17.0,
-                                          fontWeight: FontWeight.w400,
-                                        ),
+                            ),
+                          ],
+                        ),
+                        Container(
+                          height: 5,
+                          width: 100,
+                          decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Column(
+                          children: widget.organization.requestedItems
+                              .map((String category, List<Item> items) => MapEntry(
+                                  category,
+                                  Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+                                    SizedBox(height: 10.0),
+                                    Text(
+                                      category,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 17.0,
                                       ),
                                     ),
-                                  )
-                                      .toList(),
-                                ])))
-                                .values
-                                .toList(),
-                          )
-                        ],
-                  ),
-                ]),
+                                    ...items
+                                        .map(
+                                          (item) => Padding(
+                                            padding: const EdgeInsets.only(top: 3.0),
+                                            child: Text(
+                                              '${item.name} x ${item.amount}',
+                                              style: TextStyle(
+                                                fontSize: 17.0,
+                                                fontWeight: FontWeight.w400,
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                        .toList(),
+                                  ])))
+                              .values
+                              .toList(),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        )
+                      ],
+                    ),
+                  ]),
+                ),
               ),
             ),
-              ),
             SizedBox(height: 20),
             Column(
               children: <Widget>[
@@ -155,7 +156,8 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                           SizedBox(
                             height: 10,
                           ),
-                          InfoText(orgEmail: 'loavesandfishes@gmail.com', orgPhone: '408-164-1745', orgAddress: '8164 Fish Pasta Dr.'),
+                          InfoText(
+                              orgEmail: widget.organization.email, orgNumber: widget.organization.number, orgAddress: widget.organization.address),
                         ],
                       ),
                     ),
@@ -197,11 +199,11 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
 class InfoText extends StatelessWidget {
   final String orgEmail;
 
-  final String orgPhone;
+  final String orgNumber;
 
   final String orgAddress;
 
-  InfoText({this.orgEmail, this.orgPhone, this.orgAddress});
+  InfoText({this.orgEmail, this.orgNumber, this.orgAddress});
 
   @override
   Widget build(BuildContext context) {
@@ -209,28 +211,32 @@ class InfoText extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        RichText(
-          text: TextSpan(children: <TextSpan>[
-            TextSpan(text: 'Email Address: ', style: TextStyle(fontSize: 17, color: colorScheme.onBackground)),
-            TextSpan(text: orgEmail, style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600, color: colorScheme.onBackground))
-          ]),
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        RichText(
-          text: TextSpan(children: <TextSpan>[
-            TextSpan(text: 'Phone Number: ', style: TextStyle(fontSize: 17, color: colorScheme.onBackground)),
-            TextSpan(text: orgPhone, style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600, color: colorScheme.onBackground))
-          ]),
-        ),
-        SizedBox(height: 10),
-        RichText(
-          text: TextSpan(children: <TextSpan>[
-            TextSpan(text: 'Donation Location: ', style: TextStyle(fontSize: 17, color: colorScheme.onBackground)),
-            TextSpan(text: orgAddress, style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600, color: colorScheme.onBackground))
-          ]),
-        ),
+        if (orgEmail != null)
+          RichText(
+            text: TextSpan(children: <TextSpan>[
+              TextSpan(text: 'Email Address: ', style: TextStyle(fontSize: 17, color: colorScheme.onBackground)),
+              TextSpan(text: orgEmail, style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600, color: colorScheme.onBackground))
+            ]),
+          ),
+        if (orgEmail != null)
+          SizedBox(
+            height: 10,
+          ),
+        if (orgNumber != null)
+          RichText(
+            text: TextSpan(children: <TextSpan>[
+              TextSpan(text: 'Phone Number: ', style: TextStyle(fontSize: 17, color: colorScheme.onBackground)),
+              TextSpan(text: orgNumber, style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600, color: colorScheme.onBackground))
+            ]),
+          ),
+        if (orgNumber != null) SizedBox(height: 10),
+        if (orgAddress != null)
+          RichText(
+            text: TextSpan(children: <TextSpan>[
+              TextSpan(text: 'Donation Location: ', style: TextStyle(fontSize: 17, color: colorScheme.onBackground)),
+              TextSpan(text: orgAddress, style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600, color: colorScheme.onBackground))
+            ]),
+          ),
         SizedBox(height: 10),
       ],
     );
