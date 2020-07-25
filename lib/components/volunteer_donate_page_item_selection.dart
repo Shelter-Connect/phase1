@@ -8,8 +8,9 @@ import 'item_increment.dart';
 class DonatePageItemSelection extends StatefulWidget {
   final String category;
   final List<Item> items;
+  final int counter;
 
-  DonatePageItemSelection({this.category, this.items});
+  DonatePageItemSelection({this.category, this.items, this.counter});
 
   @override
   _DonatePageItemSelectionState createState() => _DonatePageItemSelectionState();
@@ -51,18 +52,27 @@ class _DonatePageItemSelectionState extends State<DonatePageItemSelection> {
             SizedBox(
               height: 10,
             ),
-            ...widget.items.asMap().map((index, item) => MapEntry(index, Column(
-              children: [
-                ItemIncrementWithText(
-                  itemName: item.name,
-                  maxQuantity: item.amount,
-                  onChanged: (val) {
-                    //TODO
-                  },
-                ),
-                SizedBox(height: 10.0),
-              ],
-            ))).values.toList(),
+            ...widget.items
+                .asMap()
+                .map(
+                  (index, item) => MapEntry(
+                    index,
+                    Column(
+                      children: [
+                        ItemIncrementWithText(
+                          itemName: item.name,
+                          maxQuantity: item.amount,
+                          onChanged: (val) {
+                            //TODO
+                          },
+                        ),
+                        SizedBox(height: 10.0),
+                      ],
+                    ),
+                  ),
+                )
+                .values
+                .toList(),
           ],
         ),
       ),

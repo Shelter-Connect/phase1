@@ -38,6 +38,9 @@ class BasicDateField extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   DateTimeField(
+                    decoration: InputDecoration(
+                      labelText: 'Confirm Delivery Date',
+                    ),
                     format: format,
                     onShowPicker: (context, currentValue) {
                       return showDatePicker(

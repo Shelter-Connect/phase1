@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:phase1/components/item_increment.dart';
+import 'package:phase1/models/item.dart';
 import 'package:phase1/models/organization.dart';
 
 import '../../components/standard_layout.dart';
@@ -85,25 +87,43 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                           SizedBox(
                             height: 10,
                           ),
-                          Text('Blankets x 4', style: TextStyle(fontSize: 17)),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Text('Bananas x 15', style: TextStyle(fontSize: 17)),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Text('Can of Beans x 10', style: TextStyle(fontSize: 17)),
-                          SizedBox(
-                            height: 10,
-                          ),
+                          Column(
+                            children: widget.organization.requestedItems
+                                .map((String category, List<Item> items) => MapEntry(
+                                category,
+                                Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+                                  SizedBox(height: 10.0),
+                                  Text(
+                                    category,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 17.0,
+                                    ),
+                                  ),
+                                  ...items
+                                      .map(
+                                        (item) => Padding(
+                                      padding: const EdgeInsets.only(top: 3.0),
+                                      child: Text(
+                                        '${item.name} x ${item.amount}',
+                                        style: TextStyle(
+                                          fontSize: 17.0,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                      .toList(),
+                                ])))
+                                .values
+                                .toList(),
+                          )
                         ],
-                      ),
-                    ],
                   ),
-                ),
+                ]),
               ),
             ),
+              ),
             SizedBox(height: 20),
             Column(
               children: <Widget>[
