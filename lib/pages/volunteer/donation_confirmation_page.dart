@@ -1,10 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:phase1/models/organization.dart';
 
 import '../../components/standard_layout.dart';
 import '../../constants.dart';
 
 class DonationConfirmationPage extends StatefulWidget {
+  final Organization organization;
+
+  const DonationConfirmationPage(this.organization);
+
   @override
   _DonationConfirmationPageState createState() => _DonationConfirmationPageState();
 }
@@ -21,15 +26,24 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
-                child: Text(
-                  'Confirm Donations for (Organization Name)',
-                  style: TextStyle(fontSize: 35, fontWeight: FontWeight.w900, color: purpleAccent),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      'Confirm Your Donation for',
+                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900, color: purpleAccent),
+                    ),
+                    Text(
+                      widget.organization.name,
+                      style: TextStyle(fontSize: 35, fontWeight: FontWeight.w900, color: purpleAccent),
+                    ),
+                  ],
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
                 child: Text(
-                  'Distance: (Distance away)',
+                  'Distance: ${widget.organization.distance.toStringAsFixed(1)}',
                   style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700, color: purpleAccent),
                 ),
               ),
@@ -145,7 +159,7 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 20),
                       child: Text(
-                        'Confirm Your Donation',
+                        'Confirm Your Delivery',
                         style: TextStyle(color: colorScheme.onSecondary, fontSize: 20),
                       ),
                     ),

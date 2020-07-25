@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:phase1/models/organization.dart';
 import 'package:phase1/pages/volunteer/organization_profile_page.dart';
 
 import '../constants.dart';
 
 class OrganizationDonationProfile extends StatelessWidget {
-  final String name, description, organizationId;
-  final double distance;
-  final List<String> itemCategories;
+  final Organization organization;
 
-  OrganizationDonationProfile({this.name, this.distance, this.description, this.itemCategories, this.organizationId});
+  OrganizationDonationProfile({this.organization});
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -18,12 +18,7 @@ class OrganizationDonationProfile extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => OrganizationProfilePage(
-                name: name,
-                description: description,
-                distance: distance,
-                organizationId: organizationId,
-              ),
+              builder: (context) => OrganizationProfilePage(organization),
             ),
           );
         },
@@ -43,7 +38,7 @@ class OrganizationDonationProfile extends StatelessWidget {
                   Container(
                     width: MediaQuery.of(context).size.width * 7 / 10,
                     child: Text(
-                      name,
+                      organization.name,
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w600,
@@ -64,7 +59,7 @@ class OrganizationDonationProfile extends StatelessWidget {
                 ],
               ),
               Text(
-                '${distance.toStringAsFixed(1)} miles',
+                '${organization.distance.toStringAsFixed(1)} miles',
                 style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w500,
@@ -82,7 +77,7 @@ class OrganizationDonationProfile extends StatelessWidget {
                 height: 10,
               ),
               Text(
-                description,
+                organization.description,
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
@@ -101,7 +96,7 @@ class OrganizationDonationProfile extends StatelessWidget {
               Wrap(
                 spacing: 5.0,
                 runSpacing: 5.0,
-                children: itemCategories
+                children: organization.itemCategories
                     .map((category) => Container(
                           decoration: BoxDecoration(
                             color: whiteBackground,

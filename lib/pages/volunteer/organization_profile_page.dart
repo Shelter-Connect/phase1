@@ -4,38 +4,37 @@ import 'package:flutter/material.dart';
 import 'package:phase1/components/standard_layout.dart';
 import 'package:phase1/constants.dart';
 import 'package:phase1/models/item.dart';
+import 'package:phase1/models/organization.dart';
 import 'package:phase1/pages/volunteer/volunteer_donate_page.dart';
 
 class OrganizationProfilePage extends StatefulWidget {
-  final String name, description, organizationId;
-  final double distance;
+  final Organization organization;
 
-  OrganizationProfilePage({this.name, this.description, this.distance, this.organizationId});
+  OrganizationProfilePage(this.organization);
 
   @override
   _OrganizationProfilePageState createState() => _OrganizationProfilePageState();
 }
 
 class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
-  String address, website, number, email;
   bool loading = true;
-  Map<String, List<Item>> requestedItems = new Map();
 
   @override
   void initState() {
-    DocumentReference organizationReference = db.collection('organizations').document(widget.organizationId);
+    DocumentReference organizationReference = db.collection('organizations').document(widget.organization.id);
     organizationReference.get().then((organizationSnapshot) {
-      address = organizationSnapshot['address'];
-      website = organizationSnapshot['website'];
-      number = organizationSnapshot['number'];
-      email = organizationSnapshot['email'];
+      widget.organization.address = organizationSnapshot['address'];
+      widget.organization.website = organizationSnapshot['website'];
+      widget.organization.number = organizationSnapshot['number'];
+      widget.organization.email = organizationSnapshot['email'];
       for (String category in organizationSnapshot['itemCategories']) {
-        requestedItems[category] = new List<Item>();
+        widget.organization.requestedItems[category] = List<Item>();
       }
 
       organizationReference.collection('requests').getDocuments().then((documents) {
         for (DocumentSnapshot document in documents.documents) {
-          requestedItems[document['category']].add(Item(name: document['name'], amount: document['amount'], category: document['category']));
+          widget.organization.requestedItems[document['category']]
+              .add(Item(name: document['name'], amount: document['amount'], category: document['category']));
         }
         setState(() {
           loading = false;
@@ -63,12 +62,12 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        widget.name,
+                        widget.organization.name,
                         style: TextStyle(fontSize: 35, fontWeight: FontWeight.w900, color: purpleAccent),
                       ),
                       Text(
-                        widget.distance.toStringAsFixed(1) + ' miles',
-                        style: TextStyle(fontSize: 30, fontWeight: FontWeight.w700, color: purpleAccent),
+                        widget.organization.distance.toStringAsFixed(1) + ' miles away',
+                        style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700, color: purpleAccent),
                       ),
                       SizedBox(height: 20),
                       Container(
@@ -106,7 +105,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                     height: 10,
                                   ),
                                   Text(
-                                    widget.description,
+                                    widget.organization.description,
                                     style: TextStyle(
                                       fontSize: 17.0,
                                       fontWeight: FontWeight.w400,
@@ -115,7 +114,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                   SizedBox(
                                     height: 10,
                                   ),
-                                  if (address != null)
+                                  if (widget.organization.address != null)
                                     RichText(
                                       text: TextSpan(children: <TextSpan>[
                                         TextSpan(
@@ -125,7 +124,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                               color: colorScheme.onBackground,
                                             )),
                                         TextSpan(
-                                            text: address,
+                                            text: widget.organization.address,
                                             style: TextStyle(
                                               fontSize: 17,
                                               fontWeight: FontWeight.w600,
@@ -133,11 +132,11 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                             ))
                                       ]),
                                     ),
-                                  if (address != null)
+                                  if (widget.organization.address != null)
                                     SizedBox(
                                       height: 10,
                                     ),
-                                  if (website != null)
+                                  if (widget.organization.website != null)
                                     RichText(
                                       text: TextSpan(children: <TextSpan>[
                                         TextSpan(
@@ -147,7 +146,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                               color: colorScheme.onBackground,
                                             )),
                                         TextSpan(
-                                            text: website,
+                                            text: widget.organization.website,
                                             style: TextStyle(
                                               fontSize: 17,
                                               fontWeight: FontWeight.w600,
@@ -155,11 +154,11 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                             ))
                                       ]),
                                     ),
-                                  if (website != null)
+                                  if (widget.organization.website != null)
                                     SizedBox(
                                       height: 10,
                                     ),
-                                  if (number != null)
+                                  if (widget.organization.number != null)
                                     RichText(
                                       text: TextSpan(children: <TextSpan>[
                                         TextSpan(
@@ -169,7 +168,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                               color: colorScheme.onBackground,
                                             )),
                                         TextSpan(
-                                            text: number,
+                                            text: widget.organization.number,
                                             style: TextStyle(
                                               fontSize: 17,
                                               fontWeight: FontWeight.w600,
@@ -177,11 +176,11 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                             ))
                                       ]),
                                     ),
-                                  if (number != null)
+                                  if (widget.organization.number != null)
                                     SizedBox(
                                       height: 10,
                                     ),
-                                  if (email != null)
+                                  if (widget.organization.email != null)
                                     RichText(
                                       text: TextSpan(children: <TextSpan>[
                                         TextSpan(
@@ -191,7 +190,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                               color: colorScheme.onBackground,
                                             )),
                                         TextSpan(
-                                            text: email,
+                                            text: widget.organization.email,
                                             style: TextStyle(
                                               fontSize: 17,
                                               fontWeight: FontWeight.w600,
@@ -236,7 +235,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                     decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
                                   ),
                                   Column(
-                                    children: requestedItems
+                                    children: widget.organization.requestedItems
                                         .map((String category, List<Item> items) => MapEntry(
                                             category,
                                             Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
@@ -279,8 +278,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                           onPressed: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(
-                                  builder: (context) => VolunteerDonatePage(items: requestedItems, organizationId: widget.organizationId)),
+                              MaterialPageRoute(builder: (context) => VolunteerDonatePage(organization: widget.organization)),
                             );
                           },
                           shape: RoundedRectangleBorder(
