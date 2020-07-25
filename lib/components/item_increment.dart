@@ -17,7 +17,7 @@ class ItemIncrementWithText extends StatefulWidget {
 }
 
 class _ItemIncrementWithTextState extends State<ItemIncrementWithText> {
-  int _counter = 0;
+ int _counter = 0;
 
   void _incrementCounter() {
     setState(() {
@@ -90,6 +90,7 @@ class _ItemIncrementWithTextState extends State<ItemIncrementWithText> {
         ),
       ],
     );
+
   }
 }
 

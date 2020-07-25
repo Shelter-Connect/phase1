@@ -8,8 +8,9 @@ import 'item_increment.dart';
 class DonatePageItemSelection extends StatefulWidget {
   final String category;
   final List<Item> items;
+  final int counter;
 
-  DonatePageItemSelection({this.category, this.items});
+  DonatePageItemSelection({this.category, this.items, this.counter});
 
   @override
   _DonatePageItemSelectionState createState() => _DonatePageItemSelectionState();
