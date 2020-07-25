@@ -2,11 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:phase1/pages/volunteer/donation_filter_page.dart';
-import 'package:phase1/services/firestore_helper.dart';
 import 'package:phase1/services/location_helper.dart';
 
 import '../../components/organization_donation_profile.dart';
 import '../../constants.dart';
+import '../../models/organization.dart';
 import '../navigation_tab.dart';
 
 class DonationOpportunities extends StatefulWidget with NavigationTab {
@@ -95,17 +95,22 @@ class _DonationOpportunitiesState extends State<DonationOpportunities> {
                       List<Widget> widgets = [];
                       for (DocumentSnapshot organizationSnapshot in snapshot.data.documents) {
                         if (organizationSnapshot['itemCategories'] != null) {
-                          widgets.add(OrganizationDonationProfile(
-                            name: organizationSnapshot['name'],
-                            description: organizationSnapshot['description'],
-                            distance: FirestoreHelper.distance(organizationSnapshot['location'].latitude, organizationSnapshot['location'].longitude,
-                                userPosition.latitude, userPosition.longitude),
-                            itemCategories: organizationSnapshot['itemCategories'].cast<String>(),
-                          ));
+                          Organization organization = new Organization(
+                              name: organizationSnapshot['name'],
+                              description: organizationSnapshot['description'],
+                              distance: LocationHelper.distance(organizationSnapshot['location'].latitude, organizationSnapshot['location'].longitude,
+                                  userPosition.latitude, userPosition.longitude),
+                              itemCategories: organizationSnapshot['itemCategories'].cast<String>(),
+                              id: organizationSnapshot.documentID,
+                              requestedItems: Map());
+                          widgets.add(OrganizationDonationProfile(organization: organization));
                         }
                       }
                       widgets.sort((a, b) {
-                        return (a as OrganizationDonationProfile).distance.compareTo((b as OrganizationDonationProfile).distance);
+                        return (a as OrganizationDonationProfile)
+                            .organization
+                            .distance
+                            .compareTo((b as OrganizationDonationProfile).organization.distance);
                       });
                       for (int i = 1; i < widgets.length; i++) {
                         widgets.insert(

@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:phase1/components/date_time_field.dart';
 import 'package:phase1/components/volunteer_donate_page_item_selection.dart';
+import 'package:phase1/models/organization.dart';
 import 'package:phase1/pages/volunteer/donation_confirmation_page.dart';
-import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 
 import '../../components/standard_layout.dart';
 import '../../constants.dart';
 
 class VolunteerDonatePage extends StatefulWidget {
+  final Organization organization;
+
+  const VolunteerDonatePage({this.organization});
+
   @override
   _VolunteerDonatePageState createState() => _VolunteerDonatePageState();
 }
@@ -25,20 +29,26 @@ class _VolunteerDonatePageState extends State<VolunteerDonatePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                '(Organization Name)',
+                widget.organization.name,
                 style: TextStyle(fontSize: 35, fontWeight: FontWeight.w900, color: purpleAccent),
               ),
               Text(
-                ' 5 miles away',
+                '${widget.organization.distance.toStringAsFixed(1)} miles away',
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700, color: purpleAccent),
               ),
               BasicDateField(),
               SizedBox(height: 20),
-              DonatePageItemSelection(boxTitle: 'Hygiene'),
-              SizedBox(height: 15),
-              DonatePageItemSelection(boxTitle: 'Clothing'),
-              SizedBox(height: 15),
-              DonatePageItemSelection(boxTitle: 'Food'),
+              ...widget.organization.requestedItems
+                  .map((category, categoryItems) => MapEntry(
+                      category,
+                      Column(
+                        children: [
+                          DonatePageItemSelection(category: category, items: categoryItems),
+                          SizedBox(height: 15.0),
+                        ],
+                      )))
+                  .values
+                  .toList(),
               SizedBox(height: 15),
               Container(
                 width: MediaQuery.of(context).size.width,
@@ -46,7 +56,7 @@ class _VolunteerDonatePageState extends State<VolunteerDonatePage> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => DonationConfirmationPage()),
+                      MaterialPageRoute(builder: (context) => DonationConfirmationPage(widget.organization)),
                     );
                   },
                   shape: RoundedRectangleBorder(
@@ -56,8 +66,8 @@ class _VolunteerDonatePageState extends State<VolunteerDonatePage> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 20),
                     child: Text(
-                      'Continue',
-                      style: TextStyle(color: Colors.white, fontSize: 20),
+                      'Finalize Your Donation',
+                      style: TextStyle(color: colorScheme.onSecondary, fontSize: 20),
                     ),
                   ),
                 ),

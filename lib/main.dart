@@ -11,10 +11,7 @@ import 'pages/organization/organization_dashboard_page.dart';
 import 'pages/organization/organization_navigation_page.dart';
 import 'pages/organization/organization_sign_up_page.dart';
 import 'pages/signup_page.dart';
-import 'pages/volunteer/donation_confirmation_page.dart';
 import 'pages/volunteer/items_to_deliver_extended.dart';
-import 'pages/volunteer/organization_profile_page.dart';
-import 'pages/volunteer/volunteer_donate_page.dart';
 import 'pages/volunteer/volunteer_confirmation_page.dart';
 import 'pages/volunteer/volunteer_navigation_page.dart';
 import 'pages/volunteer/volunteer_sign_up_page.dart';
@@ -44,15 +41,12 @@ class MyApp extends StatelessWidget {
         routes: {
           '/welcome': (_) => WelcomePage(),
           '/': (_) => LoadingPage(),
-          '/confirm_donation': (_) => DonationConfirmationPage(),
-          '/donate': (_) => VolunteerDonatePage(),
           '/items_to_deliver_extended': (_) => ItemsToDeliverExtended(),
           '/login': (_) => LoginPage(),
           '/organization_confirmation': (_) => OrganizationConfirmationPage(),
           '/organization_dashboard': (_) => OrganizationDashboardPage(),
           '/organization_navigation': (_) => OrganizationNavigationPage(),
           '/organization_sign_up': (_) => OrganizationSignUpPage(),
-          '/org_profile': (_) => OrganizationProfilePage(),
           '/signup': (_) => SignupPage(),
           '/shelter_sign_up': (_) => OrganizationSignUpPage(),
           '/volunteer_navigation': (_) => VolunteerNavigationPage(),

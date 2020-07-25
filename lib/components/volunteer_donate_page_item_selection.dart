@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
 
 import 'package:phase1/constants.dart';
+import 'package:phase1/models/item.dart';
 
 import 'item_increment.dart';
 
-class DonatePageItemSelection extends StatelessWidget {
-  final String boxTitle;
+class DonatePageItemSelection extends StatefulWidget {
+  final String category;
+  final List<Item> items;
 
-  DonatePageItemSelection({this.boxTitle});
+  DonatePageItemSelection({this.category, this.items});
+
+  @override
+  _DonatePageItemSelectionState createState() => _DonatePageItemSelectionState();
+}
+
+class _DonatePageItemSelectionState extends State<DonatePageItemSelection> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,7 +32,7 @@ class DonatePageItemSelection extends StatelessWidget {
             Row(
               children: <Widget>[
                 Text(
-                  boxTitle,
+                  widget.category,
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w500,
@@ -43,12 +51,18 @@ class DonatePageItemSelection extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
-            ItemIncrementWithText(itemName: 'Toilet paper'),
-            SizedBox(height: 10),
-            ItemIncrementWithText(itemName: 'Pillow'),
-            SizedBox(height: 10),
-            ItemIncrementWithText(itemName: 'Shoes'),
-            SizedBox(height: 10),
+            ...widget.items.asMap().map((index, item) => MapEntry(index, Column(
+              children: [
+                ItemIncrementWithText(
+                  itemName: item.name,
+                  maxQuantity: item.amount,
+                  onChanged: (val) {
+                    //TODO
+                  },
+                ),
+                SizedBox(height: 10.0),
+              ],
+            ))).values.toList(),
           ],
         ),
       ),

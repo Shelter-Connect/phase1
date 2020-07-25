@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:phase1/models/user.dart';
-import 'package:phase1/pages/organization/current_request.dart';
-import 'package:phase1/pages/volunteer/settings_page.dart';
 import 'package:provider/provider.dart';
 
 import '../../components/alerts.dart';
 import '../../constants.dart';
 import '../navigation_tab.dart';
+import 'current_requests.dart';
 import 'organization_dashboard_page.dart';
 import 'organization_expected_deliveries_page.dart';
+import 'organization_settings_page.dart';
 
 class OrganizationNavigationPage extends StatefulWidget {
   @override
@@ -20,8 +20,8 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
   final List<NavigationTab> _pages = [
     OrganizationDashboardPage(),
     OrganizationExpectedDeliveriesPage(),
-    SettingsPage(),
-    CurrentRequestsPage()
+    CurrentRequestsPage(),
+    OrganizationSettingsPage()
   ];
 
   @override
@@ -103,7 +103,7 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
                 ),
                 ListTile(
                   title: Text('Sign Out'),
-                  leading: Icon(Icons.exit_to_app, color: Colors.red),
+                  leading: Icon(Icons.exit_to_app, color: colorScheme.error),
                   onTap: () {
                     showDialog(
                       context: context,
