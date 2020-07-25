@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phase1/components/alerts.dart';
 import 'package:phase1/components/date_time_field.dart';
 import 'package:phase1/components/item_increment.dart';
 import 'package:phase1/models/donation.dart';
@@ -129,10 +130,24 @@ class _VolunteerDonatePageState extends State<VolunteerDonatePage> {
                 width: MediaQuery.of(context).size.width,
                 child: FlatButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => DonationConfirmationPage(widget.organization, donation)),
-                    );
+                    String alertText = '';
+                    if (donation.date == null) alertText = 'a date';
+                    if (donation.items.length == 0) {
+                      if (alertText == '')
+                        alertText = 'an item';
+                      else
+                        alertText += '/item';
+                    }
+                    if (alertText != '')
+                      showDialog(
+                        context: context,
+                        builder: (_) => NoActionAlert(title: 'Please enter $alertText'),
+                      );
+                    else
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => DonationConfirmationPage(widget.organization, donation)),
+                      );
                   },
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30.0),

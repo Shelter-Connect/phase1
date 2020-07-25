@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:phase1/models/donation.dart';
 import 'package:phase1/models/item.dart';
 import 'package:phase1/models/organization.dart';
@@ -46,7 +47,7 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
               child: Text(
-                'Distance: ${widget.organization.distance.toStringAsFixed(1)} miles',
+                'on: ${DateFormat.yMMMd().add_jm().format(widget.donation.date)}',
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700, color: purpleAccent),
               ),
             ),

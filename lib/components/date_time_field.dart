@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:phase1/models/donation.dart';
 
 import '../constants.dart';
+import 'alerts.dart';
 
 // ...
 
@@ -121,6 +122,7 @@ class BasicDateTimeField extends StatelessWidget {
                 children: <Widget>[
                   DateTimeField(
                     format: format,
+                    // ignore: missing_return
                     onShowPicker: (context, currentValue) async {
                       final date = await showDatePicker(
                           context: context, firstDate: DateTime(1900), initialDate: currentValue ?? DateTime.now(), lastDate: DateTime(2100));
@@ -130,6 +132,10 @@ class BasicDateTimeField extends StatelessWidget {
                           initialTime: TimeOfDay.fromDateTime(currentValue ?? DateTime.now()),
                         );
                         donation.date = DateTimeField.combine(date, time);
+                        if (donation.date.isBefore(DateTime.now())) {
+                          showDialog(context: context, builder: (_) => NoActionAlert(title: 'Please enter a date before today'));
+                          donation.date = currentValue;
+                        }
                         return donation.date;
                       } else {
                         donation.date = currentValue;
