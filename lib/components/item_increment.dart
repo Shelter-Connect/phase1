@@ -20,6 +20,9 @@ class _ItemIncrementWithTextState extends State<ItemIncrementWithText> {
  int _counter = 0;
 
   void _incrementCounter() {
+    if (_counter == widget.maxQuantity) {
+      Scaffold.of(context).showSnackBar(SnackBar(content: Text('You have reached the maximum amount of items this shelter is requesting.')));
+    }
     setState(() {
       _counter = min(_counter + 1, widget.maxQuantity);
     });
