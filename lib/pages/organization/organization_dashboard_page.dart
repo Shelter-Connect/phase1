@@ -13,11 +13,11 @@ class OrganizationDashboardPage extends StatefulWidget with NavigationTab {
   _OrganizationDashboardPageState createState() => _OrganizationDashboardPageState();
 
   @override
-  String get helpDescription =>
-      '''  Hello, and welcome to the Organization Dashboard! In this page, you can get a quick glimpse of deliveries that volunteers have agreed to donate, also known as "Expected Deliveries."
-  Current requests allow you to view the items that have not yet been claimed by a volunteer. You may edit those requests at any time. 
+  String get helpDescription => 'you' 're bad kid omegalul git gud pepelaugh';
+  /*'''  Hello, and welcome to the Organization Dashboard! In this page, you can get a quick glimpse of deliveries that volunteers have agreed to donate, also known as "Expected Deliveries."
+  Current requests allow you to view the items that have not yet been claimed by a volunteer. You may edit those requests at any time.
   Have fun!
-      ''';
+      ''';*/
 
   @override
   IconData get icon => Icons.home;

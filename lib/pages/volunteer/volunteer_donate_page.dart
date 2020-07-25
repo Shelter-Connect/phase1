@@ -39,12 +39,17 @@ class _VolunteerDonatePageState extends State<VolunteerDonatePage> {
               ),
               BasicDateField(),
               SizedBox(height: 20),
-              ...widget.items.map((category, categoryItems) => MapEntry(category, Column(
-                children: [
-                  DonatePageItemSelection(category: category, items: categoryItems),
-                  SizedBox(height: 15.0),
-                ],
-              ))).values.toList(),
+              ...widget.items
+                  .map((category, categoryItems) => MapEntry(
+                      category,
+                      Column(
+                        children: [
+                          DonatePageItemSelection(category: category, items: categoryItems),
+                          SizedBox(height: 15.0),
+                        ],
+                      )))
+                  .values
+                  .toList(),
               SizedBox(height: 15),
               Container(
                 width: MediaQuery.of(context).size.width,
@@ -62,7 +67,7 @@ class _VolunteerDonatePageState extends State<VolunteerDonatePage> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 20),
                     child: Text(
-                      'Continue',
+                      'Finalize Your Donation',
                       style: TextStyle(color: colorScheme.onSecondary, fontSize: 20),
                     ),
                   ),

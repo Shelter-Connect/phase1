@@ -290,7 +290,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                           child: Padding(
                             padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 20),
                             child: Text(
-                              'Continue to Requests',
+                              'Make a Donation!',
                               style: TextStyle(color: colorScheme.onSecondary, fontSize: 20),
                             ),
                           ),
