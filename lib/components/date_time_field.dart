@@ -127,11 +127,12 @@ class BasicDateTimeField extends StatelessWidget {
                       final date = await showDatePicker(
                           context: context, firstDate: DateTime(1900), initialDate: currentValue ?? DateTime.now(), lastDate: DateTime(2100));
                       if (date != null) {
-                        final time = await showTimePicker(
+                        /*final time = await showTimePicker(
                           context: context,
                           initialTime: TimeOfDay.fromDateTime(currentValue ?? DateTime.now()),
                         );
-                        donation.date = DateTimeField.combine(date, time);
+                        donation.date = DateTimeField.combine(date, time);*/
+                        donation.date = date;
                         if (donation.date.isBefore(DateTime.now())) {
                           showDialog(context: context, builder: (_) => NoActionAlert(title: 'Please enter a date before today'));
                           donation.date = currentValue;

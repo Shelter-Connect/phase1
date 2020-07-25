@@ -47,7 +47,8 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
               child: Text(
-                'on: ${DateFormat.yMMMd().add_jm().format(widget.donation.date)}',
+                /*'on: ${DateFormat.yMMMd().add_jm().format(widget.donation.date)}',*/
+                'on: ${DateFormat.yMMMd().format(widget.donation.date)}',
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700, color: purpleAccent),
               ),
             ),
