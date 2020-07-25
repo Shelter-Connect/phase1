@@ -51,18 +51,27 @@ class _DonatePageItemSelectionState extends State<DonatePageItemSelection> {
             SizedBox(
               height: 10,
             ),
-            ...widget.items.asMap().map((index, item) => MapEntry(index, Column(
-              children: [
-                ItemIncrementWithText(
-                  itemName: item.name,
-                  maxQuantity: item.amount,
-                  onChanged: (val) {
-                    //TODO
-                  },
-                ),
-                SizedBox(height: 10.0),
-              ],
-            ))).values.toList(),
+            ...widget.items
+                .asMap()
+                .map(
+                  (index, item) => MapEntry(
+                    index,
+                    Column(
+                      children: [
+                        ItemIncrementWithText(
+                          itemName: item.name,
+                          maxQuantity: item.amount,
+                          onChanged: (val) {
+                            //TODO
+                          },
+                        ),
+                        SizedBox(height: 10.0),
+                      ],
+                    ),
+                  ),
+                )
+                .values
+                .toList(),
           ],
         ),
       ),

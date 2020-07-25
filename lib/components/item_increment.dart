@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:holding_gesture/holding_gesture.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,7 @@ class _ItemIncrementWithTextState extends State<ItemIncrementWithText> {
 
   void _incrementCounter() {
     setState(() {
-      _counter = min(_counter+1, widget.maxQuantity);
+      _counter = min(_counter + 1, widget.maxQuantity);
     });
     widget.onChanged(_counter);
   }
@@ -37,39 +38,52 @@ class _ItemIncrementWithTextState extends State<ItemIncrementWithText> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        Container(child: Text(widget.itemName, style: TextStyle(fontSize: 17.0))),
+        Container(
+          child: Text(widget.itemName),
+        ),
         Row(
           children: <Widget>[
-            Container(
-              height: 30,
-              width: 30,
-              decoration: BoxDecoration(
-                color: whiteBackground,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: IconButton(
-                onPressed: _decrementCounter,
-                icon: Icon(
-                  Icons.remove,
-                  size: 15,
+            HoldDetector(
+              onHold: _decrementCounter,
+              holdTimeout: Duration(milliseconds: 150),
+              enableHapticFeedback: true,
+              child: Container(
+                height: 30,
+                width: 30,
+                decoration: BoxDecoration(
+                  color: Color(0xFFCCCCCC),
+                  borderRadius: BorderRadius.circular(10),
                 ),
-                tooltip: 'Decrement',
+                child: IconButton(
+                  onPressed: _decrementCounter,
+                  icon: Icon(
+                    Icons.remove,
+                    size: 15,
+                  ),
+                  tooltip: 'Decrement',
+                ),
               ),
             ),
             SizedBox(width: 25),
             Text('$_counter'),
             SizedBox(width: 25),
-            Container(
-              height: 30,
-              width: 30,
-              decoration: BoxDecoration(
-                color: blueAccent,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: IconButton(
-                onPressed: _incrementCounter,
-                icon: Icon(Icons.add, size: 15, color: colorScheme.onSecondary),
-                tooltip: 'Increment',
+            HoldDetector(
+              onHold: _incrementCounter,
+              holdTimeout: Duration(milliseconds: 150),
+              enableHapticFeedback: true,
+              child: Container(
+                height: 30,
+                width: 30,
+                decoration: BoxDecoration(
+                  color: Color(0xFF26a0ff),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: IconButton(
+                  onPressed: _incrementCounter,
+                  color: Colors.white,
+                  icon: Icon(Icons.add, size: 15),
+                  tooltip: 'Increment',
+                ),
               ),
             ),
           ],
