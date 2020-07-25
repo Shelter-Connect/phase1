@@ -21,11 +21,12 @@ class VolunteerDonatePage extends StatefulWidget {
 }
 
 class _VolunteerDonatePageState extends State<VolunteerDonatePage> {
-  Donation donation;
+  Donation donation = Donation();
 
   @override
   void initState() {
     donation = Donation(organizationId: widget.organization.id, volunteerId: Provider.of<User>(context, listen: false).user.uid);
+    donation.items = Map();
     super.initState();
   }
 
@@ -102,7 +103,11 @@ class _VolunteerDonatePageState extends State<VolunteerDonatePage> {
                                                 itemName: item.name,
                                                 maxQuantity: item.amount,
                                                 onChanged: (val) {
-                                                  //TODO
+                                                  if (donation.items[category] == null) donation.items[category] = List<Item>();
+                                                  Item currentItem = item;
+                                                  currentItem.amount = val;
+                                                  donation.items[category].remove(currentItem);
+                                                  donation.items[category].add(currentItem);
                                                 },
                                               ),
                                               SizedBox(height: 10.0),

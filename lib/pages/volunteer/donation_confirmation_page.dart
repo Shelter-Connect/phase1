@@ -86,7 +86,7 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                           height: 10,
                         ),
                         Column(
-                          children: widget.organization.requestedItems
+                          children: widget.donation.items
                               .map((String category, List<Item> items) => MapEntry(
                                   category,
                                   Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
