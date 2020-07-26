@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:phase1/components/floating_text_field.dart';
-import 'package:phase1/components/item_increment.dart';
+import 'package:phase1/components/increment.dart';
 import 'package:phase1/components/standard_layout_purple.dart';
 import 'package:phase1/constants.dart';
 import 'package:phase1/pages/organization/organization_select_item_page.dart';
@@ -185,7 +185,7 @@ class _OrganizationRequestPageState extends State<OrganizationRequestPage> {
                   //TODO Save Information to Firebase
                 ),
                 SizedBox(height: 20),
-                ItemIncrementWithoutText(),
+                ItemIncrementWithText(),
                 SizedBox(height: 20),
               ],
             ),

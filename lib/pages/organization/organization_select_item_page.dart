@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:phase1/components/category_icon_button.dart';
 import 'package:phase1/components/create_request_info_container.dart';
 import 'package:phase1/components/floating_text_field.dart';
-import 'package:phase1/components/item_increment.dart';
+import 'package:phase1/components/increment.dart';
 import 'package:phase1/constants.dart';
 import 'package:phase1/pages/organization/organization_create_request_confirm_request.dart';
 
@@ -95,7 +95,7 @@ class OrganizationSelectItemPage extends StatelessWidget {
                   //TODO Save Information to Firebase
                 ),
                 SizedBox(height: 20),
-                ItemIncrementWithoutText(),
+                ItemIncrementWithText(),
                 SizedBox(height: 20),
               ],
             ),

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:phase1/components/alerts.dart';
 import 'package:phase1/components/category_icon_button.dart';
 import 'package:phase1/components/floating_text_field.dart';
-import 'package:phase1/components/item_increment.dart';
+import 'package:phase1/components/increment.dart';
 import 'package:phase1/constants.dart';
 import 'package:phase1/pages/organization/organization_create_request_page.dart';
 
@@ -77,7 +77,7 @@ class CreateRequestConfirmRequest extends StatelessWidget {
                           //TODO Save Information to Firebase
                         ),
                         SizedBox(height: 24),
-                        ItemIncrementWithoutText(),
+                        ItemIncrementWithText(),
                       ],
                     ),
                   ],
