@@ -135,7 +135,7 @@ class _ItemIncrementWithTextState extends State<ItemIncrementWithText> {
   TextEditingController controller = TextEditingController();
 
   void initState() {
-    _counter = widget.maxQuantity ?? 0;
+    _counter = 0;
     controller.text = _counter.toString();
     super.initState();
   }
