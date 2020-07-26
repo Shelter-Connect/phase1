@@ -107,7 +107,7 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
                 ),
                 ListTile(
                   title: Text('Sign Out'),
-                  leading: Transform.rotate(angle: pi, child: Icon(Icons.exit_to_app, color: Colors.red)),
+                  leading: Transform.rotate(angle: pi, child: Icon(Icons.exit_to_app, color: colorScheme.error)),
                   onTap: () {
                     showDialog(
                       context: context,

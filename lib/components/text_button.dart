@@ -17,7 +17,7 @@ class TextButton extends StatelessWidget {
       child: Text(
         text,
         style: TextStyle(
-          color: Color(0xFF0074FF),
+          color: blueAccent,
           fontSize: 15.0,
         ),
       ),

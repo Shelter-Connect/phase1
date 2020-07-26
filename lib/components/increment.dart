@@ -1,9 +1,10 @@
 import 'dart:math';
-import 'package:holding_gesture/holding_gesture.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:holding_gesture/holding_gesture.dart';
+import 'package:phase1/constants.dart';
 
 class Increment extends StatefulWidget {
   final int itemQuantity;
@@ -56,7 +57,7 @@ class _ItemIncrementState extends State<Increment> {
               height: 30,
               width: 30,
               decoration: BoxDecoration(
-                color: Color(0xFFCCCCCC),
+                color: lightGrey,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: IconButton(
@@ -101,12 +102,12 @@ class _ItemIncrementState extends State<Increment> {
               height: 30,
               width: 30,
               decoration: BoxDecoration(
-                color: Color(0xFF26a0ff),
+                color: blueAccent,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: IconButton(
                 onPressed: _incrementCounter,
-                color: Colors.white,
+                color: colorScheme.onSecondary,
                 icon: Icon(Icons.add, size: 15),
                 tooltip: 'Increment',
               ),
@@ -139,6 +140,7 @@ class _ItemIncrementWithTextState extends State<ItemIncrementWithText> {
     controller.text = _counter.toString();
     super.initState();
   }
+
   void _incrementCounter() {
     if (_counter == widget.maxQuantity) {
       if (isSnackBarActive == false) {
@@ -146,9 +148,10 @@ class _ItemIncrementWithTextState extends State<ItemIncrementWithText> {
           isSnackBarActive = true;
         });
 
-        Scaffold.of(context).showSnackBar(
-            SnackBar(content: Text('You have reached the maximum amount of items this shelter is requesting.'))
-        ).closed.then((SnackBarClosedReason reason) {
+        Scaffold.of(context)
+            .showSnackBar(SnackBar(content: Text('You have reached the maximum amount of items this shelter is requesting.')))
+            .closed
+            .then((SnackBarClosedReason reason) {
           setState(() {
             isSnackBarActive = false;
           });
@@ -188,7 +191,7 @@ class _ItemIncrementWithTextState extends State<ItemIncrementWithText> {
                 height: 30,
                 width: 30,
                 decoration: BoxDecoration(
-                  color: Color(0xFFCCCCCC),
+                  color: lightGrey,
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: IconButton(
@@ -235,12 +238,12 @@ class _ItemIncrementWithTextState extends State<ItemIncrementWithText> {
                 height: 30,
                 width: 30,
                 decoration: BoxDecoration(
-                  color: Color(0xFF26a0ff),
+                  color: blueAccent,
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: IconButton(
                   onPressed: _incrementCounter,
-                  color: Colors.white,
+                  color: colorScheme.onSecondary,
                   icon: Icon(Icons.add, size: 15),
                   tooltip: 'Increment',
                 ),
@@ -252,5 +255,3 @@ class _ItemIncrementWithTextState extends State<ItemIncrementWithText> {
     );
   }
 }
-
-

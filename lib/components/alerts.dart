@@ -38,7 +38,7 @@ class SingleActionAlert extends StatelessWidget {
     return AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
       title: Text(title),
-      content: subtitle == null ? null : Text(subtitle, style: TextStyle(color: Colors.grey[700])),
+      content: subtitle == null ? null : Text(subtitle, style: TextStyle(color: grey)),
       actions: [
         FlatButton(
           child: Text(
@@ -50,15 +50,14 @@ class SingleActionAlert extends StatelessWidget {
           },
         ),
         FlatButton(
-          child: Text(
-            actionName.toUpperCase(),
-            style: TextStyle(color: colorScheme.secondary),
-          ),
-          onPressed: () {
-            action();
-            Navigator.pop(context);
-          }
-        )
+            child: Text(
+              actionName.toUpperCase(),
+              style: TextStyle(color: colorScheme.secondary),
+            ),
+            onPressed: () {
+              action();
+              Navigator.pop(context);
+            })
       ],
     );
   }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
+import '../constants.dart';
+
 class CategoryIconButton extends StatelessWidget {
   final Function onPressed;
   final String asset, name;
@@ -21,7 +23,7 @@ class CategoryIconButton extends StatelessWidget {
           width: 105.0,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(21),
-            color: Colors.white,
+            color: colorScheme.background,
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

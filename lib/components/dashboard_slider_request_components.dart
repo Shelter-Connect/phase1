@@ -4,15 +4,13 @@ import 'package:phase1/models/request_slide_items.dart';
 
 import '../constants.dart';
 
-
-
 class ReqSlideItems extends StatelessWidget {
   final int index;
   ReqSlideItems(this.index);
 
   @override
   Widget build(BuildContext context) {
-    return  Container(
+    return Container(
       decoration: BoxDecoration(color: colorScheme.onSecondary, borderRadius: BorderRadius.all(Radius.circular(20))),
       child: Row(
         children: <Widget>[
@@ -21,7 +19,7 @@ class ReqSlideItems extends StatelessWidget {
             width: MediaQuery.of(context).size.width / 2.6,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              color: Color(0xFFF7F7F7),
+              color: whiteBackground,
             ),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -36,14 +34,14 @@ class ReqSlideItems extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
-                            color: Colors.black,
+                            color: colorScheme.onBackground,
                           )),
                       TextSpan(
                           text: requestSlideList[index].userName,
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w800,
-                            color: Colors.black,
+                            color: colorScheme.onBackground,
                           ))
                     ]),
                   ),
@@ -57,14 +55,14 @@ class ReqSlideItems extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
-                            color: Colors.black,
+                            color: colorScheme.onBackground,
                           )),
                       TextSpan(
                           text: requestSlideList[index].userEmail,
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w800,
-                            color: Colors.black,
+                            color: colorScheme.onBackground,
                           ))
                     ]),
                   ),
@@ -78,14 +76,14 @@ class ReqSlideItems extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
-                            color: Colors.black,
+                            color: colorScheme.onBackground,
                           )),
                       TextSpan(
                           text: requestSlideList[index].requestedDate,
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w800,
-                            color: Colors.black,
+                            color: colorScheme.onBackground,
                           ))
                     ]),
                   ),
@@ -107,10 +105,13 @@ class ReqSlideItems extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   SizedBox(height: 10),
-                  Text('Items', style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),),
+                  Text(
+                    'Items',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                   Row(
                     children: <Widget>[
                       Text(requestSlideList[index].itemName, style: subHeaderStyle),

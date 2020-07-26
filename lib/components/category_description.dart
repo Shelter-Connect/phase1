@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../constants.dart';
+
 class CategoryDescriptionContainer extends StatelessWidget {
   final String info;
 
@@ -12,7 +14,7 @@ class CategoryDescriptionContainer extends StatelessWidget {
       width: 220.0,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        color: Colors.white24,
+        color: grey,
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

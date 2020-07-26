@@ -10,7 +10,7 @@ class TmrSlideItems extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Container(
+    return Container(
       decoration: BoxDecoration(color: colorScheme.onSecondary, borderRadius: BorderRadius.all(Radius.circular(20))),
       child: Row(
         children: <Widget>[
@@ -18,8 +18,8 @@ class TmrSlideItems extends StatelessWidget {
           Container(
             width: MediaQuery.of(context).size.width / 2.6,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-              color: Color(0xFFF7F7F7),
+              borderRadius: BorderRadius.circular(20),
+              color: whiteBackground,
             ),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -34,14 +34,14 @@ class TmrSlideItems extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
-                            color: Colors.black,
+                            color: colorScheme.onBackground,
                           )),
                       TextSpan(
                           text: tomorrowSlideList[index].userName,
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w800,
-                            color: Colors.black,
+                            color: colorScheme.onBackground,
                           ))
                     ]),
                   ),
@@ -55,14 +55,14 @@ class TmrSlideItems extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
-                            color: Colors.black,
+                            color: colorScheme.onBackground,
                           )),
                       TextSpan(
                           text: tomorrowSlideList[index].userEmail,
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w800,
-                            color: Colors.black,
+                            color: colorScheme.onBackground,
                           ))
                     ]),
                   ),
@@ -74,16 +74,16 @@ class TmrSlideItems extends StatelessWidget {
                       TextSpan(
                           text: 'Expected: ',
                           style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                            color: Colors.black,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: colorScheme.onBackground,
                           )),
                       TextSpan(
                           text: tomorrowSlideList[index].expectedDate,
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w800,
-                            color: Colors.black,
+                            color: colorScheme.onBackground,
                           ))
                     ]),
                   ),
@@ -105,10 +105,13 @@ class TmrSlideItems extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   SizedBox(height: 10),
-                  Text('Items', style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),),
+                  Text(
+                    'Items',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                   Row(
                     children: <Widget>[
                       Text(tomorrowSlideList[index].itemName, style: subHeaderStyle),

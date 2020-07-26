@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/material.dart';
 import 'package:phase1/components/dashboard_slider_request_components.dart';
 import 'package:phase1/components/dashboard_slider_tmr_components.dart';
 import 'package:phase1/components/dashboard_slider_today_components.dart';
@@ -31,6 +31,7 @@ class OrganizationDashboardPage extends StatefulWidget with NavigationTab {
   @override
   String get title => 'Dashboard';
 }
+
 class _OrganizationDashboardPageState extends State<OrganizationDashboardPage> {
   @override
   Widget build(BuildContext context) {
@@ -50,7 +51,7 @@ class _OrganizationDashboardPageState extends State<OrganizationDashboardPage> {
               SizedBox(height: 20),
               Text(
                 '# Expected Deliveries Today',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700, color: Color(0xFF919DEE)),
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700, color: purpleLight),
               ),
               SizedBox(height: 10),
               Container(
@@ -86,7 +87,7 @@ class _OrganizationDashboardPageState extends State<OrganizationDashboardPage> {
               SizedBox(height: 5),
               Text(
                 '# Expected Deliveries Tomorrow',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700, color: Color(0xFF919DEE)),
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700, color: purpleLight),
               ),
               SizedBox(height: 10),
               Container(
@@ -117,7 +118,7 @@ class _OrganizationDashboardPageState extends State<OrganizationDashboardPage> {
               SizedBox(height: 5),
               Text(
                 '# Current Requests',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700, color: Color(0xFF919DEE)),
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700, color: purpleLight),
               ),
               SizedBox(height: 10),
               Container(
