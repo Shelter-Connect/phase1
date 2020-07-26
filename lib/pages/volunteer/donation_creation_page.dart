@@ -104,6 +104,7 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                                                 itemName: item.name,
                                                 maxQuantity: item.amount,
                                                 onChanged: (val) {
+                                                  item = item;
                                                   if (donation.items[category] == null) donation.items[category] = List<Item>();
                                                   Item currentItem = item;
                                                   currentItem.amount = val;

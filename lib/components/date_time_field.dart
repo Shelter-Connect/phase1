@@ -105,7 +105,7 @@ class BasicDateTimeField extends StatelessWidget {
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
-            child: Text('Enter Delivery Date and Time',
+            child: Text('Enter Delivery Date',
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w500,
