@@ -57,7 +57,8 @@ class _EditDonationPageState extends State<EditDonationPage> {
               ),
               SizedBox(height: 20),
               ...widget.organization.requestedItems
-                  .map((category, categoryItems) => MapEntry(
+                  .map(
+                    (category, categoryItems) => MapEntry(
                       category,
                       Column(
                         children: [
@@ -96,7 +97,8 @@ class _EditDonationPageState extends State<EditDonationPage> {
                                   ),
                                   ...categoryItems
                                       .asMap()
-                                      .map((index, item) => MapEntry(
+                                      .map(
+                                        (index, item) => MapEntry(
                                           index,
                                           Column(
                                             children: [
@@ -113,7 +115,9 @@ class _EditDonationPageState extends State<EditDonationPage> {
                                               ),
                                               SizedBox(height: 10.0),
                                             ],
-                                          )))
+                                          ),
+                                        ),
+                                      )
                                       .values
                                       .toList(),
                                 ],
@@ -122,7 +126,9 @@ class _EditDonationPageState extends State<EditDonationPage> {
                           ),
                           SizedBox(height: 15.0),
                         ],
-                      )))
+                      ),
+                    ),
+                  )
                   .values
                   .toList(),
               SizedBox(height: 15),
