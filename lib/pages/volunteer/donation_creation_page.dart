@@ -108,7 +108,7 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                                                   Item currentItem = item;
                                                   currentItem.amount = val;
                                                   donation.items[category].remove(currentItem);
-                                                  donation.items[category].add(currentItem);
+                                                  if (currentItem.amount != 0) donation.items[category].add(currentItem);
                                                 },
                                               ),
                                               SizedBox(height: 10.0),
