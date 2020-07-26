@@ -8,8 +8,8 @@ import '../../components/alerts.dart';
 import '../../constants.dart';
 import '../../models/user.dart';
 import '../navigation_tab.dart';
+import '../volunteer/current_deliveries.dart';
 import '../volunteer/donation_opportunities_page.dart';
-import '../volunteer/items_to_deliver_page.dart';
 import '../volunteer/volunteer_settings_page.dart';
 
 class VolunteerNavigationPage extends StatefulWidget {
@@ -21,7 +21,7 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
   int _selectedIndex = 0;
   final List<NavigationTab> _pages = [
     DonationOpportunities(),
-    ItemsToDeliverPage(),
+    CurrentDeliveriesPage(),
     VolunteerSettingsPage(),
   ];
 

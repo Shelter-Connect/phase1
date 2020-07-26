@@ -7,22 +7,22 @@ import 'package:phase1/models/donation.dart';
 import 'package:phase1/models/item.dart';
 import 'package:phase1/models/organization.dart';
 import 'package:phase1/models/user.dart';
-import 'package:phase1/pages/volunteer/donation_confirmation_page.dart';
+import 'package:phase1/pages/volunteer/delivery_confirmation.dart';
 import 'package:provider/provider.dart';
 
 import '../../components/standard_layout.dart';
 import '../../constants.dart';
 
-class VolunteerDonatePage extends StatefulWidget {
+class EditDonationPage extends StatefulWidget {
   final Organization organization;
 
-  const VolunteerDonatePage({this.organization});
+  const EditDonationPage({@required this.organization});
 
   @override
-  _VolunteerDonatePageState createState() => _VolunteerDonatePageState();
+  _EditDonationPageState createState() => _EditDonationPageState();
 }
 
-class _VolunteerDonatePageState extends State<VolunteerDonatePage> {
+class _EditDonationPageState extends State<EditDonationPage> {
   Donation donation = Donation();
 
   @override
@@ -147,7 +147,7 @@ class _VolunteerDonatePageState extends State<VolunteerDonatePage> {
                     else
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => DonationConfirmationPage(widget.organization, donation)),
+                        MaterialPageRoute(builder: (context) => DeliveryConfirmationPage(widget.organization, donation)),
                       );
                   },
                   shape: RoundedRectangleBorder(

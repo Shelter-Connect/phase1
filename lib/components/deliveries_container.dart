@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
-
 import 'package:phase1/constants.dart';
-import 'package:phase1/pages/volunteer/items_to_deliver_extended.dart';
+import 'package:phase1/pages/volunteer/delivery_description_page.dart';
 
-class OrganizationItemSection extends StatelessWidget {
+class DeliveriesContainer extends StatelessWidget {
   final String organizationName;
   final double organizationDistance;
 
-
-  OrganizationItemSection({this.organizationName, this.organizationDistance});
+  DeliveriesContainer({this.organizationName, this.organizationDistance});
 
   @override
   Widget build(BuildContext context) {
     return RawMaterialButton(
       onPressed: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => ItemsToDeliverExtended()));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => DeliveryDescriptionPage()));
       },
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20.0),

@@ -5,7 +5,7 @@ import 'package:phase1/components/standard_layout.dart';
 import 'package:phase1/constants.dart';
 import 'package:phase1/models/item.dart';
 import 'package:phase1/models/organization.dart';
-import 'package:phase1/pages/volunteer/volunteer_donate_page.dart';
+import 'package:phase1/pages/volunteer/donation_creation_page.dart';
 
 class OrganizationProfilePage extends StatefulWidget {
   final Organization organization;
@@ -278,7 +278,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                           onPressed: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => VolunteerDonatePage(organization: widget.organization)),
+                              MaterialPageRoute(builder: (context) => DonationCreationPage(organization: widget.organization)),
                             );
                           },
                           shape: RoundedRectangleBorder(

@@ -5,8 +5,8 @@ import 'package:phase1/components/text_button.dart';
 import 'package:phase1/constants.dart';
 
 import '../navigation_tab.dart';
-import 'organization_create_request_page.dart';
-import 'organization_expected_deliveries_page.dart';
+import 'create_request_page.dart';
+import 'expected_deliveries_page.dart';
 
 class OrganizationDashboardPage extends StatefulWidget with NavigationTab {
   @override
@@ -122,7 +122,7 @@ class _OrganizationDashboardPageState extends State<OrganizationDashboardPage> {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => OrganizationExpectedDeliveriesPage()),
+                            MaterialPageRoute(builder: (context) => ExpectedDeliveriesPage()),
                           );
                           //TODO: Make this button go to Expected Deliveries
                         },
@@ -163,7 +163,7 @@ class _OrganizationDashboardPageState extends State<OrganizationDashboardPage> {
         onPressed: () async {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => OrganizationRequestPage()),
+            MaterialPageRoute(builder: (context) => CreateRequestPage()),
           );
         },
         child: Icon(

@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:phase1/components/floating_text_field.dart';
-import 'package:phase1/components/increment.dart';
-import 'package:phase1/components/standard_layout_purple.dart';
+import 'package:phase1/components/item_increment.dart';
+import 'package:phase1/components/secondary_layout.dart';
 import 'package:phase1/constants.dart';
-import 'package:phase1/pages/organization/organization_select_item_page.dart';
+import 'package:phase1/pages/organization/choose_item_page.dart';
 
 import '../../components/category_icon_button.dart';
 
-class OrganizationRequestPage extends StatefulWidget {
+class CreateRequestPage extends StatefulWidget {
   @override
-  _OrganizationRequestPageState createState() => _OrganizationRequestPageState();
+  _CreateRequestPageState createState() => _CreateRequestPageState();
 }
 
-class _OrganizationRequestPageState extends State<OrganizationRequestPage> {
+class _CreateRequestPageState extends State<CreateRequestPage> {
   @override
   Widget build(BuildContext context) {
     return Hero(
       tag: 'create request',
-      child: StandardLayout2(
+      child: SecondaryLayout(
         title: 'Create Requests',
         helpText: '''   This is the Create Requests Page. Choose any category from which you would like to request and specify the amount desired. 
    You could also name a specific item from this page and specify the quantity desired.''',
@@ -57,7 +57,7 @@ class _OrganizationRequestPageState extends State<OrganizationRequestPage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => OrganizationSelectItemPage(
+                                builder: (context) => ChooseItemPage(
                                     categoryIcon: 'assets/hygiene_svgs/hygiene.svg',
                                     categoryName: 'Hygiene',
                                     items: {
@@ -80,7 +80,7 @@ class _OrganizationRequestPageState extends State<OrganizationRequestPage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => OrganizationSelectItemPage(
+                                builder: (context) => ChooseItemPage(
                                     categoryIcon: 'assets/clothing_svgs/clothes.svg',
                                     categoryName: 'Clothes',
                                     items: {
@@ -103,7 +103,7 @@ class _OrganizationRequestPageState extends State<OrganizationRequestPage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => OrganizationSelectItemPage(
+                                builder: (context) => ChooseItemPage(
                                     categoryIcon: 'assets/nutrition_svgs/nutrition.svg',
                                     categoryName: 'Nutrition',
                                     items: {
@@ -125,7 +125,7 @@ class _OrganizationRequestPageState extends State<OrganizationRequestPage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => OrganizationSelectItemPage(
+                                builder: (context) => ChooseItemPage(
                                     categoryIcon: 'assets/covid-19_response_svg/covid_19.svg',
                                     categoryName: 'COVID-19',
                                     items: {
@@ -146,7 +146,7 @@ class _OrganizationRequestPageState extends State<OrganizationRequestPage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => OrganizationSelectItemPage(
+                                builder: (context) => ChooseItemPage(
                                     categoryIcon: 'assets/warmth_svgs/warmth.svg',
                                     categoryName: 'Warmth',
                                     items: {
@@ -166,7 +166,7 @@ class _OrganizationRequestPageState extends State<OrganizationRequestPage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => OrganizationSelectItemPage(
+                                builder: (context) => ChooseItemPage(
                                     categoryIcon: 'assets/other_svgs/other.svg',
                                     categoryName: 'Other',
                                     items: {},
@@ -185,7 +185,7 @@ class _OrganizationRequestPageState extends State<OrganizationRequestPage> {
                   //TODO Save Information to Firebase
                 ),
                 SizedBox(height: 20),
-                ItemIncrementWithText(),
+                ItemIncrementWithoutText(),
                 SizedBox(height: 20),
               ],
             ),
