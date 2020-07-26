@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:phase1/pages/volunteer/donation_filter_page.dart';
+import 'package:phase1/components/donation_filter_button.dart';
 import 'package:phase1/services/location_helper.dart';
 
 import '../../components/organization_donation_profile.dart';
@@ -56,34 +56,7 @@ class _DonationOpportunitiesState extends State<DonationOpportunities> {
                   SizedBox(height: 20),
                   Padding(
                     padding: const EdgeInsets.only(left: 16.0),
-                    child: FlatButton(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                      color: colorScheme.onSecondary,
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => DonationFilterPage()),
-                        );
-                      },
-                      child: IntrinsicWidth(
-                        child: Row(
-                          children: <Widget>[
-                            Text('Filter', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 20, color: purpleAccent)),
-                            SizedBox(width: 5.0),
-                            Column(
-                              children: [
-                                SizedBox(height: 5.0),
-                                Icon(
-                                  Icons.keyboard_arrow_down,
-                                  color: purpleAccent,
-                                  size: 30.0,
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                    child: DonationFilterButton()
                   ),
                   SizedBox(height: 20.0),
                   StreamBuilder(

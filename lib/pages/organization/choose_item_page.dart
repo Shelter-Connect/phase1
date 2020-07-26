@@ -54,19 +54,26 @@ class ChooseItemPage extends StatelessWidget {
                   ),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
-                    child: Wrap(
-                      crossAxisAlignment: WrapCrossAlignment.center,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        CategoryIconButton(
-                          name: categoryName,
-                          asset: categoryIcon,
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
+                        Row(
+                          children: <Widget>[
+                            CategoryIconButton(
+                              name: categoryName,
+                              asset: categoryIcon,
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                            ),
+                            SizedBox(width: 5),
+                            CategoryDescriptionContainer(info: categoryInfo),
+                          ],
                         ),
-                        CategoryDescriptionContainer(info: categoryInfo),
-                        ...items
-                            .map((name, icon) => MapEntry(
+                        Wrap(
+                          children: <Widget>[
+                            ...items
+                                .map((name, icon) => MapEntry(
                                 name,
                                 CategoryIconButton(
                                   name: name,
@@ -76,13 +83,15 @@ class ChooseItemPage extends StatelessWidget {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) => ConfirmRequestPage(
-                                                  itemName: name,
-                                                  itemIcon: icon,
-                                                )));
+                                              itemName: name,
+                                              itemIcon: icon,
+                                            )));
                                   },
                                 )))
-                            .values
-                            .toList()
+                                .values
+                                .toList()
+                          ],
+                        ),
                       ],
                     ),
                   ),

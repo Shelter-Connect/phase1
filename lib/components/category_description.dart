@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:phase1/constants.dart';
 
 class CategoryDescriptionContainer extends StatelessWidget {
   final String info;
@@ -13,16 +12,19 @@ class CategoryDescriptionContainer extends StatelessWidget {
       width: 220.0,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        color: colorScheme.onSecondary,
+        color: Colors.white24,
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text(
-            info,
-            style: TextStyle(
-              fontSize: 17.0,
-              fontWeight: FontWeight.w400,
+          Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: Text(
+              info,
+              style: TextStyle(
+                fontSize: 17.0,
+                fontWeight: FontWeight.w400,
+              ),
             ),
           ),
         ],

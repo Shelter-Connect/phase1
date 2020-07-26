@@ -15,6 +15,22 @@ class _WelcomePageState extends State<WelcomePage> {
     return Scaffold(
       body: SafeArea(
         child: Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topRight,
+                  end: Alignment.bottomLeft,
+                  stops: [
+                    0.1,
+                    0.4,
+                    0.6,
+                    0.9
+                  ],
+                  colors: [
+                    Color(0xFFC1D7FF),
+                    Color(0xFFC7DBFE),
+                    Color(0xFFDAE5F9),
+                    Color(0xFFFFFFFF),
+                  ])),
           padding: EdgeInsets.symmetric(horizontal: 24.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
