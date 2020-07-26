@@ -5,20 +5,20 @@ import 'package:phase1/components/category_icon_button.dart';
 import 'package:phase1/components/floating_text_field.dart';
 import 'package:phase1/components/item_increment.dart';
 import 'package:phase1/constants.dart';
-import 'package:phase1/pages/organization/organization_create_request_page.dart';
+import 'package:phase1/pages/organization/create_request_page.dart';
 
-import '../../components/standard_layout_purple.dart';
+import '../../components/secondary_layout.dart';
 
-class CreateRequestConfirmRequest extends StatelessWidget {
+class ConfirmRequestPage extends StatelessWidget {
   final String itemName, itemIcon;
 
-  CreateRequestConfirmRequest({
+  ConfirmRequestPage({
     this.itemName,
     this.itemIcon,
   });
   @override
   Widget build(BuildContext context) {
-    return StandardLayout2(
+    return SecondaryLayout(
         title: '',
         helpText: 'Hello, i will not help you',
         body: SingleChildScrollView(
@@ -97,7 +97,7 @@ class CreateRequestConfirmRequest extends StatelessWidget {
                           action: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => OrganizationRequestPage()),
+                              MaterialPageRoute(builder: (context) => CreateRequestPage()),
                             );
                           },
                         ),

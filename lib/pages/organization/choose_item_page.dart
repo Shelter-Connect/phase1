@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:phase1/components/category_description.dart';
 import 'package:phase1/components/category_icon_button.dart';
-import 'package:phase1/components/create_request_info_container.dart';
 import 'package:phase1/components/floating_text_field.dart';
 import 'package:phase1/components/item_increment.dart';
 import 'package:phase1/constants.dart';
-import 'package:phase1/pages/organization/organization_create_request_confirm_request.dart';
+import 'package:phase1/pages/organization/confirm_request_page.dart';
 
-import '../../components/standard_layout_purple.dart';
+import '../../components/secondary_layout.dart';
 
-class OrganizationSelectItemPage extends StatelessWidget {
+class ChooseItemPage extends StatelessWidget {
   final Map<String, String> items;
   final String categoryName;
   final String categoryIcon;
   final String categoryInfo;
 
-  OrganizationSelectItemPage({
+  ChooseItemPage({
     @required this.categoryName,
     @required this.categoryIcon,
     @required this.categoryInfo,
@@ -23,7 +23,7 @@ class OrganizationSelectItemPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StandardLayout2(
+    return SecondaryLayout(
         title: '',
         helpText: 'Hello, i will not help you',
         body: SingleChildScrollView(
@@ -64,7 +64,7 @@ class OrganizationSelectItemPage extends StatelessWidget {
                             Navigator.pop(context);
                           },
                         ),
-                        CreateRequestInfoContainer(info: categoryInfo),
+                        CategoryDescriptionContainer(info: categoryInfo),
                         ...items
                             .map((name, icon) => MapEntry(
                                 name,
@@ -75,7 +75,7 @@ class OrganizationSelectItemPage extends StatelessWidget {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => CreateRequestConfirmRequest(
+                                            builder: (context) => ConfirmRequestPage(
                                                   itemName: name,
                                                   itemIcon: icon,
                                                 )));

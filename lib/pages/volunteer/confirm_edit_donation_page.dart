@@ -8,17 +8,17 @@ import 'package:phase1/models/organization.dart';
 import '../../components/standard_layout.dart';
 import '../../constants.dart';
 
-class DonationConfirmationPage extends StatefulWidget {
+class ConfirmEditDonationPage extends StatefulWidget {
   final Organization organization;
   final Donation donation;
 
-  DonationConfirmationPage(this.organization, this.donation);
+  ConfirmEditDonationPage(this.organization, this.donation);
 
   @override
-  _DonationConfirmationPageState createState() => _DonationConfirmationPageState();
+  _ConfirmEditDonationPageState createState() => _ConfirmEditDonationPageState();
 }
 
-class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
+class _ConfirmEditDonationPageState extends State<ConfirmEditDonationPage> {
   @override
   Widget build(BuildContext context) {
     return StandardLayout(

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:phase1/constants.dart';
 
-class CreateRequestInfoContainer extends StatelessWidget {
+class CategoryDescriptionContainer extends StatelessWidget {
   final String info;
 
-  CreateRequestInfoContainer({@required this.info});
+  CategoryDescriptionContainer({@required this.info});
 
   @override
   Widget build(BuildContext context) {
