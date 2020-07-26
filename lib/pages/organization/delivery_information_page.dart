@@ -1,43 +1,39 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:phase1/components/alerts.dart';
-import 'package:phase1/components/increment.dart';
 
 import '../../components/standard_layout.dart';
 import '../../constants.dart';
+import 'delivery_confirmation_page.dart';
 
-class OrganizationExpectedDeliveryConfirmationPage extends StatefulWidget {
-  final String dateRequested, dateExpected, donorName, donorEmail;
+class DeliveryInformationPage extends StatefulWidget {
+  final String dateRequested, dateExpected, donorName, donorEmail, deliveryId;
   final List itemQuantity;
   final List itemName;
 
-  OrganizationExpectedDeliveryConfirmationPage(
-      {@required this.itemName, @required this.itemQuantity, @required this.dateRequested, @required this.dateExpected, @required this.donorName, @required this.donorEmail});
+  DeliveryInformationPage(
+      {@required this.itemName,
+      @required this.itemQuantity,
+      @required this.dateRequested,
+      @required this.dateExpected,
+      @required this.donorName,
+      @required this.donorEmail,
+      this.deliveryId});
 
   @override
-  _OrganizationExpectedDeliveryConfirmationPageState createState() => _OrganizationExpectedDeliveryConfirmationPageState(
+  _DeliveryInformationPageState createState() => _DeliveryInformationPageState(
       // TODO: add documentId parameter
       );
 }
 
 // donorName, donorEmail, itemName, itemQuantity, dateRequested, dateExpected
 
-class _OrganizationExpectedDeliveryConfirmationPageState extends State<OrganizationExpectedDeliveryConfirmationPage> {
-  List<int> itemQuantity;
-
-  @override
-  void initState() {
-    setState(() {
-      itemQuantity = widget.itemQuantity;
-    });
-    super.initState();
-  }
-
+class _DeliveryInformationPageState extends State<DeliveryInformationPage> {
   @override
   Widget build(BuildContext context) {
     // TODO: clean, clean, clean, clean, clean, and clean again
     return StandardLayout(
-      title: "Confirm Delivery",
+      title: "Delivery Information",
+      helpText: 'Click on the Specify Items Button to specify the number of items the volunteer donated!',
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
@@ -52,10 +48,8 @@ class _OrganizationExpectedDeliveryConfirmationPageState extends State<Organizat
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        'Amount Received',
-                        style: TextStyle(
-                          fontSize: 24,
-                        ),
+                        'Items to be Delivered',
+                        style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
                       ),
                       SizedBox(
                         height: 5,
@@ -78,23 +72,12 @@ class _OrganizationExpectedDeliveryConfirmationPageState extends State<Organizat
                                 ],
                               )),
                           Padding(
-                            padding: EdgeInsets.all(1),
-                            child: Column(
-                              children: itemQuantity.asMap().map(
-                                (index, quantity) => MapEntry(
-                                  index,
-                                  Increment(
-                                    itemQuantity: quantity,
-                                    onChanged: (val) {
-                                      setState(() {
-                                        itemQuantity[index] = val;
-                                      });
-                                    },
-                                  ),
-                                ),
-                              ).values.toList(),
-                            ),
-                          )
+                              padding: EdgeInsets.all(10),
+                              child: Column(
+                                children: <Widget>[
+                                  ...widget.itemQuantity.map((int) => Text('$int', style: TextStyle(fontSize: 20))).toList(),
+                                ],
+                              )),
                         ],
                       ),
                       Padding(
@@ -153,23 +136,20 @@ class _OrganizationExpectedDeliveryConfirmationPageState extends State<Organizat
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(21.0)),
                   color: secondaryTertiary,
                   onPressed: () {
-                    print(itemQuantity);
-                    showDialog(
-                        context: context,
-                        builder: (_) => SingleActionAlert(
-                              actionName: 'Confirm',
-                              subtitle: 'Once you confirm, the delivered items will be removed from your requested items',
-                              action: () {
-                                //TODO: Make this go back to dashboard page
-                                Navigator.pop(context);
-                                Navigator.pop(context);
-                                Navigator.pop(context);
-                                Navigator.pop(context);
-                              },
-                              title: 'Confirm Order',
-                            ));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ConfirmDeliveryPage(
+                            itemName: widget.itemName,
+                            itemQuantity: widget.itemQuantity,
+                            dateRequested: widget.dateRequested,
+                            dateExpected: widget.dateExpected,
+                            donorName: widget.donorName,
+                            donorEmail: widget.donorEmail,
+                          ),
+                        ));
                   },
-                  child: Text('Confirm Items Delivered', style: TextStyle(fontSize: 20, color: Colors.white)),
+                  child: Text('Confirm Delivery', style: TextStyle(fontSize: 20, color: colorScheme.onSecondary)),
                 ),
               ),
             )

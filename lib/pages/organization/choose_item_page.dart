@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:phase1/components/category_description.dart';
 import 'package:phase1/components/category_icon_button.dart';
-import 'package:phase1/components/create_request_info_container.dart';
 import 'package:phase1/components/floating_text_field.dart';
 import 'package:phase1/components/item_increment.dart';
 import 'package:phase1/constants.dart';
-import 'package:phase1/pages/organization/organization_create_request_confirm_request.dart';
+import 'package:phase1/pages/organization/confirm_request_page.dart';
 
-import '../../components/standard_layout_purple.dart';
+import '../../components/secondary_layout.dart';
 
-
-class OrganizationSelectItemPage extends StatelessWidget {
+class ChooseItemPage extends StatelessWidget {
   final Map<String, String> items;
   final String categoryName;
   final String categoryIcon;
   final String categoryInfo;
 
-  OrganizationSelectItemPage({
+  ChooseItemPage({
     @required this.categoryName,
     @required this.categoryIcon,
     @required this.categoryInfo,
@@ -24,7 +23,7 @@ class OrganizationSelectItemPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StandardLayout2(
+    return SecondaryLayout(
         title: '',
         helpText: 'Hello, i will not help you',
         body: SingleChildScrollView(
@@ -36,28 +35,19 @@ class OrganizationSelectItemPage extends StatelessWidget {
               children: <Widget>[
                 RichText(
                   text: TextSpan(children: <TextSpan>[
-                    TextSpan(
-                        text: 'Create Requests: ',
-                        style: TextStyle(
-                            fontSize: 35,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w900
-                        )),
+                    TextSpan(text: 'Create Requests: ', style: TextStyle(fontSize: 35, color: colorScheme.onSecondary, fontWeight: FontWeight.w900)),
                     TextSpan(
                         text: 'Choose Item',
                         style: TextStyle(
                           fontSize: 30,
                           fontWeight: FontWeight.w600,
-                          color: Colors.white,
+                          color: colorScheme.onSecondary,
                         ))
                   ]),
                 ),
                 SizedBox(height: 20),
                 Container(
-                  width: MediaQuery
-                      .of(context)
-                      .size
-                      .width,
+                  width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     color: colorScheme.background,
@@ -74,16 +64,25 @@ class OrganizationSelectItemPage extends StatelessWidget {
                             Navigator.pop(context);
                           },
                         ),
-                        CreateRequestInfoContainer(info: categoryInfo),
-                        ...items.map((name, icon) =>
-                            MapEntry(name, CategoryIconButton(
-                                name: name,
-                                asset: icon,
-                                onPressed: () {
-                                  Navigator.push(
-                                      context, MaterialPageRoute(builder: (context) => CreateRequestConfirmRequest(itemName: name, itemIcon: icon,)));
-                                },
-                            ))).values.toList()
+                        CategoryDescriptionContainer(info: categoryInfo),
+                        ...items
+                            .map((name, icon) => MapEntry(
+                                name,
+                                CategoryIconButton(
+                                  name: name,
+                                  asset: icon,
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => ConfirmRequestPage(
+                                                  itemName: name,
+                                                  itemIcon: icon,
+                                                )));
+                                  },
+                                )))
+                            .values
+                            .toList()
                       ],
                     ),
                   ),

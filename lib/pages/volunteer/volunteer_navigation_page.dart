@@ -1,15 +1,16 @@
 import 'dart:math' show pi;
 
 import 'package:flutter/material.dart';
+import 'package:phase1/pages/volunteer/volunteer_settings_page.dart';
 import 'package:provider/provider.dart';
 
 import '../../components/alerts.dart';
 import '../../constants.dart';
 import '../../models/user.dart';
 import '../navigation_tab.dart';
+import '../volunteer/current_deliveries.dart';
 import '../volunteer/donation_opportunities_page.dart';
-import '../volunteer/items_to_deliver_page.dart';
-import 'settings_page.dart';
+import '../volunteer/volunteer_settings_page.dart';
 
 class VolunteerNavigationPage extends StatefulWidget {
   @override
@@ -20,8 +21,8 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
   int _selectedIndex = 0;
   final List<NavigationTab> _pages = [
     DonationOpportunities(),
-    ItemsToDeliverPage(),
-    SettingsPage(),
+    CurrentDeliveriesPage(),
+    VolunteerSettingsPage(),
   ];
 
   @override
@@ -85,16 +86,22 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
                           ],
                         ),
                       ),
-                      ..._pages.asMap().map((index, tab) => MapEntry(index, ListTile(
-                        title: Text(tab.title),
-                        leading: Icon(tab.icon),
-                        onTap: () {
-                          setState(() {
-                            _selectedIndex = index;
-                          });
-                          Navigator.pop(context);
-                        },
-                      ))).values.toList(),
+                      ..._pages
+                          .asMap()
+                          .map((index, tab) => MapEntry(
+                              index,
+                              ListTile(
+                                title: Text(tab.title),
+                                leading: Icon(tab.icon),
+                                onTap: () {
+                                  setState(() {
+                                    _selectedIndex = index;
+                                  });
+                                  Navigator.pop(context);
+                                },
+                              )))
+                          .values
+                          .toList(),
                     ],
                   ),
                 ),

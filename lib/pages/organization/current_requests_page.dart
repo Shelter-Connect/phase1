@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:phase1/components/current_requests_container.dart';
+import 'package:phase1/components/requests_container.dart';
 import 'package:phase1/constants.dart';
 
 import '../navigation_tab.dart';
@@ -9,7 +9,8 @@ class CurrentRequestsPage extends StatefulWidget with NavigationTab {
   _CurrentRequestsPageState createState() => _CurrentRequestsPageState();
 
   @override
-  String get helpDescription => '''   This is the Organization Current Requests Page Page! Here you can see all the items that the you have ordered but that volunteers have not committed to yet!''';
+  String get helpDescription =>
+      '''   This is the Organization Current Requests Page Page! Here you can see all the items that the you have ordered but that volunteers have not committed to yet!''';
 
   @override
   IconData get icon => Icons.list;
@@ -66,18 +67,18 @@ class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
               )
             ],
           ),
-          CurrentRequestDeliveryContainer(
+          RequestContainer(
             // TODO: for firebase, need to query all information for these containers
             itemName: <String>['Toothbrushes', 'Shirts', 'Ham', 'Blankets', 'fdsakl'],
             itemQuantity: <int>[9, 10, 100, 59, 32],
             category: 'hygiene',
           ),
-          CurrentRequestDeliveryContainer(
+          RequestContainer(
             itemName: <String>['Toothpaste', 'Pants', 'Socks', 'Sleeping Bags'],
             itemQuantity: <int>[66, 57, 48, 93],
             category: 'hygiene',
           ),
-          CurrentRequestDeliveryContainer(
+          RequestContainer(
             itemName: <String>['Floss', 'Belts', 'Ham', 'Caps'],
             itemQuantity: <int>[
               16,
@@ -87,7 +88,7 @@ class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
             ],
             category: 'hygiene',
           ),
-          CurrentRequestDeliveryContainer(
+          RequestContainer(
             itemName: <String>['Floss', 'Belts', 'Ham', 'Caps'],
             itemQuantity: <int>[
               5,

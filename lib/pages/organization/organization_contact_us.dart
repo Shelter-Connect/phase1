@@ -36,17 +36,17 @@ class _OrganizationContactUsPageState extends State<OrganizationContactUsPage> {
             column: Column(children: <Widget>[
               Text(
                 'E-mail address: shelterconnect20@gmail.com',
-                style: TextStyle(fontSize: 25, color: Colors.black),
+                style: TextStyle(fontSize: 25, color: colorScheme.onBackground),
               ),
               SizedBox(height: 30),
               Text(
                 'Phone Number: 408-999-9999',
-                style: TextStyle(fontSize: 25, color: Colors.black),
+                style: TextStyle(fontSize: 25, color: colorScheme.onBackground),
               ),
               SizedBox(height: 30),
               Text(
                 'Location: 960 W Hedding St, San Jose, CA 95126',
-                style: TextStyle(fontSize: 25, color: Colors.black),
+                style: TextStyle(fontSize: 25, color: colorScheme.onBackground),
               )
             ]),
           ),

@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
+import '../../components/alerts.dart';
 import '../../components/floating_text_field.dart';
 import '../../components/geo_autocomplete.dart';
-import '../../components/alerts.dart';
 import '../../components/rounded_button.dart';
 import '../../components/text_button.dart';
 import '../../constants.dart';
@@ -127,6 +127,7 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
                             'email': email,
                             'name': organizationName,
                             'location': location,
+                            'address': controller.text,
                             'verified': false,
                           });
                         }

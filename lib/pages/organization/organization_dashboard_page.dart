@@ -5,19 +5,19 @@ import 'package:phase1/components/text_button.dart';
 import 'package:phase1/constants.dart';
 
 import '../navigation_tab.dart';
-import 'organization_create_request_page.dart';
-import 'organization_expected_deliveries_page.dart';
+import 'create_request_page.dart';
+import 'expected_deliveries_page.dart';
 
 class OrganizationDashboardPage extends StatefulWidget with NavigationTab {
   @override
   _OrganizationDashboardPageState createState() => _OrganizationDashboardPageState();
 
   @override
-  String get helpDescription =>
-      '''  Hello, and welcome to the Organization Dashboard! In this page, you can get a quick glimpse of deliveries that volunteers have agreed to donate, also known as "Expected Deliveries."
-  Current requests allow you to view the items that have not yet been claimed by a volunteer. You may edit those requests at any time. 
+  String get helpDescription => 'you' 're bad kid omegalul git gud pepelaugh';
+  /*'''  Hello, and welcome to the Organization Dashboard! In this page, you can get a quick glimpse of deliveries that volunteers have agreed to donate, also known as "Expected Deliveries."
+  Current requests allow you to view the items that have not yet been claimed by a volunteer. You may edit those requests at any time.
   Have fun!
-      ''';
+      ''';*/
 
   @override
   IconData get icon => Icons.home;
@@ -122,7 +122,7 @@ class _OrganizationDashboardPageState extends State<OrganizationDashboardPage> {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => OrganizationExpectedDeliveriesPage()),
+                            MaterialPageRoute(builder: (context) => ExpectedDeliveriesPage()),
                           );
                           //TODO: Make this button go to Expected Deliveries
                         },
@@ -163,7 +163,7 @@ class _OrganizationDashboardPageState extends State<OrganizationDashboardPage> {
         onPressed: () async {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => OrganizationRequestPage()),
+            MaterialPageRoute(builder: (context) => CreateRequestPage()),
           );
         },
         child: Icon(

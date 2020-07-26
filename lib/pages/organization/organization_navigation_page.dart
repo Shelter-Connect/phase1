@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:phase1/models/user.dart';
-import 'package:phase1/pages/organization/current_request.dart';
-import 'package:phase1/pages/volunteer/settings_page.dart';
 import 'package:provider/provider.dart';
 
 import '../../components/alerts.dart';
 import '../../constants.dart';
 import '../navigation_tab.dart';
+import 'current_requests_page.dart';
+import 'expected_deliveries_page.dart';
 import 'organization_dashboard_page.dart';
-import 'organization_expected_deliveries_page.dart';
+import 'organization_settings_page.dart';
 
 class OrganizationNavigationPage extends StatefulWidget {
   @override
@@ -17,12 +17,7 @@ class OrganizationNavigationPage extends StatefulWidget {
 
 class _OrganizationNavigationPageState extends State<OrganizationNavigationPage> {
   int _selectedIndex = 0;
-  final List<NavigationTab> _pages = [
-    OrganizationDashboardPage(),
-    OrganizationExpectedDeliveriesPage(),
-    SettingsPage(),
-    CurrentRequestsPage()
-  ];
+  final List<NavigationTab> _pages = [OrganizationDashboardPage(), ExpectedDeliveriesPage(), CurrentRequestsPage(), OrganizationSettingsPage()];
 
   @override
   Widget build(BuildContext context) {
@@ -103,7 +98,7 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
                 ),
                 ListTile(
                   title: Text('Sign Out'),
-                  leading: Icon(Icons.exit_to_app, color: Colors.red),
+                  leading: Icon(Icons.exit_to_app, color: colorScheme.error),
                   onTap: () {
                     showDialog(
                       context: context,

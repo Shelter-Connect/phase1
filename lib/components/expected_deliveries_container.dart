@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:phase1/constants.dart';
-import 'package:phase1/pages/organization/organization_delivery_information_page.dart';
+import 'package:phase1/pages/organization/delivery_information_page.dart';
 
 class ExpectedDeliveryContainer extends StatelessWidget {
   final String dateRequested, dateExpected, donorName, donorEmail;
@@ -8,7 +8,8 @@ class ExpectedDeliveryContainer extends StatelessWidget {
   final String deliveryId;
   final String category;
 
-  ExpectedDeliveryContainer({this.itemName, this.itemQuantity, this.dateRequested, this.dateExpected, this.donorName, this.donorEmail, this.deliveryId, this.category});
+  ExpectedDeliveryContainer(
+      {this.itemName, this.itemQuantity, this.dateRequested, this.dateExpected, this.donorName, this.donorEmail, this.deliveryId, this.category});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,7 @@ class ExpectedDeliveryContainer extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => OrganizationExpectedDeliveryInformationPage(
+              builder: (context) => DeliveryInformationPage(
                 itemName: itemName,
                 itemQuantity: itemQuantity,
                 dateRequested: dateRequested,
@@ -64,14 +65,28 @@ class ExpectedDeliveryContainer extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
                       Column(
-
-                        children:  <Widget>[...itemQuantity.map((int) => Text('$int', style: TextStyle(fontSize: 21,))).toList()],
+                        children: <Widget>[
+                          ...itemQuantity
+                              .map((int) => Text('$int',
+                                  style: TextStyle(
+                                    fontSize: 21,
+                                  )))
+                              .toList()
+                        ],
                       ),
-                      SizedBox(width: 5,),
+                      SizedBox(
+                        width: 5,
+                      ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children:
-                        <Widget>[...itemName.map((string) => Text(string, style: TextStyle(fontSize: 21, ))).toList()],
+                        children: <Widget>[
+                          ...itemName
+                              .map((string) => Text(string,
+                                  style: TextStyle(
+                                    fontSize: 21,
+                                  )))
+                              .toList()
+                        ],
                       )
                     ],
                   ),

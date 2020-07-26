@@ -1,25 +1,24 @@
-import 'package:flutter/material.dart';
-
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:phase1/components/alerts.dart';
 import 'package:phase1/components/category_icon_button.dart';
 import 'package:phase1/components/floating_text_field.dart';
 import 'package:phase1/components/item_increment.dart';
 import 'package:phase1/constants.dart';
-import 'package:phase1/pages/organization/organization_create_request_page.dart';
+import 'package:phase1/pages/organization/create_request_page.dart';
 
-import '../../components/standard_layout_purple.dart';
+import '../../components/secondary_layout.dart';
 
-class CreateRequestConfirmRequest extends StatelessWidget {
+class ConfirmRequestPage extends StatelessWidget {
   final String itemName, itemIcon;
 
-  CreateRequestConfirmRequest({
+  ConfirmRequestPage({
     this.itemName,
-     this.itemIcon,
+    this.itemIcon,
   });
   @override
   Widget build(BuildContext context) {
-    return StandardLayout2(
+    return SecondaryLayout(
         title: '',
         helpText: 'Hello, i will not help you',
         body: SingleChildScrollView(
@@ -31,19 +30,13 @@ class CreateRequestConfirmRequest extends StatelessWidget {
               children: <Widget>[
                 RichText(
                   text: TextSpan(children: <TextSpan>[
-                    TextSpan(
-                        text: 'Create Requests: ',
-                        style: TextStyle(
-                            fontSize: 35,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w900
-                        )),
+                    TextSpan(text: 'Create Requests: ', style: TextStyle(fontSize: 35, color: colorScheme.onSecondary, fontWeight: FontWeight.w900)),
                     TextSpan(
                         text: 'Choose Item',
                         style: TextStyle(
                           fontSize: 30,
                           fontWeight: FontWeight.w600,
-                          color: Colors.white,
+                          color: colorScheme.onSecondary,
                         ))
                   ]),
                 ),
@@ -98,11 +91,14 @@ class CreateRequestConfirmRequest extends StatelessWidget {
                         context: context,
                         builder: (_) => SingleActionAlert(
                           title: 'Confirm your request?',
-                          subtitle: 'Make sure you are requesting the correct item and number of items. Requests can be edited in the \'Expected Deliveries\' tab.',
+                          subtitle:
+                              'Make sure you are requesting the correct item and number of items. Requests can be edited in the \'Expected Deliveries\' tab.',
                           actionName: 'Confirm & Create Request',
                           action: () {
-                            Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => OrganizationRequestPage()),);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => CreateRequestPage()),
+                            );
                           },
                         ),
                       );
@@ -111,15 +107,12 @@ class CreateRequestConfirmRequest extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30.0),
                     ),
-                    color: Colors.white,
+                    color: colorScheme.onSecondary,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 20),
                       child: Text(
                         'Create Request',
-                        style: TextStyle(
-                            color: Color(0xFF6576EC),
-                            fontSize: 20
-                        ),
+                        style: TextStyle(color: purpleAccent, fontSize: 20),
                       ),
                     ),
                   ),

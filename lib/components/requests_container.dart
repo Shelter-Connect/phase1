@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:phase1/constants.dart';
 
-class CurrentRequestDeliveryContainer extends StatelessWidget {
+class RequestContainer extends StatelessWidget {
   final List itemName, itemQuantity;
   final String deliveryId;
   final String category;
 
-  CurrentRequestDeliveryContainer({this.itemName, this.itemQuantity, this.deliveryId, this.category});
+  RequestContainer({this.itemName, this.itemQuantity, this.deliveryId, this.category});
 
   @override
   Widget build(BuildContext context) {
@@ -39,14 +39,28 @@ class CurrentRequestDeliveryContainer extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     Column(
-
-                      children:  <Widget>[...itemQuantity.map((int) => Text('$int', style: TextStyle(fontSize: 21,))).toList()],
+                      children: <Widget>[
+                        ...itemQuantity
+                            .map((int) => Text('$int',
+                                style: TextStyle(
+                                  fontSize: 21,
+                                )))
+                            .toList()
+                      ],
                     ),
-                    SizedBox(width: 5,),
+                    SizedBox(
+                      width: 5,
+                    ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children:
-                      <Widget>[...itemName.map((string) => Text(string, style: TextStyle(fontSize: 21, ))).toList()],
+                      children: <Widget>[
+                        ...itemName
+                            .map((string) => Text(string,
+                                style: TextStyle(
+                                  fontSize: 21,
+                                )))
+                            .toList()
+                      ],
                     )
                   ],
                 ),
