@@ -10,7 +10,7 @@ class ExpectedDeliveriesPage extends StatefulWidget with NavigationTab {
 
   @override
   String get helpDescription =>
-      '''   This is the Organization Expected Deliveries Page! Here you can see all the items that the volunteers have confirmed to deliver to your organization! 
+      '''   This is the Organization Expected Deliveries Page! Here you can seee all the items that the volunteers have confirmed to deliver to your organization! 
   Click on each delivery to see more information regarding the arrival time, donor contact information, and much more!''';
 
   @override
