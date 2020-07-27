@@ -7,7 +7,7 @@ import '../../constants.dart';
 
 class DeliveryDescriptionPage extends StatefulWidget {
   final Organization organization;
-  Donation donation;
+  final Donation donation;
 
   DeliveryDescriptionPage(this.organization, this.donation);
   @override
@@ -93,8 +93,8 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                               height: 5,
                               width: 100,
                               decoration: BoxDecoration(
-                                  color: purpleAccent,
-                                  borderRadius: BorderRadius.circular(21)),
+                                color: purpleAccent,
+                                borderRadius: BorderRadius.circular(21)),
                             ),
                             SizedBox(
                               height: 15,

@@ -1,10 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:phase1/components/donation_filter_button.dart';
 import 'package:phase1/models/organization.dart';
+import 'package:phase1/models/user_position.dart';
 import 'package:phase1/services/firestore_helper.dart';
 import 'package:phase1/services/location_helper.dart';
+import 'package:provider/provider.dart';
 
 import '../../components/organization_donation_profile.dart';
 import '../../constants.dart';
@@ -25,14 +26,11 @@ class DonationOpportunities extends StatefulWidget with NavigationTab {
 }
 
 class _DonationOpportunitiesState extends State<DonationOpportunities> {
-  Position userPosition;
 
   @override
   void initState() {
     LocationHelper.getUserPosition().then((position) {
-      setState(() {
-        userPosition = position;
-      });
+      Provider.of<UserPosition>(context, listen: false).position = position;
     });
     super.initState();
   }
@@ -41,7 +39,7 @@ class _DonationOpportunitiesState extends State<DonationOpportunities> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: whiteBackground,
-      body: userPosition == null
+      body: Provider.of<UserPosition>(context).position == null
           ? Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
               child: Column(
@@ -61,7 +59,7 @@ class _DonationOpportunitiesState extends State<DonationOpportunities> {
                     stream: db.collection('organizations').snapshots(),
                     builder: (context, snapshot) {
                       if (!snapshot.hasData) {
-                        return CircularProgressIndicator();
+                        return Center(child: CircularProgressIndicator());
                       }
                       List<Widget> widgets = [];
                       for (DocumentSnapshot organizationSnapshot in snapshot.data.documents) {
@@ -69,7 +67,7 @@ class _DonationOpportunitiesState extends State<DonationOpportunities> {
                           Organization organization = FirestoreHelper.getOrganization(
                               context: context,
                               organizationId: organizationSnapshot.documentID,
-                              userPosition: userPosition,
+                              userPosition: Provider.of<UserPosition>(context).position,
                               organizationSnapshot: organizationSnapshot);
                           widgets.add(OrganizationDonationProfile(organization: organization));
                         }
