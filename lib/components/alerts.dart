@@ -38,7 +38,7 @@ class SingleActionAlert extends StatelessWidget {
     return AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
       title: Text(title),
-      content: subtitle == null ? null : Text(subtitle, style: TextStyle(color: grey)),
+      content: subtitle == null ? null : Text(subtitle, style: TextStyle(color: Colors.grey)),
       actions: [
         FlatButton(
           child: Text(
