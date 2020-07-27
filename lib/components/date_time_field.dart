@@ -2,10 +2,6 @@ import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:phase1/models/donation.dart';
-
-import '../constants.dart';
-import 'alerts.dart';
 
 class BasicDateField extends StatelessWidget {
   final TextEditingController controller;

@@ -14,7 +14,7 @@ class DeliveriesContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return RawMaterialButton(
       onPressed: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => DeliveryDescriptionPage()));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => DeliveryDescriptionPage(organization, donation)));
       },
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20.0),
@@ -37,7 +37,7 @@ class DeliveriesContainer extends StatelessWidget {
                     organization.name,
                     style: TextStyle(
                       fontSize: 20,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                   SizedBox(
@@ -56,6 +56,7 @@ class DeliveriesContainer extends StatelessWidget {
               Text(
                 '${organization.distance.toStringAsFixed(1)} miles',
                 style: TextStyle(
+                  fontSize: 15,
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -66,11 +67,11 @@ class DeliveriesContainer extends StatelessWidget {
                 decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
               ),
               SizedBox(height: 10),
-              Text('Blankets x4', style: TextStyle(fontWeight: FontWeight.w500)),
+              Text('Blankets x4', style: TextStyle(fontSize: 17.0, fontWeight: FontWeight.w400)),
               SizedBox(height: 5),
-              Text('Bananas x15', style: TextStyle(fontWeight: FontWeight.w500)),
+              Text('Bananas x15', style: TextStyle(fontSize: 17.0, fontWeight: FontWeight.w400)),
               SizedBox(height: 5),
-              Text('Can of Beans x8', style: TextStyle(fontWeight: FontWeight.w500)),
+              Text('Can of Beans x8', style: TextStyle(fontSize: 17.0, fontWeight: FontWeight.w400)),
               SizedBox(height: 10),
             ],
           ),

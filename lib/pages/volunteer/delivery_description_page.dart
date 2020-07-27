@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phase1/models/donation.dart';
 import 'package:phase1/models/organization.dart';
 
 import '../../components/standard_layout.dart';
@@ -6,10 +7,12 @@ import '../../constants.dart';
 
 class DeliveryDescriptionPage extends StatefulWidget {
   final Organization organization;
+  Donation donation;
 
-  DeliveryDescriptionPage({this.organization});
+  DeliveryDescriptionPage(this.organization, this.donation);
   @override
-  _DeliveryDescriptionPageState createState() => _DeliveryDescriptionPageState();
+  _DeliveryDescriptionPageState createState() =>
+      _DeliveryDescriptionPageState();
 }
 
 class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
@@ -26,18 +29,32 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
               children: <Widget>[
                 Text(
                   'Items to Deliver to ${widget.organization.name}',
-                  style: TextStyle(fontSize: 35, fontWeight: FontWeight.w900, color: purpleAccent),
+                  style: TextStyle(
+                      fontSize: 35,
+                      fontWeight: FontWeight.w900,
+                      color: purpleAccent),
                 ),
                 Text(
                   'Distance: ${widget.organization.distance.toStringAsFixed(1)}',
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700, color: purpleAccent),
+                  style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.w700,
+                      color: purpleAccent),
                 ),
                 SizedBox(height: 20),
+                OrganizationInformation(
+                    orgEmail: widget.organization.email,
+                    orgPhone: widget.organization.number,
+                    orgAddress: widget.organization.address),
+                SizedBox(height: 20),
                 Container(
-                  decoration: BoxDecoration(color: colorScheme.background, borderRadius: BorderRadius.all(Radius.circular(20))),
+                  decoration: BoxDecoration(
+                      color: colorScheme.background,
+                      borderRadius: BorderRadius.all(Radius.circular(20))),
                   width: MediaQuery.of(context).size.width,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 8.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -75,7 +92,9 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                             Container(
                               height: 5,
                               width: 100,
-                              decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
+                              decoration: BoxDecoration(
+                                  color: purpleAccent,
+                                  borderRadius: BorderRadius.circular(21)),
                             ),
                             SizedBox(
                               height: 15,
@@ -101,9 +120,6 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                     ),
                   ),
                 ),
-                SizedBox(height: 20),
-                OrganizationInformation(
-                    orgEmail: widget.organization.email, orgPhone: widget.organization.number, orgAddress: widget.organization.address)
               ],
             ),
           ),
@@ -118,14 +134,19 @@ class OrganizationInformation extends StatelessWidget {
 
   final String orgAddress;
 
-  OrganizationInformation({@required this.orgEmail, @required this.orgPhone, @required this.orgAddress});
+  OrganizationInformation(
+      {@required this.orgEmail,
+      @required this.orgPhone,
+      @required this.orgAddress});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         Container(
-          decoration: BoxDecoration(color: colorScheme.background, borderRadius: BorderRadius.all(Radius.circular(20))),
+          decoration: BoxDecoration(
+              color: colorScheme.background,
+              borderRadius: BorderRadius.all(Radius.circular(20))),
           width: MediaQuery.of(context).size.width,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16.0),
@@ -145,7 +166,9 @@ class OrganizationInformation extends StatelessWidget {
                 Container(
                   height: 5,
                   width: 100,
-                  decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
+                  decoration: BoxDecoration(
+                      color: purpleAccent,
+                      borderRadius: BorderRadius.circular(21)),
                 ),
                 SizedBox(
                   height: 10,

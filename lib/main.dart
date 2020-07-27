@@ -10,7 +10,6 @@ import 'pages/organization/organization_dashboard_page.dart';
 import 'pages/organization/organization_navigation_page.dart';
 import 'pages/organization/organization_sign_up_page.dart';
 import 'pages/signup_page.dart';
-import 'pages/volunteer/delivery_description_page.dart';
 import 'pages/volunteer/volunteer_confirmation_page.dart';
 import 'pages/volunteer/volunteer_navigation_page.dart';
 import 'pages/volunteer/volunteer_sign_up_page.dart';
@@ -37,7 +36,6 @@ class MyApp extends StatelessWidget {
         routes: {
           '/welcome': (_) => WelcomePage(),
           '/': (_) => LoadingPage(),
-          '/items_to_deliver_extended': (_) => DeliveryDescriptionPage(),
           '/login': (_) => LoginPage(),
           '/organization_confirmation': (_) => OrganizationConfirmationPage(),
           '/organization_dashboard': (_) => OrganizationDashboardPage(),
