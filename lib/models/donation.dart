@@ -1,13 +1,14 @@
 import 'item.dart';
 
 class Donation {
-  String volunteerId, organizationId;
+  String volunteerId, organizationId, donationId;
   DateTime date;
   List<Item> items = [];
 
   Donation({
     this.volunteerId,
     this.organizationId,
+    this.donationId,
     this.items,
   });
 
@@ -15,6 +16,7 @@ class Donation {
     this.volunteerId = donation.volunteerId;
     this.date = donation.date;
     this.date = this.date;
+    this.donationId = donationId;
     for (Item item in donation.items) {
       this.items.add(Item.clone(item: item));
     }
