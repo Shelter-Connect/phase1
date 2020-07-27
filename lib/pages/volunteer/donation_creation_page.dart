@@ -23,11 +23,12 @@ class DonationCreationPage extends StatefulWidget {
 
 class _DonationCreationPageState extends State<DonationCreationPage> {
   Donation donation = Donation();
+  final DateTime today = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
 
   @override
   void initState() {
     donation = Donation(organizationId: widget.organization.id, volunteerId: Provider.of<User>(context, listen: false).user.uid);
-    donation.items = Map();
+    donation.items = [];
     super.initState();
   }
 
@@ -52,8 +53,32 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                 '${widget.organization.distance.toStringAsFixed(1)} miles away',
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700, color: purpleAccent),
               ),
-              BasicDateTimeField(
-                donation: donation,
+              SizedBox(height: 15.0),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(21.0),
+                  color: Colors.white,
+                ),
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Expected Delivery Date',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    BasicDateField(
+                      onChanged: (val) {
+                        setState(() {
+                          donation.date = val;
+                        });
+                      },
+                    ),
+                  ],
+                ),
               ),
               SizedBox(height: 20),
               ...widget.organization.requestedItems
@@ -104,12 +129,10 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                                                 itemName: item.name,
                                                 maxQuantity: item.amount,
                                                 onChanged: (val) {
-                                                  item = item;
-                                                  if (donation.items[category] == null) donation.items[category] = List<Item>();
-                                                  Item currentItem = item;
+                                                  Item currentItem = Item.clone(item: item);
                                                   currentItem.amount = val;
-                                                  donation.items[category].remove(currentItem);
-                                                  if (currentItem.amount != 0) donation.items[category].add(currentItem);
+                                                  donation.items.removeWhere((prevItem) => prevItem.name == currentItem.name && prevItem.category == currentItem.category);
+                                                  if (currentItem.amount != 0) donation.items.add(currentItem);
                                                 },
                                               ),
                                               SizedBox(height: 10.0),
@@ -131,24 +154,28 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                 width: MediaQuery.of(context).size.width,
                 child: FlatButton(
                   onPressed: () {
-                    String alertText = '';
-                    if (donation.date == null) alertText = 'a date';
                     if (donation.items.length == 0) {
-                      if (alertText == '')
-                        alertText = 'an item';
-                      else
-                        alertText += '/item';
-                    }
-                    if (alertText != '')
+                      showDialog(
+                          context: context,
+                          builder: (_) => NoActionAlert(title: 'Please select at least one item to donate')
+                      );
+                    } else if (donation.date == null) {
                       showDialog(
                         context: context,
-                        builder: (_) => NoActionAlert(title: 'Please enter $alertText'),
+                        builder: (_) => NoActionAlert(title: 'Please enter the expected delivery date of the donation')
                       );
-                    else
+                    } else if (donation.date.isBefore(today)) {
+                      print(donation.date);
+                      showDialog(
+                          context: context,
+                          builder: (_) => NoActionAlert(title: 'The expected delivery date cannot be before today')
+                      );
+                    } else {
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => DeliveryConfirmationPage(widget.organization, donation)),
                       );
+                    }
                   },
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30.0),

@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:phase1/models/donation.dart';
-import 'package:phase1/models/item.dart';
 import 'package:phase1/models/organization.dart';
+import 'package:phase1/services/firestore_helper.dart';
 
 import '../../components/standard_layout.dart';
 import '../../constants.dart';
@@ -21,6 +21,8 @@ class DeliveryConfirmationPage extends StatefulWidget {
 class _DeliveryConfirmationPageState extends State<DeliveryConfirmationPage> {
   @override
   Widget build(BuildContext context) {
+    widget.donation.items.sort((a, b) => a.category.compareTo(b.category));
+
     return StandardLayout(
       title: ' ',
       helpText: 'If u don\'t know how to use this app u stupid lmao',
@@ -84,39 +86,32 @@ class _DeliveryConfirmationPageState extends State<DeliveryConfirmationPage> {
                           width: 100,
                           decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
                         ),
-                        SizedBox(
-                          height: 10,
-                        ),
                         Column(
-                          children: widget.donation.items
-                              .map((String category, List<Item> items) => MapEntry(
-                                  category,
-                                  Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-                                    SizedBox(height: 10.0),
-                                    Text(
-                                      category,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 17.0,
-                                      ),
+                          children: widget.donation.items.asMap().map((index, item) {
+                            return MapEntry(index, Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                SizedBox(height: 10.0),
+                                if(index == 0 || item.category != widget.donation.items[index-1].category) Text(
+                                  item.category,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 17.0,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 3.0),
+                                  child: Text(
+                                    '${item.name} x ${item.amount}',
+                                    style: TextStyle(
+                                      fontSize: 17.0,
+                                      fontWeight: FontWeight.w400,
                                     ),
-                                    ...items
-                                        .map(
-                                          (item) => Padding(
-                                            padding: const EdgeInsets.only(top: 3.0),
-                                            child: Text(
-                                              '${item.name} x ${item.amount}',
-                                              style: TextStyle(
-                                                fontSize: 17.0,
-                                                fontWeight: FontWeight.w400,
-                                              ),
-                                            ),
-                                          ),
-                                        )
-                                        .toList(),
-                                  ])))
-                              .values
-                              .toList(),
+                                  ),
+                                ),
+                              ],
+                            ));
+                          }).values.toList(),
                         ),
                         SizedBox(
                           height: 10,
@@ -158,8 +153,7 @@ class _DeliveryConfirmationPageState extends State<DeliveryConfirmationPage> {
                           SizedBox(
                             height: 10,
                           ),
-                          InfoText(
-                              orgEmail: widget.organization.email, orgNumber: widget.organization.number, orgAddress: widget.organization.address),
+                          InfoText(orgEmail: widget.organization.email, orgNumber: widget.organization.number, orgAddress: widget.organization.address),
                         ],
                       ),
                     ),
@@ -167,14 +161,14 @@ class _DeliveryConfirmationPageState extends State<DeliveryConfirmationPage> {
                 ),
               ],
             ),
-            SizedBox(height: 25),
+            SizedBox(height: 16),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Container(
                 width: MediaQuery.of(context).size.width,
                 child: FlatButton(
                   onPressed: () {
-                    //TODO Update Firebase and input new order
+                    FirestoreHelper.createDonation(context, widget.donation);
                   },
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30.0),
@@ -183,14 +177,14 @@ class _DeliveryConfirmationPageState extends State<DeliveryConfirmationPage> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 20),
                     child: Text(
-                      'Confirm Your Delivery',
+                      'Confirm Delivery',
                       style: TextStyle(color: colorScheme.onSecondary, fontSize: 20),
                     ),
                   ),
                 ),
               ),
             ),
-            SizedBox(height: 10)
+            SizedBox(height: 16)
           ],
         ),
       ),

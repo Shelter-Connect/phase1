@@ -3,7 +3,7 @@ import 'item.dart';
 class Donation {
   String volunteerId, organizationId;
   DateTime date;
-  Map<String, List<Item>> items = Map();
+  List<Item> items = [];
 
   Donation({
     this.volunteerId,
@@ -15,8 +15,17 @@ class Donation {
     this.volunteerId = donation.volunteerId;
     this.date = donation.date;
     this.date = this.date;
-    for (List<Item> itemList in donation.items.values) {
-      List.copyRange(this.items[donation.items.keys.firstWhere((list) => donation.items[list] == itemList)], 0, itemList);
+    for (Item item in donation.items) {
+      this.items.add(Item.clone(item: item));
     }
+  }
+
+  Map<String, dynamic> toFirestoreMap() {
+    return {
+      'volunteerId': volunteerId,
+      'organizationId': organizationId,
+      'date': date,
+      'items': items.map((item) => item.toFirestoreMap()).toList(),
+    };
   }
 }
