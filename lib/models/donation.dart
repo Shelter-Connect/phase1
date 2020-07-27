@@ -10,12 +10,14 @@ class Donation {
     this.organizationId,
     this.donationId,
     this.items,
+    this.date,
   });
 
   Donation.clone(Donation donation) {
     this.volunteerId = donation.volunteerId;
     this.date = donation.date;
     this.date = this.date;
+    this.organizationId = organizationId;
     this.donationId = donationId;
     for (Item item in donation.items) {
       this.items.add(Item.clone(item: item));

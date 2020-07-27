@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
-import '../../components/floating_text_field.dart';
 import '../../components/alerts.dart';
+import '../../components/floating_text_field.dart';
 import '../../components/rounded_button.dart';
 import '../../components/text_button.dart';
 import '../../constants.dart';
@@ -33,6 +33,7 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
                   Text('Volunteer Sign Up', style: titleStyle),
                   SizedBox(height: 35),
                   FloatingTextField(
+                    keyboardType: TextInputType.emailAddress,
                     hintText: 'Email',
                     onChanged: (val) {
                       email = val.trim();

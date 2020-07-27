@@ -8,11 +8,13 @@ class FloatingTextField extends StatelessWidget {
   final String hintText;
   final Function onChanged;
   final Function onTapped;
+  final int maxLength;
   final int maxLines;
   final bool autofocus;
   final bool obscureText;
   final IconButton suffixIcon;
   final double width;
+  final TextInputType keyboardType;
 
   FloatingTextField(
       {this.hintText,
@@ -25,7 +27,9 @@ class FloatingTextField extends StatelessWidget {
       this.textStyle,
       this.hintStyle,
       this.autofocus = false,
-      this.width});
+      this.width,
+      this.maxLength,
+      this.keyboardType = TextInputType.text});
 
   @override
   Widget build(BuildContext context) {
@@ -43,8 +47,9 @@ class FloatingTextField extends StatelessWidget {
             obscureText: obscureText,
             onChanged: onChanged,
             onTap: onTapped,
+            maxLength: maxLength,
             maxLines: maxLines,
-            keyboardType: TextInputType.text,
+            keyboardType: keyboardType,
             decoration: InputDecoration(
               suffixIcon: suffixIcon,
               contentPadding: EdgeInsets.symmetric(horizontal: 12.0),

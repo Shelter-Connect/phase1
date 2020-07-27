@@ -131,7 +131,8 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                                                 onChanged: (val) {
                                                   Item currentItem = Item.clone(item: item);
                                                   currentItem.amount = val;
-                                                  donation.items.removeWhere((prevItem) => prevItem.name == currentItem.name && prevItem.category == currentItem.category);
+                                                  donation.items.removeWhere(
+                                                      (prevItem) => prevItem.name == currentItem.name && prevItem.category == currentItem.category);
                                                   if (currentItem.amount != 0) donation.items.add(currentItem);
                                                 },
                                               ),
@@ -155,21 +156,12 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                 child: FlatButton(
                   onPressed: () {
                     if (donation.items.length == 0) {
-                      showDialog(
-                          context: context,
-                          builder: (_) => NoActionAlert(title: 'Please select at least one item to donate')
-                      );
+                      showDialog(context: context, builder: (_) => NoActionAlert(title: 'Please select at least one item to donate'));
                     } else if (donation.date == null) {
-                      showDialog(
-                        context: context,
-                        builder: (_) => NoActionAlert(title: 'Please enter the expected delivery date of the donation')
-                      );
+                      showDialog(context: context, builder: (_) => NoActionAlert(title: 'Please enter the expected delivery date of the donation'));
                     } else if (donation.date.isBefore(today)) {
                       print(donation.date);
-                      showDialog(
-                          context: context,
-                          builder: (_) => NoActionAlert(title: 'The expected delivery date cannot be before today')
-                      );
+                      showDialog(context: context, builder: (_) => NoActionAlert(title: 'The expected delivery date cannot be before today'));
                     } else {
                       Navigator.push(
                         context,

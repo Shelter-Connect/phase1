@@ -2,11 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:phase1/components/donation_filter_button.dart';
+import 'package:phase1/models/organization.dart';
+import 'package:phase1/services/firestore_helper.dart';
 import 'package:phase1/services/location_helper.dart';
 
 import '../../components/organization_donation_profile.dart';
 import '../../constants.dart';
-import '../../models/organization.dart';
 import '../navigation_tab.dart';
 
 class DonationOpportunities extends StatefulWidget with NavigationTab {
@@ -54,10 +55,7 @@ class _DonationOpportunitiesState extends State<DonationOpportunities> {
                     ),
                   ),
                   SizedBox(height: 20),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 16.0),
-                    child: DonationFilterButton()
-                  ),
+                  Padding(padding: const EdgeInsets.only(left: 16.0), child: DonationFilterButton()),
                   SizedBox(height: 20.0),
                   StreamBuilder(
                     stream: db.collection('organizations').snapshots(),
@@ -68,14 +66,11 @@ class _DonationOpportunitiesState extends State<DonationOpportunities> {
                       List<Widget> widgets = [];
                       for (DocumentSnapshot organizationSnapshot in snapshot.data.documents) {
                         if (organizationSnapshot['itemCategories'] != null) {
-                          Organization organization = new Organization(
-                              name: organizationSnapshot['name'],
-                              description: organizationSnapshot['description'],
-                              distance: LocationHelper.distance(organizationSnapshot['location'].latitude, organizationSnapshot['location'].longitude,
-                                  userPosition.latitude, userPosition.longitude),
-                              itemCategories: organizationSnapshot['itemCategories'].cast<String>(),
-                              id: organizationSnapshot.documentID,
-                              requestedItems: Map());
+                          Organization organization = FirestoreHelper.getOrganization(
+                              context: context,
+                              organizationId: organizationSnapshot.documentID,
+                              userPosition: userPosition,
+                              organizationSnapshot: organizationSnapshot);
                           widgets.add(OrganizationDonationProfile(organization: organization));
                         }
                       }

@@ -1,6 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:phase1/components/deliveries_container.dart';
 import 'package:phase1/constants.dart';
+import 'package:phase1/models/donation.dart';
+import 'package:phase1/models/organization.dart';
+import 'package:phase1/services/firestore_helper.dart';
+import 'package:phase1/services/location_helper.dart';
 
 import '../navigation_tab.dart';
 
@@ -19,6 +25,18 @@ class CurrentDeliveriesPage extends StatefulWidget with NavigationTab {
 }
 
 class _CurrentDeliveriesPageState extends State<CurrentDeliveriesPage> {
+  Position userPosition;
+
+  @override
+  void initState() {
+    LocationHelper.getUserPosition().then((position) {
+      setState(() {
+        userPosition = position;
+      });
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,19 +52,53 @@ class _CurrentDeliveriesPageState extends State<CurrentDeliveriesPage> {
                 style: TextStyle(fontSize: 35, fontWeight: FontWeight.w900, color: purpleAccent),
               ),
               SizedBox(height: 20),
-              DeliveriesContainer(
-                organizationName: 'HomeFirst',
-                organizationDistance: 5.6,
-              ),
-              SizedBox(height: 15),
-              DeliveriesContainer(
-                organizationName: 'City Team Men\'s Shelter',
-                organizationDistance: 1.8,
-              ),
-              SizedBox(height: 15),
-              DeliveriesContainer(
-                organizationName: 'Loaves and Fishes',
-                organizationDistance: 2.6,
+              StreamBuilder(
+                stream: FirestoreHelper.getCurrentVolunteerReference(context).collection('currentDonations').snapshots(),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return CircularProgressIndicator();
+                  }
+                  List<Widget> widgets = [];
+                  for (DocumentSnapshot donationSnapshot in snapshot.data.documents) {
+                    if (donationSnapshot.exists) {
+                      return StreamBuilder(
+                        stream: db.collection('organizations').snapshots(),
+                        builder: (context, snapshot) {
+                          if (!snapshot.hasData) {
+                            return CircularProgressIndicator();
+                          }
+                          for (DocumentSnapshot organizationSnapshot in snapshot.data.documents) {
+                            if ((organizationSnapshot != null) && (organizationSnapshot.documentID == donationSnapshot['organizationId'])) {
+                              Organization organization = FirestoreHelper.getOrganization(
+                                  context: context,
+                                  organizationId: donationSnapshot['organizationId'],
+                                  userPosition: userPosition,
+                                  organizationSnapshot: organizationSnapshot);
+                              Donation donation = FirestoreHelper.getDonation(
+                                  context: context, donationId: donationSnapshot.documentID, donationSnapshot: donationSnapshot);
+                              widgets.add(DeliveriesContainer(organization: organization, donation: donation));
+                            }
+                          }
+                          return Column(
+                            children: widgets,
+                          );
+                        },
+                      );
+                    }
+                  }
+                  widgets.sort((a, b) {
+                    return (a as DeliveriesContainer).organization.distance.compareTo((b as DeliveriesContainer).organization.distance);
+                  });
+                  for (int i = 1; i < widgets.length; i++) {
+                    widgets.insert(
+                      i++,
+                      SizedBox(height: 16.0),
+                    );
+                  }
+                  return Column(
+                    children: widgets,
+                  );
+                },
               ),
               SizedBox(height: 20),
             ],

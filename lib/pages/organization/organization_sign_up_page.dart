@@ -16,7 +16,7 @@ class OrganizationSignUpPage extends StatefulWidget {
 }
 
 class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
-  String email, password, password2, organizationName, description;
+  String email, password, password2, organizationName, description, number, website;
   GeoPoint location;
   TextEditingController controller = TextEditingController();
   GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: kGoogleApiKey);
@@ -38,6 +38,7 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
                 Text('Organization Sign Up', style: titleStyle),
                 SizedBox(height: 35),
                 FloatingTextField(
+                  keyboardType: TextInputType.emailAddress,
                   hintText: 'Organization Email',
                   onChanged: (val) {
                     email = val.trim();
@@ -99,6 +100,28 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
                   },
                 ),
                 SizedBox(height: 30),
+                FloatingTextField(
+                  maxLength: 10,
+                  keyboardType: TextInputType.number,
+                  onChanged: (val) {
+                    setState(() {
+                      number = val;
+                    });
+                  },
+                  maxLines: null,
+                  hintText: 'Number (Optional)',
+                ),
+                SizedBox(height: 30),
+                FloatingTextField(
+                  onChanged: (val) {
+                    setState(() {
+                      website = val;
+                    });
+                  },
+                  maxLines: null,
+                  hintText: 'Website (Optional)',
+                ),
+                SizedBox(height: 20),
                 RoundedButton(
                   title: 'Create Account',
                   onPressed: () async {
@@ -129,6 +152,8 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
                             'location': location,
                             'address': controller.text,
                             'verified': false,
+                            'number': number,
+                            'website': website,
                           });
                         }
                         FocusScope.of(context).unfocus();

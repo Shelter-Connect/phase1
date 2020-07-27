@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:phase1/models/organization.dart';
 
 import '../../components/standard_layout.dart';
 import '../../constants.dart';
 
 class DeliveryDescriptionPage extends StatefulWidget {
-  final String orgName;
+  final Organization organization;
 
-  DeliveryDescriptionPage({this.orgName});
+  DeliveryDescriptionPage({this.organization});
   @override
   _DeliveryDescriptionPageState createState() => _DeliveryDescriptionPageState();
 }
@@ -24,11 +25,11 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  'Items to Deliver for (Organization Name)',
+                  'Items to Deliver to ${widget.organization.name}',
                   style: TextStyle(fontSize: 35, fontWeight: FontWeight.w900, color: purpleAccent),
                 ),
                 Text(
-                  'Distance: (Distance away)',
+                  'Distance: ${widget.organization.distance.toStringAsFixed(1)}',
                   style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700, color: purpleAccent),
                 ),
                 SizedBox(height: 20),
@@ -101,7 +102,8 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                   ),
                 ),
                 SizedBox(height: 20),
-                OrganizationInformation(orgEmail: 'waddap@gmail.com', orgPhone: '408 408 4080', orgAddress: '2914 Unicorn Drive')
+                OrganizationInformation(
+                    orgEmail: widget.organization.email, orgPhone: widget.organization.number, orgAddress: widget.organization.address)
               ],
             ),
           ),

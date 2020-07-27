@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:phase1/constants.dart';
+import 'package:phase1/models/donation.dart';
+import 'package:phase1/models/organization.dart';
 import 'package:phase1/pages/volunteer/delivery_description_page.dart';
 
 class DeliveriesContainer extends StatelessWidget {
-  final String organizationName;
-  final double organizationDistance;
+  final Organization organization;
+  final Donation donation;
 
-  DeliveriesContainer({this.organizationName, this.organizationDistance});
+  DeliveriesContainer({this.organization, this.donation});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +34,7 @@ class DeliveriesContainer extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                    organizationName,
+                    organization.name,
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -52,7 +54,7 @@ class DeliveriesContainer extends StatelessWidget {
                 ],
               ),
               Text(
-                '$organizationDistance miles',
+                '${organization.distance.toStringAsFixed(1)} miles',
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
                 ),

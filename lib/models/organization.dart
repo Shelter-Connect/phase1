@@ -7,5 +7,14 @@ class Organization {
   List<String> itemCategories = List();
 
   Organization(
-      {this.address, this.website, this.email, this.id, this.description, this.name, this.distance, this.requestedItems, this.itemCategories});
+      {this.address,
+      this.website,
+      this.email,
+      this.id,
+      this.description,
+      this.name,
+      this.distance,
+      this.requestedItems,
+      this.itemCategories,
+      this.number});
 }
