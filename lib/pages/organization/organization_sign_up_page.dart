@@ -101,7 +101,7 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
                 ),
                 SizedBox(height: 30),
                 FloatingTextField(
-                  maxLength: 10,
+                  maxLength: 11,
                   keyboardType: TextInputType.number,
                   onChanged: (val) {
                     setState(() {
