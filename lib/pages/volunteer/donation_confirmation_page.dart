@@ -8,17 +8,17 @@ import 'package:phase1/services/firestore_helper.dart';
 import '../../components/standard_layout.dart';
 import '../../constants.dart';
 
-class DeliveryConfirmationPage extends StatefulWidget {
+class DonationConfirmationPage extends StatefulWidget {
   final Organization organization;
   final Donation donation;
 
-  DeliveryConfirmationPage(this.organization, this.donation);
+  DonationConfirmationPage(this.organization, this.donation);
 
   @override
-  _DeliveryConfirmationPageState createState() => _DeliveryConfirmationPageState();
+  _DonationConfirmationPageState createState() => _DonationConfirmationPageState();
 }
 
-class _DeliveryConfirmationPageState extends State<DeliveryConfirmationPage> {
+class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
   @override
   Widget build(BuildContext context) {
     widget.donation.items.sort((a, b) => a.category.compareTo(b.category));
@@ -168,6 +168,7 @@ class _DeliveryConfirmationPageState extends State<DeliveryConfirmationPage> {
                 width: MediaQuery.of(context).size.width,
                 child: FlatButton(
                   onPressed: () {
+                    Navigator.popUntil(context, ModalRoute.withName('/volunteer_navigation'));
                     FirestoreHelper.createDonation(context, widget.donation);
                   },
                   shape: RoundedRectangleBorder(
@@ -177,7 +178,7 @@ class _DeliveryConfirmationPageState extends State<DeliveryConfirmationPage> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 20),
                     child: Text(
-                      'Confirm Delivery',
+                      'Confirm Donation',
                       style: TextStyle(color: colorScheme.onSecondary, fontSize: 20),
                     ),
                   ),

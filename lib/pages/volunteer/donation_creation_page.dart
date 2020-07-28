@@ -6,7 +6,7 @@ import 'package:phase1/models/donation.dart';
 import 'package:phase1/models/item.dart';
 import 'package:phase1/models/organization.dart';
 import 'package:phase1/models/user.dart';
-import 'package:phase1/pages/volunteer/delivery_confirmation.dart';
+import 'package:phase1/pages/volunteer/donation_confirmation_page.dart';
 import 'package:provider/provider.dart';
 
 import '../../components/standard_layout.dart';
@@ -173,7 +173,7 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                     } else {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => DeliveryConfirmationPage(widget.organization, donation)),
+                        MaterialPageRoute(builder: (context) => DonationConfirmationPage(widget.organization, donation)),
                       );
                     }
                   },
@@ -184,7 +184,7 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 20),
                     child: Text(
-                      'Finalize Your Donation',
+                      'Finalize Donation',
                       style: TextStyle(color: colorScheme.onSecondary, fontSize: 20),
                     ),
                   ),
