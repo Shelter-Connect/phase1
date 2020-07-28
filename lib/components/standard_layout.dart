@@ -13,15 +13,15 @@ class StandardLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: color ?? whiteBackground,
+      backgroundColor: color ?? Color(0xFFF5F5F5),
       appBar: AppBar(
-        backgroundColor: color ?? whiteBackground,
+        backgroundColor: color ?? Color(0xFFF5F5F5),
         elevation: 0.0,
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(Icons.arrow_back, color: purpleAccent),
+          icon: Icon(Icons.keyboard_arrow_left, size: 35, color: purpleAccent),
         ),
         title: Text(title,
             style: TextStyle(

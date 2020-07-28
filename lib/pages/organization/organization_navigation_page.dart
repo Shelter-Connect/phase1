@@ -26,14 +26,14 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
-        backgroundColor: whiteBackground,
+        backgroundColor: Color(0xFFF5F5F5),
         appBar: AppBar(
           brightness: Brightness.light,
           title: Text(
             _pages[_selectedIndex].title,
-            style: TextStyle(color: whiteBackground),
+            style: TextStyle(color: Color(0xFFF5F5F5)),
           ),
-          backgroundColor: whiteBackground,
+          backgroundColor: Color(0xFFF5F5F5),
           elevation: 0.0,
           leading: Builder(
             builder: (context) => IconButton(

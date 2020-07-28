@@ -11,7 +11,7 @@ class DashboardComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Container(
-      decoration: BoxDecoration(color: colorScheme.onSecondary, borderRadius: BorderRadius.all(Radius.circular(20))),
+      decoration: elevatedBoxStyle,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
         child: SingleChildScrollView(

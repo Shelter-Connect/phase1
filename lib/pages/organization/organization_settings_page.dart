@@ -23,7 +23,7 @@ class _OrganizationSettingsPageState extends State<OrganizationSettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: whiteBackground,
+      backgroundColor: Color(0xFFF5F5F5),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,7 +60,7 @@ class UserInfo extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Container(
-        decoration: BoxDecoration(color: colorScheme.onSecondary, borderRadius: BorderRadius.all(Radius.circular(20))),
+        decoration: elevatedBoxStyle,
         height: 224,
         width: MediaQuery.of(context).size.width,
         child: Padding(
@@ -173,7 +173,7 @@ class OrganizationInfo extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Container(
-        decoration: BoxDecoration(color: colorScheme.onSecondary, borderRadius: BorderRadius.all(Radius.circular(20))),
+        decoration: elevatedBoxStyle,
         height: 224,
         width: MediaQuery.of(context).size.width,
         child: Padding(

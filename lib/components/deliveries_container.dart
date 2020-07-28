@@ -16,11 +16,8 @@ class DeliveriesContainer extends StatelessWidget {
       onPressed: () {
         Navigator.push(context, MaterialPageRoute(builder: (context) => DeliveryDescriptionPage(organization, donation)));
       },
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20.0),
-      ),
       child: Container(
-        decoration: BoxDecoration(color: colorScheme.onSecondary, borderRadius: BorderRadius.all(Radius.circular(20))),
+        decoration: elevatedBoxStyle,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
           child: Column(

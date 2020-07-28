@@ -11,7 +11,7 @@ class SlideItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(color: colorScheme.onSecondary, borderRadius: BorderRadius.all(Radius.circular(20))),
+      decoration: elevatedBoxStyle,
       child: Row(
         children: <Widget>[
           SizedBox(width: 10),

@@ -43,7 +43,7 @@ class _CurrentDeliveriesPageState extends State<CurrentDeliveriesPage> {
     return userPosition == null
         ? Center(child: CircularProgressIndicator())
         : Scaffold(
-            backgroundColor: whiteBackground,
+            backgroundColor: Color(0xFFF5F5F5),
             body: SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),

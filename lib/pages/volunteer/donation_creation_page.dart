@@ -55,10 +55,7 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
               ),
               SizedBox(height: 15.0),
               Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(21.0),
-                  color: Colors.white,
-                ),
+                decoration: elevatedBoxStyle,
                 padding: const EdgeInsets.all(20.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -87,7 +84,7 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                       Column(
                         children: [
                           Container(
-                            decoration: BoxDecoration(color: colorScheme.onSecondary, borderRadius: BorderRadius.all(Radius.circular(20))),
+                            decoration: elevatedBoxStyle,
                             child: Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
                               child: Column(

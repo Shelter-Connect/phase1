@@ -55,7 +55,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
             )
           : SingleChildScrollView(
               child: Container(
-                color: whiteBackground,
+                color: Color(0xFFF5F5F5),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
                   child: Column(
@@ -72,7 +72,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                       SizedBox(height: 20),
                       Container(
                         width: MediaQuery.of(context).size.width,
-                        decoration: BoxDecoration(color: colorScheme.onSecondary, borderRadius: BorderRadius.all(Radius.circular(20))),
+                        decoration: elevatedBoxStyle,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
                           child: Column(
@@ -211,7 +211,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                       Column(
                         children: <Widget>[
                           Container(
-                            decoration: BoxDecoration(color: colorScheme.background, borderRadius: BorderRadius.all(Radius.circular(20))),
+                            decoration: elevatedBoxStyle,
                             width: MediaQuery.of(context).size.width,
                             child: Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16.0),

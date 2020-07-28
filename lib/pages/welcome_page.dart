@@ -58,8 +58,8 @@ class _WelcomePageState extends State<WelcomePage> {
               RoundedButton(
                 title: 'Continue as Volunteer',
                 onPressed: () {
-                  Navigator.pushNamed(context, '/volunteer_sign_up');
-                },
+                Navigator.pushNamed(context, '/volunteer_sign_up');
+              },
               ),
               RoundedButton(
                 title: 'Continue as Organization',
