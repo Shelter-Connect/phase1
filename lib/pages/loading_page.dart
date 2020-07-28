@@ -38,7 +38,7 @@ class _LoadingPageState extends State<LoadingPage> {
         if (ModalRoute.of(context).isCurrent) {
           Navigator.pushNamed(context, '/welcome_updated');
         } else {
-          Navigator.pop(context);
+          Navigator.popUntil(context, ModalRoute.withName('/welcome_updated'));
         }
       }
     });

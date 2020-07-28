@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/services.dart';
 
-import '../../components/alerts.dart';
 import '../../constants.dart';
 import '../navigation_tab.dart';
 import 'current_requests_page.dart';
@@ -81,21 +80,6 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
                               ),
                             ),
                             Text(Provider.of<User>(context, listen: false).user.email),
-                            Row(
-                              children: <Widget>[
-                                InkWell(
-                                  child: new Text('Give Feedback', style: TextStyle(color: Colors.black, fontWeight: FontWeight.w500, fontSize: 17)),
-                                  onTap: () => launch('https://forms.gle/jE2RsAZikARdDqh28'),
-                                ),
-                                IconButton(
-                                  icon: Icon(Icons.format_list_bulleted),
-                                  onPressed: () {
-                                    launch('https://forms.gle/jE2RsAZikARdDqh28');
-                                  },
-                                  iconSize: 18,
-                                ),
-                              ],
-                            ),
                           ],
                         ),
                       ),
@@ -118,22 +102,10 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
                   ),
                 ),
                 ListTile(
-                  title: Text('Sign Out'),
-                  leading: Icon(Icons.exit_to_app, color: colorScheme.error),
+                  title: Text('Give Feedback'),
+                  leading: Icon(Icons.feedback),
                   onTap: () {
-                    showDialog(
-                      context: context,
-                      builder: (_) => SingleActionAlert(
-                        title: 'Sign Out?',
-                        subtitle: 'Your login information will not be remembered.',
-                        actionName: 'Sign Out',
-                        action: () {
-                          Navigator.pop(context);
-                          Navigator.pop(context);
-                          auth.signOut();
-                        },
-                      ),
-                    );
+                    launch('https://forms.gle/ue5idWtztcgevh9Q7');
                   },
                 ),
               ],
@@ -167,20 +139,6 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text('Help', style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
-                      Row(
-                        children: <Widget>[
-                          InkWell(
-                              child: new Text('Report Issues', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 17)),
-                              onTap: () => launch('https://forms.gle/ue5idWtztcgevh9Q7')),
-                          IconButton(
-                            iconSize: 30,
-                            onPressed: () {
-                              launch('https://forms.gle/ue5idWtztcgevh9Q7');
-                            },
-                            icon: Icon(Icons.bug_report),
-                          ),
-                        ],
-                      ),
                     ],
                   ),
                 ),

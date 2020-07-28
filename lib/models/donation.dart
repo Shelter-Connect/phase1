@@ -31,6 +31,7 @@ class Donation {
       category: item['category'],
     )).toList().cast<Item>();
     organization = Organization(
+      name: donationSnapshot['organizationName'],
       description: donationSnapshot['organizationDescription'],
       email: donationSnapshot['organizationEmail'],
       address: donationSnapshot['organizationAddress'],

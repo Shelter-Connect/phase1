@@ -1,11 +1,9 @@
-import 'dart:math' show pi;
-
 import 'package:flutter/material.dart';
 import 'package:phase1/models/user_position.dart';
 import 'package:phase1/pages/volunteer/volunteer_settings_page.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-import '../../components/alerts.dart';
 import '../../constants.dart';
 import '../../models/user.dart';
 import '../navigation_tab.dart';
@@ -109,22 +107,10 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
                     ),
                   ),
                   ListTile(
-                    title: Text('Sign Out'),
-                    leading: Transform.rotate(angle: pi, child: Icon(Icons.exit_to_app, color: colorScheme.error)),
+                    title: Text('Give Feedback'),
+                    leading: Icon(Icons.feedback),
                     onTap: () {
-                      showDialog(
-                        context: context,
-                        builder: (_) => SingleActionAlert(
-                          title: 'Sign Out?',
-                          subtitle: 'Your login information will not be remembered.',
-                          actionName: 'Sign Out',
-                          action: () {
-                            Navigator.pop(context);
-                            Navigator.pop(context);
-                            auth.signOut();
-                          },
-                        ),
-                      );
+                      launch('https://forms.gle/ue5idWtztcgevh9Q7');
                     },
                   ),
                 ],

@@ -38,56 +38,54 @@ class _DonationOpportunitiesState extends State<DonationOpportunities> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFF5F5F5),
-      body: Provider.of<UserPosition>(context).position == null
-          ? Center(child: CircularProgressIndicator())
-          : SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
-                    child: Text(
-                      'Donation Opportunities',
-                      style: TextStyle(fontSize: 35, fontWeight: FontWeight.w900, color: purpleAccent),
-                    ),
-                  ),
-                  SizedBox(height: 20),
-                  Padding(padding: const EdgeInsets.only(left: 16.0), child: DonationFilterButton()),
-                  SizedBox(height: 20.0),
-                  StreamBuilder(
-                    stream: db.collection('organizations').snapshots(),
-                    builder: (context, snapshot) {
-                      if (!snapshot.hasData) {
-                        return Center(child: CircularProgressIndicator());
-                      }
-                      List<Widget> widgets = [];
-                      for (DocumentSnapshot organizationSnapshot in snapshot.data.documents) {
-                        if (organizationSnapshot['itemCategories'] != null) {
-                          Organization organization = Organization.fromFirestoreMap(context: context, organizationSnapshot: organizationSnapshot);
-                          widgets.add(OrganizationDonationProfile(organization: organization));
-                        }
-                      }
-                      widgets.sort((a, b) {
-                        return (a as OrganizationDonationProfile)
-                            .organization
-                            .distance
-                            .compareTo((b as OrganizationDonationProfile).organization.distance);
-                      });
-                      for (int i = 1; i < widgets.length; i++) {
-                        widgets.insert(
-                          i++,
-                          SizedBox(height: 20.0),
-                        );
-                      }
-                      return Column(
-                        children: widgets,
-                      );
-                    },
-                  ),
-                  SizedBox(height: 20.0),
-                ],
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
+              child: Text(
+                'Donation Opportunities',
+                style: TextStyle(fontSize: 35, fontWeight: FontWeight.w900, color: purpleAccent),
               ),
             ),
+            SizedBox(height: 20),
+            Padding(padding: const EdgeInsets.only(left: 16.0), child: DonationFilterButton()),
+            SizedBox(height: 20.0),
+            StreamBuilder(
+              stream: db.collection('organizations').snapshots(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData || Provider.of<UserPosition>(context).position == null) {
+                  return Center(child: CircularProgressIndicator());
+                }
+                List<Widget> widgets = [];
+                for (DocumentSnapshot organizationSnapshot in snapshot.data.documents) {
+                  if (organizationSnapshot['itemCategories'] != null) {
+                    Organization organization = Organization.fromFirestoreMap(context: context, organizationSnapshot: organizationSnapshot);
+                    widgets.add(OrganizationDonationProfile(organization: organization));
+                  }
+                }
+                widgets.sort((a, b) {
+                  return (a as OrganizationDonationProfile)
+                      .organization
+                      .distance
+                      .compareTo((b as OrganizationDonationProfile).organization.distance);
+                });
+                for (int i = 1; i < widgets.length; i++) {
+                  widgets.insert(
+                    i++,
+                    SizedBox(height: 20.0),
+                  );
+                }
+                return Column(
+                  children: widgets,
+                );
+              },
+            ),
+            SizedBox(height: 20.0),
+          ],
+        ),
+      ),
     );
   }
 }

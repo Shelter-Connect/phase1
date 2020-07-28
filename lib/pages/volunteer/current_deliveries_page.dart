@@ -4,7 +4,6 @@ import 'package:geolocator/geolocator.dart';
 import 'package:phase1/components/deliveries_container.dart';
 import 'package:phase1/constants.dart';
 import 'package:phase1/models/donation.dart';
-import 'package:phase1/models/organization.dart';
 import 'package:phase1/models/user_position.dart';
 import 'package:phase1/services/firestore_helper.dart';
 import 'package:phase1/services/location_helper.dart';
@@ -64,19 +63,8 @@ class _CurrentDeliveriesPageState extends State<CurrentDeliveriesPage> {
                   List<Widget> widgets = [];
                   Position userPosition = Provider.of<UserPosition>(context, listen:false).position;
                   for (DocumentSnapshot donationSnapshot in snapshot.data.documents) {
-                    Organization organization = Organization(
-                      address: donationSnapshot['organizationAddress'],
-                      location: Position(latitude: donationSnapshot['organizationLocation'].latitude, longitude: donationSnapshot['organizationLocation'].longitude),
-                      email: donationSnapshot['organizationEmail'],
-                      id: donationSnapshot.documentID,
-                      description: donationSnapshot['organizationDescription'],
-                      name: donationSnapshot['organizationName'],
-                      distance: userPosition != null ? LocationHelper.distance(
-                          donationSnapshot['organizationLocation'].latitude, donationSnapshot['organizationLocation'].longitude, userPosition.latitude, userPosition.longitude
-                      ) : null,
-                    );
                     Donation donation = Donation.fromFirestoreMap(context: context, donationSnapshot: donationSnapshot);
-                    widgets.add(DeliveriesContainer(organization: organization, donation: donation));
+                    widgets.add(DeliveriesContainer(donation: donation));
                   }
                   for (int i = 1; i < widgets.length; i++) {
                     widgets.insert(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phase1/components/alerts.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants.dart';
@@ -284,33 +285,13 @@ class DeleteAccount extends StatelessWidget {
         onTap: () {
           showDialog(
             context: context,
-            builder: (_) => AlertDialog(
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-              title:
-                  Text('You cannot recover your account once you delete it. All progress, past donations, and current donations will be deleted too. '
-                      'Are you sure to complete this process?'),
-              actions: [
-                FlatButton(
-                  child: Text(
-                    'Cancel',
-                    style: TextStyle(color: colorScheme.secondary),
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
-                FlatButton(
-                  child: Text(
-                    'Delete My Account',
-                    style: TextStyle(color: colorScheme.error),
-                  ),
-                  onPressed: () {
-//                    auth.currentUser().then((user) => user.delete());
-                    auth.signOut();
-                    //TODO Delete DB
-                  },
-                ),
-              ],
+            builder: (_) => SingleActionAlert(
+              action: () {
+                auth.signOut();
+              },
+              actionName: 'Sign Out',
+              title: 'Sign Out?',
+              subtitle: 'Your login info will not be remembered.',
             ),
           );
         },
@@ -322,7 +303,7 @@ class DeleteAccount extends StatelessWidget {
           ),
           child: Center(
             child: Text(
-              'Delete Account',
+              'Sign Out',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700, color: colorScheme.onSecondary),
             ),
           ),

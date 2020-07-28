@@ -71,20 +71,7 @@ class _OrganizationDashboardPageState extends State<OrganizationDashboardPage> {
                   ],
                 ),
               ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: TextButton(
-                  text: 'See all Expected Deliveries',
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => ExpectedDeliveriesPage()),
-                    );
-                    //TODO: Make this button go to Expected Deliveries
-                  },
-                ),
-              ),
-              SizedBox(height: 5),
+              SizedBox(height: 20.0),
               Text(
                 '# Expected Deliveries Tomorrow',
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700, color: purpleLight),
@@ -240,7 +227,7 @@ class _OrganizationDashboardPageState extends State<OrganizationDashboardPage> {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
         backgroundColor: purpleAccent,
         heroTag: 'create request',
         // Create request testing code
@@ -250,8 +237,9 @@ class _OrganizationDashboardPageState extends State<OrganizationDashboardPage> {
             MaterialPageRoute(builder: (context) => CreateRequestPage()),
           );
         },
-        child: Icon(
-          Icons.add,
+        label: Text('New Request'),
+        icon: Icon(
+          Icons.edit,
           color: colorScheme.onSecondary,
         ),
       ),

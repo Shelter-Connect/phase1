@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:phase1/constants.dart';
 import 'package:phase1/models/donation.dart';
-import 'package:phase1/models/organization.dart';
 import 'package:phase1/pages/volunteer/delivery_description_page.dart';
 
 class DeliveriesContainer extends StatelessWidget {
-  final Organization organization;
   final Donation donation;
 
-  DeliveriesContainer({this.organization, this.donation});
+  DeliveriesContainer({this.donation});
 
   @override
   Widget build(BuildContext context) {
     return RawMaterialButton(
       onPressed: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => DeliveryDescriptionPage(organization, donation)));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => DeliveryDescriptionPage(donation.organization, donation)));
       },
       child: Container(
         decoration: elevatedBoxStyle,
@@ -31,7 +29,7 @@ class DeliveriesContainer extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                    organization.name,
+                    donation.organization.name,
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w600,

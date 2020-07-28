@@ -28,23 +28,15 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  'Items to Deliver to ${widget.organization.name}',
+                  'Delivery to ${widget.organization.name}',
                   style: TextStyle(
                       fontSize: 35,
                       fontWeight: FontWeight.w900,
                       color: purpleAccent),
                 ),
-                Text(
-                  'Distance: ${widget.organization.distance.toStringAsFixed(1)}',
-                  style: TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.w700,
-                      color: purpleAccent),
-                ),
                 SizedBox(height: 20),
                 OrganizationInformation(
                     orgEmail: widget.organization.email,
-                    orgPhone: widget.organization.number,
                     orgAddress: widget.organization.address),
                 SizedBox(height: 20),
                 Container(
@@ -127,14 +119,10 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
 
 class OrganizationInformation extends StatelessWidget {
   final String orgEmail;
-
-  final String orgPhone;
-
   final String orgAddress;
 
   OrganizationInformation(
       {@required this.orgEmail,
-      @required this.orgPhone,
       @required this.orgAddress});
 
   @override
@@ -191,27 +179,7 @@ class OrganizationInformation extends StatelessWidget {
                       ]),
                     ),
                     SizedBox(
-                      height: 10,
-                    ),
-                    RichText(
-                      text: TextSpan(children: <TextSpan>[
-                        TextSpan(
-                            text: 'Phone Number: ',
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: colorScheme.onBackground,
-                            )),
-                        TextSpan(
-                            text: orgPhone,
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
-                              color: colorScheme.onBackground,
-                            ))
-                      ]),
-                    ),
-                    SizedBox(
-                      height: 10,
+                      height: 5,
                     ),
                     RichText(
                       text: TextSpan(children: <TextSpan>[
