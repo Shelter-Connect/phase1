@@ -139,6 +139,20 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text('Help', style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
+                      Row(
+                        children: <Widget>[
+                          InkWell(
+                              child: new Text('Report Issues', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 17)),
+                              onTap: () => launch('https://forms.gle/ue5idWtztcgevh9Q7')),
+                          IconButton(
+                            iconSize: 30,
+                            onPressed: () {
+                              launch('https://forms.gle/ue5idWtztcgevh9Q7');
+                            },
+                            icon: Icon(Icons.bug_report),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ),
