@@ -46,10 +46,7 @@ class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
                       alignment: Alignment.centerLeft,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(41),
-                        color: colorScheme.onSecondary,
-                      ),
+                      decoration: subElevatedBoxStyle,
                       width: 100,
                       height: 50,
                       padding: EdgeInsets.symmetric(horizontal: 7.0, vertical: 0),
@@ -87,10 +84,7 @@ class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
                   child: Container(
                       width: 100,
                       height: 50,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(41),
-                        color: colorScheme.onSecondary,
-                      ),
+                      decoration: subElevatedBoxStyle,
                       padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 0),
                       child: FlatButton(
                         padding: EdgeInsets.all(0),

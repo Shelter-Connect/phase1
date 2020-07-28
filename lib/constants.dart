@@ -24,6 +24,26 @@ final subHeaderStyle = TextStyle(
   fontWeight: FontWeight.w400,
   fontSize: 17.0,
 );
+final elevatedBoxStyle = BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10), boxShadow: [
+  BoxShadow(
+      color: Color(0xFFDEDEDE),
+      blurRadius: 8.0,
+      spreadRadius: 1.5,
+      offset: Offset(
+        0.0,
+        0.0,
+      )),
+]);
+final subElevatedBoxStyle = BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(40), boxShadow: [
+  BoxShadow(
+      color: Color(0xFFDEDEDE),
+      blurRadius: 8.0,
+      spreadRadius: 1.5,
+      offset: Offset(
+        0.0,
+        0.0,
+      )),
+]);
 
 //Colors
 final colorScheme = ColorScheme(

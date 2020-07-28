@@ -89,7 +89,22 @@ class ChooseItemPage extends StatelessWidget {
                                   },
                                 )))
                                 .values
-                                .toList()
+                                .toList(),
+                            CategoryIconButton(
+                              asset: 'assets/other_svgs/other.svg',
+                              name: 'Other',
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ChooseItemPage(
+                                          categoryIcon: 'assets/other_svgs/other.svg',
+                                          categoryName: 'Other',
+                                          items: {},
+                                          categoryInfo: 'For people to live even at the bare minimum, they require more than the necessities')),
+                                );
+                              },
+                            ),
                           ],
                         ),
                       ],

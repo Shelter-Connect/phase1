@@ -36,7 +36,7 @@ class _LoadingPageState extends State<LoadingPage> {
         });
       } else {
         if (ModalRoute.of(context).isCurrent) {
-          Navigator.pushNamed(context, '/welcome');
+          Navigator.pushNamed(context, '/welcome_updated');
         } else {
           Navigator.pop(context);
         }

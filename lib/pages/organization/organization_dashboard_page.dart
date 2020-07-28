@@ -36,7 +36,7 @@ class _OrganizationDashboardPageState extends State<OrganizationDashboardPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: whiteBackground,
+      backgroundColor: Color(0xFFF5F5F5),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),

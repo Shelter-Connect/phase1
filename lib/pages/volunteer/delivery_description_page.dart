@@ -48,9 +48,7 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                     orgAddress: widget.organization.address),
                 SizedBox(height: 20),
                 Container(
-                  decoration: BoxDecoration(
-                      color: colorScheme.background,
-                      borderRadius: BorderRadius.all(Radius.circular(20))),
+                  decoration: elevatedBoxStyle,
                   width: MediaQuery.of(context).size.width,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
@@ -144,9 +142,7 @@ class OrganizationInformation extends StatelessWidget {
     return Column(
       children: <Widget>[
         Container(
-          decoration: BoxDecoration(
-              color: colorScheme.background,
-              borderRadius: BorderRadius.all(Radius.circular(20))),
+          decoration: elevatedBoxStyle,
           width: MediaQuery.of(context).size.width,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16.0),

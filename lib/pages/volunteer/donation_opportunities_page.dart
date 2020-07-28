@@ -38,7 +38,7 @@ class _DonationOpportunitiesState extends State<DonationOpportunities> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: whiteBackground,
+      backgroundColor: Color(0xFFF5F5F5),
       body: Provider.of<UserPosition>(context).position == null
           ? Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
@@ -48,7 +48,7 @@ class _DonationOpportunitiesState extends State<DonationOpportunities> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
                     child: Text(
-                      'Donation Opportunities',
+                      'Donation Opportunities.',
                       style: TextStyle(fontSize: 35, fontWeight: FontWeight.w900, color: purpleAccent),
                     ),
                   ),
@@ -81,7 +81,7 @@ class _DonationOpportunitiesState extends State<DonationOpportunities> {
                       for (int i = 1; i < widgets.length; i++) {
                         widgets.insert(
                           i++,
-                          SizedBox(height: 16.0),
+                          SizedBox(height: 20.0),
                         );
                       }
                       return Column(
@@ -89,6 +89,7 @@ class _DonationOpportunitiesState extends State<DonationOpportunities> {
                       );
                     },
                   ),
+                  SizedBox(height: 60),
                 ],
               ),
             ),

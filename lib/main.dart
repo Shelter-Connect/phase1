@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:phase1/welcome_updated.dart';
 import 'package:provider/provider.dart';
 
 import 'models/user.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         routes: {
           '/welcome': (_) => WelcomePage(),
+          '/welcome_updated': (_) => HomePage(),
           '/': (_) => LoadingPage(),
           '/login': (_) => LoginPage(),
           '/organization_confirmation': (_) => OrganizationConfirmationPage(),
