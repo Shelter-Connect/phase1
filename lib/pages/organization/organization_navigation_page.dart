@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:phase1/models/user.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter/services.dart';
 
 import '../../components/alerts.dart';
 import '../../constants.dart';
@@ -43,6 +45,10 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
             ),
           ),
           actions: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(left: 8.0, right: 8, bottom: 8, top: 17),
+              child: InkWell(child: new Text('Experiencing Issues?', style: TextStyle(color: purpleAccent, fontSize: 17)), onTap: () => launch('https://forms.gle/ue5idWtztcgevh9Q7')),
+            ),
             Visibility(
               visible: _pages[_selectedIndex].helpDescription != '',
               child: IconButton(
@@ -75,6 +81,21 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
                               ),
                             ),
                             Text(Provider.of<User>(context, listen: false).user.email),
+                            Row(
+                              children: <Widget>[
+                                InkWell(
+                                  child: new Text('Give Feedback', style: TextStyle(color: Colors.black, fontWeight: FontWeight.w500, fontSize: 17)),
+                                  onTap: () => launch('https://forms.gle/jE2RsAZikARdDqh28'),
+                                ),
+                                IconButton(
+                                  icon: Icon(Icons.format_list_bulleted),
+                                  onPressed: () {
+                                    launch('https://forms.gle/jE2RsAZikARdDqh28');
+                                  },
+                                  iconSize: 18,
+                                ),
+                              ],
+                            ),
                           ],
                         ),
                       ),
@@ -146,7 +167,20 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text('Help', style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
-                      Icon(Icons.help, size: 30),
+                      Row(
+                        children: <Widget>[
+                          InkWell(
+                              child: new Text('Report Issues', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 17)),
+                              onTap: () => launch('https://forms.gle/ue5idWtztcgevh9Q7')),
+                          IconButton(
+                            iconSize: 30,
+                            onPressed: () {
+                              launch('https://forms.gle/ue5idWtztcgevh9Q7');
+                            },
+                            icon: Icon(Icons.bug_report),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ),
