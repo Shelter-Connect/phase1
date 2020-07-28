@@ -27,7 +27,18 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
 
   @override
   void initState() {
-    donation = Donation(organizationId: widget.organization.id, volunteerId: Provider.of<User>(context, listen: false).user.uid);
+    donation = Donation(
+      volunteerId: Provider.of<User>(context, listen: false).user.uid,
+      volunteerEmail: Provider.of<User>(context, listen: false).user.email,
+      organization: Organization(
+        id: widget.organization.id,
+        name: widget.organization.name,
+        description: widget.organization.description,
+        email: widget.organization.email,
+        address: widget.organization.address,
+        location: widget.organization.location,
+      ),
+    );
     donation.items = [];
     super.initState();
   }

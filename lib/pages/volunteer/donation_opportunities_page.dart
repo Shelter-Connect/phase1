@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:phase1/components/donation_filter_button.dart';
 import 'package:phase1/models/organization.dart';
 import 'package:phase1/models/user_position.dart';
-import 'package:phase1/services/firestore_helper.dart';
 import 'package:phase1/services/location_helper.dart';
 import 'package:provider/provider.dart';
 
@@ -48,7 +47,7 @@ class _DonationOpportunitiesState extends State<DonationOpportunities> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
                     child: Text(
-                      'Donation Opportunities.',
+                      'Donation Opportunities',
                       style: TextStyle(fontSize: 35, fontWeight: FontWeight.w900, color: purpleAccent),
                     ),
                   ),
@@ -64,11 +63,7 @@ class _DonationOpportunitiesState extends State<DonationOpportunities> {
                       List<Widget> widgets = [];
                       for (DocumentSnapshot organizationSnapshot in snapshot.data.documents) {
                         if (organizationSnapshot['itemCategories'] != null) {
-                          Organization organization = FirestoreHelper.getOrganization(
-                              context: context,
-                              organizationId: organizationSnapshot.documentID,
-                              userPosition: Provider.of<UserPosition>(context).position,
-                              organizationSnapshot: organizationSnapshot);
+                          Organization organization = Organization.fromFirestoreMap(context: context, organizationSnapshot: organizationSnapshot);
                           widgets.add(OrganizationDonationProfile(organization: organization));
                         }
                       }
@@ -89,7 +84,7 @@ class _DonationOpportunitiesState extends State<DonationOpportunities> {
                       );
                     },
                   ),
-                  SizedBox(height: 60),
+                  SizedBox(height: 20.0),
                 ],
               ),
             ),

@@ -50,13 +50,6 @@ class DeliveriesContainer extends StatelessWidget {
                   ),
                 ],
               ),
-              Text(
-                '${organization.distance.toStringAsFixed(1)} miles',
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
               Container(
                 height: 5,
                 width: 50,
