@@ -4,6 +4,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:phase1/components/deliveries_container.dart';
 import 'package:phase1/constants.dart';
 import 'package:phase1/models/donation.dart';
+import 'package:phase1/models/item.dart';
 import 'package:phase1/models/organization.dart';
 import 'package:phase1/services/firestore_helper.dart';
 import 'package:phase1/services/location_helper.dart';
@@ -55,7 +56,7 @@ class _CurrentDeliveriesPageState extends State<CurrentDeliveriesPage> {
                     ),
                     SizedBox(height: 20),
                     StreamBuilder(
-                      stream: FirestoreHelper.getCurrentVolunteerReference(context).collection('currentDonations').snapshots(),
+                      stream: FirestoreHelper.getCurrentVolunteerReference(context).collection('currentDonations').orderBy('date').snapshots(),
                       builder: (context, snapshot) {
                         return StreamBuilder(
                           stream: db.collection('organizations').snapshots(),
@@ -75,14 +76,14 @@ class _CurrentDeliveriesPageState extends State<CurrentDeliveriesPage> {
                                         organizationSnapshot: organizationSnapshot);
                                     Donation donation = FirestoreHelper.getDonation(
                                         context: context, donationId: donationSnapshot.documentID, donationSnapshot: donationSnapshot);
+                                    for (Item item in donation.items) {
+                                      print(item.name);
+                                    }
                                     widgets.add(DeliveriesContainer(organization: organization, donation: donation));
                                   }
                                 }
                               }
                             }
-                            widgets.sort((a, b) {
-                              return (a as DeliveriesContainer).organization.distance.compareTo((b as DeliveriesContainer).organization.distance);
-                            });
                             for (int i = 1; i < widgets.length; i++) {
                               widgets.insert(
                                 i++,

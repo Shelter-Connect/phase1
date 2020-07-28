@@ -14,19 +14,13 @@ class DeliveriesContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return RawMaterialButton(
       onPressed: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) =>
-                    DeliveryDescriptionPage(organization, donation)));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => DeliveryDescriptionPage(organization, donation)));
       },
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20.0),
       ),
       child: Container(
-        decoration: BoxDecoration(
-            color: colorScheme.onSecondary,
-            borderRadius: BorderRadius.all(Radius.circular(20))),
+        decoration: BoxDecoration(color: colorScheme.onSecondary, borderRadius: BorderRadius.all(Radius.circular(20))),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
           child: Column(
@@ -66,29 +60,28 @@ class DeliveriesContainer extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              SizedBox(height: 15),
               Container(
                 height: 5,
                 width: 50,
-                decoration: BoxDecoration(
-                    color: purpleAccent,
-                    borderRadius: BorderRadius.circular(21)),
+                decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
               ),
-              ...donation.items
-                  .map(
-                    (item) => Padding(
-                      padding: const EdgeInsets.only(bottom: 5.0),
-                      child: Text(
-                        '${item.name} x ${item.amount}',
-                        style: TextStyle(
-                          fontSize: 17.0,
-                          fontWeight: FontWeight.w400,
-                        ),
+              SizedBox(height: 10),
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: donation.items.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 5.0),
+                    child: Text(
+                      '${donation.items[index].name} x ${donation.items[index].amount}',
+                      style: TextStyle(
+                        fontSize: 17.0,
+                        fontWeight: FontWeight.w400,
                       ),
                     ),
-                  )
-                  .toList(),
-              SizedBox(height: 5),
+                  );
+                },
+              ),
             ],
           ),
         ),

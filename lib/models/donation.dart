@@ -3,7 +3,7 @@ import 'item.dart';
 class Donation {
   String volunteerId, organizationId, donationId;
   DateTime date;
-  List<Item> items = [];
+  List<Item> items = List();
 
   Donation({
     this.volunteerId,

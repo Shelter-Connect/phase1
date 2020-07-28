@@ -46,7 +46,15 @@ class FirestoreHelper {
       organizationId: donationSnapshot['organizationId'],
       donationId: donationId != null ? donationId : donationSnapshot.documentID,
       date: donationSnapshot['date'].toDate(),
-      items: donationSnapshot['items'].cast<Item>(),
+      items: donationSnapshot['items']
+          .map((item) => Item(
+                name: item['name'],
+                amount: item['amount'],
+                specificDescription: item['specificDescription'],
+                category: item['category'],
+              ))
+          .toList()
+          .cast<Item>(),
     );
   }
 
