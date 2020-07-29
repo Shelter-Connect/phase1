@@ -101,7 +101,7 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
                   title: Text('Give Feedback'),
                   leading: Icon(Icons.feedback, color: Colors.orange),
                   onTap: () {
-                    launch('https://forms.gle/ue5idWtztcgevh9Q7');
+                    launch('https://forms.gle/wivNmdkjj3yvLPzf7');
                   },
                 ),
               ],
