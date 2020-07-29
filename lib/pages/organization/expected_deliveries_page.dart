@@ -9,8 +9,7 @@ class ExpectedDeliveriesPage extends StatefulWidget with NavigationTab {
   _ExpectedDeliveriesPageState createState() => _ExpectedDeliveriesPageState();
 
   @override
-  String get helpDescription =>
-      '''   This is the Organization Expected Deliveries Page! Here you can seee all the items that the volunteers have confirmed to deliver to your organization! 
+  String get helpDescription => '''   This is the Organization Expected Deliveries Page! Here you can seee all the items that the volunteers have confirmed to deliver to your organization! 
   Click on each delivery to see more information regarding the arrival time, donor contact information, and much more!''';
 
   @override
@@ -25,6 +24,7 @@ class ExpectedDeliveriesPage extends StatefulWidget with NavigationTab {
 
 class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
   String dropdownValue = 'Sort by';
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -85,27 +85,28 @@ class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
-                      width: 100,
-                      height: 50,
-                      decoration: subElevatedBoxStyle,
-                      padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 0),
-                      child: FlatButton(
-                        padding: EdgeInsets.all(0),
-                        onPressed: () {
-                          //TODO: Make Editing Feature
-                        },
-                        child: Row(
-                          children: <Widget>[
-                            Text('Edit', style: TextStyle(color: purpleAccent, fontSize: 17, fontWeight: FontWeight.normal)),
-                            Spacer(),
-                            Icon(
-                              Icons.edit,
-                              color: purpleAccent,
-                              size: 20,
-                            ),
-                          ],
-                        ),
-                      )),
+                    width: 100,
+                    height: 50,
+                    decoration: subElevatedBoxStyle,
+                    padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 0),
+                    child: FlatButton(
+                      padding: EdgeInsets.all(0),
+                      onPressed: () {
+                        //TODO: Make Editing Feature
+                      },
+                      child: Row(
+                        children: <Widget>[
+                          Text('Edit', style: TextStyle(color: purpleAccent, fontSize: 17, fontWeight: FontWeight.normal)),
+                          Spacer(),
+                          Icon(
+                            Icons.edit,
+                            color: purpleAccent,
+                            size: 20,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 )
               ],
             ),

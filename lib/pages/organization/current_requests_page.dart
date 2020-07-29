@@ -40,10 +40,10 @@ class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
             Material(
               borderRadius: BorderRadius.circular(41),
               elevation: 5,
-              child: Container(
+              child:Container(
                 width: 100,
                 height: 50,
-                decoration: elevatedBoxStyle,
+                decoration: subElevatedBoxStyle,
                 padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 0),
                 child: FlatButton(
                   padding: EdgeInsets.all(0),

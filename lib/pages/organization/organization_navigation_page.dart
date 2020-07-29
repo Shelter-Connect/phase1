@@ -44,12 +44,6 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
             ),
           ),
           actions: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(left: 8.0, right: 8, bottom: 8, top: 17),
-              child: InkWell(
-                  child: new Text('Experiencing Issues?', style: TextStyle(color: purpleAccent, fontSize: 17)),
-                  onTap: () => launch('https://forms.gle/ue5idWtztcgevh9Q7')),
-            ),
             Visibility(
               visible: _pages[_selectedIndex].helpDescription != '',
               child: IconButton(
@@ -141,20 +135,7 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text('Help', style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
-                      Row(
-                        children: <Widget>[
-                          InkWell(
-                              child: new Text('Report Issues', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 17)),
-                              onTap: () => launch('https://forms.gle/ue5idWtztcgevh9Q7')),
-                          IconButton(
-                            iconSize: 30,
-                            onPressed: () {
-                              launch('https://forms.gle/ue5idWtztcgevh9Q7');
-                            },
-                            icon: Icon(Icons.bug_report),
-                          ),
-                        ],
-                      ),
+                        Icon(Icons.help),
                     ],
                   ),
                 ),
