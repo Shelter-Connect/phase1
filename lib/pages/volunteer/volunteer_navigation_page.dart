@@ -36,9 +36,7 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
             brightness: Brightness.light,
             title: Text(
               _pages[_selectedIndex].title,
-              style: TextStyle(
-                color: Color(0xFFF5F5F5)
-              ),
+              style: TextStyle(color: Color(0xFFF5F5F5)),
             ),
             backgroundColor: Color(0xFFF5F5F5),
             elevation: 0.0,
@@ -108,7 +106,10 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
                   ),
                   ListTile(
                     title: Text('Give Feedback'),
-                    leading: Icon(Icons.feedback),
+                    leading: Icon(
+                      Icons.feedback,
+                      color: Colors.orange,
+                    ),
                     onTap: () {
                       launch('https://forms.gle/ue5idWtztcgevh9Q7');
                     },
