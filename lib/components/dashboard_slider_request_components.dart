@@ -11,7 +11,7 @@ class ReqSlideItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: elevatedBoxStyle,
+      decoration: sub2ElevatedBoxStyle,
       child: Row(
         children: <Widget>[
           SizedBox(width: 10),
@@ -19,7 +19,7 @@ class ReqSlideItems extends StatelessWidget {
             width: MediaQuery.of(context).size.width / 2.6,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              color: whiteBackground,
+              color: Colors.white,
             ),
             child: Padding(
               padding: const EdgeInsets.all(8.0),

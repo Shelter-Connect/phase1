@@ -30,6 +30,9 @@ class OrganizationDashboardPage extends StatefulWidget with NavigationTab {
 
   @override
   String get title => 'Dashboard';
+
+  @override
+  Color get color => Colors.green;
 }
 
 class _OrganizationDashboardPageState extends State<OrganizationDashboardPage> {
@@ -66,7 +69,7 @@ class _OrganizationDashboardPageState extends State<OrganizationDashboardPage> {
                           enlargeCenterPage: true,
                           aspectRatio: 16 / 9,
                           enableInfiniteScroll: true,
-                          viewportFraction: 0.85,
+                          viewportFraction: 0.95,
                         )),
                   ],
                 ),
@@ -86,7 +89,7 @@ class _OrganizationDashboardPageState extends State<OrganizationDashboardPage> {
                       enlargeCenterPage: true,
                       aspectRatio: 16 / 9,
                       enableInfiniteScroll: true,
-                      viewportFraction: 0.85,
+                      viewportFraction: 0.95,
                     )),
               ),
               Align(
@@ -117,7 +120,7 @@ class _OrganizationDashboardPageState extends State<OrganizationDashboardPage> {
                       enlargeCenterPage: true,
                       aspectRatio: 16 / 9,
                       enableInfiniteScroll: true,
-                      viewportFraction: 0.85,
+                      viewportFraction: 0.95,
                     )),
               ),
               Align(

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:phase1/models/user.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter/services.dart';
 
 import '../../constants.dart';
 import '../navigation_tab.dart';
@@ -46,7 +46,9 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
           actions: <Widget>[
             Padding(
               padding: const EdgeInsets.only(left: 8.0, right: 8, bottom: 8, top: 17),
-              child: InkWell(child: new Text('Experiencing Issues?', style: TextStyle(color: purpleAccent, fontSize: 17)), onTap: () => launch('https://forms.gle/ue5idWtztcgevh9Q7')),
+              child: InkWell(
+                  child: new Text('Experiencing Issues?', style: TextStyle(color: purpleAccent, fontSize: 17)),
+                  onTap: () => launch('https://forms.gle/ue5idWtztcgevh9Q7')),
             ),
             Visibility(
               visible: _pages[_selectedIndex].helpDescription != '',
@@ -89,7 +91,7 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
                               index,
                               ListTile(
                                   title: Text(tab.title),
-                                  leading: Icon(tab.icon),
+                                  leading: Icon(tab.icon, color: tab.color),
                                   onTap: () {
                                     setState(() {
                                       _selectedIndex = index;
@@ -103,7 +105,7 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
                 ),
                 ListTile(
                   title: Text('Give Feedback'),
-                  leading: Icon(Icons.feedback),
+                  leading: Icon(Icons.feedback, color: Colors.orange),
                   onTap: () {
                     launch('https://forms.gle/ue5idWtztcgevh9Q7');
                   },

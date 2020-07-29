@@ -17,26 +17,27 @@ class CurrentRequestsPage extends StatefulWidget with NavigationTab {
 
   @override
   String get title => 'Current Requests';
+
+  @override
+  Color get color => Colors.yellow;
 }
 
 class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(left: 16.0),
-            child: Text(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
               'Current Requests',
               style: TextStyle(fontSize: 35, fontWeight: FontWeight.w900, color: purpleAccent),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Material(
+            SizedBox(height: 10),
+            Material(
               borderRadius: BorderRadius.circular(41),
               elevation: 5,
               child: Container(
@@ -63,39 +64,44 @@ class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
                 ),
               ),
             ),
-          ),
-          RequestContainer(
-            // TODO: for firebase, need to query all information for these containers
-            itemName: <String>['Toothbrushes', 'Shirts', 'Ham', 'Blankets', 'fdsakl'],
-            itemQuantity: <int>[9, 10, 100, 59, 32],
-            category: 'Hygiene',
-          ),
-          RequestContainer(
-            itemName: <String>['Toothpaste', 'Pants', 'Socks', 'Sleeping Bags'],
-            itemQuantity: <int>[66, 57, 48, 93],
-            category: 'Hygiene',
-          ),
-          RequestContainer(
-            itemName: <String>['Floss', 'Belts', 'Ham', 'Caps'],
-            itemQuantity: <int>[
-              16,
-              27,
-              38,
-              49,
-            ],
-            category: 'Hygiene',
-          ),
-          RequestContainer(
-            itemName: <String>['Floss', 'Belts', 'Ham', 'Caps'],
-            itemQuantity: <int>[
-              5,
-              7,
-              8,
-              9,
-            ],
-            category: 'hygiene',
-          ),
-        ],
+            SizedBox(height: 20),
+            RequestContainer(
+              // TODO: for firebase, need to query all information for these containers
+              itemName: <String>['Toothbrushes', 'Shirts', 'Ham', 'Blankets', 'fdsakl'],
+              itemQuantity: <int>[9, 10, 100, 59, 32],
+              category: 'Hygiene',
+            ),
+            SizedBox(height: 20),
+            RequestContainer(
+              itemName: <String>['Toothpaste', 'Pants', 'Socks', 'Sleeping Bags'],
+              itemQuantity: <int>[66, 57, 48, 93],
+              category: 'Hygiene',
+            ),
+            SizedBox(height: 20),
+            RequestContainer(
+              itemName: <String>['Floss', 'Belts', 'Ham', 'Caps'],
+              itemQuantity: <int>[
+                16,
+                27,
+                38,
+                49,
+              ],
+              category: 'Hygiene',
+            ),
+            SizedBox(height: 20),
+            RequestContainer(
+              itemName: <String>['Floss', 'Belts', 'Ham', 'Caps'],
+              itemQuantity: <int>[
+                5,
+                7,
+                8,
+                9,
+              ],
+              category: 'hygiene',
+            ),
+            SizedBox(height: 20),
+          ],
+        ),
       ),
     );
   }

@@ -18,6 +18,9 @@ class VolunteerSettingsPage extends StatefulWidget with NavigationTab {
 
   @override
   String get title => 'Account Settings';
+
+  @override
+  Color get color => Colors.blueAccent;
 }
 
 class _VolunteerSettingsPageState extends State<VolunteerSettingsPage> {
