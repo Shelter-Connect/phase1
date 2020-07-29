@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -52,10 +53,20 @@ class _LoadingPageState extends State<LoadingPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: colorScheme.background,
-      child: Center(
-        child: Image.asset('assets/logo_svgs/ShelterConnectLogo.png', width: MediaQuery.of(context).size.width * 0.6),
+    return Scaffold(
+      backgroundColor: Color(0xFFF5F5F5),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Container(
+            child: Center(
+              child: Image.asset('assets/logo_svgs/finalithink.png', width: MediaQuery.of(context).size.width * 0.45),
+            ),
+          ),
+          Align(
+              alignment: Alignment.bottomCenter,
+              child: Text('CONNECT APP INC.'))
+        ],
       ),
     );
   }
