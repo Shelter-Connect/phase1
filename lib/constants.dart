@@ -34,7 +34,7 @@ final elevatedBoxStyle = BoxDecoration(color: Colors.white, borderRadius: Border
         0.0,
       )),
 ]);
-final subElevatedBoxStyle = BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(40), boxShadow: [
+final subElevatedBoxStyle = BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(41), boxShadow: [
   BoxShadow(
       color: Color(0xFFDEDEDE),
       blurRadius: 8.0,
