@@ -91,7 +91,7 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
                               index,
                               ListTile(
                                   title: Text(tab.title),
-                                  leading: Icon(tab.icon),
+                                  leading: Icon(tab.icon, color: tab.color),
                                   onTap: () {
                                     setState(() {
                                       _selectedIndex = index;

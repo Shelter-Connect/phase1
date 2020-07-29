@@ -17,6 +17,9 @@ class CurrentRequestsPage extends StatefulWidget with NavigationTab {
 
   @override
   String get title => 'Current Requests';
+
+  @override
+  Color get color => Colors.yellow;
 }
 
 class _CurrentRequestsPageState extends State<CurrentRequestsPage> {

@@ -30,6 +30,9 @@ class OrganizationDashboardPage extends StatefulWidget with NavigationTab {
 
   @override
   String get title => 'Dashboard';
+
+  @override
+  Color get color => Colors.green;
 }
 
 class _OrganizationDashboardPageState extends State<OrganizationDashboardPage> {
