@@ -28,10 +28,6 @@ class StandardLayout extends StatelessWidget {
               color: purpleAccent,
             )),
         actions: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(left: 8.0, right: 8, bottom: 8, top: 17),
-            child: InkWell(child: new Text('Experiencing Issues?', style: TextStyle(color: purpleAccent, fontSize: 17)), onTap: () => launch('https://forms.gle/ue5idWtztcgevh9Q7')),
-          ),
           Visibility(
             child: IconButton(
               icon: Icon(Icons.help),

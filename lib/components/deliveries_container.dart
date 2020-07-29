@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:phase1/constants.dart';
 import 'package:phase1/models/donation.dart';
 import 'package:phase1/pages/volunteer/delivery_description_page.dart';
+import 'package:intl/intl.dart';
 
 class DeliveriesContainer extends StatelessWidget {
   final Donation donation;
@@ -48,6 +49,8 @@ class DeliveriesContainer extends StatelessWidget {
                   ),
                 ],
               ),
+              Text('Deliver by: ${DateFormat('MMMMd').format(donation.date)}', style: TextStyle(fontSize: 15),),
+              SizedBox(height: 5),
               Container(
                 height: 5,
                 width: 50,

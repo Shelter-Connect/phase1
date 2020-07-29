@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:phase1/models/donation.dart';
 import 'package:phase1/models/organization.dart';
 
@@ -10,9 +11,9 @@ class DeliveryDescriptionPage extends StatefulWidget {
   final Donation donation;
 
   DeliveryDescriptionPage(this.organization, this.donation);
+
   @override
-  _DeliveryDescriptionPageState createState() =>
-      _DeliveryDescriptionPageState();
+  _DeliveryDescriptionPageState createState() => _DeliveryDescriptionPageState();
 }
 
 class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
@@ -29,22 +30,20 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
               children: <Widget>[
                 Text(
                   'Delivery to ${widget.organization.name}',
-                  style: TextStyle(
-                      fontSize: 35,
-                      fontWeight: FontWeight.w900,
-                      color: purpleAccent),
+                  style: TextStyle(fontSize: 35, fontWeight: FontWeight.w900, color: purpleAccent),
                 ),
                 SizedBox(height: 20),
                 OrganizationInformation(
-                    orgEmail: widget.organization.email,
-                    orgAddress: widget.organization.address),
+                  orgEmail: widget.organization.email,
+                  orgAddress: widget.organization.address,
+                  dateTime: widget.donation.date,
+                ),
                 SizedBox(height: 20),
                 Container(
                   decoration: elevatedBoxStyle,
                   width: MediaQuery.of(context).size.width,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 8.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -82,9 +81,7 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                             Container(
                               height: 5,
                               width: 100,
-                              decoration: BoxDecoration(
-                                color: purpleAccent,
-                                borderRadius: BorderRadius.circular(21)),
+                              decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
                             ),
                             SizedBox(
                               height: 15,
@@ -92,17 +89,27 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                             SizedBox(
                               height: 10,
                             ),
-                            Text('Blankets x4'),
-                            SizedBox(
-                              height: 2.5,
-                            ),
-                            Text('Bananas x15'),
-                            SizedBox(
-                              height: 2.5,
-                            ),
-                            Text('Can of Beans x10'),
-                            SizedBox(
-                              height: 10,
+                            ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: widget.donation.items.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: const EdgeInsets.only(bottom: 5.0),
+                                      child: Text(
+                                        '${widget.donation.items[index].name} x ${widget.donation.items[index].amount}',
+                                        style: TextStyle(
+                                          fontSize: 17.0,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                    ),
+                                    Divider(color: Colors.grey, thickness: 2,)
+                                  ],
+                                );
+                              },
                             ),
                           ],
                         ),
@@ -120,10 +127,9 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
 class OrganizationInformation extends StatelessWidget {
   final String orgEmail;
   final String orgAddress;
+  final DateTime dateTime;
 
-  OrganizationInformation(
-      {@required this.orgEmail,
-      @required this.orgAddress});
+  OrganizationInformation({@required this.orgEmail, @required this.orgAddress, @required this.dateTime});
 
   @override
   Widget build(BuildContext context) {
@@ -150,9 +156,7 @@ class OrganizationInformation extends StatelessWidget {
                 Container(
                   height: 5,
                   width: 100,
-                  decoration: BoxDecoration(
-                      color: purpleAccent,
-                      borderRadius: BorderRadius.circular(21)),
+                  decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
                 ),
                 SizedBox(
                   height: 10,
@@ -191,6 +195,23 @@ class OrganizationInformation extends StatelessWidget {
                             )),
                         TextSpan(
                             text: orgAddress,
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                              color: colorScheme.onBackground,
+                            ))
+                      ]),
+                    ),
+                    RichText(
+                      text: TextSpan(children: <TextSpan>[
+                        TextSpan(
+                            text: 'Deliver By: ',
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: colorScheme.onBackground,
+                            )),
+                        TextSpan(
+                            text: '${DateFormat('MMMMd').format(dateTime)}',
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w600,
