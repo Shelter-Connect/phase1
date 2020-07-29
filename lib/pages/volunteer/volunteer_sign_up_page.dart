@@ -13,7 +13,7 @@ class VolunteerSignUp extends StatefulWidget {
 }
 
 class _VolunteerSignUpState extends State<VolunteerSignUp> {
-  String email, password, password2;
+  String firstName, lastName, email, password, password2;
   bool loading = false;
 
   @override
@@ -32,6 +32,32 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
                 children: <Widget>[
                   Text('Volunteer Sign Up', style: titleStyle),
                   SizedBox(height: 35),
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: FloatingTextField(
+                          hintText: 'First Name',
+                          onChanged: (val) {
+                            firstName = val.trim();
+                          },
+                        ),
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Expanded(
+                        child: FloatingTextField(
+                          hintText: 'Last Name',
+                          onChanged: (val) {
+                            lastName = val.trim();
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
                   FloatingTextField(
                     keyboardType: TextInputType.emailAddress,
                     hintText: 'Email',
@@ -81,6 +107,7 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
                           if (newUser != null) {
                             db.collection('volunteers').document(newUser.user.uid).setData({
                               'email': email,
+                              'name': '$firstName $lastName',
                             });
                             newUser.user.sendEmailVerification();
                           }
@@ -90,6 +117,9 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
                             context: context,
                             builder: (_) => NoActionAlert(title: 'Invalid Email'),
                           );
+                          setState(() {
+                            loading = false;
+                          });
                         }
                       }
                     },
