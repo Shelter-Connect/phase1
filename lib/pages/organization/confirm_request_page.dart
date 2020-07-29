@@ -77,7 +77,7 @@ class ConfirmRequestPage extends StatelessWidget {
                           //TODO Save Information to Firebase
                         ),
                         SizedBox(height: 24),
-                        ItemIncrementWithText(),
+                        ItemIncrementCreateRequest(),
                       ],
                     ),
                   ],

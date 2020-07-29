@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:phase1/components/floating_text_field.dart';
-import 'package:phase1/components/increment.dart';
 import 'package:phase1/components/secondary_layout.dart';
 import 'package:phase1/constants.dart';
 import 'package:phase1/pages/organization/choose_item_page.dart';
@@ -177,16 +175,6 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
                     ],
                   ),
                 ),
-                SizedBox(height: 20),
-                FloatingTextField(
-                  hintText: 'Specific Item and/or Brand',
-                  width: 225,
-                  maxLines: 1,
-                  //TODO Save Information to Firebase
-                ),
-                SizedBox(height: 20),
-                ItemIncrementWithText(),
-                SizedBox(height: 20),
               ],
             ),
           ),

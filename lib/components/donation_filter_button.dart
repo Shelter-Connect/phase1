@@ -30,7 +30,10 @@ class DonationFilterButton extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * 0.6,
                     child: Column(
                       children: <Widget>[
-                        Text('Choose Filters'),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 30.0),
+                          child: Text('Choose Filters', style: TextStyle(color: purpleAccent, fontSize: 42.0, fontWeight: FontWeight.bold),),
+                        ),
                         Align(
                           alignment: Alignment.centerLeft,
                           child: Padding(

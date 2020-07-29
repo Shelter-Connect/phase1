@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:phase1/components/category_description.dart';
 import 'package:phase1/components/category_icon_button.dart';
-import 'package:phase1/components/floating_text_field.dart';
-import 'package:phase1/components/increment.dart';
 import 'package:phase1/constants.dart';
 import 'package:phase1/pages/organization/confirm_request_page.dart';
 
@@ -111,15 +109,6 @@ class ChooseItemPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 20),
-                FloatingTextField(
-                  hintText: 'Specific Item and/or Brand',
-                  width: 225,
-                  maxLines: 1,
-                  //TODO Save Information to Firebase
-                ),
-                SizedBox(height: 20),
-                ItemIncrementWithText(),
                 SizedBox(height: 20),
               ],
             ),
