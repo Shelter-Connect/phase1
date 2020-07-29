@@ -18,8 +18,10 @@ class _LoadingPageState extends State<LoadingPage> {
         db.collection('volunteers').document(user.uid).get().then((value) {
           if (value.data != null) {
             if (user.isEmailVerified) {
+              Navigator.pushNamed(context, '/welcome_updated');
               Navigator.pushNamed(context, '/volunteer_navigation');
             } else {
+              Navigator.pushNamed(context, '/welcome_updated');
               Navigator.pushNamed(context, '/volunteer_confirmation');
             }
           }
@@ -28,8 +30,10 @@ class _LoadingPageState extends State<LoadingPage> {
         db.collection('organizations').document(user.uid).get().then((value) {
           if (value.data != null) {
             if (value['verified']) {
+              Navigator.pushNamed(context, '/welcome_updated');
               Navigator.pushNamed(context, '/organization_navigation');
             } else {
+              Navigator.pushNamed(context, '/welcome_updated');
               Navigator.pushNamed(context, '/organization_confirmation');
             }
           }
