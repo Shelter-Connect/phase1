@@ -42,7 +42,7 @@ class HomePage extends StatelessWidget {
             Column(
               children: [
                 Expanded(
-                  child: Image.asset('assets/logo_svgs/WhiteFinal.png',
+                  child: Image.asset('assets/logo_svgs/whitelogofinal2.png',
                       width: 140),
                   flex: 1,
                 ),
