@@ -23,9 +23,6 @@ class CurrentDeliveriesPage extends StatefulWidget with NavigationTab {
 
   @override
   String get title => 'Items To Deliver';
-
-  @override
-  Color get color => Colors.pinkAccent;
 }
 
 class _CurrentDeliveriesPageState extends State<CurrentDeliveriesPage> {

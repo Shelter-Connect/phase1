@@ -18,9 +18,6 @@ class OrganizationSettingsPage extends StatefulWidget with NavigationTab {
 
   @override
   String get title => 'Account Settings';
-
-  @override
-  Color get color => Colors.blue;
 }
 
 class _OrganizationSettingsPageState extends State<OrganizationSettingsPage> {
