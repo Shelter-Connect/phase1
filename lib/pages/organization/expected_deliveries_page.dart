@@ -17,9 +17,6 @@ class ExpectedDeliveriesPage extends StatefulWidget with NavigationTab {
 
   @override
   String get title => 'Expected Deliveries';
-
-  @override
-  Color get color => Colors.pinkAccent;
 }
 
 class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {

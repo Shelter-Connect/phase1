@@ -91,7 +91,7 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
                                 index,
                                 ListTile(
                                   title: Text(tab.title),
-                                  leading: Icon(tab.icon, color: tab.color),
+                                  leading: Icon(tab.icon),
                                   onTap: () {
                                     setState(() {
                                       _selectedIndex = index;

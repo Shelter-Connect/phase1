@@ -39,7 +39,7 @@ class FirestoreHelper {
       }
     }
 
-    List<String> currentItemCategories = (await organizationReference.get())['itemCategories'];
+    List<String> currentItemCategories = (await organizationReference.get())['itemCategories'].cast<String>();
     if (currentItemCategories != null) {
       for (String category in currentItemCategories) {
         itemCategories.add(category);

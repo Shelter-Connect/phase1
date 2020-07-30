@@ -16,9 +16,6 @@ class OrganizationContactUsPage extends StatefulWidget with NavigationTab {
 
   @override
   String get title => 'Contact Us';
-
-  @override
-  Color get color => Colors.lightGreenAccent;
 }
 
 class _OrganizationContactUsPageState extends State<OrganizationContactUsPage> {

@@ -22,9 +22,6 @@ class DonationOpportunities extends StatefulWidget with NavigationTab {
 
   @override
   String get title => 'Donation Opportunities';
-
-  @override
-  Color get color => Colors.green;
 }
 
 class _DonationOpportunitiesState extends State<DonationOpportunities> {

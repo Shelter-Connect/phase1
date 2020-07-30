@@ -4,5 +4,4 @@ mixin NavigationTab on StatefulWidget {
   String get title;
   IconData get icon;
   String get helpDescription;
-  Color get color;
 }
