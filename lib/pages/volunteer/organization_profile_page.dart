@@ -63,11 +63,11 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                     children: <Widget>[
                       Text(
                         widget.organization.name,
-                        style: TextStyle(fontSize: 35, fontWeight: FontWeight.w900, color: purpleAccent),
+                        style: mainTitleStyle,
                       ),
                       Text(
                         widget.organization.distance.toStringAsFixed(1) + ' miles away',
-                        style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700, color: purpleAccent),
+                        style: subTitleStyle,
                       ),
                       SizedBox(height: 20),
                       Container(

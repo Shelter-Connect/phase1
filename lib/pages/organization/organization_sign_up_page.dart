@@ -25,7 +25,7 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: colorScheme.background,
+      backgroundColor: Color(0xFFF5F5F5),
       body: ModalProgressHUD(
         inAsyncCall: loading,
         child: SafeArea(
@@ -35,7 +35,7 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('Organization Sign Up', style: titleStyle),
+                Text('Organization Sign Up', style: largeTitleStyle),
                 SizedBox(height: 35),
                 FloatingTextField(
                   keyboardType: TextInputType.emailAddress,
@@ -123,7 +123,8 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
                 ),
                 SizedBox(height: 20),
                 RoundedButton(
-                  title: 'Create Account',
+                  color: purpleAccent,
+                  title: 'Create Account', textColor: Colors.white,
                   onPressed: () async {
                     if (password != password2) {
                       showDialog(
@@ -169,7 +170,7 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
                 Padding(
                   padding: const EdgeInsets.only(left: 5.0),
                   child: TextButton(
-                    text: 'Not an Organization?',
+                    text: 'Not an Organization?', textColor: Colors.redAccent,
                     onPressed: () {
                       Navigator.pop(context);
                     },

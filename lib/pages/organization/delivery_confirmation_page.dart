@@ -55,10 +55,12 @@ class _ConfirmDeliveryPageState extends State<ConfirmDeliveryPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
+                      SizedBox(height: 5),
                       Text(
                         'Amount Received',
                         style: TextStyle(
-                          fontSize: 24,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w400,
                         ),
                       ),
                       SizedBox(
@@ -70,6 +72,7 @@ class _ConfirmDeliveryPageState extends State<ConfirmDeliveryPage> {
                         width: 100,
                         decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
                       ),
+                      SizedBox(height: 10),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
@@ -78,7 +81,7 @@ class _ConfirmDeliveryPageState extends State<ConfirmDeliveryPage> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  ...widget.itemName.map((string) => Text(string, style: TextStyle(fontSize: 20))).toList(),
+                                  ...widget.itemName.map((string) => Text(string, style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400))).toList(),
                                 ],
                               )),
                           Padding(

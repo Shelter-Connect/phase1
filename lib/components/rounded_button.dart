@@ -6,8 +6,9 @@ class RoundedButton extends StatelessWidget {
   final String title;
   final Color color;
   final Function onPressed;
+  final Color textColor;
 
-  RoundedButton({@required this.title, this.color, @required this.onPressed});
+  RoundedButton({@required this.title, this.color, @required this.onPressed, this.textColor});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,7 @@ class RoundedButton extends StatelessWidget {
           child: Center(
             child: Text(
               title,
-              style: TextStyle(color: color == null ? colorScheme.background : colorScheme.onBackground),
+              style: TextStyle(color: textColor),
             ),
           ),
         ),

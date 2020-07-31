@@ -61,18 +61,16 @@ class DeliveriesContainer extends StatelessWidget {
                 shrinkWrap: true,
                 itemCount: donation.items.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 5.0),
-                    child: Text(
-                      '${donation.items[index].name} x ${donation.items[index].amount}',
-                      style: TextStyle(
-                        fontSize: 17.0,
-                        fontWeight: FontWeight.w400,
-                      ),
+                  return Text(
+                    '${donation.items[index].name} x ${donation.items[index].amount}',
+                    style: TextStyle(
+                      fontSize: 17.0,
+                      fontWeight: FontWeight.w400,
                     ),
                   );
                 },
               ),
+              SizedBox(height: 5)
             ],
           ),
         ),

@@ -14,7 +14,7 @@ class RequestContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       elevation: 5,
-     borderRadius: BorderRadius.all(Radius.circular(20)),
+      borderRadius: BorderRadius.all(Radius.circular(20)),
       child: Container(
         decoration: elevatedBoxStyle,
         child: Padding(
@@ -24,9 +24,10 @@ class RequestContainer extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
+                SizedBox(height: 10),
                 Text(
                   '$category',
-                  style: TextStyle(fontSize: 26, fontWeight: FontWeight.w600),
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                 ),
                 SizedBox(
                   height: 5,
@@ -46,13 +47,13 @@ class RequestContainer extends StatelessWidget {
                       children: [
                         Text(
                           items[index].amount.toString(),
-                          style: TextStyle(fontSize: 21, fontWeight: FontWeight.w500),
+                          style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
                         ),
-                        SizedBox(width: 5.0),
+                        SizedBox(width: 5),
                         Text(
-                        items[index].name,
+                          items[index].name,
                           style: TextStyle(
-                            fontSize: 21,
+                            fontSize: 17,
                           ),
                         ),
                       ],

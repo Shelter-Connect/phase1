@@ -46,7 +46,7 @@ class _DonationOpportunitiesState extends State<DonationOpportunities> {
               padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
               child: Text(
                 'Donation Opportunities',
-                style: TextStyle(fontSize: 35, fontWeight: FontWeight.w900, color: purpleAccent),
+                style: mainTitleStyle
               ),
             ),
             SizedBox(height: 20),

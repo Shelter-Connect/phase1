@@ -37,126 +37,11 @@ class _OrganizationSettingsPageState extends State<OrganizationSettingsPage> {
               ),
             ),
             SizedBox(height: 20),
-            UserInfo(email: Provider.of<User>(context, listen: false).user.email, password: '*******'),
-            SizedBox(height: 20),
-            OrganizationInfo(),
+            OrganizationInfo(email: Provider.of<User>(context, listen: false).user.email, password: '*******'),
             SizedBox(height: 20),
             DeleteAccount(),
             SizedBox(height: 20),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class UserInfo extends StatelessWidget {
-  final String email;
-  final String password;
-
-  UserInfo({this.email, this.password});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Container(
-        decoration: elevatedBoxStyle,
-        height: 224,
-        width: MediaQuery.of(context).size.width,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                'User Information',
-                style: TextStyle(
-                  fontSize: 24,
-                ),
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              Container(
-                height: 5,
-                width: 100,
-                decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
-              ),
-              SizedBox(height: 20),
-              RichText(
-                text: TextSpan(
-                  children: <TextSpan>[
-                    TextSpan(
-                      text: 'Email Address: ',
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: colorScheme.onBackground,
-                      ),
-                    ),
-                    TextSpan(
-                      text: email,
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        color: colorScheme.onBackground,
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              RichText(
-                text: TextSpan(
-                  children: <TextSpan>[
-                    TextSpan(
-                      text: 'Password: ',
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: colorScheme.onBackground,
-                      ),
-                    ),
-                    TextSpan(
-                      text: password,
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        color: colorScheme.onBackground,
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              InkWell(
-                onTap: () {
-                  //TODO
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: purpleAccent,
-                    borderRadius: BorderRadius.circular(21),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
-                    child: Text(
-                      'Change Password',
-                      style: TextStyle(
-                        color: colorScheme.onSecondary,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16.0,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
         ),
       ),
     );
@@ -175,7 +60,7 @@ class OrganizationInfo extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Container(
         decoration: elevatedBoxStyle,
-        height: 224,
+        height: 200,
         width: MediaQuery.of(context).size.width,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
@@ -186,7 +71,8 @@ class OrganizationInfo extends StatelessWidget {
               Text(
                 'Organization Information',
                 style: TextStyle(
-                  fontSize: 24,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w400
                 ),
               ),
               SizedBox(
@@ -197,21 +83,21 @@ class OrganizationInfo extends StatelessWidget {
                 width: 100,
                 decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 10),
               RichText(
                 text: TextSpan(
                   children: <TextSpan>[
                     TextSpan(
                       text: 'Email Address: ',
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 17,
                         color: colorScheme.onBackground,
                       ),
                     ),
                     TextSpan(
                       text: email,
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 17,
                         fontWeight: FontWeight.w600,
                         color: colorScheme.onBackground,
                       ),
@@ -228,14 +114,14 @@ class OrganizationInfo extends StatelessWidget {
                     TextSpan(
                       text: 'Password: ',
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 17,
                         color: colorScheme.onBackground,
                       ),
                     ),
                     TextSpan(
                       text: password,
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 17,
                         fontWeight: FontWeight.w600,
                         color: colorScheme.onBackground,
                       ),
@@ -244,7 +130,7 @@ class OrganizationInfo extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 15,
+                height: 10,
               ),
               InkWell(
                 onTap: () {
@@ -268,6 +154,7 @@ class OrganizationInfo extends StatelessWidget {
                   ),
                 ),
               ),
+              SizedBox(height: 5),
             ],
           ),
         ),
@@ -302,9 +189,17 @@ class DeleteAccount extends StatelessWidget {
             color: colorScheme.error,
           ),
           child: Center(
-            child: Text(
-              'Sign Out',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700, color: colorScheme.onSecondary),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Icon(Icons.exit_to_app, color: Colors.white, size: 28),
+                SizedBox(width: 5),
+                Text(
+                  'Sign Out',
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600, color: Colors.white),
+                ),
+              ],
             ),
           ),
         ),
