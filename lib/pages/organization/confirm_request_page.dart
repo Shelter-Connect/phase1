@@ -45,7 +45,7 @@ class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
                   children: <TextSpan>[
                     TextSpan(text: 'Create Requests: ', style: TextStyle(fontSize: 35, color: colorScheme.onSecondary, fontWeight: FontWeight.w900)),
                     TextSpan(
-                      text: 'Choose Item',
+                      text: 'Finalize Item Amount and Description',
                       style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.w600,
@@ -86,13 +86,13 @@ class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
                     children: <Widget>[
                       SizedBox(height: 20),
                       FloatingTextField(
-                        hintText: 'Specific Item and/or Brand',
-                        width: 222,
-                        maxLines: 1,
+                        keyboardType: TextInputType.multiline,
+                        hintText: 'Item Description (Specific Brand, Type, etc.)',
+                        width: double.infinity,
+                        maxLines: null,
                         onChanged: (val) {
                           specificDescription = val;
                         },
-                        //TODO Save Information to Firebase
                       ),
                       SizedBox(height: 24),
                       ItemIncrementCreateRequest(
@@ -115,10 +115,13 @@ class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
                       context: context,
                       builder: (_) => SingleActionAlert(
                         title: 'Confirm your request?',
-                        subtitle: 'Make sure you are requesting the correct item and number of items. Requests can be edited in the \'Expected Deliveries\' tab.',
+                        subtitle:
+                            'Make sure you are requesting the correct item and number of items. Requests can be edited in the \'Expected Deliveries\' tab.',
                         actionName: 'Create Request',
                         action: () {
-                          FirestoreHelper.createRequest(context: context, items: [Item(name: widget.itemName, amount: amount, specificDescription: specificDescription, category: widget.itemCategory)]);
+                          FirestoreHelper.createRequest(context: context, items: [
+                            Item(name: widget.itemName, amount: amount, specificDescription: specificDescription, category: widget.itemCategory)
+                          ]);
                         },
                       ),
                     );

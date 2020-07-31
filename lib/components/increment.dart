@@ -255,6 +255,7 @@ class _ItemIncrementWithTextState extends State<ItemIncrementWithText> {
     );
   }
 }
+
 class ItemIncrementCreateRequest extends StatefulWidget {
   final String itemName;
   final int maxQuantity;
@@ -268,7 +269,7 @@ class ItemIncrementCreateRequest extends StatefulWidget {
 
 class _ItemIncrementCreateRequestState extends State<ItemIncrementCreateRequest> {
   int _counter = 0;
-  TextEditingController controller = TextEditingController();
+  TextEditingController controller = TextEditingController(text: '0');
 
   void _incrementCounter() {
     setState(() {
