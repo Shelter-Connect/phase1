@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:phase1/components/secondary_layout.dart';
 import 'package:phase1/constants.dart';
 import 'package:phase1/pages/organization/choose_item_page.dart';
+import 'package:phase1/pages/organization/other_item_page.dart';
 
 import '../../components/category_icon_button.dart';
 
@@ -52,7 +53,15 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
                   ),
                   itemBuilder: (BuildContext context, int i) {
                     if (i == categories.length)
-                      return null; //TODO: make other page;
+                      return CategoryIconButton(
+                          asset: 'assets/other_svgs/other.svg',
+                          name: 'Other',
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => OtherItemPage()),
+                            );
+                          });
                     else
                       return CategoryIconButton(
                           asset: categories[i][0],
