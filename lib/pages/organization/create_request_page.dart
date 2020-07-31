@@ -29,7 +29,8 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
                 RichText(
                   text: TextSpan(
                     children: <TextSpan>[
-                      TextSpan(text: 'Create Requests: ', style: TextStyle(fontSize: 35, color: colorScheme.onSecondary, fontWeight: FontWeight.w900)),
+                      TextSpan(
+                          text: 'Create Requests: ', style: TextStyle(fontSize: 35, color: colorScheme.onSecondary, fontWeight: FontWeight.w900)),
                       TextSpan(
                         text: 'Select Category',
                         style: TextStyle(
