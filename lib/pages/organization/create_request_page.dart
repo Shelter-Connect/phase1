@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:phase1/components/secondary_layout.dart';
 import 'package:phase1/constants.dart';
@@ -23,8 +24,6 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 RichText(
                   text: TextSpan(
@@ -43,51 +42,45 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
                   ),
                 ),
                 SizedBox(height: 20),
-                Align(
-                  alignment: Alignment.topCenter,
-                  child: Wrap(
-                    spacing: 10,
-                    runSpacing: 10,
-                    alignment: WrapAlignment.spaceBetween,
-                    direction: Axis.horizontal,
-                    crossAxisAlignment: WrapCrossAlignment.center,
-                    children: <Widget>[
-                      ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: categories.length,
-                          itemBuilder: (BuildContext context, int i) {
-                            return CategoryIconButton(
-                                asset: categories[i][0],
-                                name: categories[i][1],
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => ChooseItemPage(
-                                            categoryIcon: categories[i][0],
-                                            categoryName: categories[i][1],
-                                            items: categories[i][2],
-                                            categoryInfo: categories[i][3])),
-                                  );
-                                });
-                          }),
-                      CategoryIconButton(
-                          asset: 'assets/other_svgs/other.svg',
-                          name: 'Other',
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ChooseItemPage(
-                                      categoryIcon: 'assets/other_svgs/other.svg',
-                                      categoryName: 'Other',
-                                      items: {},
-                                      categoryInfo: 'For people to live even at the bare minimum, they require more than the necessities')),
-                            );
-                          }),
-                    ],
+                GridView.builder(
+                    shrinkWrap: true,
+                    itemCount: categories.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    crossAxisSpacing: 4.0,
+                    mainAxisSpacing: 4.0,
                   ),
+                      itemBuilder: (BuildContext context, int i) {
+                        return CategoryIconButton(
+                            asset: categories[i][0],
+                            name: categories[i][1],
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ChooseItemPage(
+                                        categoryIcon: categories[i][0],
+                                        categoryName: categories[i][1],
+                                        items: categories[i][2],
+                                        categoryInfo: categories[i][3])),
+                              );
+                            });
+                      },
                 ),
+                CategoryIconButton(
+                    asset: 'assets/other_svgs/other.svg',
+                    name: 'Other',
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ChooseItemPage(
+                                categoryIcon: 'assets/other_svgs/other.svg',
+                                categoryName: 'Other',
+                                items: {},
+                                categoryInfo: 'For people to live even at the bare minimum, they require more than the necessities')),
+                      );
+                    }),
               ],
             ),
           ),
