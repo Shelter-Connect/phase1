@@ -1,13 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:phase1/constants.dart';
+import 'package:phase1/models/item.dart';
 
 class RequestContainer extends StatelessWidget {
-  final List itemName, itemQuantity;
+  final List<Item> items;
   final String deliveryId;
   final String category;
 
-  RequestContainer({this.itemName, this.itemQuantity, this.deliveryId, this.category});
+  RequestContainer({this.items, this.deliveryId, this.category});
 
   @override
   Widget build(BuildContext context) {
@@ -38,41 +39,26 @@ class RequestContainer extends StatelessWidget {
                   decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
                 ),
                 SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(right: 8.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: <Widget>[
-                          ...itemQuantity
-                              .map(
-                                (int) => Text(
-                                  '$int',
-                                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400),
-                                ),
-                              )
-                              .toList()
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        ...itemName
-                            .map((string) => Text(string,
-                                style: TextStyle(
-                                  fontSize: 17, fontWeight: FontWeight.w400,
-                                )))
-                            .toList()
+                ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: items.length,
+                  itemBuilder: (context, index) {
+                    return Row(
+                      children: [
+                        Text(
+                          items[index].amount.toString(),
+                          style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
+                        ),
+                        SizedBox(width: 5),
+                        Text(
+                        items[index].name,
+                          style: TextStyle(
+                            fontSize: 17,
+                          ),
+                        ),
                       ],
-                    )
-                  ],
+                    ),
+                  },
                 ),
                 //ADD MORE WIDGETS HERE
               ],
