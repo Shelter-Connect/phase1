@@ -1,6 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:phase1/components/requests_container.dart';
 import 'package:phase1/constants.dart';
+import 'package:phase1/models/item.dart';
+import 'package:phase1/services/firestore_helper.dart';
 
 import '../navigation_tab.dart';
 
@@ -62,39 +65,40 @@ class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
               ),
             ),
             SizedBox(height: 20),
-            RequestContainer(
-              // TODO: for firebase, need to query all information for these containers
-              itemName: <String>['Toothbrushes', 'Shirts', 'Ham', 'Blankets', 'fdsakl'],
-              itemQuantity: <int>[9, 10, 100, 59, 32],
-              category: 'Hygiene',
-            ),
-            SizedBox(height: 20),
-            RequestContainer(
-              itemName: <String>['Toothpaste', 'Pants', 'Socks', 'Sleeping Bags'],
-              itemQuantity: <int>[66, 57, 48, 93],
-              category: 'Hygiene',
-            ),
-            SizedBox(height: 20),
-            RequestContainer(
-              itemName: <String>['Floss', 'Belts', 'Ham', 'Caps'],
-              itemQuantity: <int>[
-                16,
-                27,
-                38,
-                49,
-              ],
-              category: 'Hygiene',
-            ),
-            SizedBox(height: 20),
-            RequestContainer(
-              itemName: <String>['Floss', 'Belts', 'Ham', 'Caps'],
-              itemQuantity: <int>[
-                5,
-                7,
-                8,
-                9,
-              ],
-              category: 'hygiene',
+            StreamBuilder(
+              stream: FirestoreHelper.getCurrentOrganizationReference(context).collection('requests').snapshots(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return Center(child: CircularProgressIndicator());
+                }
+
+                Map<String, List<Item>> itemCategories = {};
+                for (DocumentSnapshot document in snapshot.data.documents) {
+                  if (!itemCategories.containsKey(document['category'])) {
+                    itemCategories[document['category']] = [];
+                  }
+                  itemCategories[document['category']].add(Item(
+                    name: document['name'],
+                    category: document['category'],
+                    amount: document['amount'],
+                    specificDescription: document['specificDescription'],
+                  ));
+                }
+
+                List<Widget> requestContainers = [];
+                for (String category in itemCategories.keys) {
+                  requestContainers.add(Padding(
+                    padding: const EdgeInsets.only(bottom: 16.0),
+                    child: RequestContainer(
+                      items: itemCategories[category],
+                      category: category,
+                    ),
+                  ));
+                }
+                return Column(
+                  children: requestContainers,
+                );
+              },
             ),
             SizedBox(height: 20),
           ],

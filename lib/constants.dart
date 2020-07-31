@@ -9,71 +9,6 @@ Firestore db = Firestore.instance;
 //Google Maps
 final kGoogleApiKey = "AIzaSyDtBjj6ReiOlVtylupAx-wcLe2HmsJXXFs";
 
-//Categories
-final categories = [
-  [
-    'assets/hygiene_svgs/hygiene.svg',
-    'Hygiene',
-    {
-      'Body Soap': 'assets/hygiene_svgs/body_soap.svg',
-      'Nail Clipper': 'assets/hygiene_svgs/nail_clipper.svg',
-      'Soap': 'assets/hygiene_svgs/soap.svg',
-      'Toilet Paper': 'assets/hygiene_svgs/toilet_paper.svg',
-      'Toothbrush': 'assets/hygiene_svgs/toothbrush.svg',
-      'Toothpaste': 'assets/hygiene_svgs/toothpaste.svg',
-    },
-    'Hygiene is a very important part of a person\'s day. Staying clean is one way to brighten someone\'s day!'
-  ],
-  [
-    'assets/clothing_svgs/clothes.svg',
-    'Clothes',
-    {
-      'Beanie': 'assets/clothing_svgs/beanie.svg',
-      'Gloves': 'assets/clothing_svgs/gloves.svg',
-      'Hats': 'assets/clothing_svgs/hats.svg',
-      'Socks': 'assets/clothing_svgs/socks.svg',
-      'Underwear': 'assets/clothing_svgs/underwear.svg',
-      'Shirts': 'assets/clothing_svgs/shirt.svg',
-    },
-    'Clothes protect not only your body from physical harm, but strengthen your spirits and self-confidence.'
-  ],
-  [
-    'assets/nutrition_svgs/nutrition.svg',
-    'Nutrition',
-    {
-      'Beans': 'assets/nutrition_svgs/beans.svg',
-      'Bread': 'assets/nutrition_svgs/bread.svg',
-      'Eggs': 'assets/nutrition_svgs/eggs.svg',
-      'Energy bars': 'assets/nutrition_svgs/energy_bar.svg',
-      'Potatoes': 'assets/nutrition_svgs/potato.svg',
-      'Water': 'assets/nutrition_svgs/water.svg',
-    },
-    'A healthy and filling meal, at times, is worth more than a million dollars.'
-  ],
-  [
-    'assets/covid-19_response_svg/covid_19.svg',
-    'COVID-19',
-    {
-      'Face Shield': 'assets/covid-19_response_svg/face_shield.svg',
-      'Hand Sanitizers': 'assets/covid-19_response_svg/hand_sanitizer.svg',
-      'Latex Gloves': 'assets/covid-19_response_svg/latex_gloves.svg',
-      'Masks': 'assets/covid-19_response_svg/mask.svg',
-      'Wipes': 'assets/covid-19_response_svg/wipes.svg',
-    },
-    'Everyone deserves protection, especially in these trying times.'
-  ],
-  [
-    'assets/warmth_svgs/warmth.svg',
-    'Warmth',
-    {
-      'Blankets': 'assets/warmth_svgs/blanket.svg',
-      'Sleeping Bag': 'assets/warmth_svgs/sleeping_bag.svg',
-      'Sleeping Pad': 'assets/warmth_svgs/sleeping_pad.svg',
-    },
-    'The need for warmth has been engraved into humans since the beginning of life, and has never disappeared'
-  ],
-];
-
 //Styles
 final titleStyle = TextStyle(
   fontWeight: FontWeight.w900,
@@ -146,3 +81,68 @@ Color secondaryTertiary = Colors.blue;
 Color transparent = Colors.transparent;
 Color grey = Colors.white24;
 Color lightGrey = Color(0xFFCCCCCC);
+
+//Categories
+final categories = [
+  {
+    'asset': 'assets/hygiene_svgs/hygiene.svg',
+    'name': 'Hygiene',
+    'items': {
+      'Body Soap': 'assets/hygiene_svgs/body_soap.svg',
+      'Nail Clipper': 'assets/hygiene_svgs/nail_clipper.svg',
+      'Soap': 'assets/hygiene_svgs/soap.svg',
+      'Toilet Paper': 'assets/hygiene_svgs/toilet_paper.svg',
+      'Toothbrush': 'assets/hygiene_svgs/toothbrush.svg',
+      'Toothpaste': 'assets/hygiene_svgs/toothpaste.svg',
+    },
+    'description': 'Hygiene is a very important part of a person\'s day. Staying clean is one way to brighten someone\'s day!'
+  },
+  {
+    'asset': 'assets/clothing_svgs/clothes.svg',
+    'name': 'Clothes',
+    'items': {
+      'Beanie': 'assets/clothing_svgs/beanie.svg',
+      'Gloves': 'assets/clothing_svgs/gloves.svg',
+      'Hats': 'assets/clothing_svgs/hats.svg',
+      'Socks': 'assets/clothing_svgs/socks.svg',
+      'Underwear': 'assets/clothing_svgs/underwear.svg',
+      'Shirts': 'assets/clothing_svgs/shirt.svg',
+    },
+    'description': 'Clothes protect not only your body from physical harm, but strengthen your spirits and self-confidence.'
+  },
+  {
+    'asset': 'assets/nutrition_svgs/nutrition.svg',
+    'name': 'Nutrition',
+    'items': {
+      'Beans': 'assets/nutrition_svgs/beans.svg',
+      'Bread': 'assets/nutrition_svgs/bread.svg',
+      'Eggs': 'assets/nutrition_svgs/eggs.svg',
+      'Energy bars': 'assets/nutrition_svgs/energy_bar.svg',
+      'Potatoes': 'assets/nutrition_svgs/potato.svg',
+      'Water': 'assets/nutrition_svgs/water.svg',
+    },
+    'description': 'A healthy and filling meal, at times, is worth more than a million dollars.'
+  },
+  {
+    'asset': 'assets/covid-19_response_svg/covid_19.svg',
+    'name': 'COVID-19',
+    'items': {
+      'Face Shield': 'assets/covid-19_response_svg/face_shield.svg',
+      'Hand Sanitizers': 'assets/covid-19_response_svg/hand_sanitizer.svg',
+      'Latex Gloves': 'assets/covid-19_response_svg/latex_gloves.svg',
+      'Masks': 'assets/covid-19_response_svg/mask.svg',
+      'Wipes': 'assets/covid-19_response_svg/wipes.svg',
+    },
+    'description': 'Everyone deserves protection, especially in these trying times.'
+  },
+  {
+    'asset': 'assets/warmth_svgs/warmth.svg',
+    'name': 'Warmth',
+    'items': {
+      'Blankets': 'assets/warmth_svgs/blanket.svg',
+      'Sleeping Bag': 'assets/warmth_svgs/sleeping_bag.svg',
+      'Sleeping Pad': 'assets/warmth_svgs/sleeping_pad.svg',
+    },
+    'description': 'The need for warmth has been engraved into humans since the beginning of life, and has never disappeared'
+  },
+];
