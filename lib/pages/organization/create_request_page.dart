@@ -43,31 +43,34 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
                 ),
                 SizedBox(height: 20),
                 GridView.builder(
-                    shrinkWrap: true,
-                    itemCount: categories.length,
+                  shrinkWrap: true,
+                  itemCount: categories.length + 1,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3,
                     crossAxisSpacing: 4.0,
                     mainAxisSpacing: 4.0,
                   ),
-                      itemBuilder: (BuildContext context, int i) {
-                        return CategoryIconButton(
-                            asset: categories[i][0],
-                            name: categories[i][1],
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ChooseItemPage(
-                                        categoryIcon: categories[i][0],
-                                        categoryName: categories[i][1],
-                                        items: categories[i][2],
-                                        categoryInfo: categories[i][3])),
-                              );
-                            });
-                      },
+                  itemBuilder: (BuildContext context, int i) {
+                    if (i == categories.length)
+                      return null; //TODO: make other page;
+                    else
+                      return CategoryIconButton(
+                          asset: categories[i][0],
+                          name: categories[i][1],
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ChooseItemPage(
+                                      categoryIcon: categories[i][0],
+                                      categoryName: categories[i][1],
+                                      items: categories[i][2],
+                                      categoryInfo: categories[i][3])),
+                            );
+                          });
+                  },
                 ),
-                CategoryIconButton(
+                /*CategoryIconButton(
                     asset: 'assets/other_svgs/other.svg',
                     name: 'Other',
                     onPressed: () {
@@ -80,7 +83,7 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
                                 items: {},
                                 categoryInfo: 'For people to live even at the bare minimum, they require more than the necessities')),
                       );
-                    }),
+                    }),*/
               ],
             ),
           ),
