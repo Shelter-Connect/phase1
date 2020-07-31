@@ -23,9 +23,10 @@ class RequestContainer extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
+                SizedBox(height: 10),
                 Text(
                   '$category',
-                  style: TextStyle(fontSize: 26, fontWeight: FontWeight.w600),
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                 ),
                 SizedBox(
                   height: 5,
@@ -50,7 +51,7 @@ class RequestContainer extends StatelessWidget {
                               .map(
                                 (int) => Text(
                                   '$int',
-                                  style: TextStyle(fontSize: 21, fontWeight: FontWeight.w500),
+                                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400),
                                 ),
                               )
                               .toList()
@@ -66,7 +67,7 @@ class RequestContainer extends StatelessWidget {
                         ...itemName
                             .map((string) => Text(string,
                                 style: TextStyle(
-                                  fontSize: 21,
+                                  fontSize: 17, fontWeight: FontWeight.w400,
                                 )))
                             .toList()
                       ],

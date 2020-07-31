@@ -11,7 +11,9 @@ class TmrSlideItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: sub2ElevatedBoxStyle,
+      decoration: BoxDecoration(
+        color: Colors.white, borderRadius: BorderRadius.circular(10),
+      ),
       child: Row(
         children: <Widget>[
           SizedBox(width: 10),

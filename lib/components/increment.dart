@@ -302,7 +302,7 @@ class _ItemIncrementCreateRequestState extends State<ItemIncrementCreateRequest>
                 height: 30,
                 width: 30,
                 decoration: BoxDecoration(
-                  color: lightGrey,
+                  color: Color(0xFFF5F5F5),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: IconButton(
@@ -349,12 +349,12 @@ class _ItemIncrementCreateRequestState extends State<ItemIncrementCreateRequest>
                 height: 30,
                 width: 30,
                 decoration: BoxDecoration(
-                  color: blueAccent,
+                  color: Colors.blueAccent,
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: IconButton(
                   onPressed: _incrementCounter,
-                  color: colorScheme.onSecondary,
+                  color: Colors.white,
                   icon: Icon(Icons.add, size: 15),
                   tooltip: 'Increment',
                 ),

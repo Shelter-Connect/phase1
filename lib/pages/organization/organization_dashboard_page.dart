@@ -50,8 +50,8 @@ class _OrganizationDashboardPageState extends State<OrganizationDashboardPage> {
               ),
               SizedBox(height: 20),
               Text(
-                '# Expected Deliveries Today',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700, color: purpleLight),
+                '9 Expected Deliveries Today',
+                style: subTitleStyle,
               ),
               SizedBox(height: 10),
               Container(
@@ -73,8 +73,8 @@ class _OrganizationDashboardPageState extends State<OrganizationDashboardPage> {
               ),
               SizedBox(height: 20.0),
               Text(
-                '# Expected Deliveries Tomorrow',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700, color: purpleLight),
+                '4 Expected Deliveries Tomorrow',
+                style: subTitleStyle
               ),
               SizedBox(height: 10),
               Container(
@@ -104,8 +104,8 @@ class _OrganizationDashboardPageState extends State<OrganizationDashboardPage> {
               ),
               SizedBox(height: 5),
               Text(
-                '# Current Requests',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700, color: purpleLight),
+                ' 15 Current Requests',
+                style: subTitleStyle
               ),
               SizedBox(height: 10),
               Container(
@@ -240,7 +240,7 @@ class _OrganizationDashboardPageState extends State<OrganizationDashboardPage> {
         label: Text('New Request'),
         icon: Icon(
           Icons.edit,
-          color: colorScheme.onSecondary,
+          color: Colors.white,
         ),
       ),
     );

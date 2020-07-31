@@ -38,7 +38,7 @@ class _DeliveryInformationPageState extends State<DeliveryInformationPage> {
         child: Column(
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
               child: Container(
                 decoration: elevatedBoxStyle,
                 child: Padding(
@@ -47,9 +47,10 @@ class _DeliveryInformationPageState extends State<DeliveryInformationPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
+                      SizedBox(height: 10),
                       Text(
                         'Items to be Delivered',
-                        style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                       ),
                       SizedBox(
                         height: 5,
@@ -60,6 +61,7 @@ class _DeliveryInformationPageState extends State<DeliveryInformationPage> {
                         width: 100,
                         decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
                       ),
+                      SizedBox(height: 10),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
@@ -68,18 +70,26 @@ class _DeliveryInformationPageState extends State<DeliveryInformationPage> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  ...widget.itemName.map((string) => Text(string, style: TextStyle(fontSize: 20))).toList(),
+                                  ...widget.itemName.map((string) => Text(string, style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400))).toList(),
                                 ],
                               )),
                           Padding(
                               padding: EdgeInsets.all(10),
                               child: Column(
                                 children: <Widget>[
-                                  ...widget.itemQuantity.map((int) => Text('$int', style: TextStyle(fontSize: 20))).toList(),
+                                  ...widget.itemQuantity.map((int) => Text('$int', style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400))).toList(),
+                                  SizedBox(height: 10),
                                 ],
                               )),
                         ],
                       ),
+                      SizedBox(height: 5),
+                      Container(
+                        //THIS IS THE LINE
+                        height: 3,
+                        decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(20)),
+                      ),
+                      SizedBox(height: 5),
                       Padding(
                         padding: EdgeInsets.all(10),
                         child: Align(
@@ -87,7 +97,7 @@ class _DeliveryInformationPageState extends State<DeliveryInformationPage> {
                           child: Text(
                             "Expected Date: ${widget.dateExpected}",
                             style: TextStyle(
-                              fontSize: 20,
+                                fontSize: 17, fontWeight: FontWeight.w400
                             ),
                           ),
                         ),
@@ -98,7 +108,7 @@ class _DeliveryInformationPageState extends State<DeliveryInformationPage> {
                           alignment: Alignment.topLeft,
                           child: Text(
                             "Date Requested: ${widget.dateRequested}",
-                            style: TextStyle(fontSize: 20),
+                            style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400),
                           ),
                         ),
                       ),
@@ -108,7 +118,7 @@ class _DeliveryInformationPageState extends State<DeliveryInformationPage> {
                           alignment: Alignment.topLeft,
                           child: Text(
                             "Donor Name: ${widget.donorName}",
-                            style: TextStyle(fontSize: 20),
+                            style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400),
                           ),
                         ),
                       ),
@@ -118,7 +128,7 @@ class _DeliveryInformationPageState extends State<DeliveryInformationPage> {
                           alignment: Alignment.topLeft,
                           child: Text(
                             "Donor Email: ${widget.donorEmail}",
-                            style: TextStyle(fontSize: 20),
+                            style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400),
                           ),
                         ),
                       ),
@@ -131,10 +141,10 @@ class _DeliveryInformationPageState extends State<DeliveryInformationPage> {
               padding: const EdgeInsets.all(16.0),
               child: Container(
                 width: MediaQuery.of(context).size.width,
-                height: 50,
+                height: 40,
                 child: FlatButton(
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(21.0)),
-                  color: secondaryTertiary,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+                  color: purpleAccent,
                   onPressed: () {
                     Navigator.push(
                         context,

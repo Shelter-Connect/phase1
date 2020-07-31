@@ -38,7 +38,7 @@ class _WelcomePageState extends State<WelcomePage> {
             children: <Widget>[
               Text(
                 'Welcome!',
-                style: titleStyle,
+                style: largeTitleStyle,
                 textAlign: TextAlign.center,
               ),
               Align(

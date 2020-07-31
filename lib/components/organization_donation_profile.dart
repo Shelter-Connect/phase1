@@ -107,7 +107,8 @@ class OrganizationDonationProfile extends StatelessWidget {
                             child: Text(
                               category,
                               style: TextStyle(
-                                color: colorScheme.secondaryVariant,
+                                color: Colors.blue,
+                                fontWeight: FontWeight.w700
                               ),
                             ),
                           ),

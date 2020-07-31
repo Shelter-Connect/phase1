@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:phase1/models/donation.dart';
@@ -30,7 +31,7 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
               children: <Widget>[
                 Text(
                   'Delivery to ${widget.organization.name}',
-                  style: TextStyle(fontSize: 35, fontWeight: FontWeight.w900, color: purpleAccent),
+                  style: mainTitleStyle
                 ),
                 SizedBox(height: 20),
                 OrganizationInformation(
@@ -58,6 +59,7 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                                   'Selected Donations',
                                   style: TextStyle(
                                     fontSize: 20,
+                                    fontWeight: FontWeight.w600
                                   ),
                                 ),
                                 FlatButton(
@@ -84,9 +86,6 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                               decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
                             ),
                             SizedBox(
-                              height: 15,
-                            ),
-                            SizedBox(
                               height: 10,
                             ),
                             ListView.builder(
@@ -111,6 +110,7 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                                 );
                               },
                             ),
+                            SizedBox(height: 5)
                           ],
                         ),
                       ],
@@ -139,19 +139,21 @@ class OrganizationInformation extends StatelessWidget {
           decoration: elevatedBoxStyle,
           width: MediaQuery.of(context).size.width,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16.0),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
+                SizedBox(height: 10),
                 Text(
                   'Organization Information ',
                   style: TextStyle(
                     fontSize: 20,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
                 SizedBox(
-                  height: 10,
+                  height: 5,
                 ),
                 Container(
                   height: 5,
@@ -170,15 +172,16 @@ class OrganizationInformation extends StatelessWidget {
                         TextSpan(
                             text: 'Email Address: ',
                             style: TextStyle(
-                              fontSize: 18,
-                              color: colorScheme.onBackground,
+                              fontSize: 17,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.black,
                             )),
                         TextSpan(
                             text: orgEmail,
                             style: TextStyle(
-                              fontSize: 18,
+                              fontSize: 17,
                               fontWeight: FontWeight.w600,
-                              color: colorScheme.onBackground,
+                              color: Colors.black,
                             ))
                       ]),
                     ),
@@ -190,15 +193,16 @@ class OrganizationInformation extends StatelessWidget {
                         TextSpan(
                             text: 'Donation Location: ',
                             style: TextStyle(
-                              fontSize: 18,
-                              color: colorScheme.onBackground,
+                              fontSize: 17,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.black,
                             )),
                         TextSpan(
                             text: orgAddress,
                             style: TextStyle(
-                              fontSize: 18,
+                              fontSize: 17,
                               fontWeight: FontWeight.w600,
-                              color: colorScheme.onBackground,
+                              color: Colors.black,
                             ))
                       ]),
                     ),
@@ -207,18 +211,20 @@ class OrganizationInformation extends StatelessWidget {
                         TextSpan(
                             text: 'Deliver By: ',
                             style: TextStyle(
-                              fontSize: 18,
-                              color: colorScheme.onBackground,
+                              fontSize: 17,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.black,
                             )),
                         TextSpan(
                             text: '${DateFormat('MMMMd').format(dateTime)}',
                             style: TextStyle(
-                              fontSize: 18,
+                              fontSize: 17,
                               fontWeight: FontWeight.w600,
-                              color: colorScheme.onBackground,
+                              color: Colors.black,
                             ))
                       ]),
                     ),
+                    SizedBox(height: 5)
                   ],
                 )
               ],
