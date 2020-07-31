@@ -27,16 +27,19 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 RichText(
-                  text: TextSpan(children: <TextSpan>[
-                    TextSpan(text: 'Create Requests: ', style: TextStyle(fontSize: 35, color: colorScheme.onSecondary, fontWeight: FontWeight.w900)),
-                    TextSpan(
+                  text: TextSpan(
+                    children: <TextSpan>[
+                      TextSpan(text: 'Create Requests: ', style: TextStyle(fontSize: 35, color: colorScheme.onSecondary, fontWeight: FontWeight.w900)),
+                      TextSpan(
                         text: 'Select Category',
                         style: TextStyle(
                           fontSize: 30,
                           fontWeight: FontWeight.w600,
                           color: colorScheme.onSecondary,
-                        ))
-                  ]),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
                 SizedBox(height: 20),
                 Align(

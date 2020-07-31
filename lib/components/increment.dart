@@ -272,7 +272,7 @@ class _ItemIncrementCreateRequestState extends State<ItemIncrementCreateRequest>
 
   void _incrementCounter() {
     setState(() {
-      _counter = _counter++;
+      _counter++;
     });
     widget.onChanged(_counter);
     controller.text = (_counter).toString();
