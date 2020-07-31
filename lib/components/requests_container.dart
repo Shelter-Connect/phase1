@@ -14,7 +14,7 @@ class RequestContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       elevation: 5,
-     borderRadius: BorderRadius.all(Radius.circular(20)),
+      borderRadius: BorderRadius.all(Radius.circular(20)),
       child: Container(
         decoration: elevatedBoxStyle,
         child: Padding(
@@ -51,13 +51,13 @@ class RequestContainer extends StatelessWidget {
                         ),
                         SizedBox(width: 5),
                         Text(
-                        items[index].name,
+                          items[index].name,
                           style: TextStyle(
                             fontSize: 17,
                           ),
                         ),
                       ],
-                    ),
+                    );
                   },
                 ),
                 //ADD MORE WIDGETS HERE

@@ -6,7 +6,6 @@ import 'package:phase1/models/item.dart';
 import 'package:phase1/services/firestore_helper.dart';
 
 import '../navigation_tab.dart';
-import 'create_request_page.dart';
 
 class CurrentRequestsPage extends StatefulWidget with NavigationTab {
   @override
@@ -41,20 +40,20 @@ class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
               ),
               SizedBox(height: 20),
               Container(
-                decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                          color: Color(0xFFDEDEDE),
-                          blurRadius: 20.0,
-                          spreadRadius: 0.025,
-                          offset: Offset(
-                            0.0,
-                            0.0,
-                          )),
-                    ]),
+                  decoration: BoxDecoration(boxShadow: [
+                    BoxShadow(
+                        color: Color(0xFFDEDEDE),
+                        blurRadius: 20.0,
+                        spreadRadius: 0.025,
+                        offset: Offset(
+                          0.0,
+                          0.0,
+                        )),
+                  ]),
                   child: FlatButton(
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                    color: Colors.white, onPressed: () {  },
+                    color: Colors.white,
+                    onPressed: () {},
                     child: IntrinsicWidth(
                       child: Row(
                         children: <Widget>[
@@ -72,50 +71,49 @@ class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
                           ),
                         ],
                       ),
-                    ),)
-              ),
-        ),
-            SizedBox(height: 20),
-            StreamBuilder(
-              stream: FirestoreHelper.getCurrentOrganizationReference(context).collection('requests').snapshots(),
-              builder: (context, snapshot) {
-                if (!snapshot.hasData) {
-                  return Center(child: CircularProgressIndicator());
-                }
-
-                Map<String, List<Item>> itemCategories = {};
-                for (DocumentSnapshot document in snapshot.data.documents) {
-                  if (!itemCategories.containsKey(document['category'])) {
-                    itemCategories[document['category']] = [];
-                  }
-                  itemCategories[document['category']].add(Item(
-                    name: document['name'],
-                    category: document['category'],
-                    amount: document['amount'],
-                    specificDescription: document['specificDescription'],
-                  ));
-                }
-
-                List<Widget> requestContainers = [];
-                for (String category in itemCategories.keys) {
-                  requestContainers.add(Padding(
-                    padding: const EdgeInsets.only(bottom: 16.0),
-                    child: RequestContainer(
-                      items: itemCategories[category],
-                      category: category,
                     ),
-                  ));
-                }
-                return Column(
-                  children: requestContainers,
-                );
-              },
-            ),
-            SizedBox(height: 20),
-          ],
+                  )),
+              SizedBox(height: 20),
+              StreamBuilder(
+                stream: FirestoreHelper.getCurrentOrganizationReference(context).collection('requests').snapshots(),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+
+                  Map<String, List<Item>> itemCategories = {};
+                  for (DocumentSnapshot document in snapshot.data.documents) {
+                    if (!itemCategories.containsKey(document['category'])) {
+                      itemCategories[document['category']] = [];
+                    }
+                    itemCategories[document['category']].add(Item(
+                      name: document['name'],
+                      category: document['category'],
+                      amount: document['amount'],
+                      specificDescription: document['specificDescription'],
+                    ));
+                  }
+
+                  List<Widget> requestContainers = [];
+                  for (String category in itemCategories.keys) {
+                    requestContainers.add(Padding(
+                      padding: const EdgeInsets.only(bottom: 16.0),
+                      child: RequestContainer(
+                        items: itemCategories[category],
+                        category: category,
+                      ),
+                    ));
+                  }
+                  return Column(
+                    children: requestContainers,
+                  );
+                },
+              ),
+              SizedBox(height: 20),
+            ],
+          ),
         ),
       ),
     );
-
   }
 }
