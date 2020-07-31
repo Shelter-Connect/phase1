@@ -3,6 +3,7 @@ import 'package:phase1/components/category_description.dart';
 import 'package:phase1/components/category_icon_button.dart';
 import 'package:phase1/constants.dart';
 import 'package:phase1/pages/organization/confirm_request_page.dart';
+import 'package:phase1/pages/organization/other_item_page.dart';
 
 import '../../components/secondary_layout.dart';
 
@@ -100,13 +101,9 @@ class ChooseItemPage extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => ChooseItemPage(
-                                    categoryIcon: 'assets/other_svgs/other.svg',
-                                    categoryName: 'Other',
-                                    items: {},
-                                    categoryInfo: 'For people to live even at the bare minimum, they require more than the necessities',
-                                  ),
-                                ),
+                                    builder: (context) => OtherItemPage(
+                                          itemCategory: categoryName,
+                                        )),
                               );
                             },
                           ),
