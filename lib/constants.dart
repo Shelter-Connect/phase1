@@ -72,7 +72,6 @@ final categories = [
     },
     'The need for warmth has been engraved into humans since the beginning of life, and has never disappeared'
   ],
-  ['assets/other_svgs/other.svg', 'Other', {}, 'For people to live even at the bare minimum, they require more than the necessities'],
 ];
 
 //Styles
