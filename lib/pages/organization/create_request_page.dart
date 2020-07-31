@@ -48,130 +48,25 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
                     direction: Axis.horizontal,
                     crossAxisAlignment: WrapCrossAlignment.center,
                     children: <Widget>[
-                      CategoryIconButton(
-                        asset: 'assets/hygiene_svgs/hygiene.svg',
-                        name: 'Hygiene',
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ChooseItemPage(
-                                    categoryIcon: 'assets/hygiene_svgs/hygiene.svg',
-                                    categoryName: 'Hygiene',
-                                    items: {
-                                      'Body Soap': 'assets/hygiene_svgs/body_soap.svg',
-                                      'Nail Clipper': 'assets/hygiene_svgs/nail_clipper.svg',
-                                      'Soap': 'assets/hygiene_svgs/soap.svg',
-                                      'Toilet Paper': 'assets/hygiene_svgs/toilet_paper.svg',
-                                      'Toothbrush': 'assets/hygiene_svgs/toothbrush.svg',
-                                      'Toothpaste': 'assets/hygiene_svgs/toothpaste.svg',
-                                    },
-                                    categoryInfo:
-                                        'Hygiene is a very important part of a person\'s day. Staying clean is one way to brighten someone\'s day!')),
-                          );
-                        },
-                      ),
-                      CategoryIconButton(
-                        asset: 'assets/clothing_svgs/clothes.svg',
-                        name: 'Clothes',
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ChooseItemPage(
-                                    categoryIcon: 'assets/clothing_svgs/clothes.svg',
-                                    categoryName: 'Clothes',
-                                    items: {
-                                      'Beanie': 'assets/clothing_svgs/beanie.svg',
-                                      'Gloves': 'assets/clothing_svgs/gloves.svg',
-                                      'Hats': 'assets/clothing_svgs/hats.svg',
-                                      'Socks': 'assets/clothing_svgs/socks.svg',
-                                      'Underwear': 'assets/clothing_svgs/underwear.svg',
-                                      'Shirts': 'assets/clothing_svgs/shirt.svg',
-                                    },
-                                    categoryInfo:
-                                        'Clothes protect not only your body from physical harm, but strengthen your spirits and self-confidence.')),
-                          );
-                        },
-                      ),
-                      CategoryIconButton(
-                        asset: 'assets/nutrition_svgs/nutrition.svg',
-                        name: 'Nutrition',
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ChooseItemPage(
-                                    categoryIcon: 'assets/nutrition_svgs/nutrition.svg',
-                                    categoryName: 'Nutrition',
-                                    items: {
-                                      'Beans': 'assets/nutrition_svgs/beans.svg',
-                                      'Bread': 'assets/nutrition_svgs/bread.svg',
-                                      'Eggs': 'assets/nutrition_svgs/eggs.svg',
-                                      'Energy bars': 'assets/nutrition_svgs/energy_bar.svg',
-                                      'Potatoes': 'assets/nutrition_svgs/potato.svg',
-                                      'Water': 'assets/nutrition_svgs/water.svg',
-                                    },
-                                    categoryInfo: 'A healthy and filling meal, at times, is worth more than a million dollars.')),
-                          );
-                        },
-                      ),
-                      CategoryIconButton(
-                        asset: 'assets/covid-19_response_svg/covid_19.svg',
-                        name: 'COVID-19',
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ChooseItemPage(
-                                    categoryIcon: 'assets/covid-19_response_svg/covid_19.svg',
-                                    categoryName: 'COVID-19',
-                                    items: {
-                                      'Face Shield': 'assets/covid-19_response_svg/face_shield.svg',
-                                      'Hand Sanitizers': 'assets/covid-19_response_svg/hand_sanitizer.svg',
-                                      'Latex Gloves': 'assets/covid-19_response_svg/latex_gloves.svg',
-                                      'Masks': 'assets/covid-19_response_svg/mask.svg',
-                                      'Wipes': 'assets/covid-19_response_svg/wipes.svg',
-                                    },
-                                    categoryInfo: 'Everyone deserves protection, especially in these trying times.')),
-                          );
-                        },
-                      ),
-                      CategoryIconButton(
-                        asset: 'assets/warmth_svgs/warmth.svg',
-                        name: 'Warmth',
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ChooseItemPage(
-                                    categoryIcon: 'assets/warmth_svgs/warmth.svg',
-                                    categoryName: 'Warmth',
-                                    items: {
-                                      'Blankets': 'assets/warmth_svgs/blanket.svg',
-                                      'Sleeping Bag': 'assets/warmth_svgs/sleeping_bag.svg',
-                                      'Sleeping Pad': 'assets/warmth_svgs/sleeping_pad.svg',
-                                    },
-                                    categoryInfo:
-                                        'The need for warmth has been engraved into humans since the beginning of life, and has never disappeared')),
-                          );
-                        },
-                      ),
-                      CategoryIconButton(
-                        asset: 'assets/other_svgs/other.svg',
-                        name: 'Other',
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ChooseItemPage(
-                                    categoryIcon: 'assets/other_svgs/other.svg',
-                                    categoryName: 'Other',
-                                    items: {},
-                                    categoryInfo: 'For people to live even at the bare minimum, they require more than the necessities')),
-                          );
-                        },
-                      ),
+                      ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: categories.length,
+                          itemBuilder: (BuildContext context, int i) {
+                            return CategoryIconButton(
+                                asset: categories[i][0],
+                                name: categories[i][1],
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => ChooseItemPage(
+                                            categoryIcon: categories[i][0],
+                                            categoryName: categories[i][1],
+                                            items: categories[i][2],
+                                            categoryInfo: categories[i][3])),
+                                  );
+                                });
+                          }),
                     ],
                   ),
                 ),
