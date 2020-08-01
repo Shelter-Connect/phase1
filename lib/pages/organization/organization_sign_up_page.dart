@@ -16,7 +16,7 @@ class OrganizationSignUpPage extends StatefulWidget {
 }
 
 class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
-  String email, password, password2, organizationName, description;
+  String email, password, password2, organizationName, description, number, website;
   GeoPoint location;
   TextEditingController controller = TextEditingController();
   GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: kGoogleApiKey);
@@ -25,7 +25,7 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: colorScheme.background,
+      backgroundColor: Color(0xFFF5F5F5),
       body: ModalProgressHUD(
         inAsyncCall: loading,
         child: SafeArea(
@@ -35,9 +35,10 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('Organization Sign Up', style: titleStyle),
+                Text('Organization Sign Up', style: largeTitleStyle),
                 SizedBox(height: 35),
                 FloatingTextField(
+                  keyboardType: TextInputType.emailAddress,
                   hintText: 'Organization Email',
                   onChanged: (val) {
                     email = val.trim();
@@ -99,8 +100,31 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
                   },
                 ),
                 SizedBox(height: 30),
+                FloatingTextField(
+                  maxLength: 11,
+                  keyboardType: TextInputType.number,
+                  onChanged: (val) {
+                    setState(() {
+                      number = val;
+                    });
+                  },
+                  maxLines: null,
+                  hintText: 'Number (Optional)',
+                ),
+                SizedBox(height: 30),
+                FloatingTextField(
+                  onChanged: (val) {
+                    setState(() {
+                      website = val;
+                    });
+                  },
+                  maxLines: null,
+                  hintText: 'Website (Optional)',
+                ),
+                SizedBox(height: 20),
                 RoundedButton(
-                  title: 'Create Account',
+                  color: purpleAccent,
+                  title: 'Create Account', textColor: Colors.white,
                   onPressed: () async {
                     if (password != password2) {
                       showDialog(
@@ -129,6 +153,8 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
                             'location': location,
                             'address': controller.text,
                             'verified': false,
+                            'number': number,
+                            'website': website,
                           });
                         }
                         FocusScope.of(context).unfocus();
@@ -144,7 +170,7 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
                 Padding(
                   padding: const EdgeInsets.only(left: 5.0),
                   child: TextButton(
-                    text: 'Not an Organization?',
+                    text: 'Not an Organization?', textColor: Colors.redAccent,
                     onPressed: () {
                       Navigator.pop(context);
                     },

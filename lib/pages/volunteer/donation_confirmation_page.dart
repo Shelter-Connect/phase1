@@ -2,61 +2,57 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:phase1/models/donation.dart';
-import 'package:phase1/models/item.dart';
 import 'package:phase1/models/organization.dart';
+import 'package:phase1/services/firestore_helper.dart';
 
 import '../../components/standard_layout.dart';
 import '../../constants.dart';
 
-class ConfirmEditDonationPage extends StatefulWidget {
+class DonationConfirmationPage extends StatefulWidget {
   final Organization organization;
   final Donation donation;
 
-  ConfirmEditDonationPage(this.organization, this.donation);
+  DonationConfirmationPage(this.organization, this.donation);
 
   @override
-  _ConfirmEditDonationPageState createState() => _ConfirmEditDonationPageState();
+  _DonationConfirmationPageState createState() => _DonationConfirmationPageState();
 }
 
-class _ConfirmEditDonationPageState extends State<ConfirmEditDonationPage> {
+class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
   @override
   Widget build(BuildContext context) {
+    widget.donation.items.sort((a, b) => a.category.compareTo(b.category));
+
     return StandardLayout(
       title: ' ',
       helpText: 'If u don\'t know how to use this app u stupid lmao',
       body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
-              child: Column(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
                     'Confirm Your Delivery to:',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900, color: purpleAccent),
+                    style: subTitleStyle
                   ),
                   Text(
                     widget.organization.name,
-                    style: TextStyle(fontSize: 35, fontWeight: FontWeight.w900, color: purpleAccent),
+                    style: mainTitleStyle
                   ),
                 ],
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
-              child: Text(
+              Text(
                 /*'on: ${DateFormat.yMMMd().add_jm().format(widget.donation.date)}',*/
                 'on: ${DateFormat.yMMMd().format(widget.donation.date)}',
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700, color: purpleAccent),
+                style: subTitleStyle,
               ),
-            ),
-            SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Container(
-                decoration: BoxDecoration(color: colorScheme.background, borderRadius: BorderRadius.all(Radius.circular(20))),
+              SizedBox(height: 20),
+              Container(
+                decoration: elevatedBoxStyle,
                 width: MediaQuery.of(context).size.width,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 4.0),
@@ -79,44 +75,40 @@ class _ConfirmEditDonationPageState extends State<ConfirmEditDonationPage> {
                             ),
                           ],
                         ),
+                        SizedBox(
+                          height: 5,
+                        ),
                         Container(
                           height: 5,
                           width: 100,
                           decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
                         ),
-                        SizedBox(
-                          height: 10,
-                        ),
                         Column(
-                          children: widget.donation.items
-                              .map((String category, List<Item> items) => MapEntry(
-                                  category,
-                                  Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-                                    SizedBox(height: 10.0),
-                                    Text(
-                                      category,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 17.0,
-                                      ),
+                          children: widget.donation.items.asMap().map((index, item) {
+                            return MapEntry(index, Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                SizedBox(height: 10.0),
+                                if(index == 0 || item.category != widget.donation.items[index-1].category) Text(
+                                  item.category,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 17.0,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 3.0),
+                                  child: Text(
+                                    '${item.name} x ${item.amount}',
+                                    style: TextStyle(
+                                      fontSize: 17.0,
+                                      fontWeight: FontWeight.w400,
                                     ),
-                                    ...items
-                                        .map(
-                                          (item) => Padding(
-                                            padding: const EdgeInsets.only(top: 3.0),
-                                            child: Text(
-                                              '${item.name} x ${item.amount}',
-                                              style: TextStyle(
-                                                fontSize: 17.0,
-                                                fontWeight: FontWeight.w400,
-                                              ),
-                                            ),
-                                          ),
-                                        )
-                                        .toList(),
-                                  ])))
-                              .values
-                              .toList(),
+                                  ),
+                                ),
+                              ],
+                            ));
+                          }).values.toList(),
                         ),
                         SizedBox(
                           height: 10,
@@ -126,14 +118,11 @@ class _ConfirmEditDonationPageState extends State<ConfirmEditDonationPage> {
                   ]),
                 ),
               ),
-            ),
-            SizedBox(height: 20),
-            Column(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Container(
-                    decoration: BoxDecoration(color: colorScheme.background, borderRadius: BorderRadius.all(Radius.circular(20))),
+              SizedBox(height: 20),
+              Column(
+                children: <Widget>[
+                  Container(
+                    decoration: elevatedBoxStyle,
                     width: MediaQuery.of(context).size.width,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16.0),
@@ -158,23 +147,20 @@ class _ConfirmEditDonationPageState extends State<ConfirmEditDonationPage> {
                           SizedBox(
                             height: 10,
                           ),
-                          InfoText(
-                              orgEmail: widget.organization.email, orgNumber: widget.organization.number, orgAddress: widget.organization.address),
+                          InfoText(orgEmail: widget.organization.email, orgNumber: widget.organization.number, orgAddress: widget.organization.address),
                         ],
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            SizedBox(height: 25),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Container(
+                ],
+              ),
+              SizedBox(height: 16),
+              Container(
                 width: MediaQuery.of(context).size.width,
                 child: FlatButton(
                   onPressed: () {
-                    //TODO Update Firebase and input new order
+                    Navigator.popUntil(context, ModalRoute.withName('/volunteer_navigation'));
+                    FirestoreHelper.createDonation(context, widget.donation);
                   },
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30.0),
@@ -183,15 +169,15 @@ class _ConfirmEditDonationPageState extends State<ConfirmEditDonationPage> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 20),
                     child: Text(
-                      'Confirm Your Delivery',
+                      'Confirm Donation',
                       style: TextStyle(color: colorScheme.onSecondary, fontSize: 20),
                     ),
                   ),
                 ),
               ),
-            ),
-            SizedBox(height: 10)
-          ],
+              SizedBox(height: 20)
+            ],
+          ),
         ),
       ),
     );

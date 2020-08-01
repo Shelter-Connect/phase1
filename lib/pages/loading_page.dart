@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -18,8 +19,10 @@ class _LoadingPageState extends State<LoadingPage> {
         db.collection('volunteers').document(user.uid).get().then((value) {
           if (value.data != null) {
             if (user.isEmailVerified) {
+              Navigator.pushNamed(context, '/welcome_updated');
               Navigator.pushNamed(context, '/volunteer_navigation');
             } else {
+              Navigator.pushNamed(context, '/welcome_updated');
               Navigator.pushNamed(context, '/volunteer_confirmation');
             }
           }
@@ -28,17 +31,19 @@ class _LoadingPageState extends State<LoadingPage> {
         db.collection('organizations').document(user.uid).get().then((value) {
           if (value.data != null) {
             if (value['verified']) {
+              Navigator.pushNamed(context, '/welcome_updated');
               Navigator.pushNamed(context, '/organization_navigation');
             } else {
+              Navigator.pushNamed(context, '/welcome_updated');
               Navigator.pushNamed(context, '/organization_confirmation');
             }
           }
         });
       } else {
         if (ModalRoute.of(context).isCurrent) {
-          Navigator.pushNamed(context, '/welcome');
+          Navigator.pushNamed(context, '/welcome_updated');
         } else {
-          Navigator.pop(context);
+          Navigator.popUntil(context, ModalRoute.withName('/welcome_updated'));
         }
       }
     });
@@ -48,10 +53,20 @@ class _LoadingPageState extends State<LoadingPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: colorScheme.background,
-      child: Center(
-        child: Image.asset('assets/logo_svgs/ShelterConnectLogo.png', width: MediaQuery.of(context).size.width * 0.6),
+    return Scaffold(
+      backgroundColor: Color(0xFFF5F5F5),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Container(
+            child: Center(
+              child: Image.asset('assets/logo_svgs/finalithink.png', width: MediaQuery.of(context).size.width * 0.45),
+            ),
+          ),
+          Align(
+              alignment: Alignment.bottomCenter,
+              child: Text('CONNECT APP INC.'))
+        ],
       ),
     );
   }

@@ -1,6 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:phase1/components/requests_container.dart';
 import 'package:phase1/constants.dart';
+import 'package:phase1/models/item.dart';
+import 'package:phase1/services/firestore_helper.dart';
 
 import '../navigation_tab.dart';
 
@@ -10,7 +13,7 @@ class CurrentRequestsPage extends StatefulWidget with NavigationTab {
 
   @override
   String get helpDescription =>
-      '''   This is the Organization Current Requests Page Page! Here you can see all the items that the you have ordered but that volunteers have not committed to yet!''';
+      '''This is the Organization Current Requests Page Page! Here you can see all the items that the you have ordered but that volunteers have not committed to yet!''';
 
   @override
   IconData get icon => Icons.list;
@@ -22,83 +25,94 @@ class CurrentRequestsPage extends StatefulWidget with NavigationTab {
 class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(left: 16.0),
-            child: Text(
-              'Current Requests',
-              style: TextStyle(fontSize: 35, fontWeight: FontWeight.w900, color: purpleAccent),
-            ),
-          ),
-          Row(
+    return Scaffold(
+      backgroundColor: Color(0xFFF5F5F5),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  width: 100,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(41),
-                    color: colorScheme.onSecondary,
-                  ),
-                  padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 0),
+              Text(
+                'Current Requests',
+                style: mainTitleStyle,
+              ),
+              SizedBox(height: 20),
+              Container(
+                  decoration: BoxDecoration(boxShadow: [
+                    BoxShadow(
+                        color: Color(0xFFDEDEDE),
+                        blurRadius: 20.0,
+                        spreadRadius: 0.025,
+                        offset: Offset(
+                          0.0,
+                          0.0,
+                        )),
+                  ]),
                   child: FlatButton(
-                    padding: EdgeInsets.all(0),
-                    onPressed: () {
-                      //TODO: Make Editing Feature
-                    },
-                    child: Row(
-                      children: <Widget>[
-                        Text('Edit', style: TextStyle(color: purpleAccent, fontSize: 17, fontWeight: FontWeight.normal)),
-                        Spacer(),
-                        Icon(
-                          Icons.edit,
-                          color: purpleAccent,
-                          size: 20,
-                        ),
-                      ],
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                    color: Colors.white,
+                    onPressed: () {},
+                    child: IntrinsicWidth(
+                      child: Row(
+                        children: <Widget>[
+                          Text('Edit', style: smallButtonStyle),
+                          SizedBox(width: 5.0),
+                          Column(
+                            children: [
+                              SizedBox(height: 5.0),
+                              Icon(
+                                Icons.keyboard_arrow_down,
+                                color: purpleAccent,
+                                size: 30.0,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ),
-              )
+                  )),
+              SizedBox(height: 20),
+              StreamBuilder(
+                stream: FirestoreHelper.getCurrentOrganizationReference(context).collection('requests').snapshots(),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+
+                  Map<String, List<Item>> itemCategories = {};
+                  for (DocumentSnapshot document in snapshot.data.documents) {
+                    if (!itemCategories.containsKey(document['category'])) {
+                      itemCategories[document['category']] = [];
+                    }
+                    itemCategories[document['category']].add(Item(
+                      name: document['name'],
+                      category: document['category'],
+                      amount: document['amount'],
+                      specificDescription: document['specificDescription'],
+                    ));
+                  }
+
+                  List<Widget> requestContainers = [];
+                  for (String category in itemCategories.keys) {
+                    requestContainers.add(Padding(
+                      padding: const EdgeInsets.only(bottom: 16.0),
+                      child: RequestContainer(
+                        items: itemCategories[category],
+                        category: category,
+                      ),
+                    ));
+                  }
+                  return Column(
+                    children: requestContainers,
+                  );
+                },
+              ),
+              SizedBox(height: 20),
             ],
           ),
-          RequestContainer(
-            // TODO: for firebase, need to query all information for these containers
-            itemName: <String>['Toothbrushes', 'Shirts', 'Ham', 'Blankets', 'fdsakl'],
-            itemQuantity: <int>[9, 10, 100, 59, 32],
-            category: 'hygiene',
-          ),
-          RequestContainer(
-            itemName: <String>['Toothpaste', 'Pants', 'Socks', 'Sleeping Bags'],
-            itemQuantity: <int>[66, 57, 48, 93],
-            category: 'hygiene',
-          ),
-          RequestContainer(
-            itemName: <String>['Floss', 'Belts', 'Ham', 'Caps'],
-            itemQuantity: <int>[
-              16,
-              27,
-              38,
-              49,
-            ],
-            category: 'hygiene',
-          ),
-          RequestContainer(
-            itemName: <String>['Floss', 'Belts', 'Ham', 'Caps'],
-            itemQuantity: <int>[
-              5,
-              7,
-              8,
-              9,
-            ],
-            category: 'hygiene',
-          ),
-        ],
+        ),
       ),
     );
   }

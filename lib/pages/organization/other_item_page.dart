@@ -10,23 +10,20 @@ import 'package:phase1/services/firestore_helper.dart';
 
 import '../../components/secondary_layout.dart';
 
-class ConfirmRequestPage extends StatefulWidget {
-  final String itemName, itemIcon;
+class OtherItemPage extends StatefulWidget {
   final String itemCategory;
 
-  ConfirmRequestPage({
-    this.itemName,
-    this.itemIcon,
+  OtherItemPage({
     this.itemCategory,
   });
 
   @override
-  _ConfirmRequestPageState createState() => _ConfirmRequestPageState();
+  _OtherItemPageState createState() => _OtherItemPageState();
 }
 
-class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
+class _OtherItemPageState extends State<OtherItemPage> {
   int amount = 0;
-  String specificDescription = '';
+  String specificDescription = '', itemName;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +42,7 @@ class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
                   children: <TextSpan>[
                     TextSpan(text: 'Create Requests: ', style: TextStyle(fontSize: 35, color: colorScheme.onSecondary, fontWeight: FontWeight.w900)),
                     TextSpan(
-                      text: 'Finalize Item Amount and Description',
+                      text: 'Choose Custom Item Specifics',
                       style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.w600,
@@ -69,8 +66,8 @@ class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
                         crossAxisAlignment: WrapCrossAlignment.center,
                         children: <Widget>[
                           CategoryIconButton(
-                            name: widget.itemName ?? null,
-                            asset: widget.itemIcon ?? null,
+                            name: 'Other',
+                            asset: 'assets/other_svgs/other.svg',
                             onPressed: () {
                               Navigator.pop(context);
                             },
@@ -84,6 +81,13 @@ class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
+                      SizedBox(height: 20),
+                      FloatingTextField(
+                        hintText: 'Custom Item Name',
+                        onChanged: (val) {
+                          itemName = val;
+                        },
+                      ),
                       SizedBox(height: 20),
                       FloatingTextField(
                         keyboardType: TextInputType.multiline,
@@ -119,9 +123,9 @@ class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
                             'Make sure you are requesting the correct item and number of items. Requests can be edited in the \'Expected Deliveries\' tab.',
                         actionName: 'Create Request',
                         action: () {
-                          FirestoreHelper.createRequest(context: context, items: [
-                            Item(name: widget.itemName, amount: amount, specificDescription: specificDescription, category: widget.itemCategory)
-                          ]);
+                          FirestoreHelper.createRequest(
+                              context: context,
+                              items: [Item(name: itemName, amount: amount, specificDescription: specificDescription, category: widget.itemCategory)]);
                         },
                       ),
                     );

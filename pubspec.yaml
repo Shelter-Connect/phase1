@@ -36,6 +36,10 @@ dependencies:
   websafe_svg: ^1.1.0
   datetime_picker_formfield: ^1.0.0
   holding_gesture: ^0.0.3
+  carousel_slider: ^2.2.1
+  dots_indicator: ^1.2.0
+  url_launcher: ^5.5.0
+
   intl: ^0.16.1
 
   # The following adds the Cupertino Icons font to your application.
@@ -80,7 +84,10 @@ flutter:
     - assets/hygiene_svgs/toothbrush.svg
     - assets/hygiene_svgs/toothpaste.svg
     - assets/logo_svgs/LogoName.png
+    - assets/logo_svgs/whitelogofinal2.png
+    - assets/logo_svgs/finalithink.png
     - assets/logo_svgs/ShelterConnectLogo.png
+    - assets/logo_svgs/CareConnectLogo.png
     - assets/nutrition_svgs/nutrition.svg
     - assets/nutrition_svgs/beans.svg
     - assets/nutrition_svgs/bread.svg
@@ -93,8 +100,8 @@ flutter:
     - assets/warmth_svgs/sleeping_bag.svg
     - assets/warmth_svgs/sleeping_pad.svg
     - assets/other_svgs/other.svg
-    - assets/whitebackground.JPG
-    - assets/whitebackground2.JPG
+    - assets/foodgiving.jpeg
+    - assets/foodgivingsmaller.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

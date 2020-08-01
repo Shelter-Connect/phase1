@@ -1,24 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:phase1/constants.dart';
+import 'package:phase1/models/donation.dart';
 import 'package:phase1/pages/volunteer/delivery_description_page.dart';
+import 'package:intl/intl.dart';
 
 class DeliveriesContainer extends StatelessWidget {
-  final String organizationName;
-  final double organizationDistance;
+  final Donation donation;
 
-  DeliveriesContainer({this.organizationName, this.organizationDistance});
+  DeliveriesContainer({this.donation});
 
   @override
   Widget build(BuildContext context) {
     return RawMaterialButton(
       onPressed: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => DeliveryDescriptionPage()));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => DeliveryDescriptionPage(donation.organization, donation)));
       },
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20.0),
-      ),
       child: Container(
-        decoration: BoxDecoration(color: colorScheme.onSecondary, borderRadius: BorderRadius.all(Radius.circular(20))),
+        decoration: elevatedBoxStyle,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
           child: Column(
@@ -32,10 +30,10 @@ class DeliveriesContainer extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                    organizationName,
+                    donation.organization.name,
                     style: TextStyle(
                       fontSize: 20,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                   SizedBox(
@@ -51,12 +49,7 @@ class DeliveriesContainer extends StatelessWidget {
                   ),
                 ],
               ),
-              Text(
-                '$organizationDistance miles',
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
+              Text('Deliver by: ${DateFormat('MMMMd').format(donation.date)}', style: TextStyle(fontSize: 15),),
               SizedBox(height: 5),
               Container(
                 height: 5,
@@ -64,12 +57,20 @@ class DeliveriesContainer extends StatelessWidget {
                 decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
               ),
               SizedBox(height: 10),
-              Text('Blankets x4', style: TextStyle(fontWeight: FontWeight.w500)),
-              SizedBox(height: 5),
-              Text('Bananas x15', style: TextStyle(fontWeight: FontWeight.w500)),
-              SizedBox(height: 5),
-              Text('Can of Beans x8', style: TextStyle(fontWeight: FontWeight.w500)),
-              SizedBox(height: 10),
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: donation.items.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Text(
+                    '${donation.items[index].name} x ${donation.items[index].amount}',
+                    style: TextStyle(
+                      fontSize: 17.0,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  );
+                },
+              ),
+              SizedBox(height: 5)
             ],
           ),
         ),

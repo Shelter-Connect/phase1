@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:phase1/components/alerts.dart';
 import 'package:phase1/components/date_time_field.dart';
-import 'package:phase1/components/item_increment.dart';
+import 'package:phase1/components/increment.dart';
 import 'package:phase1/models/donation.dart';
 import 'package:phase1/models/item.dart';
 import 'package:phase1/models/organization.dart';
 import 'package:phase1/models/user.dart';
-import 'package:phase1/pages/volunteer/delivery_confirmation.dart';
+import 'package:phase1/pages/volunteer/donation_confirmation_page.dart';
 import 'package:provider/provider.dart';
 
 import '../../components/standard_layout.dart';
@@ -23,11 +23,23 @@ class DonationCreationPage extends StatefulWidget {
 
 class _DonationCreationPageState extends State<DonationCreationPage> {
   Donation donation = Donation();
+  final DateTime today = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
 
   @override
   void initState() {
-    donation = Donation(organizationId: widget.organization.id, volunteerId: Provider.of<User>(context, listen: false).user.uid);
-    donation.items = Map();
+    donation = Donation(
+      volunteerId: Provider.of<User>(context, listen: false).user.uid,
+      volunteerEmail: Provider.of<User>(context, listen: false).user.email,
+      organization: Organization(
+        id: widget.organization.id,
+        name: widget.organization.name,
+        description: widget.organization.description,
+        email: widget.organization.email,
+        address: widget.organization.address,
+        location: widget.organization.location,
+      ),
+    );
+    donation.items = [];
     super.initState();
   }
 
@@ -40,20 +52,41 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
       helpText: 'If u don\'t know how to use this app u stupid lmao',
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
                 widget.organization.name,
-                style: TextStyle(fontSize: 35, fontWeight: FontWeight.w900, color: purpleAccent),
+                style: mainTitleStyle,
               ),
               Text(
                 '${widget.organization.distance.toStringAsFixed(1)} miles away',
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700, color: purpleAccent),
+                style: subTitleStyle
               ),
-              BasicDateTimeField(
-                donation: donation,
+              SizedBox(height: 20.0),
+              Container(
+                decoration: elevatedBoxStyle,
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Expected Delivery Date',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    BasicDateField(
+                      onChanged: (val) {
+                        setState(() {
+                          donation.date = val;
+                        });
+                      },
+                    ),
+                  ],
+                ),
               ),
               SizedBox(height: 20),
               ...widget.organization.requestedItems
@@ -62,7 +95,7 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                       Column(
                         children: [
                           Container(
-                            decoration: BoxDecoration(color: colorScheme.onSecondary, borderRadius: BorderRadius.all(Radius.circular(20))),
+                            decoration: elevatedBoxStyle,
                             child: Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
                               child: Column(
@@ -104,11 +137,11 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                                                 itemName: item.name,
                                                 maxQuantity: item.amount,
                                                 onChanged: (val) {
-                                                  if (donation.items[category] == null) donation.items[category] = List<Item>();
-                                                  Item currentItem = item;
+                                                  Item currentItem = Item.clone(item: item);
                                                   currentItem.amount = val;
-                                                  donation.items[category].remove(currentItem);
-                                                  donation.items[category].add(currentItem);
+                                                  donation.items.removeWhere(
+                                                      (prevItem) => prevItem.name == currentItem.name && prevItem.category == currentItem.category);
+                                                  if (currentItem.amount != 0) donation.items.add(currentItem);
                                                 },
                                               ),
                                               SizedBox(height: 10.0),
@@ -120,34 +153,29 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                               ),
                             ),
                           ),
-                          SizedBox(height: 15.0),
+                          SizedBox(height: 10.0),
                         ],
                       )))
                   .values
                   .toList(),
-              SizedBox(height: 15),
+              SizedBox(height: 10),
               Container(
                 width: MediaQuery.of(context).size.width,
                 child: FlatButton(
                   onPressed: () {
-                    String alertText = '';
-                    if (donation.date == null) alertText = 'a date';
                     if (donation.items.length == 0) {
-                      if (alertText == '')
-                        alertText = 'an item';
-                      else
-                        alertText += '/item';
-                    }
-                    if (alertText != '')
-                      showDialog(
-                        context: context,
-                        builder: (_) => NoActionAlert(title: 'Please enter $alertText'),
-                      );
-                    else
+                      showDialog(context: context, builder: (_) => NoActionAlert(title: 'Please select at least one item to donate'));
+                    } else if (donation.date == null) {
+                      showDialog(context: context, builder: (_) => NoActionAlert(title: 'Please enter the expected delivery date of the donation'));
+                    } else if (donation.date.isBefore(today)) {
+                      print(donation.date);
+                      showDialog(context: context, builder: (_) => NoActionAlert(title: 'The expected delivery date cannot be before today'));
+                    } else {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => DeliveryConfirmationPage(widget.organization, donation)),
+                        MaterialPageRoute(builder: (context) => DonationConfirmationPage(widget.organization, donation)),
                       );
+                    }
                   },
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30.0),
@@ -156,13 +184,13 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 20),
                     child: Text(
-                      'Finalize Your Donation',
+                      'Finalize Donation',
                       style: TextStyle(color: colorScheme.onSecondary, fontSize: 20),
                     ),
                   ),
                 ),
               ),
-              SizedBox(height: 15),
+              SizedBox(height: 20),
             ],
           ),
         ),

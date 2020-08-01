@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:phase1/models/user.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-import '../../components/alerts.dart';
 import '../../constants.dart';
 import '../navigation_tab.dart';
 import 'current_requests_page.dart';
@@ -24,14 +25,14 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
-        backgroundColor: whiteBackground,
+        backgroundColor: Color(0xFFF5F5F5),
         appBar: AppBar(
           brightness: Brightness.light,
           title: Text(
             _pages[_selectedIndex].title,
-            style: TextStyle(color: whiteBackground),
+            style: TextStyle(color: Color(0xFFF5F5F5)),
           ),
-          backgroundColor: whiteBackground,
+          backgroundColor: Color(0xFFF5F5F5),
           elevation: 0.0,
           leading: Builder(
             builder: (context) => IconButton(
@@ -97,22 +98,10 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
                   ),
                 ),
                 ListTile(
-                  title: Text('Sign Out'),
-                  leading: Icon(Icons.exit_to_app, color: colorScheme.error),
+                  title: Text('Give Feedback'),
+                  leading: Icon(Icons.feedback, color: Colors.orange),
                   onTap: () {
-                    showDialog(
-                      context: context,
-                      builder: (_) => SingleActionAlert(
-                        title: 'Sign Out?',
-                        subtitle: 'Your login information will not be remembered.',
-                        actionName: 'Sign Out',
-                        action: () {
-                          Navigator.pop(context);
-                          Navigator.pop(context);
-                          auth.signOut();
-                        },
-                      ),
-                    );
+                    launch('https://forms.gle/wivNmdkjj3yvLPzf7');
                   },
                 ),
               ],
@@ -146,7 +135,7 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text('Help', style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
-                      Icon(Icons.help, size: 30),
+                        Icon(Icons.help),
                     ],
                   ),
                 ),

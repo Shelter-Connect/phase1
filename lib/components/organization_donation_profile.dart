@@ -27,7 +27,7 @@ class OrganizationDonationProfile extends StatelessWidget {
         ),
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
-          decoration: BoxDecoration(color: colorScheme.onSecondary, borderRadius: BorderRadius.circular(20.0)),
+          decoration: elevatedBoxStyle,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -107,7 +107,8 @@ class OrganizationDonationProfile extends StatelessWidget {
                             child: Text(
                               category,
                               style: TextStyle(
-                                color: colorScheme.secondaryVariant,
+                                color: Colors.blue,
+                                fontWeight: FontWeight.w700
                               ),
                             ),
                           ),

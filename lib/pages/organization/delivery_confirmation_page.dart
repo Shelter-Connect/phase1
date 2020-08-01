@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:phase1/components/alerts.dart';
 import 'package:phase1/components/increment.dart';
@@ -49,17 +48,19 @@ class _ConfirmDeliveryPageState extends State<ConfirmDeliveryPage> {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Container(
-                decoration: BoxDecoration(color: colorScheme.onSecondary, borderRadius: BorderRadius.all(Radius.circular(20))),
+                decoration: elevatedBoxStyle,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
+                      SizedBox(height: 5),
                       Text(
                         'Amount Received',
                         style: TextStyle(
-                          fontSize: 24,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w400,
                         ),
                       ),
                       SizedBox(
@@ -71,6 +72,7 @@ class _ConfirmDeliveryPageState extends State<ConfirmDeliveryPage> {
                         width: 100,
                         decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
                       ),
+                      SizedBox(height: 10),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
@@ -79,7 +81,7 @@ class _ConfirmDeliveryPageState extends State<ConfirmDeliveryPage> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  ...widget.itemName.map((string) => Text(string, style: TextStyle(fontSize: 20))).toList(),
+                                  ...widget.itemName.map((string) => Text(string, style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400))).toList(),
                                 ],
                               )),
                           Padding(

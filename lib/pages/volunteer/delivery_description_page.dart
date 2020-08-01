@@ -1,12 +1,18 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:phase1/models/donation.dart';
+import 'package:phase1/models/organization.dart';
 
 import '../../components/standard_layout.dart';
 import '../../constants.dart';
 
 class DeliveryDescriptionPage extends StatefulWidget {
-  final String orgName;
+  final Organization organization;
+  final Donation donation;
 
-  DeliveryDescriptionPage({this.orgName});
+  DeliveryDescriptionPage(this.organization, this.donation);
+
   @override
   _DeliveryDescriptionPageState createState() => _DeliveryDescriptionPageState();
 }
@@ -24,16 +30,18 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  'Items to Deliver for (Organization Name)',
-                  style: TextStyle(fontSize: 35, fontWeight: FontWeight.w900, color: purpleAccent),
+                  'Delivery to ${widget.organization.name}',
+                  style: mainTitleStyle
                 ),
-                Text(
-                  'Distance: (Distance away)',
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700, color: purpleAccent),
+                SizedBox(height: 20),
+                OrganizationInformation(
+                  orgEmail: widget.organization.email,
+                  orgAddress: widget.organization.address,
+                  dateTime: widget.donation.date,
                 ),
                 SizedBox(height: 20),
                 Container(
-                  decoration: BoxDecoration(color: colorScheme.background, borderRadius: BorderRadius.all(Radius.circular(20))),
+                  decoration: elevatedBoxStyle,
                   width: MediaQuery.of(context).size.width,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
@@ -51,6 +59,7 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                                   'Selected Donations',
                                   style: TextStyle(
                                     fontSize: 20,
+                                    fontWeight: FontWeight.w600
                                   ),
                                 ),
                                 FlatButton(
@@ -77,31 +86,37 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                               decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
                             ),
                             SizedBox(
-                              height: 15,
-                            ),
-                            SizedBox(
                               height: 10,
                             ),
-                            Text('Blankets x4'),
-                            SizedBox(
-                              height: 2.5,
+                            ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: widget.donation.items.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: const EdgeInsets.only(bottom: 5.0),
+                                      child: Text(
+                                        '${widget.donation.items[index].name} x ${widget.donation.items[index].amount}',
+                                        style: TextStyle(
+                                          fontSize: 17.0,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                    ),
+                                    Divider(color: Colors.grey, thickness: 2,)
+                                  ],
+                                );
+                              },
                             ),
-                            Text('Bananas x15'),
-                            SizedBox(
-                              height: 2.5,
-                            ),
-                            Text('Can of Beans x10'),
-                            SizedBox(
-                              height: 10,
-                            ),
+                            SizedBox(height: 5)
                           ],
                         ),
                       ],
                     ),
                   ),
                 ),
-                SizedBox(height: 20),
-                OrganizationInformation(orgEmail: 'waddap@gmail.com', orgPhone: '408 408 4080', orgAddress: '2914 Unicorn Drive')
               ],
             ),
           ),
@@ -111,34 +126,34 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
 
 class OrganizationInformation extends StatelessWidget {
   final String orgEmail;
-
-  final String orgPhone;
-
   final String orgAddress;
+  final DateTime dateTime;
 
-  OrganizationInformation({@required this.orgEmail, @required this.orgPhone, @required this.orgAddress});
+  OrganizationInformation({@required this.orgEmail, @required this.orgAddress, @required this.dateTime});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         Container(
-          decoration: BoxDecoration(color: colorScheme.background, borderRadius: BorderRadius.all(Radius.circular(20))),
+          decoration: elevatedBoxStyle,
           width: MediaQuery.of(context).size.width,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16.0),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
+                SizedBox(height: 10),
                 Text(
                   'Organization Information ',
                   style: TextStyle(
                     fontSize: 20,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
                 SizedBox(
-                  height: 10,
+                  height: 5,
                 ),
                 Container(
                   height: 5,
@@ -157,58 +172,59 @@ class OrganizationInformation extends StatelessWidget {
                         TextSpan(
                             text: 'Email Address: ',
                             style: TextStyle(
-                              fontSize: 18,
-                              color: colorScheme.onBackground,
+                              fontSize: 17,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.black,
                             )),
                         TextSpan(
                             text: orgEmail,
                             style: TextStyle(
-                              fontSize: 18,
+                              fontSize: 17,
                               fontWeight: FontWeight.w600,
-                              color: colorScheme.onBackground,
+                              color: Colors.black,
                             ))
                       ]),
                     ),
                     SizedBox(
-                      height: 10,
-                    ),
-                    RichText(
-                      text: TextSpan(children: <TextSpan>[
-                        TextSpan(
-                            text: 'Phone Number: ',
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: colorScheme.onBackground,
-                            )),
-                        TextSpan(
-                            text: orgPhone,
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
-                              color: colorScheme.onBackground,
-                            ))
-                      ]),
-                    ),
-                    SizedBox(
-                      height: 10,
+                      height: 5,
                     ),
                     RichText(
                       text: TextSpan(children: <TextSpan>[
                         TextSpan(
                             text: 'Donation Location: ',
                             style: TextStyle(
-                              fontSize: 18,
-                              color: colorScheme.onBackground,
+                              fontSize: 17,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.black,
                             )),
                         TextSpan(
                             text: orgAddress,
                             style: TextStyle(
-                              fontSize: 18,
+                              fontSize: 17,
                               fontWeight: FontWeight.w600,
-                              color: colorScheme.onBackground,
+                              color: Colors.black,
                             ))
                       ]),
                     ),
+                    RichText(
+                      text: TextSpan(children: <TextSpan>[
+                        TextSpan(
+                            text: 'Deliver By: ',
+                            style: TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.black,
+                            )),
+                        TextSpan(
+                            text: '${DateFormat('MMMMd').format(dateTime)}',
+                            style: TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.black,
+                            ))
+                      ]),
+                    ),
+                    SizedBox(height: 5)
                   ],
                 )
               ],

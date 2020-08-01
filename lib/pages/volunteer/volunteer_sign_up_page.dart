@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
-import '../../components/floating_text_field.dart';
 import '../../components/alerts.dart';
+import '../../components/floating_text_field.dart';
 import '../../components/rounded_button.dart';
 import '../../components/text_button.dart';
 import '../../constants.dart';
@@ -13,13 +13,13 @@ class VolunteerSignUp extends StatefulWidget {
 }
 
 class _VolunteerSignUpState extends State<VolunteerSignUp> {
-  String email, password, password2;
+  String firstName, lastName, email, password, password2;
   bool loading = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: colorScheme.background,
+      backgroundColor: Color(0xFFF5F5F5),
       body: ModalProgressHUD(
         inAsyncCall: loading,
         child: SafeArea(
@@ -30,9 +30,36 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text('Volunteer Sign Up', style: titleStyle),
+                  Text('Volunteer Sign Up', style: largeTitleStyle),
                   SizedBox(height: 35),
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: FloatingTextField(
+                          hintText: 'First Name',
+                          onChanged: (val) {
+                            firstName = val.trim();
+                          },
+                        ),
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Expanded(
+                        child: FloatingTextField(
+                          hintText: 'Last Name',
+                          onChanged: (val) {
+                            lastName = val.trim();
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
                   FloatingTextField(
+                    keyboardType: TextInputType.emailAddress,
                     hintText: 'Email',
                     onChanged: (val) {
                       email = val.trim();
@@ -56,7 +83,8 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
                   ),
                   SizedBox(height: 30),
                   RoundedButton(
-                    title: 'Sign Up',
+                    color: purpleAccent,
+                    title: 'Sign Up', textColor: Colors.white,
                     onPressed: () async {
                       if (password != password2) {
                         showDialog(
@@ -80,6 +108,7 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
                           if (newUser != null) {
                             db.collection('volunteers').document(newUser.user.uid).setData({
                               'email': email,
+                              'name': '$firstName $lastName',
                             });
                             newUser.user.sendEmailVerification();
                           }
@@ -89,6 +118,9 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
                             context: context,
                             builder: (_) => NoActionAlert(title: 'Invalid Email'),
                           );
+                          setState(() {
+                            loading = false;
+                          });
                         }
                       }
                     },
@@ -96,7 +128,7 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
                   Padding(
                     padding: const EdgeInsets.only(left: 5.0),
                     child: TextButton(
-                      text: 'Not a Volunteer?',
+                      text: 'Not a Volunteer?', textColor: Colors.redAccent,
                       onPressed: () {
                         Navigator.pop(context);
                       },
