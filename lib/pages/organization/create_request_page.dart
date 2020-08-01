@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:phase1/components/secondary_layout.dart';
 import 'package:phase1/constants.dart';
 import 'package:phase1/pages/organization/choose_item_page.dart';
+import 'package:phase1/pages/organization/other_item_page.dart';
 
 import '../../components/category_icon_button.dart';
 
@@ -43,6 +44,7 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
                 ),
                 SizedBox(height: 20),
                 GridView.builder(
+                  physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: categories.length + 1,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -52,9 +54,19 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
                   ),
                   itemBuilder: (BuildContext context, int index) {
                     if (index == categories.length) {
-                      return Container(); //TODO: make other page;
-                    }
-                    else {
+                      return CategoryIconButton(
+                        asset: 'assets/other_svgs/other.svg',
+                        name: 'Other',
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => OtherItemPage(),
+                            ),
+                          );
+                        },
+                      ); //TODO: make other page;
+                    } else {
                       return CategoryIconButton(
                         asset: categories[index]['asset'],
                         name: categories[index]['name'],
@@ -63,11 +75,10 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
                             context,
                             MaterialPageRoute(
                               builder: (context) => ChooseItemPage(
-                                categoryIcon: categories[index]['asset'],
-                                categoryName: categories[index]['name'],
-                                items: categories[index]['items'],
-                                categoryInfo: categories[index]['description']
-                              ),
+                                  categoryIcon: categories[index]['asset'],
+                                  categoryName: categories[index]['name'],
+                                  items: categories[index]['items'],
+                                  categoryInfo: categories[index]['description']),
                             ),
                           );
                         },

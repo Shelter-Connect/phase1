@@ -148,7 +148,10 @@ class _ItemIncrementWithTextState extends State<ItemIncrementWithText> {
           isSnackBarActive = true;
         });
 
-        Scaffold.of(context).showSnackBar(SnackBar(content: Text('You have reached the maximum amount of items this shelter is requesting.'))).closed.then((SnackBarClosedReason reason) {
+        Scaffold.of(context)
+            .showSnackBar(SnackBar(content: Text('You have reached the maximum amount of items this shelter is requesting.')))
+            .closed
+            .then((SnackBarClosedReason reason) {
           setState(() {
             isSnackBarActive = false;
           });
@@ -266,7 +269,7 @@ class ItemIncrementCreateRequest extends StatefulWidget {
 
 class _ItemIncrementCreateRequestState extends State<ItemIncrementCreateRequest> {
   int _counter = 0;
-  TextEditingController controller = TextEditingController();
+  TextEditingController controller = TextEditingController(text: '0');
 
   void _incrementCounter() {
     setState(() {
@@ -291,7 +294,7 @@ class _ItemIncrementCreateRequestState extends State<ItemIncrementCreateRequest>
       children: <Widget>[
         Container(
           decoration: ShapeDecoration(
-            color: Colors.white,
+            color: colorScheme.onSecondary,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
             ),
@@ -314,7 +317,7 @@ class _ItemIncrementCreateRequestState extends State<ItemIncrementCreateRequest>
                     icon: Icon(
                       Icons.remove,
                       size: 30,
-                      color: Colors.black,
+                      color: colorScheme.onBackground,
                     ),
                     tooltip: 'Decrement',
                   ),
@@ -322,10 +325,9 @@ class _ItemIncrementCreateRequestState extends State<ItemIncrementCreateRequest>
               ),
               SizedBox(width: 25),
               Container(
-                width: 50,
-                height: 23,
-                padding: EdgeInsets.only(top: 30),
+                width: 69,
                 child: TextField(
+                  maxLength: 3,
                   textAlign: TextAlign.center,
                   controller: controller,
                   onChanged: (val) {

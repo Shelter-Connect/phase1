@@ -51,7 +51,7 @@ class _CurrentDeliveriesPageState extends State<CurrentDeliveriesPage> {
             children: <Widget>[
               Text(
                 'Items to Deliver',
-                style: TextStyle(fontSize: 35, fontWeight: FontWeight.w900, color: purpleAccent),
+                style: mainTitleStyle,
               ),
               SizedBox(height: 20),
               StreamBuilder(

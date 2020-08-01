@@ -25,7 +25,7 @@ class StandardLayout extends StatelessWidget {
         ),
         title: Text(title,
             style: TextStyle(
-              color: purpleAccent,
+              color: Color(0xFFF5F5F5),
             )),
         actions: <Widget>[
           Visibility(

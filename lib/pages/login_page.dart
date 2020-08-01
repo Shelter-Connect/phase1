@@ -20,7 +20,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: colorScheme.background,
+      backgroundColor: Color(0xFFF5F5F5),
       body: ModalProgressHUD(
         inAsyncCall: loading,
         child: SafeArea(
@@ -31,7 +31,7 @@ class _LoginPageState extends State<LoginPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text('Login', style: titleStyle),
+                  Text('Login', style: largeTitleStyle),
                   SizedBox(height: 35),
                   FloatingTextField(
                     hintText: 'Email',
@@ -50,7 +50,8 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   SizedBox(height: 30),
                   RoundedButton(
-                    title: 'Sign In',
+                    color: purpleAccent,
+                    title: 'Sign In', textColor: Colors.white,
                     onPressed: () async {
                       setState(() {
                         loading = true;
@@ -79,7 +80,7 @@ class _LoginPageState extends State<LoginPage> {
                   Padding(
                     padding: const EdgeInsets.only(left: 5.0),
                     child: TextButton(
-                      text: 'Not an Existing User?',
+                      text: 'Not an Existing User?', textColor: Colors.redAccent,
                       onPressed: () {
                         Navigator.pop(context);
                       },

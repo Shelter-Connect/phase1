@@ -103,6 +103,7 @@ class ChooseItemPage extends StatelessWidget {
                                 MaterialPageRoute(
                                     builder: (context) => OtherItemPage(
                                           itemCategory: categoryName,
+                                          asset: categoryIcon,
                                         )),
                               );
                             },

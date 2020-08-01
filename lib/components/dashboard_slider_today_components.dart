@@ -11,7 +11,9 @@ class SlideItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: sub2ElevatedBoxStyle,
+      decoration: BoxDecoration(
+        color: Colors.white, borderRadius: BorderRadius.circular(10),
+      ),
       child: Row(
         children: <Widget>[
           SizedBox(width: 10),
@@ -22,7 +24,7 @@ class SlideItem extends StatelessWidget {
               color: Colors.white,
             ),
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -98,29 +100,26 @@ class SlideItem extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
             ),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  SizedBox(height: 10),
-                  Text(
-                    'Items',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                SizedBox(height: 10),
+                Text(
+                  'Items',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
                   ),
-                  Row(
-                    children: <Widget>[
-                      Text(todaySlideList[index].itemName, style: subHeaderStyle),
-                      SizedBox(width: 20),
+                ),
+                Row(
+                  children: <Widget>[
+                    Text(todaySlideList[index].itemName, style: subHeaderStyle),
+                    SizedBox(width: 20),
 //                      Text(slideList[index].itemAmount, style: subHeaderStyle,),
-                    ],
-                  )
-                ],
-              ),
+                  ],
+                )
+              ],
             ),
           )
         ],

@@ -52,19 +52,19 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
       helpText: 'If u don\'t know how to use this app u stupid lmao',
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
                 widget.organization.name,
-                style: TextStyle(fontSize: 35, fontWeight: FontWeight.w900, color: purpleAccent),
+                style: mainTitleStyle,
               ),
               Text(
                 '${widget.organization.distance.toStringAsFixed(1)} miles away',
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700, color: purpleAccent),
+                style: subTitleStyle
               ),
-              SizedBox(height: 15.0),
+              SizedBox(height: 20.0),
               Container(
                 decoration: elevatedBoxStyle,
                 padding: const EdgeInsets.all(20.0),
@@ -153,12 +153,12 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                               ),
                             ),
                           ),
-                          SizedBox(height: 15.0),
+                          SizedBox(height: 10.0),
                         ],
                       )))
                   .values
                   .toList(),
-              SizedBox(height: 15),
+              SizedBox(height: 10),
               Container(
                 width: MediaQuery.of(context).size.width,
                 child: FlatButton(
@@ -190,7 +190,7 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                   ),
                 ),
               ),
-              SizedBox(height: 15),
+              SizedBox(height: 20),
             ],
           ),
         ),

@@ -14,7 +14,7 @@ class SignupPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Sign Up', style: titleStyle),
+            Text('Sign Up', style: largeTitleStyle),
             SizedBox(height: 20.0),
             RoundedButton(
               title: 'Sign Up As Shelter',

@@ -10,7 +10,8 @@ Firestore db = Firestore.instance;
 final kGoogleApiKey = "AIzaSyDtBjj6ReiOlVtylupAx-wcLe2HmsJXXFs";
 
 //Styles
-final titleStyle = TextStyle(
+//Text Styles
+final largeTitleStyle = TextStyle(
   fontWeight: FontWeight.w900,
   fontSize: 47.0,
 );
@@ -24,6 +25,23 @@ final subHeaderStyle = TextStyle(
   fontWeight: FontWeight.w400,
   fontSize: 17.0,
 );
+
+final mainTitleStyle = TextStyle(
+  fontWeight: FontWeight.w900,
+  fontSize: 35,
+  color: purpleAccent
+);
+
+final subTitleStyle = TextStyle(
+    fontSize: 25,
+    fontWeight: FontWeight.w700,
+    color: purpleLight);
+
+final smallButtonStyle = TextStyle(
+    fontWeight: FontWeight.w700,
+    fontSize: 20,
+    color: purpleAccent);
+
 final elevatedBoxStyle = BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10), boxShadow: [
   BoxShadow(
       color: Color(0xFFDEDEDE),

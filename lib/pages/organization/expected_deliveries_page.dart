@@ -26,18 +26,16 @@ class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(left: 16.0),
-              child: Text(
-                'Expected Deliveries',
-                style: TextStyle(fontSize: 35, fontWeight: FontWeight.w900, color: purpleAccent),
-              ),
+            Text(
+              'Expected Deliveries',
+              style: mainTitleStyle,
             ),
+            SizedBox(height: 20),
             ExpectedDeliveryContainer(
               // TODO: for firebase, need to query all information for these containers
               itemName: <String>['Toothbrushes', 'Shirts', 'Ham', 'Blankets', 'fdsakl'],
@@ -47,6 +45,7 @@ class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
               dateExpected: '9/20',
               donorEmail: "eric@gmail.com",
             ),
+            SizedBox(height: 20),
             ExpectedDeliveryContainer(
               itemName: <String>['Toothpaste', 'Pants', 'Socks', 'Sleeping Bags'],
               itemQuantity: <int>[66, 57, 48, 93],
@@ -54,6 +53,7 @@ class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
               category: 'hygiene',
               donorEmail: "donorEmail",
             ),
+            SizedBox(height: 20),
             ExpectedDeliveryContainer(
               itemName: <String>['Floss', 'Belts', 'Ham', 'Caps'],
               itemQuantity: <int>[
@@ -66,6 +66,7 @@ class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
               category: 'hygiene',
               donorEmail: "donorEmail",
             ),
+            SizedBox(height: 20),
             ExpectedDeliveryContainer(
               itemName: <String>['Floss', 'Belts', 'Ham', 'Caps'],
               itemQuantity: <int>[
@@ -78,6 +79,7 @@ class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
               category: 'hygiene',
               donorEmail: "donorEmail",
             ),
+            SizedBox(height: 20),
           ],
         ),
       ),

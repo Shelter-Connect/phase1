@@ -27,37 +27,31 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
       title: ' ',
       helpText: 'If u don\'t know how to use this app u stupid lmao',
       body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
-              child: Column(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
                     'Confirm Your Delivery to:',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900, color: purpleAccent),
+                    style: subTitleStyle
                   ),
                   Text(
                     widget.organization.name,
-                    style: TextStyle(fontSize: 35, fontWeight: FontWeight.w900, color: purpleAccent),
+                    style: mainTitleStyle
                   ),
                 ],
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
-              child: Text(
+              Text(
                 /*'on: ${DateFormat.yMMMd().add_jm().format(widget.donation.date)}',*/
                 'on: ${DateFormat.yMMMd().format(widget.donation.date)}',
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700, color: purpleAccent),
+                style: subTitleStyle,
               ),
-            ),
-            SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Container(
+              SizedBox(height: 20),
+              Container(
                 decoration: elevatedBoxStyle,
                 width: MediaQuery.of(context).size.width,
                 child: Padding(
@@ -80,6 +74,9 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                               ),
                             ),
                           ],
+                        ),
+                        SizedBox(
+                          height: 5,
                         ),
                         Container(
                           height: 5,
@@ -121,13 +118,10 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                   ]),
                 ),
               ),
-            ),
-            SizedBox(height: 20),
-            Column(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Container(
+              SizedBox(height: 20),
+              Column(
+                children: <Widget>[
+                  Container(
                     decoration: elevatedBoxStyle,
                     width: MediaQuery.of(context).size.width,
                     child: Padding(
@@ -158,13 +152,10 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            SizedBox(height: 16),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Container(
+                ],
+              ),
+              SizedBox(height: 16),
+              Container(
                 width: MediaQuery.of(context).size.width,
                 child: FlatButton(
                   onPressed: () {
@@ -184,9 +175,9 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                   ),
                 ),
               ),
-            ),
-            SizedBox(height: 16)
-          ],
+              SizedBox(height: 20)
+            ],
+          ),
         ),
       ),
     );
