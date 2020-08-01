@@ -32,10 +32,7 @@ class _VolunteerSettingsPageState extends State<VolunteerSettingsPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
-                'Account Settings',
-                style: mainTitleStyle
-              ),
+              Text('Account Settings', style: mainTitleStyle),
               SizedBox(height: 20),
               UserInfo(email: Provider.of<User>(context, listen: false).user.email, password: '*******'),
               SizedBox(height: 20),
@@ -146,7 +143,7 @@ class UserInfo extends StatelessWidget {
                   child: Row(
                     children: <Widget>[
                       Icon(Icons.edit, color: Colors.white, size: 25),
-                      SizedBox(width: 5),
+                      SizedBox(width: 2),
                       Text(
                         'Change Password',
                         style: TextStyle(
