@@ -43,7 +43,8 @@ class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
               itemName: <String>['Toothbrushes', 'Shirts', 'Ham', 'Blankets', 'fdsakl'],
               itemQuantity: <int>[9, 10, 100, 59, 32],
               dateRequested: "dateRequested",
-              category: 'hygiene',
+              donorName: 'Gary',
+              dateExpected: '9/20',
               donorEmail: "eric@gmail.com",
             ),
             ExpectedDeliveryContainer(
