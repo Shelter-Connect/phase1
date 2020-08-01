@@ -56,6 +56,12 @@ class RequestContainer extends StatelessWidget {
                             fontSize: 17,
                           ),
                         ),
+                        Text(
+                          items[index].name,
+                          style: TextStyle(
+                            fontSize: 17,
+                          ),
+                        ), //TODO Make this description
                       ],
                     );
                   },
