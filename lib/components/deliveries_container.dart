@@ -58,6 +58,7 @@ class DeliveriesContainer extends StatelessWidget {
               ),
               SizedBox(height: 10),
               ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: donation.items.length,
                 itemBuilder: (BuildContext context, int index) {

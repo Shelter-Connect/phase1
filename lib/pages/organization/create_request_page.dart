@@ -43,6 +43,7 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
                 ),
                 SizedBox(height: 20),
                 GridView.builder(
+                  physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: categories.length + 1,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

@@ -90,6 +90,7 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                             ),
                             ListView.builder(
                               shrinkWrap: true,
+                              physics: NeverScrollableScrollPhysics(),
                               itemCount: widget.donation.items.length,
                               itemBuilder: (BuildContext context, int index) {
                                 return Column(
