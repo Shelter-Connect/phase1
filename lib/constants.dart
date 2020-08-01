@@ -26,21 +26,11 @@ final subHeaderStyle = TextStyle(
   fontSize: 17.0,
 );
 
-final mainTitleStyle = TextStyle(
-  fontWeight: FontWeight.w900,
-  fontSize: 35,
-  color: purpleAccent
-);
+final mainTitleStyle = TextStyle(fontWeight: FontWeight.w900, fontSize: 35, color: purpleAccent);
 
-final subTitleStyle = TextStyle(
-    fontSize: 25,
-    fontWeight: FontWeight.w700,
-    color: purpleLight);
+final subTitleStyle = TextStyle(fontSize: 25, fontWeight: FontWeight.w700, color: purpleLight);
 
-final smallButtonStyle = TextStyle(
-    fontWeight: FontWeight.w700,
-    fontSize: 20,
-    color: purpleAccent);
+final smallButtonStyle = TextStyle(fontWeight: FontWeight.w700, fontSize: 20, color: purpleAccent);
 
 final elevatedBoxStyle = BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10), boxShadow: [
   BoxShadow(
