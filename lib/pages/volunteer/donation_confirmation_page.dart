@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:phase1/components/alerts.dart';
 import 'package:phase1/models/donation.dart';
 import 'package:phase1/models/organization.dart';
 import 'package:phase1/services/firestore_helper.dart';
@@ -35,14 +36,8 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(
-                    'Confirm Your Delivery to:',
-                    style: subTitleStyle
-                  ),
-                  Text(
-                    widget.organization.name,
-                    style: mainTitleStyle
-                  ),
+                  Text('Confirm Your Delivery to:', style: subTitleStyle),
+                  Text(widget.organization.name, style: mainTitleStyle),
                 ],
               ),
               Text(
@@ -56,66 +51,89 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                 width: MediaQuery.of(context).size.width,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 4.0),
-                  child: Column(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Text(
-                              'Selected Donations',
-                              style: TextStyle(
-                                fontSize: 20,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text(
+                                'Selected Donations',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Container(
-                          height: 5,
-                          width: 100,
-                          decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
-                        ),
-                        Column(
-                          children: widget.donation.items.asMap().map((index, item) {
-                            return MapEntry(index, Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                SizedBox(height: 10.0),
-                                if(index == 0 || item.category != widget.donation.items[index-1].category) Text(
-                                  item.category,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 17.0,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 3.0),
-                                  child: Text(
-                                    '${item.name} x ${item.amount}',
-                                    style: TextStyle(
-                                      fontSize: 17.0,
-                                      fontWeight: FontWeight.w400,
+                            ],
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Container(
+                            height: 5,
+                            width: 100,
+                            decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: widget.donation.items
+                                .asMap()
+                                .map((index, item) {
+                                  return MapEntry(
+                                    index,
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                                      children: [
+                                        SizedBox(height: 10.0),
+                                        if (index == 0 || item.category != widget.donation.items[index - 1].category)
+                                          Text(
+                                            item.category,
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 17.0,
+                                            ),
+                                          ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(top: 3.0),
+                                          child: FlatButton(
+                                            onPressed: () {
+                                              showDialog(
+                                                context: context,
+                                                builder: (_) => NoActionAlert(title: '''Unit: Liters
+Specific Description'''),
+                                              );
+                                            },
+                                            child: Text(
+                                              '${item.amount} ${item.name}',
+                                              textAlign: TextAlign.start,
+                                              style: TextStyle(
+                                                fontSize: 17.0,
+                                                fontWeight: FontWeight.w400,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ),
-                                ),
-                              ],
-                            ));
-                          }).values.toList(),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        )
-                      ],
-                    ),
-                  ]),
+                                  );
+                                })
+                                .values
+                                .toList(),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
               SizedBox(height: 20),

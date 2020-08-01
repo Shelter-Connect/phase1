@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:phase1/components/alerts.dart';
 import 'package:phase1/components/standard_layout.dart';
 import 'package:phase1/constants.dart';
 import 'package:phase1/models/item.dart';
@@ -33,8 +34,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
 
       organizationReference.collection('requests').getDocuments().then((documents) {
         for (DocumentSnapshot document in documents.documents) {
-          widget.organization.requestedItems[document['category']]
-              .add(Item(name: document['name'], amount: document['amount'], category: document['category']));
+          widget.organization.requestedItems[document['category']].add(Item(name: document['name'], amount: document['amount'], category: document['category']));
         }
         setState(() {
           loading = false;
@@ -250,12 +250,25 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                               ...items
                                                   .map(
                                                     (item) => Padding(
-                                                      padding: const EdgeInsets.only(top: 3.0),
-                                                      child: Text(
-                                                        '${item.name} x ${item.amount}',
-                                                        style: TextStyle(
-                                                          fontSize: 17.0,
-                                                          fontWeight: FontWeight.w400,
+                                                      padding: const EdgeInsets.only(top: 0.0, left: 0, right: 30),
+                                                      child: Container(
+                                                        width: MediaQuery.of(context).size.width,
+                                                        alignment: Alignment.centerLeft,
+                                                        child: FlatButton(
+                                                          onPressed: () {
+                                                            showDialog(
+                                                              context: context,
+                                                              builder: (_) => NoActionAlert(title: '''Unit: Liters
+Specific Description'''),
+                                                            );
+                                                          },
+                                                          child: Text(
+                                                            '${item.amount} ${item.name}',
+                                                            style: TextStyle(
+                                                              fontSize: 17.0,
+                                                              fontWeight: FontWeight.w400,
+                                                            ),
+                                                          ),
                                                         ),
                                                       ),
                                                     ),

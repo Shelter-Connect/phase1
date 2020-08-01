@@ -27,6 +27,7 @@ class ConfirmRequestPage extends StatefulWidget {
 class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
   int amount = 0;
   String specificDescription = '';
+  String itemUnit = '';
 
   @override
   Widget build(BuildContext context) {
@@ -95,6 +96,16 @@ class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
                         },
                       ),
                       SizedBox(height: 24),
+                      FloatingTextField(
+                        keyboardType: TextInputType.multiline,
+                        hintText: 'Item Unit (Liters, Cans, Gallons, in Bulk, etc.)',
+                        width: double.infinity,
+                        maxLines: 1,
+                        onChanged: (val) {
+                          itemUnit = val;
+                        },
+                      ),
+                      SizedBox(height: 24),
                       ItemIncrementCreateRequest(
                         onChanged: (val) {
                           setState(() {
@@ -115,13 +126,11 @@ class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
                       context: context,
                       builder: (_) => SingleActionAlert(
                         title: 'Confirm your request?',
-                        subtitle:
-                            'Make sure you are requesting the correct item and number of items. Requests can be edited in the \'Expected Deliveries\' tab.',
+                        subtitle: 'Make sure you are requesting the correct item and number of items. Requests can be edited in the \'Expected Deliveries\' tab.',
                         actionName: 'Create Request',
                         action: () {
-                          FirestoreHelper.createRequest(context: context, items: [
-                            Item(name: widget.itemName, amount: amount, specificDescription: specificDescription, category: widget.itemCategory)
-                          ]);
+                          FirestoreHelper.createRequest(
+                              context: context, items: [Item(name: widget.itemName, amount: amount, specificDescription: specificDescription, category: widget.itemCategory)]);
                         },
                       ),
                     );
