@@ -86,7 +86,22 @@ class ExpectedDeliveryContainer extends StatelessWidget {
                                   fontSize: 17,
                                   fontWeight: FontWeight.w400
                                 )))
-                            .toList()
+                            .toList(),
+
+                      ],
+                    ),
+                    SizedBox(width: 10),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        ...itemName
+                            .map((string) => Text(string,
+                            style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.w400
+                            )))
+                            .toList(), //TODO MAke this description
+
                       ],
                     ),
                     SizedBox(height: 5)

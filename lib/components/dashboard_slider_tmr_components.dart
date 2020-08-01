@@ -14,11 +14,7 @@ class TmrSlideItems extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white, borderRadius: BorderRadius.circular(10),
       ),
-      child: Row(
-        children: <Widget>[
-          SizedBox(width: 10),
-          Container(
-            width: MediaQuery.of(context).size.width / 2.6,
+      child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               color: Colors.white,
@@ -89,23 +85,6 @@ class TmrSlideItems extends StatelessWidget {
                           ))
                     ]),
                   ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
                   SizedBox(height: 10),
                   Text(
                     'Items',
@@ -124,9 +103,7 @@ class TmrSlideItems extends StatelessWidget {
                 ],
               ),
             ),
-          )
-        ],
-      ),
+          ),
     );
   }
 }
