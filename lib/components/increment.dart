@@ -290,77 +290,84 @@ class _ItemIncrementCreateRequestState extends State<ItemIncrementCreateRequest>
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Row(
-          children: <Widget>[
-            HoldDetector(
-              onHold: _decrementCounter,
-              holdTimeout: Duration(milliseconds: 150),
-              enableHapticFeedback: true,
-              child: Container(
-                height: 30,
-                width: 30,
-                decoration: BoxDecoration(
-                  color: Color(0xFFF5F5F5),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: IconButton(
-                  onPressed: _decrementCounter,
-                  icon: Icon(
-                    Icons.remove,
-                    size: 15,
+        Container(
+          decoration: ShapeDecoration(
+            color: colorScheme.onSecondary,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              HoldDetector(
+                onHold: _decrementCounter,
+                holdTimeout: Duration(milliseconds: 150),
+                enableHapticFeedback: true,
+                child: Container(
+                  height: 45,
+                  width: 45,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
                   ),
-                  tooltip: 'Decrement',
+                  child: IconButton(
+                    onPressed: _decrementCounter,
+                    icon: Icon(
+                      Icons.remove,
+                      size: 30,
+                      color: colorScheme.onBackground,
+                    ),
+                    tooltip: 'Decrement',
+                  ),
                 ),
               ),
-            ),
-            SizedBox(width: 25),
-            Container(
-              width: 50,
-              height: 23,
-              padding: EdgeInsets.only(left: 15),
-              child: TextField(
-                textAlign: TextAlign.center,
-                controller: controller,
-                onChanged: (val) {
-                  _counter = int.parse(val);
-                  widget.onChanged(_counter);
-                },
-                style: TextStyle(fontSize: 17),
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  focusedBorder: InputBorder.none,
-                  enabledBorder: InputBorder.none,
-                  errorBorder: InputBorder.none,
-                  disabledBorder: InputBorder.none,
-                  counterText: "",
-                ),
-                keyboardType: TextInputType.number,
-                inputFormatters: <TextInputFormatter>[WhitelistingTextInputFormatter.digitsOnly],
-              ),
-            ),
-            SizedBox(width: 25),
-            HoldDetector(
-              onHold: _incrementCounter,
-              holdTimeout: Duration(milliseconds: 150),
-              enableHapticFeedback: true,
-              child: Container(
-                height: 30,
-                width: 30,
-                decoration: BoxDecoration(
-                  color: Colors.blueAccent,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: IconButton(
-                  onPressed: _incrementCounter,
-                  color: Colors.white,
-                  icon: Icon(Icons.add, size: 15),
-                  tooltip: 'Increment',
+              SizedBox(width: 25),
+              Container(
+                width: 69,
+                child: TextField(
+                  maxLength: 3,
+                  textAlign: TextAlign.center,
+                  controller: controller,
+                  onChanged: (val) {
+                    _counter = int.parse(val);
+                    widget.onChanged(_counter);
+                  },
+                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    errorBorder: InputBorder.none,
+                    disabledBorder: InputBorder.none,
+                    counterText: "",
+                  ),
+                  keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[WhitelistingTextInputFormatter.digitsOnly],
                 ),
               ),
-            ),
-          ],
+              SizedBox(width: 25),
+              HoldDetector(
+                onHold: _incrementCounter,
+                holdTimeout: Duration(milliseconds: 150),
+                enableHapticFeedback: true,
+                child: Container(
+                  height: 45,
+                  width: 45,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: IconButton(
+                    onPressed: _incrementCounter,
+                    color: Colors.black,
+                    icon: Icon(Icons.add, size: 30),
+                    tooltip: 'Increment',
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ],
     );

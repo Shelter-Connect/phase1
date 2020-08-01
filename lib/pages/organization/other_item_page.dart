@@ -12,10 +12,9 @@ import '../../components/secondary_layout.dart';
 
 class OtherItemPage extends StatefulWidget {
   final String itemCategory;
+  final String asset;
 
-  OtherItemPage({
-    this.itemCategory,
-  });
+  OtherItemPage({this.itemCategory = 'Other', this.asset = 'assets/other_svgs/other.svg'});
 
   @override
   _OtherItemPageState createState() => _OtherItemPageState();
@@ -66,8 +65,8 @@ class _OtherItemPageState extends State<OtherItemPage> {
                         crossAxisAlignment: WrapCrossAlignment.center,
                         children: <Widget>[
                           CategoryIconButton(
-                            name: 'Other',
-                            asset: 'assets/other_svgs/other.svg',
+                            name: widget.itemCategory,
+                            asset: widget.asset,
                             onPressed: () {
                               Navigator.pop(context);
                             },
@@ -90,7 +89,6 @@ class _OtherItemPageState extends State<OtherItemPage> {
                       ),
                       SizedBox(height: 20),
                       FloatingTextField(
-                        keyboardType: TextInputType.multiline,
                         hintText: 'Item Description (Specific Brand, Type, etc.)',
                         width: double.infinity,
                         maxLines: null,
@@ -123,13 +121,13 @@ class _OtherItemPageState extends State<OtherItemPage> {
                             'Make sure you are requesting the correct item and number of items. Requests can be edited in the \'Expected Deliveries\' tab.',
                         actionName: 'Create Request',
                         action: () {
+                          //Navigator.popUntil(context, ModalRoute.withName('/organization_navigation'));
                           FirestoreHelper.createRequest(
                               context: context,
                               items: [Item(name: itemName, amount: amount, specificDescription: specificDescription, category: widget.itemCategory)]);
                         },
                       ),
                     );
-                    //TODO Add item to the request list and to the request in volunteer side
                   },
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30.0),
