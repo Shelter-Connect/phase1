@@ -88,7 +88,7 @@ class _DeliveryInformationPageState extends State<DeliveryInformationPage> {
                         child: Align(
                           alignment: Alignment.topLeft,
                           child: Text(
-                            "Donor Name: ${widget.donation.volunteerName}", //TODO: add donor name
+                            "Donor Name: ${widget.donation.volunteerName}",
                             style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400),
                           ),
                         ),
