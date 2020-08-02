@@ -1,31 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:phase1/models/donation.dart';
 
 import '../../components/standard_layout.dart';
 import '../../constants.dart';
 import 'delivery_confirmation_page.dart';
 
 class DeliveryInformationPage extends StatefulWidget {
-  final String dateRequested, dateExpected, donorName, donorEmail, deliveryId;
-  final List itemQuantity;
-  final List itemName;
+  final Donation donation;
 
-  DeliveryInformationPage(
-      {@required this.itemName,
-      @required this.itemQuantity,
-      @required this.dateRequested,
-      @required this.dateExpected,
-      @required this.donorName,
-      @required this.donorEmail,
-      this.deliveryId});
+  DeliveryInformationPage({this.donation});
 
   @override
-  _DeliveryInformationPageState createState() => _DeliveryInformationPageState(
-      // TODO: add documentId parameter
-      );
+  _DeliveryInformationPageState createState() => _DeliveryInformationPageState();
 }
-
-// donorName, donorEmail, itemName, itemQuantity, dateRequested, dateExpected
 
 class _DeliveryInformationPageState extends State<DeliveryInformationPage> {
   @override
@@ -62,26 +50,20 @@ class _DeliveryInformationPageState extends State<DeliveryInformationPage> {
                         decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
                       ),
                       SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Padding(
-                              padding: EdgeInsets.all(10),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  ...widget.itemName.map((string) => Text(string, style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400))).toList(),
-                                ],
-                              )),
-                          Padding(
-                              padding: EdgeInsets.all(10),
-                              child: Column(
-                                children: <Widget>[
-                                  ...widget.itemQuantity.map((int) => Text('$int', style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400))).toList(),
-                                  SizedBox(height: 10),
-                                ],
-                              )),
-                        ],
+                      ListView.builder(
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        padding: const EdgeInsets.all(10.0),
+                        itemCount: widget.donation.items.length,
+                        itemBuilder: (context, index) {
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(widget.donation.items[index].name, style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400)),
+                              Text(widget.donation.items[index].amount.toString(), style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400))
+                            ],
+                          );
+                        },
                       ),
                       SizedBox(height: 5),
                       Container(
@@ -95,7 +77,7 @@ class _DeliveryInformationPageState extends State<DeliveryInformationPage> {
                         child: Align(
                           alignment: Alignment.topLeft,
                           child: Text(
-                            "Expected Date: ${widget.dateExpected}",
+                            "Expected Date: ${widget.donation.date}",
                             style: TextStyle(
                                 fontSize: 17, fontWeight: FontWeight.w400
                             ),
@@ -107,7 +89,7 @@ class _DeliveryInformationPageState extends State<DeliveryInformationPage> {
                         child: Align(
                           alignment: Alignment.topLeft,
                           child: Text(
-                            "Date Requested: ${widget.dateRequested}",
+                            "Donor Name: WIP", //TODO: add donor name
                             style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400),
                           ),
                         ),
@@ -117,17 +99,7 @@ class _DeliveryInformationPageState extends State<DeliveryInformationPage> {
                         child: Align(
                           alignment: Alignment.topLeft,
                           child: Text(
-                            "Donor Name: ${widget.donorName}",
-                            style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(10),
-                        child: Align(
-                          alignment: Alignment.topLeft,
-                          child: Text(
-                            "Donor Email: ${widget.donorEmail}",
+                            "Donor Email: ${widget.donation.volunteerEmail}",
                             style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400),
                           ),
                         ),
@@ -147,17 +119,13 @@ class _DeliveryInformationPageState extends State<DeliveryInformationPage> {
                   color: purpleAccent,
                   onPressed: () {
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ConfirmDeliveryPage(
-                            itemName: widget.itemName,
-                            itemQuantity: widget.itemQuantity,
-                            dateRequested: widget.dateRequested,
-                            dateExpected: widget.dateExpected,
-                            donorName: widget.donorName,
-                            donorEmail: widget.donorEmail,
-                          ),
-                        ));
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ConfirmDeliveryPage(
+                          donation: widget.donation,
+                        ),
+                      ),
+                    );
                   },
                   child: Text('Confirm Delivery', style: TextStyle(fontSize: 20, color: colorScheme.onSecondary)),
                 ),

@@ -40,6 +40,7 @@ class RequestContainer extends StatelessWidget {
                 ),
                 SizedBox(height: 10),
                 ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: items.length,
                   itemBuilder: (context, index) {

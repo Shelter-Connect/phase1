@@ -1,39 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:phase1/components/alerts.dart';
 import 'package:phase1/components/increment.dart';
+import 'package:phase1/models/donation.dart';
+import 'package:phase1/models/item.dart';
 
 import '../../components/standard_layout.dart';
 import '../../constants.dart';
 
 class ConfirmDeliveryPage extends StatefulWidget {
-  final String dateRequested, dateExpected, donorName, donorEmail;
-  final List itemQuantity;
-  final List itemName;
+  final Donation donation;
 
-  ConfirmDeliveryPage(
-      {@required this.itemName,
-      @required this.itemQuantity,
-      @required this.dateRequested,
-      @required this.dateExpected,
-      @required this.donorName,
-      @required this.donorEmail});
+  ConfirmDeliveryPage({this.donation});
 
   @override
-  _ConfirmDeliveryPageState createState() => _ConfirmDeliveryPageState(
-      // TODO: add documentId parameter
-      );
+  _ConfirmDeliveryPageState createState() => _ConfirmDeliveryPageState();
 }
 
-// donorName, donorEmail, itemName, itemQuantity, dateRequested, dateExpected
-
 class _ConfirmDeliveryPageState extends State<ConfirmDeliveryPage> {
-  List<int> itemQuantity;
+  List<Item> items;
 
   @override
   void initState() {
-    setState(() {
-      itemQuantity = widget.itemQuantity;
-    });
+    items = [];
+    for (Item item in widget.donation.items) {
+      items.add(Item.clone(item));
+    }
+
     super.initState();
   }
 
@@ -81,22 +73,22 @@ class _ConfirmDeliveryPageState extends State<ConfirmDeliveryPage> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  ...widget.itemName.map((string) => Text(string, style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400))).toList(),
+                                  ...items.map((item) => Text(item.name, style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400))).toList(),
                                 ],
                               )),
                           Padding(
                             padding: EdgeInsets.all(1),
                             child: Column(
-                              children: itemQuantity
+                              children: items
                                   .asMap()
                                   .map(
-                                    (index, quantity) => MapEntry(
+                                    (index, item) => MapEntry(
                                       index,
                                       Increment(
-                                        itemQuantity: quantity,
+                                        itemQuantity: item.amount,
                                         onChanged: (val) {
                                           setState(() {
-                                            itemQuantity[index] = val;
+                                            items[index].amount = val;
                                           });
                                         },
                                       ),
@@ -113,7 +105,7 @@ class _ConfirmDeliveryPageState extends State<ConfirmDeliveryPage> {
                         child: Align(
                           alignment: Alignment.topLeft,
                           child: Text(
-                            "Expected Date: ${widget.dateExpected}",
+                            "Expected Date: ${widget.donation.date}",
                             style: TextStyle(
                               fontSize: 20,
                             ),
@@ -125,7 +117,7 @@ class _ConfirmDeliveryPageState extends State<ConfirmDeliveryPage> {
                         child: Align(
                           alignment: Alignment.topLeft,
                           child: Text(
-                            "Date Requested: ${widget.dateRequested}",
+                            "Donor Name: WIP", //TODO: add donor name
                             style: TextStyle(fontSize: 20),
                           ),
                         ),
@@ -135,17 +127,7 @@ class _ConfirmDeliveryPageState extends State<ConfirmDeliveryPage> {
                         child: Align(
                           alignment: Alignment.topLeft,
                           child: Text(
-                            "Donor Name: ${widget.donorName}",
-                            style: TextStyle(fontSize: 20),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(10),
-                        child: Align(
-                          alignment: Alignment.topLeft,
-                          child: Text(
-                            "Donor Email: ${widget.donorEmail}",
+                            "Donor Email: ${widget.donation.volunteerEmail}",
                             style: TextStyle(fontSize: 20),
                           ),
                         ),
@@ -164,7 +146,6 @@ class _ConfirmDeliveryPageState extends State<ConfirmDeliveryPage> {
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(21.0)),
                   color: secondaryTertiary,
                   onPressed: () {
-                    print(itemQuantity);
                     showDialog(
                         context: context,
                         builder: (_) => SingleActionAlert(

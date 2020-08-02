@@ -63,7 +63,7 @@ class _CurrentDeliveriesPageState extends State<CurrentDeliveriesPage> {
                   List<Widget> widgets = [];
                   Position userPosition = Provider.of<UserPosition>(context, listen:false).position;
                   for (DocumentSnapshot donationSnapshot in snapshot.data.documents) {
-                    Donation donation = Donation.fromFirestoreMap(context: context, donationSnapshot: donationSnapshot);
+                    Donation donation = Donation.fromFirestoreMap(donationSnapshot);
                     widgets.add(DeliveriesContainer(donation: donation));
                   }
                   for (int i = 1; i < widgets.length; i++) {

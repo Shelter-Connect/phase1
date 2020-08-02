@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 
 import 'item.dart';
@@ -20,8 +19,9 @@ class Donation {
     this.date,
   });
 
-  Donation.fromFirestoreMap({BuildContext context, DocumentSnapshot donationSnapshot}) {
+  Donation.fromFirestoreMap(DocumentSnapshot donationSnapshot) {
     volunteerId = donationSnapshot['volunteerId'];
+    volunteerEmail = donationSnapshot['volunteerEmail'];
     donationId = donationSnapshot.documentID;
     date = donationSnapshot['date'].toDate();
     items = donationSnapshot['items'].map((item) => Item(
@@ -48,7 +48,7 @@ class Donation {
     this.organization = this.organization;
     this.donationId = donationId;
     for (Item item in donation.items) {
-      this.items.add(Item.clone(item: item));
+      this.items.add(Item.clone(item));
     }
   }
 

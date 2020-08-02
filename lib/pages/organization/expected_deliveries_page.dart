@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:phase1/constants.dart';
+import 'package:phase1/models/donation.dart';
+import 'package:phase1/services/firestore_helper.dart';
 
 import '../../components/expected_deliveries_container.dart';
 import '../navigation_tab.dart';
@@ -36,50 +39,28 @@ class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
               style: mainTitleStyle,
             ),
             SizedBox(height: 20),
-            ExpectedDeliveryContainer(
-              // TODO: for firebase, need to query all information for these containers
-              itemName: <String>['Toothbrushes', 'Shirts', 'Ham', 'Blankets', 'fdsakl'],
-              itemQuantity: <int>[9, 10, 100, 59, 32],
-              dateRequested: "dateRequested",
-              donorName: 'Gary',
-              dateExpected: '9/20',
-              donorEmail: "eric@gmail.com",
+            StreamBuilder(
+              stream: FirestoreHelper.getCurrentOrganizationReference(context).collection('currentDonations').orderBy('date').snapshots(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+
+                List<Widget> widgets = [];
+                for (DocumentSnapshot document in snapshot.data.documents) {
+                  widgets.add(ExpectedDeliveryContainer(
+                    donation: Donation.fromFirestoreMap(document),
+                  ));
+                  widgets.add(SizedBox(height: 20.0));
+                }
+
+                return Column(
+                  children: widgets,
+                );
+              },
             ),
-            SizedBox(height: 20),
-            ExpectedDeliveryContainer(
-              itemName: <String>['Toothpaste', 'Pants', 'Socks', 'Sleeping Bags'],
-              itemQuantity: <int>[66, 57, 48, 93],
-              dateRequested: "6/9",
-              category: 'hygiene',
-              donorEmail: "donorEmail",
-            ),
-            SizedBox(height: 20),
-            ExpectedDeliveryContainer(
-              itemName: <String>['Floss', 'Belts', 'Ham', 'Caps'],
-              itemQuantity: <int>[
-                16,
-                27,
-                38,
-                49,
-              ],
-              dateRequested: "dateRequested",
-              category: 'hygiene',
-              donorEmail: "donorEmail",
-            ),
-            SizedBox(height: 20),
-            ExpectedDeliveryContainer(
-              itemName: <String>['Floss', 'Belts', 'Ham', 'Caps'],
-              itemQuantity: <int>[
-                5,
-                7,
-                8,
-                9,
-              ],
-              dateRequested: "dateRequested",
-              category: 'hygiene',
-              donorEmail: "donorEmail",
-            ),
-            SizedBox(height: 20),
           ],
         ),
       ),
