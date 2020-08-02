@@ -36,7 +36,7 @@ class ExpectedDeliveryContainer extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(
-                      '${donation.volunteerEmail} ${DateFormat.yMd().format(donation.date)}',
+                      '${donation.volunteerName} ${DateFormat.yMd().format(donation.date)}',
                       style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                     ),
                     Icon(Icons.keyboard_arrow_right),

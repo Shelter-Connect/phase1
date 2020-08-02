@@ -60,10 +60,7 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                 widget.organization.name,
                 style: mainTitleStyle,
               ),
-              Text(
-                '${widget.organization.distance.toStringAsFixed(1)} miles away',
-                style: subTitleStyle
-              ),
+              Text('${widget.organization.distance.toStringAsFixed(1)} miles away', style: subTitleStyle),
               SizedBox(height: 20.0),
               Container(
                 decoration: elevatedBoxStyle,
@@ -141,7 +138,7 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                                               Item currentItem = Item.clone(categoryItems[index]);
                                               currentItem.amount = val;
                                               donation.items.removeWhere(
-                                                      (prevItem) => prevItem.name == currentItem.name && prevItem.category == currentItem.category);
+                                                  (prevItem) => prevItem.name == currentItem.name && prevItem.category == currentItem.category);
                                               if (currentItem.amount != 0) donation.items.add(currentItem);
                                             },
                                           ),

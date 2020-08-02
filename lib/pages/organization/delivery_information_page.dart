@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:phase1/models/donation.dart';
 
 import '../../components/standard_layout.dart';
@@ -77,10 +78,8 @@ class _DeliveryInformationPageState extends State<DeliveryInformationPage> {
                         child: Align(
                           alignment: Alignment.topLeft,
                           child: Text(
-                            "Expected Date: ${widget.donation.date}",
-                            style: TextStyle(
-                                fontSize: 17, fontWeight: FontWeight.w400
-                            ),
+                            'Expected Date: ${(DateFormat('yMMMMd').format(widget.donation.date))}',
+                            style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400),
                           ),
                         ),
                       ),
@@ -89,7 +88,7 @@ class _DeliveryInformationPageState extends State<DeliveryInformationPage> {
                         child: Align(
                           alignment: Alignment.topLeft,
                           child: Text(
-                            "Donor Name: WIP", //TODO: add donor name
+                            "Donor Name: ${widget.donation.volunteerName}", //TODO: add donor name
                             style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400),
                           ),
                         ),

@@ -5,7 +5,7 @@ import 'item.dart';
 import 'organization.dart';
 
 class Donation {
-  String volunteerId, donationId, volunteerEmail;
+  String volunteerId, donationId, volunteerEmail, volunteerName;
   Organization organization;
   DateTime date;
   List<Item> items = List();
@@ -13,6 +13,7 @@ class Donation {
   Donation({
     this.volunteerId,
     this.volunteerEmail,
+    this.volunteerName,
     this.organization,
     this.donationId,
     this.items,
@@ -22,14 +23,18 @@ class Donation {
   Donation.fromFirestoreMap(DocumentSnapshot donationSnapshot) {
     volunteerId = donationSnapshot['volunteerId'];
     volunteerEmail = donationSnapshot['volunteerEmail'];
+    volunteerName = donationSnapshot['volunteerName'];
     donationId = donationSnapshot.documentID;
     date = donationSnapshot['date'].toDate();
-    items = donationSnapshot['items'].map((item) => Item(
-      name: item['name'],
-      amount: item['amount'],
-      specificDescription: item['specificDescription'],
-      category: item['category'],
-    )).toList().cast<Item>();
+    items = donationSnapshot['items']
+        .map((item) => Item(
+              name: item['name'],
+              amount: item['amount'],
+              specificDescription: item['specificDescription'],
+              category: item['category'],
+            ))
+        .toList()
+        .cast<Item>();
     organization = Organization(
       name: donationSnapshot['organizationName'],
       description: donationSnapshot['organizationDescription'],
@@ -42,6 +47,8 @@ class Donation {
 
   Donation.clone(Donation donation) {
     this.volunteerId = donation.volunteerId;
+    this.volunteerName = donation.volunteerName;
+    this.volunteerEmail = donation.volunteerEmail;
     this.date = donation.date;
     this.date = this.date;
     this.organization = donation.organization;
@@ -64,6 +71,7 @@ class Donation {
       'organizationAddress': organization.address,
       'organizationLocation': GeoPoint(organization.location.latitude, organization.location.longitude),
       'volunteerEmail': volunteerEmail,
+      'volunteerName': volunteerName,
     };
   }
 }
