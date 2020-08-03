@@ -124,29 +124,6 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                                   SizedBox(
                                     height: 10,
                                   ),
-                                  ListView.builder(
-                                    physics: NeverScrollableScrollPhysics(),
-                                    shrinkWrap: true,
-                                    itemCount: categoryItems.length,
-                                    itemBuilder: (context, index) {
-                                      return Column(
-                                        children: [
-                                          ItemIncrementWithText(
-                                            itemName: categoryItems[index].name,
-                                            maxQuantity: categoryItems[index].amount,
-                                            onChanged: (val) {
-                                              Item currentItem = Item.clone(categoryItems[index]);
-                                              currentItem.amount = val;
-                                              donation.items.removeWhere(
-                                                  (prevItem) => prevItem.name == currentItem.name && prevItem.category == currentItem.category);
-                                              if (currentItem.amount != 0) donation.items.add(currentItem);
-                                            },
-                                          ),
-                                          SizedBox(height: 10.0),
-                                        ],
-                                      );
-                                    },
-                                  ),
                                   ...categoryItems
                                       .asMap()
                                       .map((index, item) => MapEntry(
