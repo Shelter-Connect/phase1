@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:phase1/components/alerts.dart';
+import 'package:phase1/services/firestore_helper.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants.dart';
@@ -130,13 +131,20 @@ class UserInfo extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                //TODO
+                FirestoreHelper.resetPassword(Provider.of<User>(context, listen: false).user.email);
+                showDialog(
+                  context: context,
+                  builder: (_) => NoActionAlert(
+                    title: 'Instructions to change your password have been sent to your email address.',
+                  ),
+                );
               },
               child: Container(
-                width: 190,
+                width: 200,
+                height: 37,
                 decoration: BoxDecoration(
                   color: purpleAccent,
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(21),
                 ),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),

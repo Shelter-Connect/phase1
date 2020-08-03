@@ -8,6 +8,11 @@ import '../models/item.dart';
 import '../models/user.dart';
 
 class FirestoreHelper {
+  //Sends a reset password email to specified email
+  static Future<void> resetPassword(String email) async {
+    await auth.sendPasswordResetEmail(email: email);
+  }
+
   //Returns the current organization user's document reference
   static DocumentReference getCurrentOrganizationReference(BuildContext context) {
     return db.collection('organizations').document(Provider.of<User>(context, listen: false).user.uid);

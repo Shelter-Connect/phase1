@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:phase1/components/alerts.dart';
+import 'package:phase1/services/firestore_helper.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants.dart';
@@ -70,10 +71,7 @@ class OrganizationInfo extends StatelessWidget {
             children: <Widget>[
               Text(
                 'Organization Information',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w400
-                ),
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
               ),
               SizedBox(
                 height: 5,
@@ -134,22 +132,36 @@ class OrganizationInfo extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
-                  //TODO
+                  FirestoreHelper.resetPassword(Provider.of<User>(context, listen: false).user.email);
+                  showDialog(
+                    context: context,
+                    builder: (_) => NoActionAlert(
+                      title: 'Instructions to change your password have been sent to your email address.',
+                    ),
+                  );
                 },
                 child: Container(
+                  width: 200,
+                  height: 37,
                   decoration: BoxDecoration(
                     color: purpleAccent,
                     borderRadius: BorderRadius.circular(21),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
-                    child: Text(
-                      'Change Password',
-                      style: TextStyle(
-                        color: colorScheme.onSecondary,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16.0,
-                      ),
+                    child: Row(
+                      children: <Widget>[
+                        Icon(Icons.edit, color: Colors.white, size: 25),
+                        SizedBox(width: 2),
+                        Text(
+                          'Change Password',
+                          style: TextStyle(
+                            color: colorScheme.onSecondary,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16.0,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
