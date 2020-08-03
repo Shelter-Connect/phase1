@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:phase1/components/alerts.dart';
 import 'package:phase1/components/increment.dart';
 import 'package:phase1/models/donation.dart';
@@ -105,7 +106,7 @@ class _ConfirmDeliveryPageState extends State<ConfirmDeliveryPage> {
                         child: Align(
                           alignment: Alignment.topLeft,
                           child: Text(
-                            "Expected Date: ${widget.donation.date}",
+                            "Expected Date: ${(DateFormat('yMMMMd').format(widget.donation.date))}",
                             style: TextStyle(
                               fontSize: 20,
                             ),
@@ -117,7 +118,7 @@ class _ConfirmDeliveryPageState extends State<ConfirmDeliveryPage> {
                         child: Align(
                           alignment: Alignment.topLeft,
                           child: Text(
-                            "Donor Name: WIP", //TODO: add donor name
+                            'Donor Name: ${widget.donation.volunteerName}',
                             style: TextStyle(fontSize: 20),
                           ),
                         ),
@@ -127,7 +128,7 @@ class _ConfirmDeliveryPageState extends State<ConfirmDeliveryPage> {
                         child: Align(
                           alignment: Alignment.topLeft,
                           child: Text(
-                            "Donor Email: ${widget.donation.volunteerEmail}",
+                            'Donor Email: ${widget.donation.volunteerEmail}',
                             style: TextStyle(fontSize: 20),
                           ),
                         ),
