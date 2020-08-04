@@ -56,55 +56,58 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
             ),
           ],
         ),
-        drawer: Drawer(
-          child: SafeArea(
-            child: Column(
-              children: <Widget>[
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      DrawerHeader(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Shelter Connect',
-                              style: TextStyle(
-                                fontSize: 30.0,
-                                fontWeight: FontWeight.bold,
+        drawer: SafeArea(
+          child: Container(
+            width: 220,
+            child: Drawer(
+              child: Column(
+                children: <Widget>[
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        DrawerHeader(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Linkare',
+                                style: TextStyle(
+                                  fontSize: 30.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
-                            Text(Provider.of<User>(context, listen: false).user.email),
-                          ],
+                              Text(Provider.of<User>(context, listen: false).user.email),
+                            ],
+                          ),
                         ),
-                      ),
-                      ..._pages
-                          .asMap()
-                          .map((index, tab) => MapEntry(
-                              index,
-                              ListTile(
-                                  title: Text(tab.title),
-                                  leading: Icon(tab.icon),
-                                  onTap: () {
-                                    setState(() {
-                                      _selectedIndex = index;
-                                    });
-                                    Navigator.pop(context);
-                                  })))
-                          .values
-                          .toList(),
-                    ],
+                        ..._pages
+                            .asMap()
+                            .map((index, tab) => MapEntry(
+                                index,
+                                ListTile(
+                                    title: Text(tab.title),
+                                    leading: Icon(tab.icon),
+                                    onTap: () {
+                                      setState(() {
+                                        _selectedIndex = index;
+                                      });
+                                      Navigator.pop(context);
+                                    })))
+                            .values
+                            .toList(),
+                      ],
+                    ),
                   ),
-                ),
-                ListTile(
-                  title: Text('Give Feedback'),
-                  leading: Icon(Icons.feedback, color: Colors.orange),
-                  onTap: () {
-                    launch('https://forms.gle/wivNmdkjj3yvLPzf7');
-                  },
-                ),
-              ],
+                  ListTile(
+                    title: Text('Give Feedback'),
+                    leading: Icon(Icons.feedback, color: Colors.orange),
+                    onTap: () {
+                      launch('https://forms.gle/wivNmdkjj3yvLPzf7');
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -135,11 +138,31 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text('Help', style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
-                        Icon(Icons.help),
+                  IconButton(
+                    iconSize: 30,
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },icon: Icon(Icons.help),),
                     ],
                   ),
                 ),
                 Text(_pages[_selectedIndex].helpDescription, style: TextStyle(fontSize: 17)),
+                Spacer(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    InkWell(
+                        child: new Text('Report Issues', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 17)),
+                        onTap: () => launch('https://forms.gle/ue5idWtztcgevh9Q7')),
+                    IconButton(
+                      iconSize: 30,
+                      onPressed: () {
+                        launch('https://forms.gle/ue5idWtztcgevh9Q7');
+                      },
+                      icon: Icon(Icons.bug_report),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
