@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:phase1/components/alerts.dart';
 import 'package:phase1/models/donation.dart';
 import 'package:phase1/models/organization.dart';
 import 'package:phase1/services/firestore_helper.dart';
@@ -44,6 +43,42 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                 /*'on: ${DateFormat.yMMMd().add_jm().format(widget.donation.date)}',*/
                 'on: ${DateFormat.yMMMd().format(widget.donation.date)}',
                 style: subTitleStyle,
+              ),
+              SizedBox(height: 20),
+              Column(
+                children: <Widget>[
+                  Container(
+                    decoration: elevatedBoxStyle,
+                    width: MediaQuery.of(context).size.width,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            'Organization Information ',
+                            style: TextStyle(
+                              fontSize: 20,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Container(
+                            height: 5,
+                            width: 100,
+                            decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          InfoText(orgEmail: widget.organization.email, orgNumber: widget.organization.number, orgAddress: widget.organization.address),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
               SizedBox(height: 20),
               Container(
@@ -102,24 +137,28 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                                           ),
                                         Padding(
                                           padding: const EdgeInsets.only(top: 3.0),
-                                          child: FlatButton(
-                                            onPressed: () {
-                                              showDialog(
-                                                context: context,
-                                                builder: (_) => NoActionAlert(title: '''Unit: Liters
-Specific Description'''),
-                                              );
-                                            },
-                                            child: Text(
-                                              '${item.amount} ${item.name}',
-                                              textAlign: TextAlign.start,
-                                              style: TextStyle(
-                                                fontSize: 17.0,
-                                                fontWeight: FontWeight.w400,
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: <Widget>[
+                                              Text(
+                                                '${item.name}',
+                                                textAlign: TextAlign.start,
+                                                style: TextStyle(
+                                                  fontSize: 17.0,
+                                                  fontWeight: FontWeight.w400,
+                                                ),
                                               ),
-                                            ),
+                                              Text(
+                                                '${item.amount}',
+                                                style: TextStyle(
+                                                  fontSize: 17.0,
+                                                  fontWeight: FontWeight.w400,
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
+                                        Text('description; in Unit', style: TextStyle(color: Colors.grey)),
                                       ],
                                     ),
                                   );
@@ -137,42 +176,6 @@ Specific Description'''),
                 ),
               ),
               SizedBox(height: 20),
-              Column(
-                children: <Widget>[
-                  Container(
-                    decoration: elevatedBoxStyle,
-                    width: MediaQuery.of(context).size.width,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            'Organization Information ',
-                            style: TextStyle(
-                              fontSize: 20,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Container(
-                            height: 5,
-                            width: 100,
-                            decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          InfoText(orgEmail: widget.organization.email, orgNumber: widget.organization.number, orgAddress: widget.organization.address),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 16),
               Container(
                 width: MediaQuery.of(context).size.width,
                 child: FlatButton(

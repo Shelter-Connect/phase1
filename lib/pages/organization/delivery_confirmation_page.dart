@@ -1,9 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:phase1/components/alerts.dart';
+import 'package:phase1/components/colored_button.dart';
 import 'package:phase1/components/increment.dart';
 import 'package:phase1/models/donation.dart';
 import 'package:phase1/models/item.dart';
+import 'package:phase1/services/firestore_helper.dart';
 
 import '../../components/standard_layout.dart';
 import '../../constants.dart';
@@ -65,73 +67,48 @@ class _ConfirmDeliveryPageState extends State<ConfirmDeliveryPage> {
                         width: 100,
                         decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
                       ),
-                      SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      Column(
                         children: <Widget>[
-                          Padding(
-                              padding: EdgeInsets.all(10),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  ...items.map((item) => Text(item.name, style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400))).toList(),
-                                ],
-                              )),
-                          Padding(
-                            padding: EdgeInsets.all(1),
-                            child: Column(
-                              children: items
-                                  .asMap()
-                                  .map(
-                                    (index, item) => MapEntry(
-                                      index,
-                                      Increment(
-                                        itemQuantity: item.amount,
-                                        onChanged: (val) {
-                                          setState(() {
-                                            items[index].amount = val;
-                                          });
-                                        },
-                                      ),
-                                    ),
-                                  )
-                                  .values
-                                  .toList(),
-                            ),
-                          )
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Padding(
+                                  padding: EdgeInsets.only(bottom: 10),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      ...items.map((item) => Padding(padding: EdgeInsets.all(10),
+                                      child: Center(child: Text(item.name, style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400))))).toList(),
+                                    ],
+                                  )),
+                              Padding(
+                                padding: EdgeInsets.only(bottom: 10),
+                                child: Column(
+                                  children: items
+                                      .asMap()
+                                      .map(
+                                        (index, item) => MapEntry(
+                                          index,
+                                          Padding(
+                                            padding: EdgeInsets.all(10),
+                                            child: Increment(
+                                              itemQuantity: item.amount,
+                                              onChanged: (val) {
+                                                setState(() {
+                                                  items[index].amount = val;
+                                                });
+                                              },
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                      .values
+                                      .toList(),
+                                ),
+                              )
+                            ],
+                          ),
                         ],
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(10),
-                        child: Align(
-                          alignment: Alignment.topLeft,
-                          child: Text(
-                            "Expected Date: ${(DateFormat('yMMMMd').format(widget.donation.date))}",
-                            style: TextStyle(
-                              fontSize: 20,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(10),
-                        child: Align(
-                          alignment: Alignment.topLeft,
-                          child: Text(
-                            'Donor Name: ${widget.donation.volunteerName}',
-                            style: TextStyle(fontSize: 20),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(10),
-                        child: Align(
-                          alignment: Alignment.topLeft,
-                          child: Text(
-                            'Donor Email: ${widget.donation.volunteerEmail}',
-                            style: TextStyle(fontSize: 20),
-                          ),
-                        ),
                       ),
                     ],
                   ),

@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:phase1/components/alerts.dart';
 import 'package:phase1/components/standard_layout.dart';
 import 'package:phase1/constants.dart';
 import 'package:phase1/models/item.dart';
@@ -236,45 +235,64 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                   ),
                                   Column(
                                     children: widget.organization.requestedItems
-                                        .map((String category, List<Item> items) => MapEntry(
+                                        .map(
+                                          (String category, List<Item> items) => MapEntry(
                                             category,
-                                            Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-                                              SizedBox(height: 10.0),
-                                              Text(
-                                                category,
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 17.0,
+                                            Column(
+                                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                                              children: [
+                                                SizedBox(height: 10.0),
+                                                Text(
+                                                  category,
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 23.0,
+                                                  ),
                                                 ),
-                                              ),
-                                              ...items
-                                                  .map(
-                                                    (item) => Padding(
-                                                      padding: const EdgeInsets.only(top: 0.0, left: 0, right: 30),
-                                                      child: Container(
-                                                        width: MediaQuery.of(context).size.width,
-                                                        alignment: Alignment.centerLeft,
-                                                        child: FlatButton(
-                                                          onPressed: () {
-                                                            showDialog(
-                                                              context: context,
-                                                              builder: (_) => NoActionAlert(title: '''Unit: Liters
-Specific Description'''),
-                                                            );
-                                                          },
-                                                          child: Text(
-                                                            '${item.amount} ${item.name}',
-                                                            style: TextStyle(
-                                                              fontSize: 17.0,
-                                                              fontWeight: FontWeight.w400,
+                                                ...items
+                                                    .map(
+                                                      (item) => Padding(
+                                                        padding: const EdgeInsets.only(top: 0.0, left: 0, right: 30),
+                                                        child: Container(
+                                                          width: MediaQuery.of(context).size.width,
+                                                          alignment: Alignment.centerLeft,
+                                                          child: Padding(
+                                                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                                            child: Row(
+                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                              children: <Widget>[
+                                                                Column(
+                                                                  mainAxisAlignment: MainAxisAlignment.start,
+                                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                                  children: <Widget>[
+                                                                    Text(
+                                                                      '${item.name}',
+                                                                      style: TextStyle(
+                                                                        fontSize: 17.0,
+                                                                        fontWeight: FontWeight.w400,
+                                                                      ),
+                                                                    ),
+                                                                    Text('description; in Unit', style: TextStyle(color: Colors.grey)),
+                                                                  ],
+                                                                ),
+                                                                Text(
+                                                                  '${item.amount}',
+                                                                  style: TextStyle(
+                                                                    fontSize: 17.0,
+                                                                    fontWeight: FontWeight.w400,
+                                                                  ),
+                                                                ),
+                                                              ],
                                                             ),
                                                           ),
                                                         ),
                                                       ),
-                                                    ),
-                                                  )
-                                                  .toList(),
-                                            ])))
+                                                    )
+                                                    .toList(),
+                                              ],
+                                            ),
+                                          ),
+                                        )
                                         .values
                                         .toList(),
                                   )

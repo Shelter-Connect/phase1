@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:phase1/components/colored_button.dart';
 import 'package:phase1/models/donation.dart';
 
 import '../../components/standard_layout.dart';
@@ -110,24 +111,19 @@ class _DeliveryInformationPageState extends State<DeliveryInformationPage> {
             ),
             Padding(
               padding: const EdgeInsets.all(16.0),
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                height: 40,
-                child: FlatButton(
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-                  color: purpleAccent,
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ConfirmDeliveryPage(
-                          donation: widget.donation,
-                        ),
+              child: ColoredButton(
+                color: purpleAccent,
+                text: 'Confirm Delivery',
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ConfirmDeliveryPage(
+                        donation: widget.donation,
                       ),
-                    );
-                  },
-                  child: Text('Confirm Delivery', style: TextStyle(fontSize: 20, color: colorScheme.onSecondary)),
-                ),
+                    ),
+                  );
+                },
               ),
             )
           ],

@@ -55,8 +55,8 @@ class SingleActionAlert extends StatelessWidget {
               style: TextStyle(color: colorScheme.secondary),
             ),
             onPressed: () {
-              action();
               Navigator.pop(context);
+              action();
             })
       ],
     );
