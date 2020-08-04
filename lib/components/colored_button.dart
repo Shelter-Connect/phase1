@@ -4,8 +4,9 @@ class ColoredButton extends StatelessWidget {
   final Color color;
   final Color textColor;
   final VoidCallback onPressed;
+  final String text;
 
-  ColoredButton({this.color, this.textColor, this.onPressed});
+  ColoredButton({this.color, this.textColor = Colors.white, this.onPressed, this.text});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class ColoredButton extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 20),
           child: Text(
-            'Make a Donation!',
+            this.text,
             style: TextStyle(color: textColor, fontSize: 20),
           ),
         ),

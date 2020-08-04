@@ -69,18 +69,18 @@ class FirestoreHelper {
   }
 
   //Moves a donation from currentDonations to pastDonations
-  static Future<void> archiveDonation(BuildContext context, String initialId, Donation receivedDonation) async {
+  static Future<void> confirmDelivery(BuildContext context, Donation donation) async {
     CollectionReference volunteerDonationCollection = getCurrentVolunteerReference(context).collection('currentDonations');
-    await volunteerDonationCollection.document(initialId).delete();
+    await volunteerDonationCollection.document(donation.donationId).delete();
 
     CollectionReference organizationDonationCollection =
-        db.collection('organizations').document(receivedDonation.organization.id).collection('currentDonations');
-    await organizationDonationCollection.document(initialId).delete();
+        db.collection('organizations').document(donation.organization.id).collection('currentDonations');
+    await organizationDonationCollection.document(donation.donationId).delete();
 
-    volunteerDonationCollection = getCurrentVolunteerReference(context).collection('pastDonations');
-    DocumentReference donationDocument = await volunteerDonationCollection.add(receivedDonation.toFirestoreMap());
+    volunteerDonationCollection = db.collection('volunteers').document(donation.volunteerId).collection('pastDonations');
+    await volunteerDonationCollection.document(donation.donationId).setData(donation.toFirestoreMap());
 
-    organizationDonationCollection = db.collection('organizations').document(receivedDonation.organization.id).collection('pastDonations');
-    await organizationDonationCollection.document(donationDocument.documentID).setData(receivedDonation.toFirestoreMap());
+    organizationDonationCollection = getCurrentOrganizationReference(context).collection('pastDonations');
+    await organizationDonationCollection.document(donation.donationId).setData(donation.toFirestoreMap());
   }
 }
