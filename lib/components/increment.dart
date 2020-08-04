@@ -175,11 +175,18 @@ class _ItemIncrementWithTextState extends State<ItemIncrementWithText> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        Container(
-          child: Text(
-            '${widget.maxQuantity} ${widget.itemName}',
-            style: TextStyle(fontSize: 18),
-          ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Container(
+              child: Text(
+                '${widget.itemName} - ${widget.maxQuantity}',
+                //TODO: Make optional
+                style: TextStyle(fontSize: 18),
+              ),
+            ),
+            Text('description in Unit', style: TextStyle(color: Colors.grey)),
+          ],
         ),
         Row(
           children: <Widget>[
