@@ -124,7 +124,8 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
                 SizedBox(height: 20),
                 RoundedButton(
                   color: purpleAccent,
-                  title: 'Create Account', textColor: Colors.white,
+                  title: 'Create Account',
+                  textColor: Colors.white,
                   onPressed: () async {
                     if (password != password2) {
                       showDialog(
@@ -170,7 +171,8 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
                 Padding(
                   padding: const EdgeInsets.only(left: 5.0),
                   child: TextButton(
-                    text: 'Not an Organization?', textColor: Colors.redAccent,
+                    text: 'Not an Organization?',
+                    textColor: Colors.redAccent,
                     onPressed: () {
                       Navigator.pop(context);
                     },
@@ -193,6 +195,6 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
       location = new GeoPoint(detail.result.geometry.location.lat, detail.result.geometry.location.lng);
       return detail.result.formattedAddress;
     }
-    throw new Exception('Illegal Argument Exception: Prediction is null');
+    return '';
   }
 }
