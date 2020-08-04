@@ -128,7 +128,7 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
                   Padding(
                     padding: const EdgeInsets.only(left: 5.0),
                     child: TextButton(
-                      text: 'Not a Volunteer?', textColor: Colors.redAccent,
+                      text: 'Not a Volunteer?', textColor: Colors.blueAccent,
                       onPressed: () {
                         Navigator.pop(context);
                       },

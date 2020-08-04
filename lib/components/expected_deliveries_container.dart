@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:intl/intl.dart' hide TextDirection;
 import 'package:phase1/constants.dart';
 import 'package:phase1/models/donation.dart';
 import 'package:phase1/pages/organization/delivery_information_page.dart';
@@ -34,12 +34,16 @@ class ExpectedDeliveryContainer extends StatelessWidget {
                 SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  textDirection: TextDirection.rtl,
                   children: <Widget>[
-                    Text(
-                      '${donation.volunteerName} ${DateFormat.yMd().format(donation.date)}',
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-                    ),
                     Icon(Icons.keyboard_arrow_right),
+                    Expanded(
+                      child: Text(
+                        '${donation.volunteerName} ${DateFormat.yMd().format(donation.date)}',
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                      ),
+                    ),
                   ],
                 ),
                 SizedBox(

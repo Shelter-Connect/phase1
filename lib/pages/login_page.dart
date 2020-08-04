@@ -80,7 +80,7 @@ class _LoginPageState extends State<LoginPage> {
                   Padding(
                     padding: const EdgeInsets.only(left: 5.0),
                     child: TextButton(
-                      text: 'Not an Existing User?', textColor: Colors.redAccent,
+                      text: 'Not an Existing User?', textColor: Colors.blueAccent,
                       onPressed: () {
                         Navigator.pop(context);
                       },
