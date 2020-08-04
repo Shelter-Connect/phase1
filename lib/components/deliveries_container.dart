@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:phase1/constants.dart';
 import 'package:phase1/models/donation.dart';
 import 'package:phase1/pages/volunteer/delivery_description_page.dart';
-import 'package:intl/intl.dart';
+import 'package:intl/intl.dart' hide TextDirection;
 
 class DeliveriesContainer extends StatelessWidget {
   final Donation donation;
@@ -28,23 +28,21 @@ class DeliveriesContainer extends StatelessWidget {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                textDirection: TextDirection.rtl,
                 children: <Widget>[
-                  Text(
-                    donation.organization.name,
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
                   SizedBox(
                     height: 30.0,
                     width: 30.0,
-                    child: IconButton(
-                      icon: Icon(Icons.keyboard_arrow_right),
-                      padding: EdgeInsets.all(0.0),
-                      onPressed: () {
-                        //TODO
-                      },
+                    child: Icon(Icons.keyboard_arrow_right),
+                  ),
+                  Expanded(
+                    child: Text(
+                      donation.organization.name,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                 ],
