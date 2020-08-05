@@ -117,30 +117,12 @@ class _ConfirmDeliveryPageState extends State<ConfirmDeliveryPage> {
             ),
             Padding(
               padding: const EdgeInsets.all(16.0),
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                height: 50,
-                child: FlatButton(
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(21.0)),
-                  color: secondaryTertiary,
-                  onPressed: () {
-                    showDialog(
-                        context: context,
-                        builder: (_) => SingleActionAlert(
-                              actionName: 'Confirm',
-                              subtitle: 'Once you confirm, the delivered items will be removed from your requested items',
-                              action: () {
-                                //TODO: Make this go back to dashboard page
-                                Navigator.pop(context);
-                                Navigator.pop(context);
-                                Navigator.pop(context);
-                                Navigator.pop(context);
-                              },
-                              title: 'Confirm Order',
-                            ));
-                  },
-                  child: Text('Confirm Items Delivered', style: TextStyle(fontSize: 20, color: colorScheme.onSecondary)),
-                ),
+              child: ColoredButton(
+                color: purpleAccent,
+                text: 'Confirm Items Delivered',
+                onPressed: () {
+                  FirestoreHelper.confirmDelivery(context, widget.donation);
+                },
               ),
             )
           ],
