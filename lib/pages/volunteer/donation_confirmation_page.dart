@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:phase1/models/donation.dart';
+import 'package:phase1/models/item.dart';
 import 'package:phase1/models/organization.dart';
 import 'package:phase1/services/firestore_helper.dart';
 
@@ -73,7 +74,8 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                           SizedBox(
                             height: 10,
                           ),
-                          InfoText(orgEmail: widget.organization.email, orgNumber: widget.organization.number, orgAddress: widget.organization.address),
+                          InfoText(
+                              orgEmail: widget.organization.email, orgNumber: widget.organization.number, orgAddress: widget.organization.address),
                         ],
                       ),
                     ),
@@ -181,6 +183,13 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                 child: FlatButton(
                   onPressed: () {
                     Navigator.popUntil(context, ModalRoute.withName('/volunteer_navigation'));
+                    List<Item> delta = List();
+                    for (Item newItem in widget.donation.items) {
+                      Item item = Item.clone(newItem);
+                      item.amount *= -1;
+                      delta.add(item);
+                    }
+                    FirestoreHelper.setRequests(context: context, items: delta, organizationId: widget.donation.organization.id);
                     FirestoreHelper.createDonation(context, widget.donation);
                   },
                   shape: RoundedRectangleBorder(

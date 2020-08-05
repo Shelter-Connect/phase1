@@ -123,6 +123,21 @@ class _ConfirmDeliveryPageState extends State<ConfirmDeliveryPage> {
                 color: purpleAccent,
                 text: 'Confirm Items Delivered',
                 onPressed: () {
+                  List<Item> delta = List();
+                  for (Item updatedItem in items) {
+                    for (Item oldItem in widget.donation.items) {
+                      if ((updatedItem.specificDescription == oldItem.specificDescription) &&
+                          (updatedItem.name == oldItem.name) &&
+                          (updatedItem.category == oldItem.category)) {
+                        Item item = Item.clone(oldItem);
+                        item.amount -= updatedItem.amount;
+                        delta.add(item);
+                        break;
+                      }
+                    }
+                  }
+                  FirestoreHelper.setRequests(context: context, items: delta);
+                  widget.donation.items = items;
                   FirestoreHelper.confirmDelivery(context, widget.donation);
                 },
               ),
