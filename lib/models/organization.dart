@@ -5,6 +5,7 @@ import 'package:phase1/models/user_position.dart';
 import 'package:phase1/services/location_helper.dart';
 import 'package:provider/provider.dart';
 
+import '../constants.dart';
 import 'item.dart';
 
 class Organization {
@@ -37,11 +38,24 @@ class Organization {
     description = organizationSnapshot['description'];
     name = organizationSnapshot['name'];
     itemCategories = organizationSnapshot['itemCategories'].cast<String>();
-    requestedItems = {};
 
-    Position userPosition = Provider.of<UserPosition>(context, listen:false).position;
-    distance = userPosition != null ? LocationHelper.distance(
-      organizationSnapshot['location'].latitude, organizationSnapshot['location'].longitude, userPosition.latitude, userPosition.longitude
-    ) : null;
+    DocumentReference organizationReference = db.collection('organizations').document(organizationSnapshot.documentID);
+    Map<String, List<Item>> items = Map();
+
+    for (String category in organizationSnapshot['itemCategories']) {
+      items[category] = List<Item>();
+    }
+    organizationReference.collection('requests').getDocuments().then((documents) {
+      for (DocumentSnapshot document in documents.documents) {
+        items[document['category']].add(Item(name: document['name'], amount: document['amount'], category: document['category']));
+      }
+    });
+    requestedItems = items;
+
+    Position userPosition = Provider.of<UserPosition>(context, listen: false).position;
+    distance = userPosition != null
+        ? LocationHelper.distance(
+            organizationSnapshot['location'].latitude, organizationSnapshot['location'].longitude, userPosition.latitude, userPosition.longitude)
+        : null;
   }
 }

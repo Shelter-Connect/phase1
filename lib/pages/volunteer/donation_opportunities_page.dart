@@ -25,7 +25,6 @@ class DonationOpportunities extends StatefulWidget with NavigationTab {
 }
 
 class _DonationOpportunitiesState extends State<DonationOpportunities> {
-
   @override
   void initState() {
     LocationHelper.getUserPosition().then((position) {
@@ -44,10 +43,7 @@ class _DonationOpportunitiesState extends State<DonationOpportunities> {
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
-              child: Text(
-                'Donation Opportunities',
-                style: mainTitleStyle
-              ),
+              child: Text('Donation Opportunities', style: mainTitleStyle),
             ),
             SizedBox(height: 20),
             Padding(padding: const EdgeInsets.only(left: 16.0), child: DonationFilterButton()),
@@ -66,10 +62,7 @@ class _DonationOpportunitiesState extends State<DonationOpportunities> {
                   }
                 }
                 widgets.sort((a, b) {
-                  return (a as OrganizationDonationProfile)
-                      .organization
-                      .distance
-                      .compareTo((b as OrganizationDonationProfile).organization.distance);
+                  return (a as OrganizationDonationProfile).organization.distance.compareTo((b as OrganizationDonationProfile).organization.distance);
                 });
                 for (int i = 1; i < widgets.length; i++) {
                   widgets.insert(

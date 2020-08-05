@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:phase1/components/alerts.dart';
 import 'package:phase1/components/colored_button.dart';
 import 'package:phase1/components/increment.dart';
 import 'package:phase1/models/donation.dart';
