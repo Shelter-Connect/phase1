@@ -65,16 +65,18 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
           drawer: Drawer(
             child: SafeArea(
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Expanded(
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         DrawerHeader(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Shelter Connect',
+                                'Linkare',
                                 style: TextStyle(
                                   fontSize: 30.0,
                                   fontWeight: FontWeight.bold,

@@ -30,8 +30,9 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
+                  SizedBox(height: 20),
                   Text('Volunteer Sign Up', style: largeTitleStyle),
-                  SizedBox(height: 35),
+                  SizedBox(height: 40),
                   Row(
                     children: <Widget>[
                       Expanded(
@@ -134,6 +135,7 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
                       },
                     ),
                   ),
+                  SizedBox(height: 20),
                 ],
               ),
             ),

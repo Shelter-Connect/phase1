@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:phase1/components/donation_filter_button.dart';
 import 'package:phase1/models/organization.dart';
 import 'package:phase1/models/user_position.dart';
 import 'package:phase1/services/location_helper.dart';
@@ -45,8 +44,6 @@ class _DonationOpportunitiesState extends State<DonationOpportunities> {
               padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
               child: Text('Donation Opportunities', style: mainTitleStyle),
             ),
-            SizedBox(height: 20),
-            Padding(padding: const EdgeInsets.only(left: 16.0), child: DonationFilterButton()),
             SizedBox(height: 20.0),
             StreamBuilder(
               stream: db.collection('organizations').snapshots(),
