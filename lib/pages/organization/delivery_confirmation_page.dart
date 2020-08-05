@@ -143,7 +143,7 @@ class _ConfirmDeliveryPageState extends State<ConfirmDeliveryPage> {
                           )
                         ],
                       ),
-                  ),
+                  ]),
                 ),
               ),
             ),
