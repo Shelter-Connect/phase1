@@ -38,11 +38,22 @@ class _ConfirmDeliveryPageState extends State<ConfirmDeliveryPage> {
       title: "Confirm Delivery",
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Text(
+                'Amount Recieved',
+                style: TextStyle(fontSize: 35, color: purpleAccent, fontWeight: FontWeight.w900),
+                textAlign: TextAlign.start,
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Container(
-                decoration: elevatedBoxStyle,
+                decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(5), boxShadow: [
+                  BoxShadow(color: Color(0xFFDEDEDE), blurRadius: 5.0, spreadRadius: 1),
+                ]),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
                   child: Column(
@@ -50,66 +61,86 @@ class _ConfirmDeliveryPageState extends State<ConfirmDeliveryPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       SizedBox(height: 5),
-                      Text(
-                        'Amount Received',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Container(
-                        //THIS IS THE LINE
-                        height: 5,
-                        width: 100,
-                        decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
-                      ),
-                      Column(
+                      Stack(
+                        alignment: Alignment.center,
                         children: <Widget>[
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Padding(
-                                  padding: EdgeInsets.only(bottom: 10),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      ...items
-                                          .map((item) => Padding(
-                                              padding: EdgeInsets.all(10),
-                                              child: Center(child: Text(item.name, style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400)))))
-                                          .toList(),
-                                    ],
-                                  )),
-                              Padding(
-                                padding: EdgeInsets.only(bottom: 10),
-                                child: Column(
-                                  children: items
-                                      .asMap()
-                                      .map(
-                                        (index, item) => MapEntry(
-                                          index,
-                                          Padding(
-                                            padding: EdgeInsets.all(10),
-                                            child: Increment(
-                                              itemQuantity: item.amount,
-                                              onChanged: (val) {
-                                                setState(() {
-                                                  items[index].amount = val;
-                                                });
-                                              },
-                                            ),
+                          Padding(
+                            padding: EdgeInsets.only(bottom: 10),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[
+                                ...items
+                                    .map(
+                                      (item) =>
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: <Widget>[
+                                              Padding(
+                                                padding: EdgeInsets.all(16),
+                                                child: Text(
+                                                  item.name,
+                                                  style: TextStyle(fontSize: 19, fontWeight: FontWeight.w400),
+                                                ),
+                                              ),
+                                              Container(
+                                                //THIS IS THE LINE
+                                                height: 2,
+                                                width: MediaQuery.of(context).size.width,
+                                                decoration: BoxDecoration(color: Colors.grey, borderRadius: BorderRadius.circular(21)),
+                                              ),
+                                            ],
                                           ),
-                                        ),
-                                      )
-                                      .values
-                                      .toList(),
-                                ),
-                              )
-                            ],
+
+                                    )
+                                    .toList(),
+                              ],
+                            ),
                           ),
+                          Positioned(
+                            right: 10,
+                            child: Padding(
+                              padding: EdgeInsets.only(bottom: 10),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: items
+                                    .asMap()
+                                    .map(
+                                      (index, item) => MapEntry(
+                                        index,
+                                        Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: <Widget>[
+                                            Padding(
+                                              padding: EdgeInsets.all(10),
+                                              child: Increment(
+                                                subtractBoxDecoration: Colors.white,
+                                                addIconColor: purpleAccent,
+                                                additionBoxDecoration: Colors.white,
+                                                itemQuantity: item.amount,
+                                                onChanged: (val) {
+                                                  setState(() {
+                                                    items[index].amount = val;
+                                                  });
+                                                },
+                                              ),
+                                            ),
+//                                          Container(
+//                                            //THIS IS THE LINE
+//                                            height: 2,
+//                                            width: MediaQuery.of(context).size.width,
+//                                            decoration: BoxDecoration(color: Colors.grey, borderRadius: BorderRadius.circular(21)),
+//                                          ),
+                                          ],
+                                        ),
+                                      ),
+                                    )
+                                    .values
+                                    .toList(),
+                              ),
+                            ),
+                          )
                         ],
                       ),
                     ],
@@ -126,9 +157,7 @@ class _ConfirmDeliveryPageState extends State<ConfirmDeliveryPage> {
                   List<Item> delta = List();
                   for (Item updatedItem in items) {
                     for (Item oldItem in widget.donation.items) {
-                      if ((updatedItem.specificDescription == oldItem.specificDescription) &&
-                          (updatedItem.name == oldItem.name) &&
-                          (updatedItem.category == oldItem.category)) {
+                      if ((updatedItem.specificDescription == oldItem.specificDescription) && (updatedItem.name == oldItem.name) && (updatedItem.category == oldItem.category)) {
                         Item item = Item.clone(oldItem);
                         item.amount -= updatedItem.amount;
                         delta.add(item);
