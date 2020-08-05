@@ -35,32 +35,9 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
+                SizedBox(height: 20),
                 Text('Organization Sign Up', style: largeTitleStyle),
-                SizedBox(height: 35),
-                FloatingTextField(
-                  keyboardType: TextInputType.emailAddress,
-                  hintText: 'Organization Email',
-                  onChanged: (val) {
-                    email = val.trim();
-                  },
-                ),
-                SizedBox(height: 20),
-                FloatingTextField(
-                  obscureText: true,
-                  hintText: 'Password',
-                  onChanged: (val) {
-                    password = val.trim();
-                  },
-                ),
-                SizedBox(height: 20),
-                FloatingTextField(
-                  obscureText: true,
-                  hintText: 'Re-enter Password',
-                  onChanged: (val) {
-                    password2 = val.trim();
-                  },
-                ),
-                SizedBox(height: 20),
+                SizedBox(height: 40),
                 FloatingTextField(
                   hintText: 'Organization Name',
                   onChanged: (val) {
@@ -69,6 +46,15 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
                 ),
                 SizedBox(height: 20),
                 FloatingTextField(
+                  keyboardType: TextInputType.emailAddress,
+                  hintText: 'Organization Email',
+                  onChanged: (val) {
+                    email = val.trim();
+                  },
+                ),
+                SizedBox(height: 20),
+                FloatingDescriptionField(
+                  maxLength: 300,
                   onChanged: (val) {
                     setState(() {
                       description = val;
@@ -99,19 +85,7 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
                     );
                   },
                 ),
-                SizedBox(height: 30),
-                FloatingTextField(
-                  maxLength: 11,
-                  keyboardType: TextInputType.number,
-                  onChanged: (val) {
-                    setState(() {
-                      number = val;
-                    });
-                  },
-                  maxLines: null,
-                  hintText: 'Number (Optional)',
-                ),
-                SizedBox(height: 30),
+                SizedBox(height: 20),
                 FloatingTextField(
                   onChanged: (val) {
                     setState(() {
@@ -120,6 +94,22 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
                   },
                   maxLines: null,
                   hintText: 'Website (Optional)',
+                ),
+                SizedBox(height: 20),
+                FloatingTextField(
+                  obscureText: true,
+                  hintText: 'Password',
+                  onChanged: (val) {
+                    password = val.trim();
+                  },
+                ),
+                SizedBox(height: 20),
+                FloatingTextField(
+                  obscureText: true,
+                  hintText: 'Re-enter Password',
+                  onChanged: (val) {
+                    password2 = val.trim();
+                  },
                 ),
                 SizedBox(height: 20),
                 RoundedButton(
@@ -178,6 +168,7 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
                     },
                   ),
                 ),
+                SizedBox(height: 20)
               ],
             ),
           ),

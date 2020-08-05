@@ -4,8 +4,9 @@ import 'package:phase1/components/requests_container.dart';
 import 'package:phase1/constants.dart';
 import 'package:phase1/models/item.dart';
 import 'package:phase1/services/firestore_helper.dart';
-
 import '../navigation_tab.dart';
+import 'create_request_page.dart';
+
 
 class CurrentRequestsPage extends StatefulWidget with NavigationTab {
   @override
@@ -38,41 +39,6 @@ class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
                 'Current Requests',
                 style: mainTitleStyle,
               ),
-              SizedBox(height: 20),
-              Container(
-                  decoration: BoxDecoration(boxShadow: [
-                    BoxShadow(
-                        color: Color(0xFFDEDEDE),
-                        blurRadius: 20.0,
-                        spreadRadius: 0.025,
-                        offset: Offset(
-                          0.0,
-                          0.0,
-                        )),
-                  ]),
-                  child: FlatButton(
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                    color: Colors.white,
-                    onPressed: () {},
-                    child: IntrinsicWidth(
-                      child: Row(
-                        children: <Widget>[
-                          Text('Edit', style: smallButtonStyle),
-                          SizedBox(width: 5.0),
-                          Column(
-                            children: [
-                              SizedBox(height: 5.0),
-                              Icon(
-                                Icons.keyboard_arrow_down,
-                                color: purpleAccent,
-                                size: 30.0,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  )),
               SizedBox(height: 20),
               StreamBuilder(
                 stream: FirestoreHelper.getCurrentOrganizationReference(context).collection('requests').snapshots(),
@@ -112,6 +78,22 @@ class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
               SizedBox(height: 20),
             ],
           ),
+        ),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        backgroundColor: purpleAccent,
+        heroTag: 'create request',
+        // Create request testing code
+        onPressed: () async {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => CreateRequestPage()),
+          );
+        },
+        label: Text('New Request'),
+        icon: Icon(
+          Icons.edit,
+          color: Colors.white,
         ),
       ),
     );

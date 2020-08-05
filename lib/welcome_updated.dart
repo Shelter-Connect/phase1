@@ -117,7 +117,7 @@ class HomePage extends StatelessWidget {
                         ),
                         child: Container(
                           child: Text(
-                            'Sign up as a Volunteer',
+                            'Continue as a Volunteer',
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,

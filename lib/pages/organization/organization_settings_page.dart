@@ -4,7 +4,6 @@ import 'package:phase1/models/organization.dart';
 import 'package:phase1/services/firestore_helper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
-
 import '../../constants.dart';
 import '../../models/user.dart';
 import '../navigation_tab.dart';
@@ -61,6 +60,8 @@ class _OrganizationSettingsPageState extends State<OrganizationSettingsPage> {
             SizedBox(height: 20),
             OrganizationInfo(organization: organization),
             SizedBox(height: 20),
+            DemoProfileButton(),
+            SizedBox(height: 10),
             DeleteAccount(),
             SizedBox(height: 20),
           ],
@@ -290,6 +291,29 @@ class DeleteAccount extends StatelessWidget {
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+class DemoProfileButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return FlatButton(
+      onPressed: () {
+//        Navigator.push(context, MaterialPageRoute(builder: (context) => OrganizationDemoPage());//TODO add functionality for editing and viewing profile
+      },
+      child: Container(
+        height: 45.0,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(21),
+          color: purpleAccent,
+        ),
+        child: Center(
+          child: Text(
+                'Preview Profile',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.white),
+              ),
         ),
       ),
     );
