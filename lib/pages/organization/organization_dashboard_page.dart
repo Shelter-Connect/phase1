@@ -89,25 +89,12 @@ class _OrganizationDashboardPageState extends State<OrganizationDashboardPage> {
                       viewportFraction: 0.95,
                     )),
               ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: TextButton(
-                  text: 'See all Expected Deliveries',
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => ExpectedDeliveriesPage()),
-                    );
-                    //TODO: Make this button go to Expected Deliveries
-                  },
-                ),
-              ),
               SizedBox(height: 5),
               Text(
                 ' 15 Current Requests',
                 style: subTitleStyle
               ),
-              SizedBox(height: 10),
+              SizedBox(height: 20),
               Container(
                 child: CarouselSlider.builder(
                     itemCount: requestSlideList.length,
@@ -119,19 +106,6 @@ class _OrganizationDashboardPageState extends State<OrganizationDashboardPage> {
                       enableInfiniteScroll: true,
                       viewportFraction: 0.95,
                     )),
-              ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: TextButton(
-                  text: 'See all Current Requests',
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => ExpectedDeliveriesPage()),
-                    );
-                    //TODO: Make this button go to Expected Deliveries
-                  },
-                ),
               ),
 
 //              DashboardComponent(
