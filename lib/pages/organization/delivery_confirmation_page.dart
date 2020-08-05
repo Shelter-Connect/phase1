@@ -143,7 +143,6 @@ class _ConfirmDeliveryPageState extends State<ConfirmDeliveryPage> {
                           )
                         ],
                       ),
-                    ],
                   ),
                 ),
               ),
@@ -155,19 +154,22 @@ class _ConfirmDeliveryPageState extends State<ConfirmDeliveryPage> {
                 text: 'Confirm Items Delivered',
                 onPressed: () {
                   List<Item> delta = List();
-                  for (Item updatedItem in items) {
+                  for (Item deliveredItem in items) {
                     for (Item oldItem in widget.donation.items) {
-                      if ((updatedItem.specificDescription == oldItem.specificDescription) && (updatedItem.name == oldItem.name) && (updatedItem.category == oldItem.category)) {
+                      if ((deliveredItem.specificDescription == oldItem.specificDescription) &&
+                          (deliveredItem.name == oldItem.name) &&
+                          (deliveredItem.category == oldItem.category)) {
                         Item item = Item.clone(oldItem);
-                        item.amount -= updatedItem.amount;
+                        item.amount -= deliveredItem.amount;
                         delta.add(item);
                         break;
                       }
                     }
                   }
-                  FirestoreHelper.setRequests(context: context, items: delta);
+                  FirestoreHelper.updateRequests(context: context, items: delta);
                   widget.donation.items = items;
                   FirestoreHelper.confirmDelivery(context, widget.donation);
+                  Navigator.popUntil(context, ModalRoute.withName('/organization_navigation'));
                 },
               ),
             )

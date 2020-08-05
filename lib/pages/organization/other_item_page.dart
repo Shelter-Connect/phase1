@@ -122,7 +122,7 @@ class _OtherItemPageState extends State<OtherItemPage> {
                         actionName: 'Create Request',
                         action: () {
                           //Navigator.popUntil(context, ModalRoute.withName('/organization_navigation'));
-                          FirestoreHelper.setRequests(
+                          FirestoreHelper.updateRequests(
                               context: context,
                               items: [Item(name: itemName, amount: amount, specificDescription: specificDescription, category: widget.itemCategory)]);
                         },

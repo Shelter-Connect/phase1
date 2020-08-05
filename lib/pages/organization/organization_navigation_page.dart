@@ -62,7 +62,7 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
               children: <Widget>[
                 Expanded(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       DrawerHeader(
                         child: Column(

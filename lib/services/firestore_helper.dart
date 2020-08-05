@@ -24,7 +24,7 @@ class FirestoreHelper {
   }
 
   //Creates a request of items for an organization
-  static Future<void> setRequests({BuildContext context, List<Item> items, String organizationId}) async {
+  static Future<void> updateRequests({BuildContext context, List<Item> items, String organizationId}) async {
     DocumentReference organizationReference =
         organizationId == null ? getCurrentOrganizationReference(context) : db.collection('organizations').document(organizationId);
     CollectionReference requestsReference = organizationReference.collection('requests');
@@ -34,12 +34,16 @@ class FirestoreHelper {
       itemCategories.add(item.category);
       QuerySnapshot document = await requestsReference.where('name', isEqualTo: item.name).where('category', isEqualTo: item.category).getDocuments();
       if (document.documents.length == 0) {
-        await requestsReference.add(item.toFirestoreMap());
+        if (item.amount != 0) await requestsReference.add(item.toFirestoreMap());
       } else if (document.documents.length == 1) {
         DocumentSnapshot itemSnapshot = document.documents[0];
-        await requestsReference.document(itemSnapshot.documentID).updateData({
-          'amount': item.amount + itemSnapshot['amount'],
-        });
+        if (item.amount + itemSnapshot['amount'] == 0) {
+          await requestsReference.document(itemSnapshot.documentID).delete();
+        } else {
+          await requestsReference.document(itemSnapshot.documentID).updateData({
+            'amount': item.amount + itemSnapshot['amount'],
+          });
+        }
       } else {
         throw new Exception('ERROR: Cannot have duplicate items with same name and category in collection');
       }
