@@ -22,7 +22,7 @@ class SlideItem extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   RichText(
@@ -31,61 +31,19 @@ class SlideItem extends StatelessWidget {
                           text: 'Donor: ',
                           style: TextStyle(
                             fontSize: 16,
-                            fontWeight: FontWeight.w600,
+                            fontWeight: FontWeight.w400,
                             color: colorScheme.onBackground,
                           )),
                       TextSpan(
                           text: todaySlideList[index].userName,
                           style: TextStyle(
                             fontSize: 16,
-                            fontWeight: FontWeight.w800,
-                            color: colorScheme.onBackground,
-                          ))
-                    ]),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  RichText(
-                    text: TextSpan(children: <TextSpan>[
-                      TextSpan(
-                          text: 'Email: ',
-                          style: TextStyle(
-                            fontSize: 16,
                             fontWeight: FontWeight.w600,
                             color: colorScheme.onBackground,
-                          )),
-                      TextSpan(
-                          text: todaySlideList[index].userEmail,
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w800,
-                            color: colorScheme.onBackground,
                           ))
                     ]),
                   ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  RichText(
-                    text: TextSpan(children: <TextSpan>[
-                      TextSpan(
-                          text: 'Expected: ',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: colorScheme.onBackground,
-                          )),
-                      TextSpan(
-                          text: todaySlideList[index].expectedDate,
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w800,
-                            color: colorScheme.onBackground,
-                          ))
-                    ]),
-                  ),
-                  SizedBox(height: 10),
+                  SizedBox(height: 20),
                   Text(
                     'Items',
                     style: TextStyle(
@@ -93,6 +51,7 @@ class SlideItem extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                     ),
                   ),
+                  SizedBox(height: 5),
                   Row(
                     children: <Widget>[
                       Text(todaySlideList[index].itemName, style: subHeaderStyle),

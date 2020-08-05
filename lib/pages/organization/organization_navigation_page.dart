@@ -8,7 +8,6 @@ import '../../constants.dart';
 import '../navigation_tab.dart';
 import 'current_requests_page.dart';
 import 'expected_deliveries_page.dart';
-import 'organization_dashboard_page.dart';
 import 'organization_settings_page.dart';
 
 class OrganizationNavigationPage extends StatefulWidget {
@@ -18,7 +17,7 @@ class OrganizationNavigationPage extends StatefulWidget {
 
 class _OrganizationNavigationPageState extends State<OrganizationNavigationPage> {
   int _selectedIndex = 0;
-  final List<NavigationTab> _pages = [OrganizationDashboardPage(), ExpectedDeliveriesPage(), CurrentRequestsPage(), OrganizationSettingsPage()];
+  final List<NavigationTab> _pages = [ExpectedDeliveriesPage(), CurrentRequestsPage(), OrganizationSettingsPage()];
 
   @override
   Widget build(BuildContext context) {

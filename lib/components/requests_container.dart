@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:phase1/components/text_button.dart';
 import 'package:phase1/constants.dart';
 import 'package:phase1/models/item.dart';
+import 'package:phase1/pages/organization/expected_deliveries_page.dart';
 
 class RequestContainer extends StatelessWidget {
   final List<Item> items;
@@ -44,29 +46,45 @@ class RequestContainer extends StatelessWidget {
                   shrinkWrap: true,
                   itemCount: items.length,
                   itemBuilder: (context, index) {
-                    return Row(
-                      children: [
-                        Text(
-                          items[index].amount.toString(),
-                          style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
-                        ),
-                        SizedBox(width: 5),
-                        Text(
-                          items[index].name,
-                          style: TextStyle(
-                            fontSize: 17,
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 5.0),
+                      child: Row(
+                        children: [
+                          Text(
+                            items[index].amount.toString(),
+                            style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
                           ),
-                        ),
-                        SizedBox(width: 5),
-                        Text(
-                          items[index].name,
-                          style: TextStyle(
-                            fontSize: 17,
+                          SizedBox(width: 5),
+                          Text(
+                            items[index].name,
+                            style: TextStyle(
+                              fontSize: 17,
+                            ),
                           ),
-                        ), //TODO Make this description
-                      ],
+                          SizedBox(width: 5),
+                          Text(
+                            items[index].name,
+                            style: TextStyle(
+                              fontSize: 17,
+                            ),
+                          ), //TODO Make this description
+                        ],
+                      ),
                     );
                   },
+                ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton(
+                    text: 'Edit Request',
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ExpectedDeliveriesPage()), //TODO Replace the page with a edit page
+                      );
+                      //TODO: Make this button go to Expected Deliveries
+                    },
+                  ),
                 ),
                 //ADD MORE WIDGETS HERE
               ],

@@ -16,16 +16,16 @@ class Organization {
   List<String> itemCategories = List();
 
   Organization(
-      {this.address,
-      this.website,
-      this.email,
+      {this.address, //d
+      this.website, //d
+      this.email, //d
       this.id,
-      this.description,
-      this.name,
+      this.description, //d
+      this.name, //d
       this.location,
-      this.distance,
-      this.requestedItems,
-      this.itemCategories,
+      this.distance, //d
+      this.requestedItems, //d
+      this.itemCategories, //d
       this.number});
 
   Organization.fromFirestoreMap({BuildContext context, DocumentSnapshot organizationSnapshot}) {

@@ -22,7 +22,7 @@ class ReqSlideItems extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   RichText(
@@ -31,61 +31,19 @@ class ReqSlideItems extends StatelessWidget {
                           text: 'Donor: ',
                           style: TextStyle(
                             fontSize: 16,
-                            fontWeight: FontWeight.w600,
+                            fontWeight: FontWeight.w400,
                             color: colorScheme.onBackground,
                           )),
                       TextSpan(
                           text: requestSlideList[index].userName,
                           style: TextStyle(
                             fontSize: 16,
-                            fontWeight: FontWeight.w800,
-                            color: colorScheme.onBackground,
-                          ))
-                    ]),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  RichText(
-                    text: TextSpan(children: <TextSpan>[
-                      TextSpan(
-                          text: 'Email: ',
-                          style: TextStyle(
-                            fontSize: 16,
                             fontWeight: FontWeight.w600,
                             color: colorScheme.onBackground,
-                          )),
-                      TextSpan(
-                          text: requestSlideList[index].userEmail,
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w800,
-                            color: colorScheme.onBackground,
                           ))
                     ]),
                   ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  RichText(
-                    text: TextSpan(children: <TextSpan>[
-                      TextSpan(
-                          text: 'Expected: ',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: colorScheme.onBackground,
-                          )),
-                      TextSpan(
-                          text: requestSlideList[index].requestedDate,
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w800,
-                            color: colorScheme.onBackground,
-                          ))
-                    ]),
-                  ),
-                  SizedBox(height: 10),
+                  SizedBox(height: 20),
                   Text(
                     'Items',
                     style: TextStyle(
@@ -93,6 +51,7 @@ class ReqSlideItems extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                     ),
                   ),
+                  SizedBox(height: 5),
                   Row(
                     children: <Widget>[
                       Text(requestSlideList[index].itemName, style: subHeaderStyle),
