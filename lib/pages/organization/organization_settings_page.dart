@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:phase1/components/alerts.dart';
+import 'package:phase1/models/organization.dart';
 import 'package:phase1/services/firestore_helper.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants.dart';
@@ -22,11 +24,30 @@ class OrganizationSettingsPage extends StatefulWidget with NavigationTab {
 }
 
 class _OrganizationSettingsPageState extends State<OrganizationSettingsPage> {
+  Organization organization;
+
+  @override
+  void initState() {
+    DocumentReference organizationReference = FirestoreHelper.getCurrentOrganizationReference(context);
+    organizationReference.get().then((snapshot) {
+      setState(() {
+        organization = Organization();
+        organization.name = snapshot['name'];
+        organization.address = snapshot['address'];
+        organization.email = snapshot['email'];
+        organization.description = snapshot['description'];
+      });
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFF5F5F5),
-      body: SingleChildScrollView(
+      body: organization == null ? Center(
+        child: CircularProgressIndicator(),
+      ) : SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -38,7 +59,7 @@ class _OrganizationSettingsPageState extends State<OrganizationSettingsPage> {
               ),
             ),
             SizedBox(height: 20),
-            OrganizationInfo(email: Provider.of<User>(context, listen: false).user.email, password: '*******'),
+            OrganizationInfo(organization: organization),
             SizedBox(height: 20),
             DeleteAccount(),
             SizedBox(height: 20),
@@ -50,10 +71,9 @@ class _OrganizationSettingsPageState extends State<OrganizationSettingsPage> {
 }
 
 class OrganizationInfo extends StatelessWidget {
-  final String email;
-  final String password, description;
+  final Organization organization;
 
-  OrganizationInfo({this.email, this.password, this.description});
+  OrganizationInfo({this.organization});
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +118,7 @@ class OrganizationInfo extends StatelessWidget {
                         ),
                       ),
                       TextSpan(
-                        text: email,
+                        text: organization.email,
                         style: TextStyle(
                           fontSize: 17,
                           color: colorScheme.onBackground,
@@ -122,7 +142,7 @@ class OrganizationInfo extends StatelessWidget {
                         ),
                       ),
                       TextSpan(
-                        text: email,
+                        text: organization.email,
                         style: TextStyle(
                           fontSize: 17,
                           color: colorScheme.onBackground,
@@ -146,7 +166,7 @@ class OrganizationInfo extends StatelessWidget {
                         ),
                       ),
                       TextSpan(
-                        text: email,
+                        text: organization.address,
                         style: TextStyle(
                           fontSize: 17,
                           color: colorScheme.onBackground,
@@ -169,12 +189,11 @@ class OrganizationInfo extends StatelessWidget {
                           color: colorScheme.onBackground,
                         ),
                       ),
-                      WidgetSpan(
-                        child: TextField(
-                          decoration: InputDecoration(
-                            border: const OutlineInputBorder(),
-                          ),
-                          controller: controller,//TODO: Make the text the original description
+                      TextSpan(
+                        text: organization.description,
+                        style: TextStyle(
+                          fontSize: 17,
+                          color: colorScheme.onBackground,
                         ),
                       )
                     ],

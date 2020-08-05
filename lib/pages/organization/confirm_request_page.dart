@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:phase1/components/alerts.dart';
 import 'package:phase1/components/category_icon_button.dart';
+import 'package:phase1/components/colored_button.dart';
 import 'package:phase1/components/floating_text_field.dart';
 import 'package:phase1/components/increment.dart';
 import 'package:phase1/constants.dart';
@@ -83,13 +84,11 @@ class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
                   SizedBox(width: 16),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
                       SizedBox(height: 20),
                       FloatingTextField(
-                        keyboardType: TextInputType.multiline,
-                        hintText: 'Item Description (Specific Brand, Type, etc.)',
-                        width: double.infinity,
+                        hintText: 'Description (Specific Brand, Type, etc.)',
                         maxLines: null,
                         onChanged: (val) {
                           specificDescription = val;
@@ -97,10 +96,7 @@ class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
                       ),
                       SizedBox(height: 24),
                       FloatingTextField(
-                        keyboardType: TextInputType.multiline,
-                        hintText: 'Item Unit (Liters, Cans, Gallons, in Bulk, etc.)',
-                        width: double.infinity,
-                        maxLines: 1,
+                        hintText: 'Unit (Liters, Cans, etc.)',
                         onChanged: (val) {
                           itemUnit = val;
                         },
@@ -118,44 +114,34 @@ class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
                 ],
               ),
               SizedBox(height: 16),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                child: FlatButton(
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (_) => SingleActionAlert(
-                        title: 'Confirm your request?',
-                        subtitle:
-                            'Make sure you are requesting the correct item and number of items. Requests can be edited in the \'Expected Deliveries\' tab.',
-                        actionName: 'Create Request',
-                        action: () {
-                          FirestoreHelper.setRequests(context: context, items: [
-                            Item(name: widget.itemName, amount: amount, specificDescription: specificDescription, category: widget.itemCategory)
-                          ]);
-                          Scaffold.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text('Your order has been processed!'),
-                            ),
-                          );
-                        },
-                      ),
-                    );
-                    //TODO Add item to the request list and to the request in volunteer side
-                  },
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30.0),
-                  ),
-                  color: colorScheme.onSecondary,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 20),
-                    child: Text(
-                      'Create Request',
-                      style: TextStyle(color: purpleAccent, fontSize: 20),
+              ColoredButton(
+                color: colorScheme.onSecondary,
+                textColor: purpleAccent,
+                text: 'Create Request',
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (_) => SingleActionAlert(
+                      title: 'Confirm your request?',
+                      subtitle:
+                      'Make sure you are requesting the correct item and number of items. Requests can be edited in the \'Expected Deliveries\' tab.',
+                      actionName: 'Create Request',
+                      action: () {
+                        FirestoreHelper.updateRequests(context: context, items: [
+                          Item(name: widget.itemName, amount: amount, specificDescription: specificDescription, category: widget.itemCategory)
+                        ]);
+                        Scaffold.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Your order has been processed!'),
+                          ),
+                        );
+                      },
                     ),
-                  ),
-                ),
+                  );
+                  //TODO Add item to the request list and to the request in volunteer side
+                },
               ),
+              SizedBox(height: 16.0),
             ],
           ),
         ),

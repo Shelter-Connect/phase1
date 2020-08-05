@@ -45,6 +45,7 @@ class Organization {
     for (String category in organizationSnapshot['itemCategories']) {
       items[category] = List<Item>();
     }
+    //TODO: remove this part
     organizationReference.collection('requests').getDocuments().then((documents) {
       for (DocumentSnapshot document in documents.documents) {
         items[document['category']].add(Item(name: document['name'], amount: document['amount'], category: document['category']));

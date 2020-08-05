@@ -189,7 +189,7 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                       item.amount *= -1;
                       delta.add(item);
                     }
-                    FirestoreHelper.setRequests(context: context, items: delta, organizationId: widget.donation.organization.id);
+                    FirestoreHelper.updateRequests(context: context, items: delta, organizationId: widget.donation.organization.id);
                     FirestoreHelper.createDonation(context, widget.donation);
                   },
                   shape: RoundedRectangleBorder(
