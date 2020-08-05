@@ -77,8 +77,11 @@ class _ConfirmDeliveryPageState extends State<ConfirmDeliveryPage> {
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: <Widget>[
-                                      ...items.map((item) => Padding(padding: EdgeInsets.all(10),
-                                      child: Center(child: Text(item.name, style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400))))).toList(),
+                                      ...items
+                                          .map((item) => Padding(
+                                              padding: EdgeInsets.all(10),
+                                              child: Center(child: Text(item.name, style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400)))))
+                                          .toList(),
                                     ],
                                   )),
                               Padding(

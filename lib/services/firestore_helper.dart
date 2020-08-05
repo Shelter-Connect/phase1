@@ -24,7 +24,7 @@ class FirestoreHelper {
   }
 
   //Creates a request of items for an organization
-  static Future<void> createRequest({BuildContext context, List<Item> items}) async {
+  static Future<void> setRequests({BuildContext context, List<Item> items}) async {
     DocumentReference organizationReference = getCurrentOrganizationReference(context);
     CollectionReference requestsReference = organizationReference.collection('requests');
 
