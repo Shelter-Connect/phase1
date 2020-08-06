@@ -79,161 +79,158 @@ class OrganizationInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Expanded(
-        child: Container(
-          decoration: elevatedBoxStyle,
-          width: MediaQuery.of(context).size.width,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  'Organization Information',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                Container(
-                  height: 5,
-                  width: 100,
-                  decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
-                ),
-                SizedBox(height: 10),
-                RichText(
-                  text: TextSpan(
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: 'Name: ',
-                        style: TextStyle(
-                          fontSize: 17,
-                          fontWeight: FontWeight.w600,
-                          color: colorScheme.onBackground,
-                        ),
+      child: Container(
+        decoration: elevatedBoxStyle,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                'Organization Information',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Container(
+                height: 5,
+                width: 100,
+                decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
+              ),
+              SizedBox(height: 10),
+              RichText(
+                text: TextSpan(
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: 'Name: ',
+                      style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w600,
+                        color: colorScheme.onBackground,
                       ),
-                      TextSpan(
-                        text: organization.name,
-                        style: TextStyle(
-                          fontSize: 17,
-                          color: colorScheme.onBackground,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                RichText(
-                  text: TextSpan(
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: 'Email Address: ',
-                        style: TextStyle(
-                          fontSize: 17,
-                          fontWeight: FontWeight.w600,
-                          color: colorScheme.onBackground,
-                        ),
-                      ),
-                      TextSpan(
-                        text: organization.email,
-                        style: TextStyle(
-                          fontSize: 17,
-                          color: colorScheme.onBackground,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                RichText(
-                  text: TextSpan(
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: 'Address: ',
-                        style: TextStyle(
-                          fontSize: 17,
-                          fontWeight: FontWeight.w600,
-                          color: colorScheme.onBackground,
-                        ),
-                      ),
-                      TextSpan(
-                        text: organization.address,
-                        style: TextStyle(
-                          fontSize: 17,
-                          color: colorScheme.onBackground,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                RichText(
-                  text: TextSpan(
-                    children: <InlineSpan>[
-                      TextSpan(
-                        text: 'Description: ',
-                        style: TextStyle(
-                          fontSize: 17,
-                          fontWeight: FontWeight.w600,
-                          color: colorScheme.onBackground,
-                        ),
-                      ),
-                      TextSpan(
-                        text: organization.description,
-                        style: TextStyle(
-                          fontSize: 17,
-                          color: colorScheme.onBackground,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => OrganizationEditInfoPage(organization)),
-                    );
-                  },
-                  child: Container(
-                    width: 250,
-                    height: 37,
-                    decoration: BoxDecoration(
-                      color: purpleAccent,
-                      borderRadius: BorderRadius.circular(21),
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
-                      child: Row(
-                        children: <Widget>[
-                          Icon(Icons.edit, color: Colors.white, size: 25),
-                          SizedBox(width: 2),
-                          Text(
-                            'Edit Account Information',
-                            style: TextStyle(
-                              color: colorScheme.onSecondary,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16.0,
-                            ),
+                    TextSpan(
+                      text: organization.name,
+                      style: TextStyle(
+                        fontSize: 17,
+                        color: colorScheme.onBackground,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              RichText(
+                text: TextSpan(
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: 'Email Address: ',
+                      style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w600,
+                        color: colorScheme.onBackground,
+                      ),
+                    ),
+                    TextSpan(
+                      text: organization.email,
+                      style: TextStyle(
+                        fontSize: 17,
+                        color: colorScheme.onBackground,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              RichText(
+                text: TextSpan(
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: 'Address: ',
+                      style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w600,
+                        color: colorScheme.onBackground,
+                      ),
+                    ),
+                    TextSpan(
+                      text: organization.address,
+                      style: TextStyle(
+                        fontSize: 17,
+                        color: colorScheme.onBackground,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              RichText(
+                text: TextSpan(
+                  children: <InlineSpan>[
+                    TextSpan(
+                      text: 'Description: ',
+                      style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w600,
+                        color: colorScheme.onBackground,
+                      ),
+                    ),
+                    TextSpan(
+                      text: organization.description,
+                      style: TextStyle(
+                        fontSize: 17,
+                        color: colorScheme.onBackground,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => OrganizationEditInfoPage(organization)),
+                  );
+                },
+                child: Container(
+                  width: 250,
+                  height: 37,
+                  decoration: BoxDecoration(
+                    color: purpleAccent,
+                    borderRadius: BorderRadius.circular(21),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+                    child: Row(
+                      children: <Widget>[
+                        Icon(Icons.edit, color: Colors.white, size: 25),
+                        SizedBox(width: 2),
+                        Text(
+                          'Edit Account Information',
+                          style: TextStyle(
+                            color: colorScheme.onSecondary,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16.0,
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
-                SizedBox(height: 5),
-              ],
-            ),
+              ),
+              SizedBox(height: 5),
+            ],
           ),
         ),
       ),
