@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:phase1/components/alerts.dart';
 import 'package:phase1/models/organization.dart';
 import 'package:phase1/pages/organization/organization_edit_info_page.dart';
+import 'package:phase1/pages/organization/organization_preview_page.dart';
 import 'package:phase1/services/firestore_helper.dart';
 
 import '../../constants.dart';
@@ -58,7 +59,7 @@ class _OrganizationSettingsPageState extends State<OrganizationSettingsPage> {
                   SizedBox(height: 20),
                   OrganizationInfo(organization: organization),
                   SizedBox(height: 20),
-                  DemoProfileButton(),
+                  DemoProfileButton(organization),
                   SizedBox(height: 10),
                   DeleteAccount(),
                   SizedBox(height: 20),
@@ -286,11 +287,15 @@ class DeleteAccount extends StatelessWidget {
 }
 
 class DemoProfileButton extends StatelessWidget {
+  final Organization organization;
+
+  DemoProfileButton(this.organization);
+
   @override
   Widget build(BuildContext context) {
     return FlatButton(
       onPressed: () {
-//        Navigator.push(context, MaterialPageRoute(builder: (context) => OrganizationDemoPage());//TODO add functionality for editing and viewing profile
+        Navigator.push(context, MaterialPageRoute(builder: (context) => OrganizationPreviewPage(organization)));
       },
       child: Container(
         height: 45.0,
