@@ -205,7 +205,7 @@ class OrganizationInfo extends StatelessWidget {
                     );
                   },
                   child: Container(
-                    width: 200,
+                    width: 250,
                     height: 37,
                     decoration: BoxDecoration(
                       color: purpleAccent,
