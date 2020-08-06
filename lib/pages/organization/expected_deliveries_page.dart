@@ -47,7 +47,6 @@ class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
                     child: CircularProgressIndicator(),
                   );
                 }
-
                 List<Widget> widgets = [];
                 for (DocumentSnapshot document in snapshot.data.documents) {
                   widgets.add(ExpectedDeliveryContainer(
@@ -55,7 +54,6 @@ class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
                   ));
                   widgets.add(SizedBox(height: 20.0));
                 }
-
                 return Column(
                   children: widgets,
                 );

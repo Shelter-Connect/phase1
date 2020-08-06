@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:phase1/components/alerts.dart';
+import 'package:phase1/components/text_button.dart';
 import 'package:phase1/models/organization.dart';
+import 'package:phase1/pages/organization/organization_edit_info_page.dart';
 import 'package:phase1/services/firestore_helper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
@@ -119,7 +121,7 @@ class OrganizationInfo extends StatelessWidget {
                         ),
                       ),
                       TextSpan(
-                        text: organization.email,
+                        text: organization.name,
                         style: TextStyle(
                           fontSize: 17,
                           color: colorScheme.onBackground,
@@ -167,7 +169,7 @@ class OrganizationInfo extends StatelessWidget {
                         ),
                       ),
                       TextSpan(
-                        text: organization.address,
+                        text: organization.address, //TODO Ethan plz add
                         style: TextStyle(
                           fontSize: 17,
                           color: colorScheme.onBackground,
@@ -198,6 +200,20 @@ class OrganizationInfo extends StatelessWidget {
                         ),
                       )
                     ],
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton(
+                    text: 'Edit Account Information',
+
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => OrganizationEditInfoPage()), //TODO Replace the page with a edit page
+                      );
+                      //TODO: Make this button go to Expected Deliveries
+                    },
                   ),
                 ),
                 SizedBox(
