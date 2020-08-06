@@ -267,7 +267,8 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                                                         fontWeight: FontWeight.w400,
                                                                       ),
                                                                     ),
-                                                                    Text('description; in Unit', style: TextStyle(color: Colors.grey)),
+                                                                    if (item.specificDescription != null)
+                                                                      Text('${item.specificDescription}', style: TextStyle(color: Colors.grey)),
                                                                   ],
                                                                 ),
                                                                 Text(
