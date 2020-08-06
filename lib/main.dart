@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:phase1/pages/organization/delivery_information_page.dart';
-import 'package:phase1/welcome_updated.dart';
 import 'package:provider/provider.dart';
 
 import 'models/user.dart';
@@ -15,6 +14,7 @@ import 'pages/volunteer/volunteer_confirmation_page.dart';
 import 'pages/volunteer/volunteer_navigation_page.dart';
 import 'pages/volunteer/volunteer_sign_up_page.dart';
 import 'pages/welcome_page.dart';
+import 'pages/welcome_updated.dart';
 
 void main() {
   runApp(MyApp());
