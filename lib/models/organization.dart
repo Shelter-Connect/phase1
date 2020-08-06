@@ -5,7 +5,6 @@ import 'package:phase1/models/user_position.dart';
 import 'package:phase1/services/location_helper.dart';
 import 'package:provider/provider.dart';
 
-import '../constants.dart';
 import 'item.dart';
 
 class Organization {
@@ -28,7 +27,7 @@ class Organization {
       this.itemCategories, //d
       this.number});
 
-  Organization.fromFirestoreMap({BuildContext context, DocumentSnapshot organizationSnapshot}) {
+  Organization.fromFirestoreMap({BuildContext context, DocumentSnapshot organizationSnapshot, bool isVolunteer}) {
     address = organizationSnapshot['address'];
     location = Position(longitude: organizationSnapshot['location'].longitude, latitude: organizationSnapshot['location'].latitude);
     website = organizationSnapshot['website'];
@@ -39,7 +38,6 @@ class Organization {
     name = organizationSnapshot['name'];
     itemCategories = organizationSnapshot['itemCategories'].cast<String>();
 
-    DocumentReference organizationReference = db.collection('organizations').document(organizationSnapshot.documentID);
     Map<String, List<Item>> items = {};
 
     for (String category in organizationSnapshot['itemCategories']) {
@@ -47,10 +45,12 @@ class Organization {
     }
     requestedItems = items;
 
-    Position userPosition = Provider.of<UserPosition>(context, listen: false).position;
-    distance = userPosition != null
-        ? LocationHelper.distance(
-            organizationSnapshot['location'].latitude, organizationSnapshot['location'].longitude, userPosition.latitude, userPosition.longitude)
-        : null;
+    if (isVolunteer) {
+      Position userPosition = Provider.of<UserPosition>(context, listen: false).position;
+      distance = userPosition != null
+          ? LocationHelper.distance(
+              organizationSnapshot['location'].latitude, organizationSnapshot['location'].longitude, userPosition.latitude, userPosition.longitude)
+          : null;
+    }
   }
 }

@@ -1,11 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:phase1/components/alerts.dart';
 import 'package:phase1/components/text_button.dart';
 import 'package:phase1/models/organization.dart';
 import 'package:phase1/pages/organization/organization_edit_info_page.dart';
 import 'package:phase1/services/firestore_helper.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
+
 import '../../constants.dart';
 import '../../models/user.dart';
 import '../navigation_tab.dart';
@@ -32,11 +33,7 @@ class _OrganizationSettingsPageState extends State<OrganizationSettingsPage> {
     DocumentReference organizationReference = FirestoreHelper.getCurrentOrganizationReference(context);
     organizationReference.get().then((snapshot) {
       setState(() {
-        organization = Organization();
-        organization.name = snapshot['name'];
-        organization.address = snapshot['address'];
-        organization.email = snapshot['email'];
-        organization.description = snapshot['description'];
+        organization = Organization.fromFirestoreMap(context: context, organizationSnapshot: snapshot, isVolunteer: false);
       });
     });
     super.initState();
@@ -46,29 +43,31 @@ class _OrganizationSettingsPageState extends State<OrganizationSettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFF5F5F5),
-      body: organization == null ? Center(
-        child: CircularProgressIndicator(),
-      ) : SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
-              child: Text(
-                'Account Settings',
-                style: TextStyle(fontSize: 35, fontWeight: FontWeight.w900, color: purpleAccent),
+      body: organization == null
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
+                    child: Text(
+                      'Account Settings',
+                      style: TextStyle(fontSize: 35, fontWeight: FontWeight.w900, color: purpleAccent),
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  OrganizationInfo(organization: organization),
+                  SizedBox(height: 20),
+                  DemoProfileButton(),
+                  SizedBox(height: 10),
+                  DeleteAccount(),
+                  SizedBox(height: 20),
+                ],
               ),
             ),
-            SizedBox(height: 20),
-            OrganizationInfo(organization: organization),
-            SizedBox(height: 20),
-            DemoProfileButton(),
-            SizedBox(height: 10),
-            DeleteAccount(),
-            SizedBox(height: 20),
-          ],
-        ),
-      ),
     );
   }
 }
@@ -80,16 +79,12 @@ class OrganizationInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController controller = TextEditingController(text: '');
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Expanded(
         child: Container(
           decoration: elevatedBoxStyle,
-          width: MediaQuery
-              .of(context)
-              .size
-              .width,
+          width: MediaQuery.of(context).size.width,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
             child: Column(
@@ -169,7 +164,7 @@ class OrganizationInfo extends StatelessWidget {
                         ),
                       ),
                       TextSpan(
-                        text: organization.address, //TODO Ethan plz add
+                        text: organization.address,
                         style: TextStyle(
                           fontSize: 17,
                           color: colorScheme.onBackground,
@@ -206,11 +201,10 @@ class OrganizationInfo extends StatelessWidget {
                   alignment: Alignment.centerRight,
                   child: TextButton(
                     text: 'Edit Account Information',
-
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => OrganizationEditInfoPage()), //TODO Replace the page with a edit page
+                        MaterialPageRoute(builder: (context) => OrganizationEditInfoPage(organization)),
                       );
                       //TODO: Make this button go to Expected Deliveries
                     },
@@ -221,16 +215,12 @@ class OrganizationInfo extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () {
-                    FirestoreHelper.resetPassword(Provider
-                        .of<User>(context, listen: false)
-                        .user
-                        .email);
+                    FirestoreHelper.resetPassword(Provider.of<User>(context, listen: false).user.email);
                     showDialog(
                       context: context,
-                      builder: (_) =>
-                          NoActionAlert(
-                            title: 'Instructions to change your password have been sent to your email address.',
-                          ),
+                      builder: (_) => NoActionAlert(
+                        title: 'Instructions to change your password have been sent to your email address.',
+                      ),
                     );
                   },
                   child: Container(
@@ -268,6 +258,7 @@ class OrganizationInfo extends StatelessWidget {
     );
   }
 }
+
 class DeleteAccount extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -312,6 +303,7 @@ class DeleteAccount extends StatelessWidget {
     );
   }
 }
+
 class DemoProfileButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -327,9 +319,9 @@ class DemoProfileButton extends StatelessWidget {
         ),
         child: Center(
           child: Text(
-                'Preview Profile',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.white),
-              ),
+            'Preview Profile',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.white),
+          ),
         ),
       ),
     );

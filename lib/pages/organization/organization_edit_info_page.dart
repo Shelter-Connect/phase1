@@ -2,24 +2,43 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:phase1/models/organization.dart';
 
-import '../../components/alerts.dart';
 import '../../components/floating_text_field.dart';
 import '../../components/geo_autocomplete.dart';
 import '../../components/rounded_button.dart';
 import '../../constants.dart';
 
 class OrganizationEditInfoPage extends StatefulWidget {
+  final Organization organization;
+
+  OrganizationEditInfoPage(this.organization);
   @override
   _OrganizationEditInfoPageState createState() => _OrganizationEditInfoPageState();
 }
 
 class _OrganizationEditInfoPageState extends State<OrganizationEditInfoPage> {
-  String email, password, password2, organizationName, description, number, website;
   GeoPoint location;
-  TextEditingController controller = TextEditingController();
+
+  TextEditingController nameController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
+  TextEditingController locationController = TextEditingController();
+  TextEditingController websiteController = TextEditingController();
+
   GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: kGoogleApiKey);
   bool loading = false;
+
+  @override
+  void initState() {
+    setState(() {
+      location = GeoPoint(widget.organization.location.latitude, widget.organization.location.longitude);
+      nameController.text = widget.organization.name;
+      descriptionController.text = widget.organization.description;
+      locationController.text = widget.organization.address;
+      websiteController.text = widget.organization.website;
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,28 +54,22 @@ class _OrganizationEditInfoPageState extends State<OrganizationEditInfoPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 SizedBox(height: 20),
-                Text('Organization Sign Up', style: largeTitleStyle),
+                Text('Update Your Information', style: largeTitleStyle),
                 SizedBox(height: 40),
                 FloatingTextField(
                   hintText: 'Organization Name',
+                  controller: nameController,
                   onChanged: (val) {
-                    organizationName = val.trim();
-                  },
-                ),
-                SizedBox(height: 20),
-                FloatingTextField(
-                  keyboardType: TextInputType.emailAddress,
-                  hintText: 'Organization Email',
-                  onChanged: (val) {
-                    email = val.trim();
+                    widget.organization.name = val.trim();
                   },
                 ),
                 SizedBox(height: 20),
                 FloatingDescriptionField(
                   maxLength: 300,
+                  controller: descriptionController,
                   onChanged: (val) {
                     setState(() {
-                      description = val;
+                      widget.organization.description = val;
                     });
                   },
                   maxLines: null,
@@ -64,11 +77,12 @@ class _OrganizationEditInfoPageState extends State<OrganizationEditInfoPage> {
                 ),
                 SizedBox(height: 20),
                 FloatingTextField(
-                  controller: controller,
+                  controller: locationController,
                   hintText: 'Organization Location',
                   onTapped: () async {
-                    Prediction p = await PlacesAutocomplete.show(context: context, apiKey: kGoogleApiKey, mode: Mode.overlay, controller: controller);
-                    controller.value = TextEditingValue(
+                    Prediction p =
+                        await PlacesAutocomplete.show(context: context, apiKey: kGoogleApiKey, mode: Mode.overlay, controller: locationController);
+                    locationController.value = TextEditingValue(
                       text: await displayPrediction(p),
                       selection: TextSelection.fromPosition(
                         TextPosition(offset: 0),
@@ -76,7 +90,7 @@ class _OrganizationEditInfoPageState extends State<OrganizationEditInfoPage> {
                     );
                   },
                   onChanged: (val) {
-                    controller.value = TextEditingValue(
+                    locationController.value = TextEditingValue(
                       text: val,
                       selection: TextSelection.fromPosition(
                         TextPosition(offset: 0),
@@ -86,13 +100,14 @@ class _OrganizationEditInfoPageState extends State<OrganizationEditInfoPage> {
                 ),
                 SizedBox(height: 20),
                 FloatingTextField(
+                  controller: websiteController,
                   onChanged: (val) {
                     setState(() {
-                      website = val;
+                      widget.organization.website = val;
                     });
                   },
                   maxLines: null,
-                  hintText: 'Website (Optional)',
+                  hintText: 'Website',
                 ),
                 SizedBox(height: 20),
                 RoundedButton(
@@ -100,45 +115,13 @@ class _OrganizationEditInfoPageState extends State<OrganizationEditInfoPage> {
                   title: 'Edit Information',
                   textColor: Colors.white,
                   onPressed: () async {
-                    if (password != password2) {
-                      showDialog(
-                        context: context,
-                        builder: (_) => NoActionAlert(title: 'Passwords do not match'),
-                      );
-                    } else if (password.length < 6) {
-                      showDialog(
-                        context: context,
-                        builder: (_) => NoActionAlert(title: 'Passwords needs to be at least 6 characters in length'),
-                      );
-                    } else {
-                      try {
-                        setState(() {
-                          loading = true;
-                        });
-                        final newUser = await auth.createUserWithEmailAndPassword(email: email, password: password);
-                        setState(() {
-                          loading = false;
-                        });
-                        if (newUser != null) {
-                          await db.collection('organizations').document(newUser.user.uid).setData({
-                            'description': description,
-                            'email': email,
-                            'name': organizationName,
-                            'location': location,
-                            'address': controller.text,
-                            'verified': false,
-                            'number': number,
-                            'website': website,
-                          });
-                        }
-                        FocusScope.of(context).unfocus();
-                      } catch (e) {
-                        showDialog(
-                          context: context,
-                          builder: (_) => NoActionAlert(title: 'Invalid Email'),
-                        );
-                      }
-                    }
+                    await db.collection('organizations').document(widget.organization.id).updateData({
+                      'description': widget.organization.description,
+                      'name': widget.organization.name,
+                      'location': location,
+                      'address': locationController.text,
+                      'website': widget.organization.website,
+                    });
                   },
                 ),
                 SizedBox(height: 20)
@@ -156,7 +139,7 @@ class _OrganizationEditInfoPageState extends State<OrganizationEditInfoPage> {
 
       //var placeId = p.placeId;
       //var address = await Geocoder.local.findAddressesFromQuery(p.description);
-      location = new GeoPoint(detail.result.geometry.location.lat, detail.result.geometry.location.lng);
+      location = GeoPoint(detail.result.geometry.location.lat, detail.result.geometry.location.lng);
       return detail.result.formattedAddress;
     }
     return '';
