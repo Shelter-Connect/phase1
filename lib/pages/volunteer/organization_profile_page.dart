@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:phase1/components/standard_layout.dart';
@@ -16,12 +17,35 @@ class OrganizationProfilePage extends StatefulWidget {
 }
 
 class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
+  bool loading = true;
+
+  @override
+  void initState() {
+    DocumentReference organizationReference = db.collection('organizations').document(widget.organization.id);
+    organizationReference.collection('requests').getDocuments().then((documents) {
+      widget.organization.requestedItems.clear();
+      for (DocumentSnapshot document in documents.documents) {
+        if (widget.organization.requestedItems[document['category']] == null) widget.organization.requestedItems[document['category']] = [];
+        setState(() {
+          widget.organization.requestedItems[document['category']].add(Item(name: document['name'], amount: document['amount'], category: document['category']));
+        });
+      }
+      print('hi');
+      setState(() {
+        loading = false;
+      });
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return StandardLayout(
       title: '',
       helpText: 'If u don\'t know how to use this app u stupid lmao',
-      body: SingleChildScrollView(
+      body: loading ? Center(
+        child: CircularProgressIndicator(),
+      ) : SingleChildScrollView(
         child: Container(
           color: Color(0xFFF5F5F5),
           child: Padding(

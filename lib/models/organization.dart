@@ -40,17 +40,11 @@ class Organization {
     itemCategories = organizationSnapshot['itemCategories'].cast<String>();
 
     DocumentReference organizationReference = db.collection('organizations').document(organizationSnapshot.documentID);
-    Map<String, List<Item>> items = Map();
+    Map<String, List<Item>> items = {};
 
     for (String category in organizationSnapshot['itemCategories']) {
       items[category] = List<Item>();
     }
-    //TODO: remove this part
-    organizationReference.collection('requests').getDocuments().then((documents) {
-      for (DocumentSnapshot document in documents.documents) {
-        items[document['category']].add(Item(name: document['name'], amount: document['amount'], category: document['category']));
-      }
-    });
     requestedItems = items;
 
     Position userPosition = Provider.of<UserPosition>(context, listen: false).position;
