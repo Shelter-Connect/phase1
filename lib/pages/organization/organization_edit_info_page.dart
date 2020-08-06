@@ -2,7 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:phase1/components/alerts.dart';
 import 'package:phase1/models/organization.dart';
+import 'package:phase1/models/user.dart';
+import 'package:phase1/services/firestore_helper.dart';
+import 'package:provider/provider.dart';
 
 import '../../components/floating_text_field.dart';
 import '../../components/geo_autocomplete.dart';
@@ -124,7 +128,43 @@ class _OrganizationEditInfoPageState extends State<OrganizationEditInfoPage> {
                     });
                   },
                 ),
-                SizedBox(height: 20)
+                SizedBox(height: 20),
+                InkWell(
+                  onTap: () {
+                    FirestoreHelper.resetPassword(Provider.of<User>(context, listen: false).user.email);
+                    showDialog(
+                      context: context,
+                      builder: (_) => NoActionAlert(
+                        title: 'Instructions to change your password have been sent to your email address.',
+                      ),
+                    );
+                  },
+                  child: Container(
+                    width: 200,
+                    height: 37,
+                    decoration: BoxDecoration(
+                      color: purpleAccent,
+                      borderRadius: BorderRadius.circular(21),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+                      child: Row(
+                        children: <Widget>[
+                          Icon(Icons.edit, color: Colors.white, size: 25),
+                          SizedBox(width: 2),
+                          Text(
+                            'Change Password',
+                            style: TextStyle(
+                              color: colorScheme.onSecondary,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16.0,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),

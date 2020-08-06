@@ -1,14 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:phase1/components/alerts.dart';
-import 'package:phase1/components/text_button.dart';
 import 'package:phase1/models/organization.dart';
 import 'package:phase1/pages/organization/organization_edit_info_page.dart';
 import 'package:phase1/services/firestore_helper.dart';
-import 'package:provider/provider.dart';
 
 import '../../constants.dart';
-import '../../models/user.dart';
 import '../navigation_tab.dart';
 
 class OrganizationSettingsPage extends StatefulWidget with NavigationTab {
@@ -197,30 +194,14 @@ class OrganizationInfo extends StatelessWidget {
                     ],
                   ),
                 ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: TextButton(
-                    text: 'Edit Account Information',
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => OrganizationEditInfoPage(organization)),
-                      );
-                      //TODO: Make this button go to Expected Deliveries
-                    },
-                  ),
-                ),
                 SizedBox(
                   height: 10,
                 ),
                 InkWell(
                   onTap: () {
-                    FirestoreHelper.resetPassword(Provider.of<User>(context, listen: false).user.email);
-                    showDialog(
-                      context: context,
-                      builder: (_) => NoActionAlert(
-                        title: 'Instructions to change your password have been sent to your email address.',
-                      ),
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => OrganizationEditInfoPage(organization)),
                     );
                   },
                   child: Container(
@@ -237,7 +218,7 @@ class OrganizationInfo extends StatelessWidget {
                           Icon(Icons.edit, color: Colors.white, size: 25),
                           SizedBox(width: 2),
                           Text(
-                            'Change Password',
+                            'Edit Account Information',
                             style: TextStyle(
                               color: colorScheme.onSecondary,
                               fontWeight: FontWeight.w500,
