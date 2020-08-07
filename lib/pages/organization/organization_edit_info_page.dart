@@ -141,6 +141,10 @@ class _OrganizationEditInfoPageState extends State<OrganizationEditInfoPage> {
                       'address': locationController.text,
                       'website': organization.website,
                     });
+                    Navigator.pop(context, true);
+                    Scaffold.of(context).showSnackBar(SnackBar(
+                      content: Text('Your organization information has been updated.'),
+                    ));
                   },
                 ),
                 SizedBox(height: 10.0),

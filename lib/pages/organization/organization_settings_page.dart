@@ -197,11 +197,16 @@ class OrganizationInfo extends StatelessWidget {
                 height: 10,
               ),
               InkWell(
-                onTap: () {
-                  Navigator.push(
+                onTap: () async {
+                  bool updated = await Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => OrganizationEditInfoPage(organization)),
                   );
+                  if (updated) {
+                    Scaffold.of(context).showSnackBar(SnackBar(
+                      content: Text('Your organization information has been updated.'),
+                    ));
+                  }
                 },
                 child: Container(
                   width: 250,
