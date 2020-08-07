@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:phase1/components/alerts.dart';
+import 'package:phase1/components/colored_button.dart';
 import 'package:phase1/models/organization.dart';
 import 'package:phase1/models/user.dart';
 import 'package:phase1/services/firestore_helper.dart';
@@ -84,8 +85,7 @@ class _OrganizationEditInfoPageState extends State<OrganizationEditInfoPage> {
                   controller: locationController,
                   hintText: 'Organization Location',
                   onTapped: () async {
-                    Prediction p =
-                        await PlacesAutocomplete.show(context: context, apiKey: kGoogleApiKey, mode: Mode.overlay, controller: locationController);
+                    Prediction p = await PlacesAutocomplete.show(context: context, apiKey: kGoogleApiKey, mode: Mode.overlay, controller: locationController);
                     locationController.value = TextEditingValue(
                       text: await displayPrediction(p),
                       selection: TextSelection.fromPosition(
@@ -115,8 +115,22 @@ class _OrganizationEditInfoPageState extends State<OrganizationEditInfoPage> {
                 ),
                 SizedBox(height: 20),
                 RoundedButton(
+                  onPressed: () {
+                    FirestoreHelper.resetPassword(Provider.of<User>(context, listen: false).user.email);
+                    showDialog(
+                      context: context,
+                      builder: (_) => NoActionAlert(
+                        title: 'Instructions to change your password have been sent to your email address.',
+                      ),
+                    );
+                  },
+                  title: 'Reset Password',
                   color: purpleAccent,
-                  title: 'Edit Information',
+                  textColor: Colors.white,
+                ),
+                RoundedButton(
+                  color: purpleAccent,
+                  title: 'Update Information',
                   textColor: Colors.white,
                   onPressed: () async {
                     await db.collection('organizations').document(widget.organization.id).updateData({
@@ -128,43 +142,7 @@ class _OrganizationEditInfoPageState extends State<OrganizationEditInfoPage> {
                     });
                   },
                 ),
-                SizedBox(height: 20),
-                InkWell(
-                  onTap: () {
-                    FirestoreHelper.resetPassword(Provider.of<User>(context, listen: false).user.email);
-                    showDialog(
-                      context: context,
-                      builder: (_) => NoActionAlert(
-                        title: 'Instructions to change your password have been sent to your email address.',
-                      ),
-                    );
-                  },
-                  child: Container(
-                    width: 200,
-                    height: 37,
-                    decoration: BoxDecoration(
-                      color: purpleAccent,
-                      borderRadius: BorderRadius.circular(21),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
-                      child: Row(
-                        children: <Widget>[
-                          Icon(Icons.edit, color: Colors.white, size: 25),
-                          SizedBox(width: 2),
-                          Text(
-                            'Change Password',
-                            style: TextStyle(
-                              color: colorScheme.onSecondary,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16.0,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
+                SizedBox(height: 10.0),
               ],
             ),
           ),
