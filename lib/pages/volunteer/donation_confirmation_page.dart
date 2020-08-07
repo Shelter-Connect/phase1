@@ -185,7 +185,7 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                     Navigator.popUntil(context, ModalRoute.withName('/volunteer_navigation'));
                     List<Item> delta = List();
                     for (Item newItem in widget.donation.items) {
-                      Item item = Item.clone(newItem);
+                      Item item = newItem.clone();
                       item.amount *= -1;
                       delta.add(item);
                     }

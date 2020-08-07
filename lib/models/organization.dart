@@ -15,17 +15,36 @@ class Organization {
   List<String> itemCategories = List();
 
   Organization(
-      {this.address, //d
-      this.website, //d
-      this.email, //d
+      {this.address,
+      this.website,
+      this.email,
       this.id,
-      this.description, //d
-      this.name, //d
+      this.description,
+      this.name,
       this.location,
-      this.distance, //d
-      this.requestedItems, //d
-      this.itemCategories, //d
+      this.distance,
+      this.requestedItems,
+      this.itemCategories,
       this.number});
+
+  Organization clone() {
+    return Organization(
+      address: address,
+      location: location,
+      website: website,
+      number: number,
+      email: email,
+      id: id,
+      description: description,
+      name: name,
+      itemCategories: itemCategories,
+      requestedItems: requestedItems.map((category, items) => MapEntry(
+        category,
+        items.map((item) => item.clone()).toList(),
+      )),
+      distance: distance,
+    );
+  }
 
   Organization.fromFirestoreMap({BuildContext context, DocumentSnapshot organizationSnapshot, bool isVolunteer}) {
     address = organizationSnapshot['address'];

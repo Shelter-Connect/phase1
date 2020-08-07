@@ -45,18 +45,16 @@ class Donation {
     );
   }
 
-  Donation.clone(Donation donation) {
-    this.volunteerId = donation.volunteerId;
-    this.volunteerName = donation.volunteerName;
-    this.volunteerEmail = donation.volunteerEmail;
-    this.date = donation.date;
-    this.date = this.date;
-    this.organization = donation.organization;
-    this.organization = this.organization;
-    this.donationId = donationId;
-    for (Item item in donation.items) {
-      this.items.add(Item.clone(item));
-    }
+  Donation clone() {
+    return Donation(
+      volunteerId: volunteerId,
+      volunteerName: volunteerName,
+      volunteerEmail: volunteerEmail,
+      date: DateTime(date.year, date.month, date.day),
+      organization: organization.clone(),
+      donationId: donationId,
+      items: items.map((item) => item.clone()).toList(),
+    );
   }
 
   Map<String, dynamic> toFirestoreMap() {

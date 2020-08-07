@@ -23,8 +23,8 @@ class OrganizationEditInfoPage extends StatefulWidget {
 }
 
 class _OrganizationEditInfoPageState extends State<OrganizationEditInfoPage> {
+  Organization organization;
   GeoPoint location;
-
   TextEditingController nameController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   TextEditingController locationController = TextEditingController();
@@ -36,11 +36,12 @@ class _OrganizationEditInfoPageState extends State<OrganizationEditInfoPage> {
   @override
   void initState() {
     setState(() {
-      location = GeoPoint(widget.organization.location.latitude, widget.organization.location.longitude);
-      nameController.text = widget.organization.name;
-      descriptionController.text = widget.organization.description;
-      locationController.text = widget.organization.address;
-      websiteController.text = widget.organization.website;
+      organization = widget.organization.clone();
+      location = GeoPoint(organization.location.latitude, organization.location.longitude);
+      nameController.text = organization.name;
+      descriptionController.text = organization.description;
+      locationController.text = organization.address;
+      websiteController.text = organization.website;
     });
     super.initState();
   }
@@ -65,7 +66,7 @@ class _OrganizationEditInfoPageState extends State<OrganizationEditInfoPage> {
                   hintText: 'Organization Name',
                   controller: nameController,
                   onChanged: (val) {
-                    widget.organization.name = val.trim();
+                    organization.name = val.trim();
                   },
                 ),
                 SizedBox(height: 20),
@@ -74,7 +75,7 @@ class _OrganizationEditInfoPageState extends State<OrganizationEditInfoPage> {
                   controller: descriptionController,
                   onChanged: (val) {
                     setState(() {
-                      widget.organization.description = val;
+                      organization.description = val;
                     });
                   },
                   maxLines: null,
@@ -107,7 +108,7 @@ class _OrganizationEditInfoPageState extends State<OrganizationEditInfoPage> {
                   controller: websiteController,
                   onChanged: (val) {
                     setState(() {
-                      widget.organization.website = val;
+                      organization.website = val;
                     });
                   },
                   maxLines: null,
@@ -132,13 +133,13 @@ class _OrganizationEditInfoPageState extends State<OrganizationEditInfoPage> {
                   color: purpleAccent,
                   title: 'Update Information',
                   textColor: Colors.white,
-                  onPressed: () async {
-                    await db.collection('organizations').document(widget.organization.id).updateData({
-                      'description': widget.organization.description,
-                      'name': widget.organization.name,
+                  onPressed: () {
+                    db.collection('organizations').document(organization.id).updateData({
+                      'description': organization.description,
+                      'name': organization.name,
                       'location': location,
                       'address': locationController.text,
-                      'website': widget.organization.website,
+                      'website': organization.website,
                     });
                   },
                 ),

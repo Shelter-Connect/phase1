@@ -25,7 +25,7 @@ class _ConfirmDeliveryPageState extends State<ConfirmDeliveryPage> {
   void initState() {
     items = [];
     for (Item item in widget.donation.items) {
-      items.add(Item.clone(item));
+      items.add(item.clone());
     }
 
     super.initState();
@@ -126,12 +126,6 @@ class _ConfirmDeliveryPageState extends State<ConfirmDeliveryPage> {
                                                 },
                                               ),
                                             ),
-//                                          Container(
-//                                            //THIS IS THE LINE
-//                                            height: 2,
-//                                            width: MediaQuery.of(context).size.width,
-//                                            decoration: BoxDecoration(color: Colors.grey, borderRadius: BorderRadius.circular(21)),
-//                                          ),
                                           ],
                                         ),
                                       ),
@@ -159,7 +153,7 @@ class _ConfirmDeliveryPageState extends State<ConfirmDeliveryPage> {
                       if ((deliveredItem.specificDescription == oldItem.specificDescription) &&
                           (deliveredItem.name == oldItem.name) &&
                           (deliveredItem.category == oldItem.category)) {
-                        Item item = Item.clone(oldItem);
+                        Item item = oldItem.clone();
                         item.amount -= deliveredItem.amount;
                         delta.add(item);
                         break;

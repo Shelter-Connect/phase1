@@ -4,11 +4,13 @@ class Item {
 
   Item({this.name, this.category, this.amount, this.specificDescription});
 
-  Item.clone(Item item) {
-    this.name = item.name;
-    this.category = item.category;
-    this.specificDescription = item.specificDescription;
-    this.amount = item.amount;
+  Item clone() {
+    return Item(
+      name: name,
+      category: category,
+      specificDescription: specificDescription,
+      amount: amount
+    );
   }
 
   Map<String, dynamic> toFirestoreMap() {
