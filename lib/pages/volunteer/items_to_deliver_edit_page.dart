@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:phase1/components/increment.dart';
+import 'package:phase1/components/rounded_button.dart';
 import 'package:phase1/models/donation.dart';
 import 'package:phase1/models/organization.dart';
 
@@ -30,10 +31,7 @@ class _EditDeliveryPageState extends State<EditDeliveryPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
-                    'Delivery to ${widget.organization.name}',
-                    style: mainTitleStyle
-                ),
+                Text('Delivery to ${widget.organization.name}', style: mainTitleStyle),
                 SizedBox(height: 20),
                 OrganizationInformation(
                   orgEmail: widget.organization.email,
@@ -58,15 +56,12 @@ class _EditDeliveryPageState extends State<EditDeliveryPage> {
                               children: <Widget>[
                                 Text(
                                   'Selected Donations',
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w600
-                                  ),
+                                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                                 ),
                               ],
                             ),
                             SizedBox(
-                              height: 10 ,
+                              height: 10,
                             ),
                             Container(
                               height: 5,
@@ -94,20 +89,20 @@ class _EditDeliveryPageState extends State<EditDeliveryPage> {
                                             fontWeight: FontWeight.w400,
                                           ),
                                         ),
-                                        Text(
-                                        '${Increment(items: widget.donation.items[index].amount)}',
-                                          style: TextStyle(
-                                            fontSize: 17.0,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                          IconButton(icon: Icon(Icons.cancel), color: Colors.redAccent, onPressed: () { //TODO: Delete on Firebase
-                                            //
+                                        Increment(items: widget.donation.items[index].amount),
+                                        IconButton(
+                                          icon: Icon(Icons.cancel),
+                                          color: Colors.redAccent,
+                                          onPressed: () {
+                                            //TODO: Delete on Firebase
                                           },
                                         )
                                       ],
                                     ),
-                                    Divider(color: Colors.grey, thickness: 2,)
+                                    Divider(
+                                      color: Colors.grey,
+                                      thickness: 2,
+                                    )
                                   ],
                                 );
                               },
@@ -120,6 +115,12 @@ class _EditDeliveryPageState extends State<EditDeliveryPage> {
                   ),
                 ),
                 SizedBox(height: 20),
+                RoundedButton(
+                  title: 'Confirm Edit',
+                  onPressed: () {
+                    setState(() {});
+                  },
+                )
               ],
             ),
           ),

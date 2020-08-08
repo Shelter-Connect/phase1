@@ -13,9 +13,9 @@ class Increment extends StatefulWidget {
   final Color additionBoxDecoration;
   final Color addIconColor;
   final int items;
+  final int maxQuantity;
 
-
-  Increment({this.itemQuantity, this.onChanged, this.subtractBoxDecoration, this.additionBoxDecoration, this.addIconColor, this.items});
+  Increment({this.itemQuantity, this.onChanged, this.subtractBoxDecoration, this.additionBoxDecoration, this.addIconColor, this.items, this.maxQuantity});
 
   @override
   _ItemIncrementState createState() => _ItemIncrementState();
@@ -27,7 +27,7 @@ class _ItemIncrementState extends State<Increment> {
 
   @override
   void initState() {
-    _counter =  widget.items ?? widget.itemQuantity ?? 0;
+    _counter = widget.items ?? widget.itemQuantity ?? 0;
     controller.text = _counter.toString();
     super.initState();
   }
@@ -90,7 +90,7 @@ class _ItemIncrementState extends State<Increment> {
                   _counter = int.parse(val);
                   widget.onChanged(_counter);
                 },
-                style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   focusedBorder: InputBorder.none,
