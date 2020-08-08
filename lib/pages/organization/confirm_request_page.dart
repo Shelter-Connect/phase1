@@ -7,6 +7,7 @@ import 'package:phase1/components/floating_text_field.dart';
 import 'package:phase1/components/increment.dart';
 import 'package:phase1/constants.dart';
 import 'package:phase1/models/item.dart';
+import 'package:phase1/pages/organization/create_request_page.dart';
 import 'package:phase1/services/firestore_helper.dart';
 
 import '../../components/secondary_layout.dart';
@@ -130,11 +131,12 @@ class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
                         FirestoreHelper.updateRequests(context: context, items: [
                           Item(name: widget.itemName, amount: amount, specificDescription: specificDescription, category: widget.itemCategory)
                         ]);
-                        Scaffold.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text('Your order has been processed!'),
-                          ),
-                        );
+//                        Scaffold.of(context).showSnackBar(
+//                          SnackBar(
+//                            content: Text('Your order has been processed!'),
+//                          ),
+//                        );
+                        Navigator.push(context, MaterialPageRoute(builder: (context) =>CreateRequestPage()));
                       },
                     ),
                   );

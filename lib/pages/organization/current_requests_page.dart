@@ -3,18 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:phase1/components/requests_container.dart';
 import 'package:phase1/constants.dart';
 import 'package:phase1/models/item.dart';
+import 'package:phase1/pages/organization/current_requests_page_edit.dart';
 import 'package:phase1/services/firestore_helper.dart';
 import '../navigation_tab.dart';
 import 'create_request_page.dart';
-
 
 class CurrentRequestsPage extends StatefulWidget with NavigationTab {
   @override
   _CurrentRequestsPageState createState() => _CurrentRequestsPageState();
 
   @override
-  String get helpDescription =>
-      '''This is the Organization Current Requests Page Page! Here you can see all the items that the you have ordered but that volunteers have not committed to yet!''';
+  String get helpDescription => '''This is the Organization Current Requests Page Page! Here you can see all the items that the you have ordered but that volunteers have not committed to yet!''';
 
   @override
   IconData get icon => Icons.list;
@@ -38,6 +37,35 @@ class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
               Text(
                 'Current Requests',
                 style: mainTitleStyle,
+              ),
+              FlatButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => CurrentRequestsPageEdit()),
+                  );
+                },
+                color: purpleAccent,
+                padding: EdgeInsets.all(8.0),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Wrap(
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: Icon(
+                          Icons.edit,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Text('Edit', style: TextStyle(fontSize: 17, color: Colors.white))
+                    ],
+                  ),
+                ),
               ),
               SizedBox(height: 20),
               StreamBuilder(

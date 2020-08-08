@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:phase1/components/alerts.dart';
-import 'package:phase1/components/colored_button.dart';
+import 'package:phase1/components/standard_layout.dart';
 import 'package:phase1/models/organization.dart';
 import 'package:phase1/models/user.dart';
 import 'package:phase1/services/firestore_helper.dart';
@@ -48,8 +48,8 @@ class _OrganizationEditInfoPageState extends State<OrganizationEditInfoPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xFFF5F5F5),
+    return StandardLayout(
+      title: 'Update Your Information',
       body: ModalProgressHUD(
         inAsyncCall: loading,
         child: SafeArea(

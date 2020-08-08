@@ -39,6 +39,11 @@ class _CurrentDeliveriesPageState extends State<CurrentDeliveriesPage> {
 
   @override
   Widget build(BuildContext context) {
+    var now = new DateTime.now();
+    var earlier = now.subtract(Duration(seconds: 5));
+    assert(earlier.isBefore(now));
+    assert(!now.isBefore(now));
+
     return Scaffold(
       backgroundColor: Color(0xFFF5F5F5),
       body: Provider.of<UserPosition>(context).position == null ? Center(
@@ -78,6 +83,7 @@ class _CurrentDeliveriesPageState extends State<CurrentDeliveriesPage> {
                 }
               ),
               SizedBox(height: 20),
+
             ],
           ),
         ),
