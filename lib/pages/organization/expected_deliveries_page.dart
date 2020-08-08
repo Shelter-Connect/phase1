@@ -47,6 +47,15 @@ class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
                     child: CircularProgressIndicator(),
                   );
                 }
+                if (snapshot.data.documents.length == 0) {
+                  return Text(
+                    'Your organization currently does not have any expected deliveries.',
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 15.0,
+                    ),
+                  );
+                }
                 List<Widget> widgets = [];
                 for (DocumentSnapshot document in snapshot.data.documents) {
                   widgets.add(ExpectedDeliveryContainer(
