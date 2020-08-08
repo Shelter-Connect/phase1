@@ -55,18 +55,8 @@ class _LoadingPageState extends State<LoadingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFF5F5F5),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Container(
-            child: Center(
-              child: Image.asset('assets/logo_svgs/finalithink.png', width: MediaQuery.of(context).size.width * 0.45),
-            ),
-          ),
-          Align(
-              alignment: Alignment.bottomCenter,
-              child: Text('CONNECT APP INC.'))
-        ],
+      body: Center(
+        child: Image.asset('assets/logo_svgs/finalithink.png', width: MediaQuery.of(context).size.width * 0.45),
       ),
     );
   }
