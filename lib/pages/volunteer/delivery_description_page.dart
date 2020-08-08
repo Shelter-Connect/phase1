@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:phase1/components/alerts.dart';
 import 'package:phase1/models/donation.dart';
 import 'package:phase1/models/organization.dart';
+import 'package:phase1/services/firestore_helper.dart';
 
 import '../../components/standard_layout.dart';
 import '../../constants.dart';
@@ -127,7 +128,8 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                   context: context,
                   builder: (_) => SingleActionAlert(
                     action: () {
-                      //TODO: Delete Delivery
+                      FirestoreHelper.cancelVolunteerDelivery(context, widget.donation);
+                      Navigator.pop(context);
                     },
                     actionName: 'Cancel Delivery',
                     title: 'Cancel Delivery?',

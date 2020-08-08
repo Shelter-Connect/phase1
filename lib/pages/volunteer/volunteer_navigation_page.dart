@@ -70,6 +70,7 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
                   Expanded(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
                         DrawerHeader(
                           child: Column(

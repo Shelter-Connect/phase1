@@ -88,4 +88,16 @@ class FirestoreHelper {
     organizationDonationCollection = getCurrentOrganizationReference(context).collection('pastDonations');
     await organizationDonationCollection.document(donation.donationId).setData(donation.toFirestoreMap());
   }
+
+  //cancels delivery from volunteer side
+  static Future<void> cancelVolunteerDelivery(BuildContext context, Donation donation) async {
+    CollectionReference volunteerDonationCollection = getCurrentVolunteerReference(context).collection('currentDonations');
+    await volunteerDonationCollection.document(donation.donationId).delete();
+
+    CollectionReference organizationDonationCollection =
+    db.collection('organizations').document(donation.organization.id).collection('currentDonations');
+    await organizationDonationCollection.document(donation.donationId).delete();
+
+    updateRequests(context: context, items: donation.items, organizationId: donation.organization.id);
+  }
 }
