@@ -43,6 +43,7 @@ class _VolunteerConfirmationState extends State<VolunteerConfirmation> {
               SizedBox(height: 20.0),
               RoundedButton(
                 title: 'Go Back to Change Email Address',
+                color: purpleAccent,
                 onPressed: () async {
                   user.delete();
                   db.collection('volunteers').document(user.uid).delete();
@@ -50,6 +51,7 @@ class _VolunteerConfirmationState extends State<VolunteerConfirmation> {
               ),
               RoundedButton(
                 title: 'Resend Verification E-mail',
+                color: purpleAccent,
                 onPressed: () {
                   try {
                     user.sendEmailVerification().then((res) {
@@ -65,6 +67,7 @@ class _VolunteerConfirmationState extends State<VolunteerConfirmation> {
               ),
               RoundedButton(
                 title: 'Continue',
+                color: purpleAccent,
                 onPressed: () async {
                   await user.reload();
                   user = await auth.currentUser();

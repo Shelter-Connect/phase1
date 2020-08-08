@@ -16,7 +16,7 @@ class RoundedButton extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 8.0),
       child: FlatButton(
-        color: color ?? colorScheme.secondary,
+        color: color ?? purpleAccent,
         padding: EdgeInsets.all(16.0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.0),
