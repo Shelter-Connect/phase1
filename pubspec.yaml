@@ -58,8 +58,8 @@ dev_dependencies:
     sdk: flutter
 
 #TODO: DELETE OVERRIDE WHEN FLUTTER RELEASES FiX
-dependency_overrides:
-  flutter_svg: 0.18.0
+#dependency_overrides:
+#  flutter_svg: 0.18.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -95,6 +95,7 @@ flutter:
     - assets/hygiene_svgs/toothbrush.svg
     - assets/hygiene_svgs/toothpaste.svg
     - assets/logo_svgs/LogoName.png
+    - assets/logo_svgs/LinkareIcon.png
     - assets/logo_svgs/whitelogofinal2.png
     - assets/logo_svgs/finalithink.png
     - assets/logo_svgs/ShelterConnectLogo.png
