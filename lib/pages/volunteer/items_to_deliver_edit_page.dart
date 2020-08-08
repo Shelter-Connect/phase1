@@ -1,25 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:phase1/components/alerts.dart';
+import 'package:phase1/components/increment.dart';
 import 'package:phase1/models/donation.dart';
 import 'package:phase1/models/organization.dart';
 
 import '../../components/standard_layout.dart';
 import '../../constants.dart';
-import 'items_to_deliver_edit_page.dart';
 
-class DeliveryDescriptionPage extends StatefulWidget {
+class EditDeliveryPage extends StatefulWidget {
   final Organization organization;
   final Donation donation;
 
-  DeliveryDescriptionPage(this.organization, this.donation);
+  EditDeliveryPage(this.organization, this.donation);
 
   @override
-  _DeliveryDescriptionPageState createState() => _DeliveryDescriptionPageState();
+  _EditDeliveryPageState createState() => _EditDeliveryPageState();
 }
 
-class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
+class _EditDeliveryPageState extends State<EditDeliveryPage> {
   @override
   Widget build(BuildContext context) {
     return StandardLayout(
@@ -32,8 +31,8 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  'Delivery to ${widget.organization.name}',
-                  style: mainTitleStyle
+                    'Delivery to ${widget.organization.name}',
+                    style: mainTitleStyle
                 ),
                 SizedBox(height: 20),
                 OrganizationInformation(
@@ -60,27 +59,14 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                                 Text(
                                   'Selected Donations',
                                   style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w600
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w600
                                   ),
-                                ),
-                                FlatButton(
-                                  padding: EdgeInsets.all(0.0),
-                                  splashColor: transparent,
-                                  highlightColor: transparent,
-                                  child: Text(
-                                    'Edit',
-                                    style: TextStyle(
-                                      decoration: TextDecoration.underline,
-                                      color: colorScheme.error,
-                                      fontSize: 17.0,
-                                    ),
-                                  ),
-                                  onPressed: () {
-                                    Navigator.push(context, MaterialPageRoute(builder: (context) => EditDeliveryPage(widget.donation.organization, widget.donation)));
-                                  },
                                 ),
                               ],
+                            ),
+                            SizedBox(
+                              height: 10 ,
                             ),
                             Container(
                               height: 5,
@@ -88,7 +74,7 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                               decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
                             ),
                             SizedBox(
-                              height: 10,
+                              height: 5,
                             ),
                             ListView.builder(
                               shrinkWrap: true,
@@ -98,15 +84,28 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                                 return Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
-                                    Padding(
-                                      padding: const EdgeInsets.only(bottom: 5.0),
-                                      child: Text(
-                                        '${widget.donation.items[index].name} x ${widget.donation.items[index].amount}',
-                                        style: TextStyle(
-                                          fontSize: 17.0,
-                                          fontWeight: FontWeight.w400,
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          '${widget.donation.items[index].name}',
+                                          style: TextStyle(
+                                            fontSize: 17.0,
+                                            fontWeight: FontWeight.w400,
+                                          ),
                                         ),
-                                      ),
+                                        Text(
+                                        '${Increment(items: widget.donation.items[index].amount)}',
+                                          style: TextStyle(
+                                            fontSize: 17.0,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                          IconButton(icon: Icon(Icons.cancel), color: Colors.redAccent, onPressed: () { //TODO: Delete on Firebase
+                                            //
+                                          },
+                                        )
+                                      ],
                                     ),
                                     Divider(color: Colors.grey, thickness: 2,)
                                   ],
@@ -120,43 +119,7 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                     ),
                   ),
                 ),
-            SizedBox(height: 20),
-            InkWell(
-              onTap: () {
-                showDialog(
-                  context: context,
-                  builder: (_) => SingleActionAlert(
-                    action: () {
-                      //TODO: Delete Delivery
-                    },
-                    actionName: 'Cancel Delivery',
-                    title: 'Cancel Delivery?',
-                    subtitle: 'You cannot revert this action',
-                  ),
-                );
-              },
-              child: Container(
-                height: 45.0,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(21),
-                  color: colorScheme.error,
-                ),
-                child: Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Icon(Icons.cancel, color: Colors.white, size: 28),
-                      SizedBox(width: 5),
-                      Text(
-                        'Cancel Delivery',
-                        style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600, color: Colors.white),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+                SizedBox(height: 20),
               ],
             ),
           ),
