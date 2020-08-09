@@ -64,7 +64,8 @@ class FirestoreHelper {
   static Future<void> createDonation(BuildContext context, Donation donation) async {
     DocumentReference volunteerReference = getCurrentVolunteerReference(context);
     CollectionReference volunteerDonationCollection = volunteerReference.collection('currentDonations');
-    donation.volunteerName = (await volunteerReference.get())['name'];
+    DocumentSnapshot volunteerSnapshot = await volunteerReference.get();
+    donation.volunteerName = '${volunteerSnapshot['firstName']} ${volunteerSnapshot['lastName']}';
     DocumentReference donationDocument = await volunteerDonationCollection.add(donation.toFirestoreMap());
     donation.donationId = donationDocument.documentID;
 

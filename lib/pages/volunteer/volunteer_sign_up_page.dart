@@ -109,7 +109,8 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
                           if (newUser != null) {
                             db.collection('volunteers').document(newUser.user.uid).setData({
                               'email': email,
-                              'name': '$firstName $lastName',
+                              'firstName': firstName,
+                              'lastName': lastName,
                             });
                             newUser.user.sendEmailVerification();
                           }
