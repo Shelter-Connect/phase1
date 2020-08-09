@@ -58,11 +58,24 @@ class _DeliveryInformationPageState extends State<DeliveryInformationPage> {
                         padding: const EdgeInsets.all(10.0),
                         itemCount: widget.donation.items.length,
                         itemBuilder: (context, index) {
-                          return Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(widget.donation.items[index].name, style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400)),
-                              Text(widget.donation.items[index].amount.toString(), style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400))
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(widget.donation.items[index].name, style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400)),
+                                  Text(widget.donation.items[index].amount.toString(), style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400))
+                                ],
+                              ),
+                              if (widget.donation.items[index].specificDescription != null)
+                                Text(
+                                  widget.donation.items[index].specificDescription,
+                                  style: TextStyle(
+                                    fontSize: 17,
+                                  ),
+                                ),
+                              //TODO: Units
                             ],
                           );
                         },

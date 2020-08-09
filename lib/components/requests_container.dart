@@ -48,27 +48,35 @@ class RequestContainer extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 5.0),
-                      child: Row(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            items[index].amount.toString(),
-                            style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
+                          Row(
+                            children: [
+                              Text(
+                                items[index].amount.toString(),
+                                style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
+                              ),
+                              SizedBox(width: 5),
+                              Text(
+                                items[index].name,
+                                style: TextStyle(
+                                  fontSize: 17,
+                                ),
+                              ),
+                              SizedBox(width: 5),
+                            ],
                           ),
-                          SizedBox(width: 5),
-                          Text(
-                            items[index].name,
-                            style: TextStyle(
-                              fontSize: 17,
-                            ),
-                          ),
-                          SizedBox(width: 5),
                           if (items[index].specificDescription != null)
                             Text(
                               items[index].specificDescription,
                               style: TextStyle(
-                                fontSize: 17,
+                                fontSize: 14,
+                                color: Colors.grey,
                               ),
                             ),
+                          //TODO: Implement Item Units
                         ],
                       ),
                     );

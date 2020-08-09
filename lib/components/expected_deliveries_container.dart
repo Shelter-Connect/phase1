@@ -64,7 +64,18 @@ class ExpectedDeliveryContainer extends StatelessWidget {
                     return Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(donation.items[index].name, style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400)),
+                        Column(
+                          children: [
+                            Text(donation.items[index].name, style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400)),
+                            if (donation.items[index].specificDescription != null)
+                              Text(
+                                donation.items[index].specificDescription,
+                                style: TextStyle(
+                                  fontSize: 17,
+                                ),
+                              ),
+                          ],
+                        ),
                         Text(donation.items[index].amount.toString(), style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400))
                       ],
                     );

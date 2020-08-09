@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:phase1/pages/organization/create_request_page.dart';
 import 'package:phase1/pages/organization/delivery_information_page.dart';
 import 'package:provider/provider.dart';
 
@@ -40,6 +41,7 @@ class MyApp extends StatelessWidget {
           '/': (_) => LoadingPage(),
           '/login': (_) => LoginPage(),
           '/organization_confirmation': (_) => OrganizationConfirmationPage(),
+          '/organization_create_request': (_) => CreateRequestPage(),
           '/organization_navigation': (_) => OrganizationNavigationPage(),
           '/organization_sign_up': (_) => OrganizationSignUpPage(),
           '/signup': (_) => SignupPage(),

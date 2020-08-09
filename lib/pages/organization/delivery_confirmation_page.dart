@@ -61,8 +61,8 @@ class _ConfirmDeliveryPageState extends State<ConfirmDeliveryPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       SizedBox(height: 5),
-                      Stack(
-                        alignment: Alignment.center,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Padding(
                             padding: EdgeInsets.only(bottom: 10),
@@ -78,61 +78,60 @@ class _ConfirmDeliveryPageState extends State<ConfirmDeliveryPage> {
                                             children: <Widget>[
                                               Padding(
                                                 padding: EdgeInsets.all(16),
-                                                child: Text(
-                                                  item.name,
-                                                  style: TextStyle(fontSize: 19, fontWeight: FontWeight.w400),
+                                                child: Column(
+                                                  children: [
+                                                    Text(
+                                                      item.name,
+                                                      style: TextStyle(fontSize: 19, fontWeight: FontWeight.w400),
+                                                    ),
+                                                    if (item.specificDescription != null)
+                                                      Text(
+                                                        item.specificDescription,
+                                                        style: TextStyle(
+                                                          fontSize: 17,
+                                                        ),
+                                                      ),
+                                                    //TODO: Units implementation
+                                                  ],
                                                 ),
-                                              ),
-                                              Container(
-                                                //THIS IS THE LINE
-                                                height: 2,
-                                                width: MediaQuery.of(context).size.width,
-                                                decoration: BoxDecoration(color: Colors.grey, borderRadius: BorderRadius.circular(21)),
                                               ),
                                             ],
                                           ),
-
                                     )
                                     .toList(),
                               ],
                             ),
                           ),
-                          Positioned(
-                            right: 10,
-                            child: Padding(
-                              padding: EdgeInsets.only(bottom: 10),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: items
-                                    .asMap()
-                                    .map(
-                                      (index, item) => MapEntry(
-                                        index,
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: <Widget>[
-                                            Padding(
-                                              padding: EdgeInsets.all(10),
-                                              child: Increment(
-                                                subtractBoxDecoration: Colors.white,
-                                                addIconColor: purpleAccent,
-                                                additionBoxDecoration: Colors.white,
-                                                itemQuantity: item.amount,
-                                                onChanged: (val) {
-                                                  setState(() {
-                                                    items[index].amount = val;
-                                                  });
-                                                },
-                                              ),
+                          Padding(
+                            padding: EdgeInsets.only(bottom: 10),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: items
+                                  .asMap()
+                                  .map(
+                                    (index, item) => MapEntry(
+                                      index,
+                                      Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Padding(
+                                            padding: EdgeInsets.all(10),
+                                            child: Increment(
+                                              itemQuantity: item.amount,
+                                              onChanged: (val) {
+                                                setState(() {
+                                                  items[index].amount = val;
+                                                });
+                                              },
                                             ),
-                                          ],
-                                        ),
+                                          ),
+                                        ],
                                       ),
-                                    )
-                                    .values
-                                    .toList(),
-                              ),
+                                    ),
+                                  )
+                                  .values
+                                  .toList(),
                             ),
                           )
                         ],

@@ -62,9 +62,8 @@ class _ItemIncrementState extends State<Increment> {
               holdTimeout: Duration(milliseconds: 150),
               enableHapticFeedback: true,
               child: Container(
-                alignment: Alignment.center,
-                height: 33,
-                width: 33,
+                height: 30,
+                width: 30,
                 decoration: BoxDecoration(
                   color: widget.subtractBoxDecoration ?? lightGrey,
                   borderRadius: BorderRadius.circular(10),
@@ -74,20 +73,25 @@ class _ItemIncrementState extends State<Increment> {
                   onPressed: _decrementCounter,
                   icon: Icon(
                     Icons.remove,
-                    size: 21,
+                    size: 15,
                   ),
                   tooltip: 'Decrement',
                 ),
               ),
             ),
             Container(
-              width: 33,
+              width: 50,
               height: 30,
               child: TextField(
+                maxLength: 4,
                 textAlign: TextAlign.center,
                 controller: controller,
                 onChanged: (val) {
                   _counter = int.parse(val);
+                  if (_counter > widget.maxQuantity) {
+                    controller.text = widget.maxQuantity.toString();
+                    _counter = widget.maxQuantity;
+                  }
                   widget.onChanged(_counter);
                 },
                 style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
@@ -108,8 +112,8 @@ class _ItemIncrementState extends State<Increment> {
               holdTimeout: Duration(milliseconds: 150),
               enableHapticFeedback: true,
               child: Container(
-                height: 33,
-                width: 33,
+                height: 30,
+                width: 30,
                 decoration: BoxDecoration(
                   color: widget.additionBoxDecoration ?? blueAccent,
                   borderRadius: BorderRadius.circular(10),
@@ -118,7 +122,7 @@ class _ItemIncrementState extends State<Increment> {
                   alignment: Alignment.center,
                   onPressed: _incrementCounter,
                   color: widget.addIconColor ?? colorScheme.onSecondary,
-                  icon: Icon(Icons.add, size: 21),
+                  icon: Icon(Icons.add, size: 15),
                   tooltip: 'Increment',
                 ),
               ),
@@ -131,11 +135,11 @@ class _ItemIncrementState extends State<Increment> {
 }
 
 class ItemIncrementWithText extends StatefulWidget {
-  final String itemName;
+  final String itemName, itemDescription;
   final int maxQuantity;
   final Function(int) onChanged;
 
-  ItemIncrementWithText({this.itemName, this.maxQuantity, this.onChanged});
+  ItemIncrementWithText({this.itemName, this.maxQuantity, this.onChanged, this.itemDescription});
 
   @override
   _ItemIncrementWithTextState createState() => _ItemIncrementWithTextState();
@@ -196,7 +200,9 @@ class _ItemIncrementWithTextState extends State<ItemIncrementWithText> {
                 style: TextStyle(fontSize: 18),
               ),
             ),
-            Text('description in Unit', style: TextStyle(color: Colors.grey)),
+            if (widget.itemDescription != null)
+              Text('${widget.itemDescription}', style: TextStyle(color: Colors.grey, fontSize: 14)),
+            //TODO: Units
           ],
         ),
         Row(
@@ -228,10 +234,26 @@ class _ItemIncrementWithTextState extends State<ItemIncrementWithText> {
               height: 23,
               padding: EdgeInsets.only(left: 15),
               child: TextField(
+                maxLength: 4,
                 textAlign: TextAlign.center,
                 controller: controller,
                 onChanged: (val) {
                   _counter = int.parse(val);
+                  if (_counter > widget.maxQuantity) {
+                    controller.text = widget.maxQuantity.toString();
+                    _counter = widget.maxQuantity;
+                    if (isSnackBarActive == false) {
+                      setState(() {
+                        isSnackBarActive = true;
+                      });
+
+                      Scaffold.of(context).showSnackBar(SnackBar(content: Text('You have reached the maximum amount of items this shelter is requesting.'))).closed.then((SnackBarClosedReason reason) {
+                        setState(() {
+                          isSnackBarActive = false;
+                        });
+                      });
+                    }
+                  }
                   widget.onChanged(_counter);
                 },
                 style: TextStyle(fontSize: 17),

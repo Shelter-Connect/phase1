@@ -268,7 +268,8 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                                                       ),
                                                                     ),
                                                                     if (item.specificDescription != null)
-                                                                      Text('${item.specificDescription}', style: TextStyle(color: Colors.grey)),
+                                                                      Text('${item.specificDescription}', style: TextStyle(color: Colors.grey, fontSize: 14)),
+                                                                    //TODO: Units
                                                                   ],
                                                                 ),
                                                                 Text(

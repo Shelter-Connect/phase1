@@ -90,13 +90,6 @@ class _EditDeliveryPageState extends State<EditDeliveryPage> {
                                           ),
                                         ),
                                         Increment(items: widget.donation.items[index].amount),
-                                        IconButton(
-                                          icon: Icon(Icons.cancel),
-                                          color: Colors.redAccent,
-                                          onPressed: () {
-                                            //TODO: Delete on Firebase
-                                          },
-                                        )
                                       ],
                                     ),
                                     Divider(
@@ -117,8 +110,9 @@ class _EditDeliveryPageState extends State<EditDeliveryPage> {
                 SizedBox(height: 20),
                 RoundedButton(
                   title: 'Confirm Edit',
+                  textColor: Colors.white,
                   onPressed: () {
-                    setState(() {});
+                    setState(() {});//TODO: Make Edit Functionality
                   },
                 )
               ],
