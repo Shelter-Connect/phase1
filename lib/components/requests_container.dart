@@ -121,7 +121,6 @@ class EditRequestContainer extends StatelessWidget {
                   height: 5,
                 ),
                 Container(
-                  //THIS IS THE LINE
                   height: 5,
                   width: 100,
                   decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
@@ -136,30 +135,20 @@ class EditRequestContainer extends StatelessWidget {
                       padding: const EdgeInsets.only(bottom: 5.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        textDirection: TextDirection.rtl,
                         children: [
-                          Increment(items: items[index].amount),
-                          SizedBox(width: 5),
-                          Text(
-                            items[index].name,
-                            style: TextStyle(
-                              fontSize: 17,
-                            ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 4.0),
+                            child: Increment(items: items[index].amount),
                           ),
-                          SizedBox(width: 5),
-                          if (items[index].specificDescription != null)
-                            Text(
-                              items[index].specificDescription,
+                          Expanded(
+                            child: Text(
+                              items[index].name,
                               style: TextStyle(
                                 fontSize: 17,
                               ),
                             ),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: IconButton(icon: Icon(Icons.cancel), color: Colors.redAccent, onPressed: () { //TODO: Delete on Firebase
-                              //
-                            },
-                            ),
-                          )
+                          ),
                         ],
                       ),
                     );

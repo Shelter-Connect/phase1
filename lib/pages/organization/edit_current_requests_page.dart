@@ -6,15 +6,16 @@ import 'package:phase1/constants.dart';
 import 'package:phase1/models/item.dart';
 import 'package:phase1/services/firestore_helper.dart';
 
-class CurrentRequestsPageEdit extends StatefulWidget {
+class EditCurrentRequestsPage extends StatefulWidget {
   @override
-  _CurrentRequestsPageEditState createState() => _CurrentRequestsPageEditState();
+  _EditCurrentRequestsPageState createState() => _EditCurrentRequestsPageState();
 }
 
-class _CurrentRequestsPageEditState extends State<CurrentRequestsPageEdit> {
+class _EditCurrentRequestsPageState extends State<EditCurrentRequestsPage> {
   @override
   Widget build(BuildContext context) {
     return StandardLayout(
+      title: 'Edit Current Requests',
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
@@ -65,7 +66,7 @@ class _CurrentRequestsPageEditState extends State<CurrentRequestsPageEdit> {
             ],
           ),
         ),
-      ), title: 'Edit Current Requests',
+      ),
     );
   }
 }

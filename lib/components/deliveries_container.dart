@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:phase1/constants.dart';
 import 'package:phase1/models/donation.dart';
@@ -30,6 +31,7 @@ class DeliveriesContainer extends StatelessWidget {
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       textDirection: TextDirection.rtl,
                       children: <Widget>[
                         SizedBox(
@@ -37,12 +39,13 @@ class DeliveriesContainer extends StatelessWidget {
                           width: 30.0,
                           child: Icon(Icons.keyboard_arrow_right),
                         ),
-                        Text(
-                          donation.organization.name,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w600,
+                        Expanded(
+                          child: Text(
+                            donation.organization.name,
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ),
                       ],

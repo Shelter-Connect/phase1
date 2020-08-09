@@ -38,7 +38,7 @@ class Organization {
       description: description,
       name: name,
       itemCategories: itemCategories,
-      requestedItems: requestedItems.map((category, items) => MapEntry(
+      requestedItems: requestedItems?.map((category, items) => MapEntry(
         category,
         items.map((item) => item.clone()).toList(),
       )),

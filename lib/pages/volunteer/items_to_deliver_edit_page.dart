@@ -20,6 +20,14 @@ class EditDeliveryPage extends StatefulWidget {
 }
 
 class _EditDeliveryPageState extends State<EditDeliveryPage> {
+  Donation newDonation;
+
+  @override
+  void initState() {
+    newDonation = widget.donation.clone();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return StandardLayout(
@@ -89,7 +97,13 @@ class _EditDeliveryPageState extends State<EditDeliveryPage> {
                                             fontWeight: FontWeight.w400,
                                           ),
                                         ),
-                                        Increment(items: widget.donation.items[index].amount),
+                                        Increment(
+                                          items: widget.donation.items[index].amount,
+                                          maxQuantity: widget.donation.items[index].amount,
+                                          onChanged: (val) {
+                                            newDonation.items[index].amount = val;
+                                          },
+                                        ),
                                       ],
                                     ),
                                     Divider(

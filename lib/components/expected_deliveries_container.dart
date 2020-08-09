@@ -33,6 +33,7 @@ class ExpectedDeliveryContainer extends StatelessWidget {
               children: <Widget>[
                 SizedBox(height: 10),
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   textDirection: TextDirection.rtl,
                   children: <Widget>[
@@ -40,7 +41,6 @@ class ExpectedDeliveryContainer extends StatelessWidget {
                     Expanded(
                       child: Text(
                         '${donation.volunteerName} ${DateFormat.yMd().format(donation.date)}',
-                        overflow: TextOverflow.ellipsis,
                         style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                       ),
                     ),
