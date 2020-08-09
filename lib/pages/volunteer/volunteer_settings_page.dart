@@ -35,9 +35,9 @@ class _VolunteerSettingsPageState extends State<VolunteerSettingsPage> {
             children: <Widget>[
               Text('Account Settings', style: mainTitleStyle),
               SizedBox(height: 20),
-              UserInfo(email: Provider.of<User>(context, listen: false).user.email, password: '*******'),
+              UserInfo(email: Provider.of<User>(context, listen: false).user.email),
               SizedBox(height: 20),
-              DeleteAccount(),
+              SignOut(),
               SizedBox(height: 20),
             ],
           ),
@@ -49,9 +49,9 @@ class _VolunteerSettingsPageState extends State<VolunteerSettingsPage> {
 
 class UserInfo extends StatelessWidget {
   final String email;
-  final String password;
+  final String name;
 
-  UserInfo({this.email, this.password});
+  UserInfo({this.email, this.name});
 
   @override
   Widget build(BuildContext context) {
@@ -85,6 +85,30 @@ class UserInfo extends StatelessWidget {
               text: TextSpan(
                 children: <TextSpan>[
                   TextSpan(
+                    text: 'Name: ',
+                    style: TextStyle(
+                      fontSize: 17,
+                      color: colorScheme.onBackground,
+                    ),
+                  ),
+                  TextSpan(
+                    text: name,
+                    style: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w600,
+                      color: colorScheme.onBackground,
+                    ),
+                  )
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            RichText(
+              text: TextSpan(
+                children: <TextSpan>[
+                  TextSpan(
                     text: 'Email Address: ',
                     style: TextStyle(
                       fontSize: 17,
@@ -105,67 +129,6 @@ class UserInfo extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
-            RichText(
-              text: TextSpan(
-                children: <TextSpan>[
-                  TextSpan(
-                    text: 'Password: ',
-                    style: TextStyle(
-                      fontSize: 17,
-                      color: colorScheme.onBackground,
-                    ),
-                  ),
-                  TextSpan(
-                    text: password,
-                    style: TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.w600,
-                      color: colorScheme.onBackground,
-                    ),
-                  )
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            InkWell(
-              onTap: () {
-                FirestoreHelper.resetPassword(Provider.of<User>(context, listen: false).user.email);
-                showDialog(
-                  context: context,
-                  builder: (_) => NoActionAlert(
-                    title: 'Instructions to change your password have been sent to your email address.',
-                  ),
-                );
-              },
-              child: Container(
-                width: 200,
-                height: 37,
-                decoration: BoxDecoration(
-                  color: purpleAccent,
-                  borderRadius: BorderRadius.circular(21),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
-                  child: Row(
-                    children: <Widget>[
-                      Icon(Icons.edit, color: Colors.white, size: 25),
-                      SizedBox(width: 2),
-                      Text(
-                        'Change Password',
-                        style: TextStyle(
-                          color: colorScheme.onSecondary,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 16.0,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: 1)
           ],
         ),
       ),
@@ -173,7 +136,7 @@ class UserInfo extends StatelessWidget {
   }
 }
 
-class DeleteAccount extends StatelessWidget {
+class SignOut extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(

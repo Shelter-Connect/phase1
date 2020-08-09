@@ -57,8 +57,8 @@ dev_dependencies:
     sdk: flutter
 
 #TODO: DELETE OVERRIDE WHEN FLUTTER RELEASES FiX
-dependency_overrides:
-  flutter_svg: 0.18.0
+#dependency_overrides:
+#  flutter_svg: 0.18.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -77,11 +77,15 @@ flutter:
     - assets/clothing_svgs/beanie.svg
     - assets/clothing_svgs/gloves.svg
     - assets/clothing_svgs/hats.svg
+    - assets/clothing_svgs/women_underwear.svg
+    - assets/clothing_svgs/elastic_waist_pants.svg
     - assets/clothing_svgs/shirt.svg
     - assets/clothing_svgs/socks.svg
     - assets/clothing_svgs/underwear.svg
     - assets/covid-19_response_svg/covid_19.svg
     - assets/covid-19_response_svg/face_shield.svg
+    - assets/covid-19_response_svg/tissue_paper.svg
+    - assets/covid-19_response_svg/rubbing_alcohol.svg
     - assets/covid-19_response_svg/hand_sanitizer.svg
     - assets/covid-19_response_svg/latex_gloves.svg
     - assets/covid-19_response_svg/mask.svg
@@ -89,25 +93,44 @@ flutter:
     - assets/hygiene_svgs/hygiene.svg
     - assets/hygiene_svgs/body_soap.svg
     - assets/hygiene_svgs/nail_clipper.svg
+    - assets/hygiene_svgs/laundry_detergent.svg
+    - assets/hygiene_svgs/shaving_cream.svg
+    - assets/hygiene_svgs/deodorant.svg
+    - assets/hygiene_svgs/shampoo.svg
+    - assets/hygiene_svgs/lip_balm.svg
+    - assets/hygiene_svgs/diaper.svg
+    - assets/hygiene_svgs/razor.svg
+    - assets/hygiene_svgs/bath_towel.svg
     - assets/hygiene_svgs/soap.svg
     - assets/hygiene_svgs/toilet_paper.svg
     - assets/hygiene_svgs/toothbrush.svg
     - assets/hygiene_svgs/toothpaste.svg
     - assets/logo_svgs/LogoName.png
     - assets/logo_svgs/LinkareIcon.png
+    - assets/logo_svgs/LinkareLogoNew.png
     - assets/logo_svgs/whitelogofinal2.png
     - assets/logo_svgs/finalithink.png
     - assets/logo_svgs/ShelterConnectLogo.png
     - assets/logo_svgs/CareConnectLogo.png
     - assets/nutrition_svgs/nutrition.svg
     - assets/nutrition_svgs/beans.svg
+    - assets/nutrition_svgs/tomatosauce.svg
+    - assets/nutrition_svgs/rice.svg
+    - assets/nutrition_svgs/pasta.svg
+    - assets/nutrition_svgs/groundbeef.svg
+    - assets/nutrition_svgs/chicken.svg
+    - assets/nutrition_svgs/tuna.svg
+    - assets/nutrition_svgs/vegetables.svg
+    - assets/nutrition_svgs/fruits.svg
     - assets/nutrition_svgs/bread.svg
     - assets/nutrition_svgs/eggs.svg
     - assets/nutrition_svgs/energy_bar.svg
     - assets/nutrition_svgs/water.svg
     - assets/nutrition_svgs/potato.svg
     - assets/warmth_svgs/warmth.svg
+    - assets/warmth_svgs/pillow.svg
     - assets/warmth_svgs/blanket.svg
+    - assets/warmth_svgs/bed_sheets.svg
     - assets/warmth_svgs/sleeping_bag.svg
     - assets/warmth_svgs/sleeping_pad.svg
     - assets/other_svgs/other.svg
