@@ -13,7 +13,8 @@ class CurrentRequestsPage extends StatefulWidget with NavigationTab {
   _CurrentRequestsPageState createState() => _CurrentRequestsPageState();
 
   @override
-  String get helpDescription => '''This is the Organization Current Requests Page Page! Here you can see all the items that the you have ordered but that volunteers have not committed to yet!''';
+  String get helpDescription => 'This is your Current Requests page. Here, you can see items that you have requested that have not volunteers have not signed up for. '
+      'To see items that volunteers have committed to, check the Expected Deliveries page.';
 
   @override
   IconData get icon => Icons.list;

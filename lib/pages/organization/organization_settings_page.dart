@@ -14,7 +14,8 @@ class OrganizationSettingsPage extends StatefulWidget with NavigationTab {
   _OrganizationSettingsPageState createState() => _OrganizationSettingsPageState();
 
   @override
-  String get helpDescription => 'This is a help description for your account settings.';
+  String get helpDescription => 'This is your Account Settings page. Here, you can see and edit your account and sign out, if you\'d like. '
+      'In addition, you can preview your profile as volunteers will see it.';
 
   @override
   IconData get icon => Icons.settings;

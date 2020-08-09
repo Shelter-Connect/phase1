@@ -41,7 +41,7 @@ class _OrganizationPreviewPageState extends State<OrganizationPreviewPage> {
   Widget build(BuildContext context) {
     return StandardLayout(
       title: '',
-      helpText: 'If u don\'t know how to use this app u stupid lmao',
+      helpText: 'This page shows your organization profile as it will be seen by volunteers. ',
       body: loading
           ? Center(
               child: CircularProgressIndicator(),

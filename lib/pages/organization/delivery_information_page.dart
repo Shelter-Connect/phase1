@@ -23,7 +23,7 @@ class _DeliveryInformationPageState extends State<DeliveryInformationPage> {
     // TODO: clean, clean, clean, clean, clean, and clean again
     return StandardLayout(
       title: "Delivery Information",
-      helpText: 'Click on the Specify Items Button to specify the number of items the volunteer donated!',
+      helpText: 'This page shows information about a specific delivery. If this delivery has been received, press the Confirm Delivery button.',
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[

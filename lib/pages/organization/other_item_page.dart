@@ -28,7 +28,8 @@ class _OtherItemPageState extends State<OtherItemPage> {
   Widget build(BuildContext context) {
     return SecondaryLayout(
       title: '',
-      helpText: 'Hello, i will not help you',
+      helpText: 'To create a custom request, enter the name and amount of items you need. You can also enter extra descriptions to get a specific type of item, '
+          'or units for the item.',
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),

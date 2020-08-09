@@ -36,6 +36,7 @@ class _ConfirmDeliveryPageState extends State<ConfirmDeliveryPage> {
     // TODO: clean, clean, clean, clean, clean, and clean again
     return StandardLayout(
       title: "Confirm Delivery",
+      helpText: 'If not all items have been delivered, enter the amount received and press the Confirm Items Delivered button.',
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,7 +44,7 @@ class _ConfirmDeliveryPageState extends State<ConfirmDeliveryPage> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Text(
-                'Amount Recieved',
+                'Amount Received',
                 style: TextStyle(fontSize: 35, color: purpleAccent, fontWeight: FontWeight.w900),
                 textAlign: TextAlign.start,
               ),

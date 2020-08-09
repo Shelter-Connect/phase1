@@ -19,8 +19,8 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
       tag: 'create request',
       child: SecondaryLayout(
         title: 'Create Requests',
-        helpText: '''   This is the Create Requests Page. Choose any category from which you would like to request and specify the amount desired. 
-   You could also name a specific item from this page and specify the quantity desired.''',
+        helpText: 'On this page, you can create a new item request. To start, choose the category of the item you would like to receive. '
+            'If the item you are looking for is not included in any category, choose the "Other" option to enter it manually.',
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),

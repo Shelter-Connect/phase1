@@ -24,7 +24,8 @@ class ChooseItemPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SecondaryLayout(
       title: '',
-      helpText: 'Hello, i will not help you',
+      helpText: 'To create a new request, choose an item that you need. If you do not see the item you are looking for, it might be in a different category, '
+          'or you may have to enter it manually under the "Other" category.',
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
