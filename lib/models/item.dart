@@ -1,15 +1,16 @@
 class Item {
-  String name, category, specificDescription;
+  String name, category, specificDescription, itemUnit;
   int amount;
 
-  Item({this.name, this.category, this.amount, this.specificDescription});
+  Item({this.name, this.category, this.amount, this.specificDescription, this.itemUnit});
 
   Item clone() {
     return Item(
       name: name,
       category: category,
       specificDescription: specificDescription,
-      amount: amount
+      amount: amount,
+      itemUnit: itemUnit,
     );
   }
 
@@ -19,6 +20,7 @@ class Item {
       'category': category,
       'specificDescription': specificDescription,
       'amount': amount,
+      'itemUnit': itemUnit,
     };
   }
 }

@@ -32,7 +32,12 @@ class FirestoreHelper {
     Set<String> itemCategories = Set<String>();
     for (Item item in items) {
       itemCategories.add(item.category);
-      QuerySnapshot document = await requestsReference.where('name', isEqualTo: item.name).where('category', isEqualTo: item.category).getDocuments();
+      QuerySnapshot document = await requestsReference
+          .where('name', isEqualTo: item.name)
+          .where('category', isEqualTo: item.category)
+          .where('itemUnit', isEqualTo: item.itemUnit)
+          .where('specificDescription', isEqualTo: item.specificDescription)
+          .getDocuments();
       if (document.documents.length == 0) {
         if (item.amount != 0) await requestsReference.add(item.toFirestoreMap());
       } else if (document.documents.length == 1) {
@@ -96,7 +101,7 @@ class FirestoreHelper {
     await volunteerDonationCollection.document(donation.donationId).delete();
 
     CollectionReference organizationDonationCollection =
-    db.collection('organizations').document(donation.organization.id).collection('currentDonations');
+        db.collection('organizations').document(donation.organization.id).collection('currentDonations');
     await organizationDonationCollection.document(donation.donationId).delete();
 
     updateRequests(context: context, items: donation.items, organizationId: donation.organization.id);

@@ -129,7 +129,12 @@ class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
                       actionName: 'Create Request',
                       action: () {
                         FirestoreHelper.updateRequests(context: context, items: [
-                          Item(name: widget.itemName, amount: amount, specificDescription: specificDescription, category: widget.itemCategory)
+                          Item(
+                              name: widget.itemName,
+                              amount: amount,
+                              specificDescription: specificDescription,
+                              itemUnit: itemUnit,
+                              category: widget.itemCategory)
                         ]);
 //                        Scaffold.of(context).showSnackBar(
 //                          SnackBar(
