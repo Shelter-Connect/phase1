@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:phase1/components/alerts.dart';
 import 'package:phase1/components/date_time_field.dart';
@@ -96,7 +97,7 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                             child: Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
                               child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
                                   SizedBox(
@@ -126,25 +127,38 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                                   ),
                                   ...categoryItems
                                       .asMap()
-                                      .map((index, item) => MapEntry(
+                                      .map(
+                                        (index, item) => MapEntry(
                                           index,
-                                          Column(
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(bottom: 5.0),
+                                                child: Text(
+                                                  '${item.name} - ${item.amount} ${item.unit ?? ''}'.trim(),
+                                                  style: TextStyle(
+                                                    fontSize: 17.0,
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
+                                                ),
+                                              ),
                                               ItemIncrementWithText(
                                                 itemName: item.name,
+                                                initialQuantity: item.amount,
                                                 maxQuantity: item.amount,
-                                                itemDescription: item.specificDescription,
                                                 onChanged: (val) {
                                                   Item currentItem = item.clone();
-                                                  currentItem.amount = val;
-                                                  donation.items.removeWhere(
-                                                      (prevItem) => prevItem.name == currentItem.name && prevItem.category == currentItem.category);
-                                                  if (currentItem.amount != 0) donation.items.add(currentItem);
-                                                },
+                                                 currentItem.amount = val;
+                                                 donation.items.removeWhere((prevItem) => prevItem.name == currentItem.name && prevItem.category == currentItem.category);
+                                                if (currentItem.amount != 0) donation.items.add(currentItem);
+                                              },
                                               ),
                                               SizedBox(height: 10.0),
                                             ],
-                                          )))
+                                          ),
+                                        ),
+                                      )
                                       .values
                                       .toList(),
                                 ],

@@ -74,8 +74,7 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                           SizedBox(
                             height: 10,
                           ),
-                          InfoText(
-                              orgEmail: widget.organization.email, orgNumber: widget.organization.number, orgAddress: widget.organization.address),
+                          InfoText(orgEmail: widget.organization.email, orgNumber: widget.organization.number, orgAddress: widget.organization.address),
                         ],
                       ),
                     ),
@@ -134,33 +133,31 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                                             item.category,
                                             style: TextStyle(
                                               fontWeight: FontWeight.bold,
-                                              fontSize: 17.0,
+                                              fontSize: 23.0,
                                             ),
                                           ),
                                         Padding(
-                                          padding: const EdgeInsets.only(top: 3.0),
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: <Widget>[
-                                              Text(
-                                                '${item.name}',
-                                                textAlign: TextAlign.start,
-                                                style: TextStyle(
-                                                  fontSize: 17.0,
-                                                  fontWeight: FontWeight.w400,
+                                            padding: const EdgeInsets.only(top: 3.0),
+                                            child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(bottom: 5.0),
+                                                child: Text(
+                                                  '${item.name} - ${item.amount} ${item.unit ?? ''}'.trim(),
+                                                  style: TextStyle(
+                                                    fontSize: 17.0,
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
                                                 ),
                                               ),
-                                              Text(
-                                                '${item.amount}',
-                                                style: TextStyle(
-                                                  fontSize: 17.0,
-                                                  fontWeight: FontWeight.w400,
-                                                ),
-                                              ),
-                                            ],
+                                            ])),
+                                        if (item.specificDescription != null)
+                                          Text(
+                                            item.specificDescription,
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                color: Colors.grey
+                                            ),
                                           ),
-                                        ),
-                                        Text('description; in Unit', style: TextStyle(color: Colors.grey)),
                                       ],
                                     ),
                                   );

@@ -98,17 +98,14 @@ class _EditDeliveryPageState extends State<EditDeliveryPage> {
                                           ),
                                         ),
                                         ItemIncrementWithText(
-                                          maxQuantity: widget.donation.items[index].amount,
+                                          initialQuantity: widget.donation.items[index].amount,
                                           onChanged: (val) {
                                             newDonation.items[index].amount = val;
                                           },
                                         ),
                                       ],
                                     ),
-                                    Divider(
-                                      color: Colors.grey,
-                                      thickness: 2,
-                                    )
+                                    SizedBox(height: 5,)
                                   ],
                                 );
                               },

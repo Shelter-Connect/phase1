@@ -102,14 +102,22 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                                     Padding(
                                       padding: const EdgeInsets.only(bottom: 5.0),
                                       child: Text(
-                                        '${widget.donation.items[index].name} x ${widget.donation.items[index].amount}',
+                                        '${widget.donation.items[index].name} - ${widget.donation.items[index].amount} ${widget.donation.items[index].unit ?? ''}'.trim(),
                                         style: TextStyle(
                                           fontSize: 17.0,
                                           fontWeight: FontWeight.w400,
                                         ),
                                       ),
                                     ),
-                                    Divider(color: Colors.grey, thickness: 2,)
+                                    if (widget.donation.items[index].specificDescription != null)
+                                      Text(
+                                        widget.donation.items[index].specificDescription,
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.grey
+                                        ),
+                                      ),
+                                    SizedBox(height: 5,)
                                   ],
                                 );
                               },

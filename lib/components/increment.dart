@@ -193,108 +193,88 @@ class _ItemIncrementWithTextState extends State<ItemIncrementWithText> {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-//            Container(
-//              child: Text(
-//                '${widget.itemName} - ${widget.maxQuantity1}',
-//                //TODO: Make optional
-//                style: TextStyle(fontSize: 18),
-//              ),
-//            ),
-            if (widget.itemDescription != null)
-              Text('${widget.itemDescription}', style: TextStyle(color: Colors.grey, fontSize: 14)),
-            //TODO: Units
-          ],
+        HoldDetector(
+          onHold: _decrementCounter,
+          holdTimeout: Duration(milliseconds: 150),
+          enableHapticFeedback: true,
+          child: Container(
+            height: 30,
+            width: 30,
+            decoration: BoxDecoration(
+              color: lightGrey,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: IconButton(
+              onPressed: _decrementCounter,
+              icon: Icon(
+                Icons.remove,
+                size: 15,
+              ),
+              tooltip: 'Decrement',
+            ),
+          ),
         ),
-        Row(
-          children: <Widget>[
-            HoldDetector(
-              onHold: _decrementCounter,
-              holdTimeout: Duration(milliseconds: 150),
-              enableHapticFeedback: true,
-              child: Container(
-                height: 30,
-                width: 30,
-                decoration: BoxDecoration(
-                  color: lightGrey,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: IconButton(
-                  onPressed: _decrementCounter,
-                  icon: Icon(
-                    Icons.remove,
-                    size: 15,
-                  ),
-                  tooltip: 'Decrement',
-                ),
-              ),
-            ),
-            SizedBox(width: 25),
-            Container(
-              width: 50,
-              height: 23,
-              padding: EdgeInsets.only(left: 15),
-              child: TextField(
-                maxLength: 4,
-                textAlign: TextAlign.center,
-                controller: controller,
-                onChanged: (val) {
-                  _counter = int.parse(val);
-                  if (_counter > widget.maxQuantity) {
-                    controller.text = widget.maxQuantity.toString();
-                    _counter = widget.maxQuantity;
-                    if (isSnackBarActive == false) {
-                      setState(() {
-                        isSnackBarActive = true;
-                      });
+        SizedBox(width: 25),
+        Container(
+          width: 50,
+          height: 23,
+          padding: EdgeInsets.only(left: 15),
+          child: TextField(
+            maxLength: 4,
+            textAlign: TextAlign.center,
+            controller: controller,
+            onChanged: (val) {
+              _counter = int.parse(val);
+              if (_counter > widget.maxQuantity) {
+                controller.text = widget.maxQuantity.toString();
+                _counter = widget.maxQuantity;
+                if (isSnackBarActive == false) {
+                  setState(() {
+                    isSnackBarActive = true;
+                  });
 
-                      Scaffold.of(context).showSnackBar(SnackBar(content: Text('You have reached the maximum amount of items this shelter is requesting.'))).closed.then((SnackBarClosedReason reason) {
-                        setState(() {
-                          isSnackBarActive = false;
-                        });
-                      });
-                    }
-                  }
-                  widget.onChanged(_counter);
-                },
-                style: TextStyle(fontSize: 17),
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  focusedBorder: InputBorder.none,
-                  enabledBorder: InputBorder.none,
-                  errorBorder: InputBorder.none,
-                  disabledBorder: InputBorder.none,
-                  counterText: "",
-                ),
-                keyboardType: TextInputType.number,
-                inputFormatters: <TextInputFormatter>[WhitelistingTextInputFormatter.digitsOnly],
-              ),
+                  Scaffold.of(context).showSnackBar(SnackBar(content: Text('You have reached the maximum amount of items this shelter is requesting.'))).closed.then((SnackBarClosedReason reason) {
+                    setState(() {
+                      isSnackBarActive = false;
+                    });
+                  });
+                }
+              }
+              widget.onChanged(_counter);
+            },
+            style: TextStyle(fontSize: 17),
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              focusedBorder: InputBorder.none,
+              enabledBorder: InputBorder.none,
+              errorBorder: InputBorder.none,
+              disabledBorder: InputBorder.none,
+              counterText: "",
             ),
-            SizedBox(width: 25),
-            HoldDetector(
-              onHold: _incrementCounter,
-              holdTimeout: Duration(milliseconds: 150),
-              enableHapticFeedback: true,
-              child: Container(
-                height: 30,
-                width: 30,
-                decoration: BoxDecoration(
-                  color: blueAccent,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: IconButton(
-                  onPressed: _incrementCounter,
-                  color: colorScheme.onSecondary,
-                  icon: Icon(Icons.add, size: 15),
-                  tooltip: 'Increment',
-                ),
-              ),
+            keyboardType: TextInputType.number,
+            inputFormatters: <TextInputFormatter>[WhitelistingTextInputFormatter.digitsOnly],
+          ),
+        ),
+        SizedBox(width: 25),
+        HoldDetector(
+          onHold: _incrementCounter,
+          holdTimeout: Duration(milliseconds: 150),
+          enableHapticFeedback: true,
+          child: Container(
+            height: 30,
+            width: 30,
+            decoration: BoxDecoration(
+              color: blueAccent,
+              borderRadius: BorderRadius.circular(10),
             ),
-          ],
+            child: IconButton(
+              onPressed: _incrementCounter,
+              color: colorScheme.onSecondary,
+              icon: Icon(Icons.add, size: 15),
+              tooltip: 'Increment',
+            ),
+          ),
         ),
       ],
     );

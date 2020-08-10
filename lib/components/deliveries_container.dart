@@ -70,20 +70,36 @@ class DeliveriesContainer extends StatelessWidget {
                       shrinkWrap: true,
                       itemCount: donation.items.length,
                       itemBuilder: (BuildContext context, int index) {
-                        return Text(
-                          '${donation.items[index].name} x ${donation.items[index].amount}',
-                          style: TextStyle(
-                            fontSize: 17.0,
-                            fontWeight: FontWeight.w400,
-                          ),
+                        return  Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 5.0),
+                              child: Text(
+                                '${donation.items[index].name} - ${donation.items[index].amount} ${donation.items[index].unit ?? ''}'.trim(),
+                                style: TextStyle(
+                                  fontSize: 17.0,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ),
+                            if (donation.items[index].specificDescription != null)
+                              Text(
+                                donation.items[index].specificDescription,
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.grey
+                                ),
+                              ),
+                          ],
                         );
                       },
                     ),
-                    SizedBox(height: 5),
+                    SizedBox(height: 5)
                   ],
                 ),
+                ),
               ),
-            ),
-          );
+            );
     }
   }

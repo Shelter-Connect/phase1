@@ -253,41 +253,33 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                                           alignment: Alignment.centerLeft,
                                                           child: Padding(
                                                             padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                                            child: Row(
-                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                            child: Column(
+                                                            crossAxisAlignment: CrossAxisAlignment.start,
                                                               children: <Widget>[
-                                                                Column(
-                                                                  mainAxisAlignment: MainAxisAlignment.start,
-                                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                                  children: <Widget>[
-                                                                    Text(
-                                                                      '${item.name}',
-                                                                      //TODO: Make wrap?
-                                                                      style: TextStyle(
-                                                                        fontSize: 17.0,
-                                                                        fontWeight: FontWeight.w400,
-                                                                      ),
+                                                                Padding(
+                                                                  padding: const EdgeInsets.only(bottom: 5.0),
+                                                                  child: Text(
+                                                                    '${item.name} - ${item.amount} ${item.unit ?? ''}'.trim(),
+                                                                    style: TextStyle(
+                                                                      fontSize: 17.0,
+                                                                      fontWeight: FontWeight.w400,
                                                                     ),
-                                                                    if (item.specificDescription != null)
-                                                                      Text('${item.specificDescription}', style: TextStyle(color: Colors.grey, fontSize: 14)),
-                                                                    //TODO: Units
-                                                                  ],
-                                                                ),
-                                                                Text(
-                                                                  '${item.amount}',
-                                                                  style: TextStyle(
-                                                                    fontSize: 17.0,
-                                                                    fontWeight: FontWeight.w400,
                                                                   ),
                                                                 ),
+                                                                if (item.specificDescription != null)
+                                                                  Text(
+                                                                    item.specificDescription,
+                                                                    style: TextStyle(
+                                                                        fontSize: 14,
+                                                                        color: Colors.grey
+                                                                    ),
+                                                                  ),
                                                               ],
                                                             ),
-                                                          ),
                                                         ),
                                                       ),
                                                     )
-                                                    .toList(),
-                                              ],
+                                                )],
                                             ),
                                           ),
                                         )
