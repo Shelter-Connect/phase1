@@ -50,7 +50,7 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
   Widget build(BuildContext context) {
     return StandardLayout(
       title: ' ',
-      helpText: 'If u don\'t know how to use this app u stupid lmao',
+      helpText: 'To make a donation, enter a date when you can deliver the items, and choose the amount of items you can deliver. ',
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),

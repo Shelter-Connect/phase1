@@ -26,7 +26,7 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
 
     return StandardLayout(
       title: ' ',
-      helpText: 'If u don\'t know how to use this app u stupid lmao',
+      helpText: 'Make sure to check the donation address, date, and items before confirming your donation! ',
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),

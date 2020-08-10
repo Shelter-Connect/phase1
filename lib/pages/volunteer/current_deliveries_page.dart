@@ -16,7 +16,8 @@ class CurrentDeliveriesPage extends StatefulWidget with NavigationTab {
   _CurrentDeliveriesPageState createState() => _CurrentDeliveriesPageState();
 
   @override
-  String get helpDescription => 'This is a help description for the volunteer current deliveries';
+  String get helpDescription => 'This page shows all the donations you have signed up for. Overdue deliveries are highlighted in red. Click on a delivery to see more information, '
+      'or to edit or cancel the delivery. ';
 
   @override
   IconData get icon => Icons.local_shipping;

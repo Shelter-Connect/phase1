@@ -32,7 +32,7 @@ class _EditDeliveryPageState extends State<EditDeliveryPage> {
   Widget build(BuildContext context) {
     return StandardLayout(
         title: ' ',
-        helpText: 'If u don\'t know how to use this app u stupid lmao',
+        helpText: '',
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),

@@ -14,7 +14,8 @@ class DonationOpportunities extends StatefulWidget with NavigationTab {
   _DonationOpportunitiesState createState() => _DonationOpportunitiesState();
 
   @override
-  String get helpDescription => 'This is a help description for the volunteer: donation opportunities page!';
+  String get helpDescription => 'This is the Donation Opportunities page. Here, you can see nearby organizations in need of donations. '
+      'To see more information about an organization, or to sign up for a donation, click on an organization. ';
 
   @override
   IconData get icon => Icons.home;

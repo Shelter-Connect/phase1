@@ -25,7 +25,7 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
   Widget build(BuildContext context) {
     return StandardLayout(
         title: ' ',
-        helpText: 'If u don\'t know how to use this app u stupid lmao',
+        helpText: 'This page shows a delivery you have signed up for. Here, you can edit or cancel this delivery. ',
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),

@@ -42,7 +42,8 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
   Widget build(BuildContext context) {
     return StandardLayout(
       title: '',
-      helpText: 'If u don\'t know how to use this app u stupid lmao',
+      helpText: 'This is an organization profile page. Here, you can see information about this organization and its requests. '
+          'To sign up for a donation, press the Make a Donation button!',
       body: loading
           ? Center(
               child: CircularProgressIndicator(),
