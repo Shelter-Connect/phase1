@@ -97,8 +97,7 @@ class _EditDeliveryPageState extends State<EditDeliveryPage> {
                                             fontWeight: FontWeight.w400,
                                           ),
                                         ),
-                                        Increment(
-                                          items: widget.donation.items[index].amount,
+                                        ItemIncrementWithText(
                                           maxQuantity: widget.donation.items[index].amount,
                                           onChanged: (val) {
                                             newDonation.items[index].amount = val;

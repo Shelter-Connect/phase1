@@ -118,8 +118,8 @@ class _ConfirmDeliveryPageState extends State<ConfirmDeliveryPage> {
                                         children: <Widget>[
                                           Padding(
                                             padding: EdgeInsets.all(10),
-                                            child: Increment(
-                                              itemQuantity: item.amount,
+                                            child: ItemIncrementWithText(
+                                              initialQuantity: item.amount,
                                               onChanged: (val) {
                                                 setState(() {
                                                   items[index].amount = val;

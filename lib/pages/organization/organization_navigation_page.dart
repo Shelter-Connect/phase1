@@ -131,12 +131,12 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text('Help', style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
+                      Text('Help', style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold, color: purpleAccent)),
                   IconButton(
                     iconSize: 30,
                     onPressed: () {
                       Navigator.pop(context);
-                    },icon: Icon(Icons.help),),
+                    },icon: Icon(Icons.help, color: purpleAccent),),
                     ],
                   ),
                 ),

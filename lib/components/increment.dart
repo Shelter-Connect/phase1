@@ -6,158 +6,159 @@ import 'package:flutter/services.dart';
 import 'package:holding_gesture/holding_gesture.dart';
 import 'package:phase1/constants.dart';
 
-class Increment extends StatefulWidget {
-  final int itemQuantity;
-  final Function onChanged;
-  final Color subtractBoxDecoration;
-  final Color additionBoxDecoration;
-  final Color addIconColor;
-  final int items;
-  final int maxQuantity;
-
-  Increment({this.itemQuantity, this.onChanged, this.subtractBoxDecoration, this.additionBoxDecoration, this.addIconColor, this.items, this.maxQuantity});
-
-  @override
-  _ItemIncrementState createState() => _ItemIncrementState();
-}
-
-class _ItemIncrementState extends State<Increment> {
-  int _counter;
-  TextEditingController controller = TextEditingController();
-
-  @override
-  void initState() {
-    _counter = widget.items ?? widget.itemQuantity ?? 0;
-    controller.text = _counter.toString();
-    super.initState();
-  }
-
-  void _incrementCounter() {
-    setState(() {
-      controller.text = (++_counter).toString();
-      widget.onChanged(_counter);
-    });
-  }
-
-  void _decrementCounter() {
-    setState(() {
-      _counter = max(0, _counter - 1);
-      controller.text = _counter.toString();
-      widget.onChanged(_counter);
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(0.0),
-      child: Container(
-        width: 120,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            HoldDetector(
-              onHold: _decrementCounter,
-              holdTimeout: Duration(milliseconds: 150),
-              enableHapticFeedback: true,
-              child: Container(
-                height: 30,
-                width: 30,
-                decoration: BoxDecoration(
-                  color: widget.subtractBoxDecoration ?? lightGrey,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: IconButton(
-                  alignment: Alignment.center,
-                  onPressed: _decrementCounter,
-                  icon: Icon(
-                    Icons.remove,
-                    size: 15,
-                  ),
-                  tooltip: 'Decrement',
-                ),
-              ),
-            ),
-            Container(
-              width: 50,
-              height: 30,
-              child: TextField(
-                maxLength: 4,
-                textAlign: TextAlign.center,
-                controller: controller,
-                onChanged: (val) {
-                  _counter = int.parse(val);
-                  if (_counter > widget.maxQuantity) {
-                    controller.text = widget.maxQuantity.toString();
-                    _counter = widget.maxQuantity;
-                  }
-                  widget.onChanged(_counter);
-                },
-                style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  focusedBorder: InputBorder.none,
-                  enabledBorder: InputBorder.none,
-                  errorBorder: InputBorder.none,
-                  disabledBorder: InputBorder.none,
-                  counterText: "",
-                ),
-                keyboardType: TextInputType.number,
-                inputFormatters: <TextInputFormatter>[WhitelistingTextInputFormatter.digitsOnly],
-              ),
-            ),
-            HoldDetector(
-              onHold: _incrementCounter,
-              holdTimeout: Duration(milliseconds: 150),
-              enableHapticFeedback: true,
-              child: Container(
-                height: 30,
-                width: 30,
-                decoration: BoxDecoration(
-                  color: widget.additionBoxDecoration ?? blueAccent,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: IconButton(
-                  alignment: Alignment.center,
-                  onPressed: _incrementCounter,
-                  color: widget.addIconColor ?? colorScheme.onSecondary,
-                  icon: Icon(Icons.add, size: 15),
-                  tooltip: 'Increment',
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
+//class Increment extends StatefulWidget {
+//  final int itemQuantity;
+//  final Function onChanged;
+//  final Color subtractBoxDecoration;
+//  final Color additionBoxDecoration;
+//  final Color addIconColor;
+//  final int items;
+//  final int maxQuantity;
+//
+//  Increment({this.itemQuantity, this.onChanged, this.subtractBoxDecoration, this.additionBoxDecoration, this.addIconColor, this.items, this.maxQuantity});
+//
+//  @override
+//  _ItemIncrementState createState() => _ItemIncrementState();
+//}
+//
+//class _ItemIncrementState extends State<Increment> {
+//  int _counter;
+//  TextEditingController controller = TextEditingController();
+//
+//  @override
+//  void initState() {
+//    _counter = widget.items ?? widget.itemQuantity ?? 0;
+//    controller.text = _counter.toString();
+//    super.initState();
+//  }
+//
+//  void _incrementCounter() {
+//    setState(() {
+//      _counter = min(_counter + 1,  widget.maxQuantity);
+//      controller.text = (++_counter).toString();
+//      widget.onChanged(_counter);
+//    });
+//  }
+//
+//  void _decrementCounter() {
+//    setState(() {
+//      _counter = max(0, _counter - 1);
+//      controller.text = _counter.toString();
+//      widget.onChanged(_counter);
+//    });
+//  }
+//
+//  @override
+//  Widget build(BuildContext context) {
+//    return Padding(
+//      padding: const EdgeInsets.all(0.0),
+//      child: Container(
+//        width: 120,
+//        child: Row(
+//          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//          crossAxisAlignment: CrossAxisAlignment.center,
+//          children: <Widget>[
+//            HoldDetector(
+//              onHold: _decrementCounter,
+//              holdTimeout: Duration(milliseconds: 150),
+//              enableHapticFeedback: true,
+//              child: Container(
+//                height: 30,
+//                width: 30,
+//                decoration: BoxDecoration(
+//                  color: widget.subtractBoxDecoration ?? lightGrey,
+//                  borderRadius: BorderRadius.circular(10),
+//                ),
+//                child: IconButton(
+//                  alignment: Alignment.center,
+//                  onPressed: _decrementCounter,
+//                  icon: Icon(
+//                    Icons.remove,
+//                    size: 15,
+//                  ),
+//                  tooltip: 'Decrement',
+//                ),
+//              ),
+//            ),
+//            Container(
+//              width: 50,
+//              height: 30,
+//              child: TextField(
+//                maxLength: 4,
+//                textAlign: TextAlign.center,
+//                controller: controller,
+//                onChanged: (val) {
+//                  _counter = int.parse(val);
+//                  if (_counter > widget.maxQuantity) {
+//                    controller.text = widget.maxQuantity.toString();
+//                    _counter = widget.maxQuantity;
+//                  }
+//                  widget.onChanged(_counter);
+//                },
+//                style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+//                decoration: InputDecoration(
+//                  border: InputBorder.none,
+//                  focusedBorder: InputBorder.none,
+//                  enabledBorder: InputBorder.none,
+//                  errorBorder: InputBorder.none,
+//                  disabledBorder: InputBorder.none,
+//                  counterText: "",
+//                ),
+//                keyboardType: TextInputType.number,
+//                inputFormatters: <TextInputFormatter>[WhitelistingTextInputFormatter.digitsOnly],
+//              ),
+//            ),
+//            HoldDetector(
+//              onHold: _incrementCounter,
+//              holdTimeout: Duration(milliseconds: 150),
+//              enableHapticFeedback: true,
+//              child: Container(
+//                height: 30,
+//                width: 30,
+//                decoration: BoxDecoration(
+//                  color: widget.additionBoxDecoration ?? blueAccent,
+//                  borderRadius: BorderRadius.circular(10),
+//                ),
+//                child: IconButton(
+//                  alignment: Alignment.center,
+//                  onPressed: _incrementCounter,
+//                  color: widget.addIconColor ?? colorScheme.onSecondary,
+//                  icon: Icon(Icons.add, size: 15),
+//                  tooltip: 'Increment',
+//                ),
+//              ),
+//            ),
+//          ],
+//        ),
+//      ),
+//    );
+//  }
+//}
 
 class ItemIncrementWithText extends StatefulWidget {
   final String itemName, itemDescription;
-  final int maxQuantity;
+  final int maxQuantity, initialQuantity;
   final Function(int) onChanged;
 
-  ItemIncrementWithText({this.itemName, this.maxQuantity, this.onChanged, this.itemDescription});
+  ItemIncrementWithText({this.itemName, this.maxQuantity, this.onChanged, this.itemDescription, this.initialQuantity = 0});
 
   @override
   _ItemIncrementWithTextState createState() => _ItemIncrementWithTextState();
 }
 
 class _ItemIncrementWithTextState extends State<ItemIncrementWithText> {
-  int _counter = 0;
+  int _counter;
   bool isSnackBarActive = false;
   TextEditingController controller = TextEditingController();
 
   void initState() {
-    _counter = 0;
+    _counter = widget.initialQuantity;
     controller.text = _counter.toString();
     super.initState();
   }
 
   void _incrementCounter() {
-    if (_counter == widget.maxQuantity) {
+    if (widget.maxQuantity != null && _counter == widget.maxQuantity) {
       if (isSnackBarActive == false) {
         setState(() {
           isSnackBarActive = true;
@@ -171,7 +172,11 @@ class _ItemIncrementWithTextState extends State<ItemIncrementWithText> {
       }
     }
     setState(() {
-      _counter = min(_counter + 1, widget.maxQuantity);
+      if (widget.maxQuantity == null) {
+        _counter++;
+      } else {
+        _counter = min(_counter + 1, widget.maxQuantity);
+      }
     });
     widget.onChanged(_counter);
     controller.text = (_counter).toString();
@@ -193,13 +198,13 @@ class _ItemIncrementWithTextState extends State<ItemIncrementWithText> {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Container(
-              child: Text(
-                '${widget.itemName} - ${widget.maxQuantity}',
-                //TODO: Make optional
-                style: TextStyle(fontSize: 18),
-              ),
-            ),
+//            Container(
+//              child: Text(
+//                '${widget.itemName} - ${widget.maxQuantity1}',
+//                //TODO: Make optional
+//                style: TextStyle(fontSize: 18),
+//              ),
+//            ),
             if (widget.itemDescription != null)
               Text('${widget.itemDescription}', style: TextStyle(color: Colors.grey, fontSize: 14)),
             //TODO: Units

@@ -262,6 +262,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                                                   children: <Widget>[
                                                                     Text(
                                                                       '${item.name}',
+                                                                      //TODO: Make wrap?
                                                                       style: TextStyle(
                                                                         fontSize: 17.0,
                                                                         fontWeight: FontWeight.w400,

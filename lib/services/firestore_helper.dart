@@ -35,14 +35,14 @@ class FirestoreHelper {
       QuerySnapshot document = await requestsReference
           .where('name', isEqualTo: item.name)
           .where('category', isEqualTo: item.category)
-          .where('itemUnit', isEqualTo: item.itemUnit)
+          .where('unit', isEqualTo: item.unit)
           .where('specificDescription', isEqualTo: item.specificDescription)
           .getDocuments();
       if (document.documents.length == 0) {
         if (item.amount != 0) await requestsReference.add(item.toFirestoreMap());
       } else if (document.documents.length == 1) {
         DocumentSnapshot itemSnapshot = document.documents[0];
-        if (item.amount + itemSnapshot['amount'] == 0) {
+        if (item.amount + itemSnapshot['amount'] <= 0) {
           await requestsReference.document(itemSnapshot.documentID).delete();
         } else {
           await requestsReference.document(itemSnapshot.documentID).updateData({
@@ -81,18 +81,15 @@ class FirestoreHelper {
 
   //Moves a donation from currentDonations to pastDonations
   static Future<void> confirmDelivery(BuildContext context, Donation donation) async {
-    CollectionReference volunteerDonationCollection = getCurrentVolunteerReference(context).collection('currentDonations');
-    await volunteerDonationCollection.document(donation.donationId).delete();
+    CollectionReference volunteerCurrentDonationCollection = getCurrentVolunteerReference(context).collection('currentDonations');
+    CollectionReference organizationCurrentDonationCollection = getCurrentOrganizationReference(context).collection('currentDonations');
+    CollectionReference volunteerPastDonationCollection = db.collection('volunteers').document(donation.volunteerId).collection('pastDonations');
+    CollectionReference organizationPastDonationCollection = getCurrentOrganizationReference(context).collection('pastDonations');
 
-    CollectionReference organizationDonationCollection =
-        db.collection('organizations').document(donation.organization.id).collection('currentDonations');
-    await organizationDonationCollection.document(donation.donationId).delete();
-
-    volunteerDonationCollection = db.collection('volunteers').document(donation.volunteerId).collection('pastDonations');
-    await volunteerDonationCollection.document(donation.donationId).setData(donation.toFirestoreMap());
-
-    organizationDonationCollection = getCurrentOrganizationReference(context).collection('pastDonations');
-    await organizationDonationCollection.document(donation.donationId).setData(donation.toFirestoreMap());
+    await volunteerCurrentDonationCollection.document(donation.donationId).delete();
+    await organizationCurrentDonationCollection.document(donation.donationId).delete();
+    await volunteerPastDonationCollection.document(donation.donationId).setData(donation.toFirestoreMap());
+    await organizationPastDonationCollection.document(donation.donationId).setData(donation.toFirestoreMap());
   }
 
   //cancels delivery from volunteer side

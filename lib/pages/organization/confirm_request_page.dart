@@ -133,7 +133,7 @@ class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
                               name: widget.itemName,
                               amount: amount,
                               specificDescription: specificDescription,
-                              itemUnit: itemUnit,
+                              unit: itemUnit,
                               category: widget.itemCategory)
                         ]);
 //                        Scaffold.of(context).showSnackBar(

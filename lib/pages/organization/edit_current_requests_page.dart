@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:phase1/components/increment.dart';
 import 'package:phase1/components/requests_container.dart';
 import 'package:phase1/components/standard_layout.dart';
 import 'package:phase1/constants.dart';
@@ -49,13 +50,72 @@ class _EditCurrentRequestsPageState extends State<EditCurrentRequestsPage> {
 
                   List<Widget> requestContainers = [];
                   for (String category in itemCategories.keys) {
-                    requestContainers.add(Padding(
-                      padding: const EdgeInsets.only(bottom: 16.0),
-                      child: EditRequestContainer(
-                        items: itemCategories[category],
-                        category: category,
+                    requestContainers.add(
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 16.0),
+                        child: Material(
+                          elevation: 5,
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          child: Container(
+                            decoration: elevatedBoxStyle,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    SizedBox(height: 10),
+                                    Text(
+                                      '$category',
+                                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                                    ),
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Container(
+                                      height: 5,
+                                      width: 100,
+                                      decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
+                                    ),
+                                    SizedBox(height: 10),
+                                    ListView.builder(
+                                      physics: NeverScrollableScrollPhysics(),
+                                      shrinkWrap: true,
+                                      itemCount: itemCategories[category].length,
+                                      itemBuilder: (context, index) {
+                                        return Padding(
+                                          padding: const EdgeInsets.only(bottom: 5.0),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            textDirection: TextDirection.rtl,
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(left: 4.0),
+                                                child: ItemIncrementWithText(initialQuantity: itemCategories[category][index].amount),
+                                                //TODO: Add onChanged
+                                              ),
+                                              Expanded(
+                                                child: Text(
+                                                  itemCategories[category][index].name,
+                                                  style: TextStyle(
+                                                    fontSize: 17,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
-                    ));
+                    );
                   }
                   return Column(
                     children: requestContainers,
