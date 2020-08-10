@@ -57,8 +57,8 @@ dev_dependencies:
     sdk: flutter
 
 #TODO: DELETE OVERRIDE WHEN FLUTTER RELEASES FiX
-#dependency_overrides:
-#  flutter_svg: 0.18.0
+dependency_overrides:
+  flutter_svg: 0.18.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

@@ -34,7 +34,8 @@ class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
   Widget build(BuildContext context) {
     return SecondaryLayout(
       title: '',
-      helpText: 'To create your request, enter the amount of items you need. You can also enter extra descriptions to get a specific type of item, or units for the item.',
+      helpText:
+          'To create your request, enter the amount of items you need. You can also enter extra descriptions to get a specific type of item, or units for the item.',
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
@@ -124,7 +125,7 @@ class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
                     builder: (_) => SingleActionAlert(
                       title: 'Confirm your request?',
                       subtitle:
-                      'Make sure you are requesting the correct item and number of items. Requests can be edited in the \'Expected Deliveries\' tab.',
+                          'Make sure you are requesting the correct item and number of items. Requests can be edited in the \'Expected Deliveries\' tab.',
                       actionName: 'Create Request',
                       action: () {
                         FirestoreHelper.updateRequests(context: context, items: [
@@ -135,6 +136,7 @@ class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
 //                            content: Text('Your order has been processed!'),
 //                          ),
 //                        );
+                        Navigator.pop(context);
                         Navigator.pop(context);
                       },
                     ),
