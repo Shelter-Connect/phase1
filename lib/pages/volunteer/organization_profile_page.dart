@@ -27,8 +27,13 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
       for (DocumentSnapshot document in documents.documents) {
         if (widget.organization.requestedItems[document['category']] == null) widget.organization.requestedItems[document['category']] = [];
         setState(() {
-          widget.organization.requestedItems[document['category']]
-              .add(Item(name: document['name'], amount: document['amount'], category: document['category']));
+          widget.organization.requestedItems[document['category']].add(Item(
+            name: document['name'],
+            amount: document['amount'],
+            category: document['category'],
+            specificDescription: document['specificDescription'],
+            unit: document['unit'],
+          ));
         });
       }
       setState(() {
@@ -245,42 +250,37 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                                     fontSize: 23.0,
                                                   ),
                                                 ),
-                                                ...items
-                                                    .map(
-                                                      (item) => Padding(
-                                                        padding: const EdgeInsets.only(top: 0.0, left: 0, right: 30),
-                                                        child: Container(
-                                                          width: MediaQuery.of(context).size.width,
-                                                          alignment: Alignment.centerLeft,
-                                                          child: Padding(
-                                                            padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                                            child: Column(
+                                                ...items.map((item) => Padding(
+                                                      padding: const EdgeInsets.only(top: 0.0, left: 0, right: 30),
+                                                      child: Container(
+                                                        width: MediaQuery.of(context).size.width,
+                                                        alignment: Alignment.centerLeft,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                                          child: Column(
                                                             crossAxisAlignment: CrossAxisAlignment.start,
-                                                              children: <Widget>[
-                                                                Padding(
-                                                                  padding: const EdgeInsets.only(bottom: 5.0),
-                                                                  child: Text(
-                                                                    '${item.name} - ${item.amount} ${item.unit ?? ''}'.trim(),
-                                                                    style: TextStyle(
-                                                                      fontSize: 17.0,
-                                                                      fontWeight: FontWeight.w400,
-                                                                    ),
+                                                            children: <Widget>[
+                                                              Padding(
+                                                                padding: const EdgeInsets.only(bottom: 5.0),
+                                                                child: Text(
+                                                                  '${item.name} - ${item.amount} ${item.unit ?? ''}'.trim(),
+                                                                  style: TextStyle(
+                                                                    fontSize: 17.0,
+                                                                    fontWeight: FontWeight.w400,
                                                                   ),
                                                                 ),
-                                                                if (item.specificDescription != null)
-                                                                  Text(
-                                                                    item.specificDescription,
-                                                                    style: TextStyle(
-                                                                        fontSize: 14,
-                                                                        color: Colors.grey
-                                                                    ),
-                                                                  ),
-                                                              ],
-                                                            ),
+                                                              ),
+                                                              if (item.specificDescription != null)
+                                                                Text(
+                                                                  item.specificDescription,
+                                                                  style: TextStyle(fontSize: 14, color: Colors.grey),
+                                                                ),
+                                                            ],
+                                                          ),
                                                         ),
                                                       ),
-                                                    )
-                                                )],
+                                                    ))
+                                              ],
                                             ),
                                           ),
                                         )

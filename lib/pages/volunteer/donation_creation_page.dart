@@ -145,14 +145,15 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                                               ),
                                               ItemIncrementWithText(
                                                 itemName: item.name,
-                                                initialQuantity: item.amount,
+                                                initialQuantity: 0,
                                                 maxQuantity: item.amount,
                                                 onChanged: (val) {
                                                   Item currentItem = item.clone();
-                                                 currentItem.amount = val;
-                                                 donation.items.removeWhere((prevItem) => prevItem.name == currentItem.name && prevItem.category == currentItem.category);
-                                                if (currentItem.amount != 0) donation.items.add(currentItem);
-                                              },
+                                                  currentItem.amount = val;
+                                                  donation.items.removeWhere(
+                                                      (prevItem) => prevItem.name == currentItem.name && prevItem.category == currentItem.category);
+                                                  if (currentItem.amount != 0) donation.items.add(currentItem);
+                                                },
                                               ),
                                               SizedBox(height: 10.0),
                                             ],
