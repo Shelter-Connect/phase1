@@ -65,7 +65,7 @@ class _DeliveryInformationPageState extends State<DeliveryInformationPage> {
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(widget.donation.items[index].name, style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400)),
-                                  Text('${widget.donation.items[index].amount.toString()}' '${widget.donation.items[index].unit ?? ''}'.trim(), style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400))
+                                  Text(widget.donation.items[index].amount.toString(), style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400))
                                 ],
                               ),
                               if (widget.donation.items[index].specificDescription != null)
@@ -75,6 +75,7 @@ class _DeliveryInformationPageState extends State<DeliveryInformationPage> {
                                     fontSize: 17,
                                   ),
                                 ),
+                              //TODO: Units
                             ],
                           );
                         },

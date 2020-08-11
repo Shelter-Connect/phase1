@@ -76,14 +76,7 @@ class ExpectedDeliveryContainer extends StatelessWidget {
                               ),
                           ],
                         ),
-                        Text(donation.items[index].amount.toString(), style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400)),
-                        if (donation.items[index].unit != null)
-                          Text(
-                            donation.items[index].unit,
-                            style: TextStyle(
-                              fontSize: 17,
-                            ),
-                          ),
+                        Text(donation.items[index].amount.toString(), style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400))
                       ],
                     );
                   },
