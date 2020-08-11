@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:phase1/components/increment.dart';
 import 'package:phase1/components/requests_container.dart';
+import 'package:phase1/components/rounded_button.dart';
 import 'package:phase1/components/standard_layout.dart';
 import 'package:phase1/constants.dart';
 import 'package:phase1/models/item.dart';
@@ -108,6 +109,9 @@ class _EditCurrentRequestsPageState extends State<EditCurrentRequestsPage> {
                                         );
                                       },
                                     ),
+                                    RoundedButton(title: 'Confirm Edit', onPressed: null,
+
+                                    )
                                   ],
                                 ),
                               ),
