@@ -20,7 +20,7 @@ import 'pages/welcome_updated.dart';
 void main() {
   runApp(MyApp());
 }
-//random comment
+//random comment x
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
