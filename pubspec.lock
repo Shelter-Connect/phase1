@@ -224,7 +224,7 @@ packages:
     source: hosted
     version: "0.7.5"
   flutter_svg:
-    dependency: "direct overridden"
+    dependency: transitive
     description:
       name: flutter_svg
       url: "https://pub.dartlang.org"
@@ -548,4 +548,4 @@ packages:
     version: "2.2.1"
 sdks:
   dart: ">=2.9.0-14.0.dev <3.0.0"
-  flutter: ">=1.16.0 <2.0.0"
+  flutter: ">=1.18.0-6.0.pre <2.0.0"
