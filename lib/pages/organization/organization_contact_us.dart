@@ -32,10 +32,10 @@ class _OrganizationContactUsPageState extends State<OrganizationContactUsPage> {
             style: TextStyle(fontSize: 35, fontWeight: FontWeight.w900, color: purpleAccent),
           ),
           DashboardComponent(
-            boxTitle: 'Shelter Connect',
+            boxTitle: 'Linkare',
             column: Column(children: <Widget>[
               Text(
-                'E-mail address: shelterconnect20@gmail.com',
+                'E-mail address: linkare20@gmail.com',
                 style: TextStyle(fontSize: 25, color: colorScheme.onBackground),
               ),
               SizedBox(height: 30),

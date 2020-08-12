@@ -1,4 +1,4 @@
-package shelterconnect.phase1
+package linkare.phase1
 
 import io.flutter.embedding.android.FlutterActivity
 

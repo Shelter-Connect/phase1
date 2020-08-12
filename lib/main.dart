@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider<User>(
       create: (_) => User(),
       child: MaterialApp(
-        title: 'Shelter Connect',
+        title: 'Linkare',
         debugShowCheckedModeBanner: false,
         routes: {
           '/welcome': (_) => WelcomePage(),
