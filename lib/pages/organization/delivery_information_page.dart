@@ -65,14 +65,15 @@ class _DeliveryInformationPageState extends State<DeliveryInformationPage> {
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(widget.donation.items[index].name, style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400)),
-                                  Text(widget.donation.items[index].amount.toString(), style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400))
+                                  Text('${widget.donation.items[index].amount} ${widget.donation.items[index].unit ?? ''}', style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400))
                                 ],
                               ),
                               if (widget.donation.items[index].specificDescription != null)
                                 Text(
                                   widget.donation.items[index].specificDescription,
                                   style: TextStyle(
-                                    fontSize: 17,
+                                    fontSize: 14,
+                                    color: Colors.grey
                                   ),
                                 ),
                               //TODO: Units
@@ -122,22 +123,35 @@ class _DeliveryInformationPageState extends State<DeliveryInformationPage> {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: ColoredButton(
-                color: purpleAccent,
-                text: 'Confirm Delivery',
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ConfirmDeliveryPage(
-                        donation: widget.donation,
-                      ),
-                    ),
-                  );
-                },
-              ),
+            Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: ColoredButton(
+                    color: purpleAccent,
+                    text: 'Confirm Delivery',
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ConfirmDeliveryPage(
+                            donation: widget.donation,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: ColoredButton(onPressed: () {
+//TODO: Add option for organization to cancel order
+                  }, text: 'Cancel Order',
+color: purpleAccent,
+                    textColor: Colors.white,
+                  ),
+                )
+              ],
             )
           ],
         ),

@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:phase1/components/increment.dart';
-import 'package:phase1/components/requests_container.dart';
 import 'package:phase1/components/standard_layout.dart';
 import 'package:phase1/constants.dart';
 import 'package:phase1/models/item.dart';
@@ -86,23 +85,34 @@ class _EditCurrentRequestsPageState extends State<EditCurrentRequestsPage> {
                                       itemBuilder: (context, index) {
                                         return Padding(
                                           padding: const EdgeInsets.only(bottom: 5.0),
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            textDirection: TextDirection.rtl,
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
-                                              Padding(
-                                                padding: const EdgeInsets.only(left: 4.0),
-                                                child: ItemIncrementWithText(initialQuantity: itemCategories[category][index].amount),
-                                                //TODO: Add onChanged
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                textDirection: TextDirection.rtl,
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(left: 4.0),
+                                                    child: ItemIncrementWithText(initialQuantity: itemCategories[category][index].amount),
+                                                    //TODO: Add onChanged
+                                                  ),
+                                                  Text(
+                                                    itemCategories[category][index].name,
+                                                    style: TextStyle(
+                                                      fontSize: 17,
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                              Expanded(
-                                                child: Text(
-                                                  itemCategories[category][index].name,
+                                              if (itemCategories[category][index].specificDescription != null)
+                                                Text(
+                                                  itemCategories[category][index].specificDescription,
                                                   style: TextStyle(
-                                                    fontSize: 17,
+                                                      fontSize: 14,
+                                                      color: Colors.grey
                                                   ),
                                                 ),
-                                              ),
                                             ],
                                           ),
                                         );

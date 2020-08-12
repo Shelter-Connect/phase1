@@ -130,33 +130,51 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                                       .map(
                                         (index, item) => MapEntry(
                                           index,
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Padding(
-                                                padding: const EdgeInsets.only(bottom: 5.0),
-                                                child: Text(
-                                                  '${item.name} - ${item.amount} ${item.unit ?? ''}'.trim(),
-                                                  style: TextStyle(
-                                                    fontSize: 17.0,
-                                                    fontWeight: FontWeight.w400,
-                                                  ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(bottom: 3.0),
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  children: [
+                                                    Expanded(
+                                                      child: Padding(
+                                                        padding: const EdgeInsets.only(bottom: 5.0),
+                                                        child: Text(
+                                                          '${item.name} - ${item.amount} ${item.unit ?? ''}'.trim(),
+                                                          style: TextStyle(
+                                                            fontSize: 17.0,
+                                                            fontWeight: FontWeight.w400,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    ItemIncrementWithText(
+                                                      itemName: item.name,
+                                                      initialQuantity: 0,
+                                                      maxQuantity: item.amount,
+                                                      onChanged: (val) {
+                                                        Item currentItem = item.clone();
+                                                       currentItem.amount = val;
+                                                       //TODO: Make an equals method for items
+                                                       donation.items.removeWhere((prevItem) => prevItem.name == currentItem.name && prevItem.category == currentItem.category && prevItem.specificDescription == currentItem.specificDescription && prevItem.unit == currentItem.unit);
+                                                      if (currentItem.amount != 0) donation.items.add(currentItem);
+                                                    },
+                                                    ),
+                                                    SizedBox(height: 10.0),
+                                                  ],
                                                 ),
-                                              ),
-                                              ItemIncrementWithText(
-                                                itemName: item.name,
-                                                initialQuantity: 0,
-                                                maxQuantity: item.amount,
-                                                onChanged: (val) {
-                                                  Item currentItem = item.clone();
-                                                  currentItem.amount = val;
-                                                  donation.items.removeWhere(
-                                                      (prevItem) => prevItem.name == currentItem.name && prevItem.category == currentItem.category);
-                                                  if (currentItem.amount != 0) donation.items.add(currentItem);
-                                                },
-                                              ),
-                                              SizedBox(height: 10.0),
-                                            ],
+                                                if (item.specificDescription != null)
+                                                  Text(
+                                                    item.specificDescription,
+                                                    style: TextStyle(
+                                                        fontSize: 14,
+                                                        color: Colors.grey
+                                                    ),
+                                                  ),
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       )

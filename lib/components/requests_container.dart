@@ -2,8 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:phase1/constants.dart';
 import 'package:phase1/models/item.dart';
-
-import 'increment.dart';
+import 'package:phase1/pages/organization/edit_current_requests_page.dart';
 
 class RequestContainer extends StatelessWidget {
   final List<Item> items;
@@ -14,9 +13,16 @@ class RequestContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
+    return MaterialButton(
       elevation: 5,
-      borderRadius: BorderRadius.all(Radius.circular(20)),
+      minWidth: MediaQuery.of(context).size.width,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => EditCurrentRequestsPage()),
+        );
+      },
       child: Container(
         decoration: elevatedBoxStyle,
         child: Padding(
@@ -53,7 +59,7 @@ class RequestContainer extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            '${items[index].name} - ${items[index].amount.toString()} ${items[index].unit ?? ' '}'.trim(),
+                            '${items[index].name} - ${items[index].amount.toString()} ${items[index].unit ?? ''}'.trim(),
                             style: TextStyle(
                               fontSize: 17,
                             ),
@@ -80,5 +86,3 @@ class RequestContainer extends StatelessWidget {
     );
   }
 }
-
-

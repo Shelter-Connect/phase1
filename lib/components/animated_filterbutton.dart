@@ -23,19 +23,19 @@ class _AnimatedContainerAppState extends State<AnimatedContainerApp> {
             // Use the properties stored in the State class.
             height: 200,
             width: MediaQuery.of(context).size.width * 0.6,
-            decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                      color: Color(0xFFDEDEDE),
-                      blurRadius: 20.0,
-                      spreadRadius: 0.025,
-                      offset: Offset(
-                        0.0,
-                        0.0,
-                      )),
-                ]),
+            decoration: BoxDecoration(boxShadow: [
+              BoxShadow(
+                color: Color(0xFFDEDEDE),
+                blurRadius: 20.0,
+                spreadRadius: 0.025,
+                offset: Offset(
+                  0.0,
+                  0.0,
+                ),
+              ),
+            ]),
             // Define how long the animation should take.
-            duration: Duration(milliseconds: 50 ),
+            duration: Duration(milliseconds: 50),
             // Provide an optional curve to make the animation feel smoother.
             curve: Curves.fastOutSlowIn,
           ),
@@ -45,8 +45,7 @@ class _AnimatedContainerAppState extends State<AnimatedContainerApp> {
           // When the user taps the button
           onPressed: () {
             // Use setState to rebuild the widget with new values.
-            setState(() {
-            });
+            setState(() {});
           },
         ),
       ),

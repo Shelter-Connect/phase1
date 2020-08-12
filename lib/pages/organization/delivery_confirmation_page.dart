@@ -80,18 +80,13 @@ class _ConfirmDeliveryPageState extends State<ConfirmDeliveryPage> {
                                               Padding(
                                                 padding: EdgeInsets.all(16),
                                                 child: Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
                                                   children: [
                                                     Text(
                                                       item.name,
                                                       style: TextStyle(fontSize: 19, fontWeight: FontWeight.w400),
                                                     ),
-                                                    if (item.specificDescription != null)
-                                                      Text(
-                                                        item.specificDescription,
-                                                        style: TextStyle(
-                                                          fontSize: 17,
-                                                        ),
-                                                      ),
+
                                                     //TODO: Units implementation
                                                   ],
                                                 ),

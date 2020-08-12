@@ -142,6 +142,7 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                     actionName: 'Cancel Delivery',
                     title: 'Cancel Delivery?',
                     subtitle: 'You cannot revert this action',
+                    //TODO: cancel delivery
                   ),
                 );
               },
@@ -162,6 +163,8 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                         'Cancel Delivery',
                         style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600, color: Colors.white),
                       ),
+                      //TODO: cancel delivery
+                      //todo
                     ],
                   ),
                 ),
