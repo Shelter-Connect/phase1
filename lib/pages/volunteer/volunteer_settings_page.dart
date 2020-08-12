@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:phase1/components/alerts.dart';
-import 'package:phase1/services/firestore_helper.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants.dart';
@@ -78,7 +77,10 @@ class UserInfo extends StatelessWidget {
             Container(
               height: 5,
               width: 100,
-              decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
+              decoration: BoxDecoration(
+                color: purpleAccent,
+                borderRadius: BorderRadius.circular(21),
+              ),
             ),
             SizedBox(height: 10),
             RichText(

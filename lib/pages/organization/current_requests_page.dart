@@ -43,7 +43,9 @@ class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
                 stream: FirestoreHelper.getCurrentOrganizationReference(context).collection('requests').snapshots(),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
-                    return Center(child: CircularProgressIndicator());
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
                   }
 
                   Map<String, List<Item>> itemCategories = {};
@@ -51,21 +53,25 @@ class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
                     if (!itemCategories.containsKey(document['category'])) {
                       itemCategories[document['category']] = [];
                     }
-                    itemCategories[document['category']].add(Item(
-                      name: document['name'],
-                      category: document['category'],
-                      amount: document['amount'],
-                      specificDescription: document['specificDescription'],
-                      unit: document['unit'],
-                    ));
+                    itemCategories[document['category']].add(
+                      Item(
+                        name: document['name'],
+                        category: document['category'],
+                        amount: document['amount'],
+                        specificDescription: document['specificDescription'],
+                        unit: document['unit'],
+                      ),
+                    );
                   }
 
                   List<Widget> requestContainers = [];
                   for (String category in itemCategories.keys) {
-                    requestContainers.add(RequestContainer(
-                      items: itemCategories[category],
-                      category: category,
-                    ));
+                    requestContainers.add(
+                      RequestContainer(
+                        items: itemCategories[category],
+                        category: category,
+                      ),
+                    );
                   }
                   return Column(
                     children: requestContainers,

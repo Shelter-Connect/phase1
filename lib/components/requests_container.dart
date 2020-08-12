@@ -41,7 +41,6 @@ class RequestContainer extends StatelessWidget {
                   height: 5,
                 ),
                 Container(
-                  //THIS IS THE LINE
                   height: 5,
                   width: 100,
                   decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),

@@ -18,16 +18,20 @@ import 'pages/welcome_page.dart';
 import 'pages/welcome_updated.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    MyApp(),
+  );
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
+    SystemChrome.setPreferredOrientations(
+      [
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+      ],
+    );
     precacheImage(AssetImage('assets/logo_svgs/ShelterConnectLogo.png'), context);
 
     return ChangeNotifierProvider<User>(

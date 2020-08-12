@@ -27,13 +27,15 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
       for (DocumentSnapshot document in documents.documents) {
         if (widget.organization.requestedItems[document['category']] == null) widget.organization.requestedItems[document['category']] = [];
         setState(() {
-          widget.organization.requestedItems[document['category']].add(Item(
-            name: document['name'],
-            amount: document['amount'],
-            category: document['category'],
-            specificDescription: document['specificDescription'],
-            unit: document['unit'],
-          ));
+          widget.organization.requestedItems[document['category']].add(
+            Item(
+              name: document['name'],
+              amount: document['amount'],
+              category: document['category'],
+              specificDescription: document['specificDescription'],
+              unit: document['unit'],
+            ),
+          );
         });
       }
       setState(() {
@@ -116,21 +118,25 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                   ),
                                   if (widget.organization.address != null)
                                     RichText(
-                                      text: TextSpan(children: <TextSpan>[
-                                        TextSpan(
+                                      text: TextSpan(
+                                        children: <TextSpan>[
+                                          TextSpan(
                                             text: 'Address: ',
                                             style: TextStyle(
                                               fontSize: 17,
                                               color: colorScheme.onBackground,
-                                            )),
-                                        TextSpan(
+                                            ),
+                                          ),
+                                          TextSpan(
                                             text: widget.organization.address,
                                             style: TextStyle(
                                               fontSize: 17,
                                               fontWeight: FontWeight.w600,
                                               color: colorScheme.onBackground,
-                                            ))
-                                      ]),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   if (widget.organization.address != null)
                                     SizedBox(
@@ -138,21 +144,25 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                     ),
                                   if (widget.organization.website != null)
                                     RichText(
-                                      text: TextSpan(children: <TextSpan>[
-                                        TextSpan(
+                                      text: TextSpan(
+                                        children: <TextSpan>[
+                                          TextSpan(
                                             text: 'Website: ',
                                             style: TextStyle(
                                               fontSize: 17,
                                               color: colorScheme.onBackground,
-                                            )),
-                                        TextSpan(
+                                            ),
+                                          ),
+                                          TextSpan(
                                             text: widget.organization.website,
                                             style: TextStyle(
                                               fontSize: 17,
                                               fontWeight: FontWeight.w600,
                                               color: colorScheme.onBackground,
-                                            ))
-                                      ]),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   if (widget.organization.website != null)
                                     SizedBox(
@@ -160,21 +170,25 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                     ),
                                   if (widget.organization.number != null)
                                     RichText(
-                                      text: TextSpan(children: <TextSpan>[
-                                        TextSpan(
+                                      text: TextSpan(
+                                        children: <TextSpan>[
+                                          TextSpan(
                                             text: 'Phone Number: ',
                                             style: TextStyle(
                                               fontSize: 17,
                                               color: colorScheme.onBackground,
-                                            )),
-                                        TextSpan(
+                                            ),
+                                          ),
+                                          TextSpan(
                                             text: widget.organization.number,
                                             style: TextStyle(
                                               fontSize: 17,
                                               fontWeight: FontWeight.w600,
                                               color: colorScheme.onBackground,
-                                            ))
-                                      ]),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   if (widget.organization.number != null)
                                     SizedBox(
@@ -182,21 +196,25 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                     ),
                                   if (widget.organization.email != null)
                                     RichText(
-                                      text: TextSpan(children: <TextSpan>[
-                                        TextSpan(
+                                      text: TextSpan(
+                                        children: <TextSpan>[
+                                          TextSpan(
                                             text: 'Email: ',
                                             style: TextStyle(
                                               fontSize: 17,
                                               color: colorScheme.onBackground,
-                                            )),
-                                        TextSpan(
+                                            ),
+                                          ),
+                                          TextSpan(
                                             text: widget.organization.email,
                                             style: TextStyle(
                                               fontSize: 17,
                                               fontWeight: FontWeight.w600,
                                               color: colorScheme.onBackground,
-                                            ))
-                                      ]),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   SizedBox(
                                     height: 10,
@@ -232,7 +250,10 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                   Container(
                                     height: 5,
                                     width: 100,
-                                    decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
+                                    decoration: BoxDecoration(
+                                      color: purpleAccent,
+                                      borderRadius: BorderRadius.circular(21),
+                                    ),
                                   ),
                                   Column(
                                     children: widget.organization.requestedItems
@@ -250,30 +271,32 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                                     fontSize: 23.0,
                                                   ),
                                                 ),
-                                                ...items.map((item) => Container(
-                                                  width: MediaQuery.of(context).size.width,
-                                                  alignment: Alignment.centerLeft,
-                                                  child: Padding(
-                                                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                                    child: Column(
-                                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                                      children: <Widget>[
-                                                        Text(
-                                                          '${item.name} - ${item.amount} ${item.unit ?? ''}'.trim(),
-                                                          style: TextStyle(
-                                                            fontSize: 17.0,
-                                                            fontWeight: FontWeight.w400,
-                                                          ),
-                                                        ),
-                                                        if (item.specificDescription != null)
+                                                ...items.map(
+                                                  (item) => Container(
+                                                    width: MediaQuery.of(context).size.width,
+                                                    alignment: Alignment.centerLeft,
+                                                    child: Padding(
+                                                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                                      child: Column(
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        children: <Widget>[
                                                           Text(
-                                                            item.specificDescription,
-                                                            style: TextStyle(fontSize: 14, color: Colors.grey),
+                                                            '${item.name} - ${item.amount} ${item.unit ?? ''}'.trim(),
+                                                            style: TextStyle(
+                                                              fontSize: 17.0,
+                                                              fontWeight: FontWeight.w400,
+                                                            ),
                                                           ),
-                                                      ],
+                                                          if (item.specificDescription != null)
+                                                            Text(
+                                                              item.specificDescription,
+                                                              style: TextStyle(fontSize: 14, color: Colors.grey),
+                                                            ),
+                                                        ],
+                                                      ),
                                                     ),
                                                   ),
-                                                ))
+                                                ),
                                               ],
                                             ),
                                           ),
@@ -294,7 +317,9 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                           onPressed: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => DonationCreationPage(organization: widget.organization)),
+                              MaterialPageRoute(
+                                builder: (context) => DonationCreationPage(organization: widget.organization),
+                              ),
                             );
                           },
                           shape: RoundedRectangleBorder(

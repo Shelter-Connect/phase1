@@ -32,19 +32,23 @@ class _EditCurrentRequestsPageState extends State<EditCurrentRequestsPage> {
                 stream: FirestoreHelper.getCurrentOrganizationReference(context).collection('requests').snapshots(),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
-                    return Center(child: CircularProgressIndicator());
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
                   }
                   Map<String, List<Item>> itemCategories = {};
                   for (DocumentSnapshot document in snapshot.data.documents) {
                     if (!itemCategories.containsKey(document['category'])) {
                       itemCategories[document['category']] = [];
                     }
-                    itemCategories[document['category']].add(Item(
-                      name: document['name'],
-                      category: document['category'],
-                      amount: document['amount'],
-                      specificDescription: document['specificDescription'],
-                    ));
+                    itemCategories[document['category']].add(
+                      Item(
+                        name: document['name'],
+                        category: document['category'],
+                        amount: document['amount'],
+                        specificDescription: document['specificDescription'],
+                      ),
+                    );
                   }
 
                   List<Widget> requestContainers = [];
@@ -108,10 +112,7 @@ class _EditCurrentRequestsPageState extends State<EditCurrentRequestsPage> {
                                               if (itemCategories[category][index].specificDescription != null)
                                                 Text(
                                                   itemCategories[category][index].specificDescription,
-                                                  style: TextStyle(
-                                                      fontSize: 14,
-                                                      color: Colors.grey
-                                                  ),
+                                                  style: TextStyle(fontSize: 14, color: Colors.grey),
                                                 ),
                                             ],
                                           ),

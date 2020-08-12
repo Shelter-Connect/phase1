@@ -72,7 +72,8 @@ class ChooseItemPage extends StatelessWidget {
                       Wrap(
                         children: <Widget>[
                           ...items
-                              .map((name, icon) => MapEntry(
+                              .map(
+                                (name, icon) => MapEntry(
                                   name,
                                   CategoryIconButton(
                                     name: name,
@@ -89,7 +90,9 @@ class ChooseItemPage extends StatelessWidget {
                                         ),
                                       );
                                     },
-                                  )))
+                                  ),
+                                ),
+                              )
                               .values
                               .toList(),
                           CategoryIconButton(
@@ -99,10 +102,11 @@ class ChooseItemPage extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => OtherItemPage(
-                                          itemCategory: categoryName,
-                                          asset: categoryIcon,
-                                        )),
+                                  builder: (context) => OtherItemPage(
+                                    itemCategory: categoryName,
+                                    asset: categoryIcon,
+                                  ),
+                                ),
                               );
                             },
                           ),

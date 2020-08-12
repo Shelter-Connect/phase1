@@ -52,9 +52,13 @@ class _ConfirmDeliveryPageState extends State<ConfirmDeliveryPage> {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Container(
-                decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(5), boxShadow: [
-                  BoxShadow(color: Color(0xFFDEDEDE), blurRadius: 5.0, spreadRadius: 1),
-                ]),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(5),
+                  boxShadow: [
+                    BoxShadow(color: Color(0xFFDEDEDE), blurRadius: 5.0, spreadRadius: 1),
+                  ],
+                ),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
                   child: Column(
@@ -73,26 +77,25 @@ class _ConfirmDeliveryPageState extends State<ConfirmDeliveryPage> {
                               children: <Widget>[
                                 ...items
                                     .map(
-                                      (item) =>
-                                          Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: <Widget>[
-                                              Padding(
-                                                padding: EdgeInsets.all(16),
-                                                child: Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      item.name,
-                                                      style: TextStyle(fontSize: 19, fontWeight: FontWeight.w400),
-                                                    ),
-
-                                                    //TODO: Units implementation
-                                                  ],
+                                      (item) => Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Padding(
+                                            padding: EdgeInsets.all(16),
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  item.name,
+                                                  style: TextStyle(fontSize: 19, fontWeight: FontWeight.w400),
                                                 ),
-                                              ),
-                                            ],
+
+                                                //TODO: Units implementation
+                                              ],
+                                            ),
                                           ),
+                                        ],
+                                      ),
                                     )
                                     .toList(),
                               ],
@@ -132,7 +135,8 @@ class _ConfirmDeliveryPageState extends State<ConfirmDeliveryPage> {
                           )
                         ],
                       ),
-                  ]),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -145,9 +149,7 @@ class _ConfirmDeliveryPageState extends State<ConfirmDeliveryPage> {
                   List<Item> delta = List();
                   for (Item deliveredItem in items) {
                     for (Item oldItem in widget.donation.items) {
-                      if ((deliveredItem.specificDescription == oldItem.specificDescription) &&
-                          (deliveredItem.name == oldItem.name) &&
-                          (deliveredItem.category == oldItem.category)) {
+                      if ((deliveredItem.specificDescription == oldItem.specificDescription) && (deliveredItem.name == oldItem.name) && (deliveredItem.category == oldItem.category)) {
                         Item item = oldItem.clone();
                         item.amount -= deliveredItem.amount;
                         delta.add(item);

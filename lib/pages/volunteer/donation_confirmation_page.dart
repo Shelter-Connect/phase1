@@ -69,7 +69,10 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                           Container(
                             height: 5,
                             width: 100,
-                            decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
+                            decoration: BoxDecoration(
+                              color: purpleAccent,
+                              borderRadius: BorderRadius.circular(21),
+                            ),
                           ),
                           SizedBox(
                             height: 10,
@@ -137,8 +140,10 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                                             ),
                                           ),
                                         Padding(
-                                            padding: const EdgeInsets.only(top: 3.0),
-                                            child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                                          padding: const EdgeInsets.only(top: 3.0),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
                                               Padding(
                                                 padding: const EdgeInsets.only(bottom: 5.0),
                                                 child: Text(
@@ -149,14 +154,13 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                                                   ),
                                                 ),
                                               ),
-                                            ])),
+                                            ],
+                                          ),
+                                        ),
                                         if (item.specificDescription != null)
                                           Text(
                                             item.specificDescription,
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                color: Colors.grey
-                                            ),
+                                            style: TextStyle(fontSize: 14, color: Colors.grey),
                                           ),
                                       ],
                                     ),
@@ -213,9 +217,7 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
 
 class InfoText extends StatelessWidget {
   final String orgEmail;
-
   final String orgNumber;
-
   final String orgAddress;
 
   InfoText({this.orgEmail, this.orgNumber, this.orgAddress});
@@ -228,10 +230,12 @@ class InfoText extends StatelessWidget {
       children: <Widget>[
         if (orgEmail != null)
           RichText(
-            text: TextSpan(children: <TextSpan>[
-              TextSpan(text: 'Email Address: ', style: TextStyle(fontSize: 17, color: colorScheme.onBackground)),
-              TextSpan(text: orgEmail, style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600, color: colorScheme.onBackground))
-            ]),
+            text: TextSpan(
+              children: <TextSpan>[
+                TextSpan(text: 'Email Address: ', style: TextStyle(fontSize: 17, color: colorScheme.onBackground)),
+                TextSpan(text: orgEmail, style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600, color: colorScheme.onBackground))
+              ],
+            ),
           ),
         if (orgEmail != null)
           SizedBox(
@@ -239,18 +243,22 @@ class InfoText extends StatelessWidget {
           ),
         if (orgNumber != null)
           RichText(
-            text: TextSpan(children: <TextSpan>[
-              TextSpan(text: 'Phone Number: ', style: TextStyle(fontSize: 17, color: colorScheme.onBackground)),
-              TextSpan(text: orgNumber, style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600, color: colorScheme.onBackground))
-            ]),
+            text: TextSpan(
+              children: <TextSpan>[
+                TextSpan(text: 'Phone Number: ', style: TextStyle(fontSize: 17, color: colorScheme.onBackground)),
+                TextSpan(text: orgNumber, style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600, color: colorScheme.onBackground))
+              ],
+            ),
           ),
         if (orgNumber != null) SizedBox(height: 10),
         if (orgAddress != null)
           RichText(
-            text: TextSpan(children: <TextSpan>[
-              TextSpan(text: 'Donation Location: ', style: TextStyle(fontSize: 17, color: colorScheme.onBackground)),
-              TextSpan(text: orgAddress, style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600, color: colorScheme.onBackground))
-            ]),
+            text: TextSpan(
+              children: <TextSpan>[
+                TextSpan(text: 'Donation Location: ', style: TextStyle(fontSize: 17, color: colorScheme.onBackground)),
+                TextSpan(text: orgAddress, style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600, color: colorScheme.onBackground))
+              ],
+            ),
           ),
         SizedBox(height: 10),
       ],

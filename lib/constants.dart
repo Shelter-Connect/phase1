@@ -32,37 +32,51 @@ final subTitleStyle = TextStyle(fontSize: 25, fontWeight: FontWeight.w700, color
 
 final smallButtonStyle = TextStyle(fontWeight: FontWeight.w700, fontSize: 20, color: purpleAccent);
 
-final elevatedBoxStyle = BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10), boxShadow: [
-  BoxShadow(
+final elevatedBoxStyle = BoxDecoration(
+  color: Colors.white,
+  borderRadius: BorderRadius.circular(10),
+  boxShadow: [
+    BoxShadow(
       color: Color(0xFFDEDEDE),
       blurRadius: 8.0,
       spreadRadius: 1.5,
       offset: Offset(
         0.0,
         0.0,
-      )),
-]);
-final subElevatedBoxStyle = BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(41), boxShadow: [
-  BoxShadow(
+      ),
+    ),
+  ],
+);
+final subElevatedBoxStyle = BoxDecoration(
+  color: Colors.white,
+  borderRadius: BorderRadius.circular(41),
+  boxShadow: [
+    BoxShadow(
       color: Color(0xFFDEDEDE),
       blurRadius: 8.0,
       spreadRadius: 1.5,
       offset: Offset(
         0.0,
         0.0,
-      )),
-]);
-final sub2ElevatedBoxStyle = BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10), boxShadow: [
-  BoxShadow(
+      ),
+    ),
+  ],
+);
+final sub2ElevatedBoxStyle = BoxDecoration(
+  color: Colors.white,
+  borderRadius: BorderRadius.circular(10),
+  boxShadow: [
+    BoxShadow(
       color: Color(0xFFDEDEDE),
       blurRadius: 2.0,
       spreadRadius: 0.6,
       offset: Offset(
         0.0,
         0.0,
-      )),
-]);
-
+      ),
+    ),
+  ],
+);
 //Colors
 final colorScheme = ColorScheme(
   primary: Color(0xff42a5f5),
@@ -110,7 +124,6 @@ final categories = [
       'Shampoo': 'assets/hygiene_svgs/shampoo.svg',
       'Diapers': 'assets/hygiene_svgs/diaper.svg',
       'Laundry Soap': 'assets/hygiene_svgs/laundry_detergent.svg',
-
     },
     'description': ''
 //        'Hygiene is a very important part of a person\'s day. Staying clean is one way to brighten someone\'s day!'

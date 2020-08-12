@@ -46,7 +46,6 @@ class _DeliveryInformationPageState extends State<DeliveryInformationPage> {
                         height: 5,
                       ),
                       Container(
-                        //THIS IS THE LINE
                         height: 5,
                         width: 100,
                         decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
@@ -71,10 +70,7 @@ class _DeliveryInformationPageState extends State<DeliveryInformationPage> {
                               if (widget.donation.items[index].specificDescription != null)
                                 Text(
                                   widget.donation.items[index].specificDescription,
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.grey
-                                  ),
+                                  style: TextStyle(fontSize: 14, color: Colors.grey),
                                 ),
                               //TODO: Units
                             ],
@@ -83,7 +79,6 @@ class _DeliveryInformationPageState extends State<DeliveryInformationPage> {
                       ),
                       SizedBox(height: 5),
                       Container(
-                        //THIS IS THE LINE
                         height: 3,
                         decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(20)),
                       ),
@@ -144,10 +139,12 @@ class _DeliveryInformationPageState extends State<DeliveryInformationPage> {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: ColoredButton(onPressed: () {
+                  child: ColoredButton(
+                    onPressed: () {
 //TODO: Add option for organization to cancel order
-                  }, text: 'Cancel Order',
-color: purpleAccent,
+                    },
+                    text: 'Cancel Order',
+                    color: purpleAccent,
                     textColor: Colors.white,
                   ),
                 )

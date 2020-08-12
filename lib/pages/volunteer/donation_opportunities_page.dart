@@ -50,14 +50,17 @@ class _DonationOpportunitiesState extends State<DonationOpportunities> {
               stream: db.collection('organizations').snapshots(),
               builder: (context, snapshot) {
                 if (!snapshot.hasData || Provider.of<UserPosition>(context).position == null) {
-                  return Center(child: CircularProgressIndicator());
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
                 }
                 List<Widget> widgets = [];
                 for (DocumentSnapshot organizationSnapshot in snapshot.data.documents) {
                   if (organizationSnapshot['itemCategories'] != null) {
-                    Organization organization =
-                        Organization.fromFirestoreMap(context: context, organizationSnapshot: organizationSnapshot, isVolunteer: true);
-                    widgets.add(OrganizationDonationProfile(organization: organization));
+                    Organization organization = Organization.fromFirestoreMap(context: context, organizationSnapshot: organizationSnapshot, isVolunteer: true);
+                    widgets.add(
+                      OrganizationDonationProfile(organization: organization),
+                    );
                   }
                 }
                 widgets.sort((a, b) {

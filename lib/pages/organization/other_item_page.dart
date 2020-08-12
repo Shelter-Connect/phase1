@@ -118,14 +118,17 @@ class _OtherItemPageState extends State<OtherItemPage> {
                       context: context,
                       builder: (_) => SingleActionAlert(
                         title: 'Confirm your request?',
-                        subtitle:
-                            'Make sure you are requesting the correct item and number of items. Requests can be edited in the \'Expected Deliveries\' tab.',
+                        subtitle: 'Make sure you are requesting the correct item and number of items. Requests can be edited in the \'Expected Deliveries\' tab.',
                         actionName: 'Create Request',
                         action: () {
-                          //Navigator.popUntil(context, ModalRoute.withName('/organization_navigation'));
                           FirestoreHelper.updateRequests(
-                              context: context,
-                              items: [Item(name: itemName, amount: amount, specificDescription: specificDescription, category: widget.itemCategory)]);
+                            context: context,
+                            items: [
+                              Item(name: itemName, amount: amount, specificDescription: specificDescription, category: widget.itemCategory),
+                            ],
+                          );
+                          Navigator.pop(context);
+                          Navigator.pop(context);
                         },
                       ),
                     );

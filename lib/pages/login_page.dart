@@ -56,7 +56,6 @@ class _LoginPageState extends State<LoginPage> {
                       setState(() {
                         loading = true;
                       });
-
                       try {
                         await auth.signInWithEmailAndPassword(email: email, password: password);
 

@@ -29,7 +29,9 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
           brightness: Brightness.light,
           title: Text(
             _pages[_selectedIndex].title,
-            style: TextStyle(color: Color(0xFFF5F5F5)),
+            style: TextStyle(
+              color: Color(0xFFF5F5F5),
+            ),
           ),
           backgroundColor: Color(0xFFF5F5F5),
           elevation: 0.0,
@@ -79,7 +81,8 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
                     ),
                     ..._pages
                         .asMap()
-                        .map((index, tab) => MapEntry(
+                        .map(
+                          (index, tab) => MapEntry(
                             index,
                             ListTile(
                                 title: Text(tab.title),
@@ -89,7 +92,9 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
                                     _selectedIndex = index;
                                   });
                                   Navigator.pop(context);
-                                })))
+                                }),
+                          ),
+                        )
                         .values
                         .toList(),
                   ],
@@ -132,11 +137,13 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text('Help', style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold, color: purpleAccent)),
-                  IconButton(
-                    iconSize: 30,
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },icon: Icon(Icons.help, color: purpleAccent),),
+                      IconButton(
+                        iconSize: 30,
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: Icon(Icons.help, color: purpleAccent),
+                      ),
                     ],
                   ),
                 ),
@@ -146,8 +153,7 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
                     InkWell(
-                        child: new Text('Report Issues', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 17)),
-                        onTap: () => launch('https://forms.gle/ue5idWtztcgevh9Q7')),
+                        child: new Text('Report Issues', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 17)), onTap: () => launch('https://forms.gle/ue5idWtztcgevh9Q7')),
                     IconButton(
                       iconSize: 30,
                       onPressed: () {

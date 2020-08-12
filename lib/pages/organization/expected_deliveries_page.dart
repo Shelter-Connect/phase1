@@ -58,10 +58,14 @@ class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
                 }
                 List<Widget> widgets = [];
                 for (DocumentSnapshot document in snapshot.data.documents) {
-                  widgets.add(ExpectedDeliveryContainer(
-                    donation: Donation.fromFirestoreMap(document),
-                  ));
-                  widgets.add(SizedBox(height: 20.0));
+                  widgets.add(
+                    ExpectedDeliveryContainer(
+                      donation: Donation.fromFirestoreMap(document),
+                    ),
+                  );
+                  widgets.add(
+                    SizedBox(height: 20.0),
+                  );
                 }
                 return Column(
                   children: widgets,
