@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' hide TextDirection;
 import 'package:phase1/constants.dart';
@@ -61,22 +62,25 @@ class ExpectedDeliveryContainer extends StatelessWidget {
                   padding: const EdgeInsets.all(10.0),
                   itemCount: donation.items.length,
                   itemBuilder: (context, index) {
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Column(
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(donation.items[index].name, style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400)),
-                            if (donation.items[index].specificDescription != null)
-                              Text(
-                                donation.items[index].specificDescription,
-                                style: TextStyle(
-                                  fontSize: 17,
-                                ),
-                              ),
+
+                            Text('${donation.items[index].amount.toString()} ${donation.items[index].unit ?? ''}', style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400))
                           ],
                         ),
-                        Text(donation.items[index].amount.toString(), style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400))
+                        if (donation.items[index].specificDescription != null)
+                          Text(
+                            donation.items[index].specificDescription,
+                            style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.grey
+                            ),
+                          ),
                       ],
                     );
                   },

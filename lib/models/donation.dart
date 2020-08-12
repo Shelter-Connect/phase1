@@ -32,6 +32,7 @@ class Donation {
               amount: item['amount'],
               specificDescription: item['specificDescription'],
               category: item['category'],
+      unit: item['unit'],
             ))
         .toList()
         .cast<Item>();

@@ -150,7 +150,8 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                                                 onChanged: (val) {
                                                   Item currentItem = item.clone();
                                                  currentItem.amount = val;
-                                                 donation.items.removeWhere((prevItem) => prevItem.name == currentItem.name && prevItem.category == currentItem.category);
+                                                 //TODO: Make an equals method for items
+                                                 donation.items.removeWhere((prevItem) => prevItem.name == currentItem.name && prevItem.category == currentItem.category && prevItem.specificDescription == currentItem.specificDescription && prevItem.unit == currentItem.unit);
                                                 if (currentItem.amount != 0) donation.items.add(currentItem);
                                               },
                                               ),

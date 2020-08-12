@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:phase1/constants.dart';
 import 'package:phase1/models/item.dart';
 
-import 'increment.dart';
-
 class RequestContainer extends StatelessWidget {
   final List<Item> items;
   final String deliveryId;
@@ -53,7 +51,7 @@ class RequestContainer extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            '${items[index].name} - ${items[index].amount.toString()} ${items[index].unit ?? ' '}'.trim(),
+                            '${items[index].name} - ${items[index].amount.toString()} ${items[index].unit ?? ''}'.trim(),
                             style: TextStyle(
                               fontSize: 17,
                             ),

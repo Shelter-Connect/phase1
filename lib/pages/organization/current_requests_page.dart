@@ -86,6 +86,7 @@ class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
                       category: document['category'],
                       amount: document['amount'],
                       specificDescription: document['specificDescription'],
+                      unit: document['unit'],
                     ));
                   }
 
