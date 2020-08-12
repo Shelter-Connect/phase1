@@ -38,7 +38,7 @@ dependencies:
   holding_gesture: ^0.0.3
   carousel_slider: ^2.2.1
   dots_indicator: ^1.2.0
-  url_launcher: ^5.5.0
+  url_launcher: ^5.0.5
   flutter_launcher_icons: ^0.7.5
   intl: ^0.16.1
 
@@ -57,8 +57,8 @@ dev_dependencies:
     sdk: flutter
 
 #TODO: DELETE OVERRIDE WHEN FLUTTER RELEASES FiX
-dependency_overrides:
-  flutter_svg: 0.18.0
+#dependency_overrides:
+#  flutter_svg: 0.18.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

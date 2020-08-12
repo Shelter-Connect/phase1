@@ -59,19 +59,16 @@ class ChooseItemPage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
+                      SizedBox(height: 10),
                       Row(
                         children: <Widget>[
-                          CategoryIconButton(
-                            name: categoryName,
-                            asset: categoryIcon,
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                          ),
+                          SizedBox(width: 20),
+                          Text(categoryName, style: headerStyle),
                           SizedBox(width: 5),
                           CategoryDescriptionContainer(info: categoryInfo),
                         ],
                       ),
+                      SizedBox(height: 10),
                       Wrap(
                         children: <Widget>[
                           ...items

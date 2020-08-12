@@ -145,7 +145,7 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                                               ),
                                               ItemIncrementWithText(
                                                 itemName: item.name,
-                                                initialQuantity: item.amount,
+                                                initialQuantity: 0,
                                                 maxQuantity: item.amount,
                                                 onChanged: (val) {
                                                   Item currentItem = item.clone();
