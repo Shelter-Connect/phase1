@@ -74,7 +74,10 @@ class _EditDeliveryPageState extends State<EditDeliveryPage> {
                             Container(
                               height: 5,
                               width: 100,
-                              decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
+                              decoration: BoxDecoration(
+                                color: purpleAccent,
+                                borderRadius: BorderRadius.circular(21),
+                              ),
                             ),
                             SizedBox(
                               height: 5,
@@ -105,7 +108,9 @@ class _EditDeliveryPageState extends State<EditDeliveryPage> {
                                         ),
                                       ],
                                     ),
-                                    SizedBox(height: 5,)
+                                    SizedBox(
+                                      height: 5,
+                                    )
                                   ],
                                 );
                               },
@@ -122,7 +127,7 @@ class _EditDeliveryPageState extends State<EditDeliveryPage> {
                   title: 'Confirm Edit',
                   textColor: Colors.white,
                   onPressed: () {
-                    setState(() {});//TODO: Make Edit Functionality
+                    setState(() {}); //TODO: Make Edit Functionality
                   },
                 )
               ],
@@ -176,61 +181,73 @@ class OrganizationInformation extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     RichText(
-                      text: TextSpan(children: <TextSpan>[
-                        TextSpan(
+                      text: TextSpan(
+                        children: <TextSpan>[
+                          TextSpan(
                             text: 'Email Address: ',
                             style: TextStyle(
                               fontSize: 17,
                               fontWeight: FontWeight.w400,
                               color: Colors.black,
-                            )),
-                        TextSpan(
+                            ),
+                          ),
+                          TextSpan(
                             text: orgEmail,
                             style: TextStyle(
                               fontSize: 17,
                               fontWeight: FontWeight.w600,
                               color: Colors.black,
-                            ))
-                      ]),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                     SizedBox(
                       height: 5,
                     ),
                     RichText(
-                      text: TextSpan(children: <TextSpan>[
-                        TextSpan(
+                      text: TextSpan(
+                        children: <TextSpan>[
+                          TextSpan(
                             text: 'Donation Location: ',
                             style: TextStyle(
                               fontSize: 17,
                               fontWeight: FontWeight.w400,
                               color: Colors.black,
-                            )),
-                        TextSpan(
+                            ),
+                          ),
+                          TextSpan(
                             text: orgAddress,
                             style: TextStyle(
                               fontSize: 17,
                               fontWeight: FontWeight.w600,
                               color: Colors.black,
-                            ))
-                      ]),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                     RichText(
-                      text: TextSpan(children: <TextSpan>[
-                        TextSpan(
+                      text: TextSpan(
+                        children: <TextSpan>[
+                          TextSpan(
                             text: 'Deliver By: ',
                             style: TextStyle(
                               fontSize: 17,
                               fontWeight: FontWeight.w400,
                               color: Colors.black,
-                            )),
-                        TextSpan(
+                            ),
+                          ),
+                          TextSpan(
                             text: '${DateFormat('MMMMd').format(dateTime)}',
                             style: TextStyle(
                               fontSize: 17,
                               fontWeight: FontWeight.w600,
                               color: Colors.black,
-                            ))
-                      ]),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                     SizedBox(height: 5)
                   ],

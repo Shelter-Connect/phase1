@@ -13,16 +13,9 @@ class RequestContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialButton(
+    return Material(
       elevation: 5,
-      minWidth: MediaQuery.of(context).size.width,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => EditCurrentRequestsPage()),
-        );
-      },
       child: Container(
         decoration: elevatedBoxStyle,
         child: Padding(
@@ -41,7 +34,6 @@ class RequestContainer extends StatelessWidget {
                   height: 5,
                 ),
                 Container(
-                  //THIS IS THE LINE
                   height: 5,
                   width: 100,
                   decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),

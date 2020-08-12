@@ -97,22 +97,21 @@ class OrganizationDonationProfile extends StatelessWidget {
                 spacing: 5.0,
                 runSpacing: 5.0,
                 children: organization.itemCategories
-                    .map((category) => Container(
-                          decoration: BoxDecoration(
-                            color: whiteBackground,
-                            borderRadius: BorderRadius.circular(21),
+                    .map(
+                      (category) => Container(
+                        decoration: BoxDecoration(
+                          color: whiteBackground,
+                          borderRadius: BorderRadius.circular(21),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                          child: Text(
+                            category,
+                            style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w700),
                           ),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-                            child: Text(
-                              category,
-                              style: TextStyle(
-                                color: Colors.blue,
-                                fontWeight: FontWeight.w700
-                              ),
-                            ),
-                          ),
-                        ))
+                        ),
+                      ),
+                    )
                     .toList(),
               ),
             ],

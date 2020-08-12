@@ -27,12 +27,11 @@ class CurrentDeliveriesPage extends StatefulWidget with NavigationTab {
 }
 
 class _CurrentDeliveriesPageState extends State<CurrentDeliveriesPage> {
-
   @override
   void initState() {
     LocationHelper.getUserPosition().then((position) {
       setState(() {
-        Provider.of<UserPosition>(context, listen:false).position = position;
+        Provider.of<UserPosition>(context, listen: false).position = position;
       });
     });
     super.initState();
@@ -47,48 +46,53 @@ class _CurrentDeliveriesPageState extends State<CurrentDeliveriesPage> {
 
     return Scaffold(
       backgroundColor: Color(0xFFF5F5F5),
-      body: Provider.of<UserPosition>(context).position == null ? Center(
-        child: CircularProgressIndicator(),
-      ) : SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                'Items to Deliver',
-                style: mainTitleStyle,
+      body: Provider.of<UserPosition>(context).position == null
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      'Items to Deliver',
+                      style: mainTitleStyle,
+                    ),
+                    SizedBox(height: 20),
+                    StreamBuilder(
+                      stream: FirestoreHelper.getCurrentVolunteerReference(context).collection('currentDonations').orderBy('date').snapshots(),
+                      builder: (context, snapshot) {
+                        if (!snapshot.hasData) {
+                          return Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                        List<Widget> widgets = [];
+                        Position userPosition = Provider.of<UserPosition>(context, listen: false).position;
+                        for (DocumentSnapshot donationSnapshot in snapshot.data.documents) {
+                          Donation donation = Donation.fromFirestoreMap(donationSnapshot);
+                          widgets.add(
+                            DeliveriesContainer(donation: donation),
+                          );
+                        }
+                        for (int i = 1; i < widgets.length; i++) {
+                          widgets.insert(
+                            i++,
+                            SizedBox(height: 16.0),
+                          );
+                        }
+                        return Column(
+                          children: widgets,
+                        );
+                      },
+                    ),
+                    SizedBox(height: 20),
+                  ],
+                ),
               ),
-              SizedBox(height: 20),
-              StreamBuilder(
-                stream: FirestoreHelper.getCurrentVolunteerReference(context).collection('currentDonations').orderBy('date').snapshots(),
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
-                    return Center(child: CircularProgressIndicator());
-                  }
-                  List<Widget> widgets = [];
-                  Position userPosition = Provider.of<UserPosition>(context, listen:false).position;
-                  for (DocumentSnapshot donationSnapshot in snapshot.data.documents) {
-                    Donation donation = Donation.fromFirestoreMap(donationSnapshot);
-                    widgets.add(DeliveriesContainer(donation: donation));
-                  }
-                  for (int i = 1; i < widgets.length; i++) {
-                    widgets.insert(
-                      i++,
-                      SizedBox(height: 16.0),
-                    );
-                  }
-                  return Column(
-                    children: widgets,
-                  );
-                }
-              ),
-              SizedBox(height: 20),
-
-            ],
-          ),
-        ),
-      ),
+            ),
     );
   }
 }

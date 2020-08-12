@@ -26,8 +26,7 @@ class _OrganizationPreviewPageState extends State<OrganizationPreviewPage> {
       for (DocumentSnapshot document in documents.documents) {
         if (widget.organization.requestedItems[document['category']] == null) widget.organization.requestedItems[document['category']] = [];
         setState(() {
-          widget.organization.requestedItems[document['category']]
-              .add(Item(name: document['name'], amount: document['amount'], category: document['category']));
+          widget.organization.requestedItems[document['category']].add(Item(name: document['name'], amount: document['amount'], category: document['category']));
         });
       }
       setState(() {
@@ -92,7 +91,10 @@ class _OrganizationPreviewPageState extends State<OrganizationPreviewPage> {
                                   Container(
                                     height: 5,
                                     width: 100,
-                                    decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
+                                    decoration: BoxDecoration(
+                                      color: purpleAccent,
+                                      borderRadius: BorderRadius.circular(21),
+                                    ),
                                   ),
                                   SizedBox(
                                     height: 10,
@@ -109,21 +111,25 @@ class _OrganizationPreviewPageState extends State<OrganizationPreviewPage> {
                                   ),
                                   if (widget.organization.address != null)
                                     RichText(
-                                      text: TextSpan(children: <TextSpan>[
-                                        TextSpan(
+                                      text: TextSpan(
+                                        children: <TextSpan>[
+                                          TextSpan(
                                             text: 'Address: ',
                                             style: TextStyle(
                                               fontSize: 17,
                                               color: colorScheme.onBackground,
-                                            )),
-                                        TextSpan(
+                                            ),
+                                          ),
+                                          TextSpan(
                                             text: widget.organization.address,
                                             style: TextStyle(
                                               fontSize: 17,
                                               fontWeight: FontWeight.w600,
                                               color: colorScheme.onBackground,
-                                            ))
-                                      ]),
+                                            ),
+                                          )
+                                        ],
+                                      ),
                                     ),
                                   if (widget.organization.address != null)
                                     SizedBox(
@@ -131,21 +137,25 @@ class _OrganizationPreviewPageState extends State<OrganizationPreviewPage> {
                                     ),
                                   if (widget.organization.website != null)
                                     RichText(
-                                      text: TextSpan(children: <TextSpan>[
-                                        TextSpan(
+                                      text: TextSpan(
+                                        children: <TextSpan>[
+                                          TextSpan(
                                             text: 'Website: ',
                                             style: TextStyle(
                                               fontSize: 17,
                                               color: colorScheme.onBackground,
-                                            )),
-                                        TextSpan(
+                                            ),
+                                          ),
+                                          TextSpan(
                                             text: widget.organization.website,
                                             style: TextStyle(
                                               fontSize: 17,
                                               fontWeight: FontWeight.w600,
                                               color: colorScheme.onBackground,
-                                            ))
-                                      ]),
+                                            ),
+                                          )
+                                        ],
+                                      ),
                                     ),
                                   if (widget.organization.website != null)
                                     SizedBox(
@@ -153,21 +163,25 @@ class _OrganizationPreviewPageState extends State<OrganizationPreviewPage> {
                                     ),
                                   if (widget.organization.number != null)
                                     RichText(
-                                      text: TextSpan(children: <TextSpan>[
-                                        TextSpan(
+                                      text: TextSpan(
+                                        children: <TextSpan>[
+                                          TextSpan(
                                             text: 'Phone Number: ',
                                             style: TextStyle(
                                               fontSize: 17,
                                               color: colorScheme.onBackground,
-                                            )),
-                                        TextSpan(
+                                            ),
+                                          ),
+                                          TextSpan(
                                             text: widget.organization.number,
                                             style: TextStyle(
                                               fontSize: 17,
                                               fontWeight: FontWeight.w600,
                                               color: colorScheme.onBackground,
-                                            ))
-                                      ]),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   if (widget.organization.number != null)
                                     SizedBox(
@@ -175,21 +189,25 @@ class _OrganizationPreviewPageState extends State<OrganizationPreviewPage> {
                                     ),
                                   if (widget.organization.email != null)
                                     RichText(
-                                      text: TextSpan(children: <TextSpan>[
-                                        TextSpan(
+                                      text: TextSpan(
+                                        children: <TextSpan>[
+                                          TextSpan(
                                             text: 'Email: ',
                                             style: TextStyle(
                                               fontSize: 17,
                                               color: colorScheme.onBackground,
-                                            )),
-                                        TextSpan(
+                                            ),
+                                          ),
+                                          TextSpan(
                                             text: widget.organization.email,
                                             style: TextStyle(
                                               fontSize: 17,
                                               fontWeight: FontWeight.w600,
                                               color: colorScheme.onBackground,
-                                            ))
-                                      ]),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   SizedBox(
                                     height: 10,
@@ -225,7 +243,10 @@ class _OrganizationPreviewPageState extends State<OrganizationPreviewPage> {
                                   Container(
                                     height: 5,
                                     width: 100,
-                                    decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
+                                    decoration: BoxDecoration(
+                                      color: purpleAccent,
+                                      borderRadius: BorderRadius.circular(21),
+                                    ),
                                   ),
                                   Column(
                                     children: widget.organization.requestedItems
@@ -266,7 +287,10 @@ class _OrganizationPreviewPageState extends State<OrganizationPreviewPage> {
                                                                         fontWeight: FontWeight.w400,
                                                                       ),
                                                                     ),
-                                                                    Text('description; in Unit', style: TextStyle(color: Colors.grey)),
+                                                                    Text(
+                                                                      'description; in Unit',
+                                                                      style: TextStyle(color: Colors.grey),
+                                                                    ),
                                                                   ],
                                                                 ),
                                                                 Text(

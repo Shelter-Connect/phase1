@@ -88,7 +88,8 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
               ),
               SizedBox(height: 20),
               ...widget.organization.requestedItems
-                  .map((category, categoryItems) => MapEntry(
+                  .map(
+                    (category, categoryItems) => MapEntry(
                       category,
                       Column(
                         children: [
@@ -120,7 +121,10 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                                   Container(
                                     height: 5,
                                     width: 50,
-                                    decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
+                                    decoration: BoxDecoration(
+                                      color: purpleAccent,
+                                      borderRadius: BorderRadius.circular(21),
+                                    ),
                                   ),
                                   SizedBox(
                                     height: 10,
@@ -156,11 +160,15 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                                                       maxQuantity: item.amount,
                                                       onChanged: (val) {
                                                         Item currentItem = item.clone();
-                                                       currentItem.amount = val;
-                                                       //TODO: Make an equals method for items
-                                                       donation.items.removeWhere((prevItem) => prevItem.name == currentItem.name && prevItem.category == currentItem.category && prevItem.specificDescription == currentItem.specificDescription && prevItem.unit == currentItem.unit);
-                                                      if (currentItem.amount != 0) donation.items.add(currentItem);
-                                                    },
+                                                        currentItem.amount = val;
+                                                        //TODO: Make an equals method for items
+                                                        donation.items.removeWhere((prevItem) =>
+                                                            prevItem.name == currentItem.name &&
+                                                            prevItem.category == currentItem.category &&
+                                                            prevItem.specificDescription == currentItem.specificDescription &&
+                                                            prevItem.unit == currentItem.unit);
+                                                        if (currentItem.amount != 0) donation.items.add(currentItem);
+                                                      },
                                                     ),
                                                     SizedBox(height: 10.0),
                                                   ],
@@ -168,10 +176,7 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                                                 if (item.specificDescription != null)
                                                   Text(
                                                     item.specificDescription,
-                                                    style: TextStyle(
-                                                        fontSize: 14,
-                                                        color: Colors.grey
-                                                    ),
+                                                    style: TextStyle(fontSize: 14, color: Colors.grey),
                                                   ),
                                               ],
                                             ),
@@ -186,7 +191,9 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                           ),
                           SizedBox(height: 10.0),
                         ],
-                      )))
+                      ),
+                    ),
+                  )
                   .values
                   .toList(),
               SizedBox(height: 10),
@@ -195,16 +202,27 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                 child: FlatButton(
                   onPressed: () {
                     if (donation.items.length == 0) {
-                      showDialog(context: context, builder: (_) => NoActionAlert(title: 'Please select at least one item to donate'));
+                      showDialog(
+                        context: context,
+                        builder: (_) => NoActionAlert(title: 'Please select at least one item to donate'),
+                      );
                     } else if (donation.date == null) {
-                      showDialog(context: context, builder: (_) => NoActionAlert(title: 'Please enter the expected delivery date of the donation'));
+                      showDialog(
+                        context: context,
+                        builder: (_) => NoActionAlert(title: 'Please enter the expected delivery date of the donation'),
+                      );
                     } else if (donation.date.isBefore(today)) {
                       print(donation.date);
-                      showDialog(context: context, builder: (_) => NoActionAlert(title: 'The expected delivery date cannot be before today'));
+                      showDialog(
+                        context: context,
+                        builder: (_) => NoActionAlert(title: 'The expected delivery date cannot be before today'),
+                      );
                     } else {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => DonationConfirmationPage(widget.organization, donation)),
+                        MaterialPageRoute(
+                          builder: (context) => DonationConfirmationPage(widget.organization, donation),
+                        ),
                       );
                     }
                   },

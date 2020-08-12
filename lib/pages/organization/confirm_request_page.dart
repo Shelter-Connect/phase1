@@ -34,8 +34,7 @@ class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
   Widget build(BuildContext context) {
     return SecondaryLayout(
       title: '',
-      helpText:
-          'To create your request, enter the amount of items you need. You can also enter extra descriptions to get a specific type of item, or units for the item.',
+      helpText: 'To create your request, enter the amount of items you need. You can also enter extra descriptions to get a specific type of item, or units for the item.',
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
@@ -124,23 +123,13 @@ class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
                     context: context,
                     builder: (_) => SingleActionAlert(
                       title: 'Confirm your request?',
-                      subtitle:
-                          'Make sure you are requesting the correct item and number of items. Requests can be edited in the \'Expected Deliveries\' tab.',
+                      subtitle: 'Make sure you are requesting the correct item and number of items. Requests can be edited in the \'Expected Deliveries\' tab.',
                       actionName: 'Create Request',
                       action: () {
-                        FirestoreHelper.updateRequests(context: context, items: [
-                          Item(
-                              name: widget.itemName,
-                              amount: amount,
-                              specificDescription: specificDescription,
-                              unit: itemUnit,
-                              category: widget.itemCategory)
-                        ]);
-//                        Scaffold.of(context).showSnackBar(
-//                          SnackBar(
-//                            content: Text('Your order has been processed!'),
-//                          ),
-//                        );
+                        FirestoreHelper.updateRequests(
+                          context: context,
+                          items: [Item(name: widget.itemName, amount: amount, specificDescription: specificDescription, unit: itemUnit, category: widget.itemCategory)],
+                        );
                         Navigator.pop(context);
                         Navigator.pop(context);
                       },

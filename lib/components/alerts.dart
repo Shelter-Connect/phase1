@@ -50,14 +50,15 @@ class SingleActionAlert extends StatelessWidget {
           },
         ),
         FlatButton(
-            child: Text(
-              actionName.toUpperCase(),
-              style: TextStyle(color: colorScheme.secondary),
-            ),
-            onPressed: () {
-              Navigator.pop(context);
-              action();
-            })
+          child: Text(
+            actionName.toUpperCase(),
+            style: TextStyle(color: colorScheme.secondary),
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+            action();
+          },
+        )
       ],
     );
   }

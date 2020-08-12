@@ -27,13 +27,15 @@ class Donation {
     donationId = donationSnapshot.documentID;
     date = donationSnapshot['date'].toDate();
     items = donationSnapshot['items']
-        .map((item) => Item(
-              name: item['name'],
-              amount: item['amount'],
-              specificDescription: item['specificDescription'],
-              category: item['category'],
-      unit: item['unit'],
-            ))
+        .map(
+          (item) => Item(
+            name: item['name'],
+            amount: item['amount'],
+            specificDescription: item['specificDescription'],
+            category: item['category'],
+            unit: item['unit'],
+          ),
+        )
         .toList()
         .cast<Item>();
     organization = Organization(

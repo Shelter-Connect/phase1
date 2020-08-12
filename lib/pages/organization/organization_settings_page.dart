@@ -202,12 +202,16 @@ class OrganizationInfo extends StatelessWidget {
                 onTap: () async {
                   bool updated = await Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => OrganizationEditInfoPage(organization)),
+                    MaterialPageRoute(
+                      builder: (context) => OrganizationEditInfoPage(organization),
+                    ),
                   );
                   if (updated) {
-                    Scaffold.of(context).showSnackBar(SnackBar(
-                      content: Text('Your organization information has been updated.'),
-                    ));
+                    Scaffold.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Your organization information has been updated.'),
+                      ),
+                    );
                   }
                 },
                 child: Container(
@@ -299,7 +303,12 @@ class DemoProfileButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return FlatButton(
       onPressed: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => OrganizationPreviewPage(organization)));
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => OrganizationPreviewPage(organization),
+          ),
+        );
       },
       child: Container(
         height: 45.0,

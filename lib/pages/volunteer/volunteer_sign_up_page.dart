@@ -85,7 +85,8 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
                   SizedBox(height: 30),
                   RoundedButton(
                     color: purpleAccent,
-                    title: 'Sign Up', textColor: Colors.white,
+                    title: 'Sign Up',
+                    textColor: Colors.white,
                     onPressed: () async {
                       if (password != password2) {
                         showDialog(
@@ -107,11 +108,13 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
                             loading = false;
                           });
                           if (newUser != null) {
-                            db.collection('volunteers').document(newUser.user.uid).setData({
-                              'email': email,
-                              'firstName': firstName,
-                              'lastName': lastName,
-                            });
+                            db.collection('volunteers').document(newUser.user.uid).setData(
+                              {
+                                'email': email,
+                                'firstName': firstName,
+                                'lastName': lastName,
+                              },
+                            );
                             newUser.user.sendEmailVerification();
                           }
                           FocusScope.of(context).unfocus();
@@ -130,7 +133,8 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
                   Padding(
                     padding: const EdgeInsets.only(left: 5.0),
                     child: TextButton(
-                      text: 'Not a Volunteer?', textColor: Colors.blueAccent,
+                      text: 'Not a Volunteer?',
+                      textColor: Colors.blueAccent,
                       onPressed: () {
                         Navigator.pop(context);
                       },

@@ -6,6 +6,7 @@ import 'package:phase1/models/item.dart';
 import 'package:phase1/services/firestore_helper.dart';
 import '../navigation_tab.dart';
 import 'create_request_page.dart';
+import 'edit_current_requests_page.dart';
 
 class CurrentRequestsPage extends StatefulWidget with NavigationTab {
   @override
@@ -38,12 +39,43 @@ class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
                 'Current Requests',
                 style: mainTitleStyle,
               ),
+          FlatButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => EditCurrentRequestsPage()),
+                  );
+                },
+                color: purpleAccent,
+                padding: EdgeInsets.all(8.0),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Wrap(
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: Icon(
+                          Icons.edit,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Text('Edit', style: TextStyle(fontSize: 17, color: Colors.white))
+                    ],
+                  ),
+                ),
+              ),
               SizedBox(height: 20),
               StreamBuilder(
                 stream: FirestoreHelper.getCurrentOrganizationReference(context).collection('requests').snapshots(),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
-                    return Center(child: CircularProgressIndicator());
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
                   }
 
                   Map<String, List<Item>> itemCategories = {};
@@ -51,21 +83,25 @@ class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
                     if (!itemCategories.containsKey(document['category'])) {
                       itemCategories[document['category']] = [];
                     }
-                    itemCategories[document['category']].add(Item(
-                      name: document['name'],
-                      category: document['category'],
-                      amount: document['amount'],
-                      specificDescription: document['specificDescription'],
-                      unit: document['unit'],
-                    ));
+                    itemCategories[document['category']].add(
+                      Item(
+                        name: document['name'],
+                        category: document['category'],
+                        amount: document['amount'],
+                        specificDescription: document['specificDescription'],
+                        unit: document['unit'],
+                      ),
+                    );
                   }
 
                   List<Widget> requestContainers = [];
                   for (String category in itemCategories.keys) {
-                    requestContainers.add(RequestContainer(
-                      items: itemCategories[category],
-                      category: category,
-                    ));
+                    requestContainers.add(
+                      RequestContainer(
+                        items: itemCategories[category],
+                        category: category,
+                      ),
+                    );
                   }
                   return Column(
                     children: requestContainers,
