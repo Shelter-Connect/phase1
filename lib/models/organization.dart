@@ -46,7 +46,7 @@ class Organization {
     id = organizationSnapshot.documentID;
     description = organizationSnapshot['description'];
     name = organizationSnapshot['name'];
-    itemCategories = organizationSnapshot['itemCategories'].cast<String>();
+    itemCategories = organizationSnapshot['itemCategories']?.cast<String>();
 
     Map<String, List<Item>> items = {};
 
