@@ -6,6 +6,7 @@ import 'package:phase1/models/item.dart';
 import 'package:phase1/services/firestore_helper.dart';
 import '../navigation_tab.dart';
 import 'create_request_page.dart';
+import 'edit_current_requests_page.dart';
 
 class CurrentRequestsPage extends StatefulWidget with NavigationTab {
   @override
@@ -37,6 +38,35 @@ class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
               Text(
                 'Current Requests',
                 style: mainTitleStyle,
+              ),
+          FlatButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => EditCurrentRequestsPage()),
+                  );
+                },
+                color: purpleAccent,
+                padding: EdgeInsets.all(8.0),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Wrap(
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: Icon(
+                          Icons.edit,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Text('Edit', style: TextStyle(fontSize: 17, color: Colors.white))
+                    ],
+                  ),
+                ),
               ),
               SizedBox(height: 20),
               StreamBuilder(
