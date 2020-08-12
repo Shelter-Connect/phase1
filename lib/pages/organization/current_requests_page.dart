@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:phase1/components/requests_container.dart';
 import 'package:phase1/constants.dart';
 import 'package:phase1/models/item.dart';
-import 'package:phase1/pages/organization/edit_current_requests_page.dart';
 import 'package:phase1/services/firestore_helper.dart';
 import '../navigation_tab.dart';
 import 'create_request_page.dart';
@@ -39,35 +38,35 @@ class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
                 'Current Requests',
                 style: mainTitleStyle,
               ),
-              FlatButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => EditCurrentRequestsPage()),
-                  );
-                },
-                color: purpleAccent,
-                padding: EdgeInsets.all(8.0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30.0),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Wrap(
-                    crossAxisAlignment: WrapCrossAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 8.0),
-                        child: Icon(
-                          Icons.edit,
-                          color: Colors.white,
-                        ),
-                      ),
-                      Text('Edit', style: TextStyle(fontSize: 17, color: Colors.white))
-                    ],
-                  ),
-                ),
-              ),
+//              FlatButton(
+//                onPressed: () {
+//                  Navigator.push(
+//                    context,
+//                    MaterialPageRoute(builder: (context) => EditCurrentRequestsPage()),
+//                  );
+//                },
+//                color: purpleAccent,
+//                padding: EdgeInsets.all(8.0),
+//                shape: RoundedRectangleBorder(
+//                  borderRadius: BorderRadius.circular(30.0),
+//                ),
+//                child: Padding(
+//                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+//                  child: Wrap(
+//                    crossAxisAlignment: WrapCrossAlignment.center,
+//                    children: [
+//                      Padding(
+//                        padding: const EdgeInsets.only(right: 8.0),
+//                        child: Icon(
+//                          Icons.edit,
+//                          color: Colors.white,
+//                        ),
+//                      ),
+//                      Text('Edit', style: TextStyle(fontSize: 17, color: Colors.white))
+//                    ],
+//                  ),
+//                ),
+//              ),
               SizedBox(height: 20),
               StreamBuilder(
                 stream: FirestoreHelper.getCurrentOrganizationReference(context).collection('requests').snapshots(),
@@ -92,12 +91,9 @@ class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
 
                   List<Widget> requestContainers = [];
                   for (String category in itemCategories.keys) {
-                    requestContainers.add(Padding(
-                      padding: const EdgeInsets.only(bottom: 16.0),
-                      child: RequestContainer(
-                        items: itemCategories[category],
-                        category: category,
-                      ),
+                    requestContainers.add(RequestContainer(
+                      items: itemCategories[category],
+                      category: category,
                     ));
                   }
                   return Column(
