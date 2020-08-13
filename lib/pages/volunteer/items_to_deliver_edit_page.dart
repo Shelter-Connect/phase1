@@ -5,6 +5,7 @@ import 'package:phase1/components/increment.dart';
 import 'package:phase1/components/rounded_button.dart';
 import 'package:phase1/models/donation.dart';
 import 'package:phase1/models/organization.dart';
+import 'package:phase1/components/date_time_field.dart';
 
 import '../../components/standard_layout.dart';
 import '../../constants.dart';
@@ -45,6 +46,7 @@ class _EditDeliveryPageState extends State<EditDeliveryPage> {
                   orgEmail: widget.organization.email,
                   orgAddress: widget.organization.address,
                   dateTime: widget.donation.date,
+                  donation: widget.donation,
                 ),
                 SizedBox(height: 20),
                 Container(
@@ -93,15 +95,18 @@ class _EditDeliveryPageState extends State<EditDeliveryPage> {
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text(
-                                          '${widget.donation.items[index].name}',
-                                          style: TextStyle(
-                                            fontSize: 17.0,
-                                            fontWeight: FontWeight.w400,
+                                        Expanded(
+                                          child: Text(
+                                            '${widget.donation.items[index].name} x ${widget.donation.items[index].amount}',
+                                            style: TextStyle(
+                                              fontSize: 17.0,
+                                              fontWeight: FontWeight.w400,
+                                            ),
                                           ),
                                         ),
                                         ItemIncrementWithText(
                                           initialQuantity: widget.donation.items[index].amount,
+                                          maxQuantity: widget.donation.items[index].amount,
                                           onChanged: (val) {
                                             newDonation.items[index].amount = val;
                                           },
@@ -109,7 +114,7 @@ class _EditDeliveryPageState extends State<EditDeliveryPage> {
                                       ],
                                     ),
                                     SizedBox(
-                                      height: 5,
+                                      height: 10,
                                     )
                                   ],
                                 );
@@ -137,13 +142,19 @@ class _EditDeliveryPageState extends State<EditDeliveryPage> {
   }
 }
 
-class OrganizationInformation extends StatelessWidget {
+class OrganizationInformation extends StatefulWidget {
   final String orgEmail;
   final String orgAddress;
   final DateTime dateTime;
+  final Donation donation;
 
-  OrganizationInformation({@required this.orgEmail, @required this.orgAddress, @required this.dateTime});
+  OrganizationInformation({@required this.orgEmail, @required this.orgAddress, @required this.dateTime, this.donation});
 
+  @override
+  _OrganizationInformationState createState() => _OrganizationInformationState();
+}
+
+class _OrganizationInformationState extends State<OrganizationInformation> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -192,7 +203,7 @@ class OrganizationInformation extends StatelessWidget {
                             ),
                           ),
                           TextSpan(
-                            text: orgEmail,
+                            text: widget.orgEmail,
                             style: TextStyle(
                               fontSize: 17,
                               fontWeight: FontWeight.w600,
@@ -217,7 +228,7 @@ class OrganizationInformation extends StatelessWidget {
                             ),
                           ),
                           TextSpan(
-                            text: orgAddress,
+                            text: widget.orgAddress,
                             style: TextStyle(
                               fontSize: 17,
                               fontWeight: FontWeight.w600,
@@ -227,27 +238,15 @@ class OrganizationInformation extends StatelessWidget {
                         ],
                       ),
                     ),
-                    RichText(
-                      text: TextSpan(
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: 'Deliver By: ',
-                            style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.black,
-                            ),
-                          ),
-                          TextSpan(
-                            text: '${DateFormat('MMMMd').format(dateTime)}',
-                            style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ],
-                      ),
+                    BasicDateField(
+                      onChanged: (val) {
+                        setState(() {
+                         //TODO: change value to equal  widget.donation.date
+                          widget.donation.date = val;
+                        });
+                      },
+                      initialValue: widget.dateTime,
+                      labelText: 'Edit Date',
                     ),
                     SizedBox(height: 5)
                   ],
