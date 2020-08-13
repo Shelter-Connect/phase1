@@ -105,6 +105,7 @@ class _EditCurrentRequestsPageState extends State<EditCurrentRequestsPage> {
                                                       initialQuantity: itemCategories[category][index].amount,
                                                       onChanged: (val) {
                                                         Item currentItem = itemCategories[category][index].clone();
+                                                        currentItem.amount = val;
                                                         widget.items.removeWhere((prevItem) =>
                                                             prevItem.name == currentItem.name &&
                                                             prevItem.category == currentItem.category &&
@@ -150,7 +151,22 @@ class _EditCurrentRequestsPageState extends State<EditCurrentRequestsPage> {
                       RoundedButton(
                         title: 'Confirm Edit',
                         onPressed: () {
-                          FirestoreHelper.updateRequests(context: context, items: widget.items);
+                          List<Item> delta = List();
+                          for (Item newItem in widget.items) {
+                            for (String category in itemCategories.keys) {
+                              for (Item oldItem in itemCategories[category]) {
+                                if ((newItem.specificDescription == oldItem.specificDescription) &&
+                                    (newItem.name == oldItem.name) &&
+                                    (newItem.category == oldItem.category)) {
+                                  Item item = newItem.clone();
+                                  item.amount -= oldItem.amount;
+                                  delta.add(item);
+                                  break;
+                                }
+                              }
+                            }
+                          }
+                          FirestoreHelper.updateRequests(context: context, items: delta);
                         },
                         textColor: Colors.white,
                       )
