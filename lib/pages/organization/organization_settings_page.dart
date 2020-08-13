@@ -7,9 +7,10 @@ import 'package:phase1/pages/organization/organization_preview_page.dart';
 import 'package:phase1/services/firestore_helper.dart';
 
 import '../../constants.dart';
+import '../bottom_navigation_tab.dart';
 import '../navigation_tab.dart';
 
-class OrganizationSettingsPage extends StatefulWidget with NavigationTab {
+class OrganizationSettingsPage extends StatefulWidget with BottomNavigationTab {
   @override
   _OrganizationSettingsPageState createState() => _OrganizationSettingsPageState();
 
@@ -21,7 +22,12 @@ class OrganizationSettingsPage extends StatefulWidget with NavigationTab {
   IconData get icon => Icons.settings;
 
   @override
-  String get title => 'Account';
+  String get title => 'Settings';
+
+  @override
+  String get barTitle => 'Settings';
+
+
 }
 
 class _OrganizationSettingsPageState extends State<OrganizationSettingsPage> {
@@ -50,13 +56,6 @@ class _OrganizationSettingsPageState extends State<OrganizationSettingsPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
-                    child: Text(
-                      'Account Settings',
-                      style: TextStyle(fontSize: 35, fontWeight: FontWeight.w900, color: purpleAccent),
-                    ),
-                  ),
                   SizedBox(height: 20),
                   OrganizationInfo(organization: organization),
                   SizedBox(height: 20),

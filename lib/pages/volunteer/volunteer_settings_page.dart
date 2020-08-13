@@ -5,9 +5,10 @@ import 'package:provider/provider.dart';
 
 import '../../constants.dart';
 import '../../models/user.dart';
+import '../bottom_navigation_tab.dart';
 import '../navigation_tab.dart';
 
-class VolunteerSettingsPage extends StatefulWidget with NavigationTab {
+class VolunteerSettingsPage extends StatefulWidget with BottomNavigationTab {
   @override
   _VolunteerSettingsPageState createState() => _VolunteerSettingsPageState();
 
@@ -20,6 +21,11 @@ class VolunteerSettingsPage extends StatefulWidget with NavigationTab {
 
   @override
   String get title => 'Settings';
+
+  @override
+  String get barTitle => 'Settings';
+
+
 }
 
 class _VolunteerSettingsPageState extends State<VolunteerSettingsPage> {
@@ -33,7 +39,6 @@ class _VolunteerSettingsPageState extends State<VolunteerSettingsPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text('Account Settings', style: mainTitleStyle),
               SizedBox(height: 20),
               UserInfo(email: Provider.of<User>(context, listen: false).user.email, name: Provider.of<User>(context, listen: false).user.displayName),
               SizedBox(height: 20),

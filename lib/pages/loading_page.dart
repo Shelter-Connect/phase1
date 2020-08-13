@@ -22,7 +22,7 @@ class _LoadingPageState extends State<LoadingPage> {
               if (value.data != null) {
                 if (user.isEmailVerified) {
                   Navigator.pushNamed(context, '/welcome_updated');
-                  Navigator.pushNamed(context, '/volunteer_navigation');
+                  Navigator.pushNamed(context, '/volunteer_bottom_navigation');
                 } else {
                   Navigator.pushNamed(context, '/welcome_updated');
                   Navigator.pushNamed(context, '/volunteer_confirmation');
@@ -36,7 +36,7 @@ class _LoadingPageState extends State<LoadingPage> {
               if (value.data != null) {
                 if (value['verified']) {
                   Navigator.pushNamed(context, '/welcome_updated');
-                  Navigator.pushNamed(context, '/organization_navigation');
+                  Navigator.pushNamed(context, '/organization_bottom_navigation');
                 } else {
                   Navigator.pushNamed(context, '/welcome_updated');
                   Navigator.pushNamed(context, '/organization_confirmation');

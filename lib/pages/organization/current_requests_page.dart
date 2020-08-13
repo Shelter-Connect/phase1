@@ -6,11 +6,12 @@ import 'package:phase1/constants.dart';
 import 'package:phase1/models/item.dart';
 import 'package:phase1/services/firestore_helper.dart';
 
+import '../bottom_navigation_tab.dart';
 import '../navigation_tab.dart';
 import 'create_request_page.dart';
 import 'edit_current_requests_page.dart';
 
-class CurrentRequestsPage extends StatefulWidget with NavigationTab {
+class CurrentRequestsPage extends StatefulWidget with BottomNavigationTab {
   @override
   _CurrentRequestsPageState createState() => _CurrentRequestsPageState();
 
@@ -24,6 +25,9 @@ class CurrentRequestsPage extends StatefulWidget with NavigationTab {
 
   @override
   String get title => 'Requests';
+
+  @override
+  String get barTitle => 'Current Requests';
 }
 
 class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
@@ -38,10 +42,6 @@ class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
-                'Current Requests',
-                style: mainTitleStyle,
-              ),
               SizedBox(height: 10),
               FlatButton(
                 onPressed: () {
@@ -95,7 +95,17 @@ class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
                             fontSize: 15.0,
                           ),
                         ),
-                        SizedBox(height: 10),
+                        SizedBox(height: 40),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 4),
+                          child: Center(
+                            child: SvgPicture.asset('assets/ui_svgs/shopping.svg',
+                              semanticsLabel: 'Create an Item Request!',
+                              width: MediaQuery.of(context).size.width,
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 60),
                       ],
                     );
                   }
@@ -129,16 +139,7 @@ class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
                   );
                 },
               ),
-              SizedBox(height: 40),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 4),
-                child: Center(
-                  child: SvgPicture.asset('assets/ui_svgs/shopping.svg',
-                    semanticsLabel: 'Create a Item Request!',
-                    width: MediaQuery.of(context).size.width,
-                  ),
-                ),
-              ),
+              SizedBox(height: 20),
             ],
           ),
         ),
