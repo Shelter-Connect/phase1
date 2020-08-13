@@ -6,6 +6,7 @@ import 'package:phase1/services/firestore_helper.dart';
 
 import '../../components/expected_deliveries_container.dart';
 import '../navigation_tab.dart';
+import 'create_request_page.dart';
 
 class ExpectedDeliveriesPage extends StatefulWidget with NavigationTab {
   @override
@@ -19,7 +20,7 @@ class ExpectedDeliveriesPage extends StatefulWidget with NavigationTab {
   IconData get icon => Icons.access_time;
 
   @override
-  String get title => 'Expected Deliveries';
+  String get title => 'Deliveries';
 }
 
 class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
@@ -27,52 +28,70 @@ class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              'Expected Deliveries',
-              style: mainTitleStyle,
-            ),
-            SizedBox(height: 20),
-            StreamBuilder(
-              stream: FirestoreHelper.getCurrentOrganizationReference(context).collection('currentDonations').orderBy('date').snapshots(),
-              builder: (context, snapshot) {
-                if (!snapshot.hasData) {
-                  return Center(
-                    child: CircularProgressIndicator(),
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                'Expected Deliveries',
+                style: mainTitleStyle,
+              ),
+              SizedBox(height: 20),
+              StreamBuilder(
+                stream: FirestoreHelper.getCurrentOrganizationReference(context).collection('currentDonations').orderBy('date').snapshots(),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  if (snapshot.data.documents.length == 0) {
+                    return Text(
+                      'Your organization currently does not have any expected deliveries.',
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 15.0,
+                      ),
+                    );
+                  }
+                  List<Widget> widgets = [];
+                  for (DocumentSnapshot document in snapshot.data.documents) {
+                    widgets.add(
+                      ExpectedDeliveryContainer(
+                        donation: Donation.fromFirestoreMap(document),
+                      ),
+                    );
+                    widgets.add(
+                      SizedBox(height: 20.0),
+                    );
+                  }
+                  return Column(
+                    children: widgets,
                   );
-                }
-                if (snapshot.data.documents.length == 0) {
-                  return Text(
-                    'Your organization currently does not have any expected deliveries.',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 15.0,
-                    ),
-                  );
-                }
-                List<Widget> widgets = [];
-                for (DocumentSnapshot document in snapshot.data.documents) {
-                  widgets.add(
-                    ExpectedDeliveryContainer(
-                      donation: Donation.fromFirestoreMap(document),
-                    ),
-                  );
-                  widgets.add(
-                    SizedBox(height: 20.0),
-                  );
-                }
-                return Column(
-                  children: widgets,
-                );
-              },
-            ),
-          ],
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        backgroundColor: purpleAccent,
+        heroTag: 'create request',
+        // Create request testing code
+        onPressed: () async {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => CreateRequestPage()),
+          );
+        },
+        label: Text('New Request'),
+        icon: Icon(
+          Icons.edit,
+          color: Colors.white,
         ),
       ),
     );

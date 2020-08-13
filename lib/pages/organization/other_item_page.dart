@@ -65,12 +65,9 @@ class _OtherItemPageState extends State<OtherItemPage> {
                       child: Wrap(
                         crossAxisAlignment: WrapCrossAlignment.center,
                         children: <Widget>[
-                          CategoryIconButton(
+                          CategoryIconDisplay(
                             name: widget.itemCategory,
                             asset: widget.asset,
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
                           ),
                         ],
                       ),

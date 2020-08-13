@@ -9,22 +9,22 @@ import '../../components/organization_donation_profile.dart';
 import '../../constants.dart';
 import '../navigation_tab.dart';
 
-class DonationOpportunities extends StatefulWidget with NavigationTab {
+class OrganizationDiscover extends StatefulWidget with NavigationTab {
   @override
-  _DonationOpportunitiesState createState() => _DonationOpportunitiesState();
+  _OrganizationDiscoverState createState() => _OrganizationDiscoverState();
 
   @override
-  String get helpDescription => 'This is the Donation Opportunities page. Here, you can see nearby organizations in need of donations. '
+  String get helpDescription => 'This is the Organization Discover page. Here, you can see nearby organizations in need of donations. '
       'To see more information about an organization, or to sign up for a donation, click on an organization. ';
 
   @override
   IconData get icon => Icons.home;
 
   @override
-  String get title => 'Donation Opportunities';
+  String get title => 'Discover';
 }
 
-class _DonationOpportunitiesState extends State<DonationOpportunities> {
+class _OrganizationDiscoverState extends State<OrganizationDiscover> {
   @override
   void initState() {
     LocationHelper.getUserPosition().then((position) {
@@ -43,7 +43,7 @@ class _DonationOpportunitiesState extends State<DonationOpportunities> {
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
-              child: Text('Donation Opportunities', style: mainTitleStyle),
+              child: Text('Discover', style: mainTitleStyle),
             ),
             SizedBox(height: 20.0),
             StreamBuilder(

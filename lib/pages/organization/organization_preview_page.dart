@@ -79,7 +79,7 @@ class _OrganizationPreviewPageState extends State<OrganizationPreviewPage> {
                                     height: 10,
                                   ),
                                   Text(
-                                    'About This Shelter',
+                                    'About This Organization',
                                     style: TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.w600,
