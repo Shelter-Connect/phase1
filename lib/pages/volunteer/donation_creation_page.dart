@@ -104,7 +104,7 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                                   SizedBox(
                                     height: 10,
                                   ),
-                                  Text('**All Items MUST be new unless explicitly stated otherwise by the organization**', style: TextStyle(fontSize: 15, color: Colors.red),),
+                                  Text('*All Items can be slightly used unless explicitly stated by the organization', style: TextStyle(fontSize: 15, color: Colors.red),),
                                   SizedBox(height: 10),
                                   Text(
                                     category,
