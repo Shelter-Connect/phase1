@@ -18,6 +18,7 @@ class OrganizationProfilePage extends StatefulWidget {
 
 class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
   bool loading = true;
+  bool noRequests = true;
 
   @override
   void initState() {
@@ -27,6 +28,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
       for (DocumentSnapshot document in documents.documents) {
         if (widget.organization.requestedItems[document['category']] == null) widget.organization.requestedItems[document['category']] = [];
         setState(() {
+          if (document['amount'] > 0) noRequests = false;
           widget.organization.requestedItems[document['category']].add(
             Item(
               name: document['name'],
@@ -322,30 +324,31 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                         ],
                       ),
                       SizedBox(height: 20),
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        child: FlatButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => DonationCreationPage(organization: widget.organization),
+                      if (!noRequests)
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          child: FlatButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => DonationCreationPage(organization: widget.organization),
+                                ),
+                              );
+                            },
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.0),
+                            ),
+                            color: purpleAccent,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 20),
+                              child: Text(
+                                'Make a Donation!',
+                                style: TextStyle(color: colorScheme.onSecondary, fontSize: 20),
                               ),
-                            );
-                          },
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0),
-                          ),
-                          color: purpleAccent,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 20),
-                            child: Text(
-                              'Make a Donation!',
-                              style: TextStyle(color: colorScheme.onSecondary, fontSize: 20),
                             ),
                           ),
                         ),
-                      ),
                       SizedBox(height: 20),
                     ],
                   ),
