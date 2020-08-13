@@ -22,7 +22,7 @@ class OtherItemPage extends StatefulWidget {
 
 class _OtherItemPageState extends State<OtherItemPage> {
   int amount = 0;
-  String specificDescription = '', itemName;
+  String specificDescription = '', itemName, itemUnit;
 
   @override
   Widget build(BuildContext context) {
@@ -88,6 +88,13 @@ class _OtherItemPageState extends State<OtherItemPage> {
                       ),
                       SizedBox(height: 20),
                       FloatingTextField(
+                        hintText: 'Custom Item Unit',
+                        onChanged: (val) {
+                          itemUnit = val;
+                        },
+                      ),
+                      SizedBox(height: 20),
+                      FloatingTextField(
                         hintText: 'Item Description (Specific Brand, Type, etc.)',
                         width: double.infinity,
                         maxLines: null,
@@ -123,7 +130,7 @@ class _OtherItemPageState extends State<OtherItemPage> {
                           FirestoreHelper.updateRequests(
                             context: context,
                             items: [
-                              Item(name: itemName, amount: amount, specificDescription: specificDescription, category: widget.itemCategory),
+                              Item(name: itemName, amount: amount, specificDescription: specificDescription, category: widget.itemCategory, unit: itemUnit),
                             ],
                           );
                           Navigator.pop(context);
