@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:phase1/components/increment.dart';
+import 'package:phase1/components/rounded_button.dart';
 import 'package:phase1/components/standard_layout.dart';
 import 'package:phase1/constants.dart';
 import 'package:phase1/models/item.dart';
@@ -98,8 +99,10 @@ class _EditCurrentRequestsPageState extends State<EditCurrentRequestsPage> {
                                                 children: [
                                                   Padding(
                                                     padding: const EdgeInsets.only(left: 4.0),
-                                                    child: ItemIncrementWithText(initialQuantity: itemCategories[category][index].amount),
-                                                    //TODO: Add onChanged
+                                                    child: ItemIncrementWithText(initialQuantity: itemCategories[category][index].amount,
+                                                      onChanged: (val){
+                                                      }
+                                                      ,),
                                                   ),
                                                   Text(
                                                     itemCategories[category][index].name,
@@ -129,7 +132,17 @@ class _EditCurrentRequestsPageState extends State<EditCurrentRequestsPage> {
                     );
                   }
                   return Column(
-                    children: requestContainers,
+                    children: [
+                      Column(
+                        children: requestContainers,
+                      ),
+                      SizedBox(height: 10),
+                      RoundedButton(title: 'Cancel Delivery', onPressed: () {
+
+                      },
+                        textColor: Colors.white,
+                      )
+                    ],
                   );
                 },
               ),
