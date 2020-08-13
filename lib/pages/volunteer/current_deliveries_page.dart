@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:phase1/components/deliveries_container.dart';
 import 'package:phase1/constants.dart';
 import 'package:phase1/models/donation.dart';
@@ -69,6 +70,20 @@ class _CurrentDeliveriesPageState extends State<CurrentDeliveriesPage> {
                             child: CircularProgressIndicator(),
                           );
                         }
+                        if (snapshot.data.documents.length == 0) {
+                          return Column(
+                            children: [
+                              Text(
+                                'Your have no items to deliver. Go makes some donations!',
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 15.0,
+                                ),
+                              ),
+                              SizedBox(height: 10),
+                            ],
+                          );
+                        }
                         List<Widget> widgets = [];
                         //Position userPosition = Provider.of<UserPosition>(context, listen: false).position;
                         for (DocumentSnapshot donationSnapshot in snapshot.data.documents) {
@@ -87,6 +102,16 @@ class _CurrentDeliveriesPageState extends State<CurrentDeliveriesPage> {
                           children: widgets,
                         );
                       },
+                    ),
+                    SizedBox(height: 40),
+                    Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                        child: Center(
+                          child: SvgPicture.asset('assets/ui_svgs/deli.svg',
+                            semanticsLabel: 'Go Discover More Organizations to Help!',
+                            width: MediaQuery.of(context).size.width,
+                          ),
+                        )
                     ),
                     SizedBox(height: 20),
                   ],
