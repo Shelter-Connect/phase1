@@ -115,10 +115,12 @@ class _EditCurrentRequestsPageState extends State<EditCurrentRequestsPage> {
                                                       },
                                                     ),
                                                   ),
-                                                  Text(
-                                                    itemCategories[category][index].name,
-                                                    style: TextStyle(
-                                                      fontSize: 17,
+                                                  Expanded(
+                                                    child: Text(
+                                                      itemCategories[category][index].name,
+                                                      style: TextStyle(
+                                                        fontSize: 17,
+                                                      ),
                                                     ),
                                                   ),
                                                 ],
@@ -151,6 +153,7 @@ class _EditCurrentRequestsPageState extends State<EditCurrentRequestsPage> {
                       RoundedButton(
                         title: 'Confirm Edit',
                         onPressed: () {
+                          Navigator.pop(context);
                           List<Item> delta = List();
                           for (Item newItem in widget.items) {
                             for (String category in itemCategories.keys) {
