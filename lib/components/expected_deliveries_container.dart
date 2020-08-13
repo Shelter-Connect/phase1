@@ -69,17 +69,14 @@ class ExpectedDeliveryContainer extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(donation.items[index].name, style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400)),
-
-                            Text('${donation.items[index].amount.toString()} ${donation.items[index].unit ?? ''}', style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400))
+                            Text('${donation.items[index].amount.toString()} ${donation.items[index].unit ?? ''}',
+                                style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400))
                           ],
                         ),
                         if (donation.items[index].specificDescription != null)
                           Text(
                             donation.items[index].specificDescription,
-                            style: TextStyle(
-                                fontSize: 14,
-                                color: Colors.grey
-                            ),
+                            style: TextStyle(fontSize: 14, color: Colors.grey),
                           ),
                       ],
                     );

@@ -18,6 +18,7 @@ class OrganizationEditInfoPage extends StatefulWidget {
   final Organization organization;
 
   OrganizationEditInfoPage(this.organization);
+
   @override
   _OrganizationEditInfoPageState createState() => _OrganizationEditInfoPageState();
 }
@@ -86,7 +87,8 @@ class _OrganizationEditInfoPageState extends State<OrganizationEditInfoPage> {
                   controller: locationController,
                   hintText: 'Organization Location',
                   onTapped: () async {
-                    Prediction p = await PlacesAutocomplete.show(context: context, apiKey: kGoogleApiKey, mode: Mode.overlay, controller: locationController);
+                    Prediction p =
+                        await PlacesAutocomplete.show(context: context, apiKey: kGoogleApiKey, mode: Mode.overlay, controller: locationController);
                     locationController.value = TextEditingValue(
                       text: await displayPrediction(p),
                       selection: TextSelection.fromPosition(

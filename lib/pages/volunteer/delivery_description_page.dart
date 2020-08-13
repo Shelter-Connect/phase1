@@ -73,7 +73,8 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                                   ),
                                 ),
                                 onPressed: () {
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => EditDeliveryPage(widget.donation.organization, widget.donation)));
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (context) => EditDeliveryPage(widget.donation.organization, widget.donation)));
                                 },
                               ),
                             ],
@@ -100,7 +101,8 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                                   Padding(
                                     padding: const EdgeInsets.only(bottom: 5.0),
                                     child: Text(
-                                      '${widget.donation.items[index].name} - ${widget.donation.items[index].amount} ${widget.donation.items[index].unit ?? ''}'.trim(),
+                                      '${widget.donation.items[index].name} - ${widget.donation.items[index].amount} ${widget.donation.items[index].unit ?? ''}'
+                                          .trim(),
                                       style: TextStyle(
                                         fontSize: 17.0,
                                         fontWeight: FontWeight.w400,

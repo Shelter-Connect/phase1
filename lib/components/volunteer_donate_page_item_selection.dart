@@ -7,6 +7,7 @@ class DonatePageItemSelection extends StatelessWidget {
   final String boxTitle;
 
   DonatePageItemSelection({this.boxTitle});
+
   @override
   Widget build(BuildContext context) {
     return Container(

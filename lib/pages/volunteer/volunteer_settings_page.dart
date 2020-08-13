@@ -12,7 +12,8 @@ class VolunteerSettingsPage extends StatefulWidget with NavigationTab {
   _VolunteerSettingsPageState createState() => _VolunteerSettingsPageState();
 
   @override
-  String get helpDescription => 'This page shows your account settings and information. Here, you can edit your information, or sign out, if you\'d like. ';
+  String get helpDescription =>
+      'This page shows your account settings and information. Here, you can edit your information, or sign out, if you\'d like. ';
 
   @override
   IconData get icon => Icons.settings;

@@ -77,7 +77,8 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                           SizedBox(
                             height: 10,
                           ),
-                          InfoText(orgEmail: widget.organization.email, orgNumber: widget.organization.number, orgAddress: widget.organization.address),
+                          InfoText(
+                              orgEmail: widget.organization.email, orgNumber: widget.organization.number, orgAddress: widget.organization.address),
                         ],
                       ),
                     ),

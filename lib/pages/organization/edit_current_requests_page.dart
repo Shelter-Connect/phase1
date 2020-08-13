@@ -8,6 +8,8 @@ import 'package:phase1/models/item.dart';
 import 'package:phase1/services/firestore_helper.dart';
 
 class EditCurrentRequestsPage extends StatefulWidget {
+  List<Item> items = List();
+
   @override
   _EditCurrentRequestsPageState createState() => _EditCurrentRequestsPageState();
 }
@@ -99,10 +101,18 @@ class _EditCurrentRequestsPageState extends State<EditCurrentRequestsPage> {
                                                 children: [
                                                   Padding(
                                                     padding: const EdgeInsets.only(left: 4.0),
-                                                    child: ItemIncrementWithText(initialQuantity: itemCategories[category][index].amount,
-                                                      onChanged: (val){
-                                                      }
-                                                      ,),
+                                                    child: ItemIncrementWithText(
+                                                      initialQuantity: itemCategories[category][index].amount,
+                                                      onChanged: (val) {
+                                                        Item currentItem = itemCategories[category][index].clone();
+                                                        widget.items.removeWhere((prevItem) =>
+                                                            prevItem.name == currentItem.name &&
+                                                            prevItem.category == currentItem.category &&
+                                                            prevItem.specificDescription == currentItem.specificDescription &&
+                                                            prevItem.unit == currentItem.unit);
+                                                        if (currentItem.amount != 0) widget.items.add(currentItem);
+                                                      },
+                                                    ),
                                                   ),
                                                   Text(
                                                     itemCategories[category][index].name,
@@ -137,9 +147,11 @@ class _EditCurrentRequestsPageState extends State<EditCurrentRequestsPage> {
                         children: requestContainers,
                       ),
                       SizedBox(height: 10),
-                      RoundedButton(title: 'Cancel Delivery', onPressed: () {
-
-                      },
+                      RoundedButton(
+                        title: 'Confirm Edit',
+                        onPressed: () {
+                          FirestoreHelper.updateRequests(context: context, items: widget.items);
+                        },
                         textColor: Colors.white,
                       )
                     ],

@@ -26,7 +26,8 @@ class _OrganizationPreviewPageState extends State<OrganizationPreviewPage> {
       for (DocumentSnapshot document in documents.documents) {
         if (widget.organization.requestedItems[document['category']] == null) widget.organization.requestedItems[document['category']] = [];
         setState(() {
-          widget.organization.requestedItems[document['category']].add(Item(name: document['name'], amount: document['amount'], category: document['category']));
+          widget.organization.requestedItems[document['category']]
+              .add(Item(name: document['name'], amount: document['amount'], category: document['category']));
         });
       }
       setState(() {

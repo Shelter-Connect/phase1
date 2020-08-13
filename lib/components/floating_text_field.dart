@@ -82,18 +82,18 @@ class FloatingDescriptionField extends StatelessWidget {
 
   FloatingDescriptionField(
       {this.hintText,
-        this.obscureText = false,
-        this.onChanged,
-        this.maxLines = 1,
-        this.onTapped,
-        this.suffixIcon,
-        this.controller,
-        this.textStyle,
-        this.hintStyle,
-        this.autofocus = false,
-        this.width,
-        this.maxLength,
-        this.keyboardType = TextInputType.text});
+      this.obscureText = false,
+      this.onChanged,
+      this.maxLines = 1,
+      this.onTapped,
+      this.suffixIcon,
+      this.controller,
+      this.textStyle,
+      this.hintStyle,
+      this.autofocus = false,
+      this.width,
+      this.maxLength,
+      this.keyboardType = TextInputType.text});
 
   @override
   Widget build(BuildContext context) {
