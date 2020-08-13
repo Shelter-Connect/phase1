@@ -69,12 +69,13 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
                   hintText: 'Organization Location',
                   onTapped: () async {
                     Prediction p = await PlacesAutocomplete.show(context: context, apiKey: kGoogleApiKey, mode: Mode.overlay, controller: controller);
-                    controller.value = TextEditingValue(
-                      text: await displayPrediction(p),
-                      selection: TextSelection.fromPosition(
-                        TextPosition(offset: 0),
-                      ),
-                    );
+                    if (p != null)
+                      controller.value = TextEditingValue(
+                        text: await displayPrediction(p),
+                        selection: TextSelection.fromPosition(
+                          TextPosition(offset: 0),
+                        ),
+                      );
                   },
                   onChanged: (val) {
                     controller.value = TextEditingValue(
