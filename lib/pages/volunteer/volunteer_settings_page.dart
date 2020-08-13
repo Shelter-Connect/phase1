@@ -19,7 +19,7 @@ class VolunteerSettingsPage extends StatefulWidget with NavigationTab {
   IconData get icon => Icons.settings;
 
   @override
-  String get title => 'Account Settings';
+  String get title => 'Settings';
 }
 
 class _VolunteerSettingsPageState extends State<VolunteerSettingsPage> {
@@ -57,7 +57,6 @@ class UserInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: elevatedBoxStyle,
-      height: 200,
       width: MediaQuery.of(context).size.width,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
@@ -65,6 +64,7 @@ class UserInfo extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            SizedBox(height: 10),
             Text(
               'User Information',
               style: TextStyle(

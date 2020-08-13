@@ -23,7 +23,7 @@ class CurrentDeliveriesPage extends StatefulWidget with NavigationTab {
   IconData get icon => Icons.local_shipping;
 
   @override
-  String get title => 'Items To Deliver';
+  String get title => 'Deliver';
 }
 
 class _CurrentDeliveriesPageState extends State<CurrentDeliveriesPage> {
@@ -57,7 +57,7 @@ class _CurrentDeliveriesPageState extends State<CurrentDeliveriesPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      'Items to Deliver',
+                      'Deliver',
                       style: mainTitleStyle,
                     ),
                     SizedBox(height: 20),

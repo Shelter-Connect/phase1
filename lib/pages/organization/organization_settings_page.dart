@@ -21,7 +21,7 @@ class OrganizationSettingsPage extends StatefulWidget with NavigationTab {
   IconData get icon => Icons.settings;
 
   @override
-  String get title => 'Account Settings';
+  String get title => 'Account';
 }
 
 class _OrganizationSettingsPageState extends State<OrganizationSettingsPage> {

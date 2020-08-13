@@ -22,7 +22,7 @@ class CurrentRequestsPage extends StatefulWidget with NavigationTab {
   IconData get icon => Icons.list;
 
   @override
-  String get title => 'Current Requests';
+  String get title => 'Requests';
 }
 
 class _CurrentRequestsPageState extends State<CurrentRequestsPage> {

@@ -41,6 +41,7 @@ dependencies:
   url_launcher: ^5.0.5
   flutter_launcher_icons: ^0.7.5
   intl: ^0.16.1
+  simple_animations: ^2.2.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -136,6 +137,7 @@ flutter:
     - assets/other_svgs/other.svg
     - assets/foodgiving.jpeg
     - assets/foodgivingsmaller.png
+    - assets/welcome_sequence/icon1.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

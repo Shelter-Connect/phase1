@@ -71,12 +71,9 @@ class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
                       child: Wrap(
                         crossAxisAlignment: WrapCrossAlignment.center,
                         children: <Widget>[
-                          CategoryIconButton(
+                          CategoryIconDisplay(
                             name: widget.itemName ?? null,
                             asset: widget.itemIcon ?? null,
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
                           ),
                         ],
                       ),
