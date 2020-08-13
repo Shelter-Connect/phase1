@@ -28,6 +28,8 @@ final subHeaderStyle = TextStyle(
 
 final mainTitleStyle = TextStyle(fontWeight: FontWeight.w900, fontSize: 35, color: purpleAccent);
 
+final mainTitleStyle2 = TextStyle(fontWeight: FontWeight.w800, fontSize: 29.8, color: purpleAccent);
+
 final subTitleStyle = TextStyle(fontSize: 25, fontWeight: FontWeight.w700, color: purpleLight);
 
 final smallButtonStyle = TextStyle(fontWeight: FontWeight.w700, fontSize: 20, color: purpleAccent);

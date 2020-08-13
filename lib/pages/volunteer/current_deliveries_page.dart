@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:phase1/components/deliveries_container.dart';
 import 'package:phase1/constants.dart';
 import 'package:phase1/models/donation.dart';
@@ -8,9 +9,10 @@ import 'package:phase1/services/firestore_helper.dart';
 import 'package:phase1/services/location_helper.dart';
 import 'package:provider/provider.dart';
 
+import '../bottom_navigation_tab.dart';
 import '../navigation_tab.dart';
 
-class CurrentDeliveriesPage extends StatefulWidget with NavigationTab {
+class CurrentDeliveriesPage extends StatefulWidget with BottomNavigationTab { //TODO FIx if errors
   @override
   _CurrentDeliveriesPageState createState() => _CurrentDeliveriesPageState();
 
@@ -24,6 +26,11 @@ class CurrentDeliveriesPage extends StatefulWidget with NavigationTab {
 
   @override
   String get title => 'Deliver';
+
+  @override
+  String get barTitle => 'Items to Deliver';
+
+
 }
 
 class _CurrentDeliveriesPageState extends State<CurrentDeliveriesPage> {
@@ -56,10 +63,6 @@ class _CurrentDeliveriesPageState extends State<CurrentDeliveriesPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(
-                      'Deliver',
-                      style: mainTitleStyle,
-                    ),
                     SizedBox(height: 20),
                     StreamBuilder(
                       stream: FirestoreHelper.getCurrentVolunteerReference(context).collection('currentDonations').orderBy('date').snapshots(),
@@ -67,6 +70,30 @@ class _CurrentDeliveriesPageState extends State<CurrentDeliveriesPage> {
                         if (!snapshot.hasData) {
                           return Center(
                             child: CircularProgressIndicator(),
+                          );
+                        }
+                        if (snapshot.data.documents.length == 0) {
+                          return Column(
+                            children: [
+                              Text(
+                                'Your have no items to deliver. Go makes some donations!',
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 15.0,
+                                ),
+                              ),
+                              SizedBox(height: 40),
+                              Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                                  child: Center(
+                                    child: SvgPicture.asset('assets/ui_svgs/deli.svg',
+                                      semanticsLabel: 'Go Discover More Organizations to Help!',
+                                      width: MediaQuery.of(context).size.width,
+                                    ),
+                                  )
+                              ),
+                              SizedBox(height: 20),
+                            ],
                           );
                         }
                         List<Widget> widgets = [];

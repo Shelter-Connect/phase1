@@ -1,14 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:phase1/constants.dart';
 import 'package:phase1/models/donation.dart';
 import 'package:phase1/services/firestore_helper.dart';
 
 import '../../components/expected_deliveries_container.dart';
+import '../bottom_navigation_tab.dart';
 import '../navigation_tab.dart';
 import 'create_request_page.dart';
 
-class ExpectedDeliveriesPage extends StatefulWidget with NavigationTab {
+class ExpectedDeliveriesPage extends StatefulWidget with BottomNavigationTab {
   @override
   _ExpectedDeliveriesPageState createState() => _ExpectedDeliveriesPageState();
 
@@ -22,6 +24,12 @@ class ExpectedDeliveriesPage extends StatefulWidget with NavigationTab {
 
   @override
   String get title => 'Deliveries';
+
+  @override
+  String get barTitle => 'Expected Deliveries';
+
+
+
 }
 
 class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
@@ -30,6 +38,7 @@ class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFF5F5F5),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4.0),
@@ -37,10 +46,6 @@ class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
-                'Expected Deliveries',
-                style: mainTitleStyle,
-              ),
               SizedBox(height: 20),
               StreamBuilder(
                 stream: FirestoreHelper.getCurrentOrganizationReference(context).collection('currentDonations').orderBy('date').snapshots(),
@@ -51,12 +56,27 @@ class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
                     );
                   }
                   if (snapshot.data.documents.length == 0) {
-                    return Text(
-                      'Your organization currently does not have any expected deliveries.',
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 15.0,
-                      ),
+                    return Column(
+                      children: [
+                        Text(
+                          'Your organization currently does not have any expected deliveries.',
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 15.0,
+                          ),
+                        ),
+                        SizedBox(height: 40),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 4),
+                          child: Center(
+                            child: SvgPicture.asset('assets/ui_svgs/dood.svg',
+                              semanticsLabel: 'Create some requests!',
+                              width: MediaQuery.of(context).size.width,
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 60),
+                      ],
                     );
                   }
                   List<Widget> widgets = [];
@@ -75,6 +95,7 @@ class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
                   );
                 },
               ),
+              SizedBox(height: 20),
             ],
           ),
         ),
@@ -91,7 +112,7 @@ class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
         },
         label: Text('New Request'),
         icon: Icon(
-          Icons.edit,
+          Icons.add,
           color: Colors.white,
         ),
       ),

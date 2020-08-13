@@ -4,12 +4,15 @@ import 'package:phase1/models/organization.dart';
 import 'package:phase1/models/user_position.dart';
 import 'package:phase1/services/location_helper.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
 
 import '../../components/organization_donation_profile.dart';
 import '../../constants.dart';
+import '../bottom_navigation_tab.dart';
 import '../navigation_tab.dart';
 
-class OrganizationDiscover extends StatefulWidget with NavigationTab {
+class OrganizationDiscover extends StatefulWidget with BottomNavigationTab { //TODO Fix if errrs
   @override
   _OrganizationDiscoverState createState() => _OrganizationDiscoverState();
 
@@ -18,10 +21,15 @@ class OrganizationDiscover extends StatefulWidget with NavigationTab {
       'To see more information about an organization, or to sign up for a donation, click on an organization. ';
 
   @override
-  IconData get icon => Icons.home;
+  IconData get icon => Icons.search;
 
   @override
   String get title => 'Discover';
+
+  @override
+  String get barTitle => 'Discover';
+
+
 }
 
 class _OrganizationDiscoverState extends State<OrganizationDiscover> {
@@ -41,10 +49,6 @@ class _OrganizationDiscoverState extends State<OrganizationDiscover> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
-              child: Text('Discover', style: mainTitleStyle),
-            ),
             SizedBox(height: 20.0),
             StreamBuilder(
               stream: db.collection('organizations').snapshots(),
@@ -78,7 +82,7 @@ class _OrganizationDiscoverState extends State<OrganizationDiscover> {
                 );
               },
             ),
-            SizedBox(height: 20.0),
+            SizedBox(height: 20),
           ],
         ),
       ),
