@@ -76,21 +76,24 @@ class ChooseItemPage extends StatelessWidget {
                               .map(
                                 (name, icon) => MapEntry(
                                   name,
-                                  CategoryIconButton(
-                                    name: name,
-                                    asset: icon,
-                                    onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => ConfirmRequestPage(
-                                            itemName: name,
-                                            itemIcon: icon,
-                                            itemCategory: categoryName,
+                                  Padding(
+                                    padding: const EdgeInsets.all(2.0),
+                                    child: ItemIconButton(
+                                      name: name,
+                                      asset: icon,
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => ConfirmRequestPage(
+                                              itemName: name,
+                                              itemIcon: icon,
+                                              itemCategory: categoryName,
+                                            ),
                                           ),
-                                        ),
-                                      );
-                                    },
+                                        );
+                                      },
+                                    ),
                                   ),
                                 ),
                               )

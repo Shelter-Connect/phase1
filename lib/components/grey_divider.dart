@@ -6,7 +6,7 @@ class GreyDivider extends StatelessWidget {
     return Container(
       width: MediaQuery.of(context).size.width,
       height: 4,
-      color: Color(0xFFF5F5F5),
+      color: Color(0xFFE5E5E5),
     );
   }
 }

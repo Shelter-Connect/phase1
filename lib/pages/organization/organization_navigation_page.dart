@@ -17,7 +17,7 @@ class OrganizationNavigationPage extends StatefulWidget {
 
 class _OrganizationNavigationPageState extends State<OrganizationNavigationPage> {
   int _selectedIndex = 0;
-  final List<NavigationTab> _pages = [ExpectedDeliveriesPage(), CurrentRequestsPage(), OrganizationSettingsPage()];
+  final List<NavigationTab> _pages = [];
 
   @override
   Widget build(BuildContext context) {
