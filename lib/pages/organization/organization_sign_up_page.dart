@@ -162,7 +162,7 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
                   padding: const EdgeInsets.only(left: 5.0),
                   child: TextButton(
                     text: 'Not an Organization?',
-                    textColor: Colors.redAccent,
+                    textColor: purpleAccent,
                     onPressed: () {
                       Navigator.pop(context);
                     },

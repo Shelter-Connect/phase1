@@ -54,6 +54,7 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Text(
                                 'Selected Donations',

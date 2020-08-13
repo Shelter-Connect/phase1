@@ -34,7 +34,7 @@ class _VolunteerSettingsPageState extends State<VolunteerSettingsPage> {
             children: <Widget>[
               Text('Account Settings', style: mainTitleStyle),
               SizedBox(height: 20),
-              UserInfo(email: Provider.of<User>(context, listen: false).user.email),
+              UserInfo(email: Provider.of<User>(context, listen: false).user.email, name: Provider.of<User>(context, listen: false).user.displayName),
               SizedBox(height: 20),
               SignOut(),
               SizedBox(height: 20),
@@ -95,6 +95,7 @@ class UserInfo extends StatelessWidget {
                   ),
                   TextSpan(
                     text: name,
+                    //TODO: Name doesn't show up
                     style: TextStyle(
                       fontSize: 17,
                       fontWeight: FontWeight.w600,
