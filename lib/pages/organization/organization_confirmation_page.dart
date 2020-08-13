@@ -48,7 +48,8 @@ class _OrganizationConfirmationPageState extends State<OrganizationConfirmationP
                     setState(() {
                       loading = true;
                     });
-                    DocumentSnapshot organizationSnapshot = await db.collection('organizations').document(Provider.of<User>(context, listen: false).user.uid).get();
+                    DocumentSnapshot organizationSnapshot =
+                        await db.collection('organizations').document(Provider.of<User>(context, listen: false).user.uid).get();
                     setState(() {
                       loading = false;
                     });

@@ -51,7 +51,8 @@ class _LoginPageState extends State<LoginPage> {
                   SizedBox(height: 30),
                   RoundedButton(
                     color: purpleAccent,
-                    title: 'Sign In', textColor: Colors.white,
+                    title: 'Sign In',
+                    textColor: Colors.white,
                     onPressed: () async {
                       setState(() {
                         loading = true;
@@ -79,7 +80,8 @@ class _LoginPageState extends State<LoginPage> {
                   Padding(
                     padding: const EdgeInsets.only(left: 5.0),
                     child: TextButton(
-                      text: 'Not an Existing User?', textColor: Colors.blueAccent,
+                      text: 'Not an Existing User?',
+                      textColor: Colors.blueAccent,
                       onPressed: () {
                         Navigator.pop(context);
                       },

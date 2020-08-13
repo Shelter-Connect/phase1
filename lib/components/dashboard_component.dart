@@ -6,11 +6,12 @@ class DashboardComponent extends StatelessWidget {
   final String boxTitle, expectedDate;
   final Widget column;
   final double height;
+
   DashboardComponent({@required this.boxTitle, this.column, this.height, this.expectedDate});
 
   @override
   Widget build(BuildContext context) {
-    return  Container(
+    return Container(
       decoration: elevatedBoxStyle,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),

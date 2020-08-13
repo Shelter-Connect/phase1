@@ -64,7 +64,8 @@ class _DeliveryInformationPageState extends State<DeliveryInformationPage> {
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(widget.donation.items[index].name, style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400)),
-                                  Text('${widget.donation.items[index].amount} ${widget.donation.items[index].unit ?? ''}', style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400))
+                                  Text('${widget.donation.items[index].amount} ${widget.donation.items[index].unit ?? ''}',
+                                      style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400))
                                 ],
                               ),
                               if (widget.donation.items[index].specificDescription != null)

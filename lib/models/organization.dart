@@ -14,7 +14,18 @@ class Organization {
   Map<String, List<Item>> requestedItems = Map();
   List<String> itemCategories = List();
 
-  Organization({this.address, this.website, this.email, this.id, this.description, this.name, this.location, this.distance, this.requestedItems, this.itemCategories, this.number});
+  Organization(
+      {this.address,
+      this.website,
+      this.email,
+      this.id,
+      this.description,
+      this.name,
+      this.location,
+      this.distance,
+      this.requestedItems,
+      this.itemCategories,
+      this.number});
 
   Organization clone() {
     return Organization(
@@ -57,8 +68,10 @@ class Organization {
 
     if (isVolunteer) {
       Position userPosition = Provider.of<UserPosition>(context, listen: false).position;
-      distance =
-          userPosition != null ? LocationHelper.distance(organizationSnapshot['location'].latitude, organizationSnapshot['location'].longitude, userPosition.latitude, userPosition.longitude) : null;
+      distance = userPosition != null
+          ? LocationHelper.distance(
+              organizationSnapshot['location'].latitude, organizationSnapshot['location'].longitude, userPosition.latitude, userPosition.longitude)
+          : null;
     }
   }
 }

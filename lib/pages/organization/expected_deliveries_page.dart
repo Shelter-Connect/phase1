@@ -12,7 +12,8 @@ class ExpectedDeliveriesPage extends StatefulWidget with NavigationTab {
   _ExpectedDeliveriesPageState createState() => _ExpectedDeliveriesPageState();
 
   @override
-  String get helpDescription => 'This is the Expected Deliveries page. Here, you can see any items that the volunteers have signed up to deliver to your organization. '
+  String get helpDescription =>
+      'This is the Expected Deliveries page. Here, you can see any items that the volunteers have signed up to deliver to your organization. '
       'Click on a delivery to see more information regarding the items being delivered, the arrival time, and donor contact information.';
 
   @override

@@ -9,7 +9,13 @@ class RoundedButton extends StatelessWidget {
   final Color textColor;
   final double width;
 
-  RoundedButton({@required this.title, this.color, @required this.onPressed, this.textColor, this.width,});
+  RoundedButton({
+    @required this.title,
+    this.color,
+    @required this.onPressed,
+    this.textColor,
+    this.width,
+  });
 
   @override
   Widget build(BuildContext context) {

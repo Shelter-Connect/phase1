@@ -84,7 +84,8 @@ class StandardLayout extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
                     InkWell(
-                        child: new Text('Report Issues', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 17)), onTap: () => launch('https://forms.gle/ue5idWtztcgevh9Q7')),
+                        child: new Text('Report Issues', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 17)),
+                        onTap: () => launch('https://forms.gle/ue5idWtztcgevh9Q7')),
                     IconButton(
                       iconSize: 30,
                       onPressed: () {

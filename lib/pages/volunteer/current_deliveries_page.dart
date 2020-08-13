@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:phase1/components/deliveries_container.dart';
 import 'package:phase1/constants.dart';
 import 'package:phase1/models/donation.dart';
@@ -16,7 +15,8 @@ class CurrentDeliveriesPage extends StatefulWidget with NavigationTab {
   _CurrentDeliveriesPageState createState() => _CurrentDeliveriesPageState();
 
   @override
-  String get helpDescription => 'This page shows all the donations you have signed up for. Overdue deliveries are highlighted in red. Click on a delivery to see more information, '
+  String get helpDescription =>
+      'This page shows all the donations you have signed up for. Overdue deliveries are highlighted in red. Click on a delivery to see more information, '
       'or to edit or cancel the delivery. ';
 
   @override
@@ -70,7 +70,7 @@ class _CurrentDeliveriesPageState extends State<CurrentDeliveriesPage> {
                           );
                         }
                         List<Widget> widgets = [];
-                        Position userPosition = Provider.of<UserPosition>(context, listen: false).position;
+                        //Position userPosition = Provider.of<UserPosition>(context, listen: false).position;
                         for (DocumentSnapshot donationSnapshot in snapshot.data.documents) {
                           Donation donation = Donation.fromFirestoreMap(donationSnapshot);
                           widgets.add(

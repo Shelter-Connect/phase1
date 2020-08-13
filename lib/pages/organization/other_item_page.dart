@@ -28,7 +28,8 @@ class _OtherItemPageState extends State<OtherItemPage> {
   Widget build(BuildContext context) {
     return SecondaryLayout(
       title: '',
-      helpText: 'To create a custom request, enter the name and amount of items you need. You can also enter extra descriptions to get a specific type of item, '
+      helpText:
+          'To create a custom request, enter the name and amount of items you need. You can also enter extra descriptions to get a specific type of item, '
           'or units for the item.',
       body: SingleChildScrollView(
         child: Padding(
@@ -118,7 +119,8 @@ class _OtherItemPageState extends State<OtherItemPage> {
                       context: context,
                       builder: (_) => SingleActionAlert(
                         title: 'Confirm your request?',
-                        subtitle: 'Make sure you are requesting the correct item and number of items. Requests can be edited in the \'Expected Deliveries\' tab.',
+                        subtitle:
+                            'Make sure you are requesting the correct item and number of items. Requests can be edited in the \'Expected Deliveries\' tab.',
                         actionName: 'Create Request',
                         action: () {
                           FirestoreHelper.updateRequests(

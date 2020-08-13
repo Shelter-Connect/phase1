@@ -57,7 +57,8 @@ class _DonationOpportunitiesState extends State<DonationOpportunities> {
                 List<Widget> widgets = [];
                 for (DocumentSnapshot organizationSnapshot in snapshot.data.documents) {
                   if (organizationSnapshot['itemCategories'] != null) {
-                    Organization organization = Organization.fromFirestoreMap(context: context, organizationSnapshot: organizationSnapshot, isVolunteer: true);
+                    Organization organization =
+                        Organization.fromFirestoreMap(context: context, organizationSnapshot: organizationSnapshot, isVolunteer: true);
                     widgets.add(
                       OrganizationDonationProfile(organization: organization),
                     );

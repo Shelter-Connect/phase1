@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:phase1/constants.dart';
 import 'package:phase1/models/item.dart';
-import 'package:phase1/pages/organization/edit_current_requests_page.dart';
 
 class RequestContainer extends StatelessWidget {
   final List<Item> items;

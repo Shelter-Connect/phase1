@@ -4,6 +4,7 @@ import 'package:phase1/components/requests_container.dart';
 import 'package:phase1/constants.dart';
 import 'package:phase1/models/item.dart';
 import 'package:phase1/services/firestore_helper.dart';
+
 import '../navigation_tab.dart';
 import 'create_request_page.dart';
 import 'edit_current_requests_page.dart';
@@ -13,7 +14,8 @@ class CurrentRequestsPage extends StatefulWidget with NavigationTab {
   _CurrentRequestsPageState createState() => _CurrentRequestsPageState();
 
   @override
-  String get helpDescription => 'This is your Current Requests page. Here, you can see items that you have requested that have not volunteers have not signed up for. '
+  String get helpDescription =>
+      'This is your Current Requests page. Here, you can see items that you have requested that have not volunteers have not signed up for. '
       'To see items that volunteers have committed to, check the Expected Deliveries page.';
 
   @override
@@ -39,7 +41,7 @@ class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
                 'Current Requests',
                 style: mainTitleStyle,
               ),
-          FlatButton(
+              FlatButton(
                 onPressed: () {
                   Navigator.push(
                     context,

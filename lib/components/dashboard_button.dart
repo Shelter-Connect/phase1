@@ -8,7 +8,7 @@ class DashboardButton extends StatelessWidget {
   final Function onTap;
   final Widget icon;
 
-  DashboardButton({@required this.title, this.color, this.icon,@required this.onTap});
+  DashboardButton({@required this.title, this.color, this.icon, @required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -19,11 +19,10 @@ class DashboardButton extends StatelessWidget {
           elevation: 5,
           borderRadius: BorderRadius.circular(20.0),
           child: ListTile(
-            contentPadding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 18.0),
-            onTap: onTap,
-            title: Text(title, style: subHeaderStyle),
-            trailing: icon
-          ),
+              contentPadding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 18.0),
+              onTap: onTap,
+              title: Text(title, style: subHeaderStyle),
+              trailing: icon),
         ),
       ),
     );

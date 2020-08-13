@@ -164,7 +164,10 @@ class _ItemIncrementWithTextState extends State<ItemIncrementWithText> {
           isSnackBarActive = true;
         });
 
-        Scaffold.of(context).showSnackBar(SnackBar(content: Text('You have reached the maximum amount of items this shelter is requesting.'))).closed.then((SnackBarClosedReason reason) {
+        Scaffold.of(context)
+            .showSnackBar(SnackBar(content: Text('You have reached the maximum amount of items this shelter is requesting.')))
+            .closed
+            .then((SnackBarClosedReason reason) {
           setState(() {
             isSnackBarActive = false;
           });
@@ -234,7 +237,10 @@ class _ItemIncrementWithTextState extends State<ItemIncrementWithText> {
                     isSnackBarActive = true;
                   });
 
-                  Scaffold.of(context).showSnackBar(SnackBar(content: Text('You have reached the maximum amount of items this shelter is requesting.'))).closed.then((SnackBarClosedReason reason) {
+                  Scaffold.of(context)
+                      .showSnackBar(SnackBar(content: Text('You have reached the maximum amount of items this shelter is requesting.')))
+                      .closed
+                      .then((SnackBarClosedReason reason) {
                     setState(() {
                       isSnackBarActive = false;
                     });
