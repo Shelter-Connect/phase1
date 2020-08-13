@@ -13,9 +13,9 @@ class StandardLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: color ?? Color(0xFFF5F5F5),
+      backgroundColor: color ?? Colors.white,
       appBar: AppBar(
-        backgroundColor: color ?? Color(0xFFF5F5F5),
+        backgroundColor: color ?? Colors.white,
         elevation: 0.0,
         leading: IconButton(
           onPressed: () {
@@ -26,7 +26,7 @@ class StandardLayout extends StatelessWidget {
         title: Text(
           title,
           style: TextStyle(
-            color: Color(0xFFF5F5F5),
+            color: Colors.white,
           ),
         ),
         actions: <Widget>[

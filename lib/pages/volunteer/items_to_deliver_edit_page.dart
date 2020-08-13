@@ -120,7 +120,6 @@ class _EditDeliveryPageState extends State<EditDeliveryPage> {
                                 );
                               },
                             ),
-                            SizedBox(height: 5)
                           ],
                         ),
                       ],

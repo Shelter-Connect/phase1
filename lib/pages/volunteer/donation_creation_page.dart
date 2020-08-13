@@ -104,16 +104,14 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                                   SizedBox(
                                     height: 10,
                                   ),
-                                  Row(
-                                    children: <Widget>[
-                                      Text(
-                                        category,
-                                        style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                    ],
+                                  Text('**All Items MUST be new unless explicitly stated otherwise by the organization**', style: TextStyle(fontSize: 15, color: Colors.red),),
+                                  SizedBox(height: 10),
+                                  Text(
+                                    category,
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                   ),
                                   SizedBox(
                                     height: 10,
