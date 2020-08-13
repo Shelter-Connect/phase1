@@ -51,12 +51,21 @@ class RequestContainer extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                '${items[index].name} - ${items[index].amount.toString()} ${items[index].unit ?? ''}'.trim(),
-                                style: TextStyle(
-                                  fontSize: 17,
+                              if (items[index].amount > 0)
+                                Text(
+                                  '${items[index].name} - ${items[index].amount.toString()} ${items[index].unit ?? ''}'.trim(),
+                                  style: TextStyle(
+                                    fontSize: 17,
+                                  ),
+                                )
+                              else
+                                Text(
+                                  'Request Completed!',
+                                  style: TextStyle(
+                                    fontSize: 17,
+                                    color: Colors.green,
+                                  ),
                                 ),
-                              ),
                               if (items[index].specificDescription != null)
                                 Text(
                                   items[index].specificDescription,
@@ -65,7 +74,6 @@ class RequestContainer extends StatelessWidget {
                                     color: Colors.grey,
                                   ),
                                 ),
-                              //TODO: Implement Item Units
                             ],
                           ),
                         );
@@ -77,7 +85,9 @@ class RequestContainer extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(height: 20,)
+        SizedBox(
+          height: 20,
+        )
       ],
     );
   }

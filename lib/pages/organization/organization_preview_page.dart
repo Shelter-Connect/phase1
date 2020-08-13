@@ -267,42 +267,37 @@ class _OrganizationPreviewPageState extends State<OrganizationPreviewPage> {
                                                 ),
                                                 ...items
                                                     .map(
-                                                      (item) => Padding(
-                                                        padding: const EdgeInsets.only(top: 0.0, left: 0, right: 30),
-                                                        child: Container(
-                                                          width: MediaQuery.of(context).size.width,
-                                                          alignment: Alignment.centerLeft,
-                                                          child: Padding(
-                                                            padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                                            child: Row(
-                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                              children: <Widget>[
-                                                                Column(
-                                                                  mainAxisAlignment: MainAxisAlignment.start,
-                                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                                  children: <Widget>[
-                                                                    Text(
-                                                                      '${item.name}',
-                                                                      style: TextStyle(
-                                                                        fontSize: 17.0,
-                                                                        fontWeight: FontWeight.w400,
-                                                                      ),
-                                                                    ),
-                                                                    Text(
-                                                                      'description; in Unit',
-                                                                      style: TextStyle(color: Colors.grey),
-                                                                    ),
-                                                                  ],
-                                                                ),
+                                                      (item) => Container(
+                                                        width: MediaQuery.of(context).size.width,
+                                                        alignment: Alignment.centerLeft,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                                          child: Column(
+                                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                                            children: <Widget>[
+                                                              if (item.amount > 0)
                                                                 Text(
-                                                                  '${item.amount}',
+                                                                  '${item.name} - ${item.amount} ${item.unit ?? ''}'.trim(),
                                                                   style: TextStyle(
                                                                     fontSize: 17.0,
                                                                     fontWeight: FontWeight.w400,
                                                                   ),
+                                                                )
+                                                              else
+                                                                Text(
+                                                                  'Request Completed!',
+                                                                  style: TextStyle(
+                                                                    fontSize: 17.0,
+                                                                    fontWeight: FontWeight.w400,
+                                                                    color: Colors.green,
+                                                                  ),
                                                                 ),
-                                                              ],
-                                                            ),
+                                                              if (item.specificDescription != null)
+                                                                Text(
+                                                                  item.specificDescription,
+                                                                  style: TextStyle(fontSize: 14, color: Colors.grey),
+                                                                ),
+                                                            ],
                                                           ),
                                                         ),
                                                       ),

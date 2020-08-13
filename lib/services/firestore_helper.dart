@@ -42,13 +42,9 @@ class FirestoreHelper {
         if (item.amount != 0) await requestsReference.add(item.toFirestoreMap());
       } else if (document.documents.length == 1) {
         DocumentSnapshot itemSnapshot = document.documents[0];
-        if (item.amount + itemSnapshot['amount'] <= 0) {
-          await requestsReference.document(itemSnapshot.documentID).delete();
-        } else {
-          await requestsReference.document(itemSnapshot.documentID).updateData({
-            'amount': item.amount + itemSnapshot['amount'],
-          });
-        }
+        await requestsReference.document(itemSnapshot.documentID).updateData({
+          'amount': item.amount + itemSnapshot['amount'],
+        });
       } else {
         throw new Exception('ERROR: Cannot have duplicate items with same name and category in collection');
       }

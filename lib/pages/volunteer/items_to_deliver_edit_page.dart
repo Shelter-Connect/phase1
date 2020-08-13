@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:phase1/components/date_time_field.dart';
 import 'package:phase1/components/increment.dart';
 import 'package:phase1/components/rounded_button.dart';
 import 'package:phase1/models/donation.dart';
 import 'package:phase1/models/organization.dart';
-import 'package:phase1/components/date_time_field.dart';
 
 import '../../components/standard_layout.dart';
 import '../../constants.dart';
@@ -240,7 +239,6 @@ class _OrganizationInformationState extends State<OrganizationInformation> {
                     BasicDateField(
                       onChanged: (val) {
                         setState(() {
-                         //TODO: change value to equal  widget.donation.date
                           widget.donation.date = val;
                         });
                       },
