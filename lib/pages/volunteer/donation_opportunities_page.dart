@@ -4,6 +4,8 @@ import 'package:phase1/models/organization.dart';
 import 'package:phase1/models/user_position.dart';
 import 'package:phase1/services/location_helper.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
 
 import '../../components/organization_donation_profile.dart';
 import '../../constants.dart';
@@ -78,7 +80,17 @@ class _OrganizationDiscoverState extends State<OrganizationDiscover> {
                 );
               },
             ),
-            SizedBox(height: 20.0),
+            SizedBox(height: 40),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Center(
+                  child: SvgPicture.asset('assets/ui_svgs/searching.svg',
+                    semanticsLabel: 'Go Discover More Organizations to Help!',
+                    width: MediaQuery.of(context).size.width,
+                  ),
+                )
+            ),
+            SizedBox(height: 20),
           ],
         ),
       ),

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:phase1/constants.dart';
 import 'package:phase1/models/donation.dart';
 import 'package:phase1/services/firestore_helper.dart';
@@ -30,6 +31,7 @@ class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFF5F5F5),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4.0),
@@ -51,12 +53,17 @@ class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
                     );
                   }
                   if (snapshot.data.documents.length == 0) {
-                    return Text(
-                      'Your organization currently does not have any expected deliveries.',
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 15.0,
-                      ),
+                    return Column(
+                      children: [
+                        Text(
+                          'Your organization currently does not have any expected deliveries.',
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 15.0,
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                      ],
                     );
                   }
                   List<Widget> widgets = [];
@@ -75,6 +82,17 @@ class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
                   );
                 },
               ),
+              SizedBox(height: 40),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 4),
+                child: Center(
+                  child: SvgPicture.asset('assets/ui_svgs/dood.svg',
+                    semanticsLabel: 'Create some requests!',
+                    width: MediaQuery.of(context).size.width,
+                  ),
+                ),
+              ),
+              SizedBox(height: 60),
             ],
           ),
         ),
@@ -91,7 +109,7 @@ class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
         },
         label: Text('New Request'),
         icon: Icon(
-          Icons.edit,
+          Icons.add,
           color: Colors.white,
         ),
       ),

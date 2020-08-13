@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:phase1/components/requests_container.dart';
 import 'package:phase1/constants.dart';
 import 'package:phase1/models/item.dart';
@@ -41,11 +42,13 @@ class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
                 'Current Requests',
                 style: mainTitleStyle,
               ),
+              SizedBox(height: 10),
               FlatButton(
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => EditCurrentRequestsPage()),
+                    MaterialPageRoute(
+                        builder: (context) => EditCurrentRequestsPage()),
                   );
                 },
                 color: purpleAccent,
@@ -65,21 +68,37 @@ class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
                           color: Colors.white,
                         ),
                       ),
-                      Text('Edit', style: TextStyle(fontSize: 17, color: Colors.white))
+                      Text('Edit',
+                          style: TextStyle(fontSize: 17, color: Colors.white))
                     ],
                   ),
                 ),
               ),
               SizedBox(height: 20),
               StreamBuilder(
-                stream: FirestoreHelper.getCurrentOrganizationReference(context).collection('requests').snapshots(),
+                stream: FirestoreHelper.getCurrentOrganizationReference(context)
+                    .collection('requests')
+                    .snapshots(),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
                     return Center(
                       child: CircularProgressIndicator(),
                     );
                   }
-
+                  if (snapshot.data.documents.length == 0) {
+                    return Column(
+                      children: [
+                        Text(
+                          'Your organization currently does not have any requests. Create a request with the \'New Request\' button on the bottom right.',
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 15.0,
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                      ],
+                    );
+                  }
                   Map<String, List<Item>> itemCategories = {};
                   for (DocumentSnapshot document in snapshot.data.documents) {
                     if (!itemCategories.containsKey(document['category'])) {
@@ -110,7 +129,16 @@ class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
                   );
                 },
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 40),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 4),
+                child: Center(
+                  child: SvgPicture.asset('assets/ui_svgs/shopping.svg',
+                    semanticsLabel: 'Create a Item Request!',
+                    width: MediaQuery.of(context).size.width,
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -127,7 +155,7 @@ class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
         },
         label: Text('New Request'),
         icon: Icon(
-          Icons.edit,
+          Icons.add,
           color: Colors.white,
         ),
       ),
