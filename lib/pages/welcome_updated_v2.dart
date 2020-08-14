@@ -1,38 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:phase1/constants.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
       child: Stack(children: <Widget>[
         Container(
           decoration: BoxDecoration(
-            color: Colors.transparent,
-            image: DecorationImage(
-              fit: BoxFit.fill,
-              image: AssetImage(
-                'assets/foodgivingsmaller.png',
-              ),
+            color: Colors.white,
             ),
-          ),
           height: MediaQuery.of(context).size.height,
-        ),
-        Container(
-          height: MediaQuery.of(context).size.height,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: FractionalOffset.topCenter,
-              end: FractionalOffset.bottomCenter,
-              colors: [
-                Colors.grey.withOpacity(0.0),
-                Colors.black,
-                Colors.black,
-                Colors.black,
-              ],
-              stops: [0.0, 0.6, 0.8, 1.0],
-            ),
-          ),
         ),
         Column(
           children: [
@@ -71,13 +49,17 @@ class HomePage extends StatelessWidget {
               child: ButtonTheme(
                 minWidth: 320.0,
                 height: 50.0,
-                child: RaisedButton(
+                child: FlatButton(
                   onPressed: () {
                     Navigator.pushNamed(context, '/organization_sign_up');
                   },
                   textColor: purpleAccent,
                   color: Colors.white,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40.0)),
+                  shape: RoundedRectangleBorder(side: BorderSide(
+                      color: purpleAccent,
+                      width: 1,
+                      style: BorderStyle.solid
+                  ), borderRadius: BorderRadius.circular(40)),
                   child: Container(
                     child: Text(
                       'Sign up as an Organization',
@@ -95,7 +77,7 @@ class HomePage extends StatelessWidget {
                 child: ButtonTheme(
                   minWidth: 320.0,
                   height: 50.0,
-                  child: RaisedButton(
+                  child: FlatButton(
                     onPressed: () {
                       Navigator.pushNamed(context, '/volunteer_sign_up');
                     },

@@ -4,6 +4,7 @@ import 'package:phase1/pages/organization/create_request_page.dart';
 import 'package:phase1/pages/organization/delivery_information_page.dart';
 import 'package:phase1/pages/organization/organization_bottom_navigation.dart';
 import 'package:phase1/pages/volunteer/volunteer_bottom_navigation_page.dart';
+import 'package:phase1/pages/welcome_updated_v2.dart';
 import 'package:provider/provider.dart';
 
 import 'models/user.dart';
@@ -43,6 +44,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/welcome': (_) => WelcomePage(),
           '/welcome_updated': (_) => HomePage(),
+          '/welcome_updated_2': (_) => HomePage2(),
           '/': (_) => LoadingPage(),
           '/login': (_) => LoginPage(),
           '/organization_confirmation': (_) => OrganizationConfirmationPage(),

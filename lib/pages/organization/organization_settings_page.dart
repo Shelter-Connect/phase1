@@ -89,7 +89,7 @@ class OrganizationInfo extends StatelessWidget {
             children: <Widget>[
               Text(
                 'Organization Information',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
               ),
               SizedBox(
                 height: 5,
