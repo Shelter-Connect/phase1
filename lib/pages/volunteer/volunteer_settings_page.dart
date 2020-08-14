@@ -8,6 +8,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../constants.dart';
 import '../../models/user.dart';
+import 'volunteer_edit_info_page.dart';
 
 class VolunteerSettingsPage extends StatefulWidget with NavigationTab {
   @override
@@ -147,6 +148,51 @@ class UserInfo extends StatelessWidget {
                     ),
                   )
                 ],
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            InkWell(
+              onTap: () async {
+                bool updated = await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => VolunteerEditInfoPage(),
+                  ),
+                );
+                if (updated) {
+                  Scaffold.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Your name has been updated.'),
+                    ),
+                  );
+                }
+              },
+              child: Container(
+                width: 160,
+                height: 37,
+                decoration: BoxDecoration(
+                  color: purpleAccent,
+                  borderRadius: BorderRadius.circular(21),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+                  child: Row(
+                    children: <Widget>[
+                      Icon(Icons.edit, color: Colors.white, size: 25),
+                      SizedBox(width: 2),
+                      Text(
+                        'Change Name',
+                        style: TextStyle(
+                          color: colorScheme.onSecondary,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 16.0,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ),
             SizedBox(
