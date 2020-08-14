@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 import '../../constants.dart';
 import '../../models/user.dart';
 import '../bottom_navigation_tab.dart';
-import '../navigation_tab.dart';
 
 class VolunteerSettingsPage extends StatefulWidget with BottomNavigationTab {
   @override
@@ -24,8 +23,6 @@ class VolunteerSettingsPage extends StatefulWidget with BottomNavigationTab {
 
   @override
   String get barTitle => 'Settings';
-
-
 }
 
 class _VolunteerSettingsPageState extends State<VolunteerSettingsPage> {
@@ -101,7 +98,6 @@ class UserInfo extends StatelessWidget {
                   ),
                   TextSpan(
                     text: name,
-                    //TODO: Name doesn't show up
                     style: TextStyle(
                       fontSize: 17,
                       fontWeight: FontWeight.w600,
