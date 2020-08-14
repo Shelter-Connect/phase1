@@ -146,7 +146,7 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                                     ),
                                   SizedBox(
                                     height: 5,
-                                  )
+                                  ),
                                 ],
                               );
                             },

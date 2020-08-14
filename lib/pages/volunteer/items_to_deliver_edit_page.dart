@@ -99,13 +99,19 @@ class _EditDeliveryPageState extends State<EditDeliveryPage> {
                                       children: [
                                         Expanded(
                                           child: Text(
-                                            '${widget.donation.items[index].name} x ${widget.donation.items[index].amount}',
+                                            '${widget.donation.items[index].name} - ${widget.donation.items[index].amount} ${widget.donation.items[index].unit ?? ''}'
+                                                .trim(),
                                             style: TextStyle(
                                               fontSize: 17.0,
                                               fontWeight: FontWeight.w400,
                                             ),
                                           ),
                                         ),
+                                        if (widget.donation.items[index].specificDescription != null)
+                                          Text(
+                                            widget.donation.items[index].specificDescription,
+                                            style: TextStyle(fontSize: 14, color: Colors.grey),
+                                          ),
                                         ItemIncrementWithText(
                                           initialQuantity: widget.donation.items[index].amount,
                                           maxQuantity: widget.organization.requestedItems[widget.donation.items[index].category]
