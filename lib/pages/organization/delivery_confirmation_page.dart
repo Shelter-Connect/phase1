@@ -162,7 +162,7 @@ class _ConfirmDeliveryPageState extends State<ConfirmDeliveryPage> {
                   FirestoreHelper.updateRequests(context: context, items: delta);
                   widget.donation.items = items;
                   FirestoreHelper.confirmDelivery(context, widget.donation);
-                  Navigator.popUntil(context, ModalRoute.withName('/organization_navigation'));
+                  Navigator.popUntil(context, ModalRoute.withName('/organization_bottom_navigation'));
                 },
               ),
             )

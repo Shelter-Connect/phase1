@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:phase1/constants.dart';
 
-// ignore: must_be_immutable
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

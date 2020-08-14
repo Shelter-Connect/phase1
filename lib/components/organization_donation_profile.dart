@@ -48,13 +48,7 @@ class OrganizationDonationProfile extends StatelessWidget {
                   SizedBox(
                     height: 30.0,
                     width: 30.0,
-                    child: IconButton(
-                      icon: Icon(Icons.keyboard_arrow_right),
-                      padding: EdgeInsets.all(0.0),
-                      onPressed: () {
-                        //TODO
-                      },
-                    ),
+                    child: Icon(Icons.keyboard_arrow_right),
                   ),
                 ],
               ),

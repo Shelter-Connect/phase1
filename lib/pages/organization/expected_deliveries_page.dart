@@ -23,12 +23,6 @@ class ExpectedDeliveriesPage extends StatefulWidget with NavigationTab {
 
   @override
   String get title => 'Deliveries';
-
-  @override
-  String get barTitle => 'Expected Deliveries';
-
-
-
 }
 
 class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
@@ -45,7 +39,6 @@ class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              SizedBox(height: 20),
               StreamBuilder(
                 stream: FirestoreHelper.getCurrentOrganizationReference(context).collection('currentDonations').orderBy('date').snapshots(),
                 builder: (context, snapshot) {

@@ -24,9 +24,6 @@ class CurrentRequestsPage extends StatefulWidget with NavigationTab {
 
   @override
   String get title => 'Requests';
-
-  @override
-  String get barTitle => 'Current Requests';
 }
 
 class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
@@ -41,7 +38,6 @@ class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              SizedBox(height: 10),
               FlatButton(
                 onPressed: () {
                   Navigator.push(

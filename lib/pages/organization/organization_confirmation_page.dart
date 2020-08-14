@@ -44,6 +44,7 @@ class _OrganizationConfirmationPageState extends State<OrganizationConfirmationP
                 SizedBox(height: 30),
                 RoundedButton(
                   title: 'Check Verification',
+                  textColor: Colors.white,
                   onPressed: () async {
                     setState(() {
                       loading = true;
@@ -55,7 +56,7 @@ class _OrganizationConfirmationPageState extends State<OrganizationConfirmationP
                     });
 
                     if (organizationSnapshot['verified']) {
-                      Navigator.pushReplacementNamed(context, '/organization_navigation');
+                      Navigator.pushReplacementNamed(context, '/organization_bottom_navigation');
                     } else {
                       showDialog(
                         context: context,

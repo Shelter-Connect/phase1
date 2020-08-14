@@ -73,7 +73,6 @@ class _DeliveryInformationPageState extends State<DeliveryInformationPage> {
                                   widget.donation.items[index].specificDescription,
                                   style: TextStyle(fontSize: 14, color: Colors.grey),
                                 ),
-                              //TODO: Units
                             ],
                           );
                         },

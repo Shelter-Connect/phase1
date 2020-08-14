@@ -10,7 +10,6 @@ import 'models/user.dart';
 import 'pages/loading_page.dart';
 import 'pages/login_page.dart';
 import 'pages/organization/organization_confirmation_page.dart';
-import 'pages/organization/organization_navigation_page.dart';
 import 'pages/organization/organization_sign_up_page.dart';
 import 'pages/signup_page.dart';
 import 'pages/volunteer/volunteer_confirmation_page.dart';
@@ -48,7 +47,6 @@ class MyApp extends StatelessWidget {
           '/login': (_) => LoginPage(),
           '/organization_confirmation': (_) => OrganizationConfirmationPage(),
           '/organization_create_request': (_) => CreateRequestPage(),
-          '/organization_navigation': (_) => OrganizationNavigationPage(),
           '/organization_bottom_navigation': (_) => OrganizationBottomNavigationPage(),
           '/organization_sign_up': (_) => OrganizationSignUpPage(),
           '/signup': (_) => SignupPage(),
