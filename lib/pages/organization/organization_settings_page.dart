@@ -7,10 +7,9 @@ import 'package:phase1/pages/organization/organization_preview_page.dart';
 import 'package:phase1/services/firestore_helper.dart';
 
 import '../../constants.dart';
-import '../bottom_navigation_tab.dart';
 import '../navigation_tab.dart';
 
-class OrganizationSettingsPage extends StatefulWidget with BottomNavigationTab {
+class OrganizationSettingsPage extends StatefulWidget with NavigationTab {
   @override
   _OrganizationSettingsPageState createState() => _OrganizationSettingsPageState();
 

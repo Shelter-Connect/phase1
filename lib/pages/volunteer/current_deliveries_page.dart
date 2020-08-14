@@ -2,17 +2,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:phase1/components/deliveries_container.dart';
-import 'package:phase1/constants.dart';
 import 'package:phase1/models/donation.dart';
 import 'package:phase1/models/user_position.dart';
 import 'package:phase1/services/firestore_helper.dart';
 import 'package:phase1/services/location_helper.dart';
 import 'package:provider/provider.dart';
 
-import '../bottom_navigation_tab.dart';
 import '../navigation_tab.dart';
 
-class CurrentDeliveriesPage extends StatefulWidget with BottomNavigationTab { //TODO FIx if errors
+class CurrentDeliveriesPage extends StatefulWidget with NavigationTab {
   @override
   _CurrentDeliveriesPageState createState() => _CurrentDeliveriesPageState();
 
@@ -76,7 +74,7 @@ class _CurrentDeliveriesPageState extends State<CurrentDeliveriesPage> {
                           return Column(
                             children: [
                               Text(
-                                'Your have no items to deliver. Go makes some donations!',
+                                'You have no items to deliver. Go makes some donations!',
                                 style: TextStyle(
                                   color: Colors.grey,
                                   fontSize: 15.0,

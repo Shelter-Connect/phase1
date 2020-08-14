@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:phase1/components/alerts.dart';
+import 'package:phase1/pages/navigation_tab.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants.dart';
 import '../../models/user.dart';
-import '../bottom_navigation_tab.dart';
 
-class VolunteerSettingsPage extends StatefulWidget with BottomNavigationTab {
+class VolunteerSettingsPage extends StatefulWidget with NavigationTab {
   @override
   _VolunteerSettingsPageState createState() => _VolunteerSettingsPageState();
 

@@ -19,9 +19,9 @@ class VolunteerNavigationPage extends StatefulWidget {
 class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
   int _selectedIndex = 0;
   final List<NavigationTab> _pages = [
-//    OrganizationDiscover(),
-//    CurrentDeliveriesPage(),
-//    VolunteerSettingsPage(), //TODO Fix if messed up
+    OrganizationDiscover(),
+    CurrentDeliveriesPage(),
+    VolunteerSettingsPage(),
   ];
 
   @override

@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:phase1/models/user_position.dart';
+import 'package:phase1/pages/navigation_tab.dart';
 import 'package:phase1/pages/volunteer/volunteer_settings_page.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../constants.dart';
-import '../bottom_navigation_tab.dart';
 import '../volunteer/current_deliveries_page.dart';
 import '../volunteer/discover_page.dart';
 import '../volunteer/volunteer_settings_page.dart';
@@ -19,7 +19,7 @@ class VolunteerBottomNavigationPage extends StatefulWidget {
 
 class _VolunteerBottomNavigationPageState extends State<VolunteerBottomNavigationPage> {
   int _selectedIndex = 0;
-  final List<BottomNavigationTab> _tabs = [
+  final List<NavigationTab> _tabs = [
     VolunteerHome(),
     OrganizationDiscover(),
     CurrentDeliveriesPage(),
@@ -38,7 +38,7 @@ class _VolunteerBottomNavigationPageState extends State<VolunteerBottomNavigatio
             automaticallyImplyLeading: false,
             brightness: Brightness.light,
             title: Text(
-              _tabs[_selectedIndex].barTitle,
+              _tabs[_selectedIndex].title ,
               style: mainTitleStyle2,
             ),
             backgroundColor: Color(0xFFF5F5F5),

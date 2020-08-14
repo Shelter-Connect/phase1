@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:phase1/models/user_position.dart';
+import 'package:phase1/pages/navigation_tab.dart';
 import 'package:phase1/pages/organization/current_requests_page.dart';
 import 'package:phase1/pages/organization/expected_deliveries_page.dart';
 import 'package:phase1/pages/organization/organization_home.dart';
@@ -9,7 +10,6 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../constants.dart';
-import '../bottom_navigation_tab.dart';
 class OrganizationBottomNavigationPage extends StatefulWidget {
   @override
   _OrganizationBottomNavigationPageState createState() => _OrganizationBottomNavigationPageState();
@@ -17,7 +17,7 @@ class OrganizationBottomNavigationPage extends StatefulWidget {
 
 class _OrganizationBottomNavigationPageState extends State<OrganizationBottomNavigationPage> {
   int _selectedIndex = 0;
-  final List<BottomNavigationTab> _tabs = [
+  final List<NavigationTab> _tabs = [
     OrganizationHome(),
     ExpectedDeliveriesPage(),
     CurrentRequestsPage(),
@@ -37,7 +37,7 @@ class _OrganizationBottomNavigationPageState extends State<OrganizationBottomNav
             automaticallyImplyLeading: false,
             brightness: Brightness.light,
             title: Text(
-              _tabs[_selectedIndex].barTitle,
+              _tabs[_selectedIndex].title,
               style: mainTitleStyle2,
             ),
             backgroundColor: Color(0xFFF5F5F5),

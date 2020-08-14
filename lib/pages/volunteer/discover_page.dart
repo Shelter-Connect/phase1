@@ -4,15 +4,13 @@ import 'package:phase1/models/organization.dart';
 import 'package:phase1/models/user_position.dart';
 import 'package:phase1/services/location_helper.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import '../navigation_tab.dart';
 
 
 import '../../components/organization_donation_profile.dart';
 import '../../constants.dart';
-import '../bottom_navigation_tab.dart';
-import '../navigation_tab.dart';
 
-class OrganizationDiscover extends StatefulWidget with BottomNavigationTab { //TODO Fix if errrs
+class OrganizationDiscover extends StatefulWidget with NavigationTab {
   @override
   _OrganizationDiscoverState createState() => _OrganizationDiscoverState();
 
@@ -25,11 +23,6 @@ class OrganizationDiscover extends StatefulWidget with BottomNavigationTab { //T
 
   @override
   String get title => 'Discover';
-
-  @override
-  String get barTitle => 'Discover';
-
-
 }
 
 class _OrganizationDiscoverState extends State<OrganizationDiscover> {
@@ -49,7 +42,6 @@ class _OrganizationDiscoverState extends State<OrganizationDiscover> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            SizedBox(height: 20.0),
             StreamBuilder(
               stream: db.collection('organizations').snapshots(),
               builder: (context, snapshot) {

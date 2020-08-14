@@ -6,12 +6,11 @@ import 'package:phase1/constants.dart';
 import 'package:phase1/models/item.dart';
 import 'package:phase1/services/firestore_helper.dart';
 
-import '../bottom_navigation_tab.dart';
 import '../navigation_tab.dart';
 import 'create_request_page.dart';
 import 'edit_current_requests_page.dart';
 
-class CurrentRequestsPage extends StatefulWidget with BottomNavigationTab {
+class CurrentRequestsPage extends StatefulWidget with NavigationTab {
   @override
   _CurrentRequestsPageState createState() => _CurrentRequestsPageState();
 
