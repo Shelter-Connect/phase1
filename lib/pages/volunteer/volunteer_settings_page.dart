@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:phase1/components/alerts.dart';
 import 'package:phase1/pages/navigation_tab.dart';
+import 'package:phase1/services/firestore_helper.dart';
 import 'package:provider/provider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../constants.dart';
 import '../../models/user.dart';
@@ -20,24 +22,39 @@ class VolunteerSettingsPage extends StatefulWidget with NavigationTab {
 
   @override
   String get title => 'Settings';
-
-  @override
-  String get barTitle => 'Settings';
 }
 
 class _VolunteerSettingsPageState extends State<VolunteerSettingsPage> {
+  String name;
+  bool loading = true;
+
+  @override
+  void initState() {
+    DocumentReference volunteerReference = FirestoreHelper.getCurrentVolunteerReference(context);
+    volunteerReference.get().then((value) {
+      setState(() {
+        name = '${value['firstName']} ${value['lastName']}';
+        loading = false;
+      });
+    });
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFF5F5F5),
-      body: SingleChildScrollView(
+      body: loading ? Center(
+        child: CircularProgressIndicator(),
+      ) : SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               SizedBox(height: 20),
-              UserInfo(email: Provider.of<User>(context, listen: false).user.email, name: Provider.of<User>(context, listen: false).user.displayName),
+              UserInfo(email: Provider.of<User>(context, listen: false).user.email, name: name),
               SizedBox(height: 20),
               SignOut(),
               SizedBox(height: 20),
