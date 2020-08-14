@@ -36,7 +36,7 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
             brightness: Brightness.light,
             title: Text(
               _pages[_selectedIndex].title,
-              style: TextStyle(color: Color(0xFFF5F5F5)),
+              style: TextStyle(color: Colors.transparent),
             ),
             backgroundColor: Color(0xFFF5F5F5),
             elevation: 0.0,

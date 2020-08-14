@@ -38,7 +38,9 @@ class _OrganizationBottomNavigationPageState extends State<OrganizationBottomNav
             brightness: Brightness.light,
             title: Text(
               _tabs[_selectedIndex].title,
-              style: mainTitleStyle2,
+              style: TextStyle(
+                color: Colors.transparent
+              ),
             ),
             backgroundColor: Color(0xFFF5F5F5),
             elevation: 0.0,

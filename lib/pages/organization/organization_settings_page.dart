@@ -18,14 +18,10 @@ class OrganizationSettingsPage extends StatefulWidget with NavigationTab {
       'In addition, you can preview your profile as volunteers will see it.';
 
   @override
-  IconData get icon => Icons.settings;
+  IconData get icon => Icons.person_outline;
 
   @override
-  String get title => 'Settings';
-
-  @override
-  String get barTitle => 'Settings';
-
+  String get title => 'Account';
 
 }
 
@@ -55,6 +51,10 @@ class _OrganizationSettingsPageState extends State<OrganizationSettingsPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                    child: Text('Account Settings', style: mainTitleStyle),
+                  ),
                   SizedBox(height: 20),
                   OrganizationInfo(organization: organization),
                   SizedBox(height: 20),

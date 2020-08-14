@@ -42,6 +42,11 @@ class _OrganizationDiscoverState extends State<OrganizationDiscover> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4.0),
+              child: Text('Discover Organizations', style: mainTitleStyle),
+            ),
+            SizedBox(height: 20),
             StreamBuilder(
               stream: db.collection('organizations').snapshots(),
               builder: (context, snapshot) {

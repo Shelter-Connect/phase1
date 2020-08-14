@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:phase1/components/deliveries_container.dart';
+import 'package:phase1/constants.dart';
 import 'package:phase1/models/donation.dart';
 import 'package:phase1/models/user_position.dart';
 import 'package:phase1/services/firestore_helper.dart';
@@ -61,6 +62,7 @@ class _CurrentDeliveriesPageState extends State<CurrentDeliveriesPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
+                    Text('Items to Deliver', style: mainTitleStyle),
                     SizedBox(height: 20),
                     StreamBuilder(
                       stream: FirestoreHelper.getCurrentVolunteerReference(context).collection('currentDonations').orderBy('date').snapshots(),

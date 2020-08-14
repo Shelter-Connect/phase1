@@ -38,6 +38,8 @@ class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+              Text('Current Requests', style: mainTitleStyle),
+              SizedBox(height: 20),
               FlatButton(
                 onPressed: () {
                   Navigator.push(

@@ -53,6 +53,7 @@ class _VolunteerSettingsPageState extends State<VolunteerSettingsPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+              Text('Account Settings', style: mainTitleStyle),
               SizedBox(height: 20),
               UserInfo(email: Provider.of<User>(context, listen: false).user.email, name: name),
               SizedBox(height: 20),
