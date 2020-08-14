@@ -69,7 +69,7 @@ class FloatingDescriptionField extends StatelessWidget {
   final TextStyle textStyle;
   final TextStyle hintStyle;
 
-  final String hintText;
+  final String hintText, counterText, labelText;
   final Function onChanged;
   final Function onTapped;
   final int maxLength;
@@ -77,8 +77,9 @@ class FloatingDescriptionField extends StatelessWidget {
   final bool autofocus;
   final bool obscureText;
   final IconButton suffixIcon;
-  final double width;
+  final double width, height;
   final TextInputType keyboardType;
+  final TextStyle labelStyle;
 
   FloatingDescriptionField(
       {this.hintText,
@@ -92,8 +93,12 @@ class FloatingDescriptionField extends StatelessWidget {
       this.hintStyle,
       this.autofocus = false,
       this.width,
+        this.height,
       this.maxLength,
-      this.keyboardType = TextInputType.text});
+        this.counterText,
+        this.labelText,
+        this.labelStyle,
+      this.keyboardType = TextInputType.text,});
 
   @override
   Widget build(BuildContext context) {
@@ -102,6 +107,7 @@ class FloatingDescriptionField extends StatelessWidget {
       borderRadius: BorderRadius.circular(10),
       child: Container(
         width: width,
+        height: height,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 10),
           child: TextField(
@@ -120,6 +126,9 @@ class FloatingDescriptionField extends StatelessWidget {
               hintText: hintText,
               hintStyle: hintStyle,
               border: InputBorder.none,
+              counterText: counterText,
+              labelText: labelText,
+              labelStyle: labelStyle,
             ),
           ),
         ),

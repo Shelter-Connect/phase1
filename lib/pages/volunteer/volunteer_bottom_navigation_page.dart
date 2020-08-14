@@ -1,16 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:phase1/components/feedback_form.dart';
 import 'package:phase1/models/user_position.dart';
 import 'package:phase1/pages/navigation_tab.dart';
+import 'package:phase1/pages/organization/organization_bottom_navigation.dart';
 import 'package:phase1/pages/volunteer/volunteer_settings_page.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../constants.dart';
 import '../volunteer/current_deliveries_page.dart';
-import '../volunteer/discover_page.dart';
 import '../volunteer/volunteer_settings_page.dart';
-import 'volunteer_home.dart';
 
 class VolunteerBottomNavigationPage extends StatefulWidget {
   @override
@@ -20,10 +20,9 @@ class VolunteerBottomNavigationPage extends StatefulWidget {
 class _VolunteerBottomNavigationPageState extends State<VolunteerBottomNavigationPage> {
   int _selectedIndex = 0;
   final List<NavigationTab> _tabs = [
-    VolunteerHome(),
-    OrganizationDiscover(),
     CurrentDeliveriesPage(),
     VolunteerSettingsPage(),
+    FeedbackForm(),
   ];
 
   @override
@@ -56,13 +55,24 @@ class _VolunteerBottomNavigationPageState extends State<VolunteerBottomNavigatio
                   },
                 ),
               ),
-              IconButton(
-                icon: Icon(Icons.feedback,
-                  color: Colors.orange),
-                onPressed: () {
-                  _feedbackModalBottomSheet(context);
-                },
-              ),
+//              IconButton(
+//                icon: Icon(Icons.feedback,
+//                  color: Colors.orange),
+//                onPressed: () {
+//                  showDialog(
+//                    context: context,
+//                    builder: (_) => SingleActionAlert(
+//                      title: 'Feedback',
+//                      subtitle:
+//                      'Do you have a bug that you want to report or would like to suggest a feature that would make your user experience better? Give feedback below!',
+//                      actionName: 'Give Feedback',
+//                      action: () {
+//                        launch('https://forms.gle/WjpQoEBNmBEQXoDP8');
+//                      },
+//                    ),
+//                  );
+//                },
+//              ),
             ],
           ),
           body: _tabs[_selectedIndex],
@@ -99,88 +109,6 @@ class _VolunteerBottomNavigationPageState extends State<VolunteerBottomNavigatio
           ),
         ),
       ),
-    );
-  }
-
-  void _feedbackModalBottomSheet(BuildContext context) {
-    showModalBottomSheet(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(20.0),
-          topRight: Radius.circular(20.0),
-        ),
-      ),
-      context: context,
-      builder: (BuildContext bc) {
-        return Container(
-          height: MediaQuery.of(context).size.height * 0.6,
-          child: Padding(
-            padding: EdgeInsets.all(25.0),
-            child: Column(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8, top: 0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text('Give Feedback', style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
-                      IconButton(
-                        iconSize: 30,
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        icon: Icon(Icons.feedback),
-                      ),
-                    ],
-                  ),
-                ),
-                Text('Give us feedback', style: TextStyle(fontSize: 17)),
-                Spacer(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    InkWell(
-                      child: new Text(
-                        'Give Feedback',
-                        style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 17),
-                      ),
-                      onTap: () {
-                        launch('https://forms.gle/WjpQoEBNmBEQXoDP8');
-                      },
-                    ),
-                    IconButton(
-                      iconSize: 30,
-                      onPressed: () {
-                          launch('https://forms.gle/WjpQoEBNmBEQXoDP8');
-                      },
-                      icon: Icon(Icons.feedback),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    InkWell(
-                      child: new Text(
-                        'Report Issues',
-                        style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 17),
-                      ),
-                      onTap: () => launch('https://forms.gle/ue5idWtztcgevh9Q7'),
-                    ),
-                    IconButton(
-                      iconSize: 30,
-                      onPressed: () {
-                        launch('https://forms.gle/ue5idWtztcgevh9Q7');
-                      },
-                      icon: Icon(Icons.bug_report),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        );
-      },
     );
   }
 
@@ -222,16 +150,17 @@ class _VolunteerBottomNavigationPageState extends State<VolunteerBottomNavigatio
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
                     InkWell(
-                      child: new Text(
-                        'Report Issues',
-                        style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 17),
-                      ),
-                      onTap: () => launch('https://forms.gle/ue5idWtztcgevh9Q7'),
+                        child: new Text(
+                          'Report Issues',
+                          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 17),
+                        ),
+                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => OrganizationBottomNavigationPage()))
                     ),
                     IconButton(
                       iconSize: 30,
                       onPressed: () {
-                        launch('https://forms.gle/ue5idWtztcgevh9Q7');
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => OrganizationBottomNavigationPage()));
+                        //TODO: Make this go to the feedback page
                       },
                       icon: Icon(Icons.bug_report),
                     ),
