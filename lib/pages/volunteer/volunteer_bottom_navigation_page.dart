@@ -4,6 +4,7 @@ import 'package:phase1/components/feedback_form.dart';
 import 'package:phase1/models/user_position.dart';
 import 'package:phase1/pages/navigation_tab.dart';
 import 'package:phase1/pages/organization/organization_bottom_navigation.dart';
+import 'package:phase1/pages/volunteer/discover_page.dart';
 import 'package:phase1/pages/volunteer/volunteer_settings_page.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -20,6 +21,7 @@ class VolunteerBottomNavigationPage extends StatefulWidget {
 class _VolunteerBottomNavigationPageState extends State<VolunteerBottomNavigationPage> {
   int _selectedIndex = 0;
   final List<NavigationTab> _tabs = [
+    OrganizationDiscover(),
     CurrentDeliveriesPage(),
     VolunteerSettingsPage(),
     FeedbackForm(),
