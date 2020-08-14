@@ -10,7 +10,7 @@ import 'package:phase1/services/firestore_helper.dart';
 
 import '../../components/standard_layout.dart';
 import '../../constants.dart';
-import 'items_to_deliver_edit_page.dart';
+import 'edit_delivery_page.dart';
 
 class DeliveryDescriptionPage extends StatefulWidget {
   Organization organization;
