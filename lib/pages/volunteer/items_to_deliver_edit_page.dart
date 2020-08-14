@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:phase1/components/alerts.dart';
 import 'package:phase1/components/date_time_field.dart';
 import 'package:phase1/components/increment.dart';
 import 'package:phase1/components/rounded_button.dart';
 import 'package:phase1/models/donation.dart';
+import 'package:phase1/models/item.dart';
 import 'package:phase1/models/organization.dart';
+import 'package:phase1/services/firestore_helper.dart';
 
 import '../../components/standard_layout.dart';
 import '../../constants.dart';
@@ -105,7 +108,13 @@ class _EditDeliveryPageState extends State<EditDeliveryPage> {
                                         ),
                                         ItemIncrementWithText(
                                           initialQuantity: widget.donation.items[index].amount,
-                                          maxQuantity: widget.donation.items[index].amount,
+                                          maxQuantity: widget.organization.requestedItems[widget.donation.items[index].category]
+                                                  .singleWhere((item) =>
+                                                      (item.name == widget.donation.items[index].name) &&
+                                                      (item.specificDescription == widget.donation.items[index].specificDescription) &&
+                                                      (item.unit == widget.donation.items[index].unit))
+                                                  .amount +
+                                              widget.donation.items[index].amount,
                                           onChanged: (val) {
                                             newDonation.items[index].amount = val;
                                           },
@@ -130,7 +139,24 @@ class _EditDeliveryPageState extends State<EditDeliveryPage> {
                   title: 'Confirm Edit',
                   textColor: Colors.white,
                   onPressed: () {
-                    setState(() {}); //TODO: Make Edit Functionality
+                    setState(() {
+                      if ((newDonation.date.isBefore(DateTime.now())) || (newDonation.date.day == DateTime.now().day))
+                        showDialog(
+                          context: context,
+                          builder: (_) => NoActionAlert(title: 'Please choose a date that has not passed'),
+                        );
+                      Navigator.pop(context);
+                      Navigator.pop(context);
+                      List<Item> delta = List();
+                      for (Item newItem in newDonation.items) {
+                        Item item = newItem.clone();
+                        item.amount *= -1;
+                        delta.add(item);
+                      }
+                      FirestoreHelper.cancelVolunteerDelivery(context, widget.donation);
+                      FirestoreHelper.updateRequests(context: context, items: delta, organizationId: widget.donation.organization.id);
+                      FirestoreHelper.createDonation(context, newDonation);
+                    });
                   },
                 )
               ],

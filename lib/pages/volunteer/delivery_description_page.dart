@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:phase1/components/alerts.dart';
 import 'package:phase1/models/donation.dart';
+import 'package:phase1/models/item.dart';
 import 'package:phase1/models/organization.dart';
 import 'package:phase1/services/firestore_helper.dart';
 
@@ -11,7 +13,7 @@ import '../../constants.dart';
 import 'items_to_deliver_edit_page.dart';
 
 class DeliveryDescriptionPage extends StatefulWidget {
-  final Organization organization;
+  Organization organization;
   final Donation donation;
 
   DeliveryDescriptionPage(this.organization, this.donation);
@@ -21,6 +23,34 @@ class DeliveryDescriptionPage extends StatefulWidget {
 }
 
 class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
+  bool loading = true;
+
+  @override
+  void initState() {
+    DocumentReference organizationReference = db.collection('organizations').document(widget.organization.id);
+    organizationReference.collection('requests').getDocuments().then((documents) {
+      widget.organization.requestedItems = Map();
+      for (DocumentSnapshot document in documents.documents) {
+        if (widget.organization.requestedItems[document['category']] == null) widget.organization.requestedItems[document['category']] = [];
+        setState(() {
+          widget.organization.requestedItems[document['category']].add(
+            Item(
+              name: document['name'],
+              amount: document['amount'],
+              category: document['category'],
+              specificDescription: document['specificDescription'],
+              unit: document['unit'],
+            ),
+          );
+        });
+      }
+      setState(() {
+        loading = false;
+      });
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return StandardLayout(
@@ -73,8 +103,8 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                                   ),
                                 ),
                                 onPressed: () {
-                                  Navigator.push(context,
-                                      MaterialPageRoute(builder: (context) => EditDeliveryPage(widget.donation.organization, widget.donation)));
+                                  Navigator.push(
+                                      context, MaterialPageRoute(builder: (context) => EditDeliveryPage(widget.organization, widget.donation)));
                                 },
                               ),
                             ],
@@ -141,7 +171,6 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                       actionName: 'Cancel Delivery',
                       title: 'Cancel Delivery?',
                       subtitle: 'You cannot revert this action',
-                      //TODO: cancel delivery
                     ),
                   );
                 },
@@ -162,7 +191,6 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                           'Cancel Delivery',
                           style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600, color: Colors.white),
                         ),
-                        //TODO: cancel delivery
                       ],
                     ),
                   ),
