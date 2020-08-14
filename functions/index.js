@@ -18,3 +18,15 @@ exports.updateOrganizationInfo = functions.firestore.document('organizations/{ui
         });
     }
 });
+
+exports.updateVolunteerInfo = functions.firestore.document('volunteers/{uid}').onUpdate(async (doc, context) => {
+    let updatedInfo = doc.after;
+    let currentDonations = await db.collection('volunteers').doc(context.params.uid).collection('currentDonations').get();
+    for (const donation of currentDonations.docs) {
+        let organizationId = donation.data().organizationId;
+        let organizationDonationReference = db.collection('organizations').doc(organizationId).collection('currentDonations').doc(donation.id);
+        organizationDonationReference.update({
+            volunteerName: updatedInfo.data().firstName + ' ' + updatedInfo.data().lastName,
+        });
+    }
+});
