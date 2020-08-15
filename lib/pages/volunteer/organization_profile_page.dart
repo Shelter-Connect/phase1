@@ -274,21 +274,40 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                               fontSize: 23.0,
                                             ),
                                           ),
-                                          ...items.map(
-                                            (item) => item.amount != 0 ? Container(
-                                              alignment: Alignment.centerLeft,
-                                              child: Padding(
-                                                padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                                child: Text(
-                                                  '${item.name} - ${item.amount} ${item.unit ?? ''}'.trim(),
-                                                  style: TextStyle(
-                                                    fontSize: 17.0,
-                                                    fontWeight: FontWeight.w400,
+                                          ...items.map((item) => Container(
+                                                alignment: Alignment.centerLeft,
+                                                child: Padding(
+                                                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                                  child: Column(
+                                                    children: <Widget>[
+                                                      if (item.amount > 0)
+                                                        Text(
+                                                          '${item.name} - ${item.amount} ${item.unit ?? ''}'.trim(),
+                                                          style: TextStyle(
+                                                            fontSize: 17.0,
+                                                            fontWeight: FontWeight.w400,
+                                                          ),
+                                                        )
+                                                      else
+                                                        Text(
+                                                          'Request Completed!',
+                                                          style: TextStyle(
+                                                            fontSize: 17,
+                                                            color: Colors.green,
+                                                          ),
+                                                        ),
+                                                      if (item.specificDescription != null)
+                                                        Text(
+                                                          item.specificDescription,
+                                                          style: TextStyle(
+                                                            fontSize: 14,
+                                                            color: Colors.grey,
+                                                          ),
+                                                        ),
+                                                    ],
                                                   ),
                                                 ),
-                                              ),
-                                            ) : Container(),
-                                          ),
+                                              )),
                                         ],
                                       );
                                     }).toList(),

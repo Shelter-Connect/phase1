@@ -5,7 +5,6 @@ import 'package:intl/intl.dart';
 import 'package:phase1/components/alerts.dart';
 import 'package:phase1/models/donation.dart';
 import 'package:phase1/models/item.dart';
-import 'package:phase1/models/organization.dart';
 import 'package:phase1/services/firestore_helper.dart';
 
 import '../../components/standard_layout.dart';
@@ -64,171 +63,173 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
     return StandardLayout(
       title: ' ',
       helpText: 'This page shows a delivery you have signed up for. Here, you can edit or cancel this delivery. ',
-      body: loading ? Center(child: CircularProgressIndicator()) : SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text('Delivery to ${donation.organization.name}', style: mainTitleStyle),
-              SizedBox(height: 20),
-              OrganizationInformation(
-                orgEmail: donation.organization.email,
-                orgAddress: donation.organization.address,
-                dateTime: donation.date,
-              ),
-              SizedBox(height: 20),
-              Container(
-                decoration: elevatedBoxStyle,
-                width: MediaQuery.of(context).size.width,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Text(
-                                'Selected Donations',
-                                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-                              ),
-                              FlatButton(
-                                padding: EdgeInsets.all(0.0),
-                                splashColor: transparent,
-                                highlightColor: transparent,
-                                child: Text(
-                                  'Edit',
-                                  style: TextStyle(
-                                    decoration: TextDecoration.underline,
-                                    color: colorScheme.error,
-                                    fontSize: 17.0,
+      body: loading
+          ? Center(child: CircularProgressIndicator())
+          : SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text('Delivery to ${donation.organization.name}', style: mainTitleStyle),
+                    SizedBox(height: 20),
+                    OrganizationInformation(
+                      orgEmail: donation.organization.email,
+                      orgAddress: donation.organization.address,
+                      dateTime: donation.date,
+                    ),
+                    SizedBox(height: 20),
+                    Container(
+                      decoration: elevatedBoxStyle,
+                      width: MediaQuery.of(context).size.width,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Text(
+                                      'Selected Donations',
+                                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                                    ),
+                                    FlatButton(
+                                      padding: EdgeInsets.all(0.0),
+                                      splashColor: transparent,
+                                      highlightColor: transparent,
+                                      child: Text(
+                                        'Edit',
+                                        style: TextStyle(
+                                          decoration: TextDecoration.underline,
+                                          color: colorScheme.error,
+                                          fontSize: 17.0,
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.push(context, MaterialPageRoute(builder: (context) => EditDeliveryPage(donation)))
+                                            .then((newDonation) async {
+                                          if (newDonation != null) {
+                                            setState(() {
+                                              loading = true;
+                                            });
+                                            //TODO: Fix edit donation bug
+                                            List<Item> delta = List();
+                                            for (Item newItem in newDonation.items) {
+                                              Item item = newItem.clone();
+                                              item.amount *= -1;
+                                              delta.add(item);
+                                            }
+                                            await FirestoreHelper.cancelVolunteerDelivery(context, donation);
+                                            await FirestoreHelper.updateRequests(
+                                                context: context, items: delta, organizationId: newDonation.organization.id, isCreating: false);
+                                            await FirestoreHelper.createDonation(context, newDonation);
+                                            updateOrganizationRequests();
+                                            setState(() {
+                                              donation = newDonation;
+                                            });
+                                          }
+                                        });
+                                      },
+                                    ),
+                                  ],
+                                ),
+                                Container(
+                                  height: 5,
+                                  width: 100,
+                                  decoration: BoxDecoration(
+                                    color: purpleAccent,
+                                    borderRadius: BorderRadius.circular(21),
                                   ),
                                 ),
-                                onPressed: () {
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => EditDeliveryPage(donation))).then((newDonation) async {
-                                    if (newDonation != null) {
-                                      setState(() {
-                                        loading = true;
-                                      });
-                                      //TODO: Fix edit donation bug
-                                      List<Item> delta = List();
-                                      for (Item newItem in newDonation.items) {
-                                        Item item = newItem.clone();
-                                        item.amount *= -1;
-                                        delta.add(item);
-                                      }
-                                      await FirestoreHelper.cancelVolunteerDelivery(context, newDonation);
-                                      await FirestoreHelper.updateRequests(
-                                          context: context, items: delta, organizationId: newDonation.organization.id, isCreating: false);
-                                      await FirestoreHelper.createDonation(context, newDonation);
-                                      updateOrganizationRequests();
-                                      setState(() {
-                                        donation = newDonation;
-                                      });
-                                      print(donation.organization.requestedItems['Clothes'][0].amount.toString() + ' ' + donation.organization.requestedItems['Clothes'][0].name);
-                                    }
-                                  });
-                                },
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: NeverScrollableScrollPhysics(),
+                                  itemCount: donation.items.length,
+                                  itemBuilder: (BuildContext context, int index) {
+                                    return Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Padding(
+                                          padding: const EdgeInsets.only(bottom: 5.0),
+                                          child: Text(
+                                            '${donation.items[index].name} - ${donation.items[index].amount} ${donation.items[index].unit ?? ''}'
+                                                .trim(),
+                                            style: TextStyle(
+                                              fontSize: 17.0,
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                        ),
+                                        if (donation.items[index].specificDescription != null)
+                                          Text(
+                                            donation.items[index].specificDescription,
+                                            style: TextStyle(fontSize: 14, color: Colors.grey),
+                                          ),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                ),
+                                SizedBox(height: 5)
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    InkWell(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (_) => SingleActionAlert(
+                            action: () {
+                              FirestoreHelper.cancelVolunteerDelivery(context, donation);
+                              Navigator.pop(context);
+                            },
+                            actionName: 'Cancel Delivery',
+                            title: 'Cancel Delivery?',
+                            subtitle: 'You cannot revert this action',
+                          ),
+                        );
+                      },
+                      child: Container(
+                        height: 45.0,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(21),
+                          color: colorScheme.error,
+                        ),
+                        child: Center(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              Icon(Icons.cancel, color: Colors.white, size: 28),
+                              SizedBox(width: 5),
+                              Text(
+                                'Cancel Delivery',
+                                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600, color: Colors.white),
                               ),
                             ],
                           ),
-                          Container(
-                            height: 5,
-                            width: 100,
-                            decoration: BoxDecoration(
-                              color: purpleAccent,
-                              borderRadius: BorderRadius.circular(21),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          ListView.builder(
-                            shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
-                            itemCount: donation.items.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Padding(
-                                    padding: const EdgeInsets.only(bottom: 5.0),
-                                    child: Text(
-                                      '${donation.items[index].name} - ${donation.items[index].amount} ${donation.items[index].unit ?? ''}'
-                                          .trim(),
-                                      style: TextStyle(
-                                        fontSize: 17.0,
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                    ),
-                                  ),
-                                  if (donation.items[index].specificDescription != null)
-                                    Text(
-                                      donation.items[index].specificDescription,
-                                      style: TextStyle(fontSize: 14, color: Colors.grey),
-                                    ),
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                ],
-                              );
-                            },
-                          ),
-                          SizedBox(height: 5)
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(height: 20),
-              InkWell(
-                onTap: () {
-                  showDialog(
-                    context: context,
-                    builder: (_) => SingleActionAlert(
-                      action: () {
-                        FirestoreHelper.cancelVolunteerDelivery(context, donation);
-                        Navigator.pop(context);
-                      },
-                      actionName: 'Cancel Delivery',
-                      title: 'Cancel Delivery?',
-                      subtitle: 'You cannot revert this action',
-                    ),
-                  );
-                },
-                child: Container(
-                  height: 45.0,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(21),
-                    color: colorScheme.error,
-                  ),
-                  child: Center(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(Icons.cancel, color: Colors.white, size: 28),
-                        SizedBox(width: 5),
-                        Text(
-                          'Cancel Delivery',
-                          style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600, color: Colors.white),
                         ),
-                      ],
+                      ),
                     ),
-                  ),
+                  ],
                 ),
               ),
-            ],
-          ),
-        ),
-      ),
+            ),
     );
   }
 }
