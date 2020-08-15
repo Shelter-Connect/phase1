@@ -52,7 +52,7 @@ class OrganizationDonationProfile extends StatelessWidget {
                   ),
                 ],
               ),
-              Text(
+              if (organization.distance != null) Text(
                 '${organization.distance.toStringAsFixed(1)} miles',
                 style: TextStyle(
                   fontSize: 15,

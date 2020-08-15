@@ -25,20 +25,23 @@ class CurrentDeliveriesPage extends StatefulWidget with NavigationTab {
 
   @override
   String get title => 'Deliver';
-
-  @override
-  String get barTitle => 'Items to Deliver';
-
-
 }
 
 class _CurrentDeliveriesPageState extends State<CurrentDeliveriesPage> {
+  bool hasPosition = true;
+
   @override
   void initState() {
     LocationHelper.getUserPosition().then((position) {
       setState(() {
         Provider.of<UserPosition>(context, listen: false).position = position;
       });
+    }).catchError((error) {
+      if (Provider.of<UserPosition>(context, listen: false).position == null) {
+        setState(() {
+          hasPosition = false;
+        });
+      }
     });
     super.initState();
   }
@@ -52,7 +55,7 @@ class _CurrentDeliveriesPageState extends State<CurrentDeliveriesPage> {
 
     return Scaffold(
       backgroundColor: Color(0xFFF5F5F5),
-      body: Provider.of<UserPosition>(context).position == null
+      body: Provider.of<UserPosition>(context).position == null && hasPosition
           ? Center(
               child: CircularProgressIndicator(),
             )
