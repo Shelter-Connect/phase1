@@ -1,4 +1,3 @@
-import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -195,7 +194,7 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                     }
                     FirestoreHelper.updateRequests(context: context, items: delta, organizationId: widget.donation.organization.id);
                     FirestoreHelper.createDonation(context, widget.donation);
-                    FlushBar(message: "Your Donation Has Been received", duration: Duration(seconds: 3)).show(context);
+                    FlushBar(message: "Your Donation Has Been received", duration: Duration(seconds: 3)).build(context);
                   },
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30.0),

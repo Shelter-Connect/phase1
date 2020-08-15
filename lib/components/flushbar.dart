@@ -12,7 +12,7 @@ class FlushBar extends StatelessWidget {
   FlushBar({this.title, this.message, this.icon, this.duration, this.mainButton, this.onTap, this.isDismissible});
   @override
   Widget build(BuildContext context) {
-    return Flushbar(
+    Flushbar(
       title: title ?? null,
       message: message ?? null,
       icon: icon ?? Icon(Icons.info_outline),
@@ -22,7 +22,5 @@ class FlushBar extends StatelessWidget {
       onTap: onTap,
       isDismissible: isDismissible ?? true,
     ).show(context);
-
   }
 }
-
