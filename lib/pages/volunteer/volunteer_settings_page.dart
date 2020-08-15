@@ -173,7 +173,6 @@ class UserInfo extends StatelessWidget {
                 }
               },
               child: Container(
-                width: 160,
                 height: 37,
                 decoration: BoxDecoration(
                   color: purpleAccent,
@@ -181,12 +180,12 @@ class UserInfo extends StatelessWidget {
                 ),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
-                  child: Row(
+                  child: Wrap(
                     children: <Widget>[
                       Icon(Icons.edit, color: Colors.white, size: 25),
                       SizedBox(width: 2),
                       Text(
-                        'Change Name',
+                        'Change User Information',
                         style: TextStyle(
                           color: colorScheme.onSecondary,
                           fontWeight: FontWeight.w500,

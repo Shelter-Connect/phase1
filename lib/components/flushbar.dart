@@ -15,7 +15,7 @@ class FlushBar extends StatelessWidget {
     Flushbar(
       title: title ?? null,
       message: message ?? null,
-      icon: icon ?? Icon(Icons.info_outline),
+      icon: icon ?? Icon(Icons.info_outline, color: Colors.white,),
       leftBarIndicatorColor: purpleAccent,
       duration: duration ?? Duration(seconds: 3),
       mainButton: mainButton,

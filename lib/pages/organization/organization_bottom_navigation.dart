@@ -53,24 +53,6 @@ class _OrganizationBottomNavigationPageState extends State<OrganizationBottomNav
                   },
                 ),
               ),
-//              IconButton(
-//                icon: Icon(Icons.feedback,
-//                    color: Colors.orange),
-//                onPressed: () {
-//                  showDialog(
-//                    context: context,
-//                    builder: (_) => SingleActionAlert(
-//                      title: 'Feedback',
-//                      subtitle:
-//                      'Do you have a bug that you want to report or would like to suggest a feature that would make your user experience better? Give feedback below!',
-//                      actionName: 'Give Feedback',
-//                      action: () {
-//                        launch('https://forms.gle/WjpQoEBNmBEQXoDP8');
-//                      },
-//                    ),
-//                  );
-//                },
-//              ),
             ],
           ),
           body: _tabs[_selectedIndex],
@@ -109,6 +91,7 @@ class _OrganizationBottomNavigationPageState extends State<OrganizationBottomNav
       ),
     );
   }
+
   void _helpModalBottomSheet(BuildContext context) {
     showModalBottomSheet(
       shape: RoundedRectangleBorder(
@@ -147,11 +130,11 @@ class _OrganizationBottomNavigationPageState extends State<OrganizationBottomNav
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
                     InkWell(
-                      child: new Text(
-                        'Report Issues',
-                        style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 17),
-                      ),
-                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => OrganizationBottomNavigationPage()))
+                        child: new Text(
+                          'Report Issues',
+                          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 17),
+                        ),
+                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => OrganizationBottomNavigationPage()))
                     ),
                     IconButton(
                       iconSize: 30,
