@@ -261,48 +261,56 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                     ),
                                   ),
                                   Column(
-                                    children: widget.organization.requestedItems
-                                        .map(
-                                          (String category, List<Item> items) => MapEntry(
+                                    children: widget.organization.itemCategories.map((String category) {
+                                      List<Item> items = widget.organization.requestedItems[category];
+                                      return Column(
+                                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                                        children: [
+                                          SizedBox(height: 10.0),
+                                          Text(
                                             category,
-                                            Column(
-                                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                                              children: [
-                                                SizedBox(height: 10.0),
-                                                Text(
-                                                  category,
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 23.0,
-                                                  ),
-                                                ),
-                                                ...items.map(
-                                                  (item) => Container(
-                                                    width: MediaQuery.of(context).size.width,
-                                                    alignment: Alignment.centerLeft,
-                                                    child: Padding(
-                                                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                                      child: Column(
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                                        children: <Widget>[
-                                                          Text(
-                                                            '${item.name} - ${item.amount} ${item.unit ?? ''}'.trim(),
-                                                            style: TextStyle(
-                                                              fontSize: 17.0,
-                                                              fontWeight: FontWeight.w400,
-                                                            ),
-                                                          )
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 23.0,
                                             ),
                                           ),
-                                        )
-                                        .values
-                                        .toList(),
+                                          ...items.map((item) => Container(
+                                                alignment: Alignment.centerLeft,
+                                                child: Padding(
+                                                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                                  child: Column(
+                                                    children: <Widget>[
+                                                      if (item.amount > 0)
+                                                        Text(
+                                                          '${item.name} - ${item.amount} ${item.unit ?? ''}'.trim(),
+                                                          style: TextStyle(
+                                                            fontSize: 17.0,
+                                                            fontWeight: FontWeight.w400,
+                                                          ),
+                                                        )
+                                                      else
+                                                        Text(
+                                                          'Request Completed!',
+                                                          style: TextStyle(
+                                                            fontSize: 17,
+                                                            color: Colors.green,
+                                                          ),
+                                                        ),
+                                                      if (item.specificDescription != null)
+                                                        Text(
+                                                          item.specificDescription,
+                                                          style: TextStyle(
+                                                            fontSize: 14,
+                                                            color: Colors.grey,
+                                                          ),
+                                                        ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              )),
+                                        ],
+                                      );
+                                    }).toList(),
                                   )
                                 ],
                               ),

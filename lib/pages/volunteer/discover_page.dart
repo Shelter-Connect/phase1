@@ -64,7 +64,7 @@ class _OrganizationDiscoverState extends State<OrganizationDiscover> {
                 }
                 List<Widget> widgets = [];
                 for (DocumentSnapshot organizationSnapshot in snapshot.data.documents) {
-                  if (organizationSnapshot['itemCategories'] != null) {
+                  if (organizationSnapshot['itemCategories'] != null && organizationSnapshot['itemCategories'].length != 0) {
                     Organization organization =
                         Organization.fromFirestoreMap(context: context, organizationSnapshot: organizationSnapshot, isVolunteer: true);
                     widgets.add(
