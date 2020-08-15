@@ -24,7 +24,7 @@ class FirestoreHelper {
   }
 
   //Creates a request of items for an organization
-  static Future<void> updateRequests({BuildContext context, List<Item> items, String organizationId}) async {
+  static Future<void> updateRequests({BuildContext context, List<Item> items, String organizationId, bool isCreating = true}) async {
     DocumentReference organizationReference =
         organizationId == null ? getCurrentOrganizationReference(context) : db.collection('organizations').document(organizationId);
     CollectionReference requestsReference = organizationReference.collection('requests');
@@ -38,7 +38,7 @@ class FirestoreHelper {
           .where('unit', isEqualTo: item.unit)
           .where('specificDescription', isEqualTo: item.specificDescription)
           .getDocuments();
-      if (document.documents.length == 0) {
+      if ((isCreating) && (document.documents.length == 0)) {
         if (item.amount != 0) await requestsReference.add(item.toFirestoreMap());
       } else if (document.documents.length == 1) {
         DocumentSnapshot itemSnapshot = document.documents[0];
@@ -109,6 +109,6 @@ class FirestoreHelper {
         db.collection('organizations').document(donation.organization.id).collection('currentDonations');
     await organizationDonationCollection.document(donation.donationId).delete();
 
-    updateRequests(context: context, items: donation.items, organizationId: donation.organization.id);
+    updateRequests(context: context, items: donation.items, organizationId: donation.organization.id, isCreating: false);
   }
 }
