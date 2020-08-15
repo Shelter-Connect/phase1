@@ -99,6 +99,10 @@ class _EditCurrentRequestsPageState extends State<EditCurrentRequestsPage> {
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 textDirection: TextDirection.rtl,
                                                 children: [
+                                                  IconButton(icon: Icon(Icons.cancel), onPressed: () {  },
+                                                      //TODO: Make it cancel
+                                                      color: colorScheme.error
+                                                  ),
                                                   Padding(
                                                     padding: const EdgeInsets.only(left: 4.0),
                                                     child: ItemIncrementWithText(
@@ -123,6 +127,7 @@ class _EditCurrentRequestsPageState extends State<EditCurrentRequestsPage> {
                                                       ),
                                                     ),
                                                   ),
+
                                                 ],
                                               ),
                                               if (itemCategories[category][index].specificDescription != null)
