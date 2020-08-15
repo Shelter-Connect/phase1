@@ -5,8 +5,6 @@ import 'package:phase1/components/date_time_field.dart';
 import 'package:phase1/components/increment.dart';
 import 'package:phase1/components/rounded_button.dart';
 import 'package:phase1/models/donation.dart';
-import 'package:phase1/models/item.dart';
-import 'package:phase1/services/firestore_helper.dart';
 
 import '../../components/standard_layout.dart';
 import '../../constants.dart';
@@ -133,24 +131,29 @@ class _EditDeliveryPageState extends State<EditDeliveryPage> {
                                             ],
                                           ),
                                         ),
-                                        ItemIncrementWithText(
-                                          initialQuantity: widget.donation.items[index].amount,
-                                          maxQuantity: widget.donation.organization.requestedItems[widget.donation.items[index].category]
-                                                  .singleWhere((item) =>
-                                                      (item.name == widget.donation.items[index].name) &&
-                                                      (item.specificDescription == widget.donation.items[index].specificDescription) &&
-                                                      (item.unit == widget.donation.items[index].unit))
-                                                  .amount +
-                                              widget.donation.items[index].amount,
-                                          onChanged: (val) {
-                                            newDonation.items[index].amount = val;
-                                          },
-                                        ),
+                                        if (widget.donation.organization.requestedItems[widget.donation.items[index].category] != null)
+                                          ItemIncrementWithText(
+                                            initialQuantity: widget.donation.items[index].amount,
+                                            maxQuantity: widget.donation.organization.requestedItems[widget.donation.items[index].category]
+                                                    .singleWhere((item) =>
+                                                        (item.name == widget.donation.items[index].name) &&
+                                                        (item.specificDescription == widget.donation.items[index].specificDescription) &&
+                                                        (item.unit == widget.donation.items[index].unit))
+                                                    .amount +
+                                                widget.donation.items[index].amount,
+                                            onChanged: (val) {
+                                              newDonation.items[index].amount = val;
+                                            },
+                                          )
+                                        else
+                                          Expanded(
+                                            child: Text(
+                                              '${widget.donation.organization.name} has cancelled their request for ${widget.donation.items[index].name}, so you may not edit it at this time (You can still deliver it).',
+                                              style: TextStyle(fontSize: 14, color: Colors.grey),
+                                            ),
+                                          )
                                       ],
                                     ),
-                                    SizedBox(
-                                      height: 10,
-                                    )
                                   ],
                                 );
                               },
