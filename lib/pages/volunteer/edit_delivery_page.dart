@@ -98,20 +98,25 @@ class _EditDeliveryPageState extends State<EditDeliveryPage> {
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         Expanded(
-                                          child: Text(
-                                            '${widget.donation.items[index].name} - ${widget.donation.items[index].amount} ${widget.donation.items[index].unit ?? ''}'
-                                                .trim(),
-                                            style: TextStyle(
-                                              fontSize: 17.0,
-                                              fontWeight: FontWeight.w400,
-                                            ),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                '${widget.donation.items[index].name} - ${widget.donation.items[index].amount} ${widget.donation.items[index].unit ?? ''}'
+                                                    .trim(),
+                                                style: TextStyle(
+                                                  fontSize: 17.0,
+                                                  fontWeight: FontWeight.w400,
+                                                ),
+                                              ),
+                                              if (widget.donation.items[index].specificDescription != null)
+                                                Text(
+                                                  widget.donation.items[index].specificDescription,
+                                                  style: TextStyle(fontSize: 14, color: Colors.grey),
+                                                ),
+                                            ],
                                           ),
                                         ),
-                                        if (widget.donation.items[index].specificDescription != null)
-                                          Text(
-                                            widget.donation.items[index].specificDescription,
-                                            style: TextStyle(fontSize: 14, color: Colors.grey),
-                                          ),
                                         ItemIncrementWithText(
                                           initialQuantity: widget.donation.items[index].amount,
                                           maxQuantity: widget.organization.requestedItems[widget.donation.items[index].category]
@@ -125,6 +130,10 @@ class _EditDeliveryPageState extends State<EditDeliveryPage> {
                                             newDonation.items[index].amount = val;
                                           },
                                         ),
+                                        IconButton(icon: Icon(Icons.cancel), onPressed: () {  },
+                                            //TODO: Make it cancel
+                                          color: colorScheme.error
+                                        )
                                       ],
                                     ),
                                     SizedBox(
