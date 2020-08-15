@@ -31,7 +31,6 @@ class FirestoreHelper {
 
     Set<String> itemCategories = Set<String>();
     for (Item item in items) {
-      print(item.amount);
       itemCategories.add(item.category);
       QuerySnapshot document = await requestsReference
           .where('name', isEqualTo: item.name)
