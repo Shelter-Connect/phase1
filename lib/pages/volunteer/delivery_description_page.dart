@@ -13,27 +13,36 @@ import '../../constants.dart';
 import 'edit_delivery_page.dart';
 
 class DeliveryDescriptionPage extends StatefulWidget {
-  Organization organization;
   final Donation donation;
 
-  DeliveryDescriptionPage(this.organization, this.donation);
+  DeliveryDescriptionPage(this.donation);
 
   @override
   _DeliveryDescriptionPageState createState() => _DeliveryDescriptionPageState();
 }
 
 class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
-  bool loading = true;
+  Donation donation;
+  bool loading = false;
 
   @override
   void initState() {
-    DocumentReference organizationReference = db.collection('organizations').document(widget.organization.id);
+    donation = widget.donation;
+    updateOrganizationRequests();
+    super.initState();
+  }
+
+  void updateOrganizationRequests() {
+    setState(() {
+      loading = true;
+    });
+    DocumentReference organizationReference = db.collection('organizations').document(donation.organization.id);
     organizationReference.collection('requests').getDocuments().then((documents) {
-      widget.organization.requestedItems = Map();
+      donation.organization.requestedItems = Map();
       for (DocumentSnapshot document in documents.documents) {
-        if (widget.organization.requestedItems[document['category']] == null) widget.organization.requestedItems[document['category']] = [];
+        if (donation.organization.requestedItems[document['category']] == null) donation.organization.requestedItems[document['category']] = [];
         setState(() {
-          widget.organization.requestedItems[document['category']].add(
+          donation.organization.requestedItems[document['category']].add(
             Item(
               name: document['name'],
               amount: document['amount'],
@@ -48,7 +57,6 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
         loading = false;
       });
     });
-    super.initState();
   }
 
   @override
@@ -56,18 +64,18 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
     return StandardLayout(
       title: ' ',
       helpText: 'This page shows a delivery you have signed up for. Here, you can edit or cancel this delivery. ',
-      body: SingleChildScrollView(
+      body: loading ? Center(child: CircularProgressIndicator()) : SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text('Delivery to ${widget.organization.name}', style: mainTitleStyle),
+              Text('Delivery to ${donation.organization.name}', style: mainTitleStyle),
               SizedBox(height: 20),
               OrganizationInformation(
-                orgEmail: widget.organization.email,
-                orgAddress: widget.organization.address,
-                dateTime: widget.donation.date,
+                orgEmail: donation.organization.email,
+                orgAddress: donation.organization.address,
+                dateTime: donation.date,
               ),
               SizedBox(height: 20),
               Container(
@@ -103,8 +111,29 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                                   ),
                                 ),
                                 onPressed: () {
-                                  Navigator.push(
-                                      context, MaterialPageRoute(builder: (context) => EditDeliveryPage(widget.organization, widget.donation)));
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => EditDeliveryPage(donation))).then((newDonation) async {
+                                    if (newDonation != null) {
+                                      setState(() {
+                                        loading = true;
+                                      });
+                                      //TODO: Fix edit donation bug
+                                      List<Item> delta = List();
+                                      for (Item newItem in newDonation.items) {
+                                        Item item = newItem.clone();
+                                        item.amount *= -1;
+                                        delta.add(item);
+                                      }
+                                      await FirestoreHelper.cancelVolunteerDelivery(context, newDonation);
+                                      await FirestoreHelper.updateRequests(
+                                          context: context, items: delta, organizationId: newDonation.organization.id, isCreating: false);
+                                      await FirestoreHelper.createDonation(context, newDonation);
+                                      updateOrganizationRequests();
+                                      setState(() {
+                                        donation = newDonation;
+                                      });
+                                      print(donation.organization.requestedItems['Clothes'][0].amount.toString() + ' ' + donation.organization.requestedItems['Clothes'][0].name);
+                                    }
+                                  });
                                 },
                               ),
                             ],
@@ -123,7 +152,7 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                           ListView.builder(
                             shrinkWrap: true,
                             physics: NeverScrollableScrollPhysics(),
-                            itemCount: widget.donation.items.length,
+                            itemCount: donation.items.length,
                             itemBuilder: (BuildContext context, int index) {
                               return Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -131,7 +160,7 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                                   Padding(
                                     padding: const EdgeInsets.only(bottom: 5.0),
                                     child: Text(
-                                      '${widget.donation.items[index].name} - ${widget.donation.items[index].amount} ${widget.donation.items[index].unit ?? ''}'
+                                      '${donation.items[index].name} - ${donation.items[index].amount} ${donation.items[index].unit ?? ''}'
                                           .trim(),
                                       style: TextStyle(
                                         fontSize: 17.0,
@@ -139,9 +168,9 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                                       ),
                                     ),
                                   ),
-                                  if (widget.donation.items[index].specificDescription != null)
+                                  if (donation.items[index].specificDescription != null)
                                     Text(
-                                      widget.donation.items[index].specificDescription,
+                                      donation.items[index].specificDescription,
                                       style: TextStyle(fontSize: 14, color: Colors.grey),
                                     ),
                                   SizedBox(
@@ -165,7 +194,7 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                     context: context,
                     builder: (_) => SingleActionAlert(
                       action: () {
-                        FirestoreHelper.cancelVolunteerDelivery(context, widget.donation);
+                        FirestoreHelper.cancelVolunteerDelivery(context, donation);
                         Navigator.pop(context);
                       },
                       actionName: 'Cancel Delivery',

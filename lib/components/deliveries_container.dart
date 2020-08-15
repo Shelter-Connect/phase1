@@ -16,7 +16,7 @@ class DeliveriesContainer extends StatelessWidget {
 
     return RawMaterialButton(
       onPressed: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => DeliveryDescriptionPage(donation.organization, donation)));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => DeliveryDescriptionPage(donation)));
       },
       child: Container(
         decoration: elevatedBoxStyle,

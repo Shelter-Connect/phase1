@@ -6,17 +6,15 @@ import 'package:phase1/components/increment.dart';
 import 'package:phase1/components/rounded_button.dart';
 import 'package:phase1/models/donation.dart';
 import 'package:phase1/models/item.dart';
-import 'package:phase1/models/organization.dart';
 import 'package:phase1/services/firestore_helper.dart';
 
 import '../../components/standard_layout.dart';
 import '../../constants.dart';
 
 class EditDeliveryPage extends StatefulWidget {
-  final Organization organization;
   final Donation donation;
 
-  EditDeliveryPage(this.organization, this.donation);
+  EditDeliveryPage(this.donation);
 
   @override
   _EditDeliveryPageState createState() => _EditDeliveryPageState();
@@ -42,13 +40,31 @@ class _EditDeliveryPageState extends State<EditDeliveryPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('Delivery to ${widget.organization.name}', style: mainTitleStyle),
+                Text('Delivery to ${widget.donation.organization.name}', style: mainTitleStyle),
                 SizedBox(height: 20),
-                OrganizationInformation(
-                  orgEmail: widget.organization.email,
-                  orgAddress: widget.organization.address,
-                  dateTime: widget.donation.date,
-                  donation: widget.donation,
+                Container(
+                  decoration: elevatedBoxStyle,
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Expected Delivery Date',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      BasicDateField(
+                        initialValue: widget.donation.date,
+                        onChanged: (val) {
+                          setState(() {
+                            newDonation.date = val;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
                 ),
                 SizedBox(height: 20),
                 Container(
@@ -119,7 +135,7 @@ class _EditDeliveryPageState extends State<EditDeliveryPage> {
                                         ),
                                         ItemIncrementWithText(
                                           initialQuantity: widget.donation.items[index].amount,
-                                          maxQuantity: widget.organization.requestedItems[widget.donation.items[index].category]
+                                          maxQuantity: widget.donation.organization.requestedItems[widget.donation.items[index].category]
                                                   .singleWhere((item) =>
                                                       (item.name == widget.donation.items[index].name) &&
                                                       (item.specificDescription == widget.donation.items[index].specificDescription) &&
@@ -157,18 +173,7 @@ class _EditDeliveryPageState extends State<EditDeliveryPage> {
                           builder: (_) => NoActionAlert(title: 'Please choose a date that has not passed'),
                         );
                       else {
-                        List<Item> delta = List();
-                        for (Item newItem in newDonation.items) {
-                          Item item = newItem.clone();
-                          item.amount *= -1;
-                          delta.add(item);
-                        }
-                        FirestoreHelper.cancelVolunteerDelivery(context, widget.donation);
-                        FirestoreHelper.updateRequests(
-                            context: context, items: delta, organizationId: widget.donation.organization.id, isCreating: false);
-                        FirestoreHelper.createDonation(context, newDonation);
-                        Navigator.pop(context);
-                        //TODO: dateTime does not work
+                        Navigator.pop(context, newDonation);
                       }
                     });
                   },
@@ -177,122 +182,5 @@ class _EditDeliveryPageState extends State<EditDeliveryPage> {
             ),
           ),
         ));
-  }
-}
-
-class OrganizationInformation extends StatefulWidget {
-  final String orgEmail;
-  final String orgAddress;
-  final DateTime dateTime;
-  final Donation donation;
-
-  OrganizationInformation({@required this.orgEmail, @required this.orgAddress, @required this.dateTime, this.donation});
-
-  @override
-  _OrganizationInformationState createState() => _OrganizationInformationState();
-}
-
-class _OrganizationInformationState extends State<OrganizationInformation> {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Container(
-          decoration: elevatedBoxStyle,
-          width: MediaQuery.of(context).size.width,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                SizedBox(height: 10),
-                Text(
-                  'Organization Information ',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                Container(
-                  height: 5,
-                  width: 100,
-                  decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    RichText(
-                      text: TextSpan(
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: 'Email Address: ',
-                            style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.black,
-                            ),
-                          ),
-                          TextSpan(
-                            text: widget.orgEmail,
-                            style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black,
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    RichText(
-                      text: TextSpan(
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: 'Donation Location: ',
-                            style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.black,
-                            ),
-                          ),
-                          TextSpan(
-                            text: widget.orgAddress,
-                            style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    BasicDateField(
-                      onChanged: (val) {
-                        setState(() {
-                          widget.donation.date = val;
-                        });
-                      },
-                      initialValue: widget.dateTime,
-                      labelText: 'Edit Date',
-                    ),
-                    SizedBox(height: 5)
-                  ],
-                )
-              ],
-            ),
-          ),
-        ),
-      ],
-    );
   }
 }
