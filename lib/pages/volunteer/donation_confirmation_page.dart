@@ -184,7 +184,7 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                 width: MediaQuery.of(context).size.width,
                 child: FlatButton(
                   onPressed: () {
-                    Navigator.popUntil(context, ModalRoute.withName('/volunteer_navigation'));
+                    Navigator.popUntil(context, ModalRoute.withName('/volunteer_bottom_navigation'));
                     List<Item> delta = List();
                     for (Item newItem in widget.donation.items) {
                       Item item = newItem.clone();

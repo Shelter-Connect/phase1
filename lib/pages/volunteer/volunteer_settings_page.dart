@@ -1,10 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:phase1/components/alerts.dart';
 import 'package:phase1/pages/navigation_tab.dart';
 import 'package:phase1/services/firestore_helper.dart';
 import 'package:provider/provider.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../constants.dart';
 import '../../models/user.dart';
@@ -26,7 +26,7 @@ class VolunteerSettingsPage extends StatefulWidget with NavigationTab {
 }
 
 class _VolunteerSettingsPageState extends State<VolunteerSettingsPage> {
-  String name;
+  String firstName, lastName;
   bool loading = true;
 
   @override
@@ -34,7 +34,8 @@ class _VolunteerSettingsPageState extends State<VolunteerSettingsPage> {
     DocumentReference volunteerReference = FirestoreHelper.getCurrentVolunteerReference(context);
     volunteerReference.get().then((value) {
       setState(() {
-        name = '${value['firstName']} ${value['lastName']}';
+        firstName = value['firstName'];
+        lastName = value['lastName'];
         loading = false;
       });
     });
@@ -46,33 +47,35 @@ class _VolunteerSettingsPageState extends State<VolunteerSettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFF5F5F5),
-      body: loading ? Center(
-        child: CircularProgressIndicator(),
-      ) : SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text('Account Settings', style: mainTitleStyle),
-              SizedBox(height: 20),
-              UserInfo(email: Provider.of<User>(context, listen: false).user.email, name: name),
-              SizedBox(height: 20),
-              SignOut(),
-              SizedBox(height: 20),
-            ],
-          ),
-        ),
-      ),
+      body: loading
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text('Account Settings', style: mainTitleStyle),
+                    SizedBox(height: 20),
+                    UserInfo(email: Provider.of<User>(context, listen: false).user.email, firstName: firstName, lastName: lastName),
+                    SizedBox(height: 20),
+                    SignOut(),
+                    SizedBox(height: 20),
+                  ],
+                ),
+              ),
+            ),
     );
   }
 }
 
 class UserInfo extends StatelessWidget {
   final String email;
-  final String name;
+  final String firstName, lastName;
 
-  UserInfo({this.email, this.name});
+  UserInfo({this.email, this.firstName, this.lastName});
 
   @override
   Widget build(BuildContext context) {
@@ -116,7 +119,7 @@ class UserInfo extends StatelessWidget {
                     ),
                   ),
                   TextSpan(
-                    text: name,
+                    text: '$firstName $lastName',
                     style: TextStyle(
                       fontSize: 17,
                       fontWeight: FontWeight.w600,
@@ -158,7 +161,7 @@ class UserInfo extends StatelessWidget {
                 bool updated = await Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => VolunteerEditInfoPage(),
+                    builder: (context) => VolunteerEditInfoPage(firstName, lastName),
                   ),
                 );
                 if (updated) {

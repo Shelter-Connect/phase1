@@ -11,6 +11,9 @@ import '../../components/rounded_button.dart';
 import '../../constants.dart';
 
 class VolunteerEditInfoPage extends StatefulWidget {
+  final String firstName, lastName;
+  VolunteerEditInfoPage(this.firstName, this.lastName);
+
   @override
   _VolunteerEditInfoPageState createState() => _VolunteerEditInfoPageState();
 }
@@ -21,8 +24,8 @@ class _VolunteerEditInfoPageState extends State<VolunteerEditInfoPage> {
 
   @override
   void initState() {
-    firstNameController.text = Provider.of<User>(context, listen: false).user.displayName.split(' ')[0];
-    lastNameController.text = Provider.of<User>(context, listen: false).user.displayName.split(' ')[1];
+    firstNameController.text = widget.firstName;
+    lastNameController.text = widget.lastName;
     super.initState();
   }
 
@@ -43,17 +46,11 @@ class _VolunteerEditInfoPageState extends State<VolunteerEditInfoPage> {
               FloatingTextField(
                 hintText: 'Your First Name',
                 controller: firstNameController,
-                onChanged: (val) {
-                  firstNameController.text = val.trim();
-                },
               ),
               SizedBox(height: 20),
               FloatingTextField(
                 hintText: 'Your Last Name',
                 controller: lastNameController,
-                onChanged: (val) {
-                  lastNameController.text = val.trim();
-                },
               ),
               SizedBox(height: 20),
               RoundedButton(
@@ -76,16 +73,13 @@ class _VolunteerEditInfoPageState extends State<VolunteerEditInfoPage> {
                 textColor: Colors.white,
                 onPressed: () {
                   db.collection('volunteers').document(Provider.of<User>(context, listen: false).user.uid).updateData({
-                    'firstName': firstNameController.text,
-                    'lastName': lastNameController.text,
+                    'firstName': firstNameController.text.trim(),
+                    'lastName': lastNameController.text.trim(),
                   });
                   UserUpdateInfo info = UserUpdateInfo();
                   info.displayName = '${firstNameController.text} ${lastNameController.text}';
                   Provider.of<User>(context, listen: false).user.updateProfile(info);
                   Navigator.pop(context, true);
-                  Scaffold.of(context).showSnackBar(SnackBar(
-                    content: Text('Your name has been updated.'),
-                  ));
                 },
               ),
               SizedBox(height: 10.0),

@@ -291,7 +291,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                                                 fontWeight: FontWeight.w400,
                                                               ),
                                                             )
-                                                          else
+                                                          /*else
                                                             Text(
                                                               'Request Completed!',
                                                               style: TextStyle(
@@ -304,7 +304,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                                             Text(
                                                               item.specificDescription,
                                                               style: TextStyle(fontSize: 14, color: Colors.grey),
-                                                            ),
+                                                            ),*/
                                                         ],
                                                       ),
                                                     ),
