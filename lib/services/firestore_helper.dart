@@ -61,6 +61,18 @@ class FirestoreHelper {
     });
   }
 
+  //Deletes a requests
+  static Future<void> deleteRequest(BuildContext context, Item item) async {
+    CollectionReference requestsReference = getCurrentOrganizationReference(context).collection('requests');
+    QuerySnapshot document = await requestsReference
+        .where('name', isEqualTo: item.name)
+        .where('category', isEqualTo: item.category)
+        .where('unit', isEqualTo: item.unit)
+        .where('specificDescription', isEqualTo: item.specificDescription)
+        .getDocuments();
+    await requestsReference.document(document.documents[0].documentID).delete();
+  }
+
   //Creates a donation from the volunteer side
   static Future<void> createDonation(BuildContext context, Donation donation) async {
     DocumentReference volunteerReference = getCurrentVolunteerReference(context);
