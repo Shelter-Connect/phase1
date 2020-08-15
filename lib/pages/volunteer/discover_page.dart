@@ -4,11 +4,10 @@ import 'package:phase1/models/organization.dart';
 import 'package:phase1/models/user_position.dart';
 import 'package:phase1/services/location_helper.dart';
 import 'package:provider/provider.dart';
-import '../navigation_tab.dart';
-
 
 import '../../components/organization_donation_profile.dart';
 import '../../constants.dart';
+import '../navigation_tab.dart';
 
 class OrganizationDiscover extends StatefulWidget with NavigationTab {
   @override

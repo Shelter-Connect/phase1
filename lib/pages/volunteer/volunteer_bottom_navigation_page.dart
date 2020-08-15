@@ -7,7 +7,6 @@ import 'package:phase1/pages/organization/organization_bottom_navigation.dart';
 import 'package:phase1/pages/volunteer/discover_page.dart';
 import 'package:phase1/pages/volunteer/volunteer_settings_page.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../constants.dart';
 import '../volunteer/current_deliveries_page.dart';
@@ -39,10 +38,8 @@ class _VolunteerBottomNavigationPageState extends State<VolunteerBottomNavigatio
             automaticallyImplyLeading: false,
             brightness: Brightness.light,
             title: Text(
-              _tabs[_selectedIndex].title ,
-              style: TextStyle(
-                color: Colors.transparent
-              ),
+              _tabs[_selectedIndex].title,
+              style: TextStyle(color: Colors.transparent),
             ),
             backgroundColor: Color(0xFFF5F5F5),
             elevation: 0.0,
@@ -79,7 +76,7 @@ class _VolunteerBottomNavigationPageState extends State<VolunteerBottomNavigatio
           ),
           body: _tabs[_selectedIndex],
           bottomNavigationBar: BottomNavigationBar(
-            currentIndex : _selectedIndex,
+            currentIndex: _selectedIndex,
             type: BottomNavigationBarType.fixed,
             backgroundColor: Colors.white,
             iconSize: 25,
@@ -92,18 +89,16 @@ class _VolunteerBottomNavigationPageState extends State<VolunteerBottomNavigatio
                   .asMap()
                   .map(
                     (index, tab) => MapEntry(
-                  index,
-                 BottomNavigationBarItem(
-                     icon: Icon(tab.icon),
-                   title: Text(tab.title),
-
-                 )
-                ),
-              )
+                        index,
+                        BottomNavigationBarItem(
+                          icon: Icon(tab.icon),
+                          title: Text(tab.title),
+                        )),
+                  )
                   .values
                   .toList(),
             ],
-            onTap: (index){
+            onTap: (index) {
               setState(() {
                 _selectedIndex = index;
               });
@@ -156,8 +151,7 @@ class _VolunteerBottomNavigationPageState extends State<VolunteerBottomNavigatio
                           'Report Issues',
                           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 17),
                         ),
-                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => OrganizationBottomNavigationPage()))
-                    ),
+                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => OrganizationBottomNavigationPage()))),
                     IconButton(
                       iconSize: 30,
                       onPressed: () {
