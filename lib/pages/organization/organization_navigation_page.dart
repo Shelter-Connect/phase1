@@ -148,22 +148,6 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
                   ),
                 ),
                 Text(_pages[_selectedIndex].helpDescription, style: TextStyle(fontSize: 17)),
-                Spacer(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    InkWell(
-                        child: new Text('Report Issues', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 17)),
-                        onTap: () => launch('https://forms.gle/ue5idWtztcgevh9Q7')),
-                    IconButton(
-                      iconSize: 30,
-                      onPressed: () {
-                        launch('https://forms.gle/ue5idWtztcgevh9Q7');
-                      },
-                      icon: Icon(Icons.bug_report),
-                    ),
-                  ],
-                ),
               ],
             ),
           ),
