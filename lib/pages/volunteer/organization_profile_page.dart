@@ -285,13 +285,29 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                                       child: Column(
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: <Widget>[
-                                                          Text(
-                                                            '${item.name} - ${item.amount} ${item.unit ?? ''}'.trim(),
-                                                            style: TextStyle(
-                                                              fontSize: 17.0,
-                                                              fontWeight: FontWeight.w400,
+                                                          if (item.amount > 0)
+                                                            Text(
+                                                              '${item.name} - ${item.amount.toString()} ${item.unit ?? ''}'.trim(),
+                                                              style: TextStyle(
+                                                                fontSize: 17,
+                                                              ),
+                                                            )
+                                                          else
+                                                            Text(
+                                                              'Request Completed!',
+                                                              style: TextStyle(
+                                                                fontSize: 17,
+                                                                color: Colors.green,
+                                                              ),
                                                             ),
-                                                          )
+                                                          if (item.specificDescription != null)
+                                                            Text(
+                                                              item.specificDescription,
+                                                              style: TextStyle(
+                                                                fontSize: 14,
+                                                                color: Colors.grey,
+                                                              ),
+                                                            ),
                                                         ],
                                                       ),
                                                     ),
