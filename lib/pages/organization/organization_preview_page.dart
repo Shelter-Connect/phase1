@@ -24,11 +24,13 @@ class _OrganizationPreviewPageState extends State<OrganizationPreviewPage> {
     organizationReference.collection('requests').getDocuments().then((documents) {
       widget.organization.requestedItems.clear();
       for (DocumentSnapshot document in documents.documents) {
-        if (widget.organization.requestedItems[document['category']] == null) widget.organization.requestedItems[document['category']] = [];
-        setState(() {
-          widget.organization.requestedItems[document['category']]
-              .add(Item(name: document['name'], amount: document['amount'], category: document['category']));
-        });
+        if (widget.organization.itemCategories.contains(document['category'])) {
+          if (widget.organization.requestedItems[document['category']] == null) widget.organization.requestedItems[document['category']] = [];
+          setState(() {
+            widget.organization.requestedItems[document['category']]
+                .add(Item(name: document['name'], amount: document['amount'], category: document['category']));
+          });
+        }
       }
       setState(() {
         loading = false;
@@ -275,23 +277,13 @@ class _OrganizationPreviewPageState extends State<OrganizationPreviewPage> {
                                                           child: Column(
                                                             crossAxisAlignment: CrossAxisAlignment.start,
                                                             children: <Widget>[
-                                                              if (item.amount > 0)
-                                                                Text(
-                                                                  '${item.name} - ${item.amount} ${item.unit ?? ''}'.trim(),
-                                                                  style: TextStyle(
-                                                                    fontSize: 17.0,
-                                                                    fontWeight: FontWeight.w400,
-                                                                  ),
-                                                                )
-                                                              else
-                                                                Text(
-                                                                  'Request Completed!',
-                                                                  style: TextStyle(
-                                                                    fontSize: 17.0,
-                                                                    fontWeight: FontWeight.w400,
-                                                                    color: Colors.green,
-                                                                  ),
+                                                              Text(
+                                                                '${item.name} - ${item.amount} ${item.unit ?? ''}'.trim(),
+                                                                style: TextStyle(
+                                                                  fontSize: 17.0,
+                                                                  fontWeight: FontWeight.w400,
                                                                 ),
+                                                              ),
                                                               if (item.specificDescription != null)
                                                                 Text(
                                                                   item.specificDescription,
