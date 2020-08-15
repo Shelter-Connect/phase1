@@ -31,6 +31,7 @@ class FirestoreHelper {
 
     Set<String> itemCategories = Set<String>();
     for (Item item in items) {
+      print(item.amount);
       itemCategories.add(item.category);
       QuerySnapshot document = await requestsReference
           .where('name', isEqualTo: item.name)
@@ -38,8 +39,8 @@ class FirestoreHelper {
           .where('unit', isEqualTo: item.unit)
           .where('specificDescription', isEqualTo: item.specificDescription)
           .getDocuments();
-      if ((isCreating) && (document.documents.length == 0)) {
-        if (item.amount != 0) await requestsReference.add(item.toFirestoreMap());
+      if (document.documents.length == 0) {
+        if (isCreating && item.amount != 0) await requestsReference.add(item.toFirestoreMap());
       } else if (document.documents.length == 1) {
         DocumentSnapshot itemSnapshot = document.documents[0];
         await requestsReference.document(itemSnapshot.documentID).updateData({

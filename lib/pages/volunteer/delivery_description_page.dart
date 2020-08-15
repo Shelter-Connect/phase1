@@ -118,21 +118,20 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                                             setState(() {
                                               loading = true;
                                             });
-                                            //TODO: Fix edit donation bug
                                             List<Item> delta = List();
                                             for (Item newItem in newDonation.items) {
                                               Item item = newItem.clone();
                                               item.amount *= -1;
                                               delta.add(item);
                                             }
-                                            await FirestoreHelper.cancelVolunteerDelivery(context, donation);
-                                            await FirestoreHelper.updateRequests(
+                                            FirestoreHelper.cancelVolunteerDelivery(context, donation);
+                                            FirestoreHelper.updateRequests(
                                                 context: context, items: delta, organizationId: newDonation.organization.id, isCreating: false);
-                                            await FirestoreHelper.createDonation(context, newDonation);
-                                            updateOrganizationRequests();
+                                            FirestoreHelper.createDonation(context, newDonation);
                                             setState(() {
                                               donation = newDonation;
                                             });
+                                            updateOrganizationRequests();
                                           }
                                         });
                                       },
