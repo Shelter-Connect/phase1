@@ -130,10 +130,6 @@ class _EditDeliveryPageState extends State<EditDeliveryPage> {
                                             newDonation.items[index].amount = val;
                                           },
                                         ),
-                                        IconButton(icon: Icon(Icons.cancel), onPressed: () {  },
-                                            //TODO: Make it cancel
-                                          color: colorScheme.error
-                                        )
                                       ],
                                     ),
                                     SizedBox(
@@ -155,22 +151,24 @@ class _EditDeliveryPageState extends State<EditDeliveryPage> {
                   textColor: Colors.white,
                   onPressed: () {
                     setState(() {
-                      if ((newDonation.date.isBefore(DateTime.now())) || (newDonation.date.day == DateTime.now().day))
+                      if ((newDonation.date.isBefore(DateTime.now())))
                         showDialog(
                           context: context,
                           builder: (_) => NoActionAlert(title: 'Please choose a date that has not passed'),
                         );
-                      Navigator.pop(context);
-                      Navigator.pop(context);
-                      List<Item> delta = List();
-                      for (Item newItem in newDonation.items) {
-                        Item item = newItem.clone();
-                        item.amount *= -1;
-                        delta.add(item);
+                      else{
+                        List<Item> delta = List();
+                        for (Item newItem in newDonation.items) {
+                          Item item = newItem.clone();
+                          item.amount *= -1;
+                          delta.add(item);
+                        }
+                        FirestoreHelper.cancelVolunteerDelivery(context, widget.donation);
+                        FirestoreHelper.updateRequests(context: context, items: delta, organizationId: widget.donation.organization.id);
+                        FirestoreHelper.createDonation(context, newDonation);
+                        Navigator.pop(context);
+                        //TODO: dateTime does not work
                       }
-                      FirestoreHelper.cancelVolunteerDelivery(context, widget.donation);
-                      FirestoreHelper.updateRequests(context: context, items: delta, organizationId: widget.donation.organization.id);
-                      FirestoreHelper.createDonation(context, newDonation);
                     });
                   },
                 )
