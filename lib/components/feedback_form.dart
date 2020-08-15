@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:phase1/components/rounded_button.dart';
+import 'package:phase1/models/user.dart';
 import 'package:phase1/pages/navigation_tab.dart';
+import 'package:provider/provider.dart';
 
 import '../constants.dart';
 import 'floating_text_field.dart';
 
-class FeedbackForm extends StatefulWidget with NavigationTab{
+class FeedbackForm extends StatefulWidget with NavigationTab {
   @override
   _FeedbackFormState createState() => _FeedbackFormState();
+
   @override
-  String get helpDescription =>
-      '';
+  String get helpDescription => '';
 
   @override
   IconData get icon => Icons.feedback;
@@ -23,6 +25,8 @@ class FeedbackForm extends StatefulWidget with NavigationTab{
 }
 
 class _FeedbackFormState extends State<FeedbackForm> {
+  TextEditingController bug = TextEditingController(), improvement = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,41 +42,11 @@ class _FeedbackFormState extends State<FeedbackForm> {
               Text('Feedback Form', style: largeTitleStyle),
               SizedBox(height: 20),
               Text('We\'d love to hear your feedback!', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 20, color: Colors.black)),
-              SizedBox(height: 40),
-//                Row(
-//                  children: <Widget>[
-//                    Expanded(
-//                      child: FloatingTextField(
-//                        hintText: 'First Name',
-//                        onChanged: (val) {
-//                          firstName = val.trim();
-//                        },
-//                      ),
-//                    ),
-//                    SizedBox(
-//                      width: 20,
-//                    ),
-//                    Expanded(
-//                      child: FloatingTextField(
-//                        hintText: 'Last Name',
-//                        onChanged: (val) {
-//                          lastName = val.trim();
-//                        },
-//                      ),
-//                    ),
-//                  ],
-//                ),
-              SizedBox(
-                height: 20,
-              ),
+              SizedBox(height: 20),
               FloatingDescriptionField(
                 height: 200,
                 maxLength: 1500,
-                onChanged: (val) {
-                  setState(() {
-//TODO: idk what you need here
-                  });
-                },
+                controller: bug,
                 maxLines: null,
                 labelText: ('Please report any bugs here'),
                 labelStyle: TextStyle(color: Colors.grey, fontSize: 15),
@@ -82,26 +56,32 @@ class _FeedbackFormState extends State<FeedbackForm> {
               FloatingDescriptionField(
                 height: 200,
                 maxLength: 1500,
-                onChanged: (val) {
-                  setState(() {
-//TODO: idk what you need here
-                  });
-                },
+                controller: improvement,
                 maxLines: null,
                 labelText: ('What do you think we can improve on?'),
-                labelStyle: TextStyle(color: Colors.grey,fontSize: 15),
+                labelStyle: TextStyle(color: Colors.grey, fontSize: 15),
                 counterText: '',
               ),
               SizedBox(height: 20),
-              RoundedButton(title: 'Submit Feedback', onPressed: () {
-//TODO: Submit Feedback to Firebase or smt
-              },
-textColor: Colors.white,
+              RoundedButton(
+                title: 'Submit Feedback',
+                onPressed: () {
+                  db.collection('feedback').add(
+                    {'bug': bug.text, 'improvement': improvement.text, 'email': Provider.of<User>(context, listen: false).user.email},
+                  );
+                  bug.clear();
+                  improvement.clear();
+                  Scaffold.of(context).showSnackBar(SnackBar(
+                    content: Text('Your feedback has been submitted. Thank you for your input!'),
+                  ));
+                  FocusScope.of(context).unfocus();
+                },
+                textColor: Colors.white,
               )
             ],
           ),
         ),
       ),
     );
-      }
+  }
 }
