@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../constants.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SecondaryLayout extends StatelessWidget {
   final String title, helpText;
@@ -46,8 +47,8 @@ class SecondaryLayout extends StatelessWidget {
     showModalBottomSheet(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(40.0),
-          topRight: Radius.circular(40.0),
+          topLeft: Radius.circular(20.0),
+          topRight: Radius.circular(20.0),
         ),
       ),
       context: context,
@@ -58,9 +59,37 @@ class SecondaryLayout extends StatelessWidget {
             padding: EdgeInsets.all(25.0),
             child: Column(
               children: <Widget>[
-                Text(
-                  helpText,
-                  style: subHeaderStyle,
+                Padding(
+                  padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8, top: 0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text('Help', style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold, color: Colors.black)),
+                      IconButton(
+                        iconSize: 30,
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: Icon(Icons.help, color: Colors.black),
+                      ),
+                    ],
+                  ),
+                ),
+                Text(helpText, style: TextStyle(fontSize: 17)),
+                Spacer(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    InkWell(
+                        child: new Text('Report Issues', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 17)), onTap: () => launch('https://forms.gle/ue5idWtztcgevh9Q7')),
+                    IconButton(
+                      iconSize: 30,
+                      onPressed: () {
+                        launch('https://forms.gle/ue5idWtztcgevh9Q7');
+                      },
+                      icon: Icon(Icons.bug_report),
+                    ),
+                  ],
                 ),
               ],
             ),

@@ -21,34 +21,32 @@ class BasicDateField extends StatelessWidget {
         labelText: labelText,
       ),
       onShowPicker: (context, currentValue) async {
-        return await showDatePicker(
-            context: context,
-            firstDate: DateTime(1900),
-            initialDate: DateTime.now(),
-            lastDate: DateTime(2100)
-        );
+        return await showDatePicker(context: context, firstDate: DateTime(1900), initialDate: DateTime.now(), lastDate: DateTime(2100));
       },
       onChanged: onChanged,
     );
   }
 }
+
 class BasicTimeField extends StatelessWidget {
   final format = DateFormat("HH:mm");
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: <Widget>[
-      Text('Basic time field (${format.pattern})'),
-      DateTimeField(
-        format: format,
-        onShowPicker: (context, currentValue) async {
-          final time = await showTimePicker(
-            context: context,
-            initialTime: TimeOfDay.fromDateTime(currentValue ?? DateTime.now()),
-          );
-          return DateTimeField.convert(time);
-        },
-      ),
-    ]);
+    return Column(
+      children: <Widget>[
+        Text('Basic time field (${format.pattern})'),
+        DateTimeField(
+          format: format,
+          onShowPicker: (context, currentValue) async {
+            final time = await showTimePicker(
+              context: context,
+              initialTime: TimeOfDay.fromDateTime(currentValue ?? DateTime.now()),
+            );
+            return DateTimeField.convert(time);
+          },
+        ),
+      ],
+    );
   }
 }

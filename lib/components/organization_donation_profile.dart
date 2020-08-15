@@ -48,13 +48,7 @@ class OrganizationDonationProfile extends StatelessWidget {
                   SizedBox(
                     height: 30.0,
                     width: 30.0,
-                    child: IconButton(
-                      icon: Icon(Icons.keyboard_arrow_right),
-                      padding: EdgeInsets.all(0.0),
-                      onPressed: () {
-                        //TODO
-                      },
-                    ),
+                    child: Icon(Icons.keyboard_arrow_right),
                   ),
                 ],
               ),
@@ -97,22 +91,21 @@ class OrganizationDonationProfile extends StatelessWidget {
                 spacing: 5.0,
                 runSpacing: 5.0,
                 children: organization.itemCategories
-                    .map((category) => Container(
-                          decoration: BoxDecoration(
-                            color: whiteBackground,
-                            borderRadius: BorderRadius.circular(21),
+                    .map(
+                      (category) => Container(
+                        decoration: BoxDecoration(
+                          color: whiteBackground,
+                          borderRadius: BorderRadius.circular(21),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                          child: Text(
+                            category,
+                            style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w700),
                           ),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-                            child: Text(
-                              category,
-                              style: TextStyle(
-                                color: Colors.blue,
-                                fontWeight: FontWeight.w700
-                              ),
-                            ),
-                          ),
-                        ))
+                        ),
+                      ),
+                    )
                     .toList(),
               ),
             ],

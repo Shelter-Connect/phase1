@@ -8,7 +8,6 @@ import '../../constants.dart';
 import '../navigation_tab.dart';
 import 'current_requests_page.dart';
 import 'expected_deliveries_page.dart';
-import 'organization_dashboard_page.dart';
 import 'organization_settings_page.dart';
 
 class OrganizationNavigationPage extends StatefulWidget {
@@ -18,7 +17,7 @@ class OrganizationNavigationPage extends StatefulWidget {
 
 class _OrganizationNavigationPageState extends State<OrganizationNavigationPage> {
   int _selectedIndex = 0;
-  final List<NavigationTab> _pages = [OrganizationDashboardPage(), ExpectedDeliveriesPage(), CurrentRequestsPage(), OrganizationSettingsPage()];
+  final List<NavigationTab> _pages = [];
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +29,9 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
           brightness: Brightness.light,
           title: Text(
             _pages[_selectedIndex].title,
-            style: TextStyle(color: Color(0xFFF5F5F5)),
+            style: TextStyle(
+              color: Color(0xFFF5F5F5),
+            ),
           ),
           backgroundColor: Color(0xFFF5F5F5),
           elevation: 0.0,
@@ -57,55 +58,56 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
           ],
         ),
         drawer: Drawer(
-          child: SafeArea(
-            child: Column(
-              children: <Widget>[
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      DrawerHeader(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Shelter Connect',
-                              style: TextStyle(
-                                fontSize: 30.0,
-                                fontWeight: FontWeight.bold,
-                              ),
+          child: Column(
+            children: <Widget>[
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    DrawerHeader(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Linkare',
+                            style: TextStyle(
+                              fontSize: 30.0,
+                              fontWeight: FontWeight.bold,
                             ),
-                            Text(Provider.of<User>(context, listen: false).user.email),
-                          ],
-                        ),
+                          ),
+                          Text(Provider.of<User>(context, listen: false).user.email),
+                        ],
                       ),
-                      ..._pages
-                          .asMap()
-                          .map((index, tab) => MapEntry(
-                              index,
-                              ListTile(
-                                  title: Text(tab.title),
-                                  leading: Icon(tab.icon),
-                                  onTap: () {
-                                    setState(() {
-                                      _selectedIndex = index;
-                                    });
-                                    Navigator.pop(context);
-                                  })))
-                          .values
-                          .toList(),
-                    ],
-                  ),
+                    ),
+                    ..._pages
+                        .asMap()
+                        .map(
+                          (index, tab) => MapEntry(
+                            index,
+                            ListTile(
+                                title: Text(tab.title),
+                                leading: Icon(tab.icon),
+                                onTap: () {
+                                  setState(() {
+                                    _selectedIndex = index;
+                                  });
+                                  Navigator.pop(context);
+                                }),
+                          ),
+                        )
+                        .values
+                        .toList(),
+                  ],
                 ),
-                ListTile(
-                  title: Text('Give Feedback'),
-                  leading: Icon(Icons.feedback, color: Colors.orange),
-                  onTap: () {
-                    launch('https://forms.gle/wivNmdkjj3yvLPzf7');
-                  },
-                ),
-              ],
-            ),
+              ),
+              ListTile(
+                title: Text('Give Feedback'),
+                leading: Icon(Icons.feedback, color: Colors.orange),
+                onTap: () {
+                  launch('https://forms.gle/wivNmdkjj3yvLPzf7');
+                },
+              ),
+            ],
           ),
         ),
         body: _pages[_selectedIndex],
@@ -134,8 +136,14 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text('Help', style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
-                        Icon(Icons.help),
+                      Text('Help', style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold, color: Colors.black)),
+                      IconButton(
+                        iconSize: 30,
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: Icon(Icons.help, color: Colors.black),
+                      ),
                     ],
                   ),
                 ),

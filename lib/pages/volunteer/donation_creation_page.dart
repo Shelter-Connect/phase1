@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:phase1/components/alerts.dart';
 import 'package:phase1/components/date_time_field.dart';
@@ -49,7 +50,7 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
   Widget build(BuildContext context) {
     return StandardLayout(
       title: ' ',
-      helpText: 'If u don\'t know how to use this app u stupid lmao',
+      helpText: 'To make a donation, enter a date when you can deliver the items, and choose the amount of items you can deliver. ',
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
@@ -60,10 +61,7 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                 widget.organization.name,
                 style: mainTitleStyle,
               ),
-              Text(
-                '${widget.organization.distance.toStringAsFixed(1)} miles away',
-                style: subTitleStyle
-              ),
+              Text('${widget.organization.distance.toStringAsFixed(1)} miles away', style: subTitleStyle),
               SizedBox(height: 20.0),
               Container(
                 decoration: elevatedBoxStyle,
@@ -90,7 +88,8 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
               ),
               SizedBox(height: 20),
               ...widget.organization.requestedItems
-                  .map((category, categoryItems) => MapEntry(
+                  .map(
+                    (category, categoryItems) => MapEntry(
                       category,
                       Column(
                         children: [
@@ -99,22 +98,20 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                             child: Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
                               child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
                                   SizedBox(
                                     height: 10,
                                   ),
-                                  Row(
-                                    children: <Widget>[
-                                      Text(
-                                        category,
-                                        style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                    ],
+                                  Text('*All Items can be slightly used unless explicitly stated by the organization', style: TextStyle(fontSize: 15, color: Colors.red),),
+                                  SizedBox(height: 10),
+                                  Text(
+                                    category,
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                   ),
                                   SizedBox(
                                     height: 10,
@@ -122,31 +119,67 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                                   Container(
                                     height: 5,
                                     width: 50,
-                                    decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
+                                    decoration: BoxDecoration(
+                                      color: purpleAccent,
+                                      borderRadius: BorderRadius.circular(21),
+                                    ),
                                   ),
                                   SizedBox(
                                     height: 10,
                                   ),
                                   ...categoryItems
                                       .asMap()
-                                      .map((index, item) => MapEntry(
+                                      .map(
+                                        (index, item) => MapEntry(
                                           index,
-                                          Column(
-                                            children: [
-                                              ItemIncrementWithText(
-                                                itemName: item.name,
-                                                maxQuantity: item.amount,
-                                                onChanged: (val) {
-                                                  Item currentItem = Item.clone(item: item);
-                                                  currentItem.amount = val;
-                                                  donation.items.removeWhere(
-                                                      (prevItem) => prevItem.name == currentItem.name && prevItem.category == currentItem.category);
-                                                  if (currentItem.amount != 0) donation.items.add(currentItem);
-                                                },
-                                              ),
-                                              SizedBox(height: 10.0),
-                                            ],
-                                          )))
+                                          Padding(
+                                            padding: const EdgeInsets.only(bottom: 3.0),
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  children: [
+                                                    Expanded(
+                                                      child: Padding(
+                                                        padding: const EdgeInsets.only(bottom: 5.0),
+                                                        child: Text(
+                                                          '${item.name} - ${item.amount} ${item.unit ?? ''}'.trim(),
+                                                          style: TextStyle(
+                                                            fontSize: 17.0,
+                                                            fontWeight: FontWeight.w400,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    ItemIncrementWithText(
+                                                      itemName: item.name,
+                                                      initialQuantity: 0,
+                                                      maxQuantity: item.amount,
+                                                      onChanged: (val) {
+                                                        Item currentItem = item.clone();
+                                                        currentItem.amount = val;
+                                                        donation.items.removeWhere((prevItem) =>
+                                                            prevItem.name == currentItem.name &&
+                                                            prevItem.category == currentItem.category &&
+                                                            prevItem.specificDescription == currentItem.specificDescription &&
+                                                            prevItem.unit == currentItem.unit);
+                                                        if (currentItem.amount != 0) donation.items.add(currentItem);
+                                                      },
+                                                    ),
+                                                    SizedBox(height: 10.0),
+                                                  ],
+                                                ),
+                                                if (item.specificDescription != null)
+                                                  Text(
+                                                    item.specificDescription,
+                                                    style: TextStyle(fontSize: 14, color: Colors.grey),
+                                                  ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      )
                                       .values
                                       .toList(),
                                 ],
@@ -155,7 +188,9 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                           ),
                           SizedBox(height: 10.0),
                         ],
-                      )))
+                      ),
+                    ),
+                  )
                   .values
                   .toList(),
               SizedBox(height: 10),
@@ -164,16 +199,27 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                 child: FlatButton(
                   onPressed: () {
                     if (donation.items.length == 0) {
-                      showDialog(context: context, builder: (_) => NoActionAlert(title: 'Please select at least one item to donate'));
+                      showDialog(
+                        context: context,
+                        builder: (_) => NoActionAlert(title: 'Please select at least one item to donate'),
+                      );
                     } else if (donation.date == null) {
-                      showDialog(context: context, builder: (_) => NoActionAlert(title: 'Please enter the expected delivery date of the donation'));
+                      showDialog(
+                        context: context,
+                        builder: (_) => NoActionAlert(title: 'Please enter the expected delivery date of the donation'),
+                      );
                     } else if (donation.date.isBefore(today)) {
                       print(donation.date);
-                      showDialog(context: context, builder: (_) => NoActionAlert(title: 'The expected delivery date cannot be before today'));
+                      showDialog(
+                        context: context,
+                        builder: (_) => NoActionAlert(title: 'The expected delivery date cannot be before today'),
+                      );
                     } else {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => DonationConfirmationPage(widget.organization, donation)),
+                        MaterialPageRoute(
+                          builder: (context) => DonationConfirmationPage(widget.organization, donation),
+                        ),
                       );
                     }
                   },

@@ -38,17 +38,30 @@ dependencies:
   holding_gesture: ^0.0.3
   carousel_slider: ^2.2.1
   dots_indicator: ^1.2.0
-  url_launcher: ^5.5.0
-
+  url_launcher: ^5.0.5
+  flutter_launcher_icons: ^0.7.5
   intl: ^0.16.1
+  simple_animations: ^2.2.1
+  flutter_svg: ^0.18.0
+  flushbar: ^1.10.4
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.3
 
+
+flutter_icons:
+  ios: true
+  android: "launcher_icon"
+  image_path: "assets/logo_svgs/LinkareFinal.png"
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+#TODO: DELETE OVERRIDE WHEN FLUTTER RELEASES FiX
+#dependency_overrides:
+#  flutter_svg: 0.18.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -63,15 +76,26 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - assets/ui_svgs/road_sign.svg
+    - assets/ui_svgs/searching.svg
+    - assets/ui_svgs/dood.svg
+    - assets/ui_svgs/order.svg
+    - assets/ui_svgs/shopping.svg
+    - assets/ui_svgs/deli.svg
+    - assets/ui_svgs/settings.svg
     - assets/clothing_svgs/clothes.svg
     - assets/clothing_svgs/beanie.svg
     - assets/clothing_svgs/gloves.svg
     - assets/clothing_svgs/hats.svg
+    - assets/clothing_svgs/women_underwear.svg
+    - assets/clothing_svgs/elastic_waist_pants.svg
     - assets/clothing_svgs/shirt.svg
     - assets/clothing_svgs/socks.svg
     - assets/clothing_svgs/underwear.svg
     - assets/covid-19_response_svg/covid_19.svg
     - assets/covid-19_response_svg/face_shield.svg
+    - assets/covid-19_response_svg/tissue_paper.svg
+    - assets/covid-19_response_svg/rubbing_alcohol.svg
     - assets/covid-19_response_svg/hand_sanitizer.svg
     - assets/covid-19_response_svg/latex_gloves.svg
     - assets/covid-19_response_svg/mask.svg
@@ -79,29 +103,50 @@ flutter:
     - assets/hygiene_svgs/hygiene.svg
     - assets/hygiene_svgs/body_soap.svg
     - assets/hygiene_svgs/nail_clipper.svg
+    - assets/hygiene_svgs/laundry_detergent.svg
+    - assets/hygiene_svgs/shaving_cream.svg
+    - assets/hygiene_svgs/deodorant.svg
+    - assets/hygiene_svgs/shampoo.svg
+    - assets/hygiene_svgs/lip_balm.svg
+    - assets/hygiene_svgs/diaper.svg
+    - assets/hygiene_svgs/razor.svg
+    - assets/hygiene_svgs/bath_towel.svg
     - assets/hygiene_svgs/soap.svg
     - assets/hygiene_svgs/toilet_paper.svg
     - assets/hygiene_svgs/toothbrush.svg
     - assets/hygiene_svgs/toothpaste.svg
     - assets/logo_svgs/LogoName.png
+    - assets/logo_svgs/LinkareIcon.png
+    - assets/logo_svgs/LinkareLogoNew.png
     - assets/logo_svgs/whitelogofinal2.png
     - assets/logo_svgs/finalithink.png
     - assets/logo_svgs/ShelterConnectLogo.png
     - assets/logo_svgs/CareConnectLogo.png
     - assets/nutrition_svgs/nutrition.svg
     - assets/nutrition_svgs/beans.svg
+    - assets/nutrition_svgs/tomatosauce.svg
+    - assets/nutrition_svgs/rice.svg
+    - assets/nutrition_svgs/pasta.svg
+    - assets/nutrition_svgs/groundbeef.svg
+    - assets/nutrition_svgs/chicken.svg
+    - assets/nutrition_svgs/tuna.svg
+    - assets/nutrition_svgs/vegetables.svg
+    - assets/nutrition_svgs/fruits.svg
     - assets/nutrition_svgs/bread.svg
     - assets/nutrition_svgs/eggs.svg
     - assets/nutrition_svgs/energy_bar.svg
     - assets/nutrition_svgs/water.svg
     - assets/nutrition_svgs/potato.svg
     - assets/warmth_svgs/warmth.svg
+    - assets/warmth_svgs/pillow.svg
     - assets/warmth_svgs/blanket.svg
+    - assets/warmth_svgs/bed_sheets.svg
     - assets/warmth_svgs/sleeping_bag.svg
     - assets/warmth_svgs/sleeping_pad.svg
     - assets/other_svgs/other.svg
     - assets/foodgiving.jpeg
     - assets/foodgivingsmaller.png
+    - assets/welcome_sequence/icon1.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

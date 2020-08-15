@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
@@ -30,8 +31,9 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
+                  SizedBox(height: 20),
                   Text('Volunteer Sign Up', style: largeTitleStyle),
-                  SizedBox(height: 35),
+                  SizedBox(height: 40),
                   Row(
                     children: <Widget>[
                       Expanded(
@@ -84,7 +86,8 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
                   SizedBox(height: 30),
                   RoundedButton(
                     color: purpleAccent,
-                    title: 'Sign Up', textColor: Colors.white,
+                    title: 'Sign Up',
+                    textColor: Colors.white,
                     onPressed: () async {
                       if (password != password2) {
                         showDialog(
@@ -102,14 +105,20 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
                             loading = true;
                           });
                           final newUser = await auth.createUserWithEmailAndPassword(email: email, password: password);
+                          UserUpdateInfo info = UserUpdateInfo();
+                          info.displayName = '$firstName $lastName';
+                          newUser.user.updateProfile(info);
                           setState(() {
                             loading = false;
                           });
                           if (newUser != null) {
-                            db.collection('volunteers').document(newUser.user.uid).setData({
-                              'email': email,
-                              'name': '$firstName $lastName',
-                            });
+                            db.collection('volunteers').document(newUser.user.uid).setData(
+                              {
+                                'email': email,
+                                'firstName': firstName,
+                                'lastName': lastName,
+                              },
+                            );
                             newUser.user.sendEmailVerification();
                           }
                           FocusScope.of(context).unfocus();
@@ -128,12 +137,14 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
                   Padding(
                     padding: const EdgeInsets.only(left: 5.0),
                     child: TextButton(
-                      text: 'Not a Volunteer?', textColor: Colors.redAccent,
+                      text: 'Not a Volunteer?',
+                      textColor: Colors.blueAccent,
                       onPressed: () {
                         Navigator.pop(context);
                       },
                     ),
                   ),
+                  SizedBox(height: 20),
                 ],
               ),
             ),

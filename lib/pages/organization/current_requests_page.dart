@@ -1,11 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:phase1/components/requests_container.dart';
 import 'package:phase1/constants.dart';
 import 'package:phase1/models/item.dart';
 import 'package:phase1/services/firestore_helper.dart';
 
 import '../navigation_tab.dart';
+import 'create_request_page.dart';
+import 'edit_current_requests_page.dart';
 
 class CurrentRequestsPage extends StatefulWidget with NavigationTab {
   @override
@@ -13,13 +16,14 @@ class CurrentRequestsPage extends StatefulWidget with NavigationTab {
 
   @override
   String get helpDescription =>
-      '''This is the Organization Current Requests Page Page! Here you can see all the items that the you have ordered but that volunteers have not committed to yet!''';
+      'This is your Current Requests page. Here, you can see items that you have requested that have not volunteers have not signed up for. '
+      'To see items that volunteers have committed to, check the Expected Deliveries page.';
 
   @override
   IconData get icon => Icons.list;
 
   @override
-  String get title => 'Current Requests';
+  String get title => 'Requests';
 }
 
 class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
@@ -34,75 +38,98 @@ class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
-                'Current Requests',
-                style: mainTitleStyle,
+              Text('Current Requests', style: mainTitleStyle),
+              SizedBox(height: 20),
+              FlatButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => EditCurrentRequestsPage()),
+                  );
+                },
+                color: purpleAccent,
+                padding: EdgeInsets.all(8.0),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Wrap(
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: Icon(
+                          Icons.edit,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Text('Edit',
+                          style: TextStyle(fontSize: 17, color: Colors.white))
+                    ],
+                  ),
+                ),
               ),
               SizedBox(height: 20),
-              Container(
-                  decoration: BoxDecoration(boxShadow: [
-                    BoxShadow(
-                        color: Color(0xFFDEDEDE),
-                        blurRadius: 20.0,
-                        spreadRadius: 0.025,
-                        offset: Offset(
-                          0.0,
-                          0.0,
-                        )),
-                  ]),
-                  child: FlatButton(
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                    color: Colors.white,
-                    onPressed: () {},
-                    child: IntrinsicWidth(
-                      child: Row(
-                        children: <Widget>[
-                          Text('Edit', style: smallButtonStyle),
-                          SizedBox(width: 5.0),
-                          Column(
-                            children: [
-                              SizedBox(height: 5.0),
-                              Icon(
-                                Icons.keyboard_arrow_down,
-                                color: purpleAccent,
-                                size: 30.0,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  )),
-              SizedBox(height: 20),
               StreamBuilder(
-                stream: FirestoreHelper.getCurrentOrganizationReference(context).collection('requests').snapshots(),
+                stream: FirestoreHelper.getCurrentOrganizationReference(context)
+                    .collection('requests')
+                    .snapshots(),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
-                    return Center(child: CircularProgressIndicator());
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
                   }
-
+                  if (snapshot.data.documents.length == 0) {
+                    return Column(
+                      children: [
+                        Text(
+                          'Your organization currently does not have any requests. Create a request with the \'New Request\' button on the bottom right.',
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 15.0,
+                          ),
+                        ),
+                        SizedBox(height: 40),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 4),
+                          child: Center(
+                            child: SvgPicture.asset('assets/ui_svgs/shopping.svg',
+                              semanticsLabel: 'Create an Item Request!',
+                              width: MediaQuery.of(context).size.width,
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 60),
+                      ],
+                    );
+                  }
                   Map<String, List<Item>> itemCategories = {};
                   for (DocumentSnapshot document in snapshot.data.documents) {
                     if (!itemCategories.containsKey(document['category'])) {
                       itemCategories[document['category']] = [];
                     }
-                    itemCategories[document['category']].add(Item(
-                      name: document['name'],
-                      category: document['category'],
-                      amount: document['amount'],
-                      specificDescription: document['specificDescription'],
-                    ));
+                    itemCategories[document['category']].add(
+                      Item(
+                        name: document['name'],
+                        category: document['category'],
+                        amount: document['amount'],
+                        specificDescription: document['specificDescription'],
+                        unit: document['unit'],
+                      ),
+                    );
                   }
 
                   List<Widget> requestContainers = [];
                   for (String category in itemCategories.keys) {
-                    requestContainers.add(Padding(
-                      padding: const EdgeInsets.only(bottom: 16.0),
-                      child: RequestContainer(
+                    requestContainers.add(
+                      RequestContainer(
                         items: itemCategories[category],
                         category: category,
                       ),
-                    ));
+                    );
                   }
                   return Column(
                     children: requestContainers,
@@ -112,6 +139,22 @@ class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
               SizedBox(height: 20),
             ],
           ),
+        ),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        backgroundColor: purpleAccent,
+        heroTag: 'create request',
+        // Create request testing code
+        onPressed: () async {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => CreateRequestPage()),
+          );
+        },
+        label: Text('New Request'),
+        icon: Icon(
+          Icons.add,
+          color: Colors.white,
         ),
       ),
     );

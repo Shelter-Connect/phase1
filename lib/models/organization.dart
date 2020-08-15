@@ -27,7 +27,28 @@ class Organization {
       this.itemCategories,
       this.number});
 
-  Organization.fromFirestoreMap({BuildContext context, DocumentSnapshot organizationSnapshot}) {
+  Organization clone() {
+    return Organization(
+      address: address,
+      location: location,
+      website: website,
+      number: number,
+      email: email,
+      id: id,
+      description: description,
+      name: name,
+      itemCategories: itemCategories,
+      requestedItems: requestedItems?.map(
+        (category, items) => MapEntry(
+          category,
+          items.map((item) => item.clone()).toList(),
+        ),
+      ),
+      distance: distance,
+    );
+  }
+
+  Organization.fromFirestoreMap({BuildContext context, DocumentSnapshot organizationSnapshot, bool isVolunteer}) {
     address = organizationSnapshot['address'];
     location = Position(longitude: organizationSnapshot['location'].longitude, latitude: organizationSnapshot['location'].latitude);
     website = organizationSnapshot['website'];
@@ -36,12 +57,21 @@ class Organization {
     id = organizationSnapshot.documentID;
     description = organizationSnapshot['description'];
     name = organizationSnapshot['name'];
-    itemCategories = organizationSnapshot['itemCategories'].cast<String>();
-    requestedItems = {};
+    itemCategories = organizationSnapshot['itemCategories']?.cast<String>();
 
-    Position userPosition = Provider.of<UserPosition>(context, listen:false).position;
-    distance = userPosition != null ? LocationHelper.distance(
-      organizationSnapshot['location'].latitude, organizationSnapshot['location'].longitude, userPosition.latitude, userPosition.longitude
-    ) : null;
+    Map<String, List<Item>> items = {};
+
+    for (String category in organizationSnapshot['itemCategories']) {
+      items[category] = List<Item>();
+    }
+    requestedItems = items;
+
+    if (isVolunteer) {
+      Position userPosition = Provider.of<UserPosition>(context, listen: false).position;
+      distance = userPosition != null
+          ? LocationHelper.distance(
+              organizationSnapshot['location'].latitude, organizationSnapshot['location'].longitude, userPosition.latitude, userPosition.longitude)
+          : null;
+    }
   }
 }

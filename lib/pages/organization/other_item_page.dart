@@ -12,10 +12,9 @@ import '../../components/secondary_layout.dart';
 
 class OtherItemPage extends StatefulWidget {
   final String itemCategory;
+  final String asset;
 
-  OtherItemPage({
-    this.itemCategory,
-  });
+  OtherItemPage({this.itemCategory = 'Other', this.asset = 'assets/other_svgs/other.svg'});
 
   @override
   _OtherItemPageState createState() => _OtherItemPageState();
@@ -23,13 +22,15 @@ class OtherItemPage extends StatefulWidget {
 
 class _OtherItemPageState extends State<OtherItemPage> {
   int amount = 0;
-  String specificDescription = '', itemName;
+  String specificDescription = '', itemName, itemUnit;
 
   @override
   Widget build(BuildContext context) {
     return SecondaryLayout(
       title: '',
-      helpText: 'Hello, i will not help you',
+      helpText:
+          'To create a custom request, enter the name and amount of items you need. You can also enter extra descriptions to get a specific type of item, '
+          'or units for the item.',
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
@@ -65,12 +66,9 @@ class _OtherItemPageState extends State<OtherItemPage> {
                       child: Wrap(
                         crossAxisAlignment: WrapCrossAlignment.center,
                         children: <Widget>[
-                          CategoryIconButton(
-                            name: 'Other',
-                            asset: 'assets/other_svgs/other.svg',
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
+                          CategoryIconDisplay(
+                            name: widget.itemCategory,
+                            asset: widget.asset,
                           ),
                         ],
                       ),
@@ -90,7 +88,13 @@ class _OtherItemPageState extends State<OtherItemPage> {
                       ),
                       SizedBox(height: 20),
                       FloatingTextField(
-                        keyboardType: TextInputType.multiline,
+                        hintText: 'Custom Item Unit',
+                        onChanged: (val) {
+                          itemUnit = val;
+                        },
+                      ),
+                      SizedBox(height: 20),
+                      FloatingTextField(
                         hintText: 'Item Description (Specific Brand, Type, etc.)',
                         width: double.infinity,
                         maxLines: null,
@@ -123,13 +127,17 @@ class _OtherItemPageState extends State<OtherItemPage> {
                             'Make sure you are requesting the correct item and number of items. Requests can be edited in the \'Expected Deliveries\' tab.',
                         actionName: 'Create Request',
                         action: () {
-                          FirestoreHelper.createRequest(
-                              context: context,
-                              items: [Item(name: itemName, amount: amount, specificDescription: specificDescription, category: widget.itemCategory)]);
+                          FirestoreHelper.updateRequests(
+                            context: context,
+                            items: [
+                              Item(name: itemName, amount: amount, specificDescription: specificDescription, category: widget.itemCategory, unit: itemUnit),
+                            ],
+                          );
+                          Navigator.pop(context);
+                          Navigator.pop(context);
                         },
                       ),
                     );
-                    //TODO Add item to the request list and to the request in volunteer side
                   },
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30.0),

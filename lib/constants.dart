@@ -26,53 +26,59 @@ final subHeaderStyle = TextStyle(
   fontSize: 17.0,
 );
 
-final mainTitleStyle = TextStyle(
-  fontWeight: FontWeight.w900,
-  fontSize: 35,
-  color: purpleAccent
+final mainTitleStyle = TextStyle(fontWeight: FontWeight.w900, fontSize: 35, color: purpleAccent);
+
+final mainTitleStyle2 = TextStyle(fontWeight: FontWeight.w800, fontSize: 29.8, color: purpleAccent);
+
+final subTitleStyle = TextStyle(fontSize: 25, fontWeight: FontWeight.w700, color: purpleLight);
+
+final smallButtonStyle = TextStyle(fontWeight: FontWeight.w700, fontSize: 20, color: purpleAccent);
+
+final elevatedBoxStyle = BoxDecoration(
+  color: Colors.white,
+  borderRadius: BorderRadius.circular(10),
+  boxShadow: [
+    BoxShadow(
+      color: Color(0xFFDEDEDE),
+      blurRadius: 8.0,
+      spreadRadius: 1.5,
+      offset: Offset(
+        0.0,
+        0.0,
+      ),
+    ),
+  ],
 );
-
-final subTitleStyle = TextStyle(
-    fontSize: 25,
-    fontWeight: FontWeight.w700,
-    color: purpleLight);
-
-final smallButtonStyle = TextStyle(
-    fontWeight: FontWeight.w700,
-    fontSize: 20,
-    color: purpleAccent);
-
-final elevatedBoxStyle = BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10), boxShadow: [
-  BoxShadow(
+final subElevatedBoxStyle = BoxDecoration(
+  color: Colors.white,
+  borderRadius: BorderRadius.circular(41),
+  boxShadow: [
+    BoxShadow(
       color: Color(0xFFDEDEDE),
       blurRadius: 8.0,
       spreadRadius: 1.5,
       offset: Offset(
         0.0,
         0.0,
-      )),
-]);
-final subElevatedBoxStyle = BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(41), boxShadow: [
-  BoxShadow(
-      color: Color(0xFFDEDEDE),
-      blurRadius: 8.0,
-      spreadRadius: 1.5,
-      offset: Offset(
-        0.0,
-        0.0,
-      )),
-]);
-final sub2ElevatedBoxStyle = BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10), boxShadow: [
-  BoxShadow(
+      ),
+    ),
+  ],
+);
+final sub2ElevatedBoxStyle = BoxDecoration(
+  color: Colors.white,
+  borderRadius: BorderRadius.circular(10),
+  boxShadow: [
+    BoxShadow(
       color: Color(0xFFDEDEDE),
       blurRadius: 2.0,
       spreadRadius: 0.6,
       offset: Offset(
         0.0,
         0.0,
-      )),
-]);
-
+      ),
+    ),
+  ],
+);
 //Colors
 final colorScheme = ColorScheme(
   primary: Color(0xff42a5f5),
@@ -107,60 +113,87 @@ final categories = [
     'name': 'Hygiene',
     'items': {
       'Body Soap': 'assets/hygiene_svgs/body_soap.svg',
-      'Nail Clipper': 'assets/hygiene_svgs/nail_clipper.svg',
+      'Lip Balm': 'assets/hygiene_svgs/lip_balm.svg',
+      'Nail Clippers': 'assets/hygiene_svgs/nail_clipper.svg',
       'Soap': 'assets/hygiene_svgs/soap.svg',
       'Toilet Paper': 'assets/hygiene_svgs/toilet_paper.svg',
-      'Toothbrush': 'assets/hygiene_svgs/toothbrush.svg',
-      'Toothpaste': 'assets/hygiene_svgs/toothpaste.svg',
+      'Toothbrushes': 'assets/hygiene_svgs/toothbrush.svg',
+      'Toothpastes': 'assets/hygiene_svgs/toothpaste.svg',
+      'Bath Towels': 'assets/hygiene_svgs/bath_towel.svg',
+      'Shaving Cream': 'assets/hygiene_svgs/shaving_cream.svg',
+      'Razors (Disposable)': 'assets/hygiene_svgs/razor.svg',
+      'Deodorant': 'assets/hygiene_svgs/deodorant.svg',
+      'Shampoo': 'assets/hygiene_svgs/shampoo.svg',
+      'Diapers': 'assets/hygiene_svgs/diaper.svg',
+      'Laundry Soap': 'assets/hygiene_svgs/laundry_detergent.svg',
     },
-    'description': 'Hygiene is a very important part of a person\'s day. Staying clean is one way to brighten someone\'s day!'
+    'description': ''
+//        'Hygiene is a very important part of a person\'s day. Staying clean is one way to brighten someone\'s day!'
   },
   {
     'asset': 'assets/clothing_svgs/clothes.svg',
     'name': 'Clothes',
     'items': {
-      'Beanie': 'assets/clothing_svgs/beanie.svg',
+      'Beanies': 'assets/clothing_svgs/beanie.svg',
       'Gloves': 'assets/clothing_svgs/gloves.svg',
       'Hats': 'assets/clothing_svgs/hats.svg',
       'Socks': 'assets/clothing_svgs/socks.svg',
       'Underwear': 'assets/clothing_svgs/underwear.svg',
-      'Shirts': 'assets/clothing_svgs/shirt.svg',
+      'Women\'s Underwear': 'assets/clothing_svgs/women_underwear.svg',
+      'White T-Shirts': 'assets/clothing_svgs/shirt.svg',
+      'Elastic Waist Pants': 'assets/clothing_svgs/elastic_waist_pants.svg',
     },
-    'description': 'Clothes protect not only your body from physical harm, but strengthen your spirits and self-confidence.'
+    'description': ''
+//    'Clothes protect not only your body from physical harm, but strengthen your spirits and self-confidence.'
   },
   {
     'asset': 'assets/nutrition_svgs/nutrition.svg',
     'name': 'Nutrition',
     'items': {
-      'Beans': 'assets/nutrition_svgs/beans.svg',
+      'Canned Beans': 'assets/nutrition_svgs/beans.svg',
+      'Canned Tomato Sauce': 'assets/nutrition_svgs/tomatosauce.svg',
+      'Rice': 'assets/nutrition_svgs/rice.svg',
+      'Pasta': 'assets/nutrition_svgs/pasta.svg',
+      'Ground Meats': 'assets/nutrition_svgs/groundbeef.svg',
+      'Chicken': 'assets/nutrition_svgs/chicken.svg',
+      'Tuna': 'assets/nutrition_svgs/tuna.svg',
+      'Vegetables (Variety)': 'assets/nutrition_svgs/vegetables.svg',
+      'Fruits (Variety)': 'assets/nutrition_svgs/fruits.svg',
       'Bread': 'assets/nutrition_svgs/bread.svg',
       'Eggs': 'assets/nutrition_svgs/eggs.svg',
       'Energy bars': 'assets/nutrition_svgs/energy_bar.svg',
       'Potatoes': 'assets/nutrition_svgs/potato.svg',
       'Water': 'assets/nutrition_svgs/water.svg',
     },
-    'description': 'A healthy and filling meal, at times, is worth more than a million dollars.'
+    'description': ''
+//    'A healthy and filling meal, at times, is worth more than a million dollars.'
   },
   {
     'asset': 'assets/covid-19_response_svg/covid_19.svg',
     'name': 'COVID-19',
     'items': {
-      'Face Shield': 'assets/covid-19_response_svg/face_shield.svg',
+      'Face Shields': 'assets/covid-19_response_svg/face_shield.svg',
       'Hand Sanitizers': 'assets/covid-19_response_svg/hand_sanitizer.svg',
       'Latex Gloves': 'assets/covid-19_response_svg/latex_gloves.svg',
-      'Masks': 'assets/covid-19_response_svg/mask.svg',
-      'Wipes': 'assets/covid-19_response_svg/wipes.svg',
+      'Surgical Masks': 'assets/covid-19_response_svg/mask.svg',
+      'Disinfecting Wipes': 'assets/covid-19_response_svg/wipes.svg',
+      'Facial Tissues': 'assets/covid-19_response_svg/tissue_paper.svg',
+      'Rubbing Alcohol': 'assets/covid-19_response_svg/rubbing_alcohol.svg',
     },
-    'description': 'Everyone deserves protection, especially in these trying times.'
+    'description': ''
+//    'Everyone deserves protection, especially in these trying times.'
   },
   {
     'asset': 'assets/warmth_svgs/warmth.svg',
     'name': 'Warmth',
     'items': {
-      'Blankets': 'assets/warmth_svgs/blanket.svg',
+      'Twin-Sized Blankets': 'assets/warmth_svgs/blanket.svg',
+      'Pillows': 'assets/warmth_svgs/pillow.svg',
+      'Twin-Sized Bed Sheets': 'assets/warmth_svgs/bed_sheets.svg',
       'Sleeping Bag': 'assets/warmth_svgs/sleeping_bag.svg',
       'Sleeping Pad': 'assets/warmth_svgs/sleeping_pad.svg',
     },
-    'description': 'The need for warmth has been engraved into humans since the beginning of life, and has never disappeared'
+    'description': ''
+//    'The need for warmth has been engraved into humans since the beginning of life, and has never disappeared'
   },
 ];

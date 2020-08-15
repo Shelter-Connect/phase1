@@ -1,9 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:phase1/components/alerts.dart';
-import 'package:provider/provider.dart';
+import 'package:phase1/models/organization.dart';
+import 'package:phase1/pages/organization/organization_edit_info_page.dart';
+import 'package:phase1/pages/organization/organization_preview_page.dart';
+import 'package:phase1/services/firestore_helper.dart';
 
 import '../../constants.dart';
-import '../../models/user.dart';
 import '../navigation_tab.dart';
 
 class OrganizationSettingsPage extends StatefulWidget with NavigationTab {
@@ -11,48 +14,65 @@ class OrganizationSettingsPage extends StatefulWidget with NavigationTab {
   _OrganizationSettingsPageState createState() => _OrganizationSettingsPageState();
 
   @override
-  String get helpDescription => 'This is a help description for your account settings.';
+  String get helpDescription => 'This is your Account Settings page. Here, you can see and edit your account and sign out, if you\'d like. '
+      'In addition, you can preview your profile as volunteers will see it.';
 
   @override
-  IconData get icon => Icons.settings;
+  IconData get icon => Icons.person_outline;
 
   @override
-  String get title => 'Account Settings';
+  String get title => 'Account';
+
 }
 
 class _OrganizationSettingsPageState extends State<OrganizationSettingsPage> {
+  Organization organization;
+
+  @override
+  void initState() {
+    DocumentReference organizationReference = FirestoreHelper.getCurrentOrganizationReference(context);
+    organizationReference.get().then((snapshot) {
+      setState(() {
+        organization = Organization.fromFirestoreMap(context: context, organizationSnapshot: snapshot, isVolunteer: false);
+      });
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFF5F5F5),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
-              child: Text(
-                'Account Settings',
-                style: TextStyle(fontSize: 35, fontWeight: FontWeight.w900, color: purpleAccent),
+      body: organization == null
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                    child: Text('Account Settings', style: mainTitleStyle),
+                  ),
+                  SizedBox(height: 20),
+                  OrganizationInfo(organization: organization),
+                  SizedBox(height: 20),
+                  DemoProfileButton(organization),
+                  SizedBox(height: 10),
+                  DeleteAccount(),
+                  SizedBox(height: 20),
+                ],
               ),
             ),
-            SizedBox(height: 20),
-            OrganizationInfo(email: Provider.of<User>(context, listen: false).user.email, password: '*******'),
-            SizedBox(height: 20),
-            DeleteAccount(),
-            SizedBox(height: 20),
-          ],
-        ),
-      ),
     );
   }
 }
 
 class OrganizationInfo extends StatelessWidget {
-  final String email;
-  final String password;
+  final Organization organization;
 
-  OrganizationInfo({this.email, this.password});
+  OrganizationInfo({this.organization});
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +80,6 @@ class OrganizationInfo extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Container(
         decoration: elevatedBoxStyle,
-        height: 200,
         width: MediaQuery.of(context).size.width,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
@@ -70,10 +89,7 @@ class OrganizationInfo extends StatelessWidget {
             children: <Widget>[
               Text(
                 'Organization Information',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w400
-                ),
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
               ),
               SizedBox(
                 height: 5,
@@ -88,17 +104,17 @@ class OrganizationInfo extends StatelessWidget {
                 text: TextSpan(
                   children: <TextSpan>[
                     TextSpan(
-                      text: 'Email Address: ',
+                      text: 'Name: ',
                       style: TextStyle(
                         fontSize: 17,
+                        fontWeight: FontWeight.w600,
                         color: colorScheme.onBackground,
                       ),
                     ),
                     TextSpan(
-                      text: email,
+                      text: organization.name,
                       style: TextStyle(
                         fontSize: 17,
-                        fontWeight: FontWeight.w600,
                         color: colorScheme.onBackground,
                       ),
                     )
@@ -112,17 +128,65 @@ class OrganizationInfo extends StatelessWidget {
                 text: TextSpan(
                   children: <TextSpan>[
                     TextSpan(
-                      text: 'Password: ',
+                      text: 'Email Address: ',
                       style: TextStyle(
                         fontSize: 17,
+                        fontWeight: FontWeight.w600,
                         color: colorScheme.onBackground,
                       ),
                     ),
                     TextSpan(
-                      text: password,
+                      text: organization.email,
+                      style: TextStyle(
+                        fontSize: 17,
+                        color: colorScheme.onBackground,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              RichText(
+                text: TextSpan(
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: 'Address: ',
                       style: TextStyle(
                         fontSize: 17,
                         fontWeight: FontWeight.w600,
+                        color: colorScheme.onBackground,
+                      ),
+                    ),
+                    TextSpan(
+                      text: organization.address,
+                      style: TextStyle(
+                        fontSize: 17,
+                        color: colorScheme.onBackground,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              RichText(
+                text: TextSpan(
+                  children: <InlineSpan>[
+                    TextSpan(
+                      text: 'Description: ',
+                      style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w600,
+                        color: colorScheme.onBackground,
+                      ),
+                    ),
+                    TextSpan(
+                      text: organization.description,
+                      style: TextStyle(
+                        fontSize: 17,
                         color: colorScheme.onBackground,
                       ),
                     )
@@ -133,23 +197,43 @@ class OrganizationInfo extends StatelessWidget {
                 height: 10,
               ),
               InkWell(
-                onTap: () {
-                  //TODO
+                onTap: () async {
+                  bool updated = await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => OrganizationEditInfoPage(organization),
+                    ),
+                  );
+                  if (updated) {
+                    Scaffold.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Your organization information has been updated.'),
+                      ),
+                    );
+                  }
                 },
                 child: Container(
+                  width: 250,
+                  height: 37,
                   decoration: BoxDecoration(
                     color: purpleAccent,
                     borderRadius: BorderRadius.circular(21),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
-                    child: Text(
-                      'Change Password',
-                      style: TextStyle(
-                        color: colorScheme.onSecondary,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16.0,
-                      ),
+                    child: Row(
+                      children: <Widget>[
+                        Icon(Icons.edit, color: Colors.white, size: 25),
+                        SizedBox(width: 2),
+                        Text(
+                          'Edit Account Information',
+                          style: TextStyle(
+                            color: colorScheme.onSecondary,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16.0,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -201,6 +285,39 @@ class DeleteAccount extends StatelessWidget {
                 ),
               ],
             ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class DemoProfileButton extends StatelessWidget {
+  final Organization organization;
+
+  DemoProfileButton(this.organization);
+
+  @override
+  Widget build(BuildContext context) {
+    return FlatButton(
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => OrganizationPreviewPage(organization),
+          ),
+        );
+      },
+      child: Container(
+        height: 45.0,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(21),
+          color: purpleAccent,
+        ),
+        child: Center(
+          child: Text(
+            'Preview Profile',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.white),
           ),
         ),
       ),

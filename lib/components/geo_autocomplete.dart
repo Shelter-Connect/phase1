@@ -98,8 +98,9 @@ class _PlacesAutocompleteOverlayState extends PlacesAutocompleteState {
 
     final headerTopRightBorderRadius = widget.overlayBorderRadius != null ? widget.overlayBorderRadius.topRight : Radius.circular(10);
 
-    final header = Column(children: <Widget>[
-      Material(
+    final header = Column(
+      children: <Widget>[
+        Material(
           color: theme.dialogBackgroundColor,
           borderRadius: BorderRadius.only(topLeft: headerTopLeftBorderRadius, topRight: headerTopRightBorderRadius),
           child: Row(
@@ -131,11 +132,13 @@ class _PlacesAutocompleteOverlayState extends PlacesAutocompleteState {
                 },
               )
             ],
-          )),
-      Divider(
-          //height: 1.0,
-          )
-    ]);
+          ),
+        ),
+        Divider(
+            //height: 1.0,
+            )
+      ],
+    );
 
     Widget body;
 
@@ -260,16 +263,17 @@ class _AppBarPlacesAutoCompleteTextFieldState extends State<AppBarPlacesAutoComp
     assert(state != null);
 
     return Container(
-        alignment: Alignment.topLeft,
-        margin: EdgeInsets.only(top: 4.0),
-        child: FloatingTextField(
-          controller: state._queryTextController,
-          autofocus: true,
-          textStyle: TextStyle(
-            color: Theme.of(context).brightness == Brightness.light ? Colors.black.withOpacity(0.9) : Colors.white.withOpacity(0.9),
-            fontSize: 16.0,
-          ),
-        ));
+      alignment: Alignment.topLeft,
+      margin: EdgeInsets.only(top: 4.0),
+      child: FloatingTextField(
+        controller: state._queryTextController,
+        autofocus: true,
+        textStyle: TextStyle(
+          color: Theme.of(context).brightness == Brightness.light ? Colors.black.withOpacity(0.9) : Colors.white.withOpacity(0.9),
+          fontSize: 16.0,
+        ),
+      ),
+    );
   }
 }
 
@@ -333,9 +337,11 @@ abstract class PlacesAutocompleteState extends State<PlacesAutocompleteWidget> {
 
   Future<Null> doSearch(String value) async {
     if (mounted && value.isNotEmpty) {
-      setState(() {
-        _searching = true;
-      });
+      setState(
+        () {
+          _searching = true;
+        },
+      );
 
       final res = await _places.autocomplete(
         value,
@@ -362,9 +368,12 @@ abstract class PlacesAutocompleteState extends State<PlacesAutocompleteWidget> {
 
   void _onQueryChange() {
     if (_debounce?.isActive ?? false) _debounce.cancel();
-    _debounce = Timer(Duration(milliseconds: widget.debounce), () {
-      _queryBehavior.add(_queryTextController.text);
-    });
+    _debounce = Timer(
+      Duration(milliseconds: widget.debounce),
+      () {
+        _queryBehavior.add(_queryTextController.text);
+      },
+    );
   }
 
   @override
@@ -383,20 +392,24 @@ abstract class PlacesAutocompleteState extends State<PlacesAutocompleteWidget> {
     if (widget.onError != null) {
       widget.onError(res);
     }
-    setState(() {
-      _response = null;
-      _searching = false;
-    });
+    setState(
+      () {
+        _response = null;
+        _searching = false;
+      },
+    );
   }
 
   @mustCallSuper
   void onResponse(PlacesAutocompleteResponse res) {
     if (!mounted) return;
 
-    setState(() {
-      _response = res;
-      _searching = false;
-    });
+    setState(
+      () {
+        _response = res;
+        _searching = false;
+      },
+    );
   }
 }
 

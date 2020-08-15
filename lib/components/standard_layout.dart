@@ -23,10 +23,12 @@ class StandardLayout extends StatelessWidget {
           },
           icon: Icon(Icons.keyboard_arrow_left, size: 35, color: purpleAccent),
         ),
-        title: Text(title,
-            style: TextStyle(
-              color: Color(0xFFF5F5F5),
-            )),
+        title: Text(
+          title,
+          style: TextStyle(
+            color: Color(0xFFF5F5F5),
+          ),
+        ),
         actions: <Widget>[
           Visibility(
             child: IconButton(
@@ -48,8 +50,8 @@ class StandardLayout extends StatelessWidget {
     showModalBottomSheet(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(40.0),
-          topRight: Radius.circular(40.0),
+          topLeft: Radius.circular(20.0),
+          topRight: Radius.circular(20.0),
         ),
       ),
       context: context,
@@ -66,19 +68,12 @@ class StandardLayout extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text('Help', style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
-                      Row(
-                        children: <Widget>[
-                          InkWell(
-                              child: new Text('Report Issues', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 17)),
-                              onTap: () => launch('https://forms.gle/ue5idWtztcgevh9Q7')),
-                          IconButton(
-                            iconSize: 30,
-                            onPressed: () {
-                              launch('https://forms.gle/ue5idWtztcgevh9Q7');
-                            },
-                            icon: Icon(Icons.bug_report),
-                          ),
-                        ],
+                      IconButton(
+                        iconSize: 30,
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: Icon(Icons.help),
                       ),
                     ],
                   ),

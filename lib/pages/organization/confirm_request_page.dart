@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:phase1/components/alerts.dart';
 import 'package:phase1/components/category_icon_button.dart';
+import 'package:phase1/components/colored_button.dart';
 import 'package:phase1/components/floating_text_field.dart';
 import 'package:phase1/components/increment.dart';
 import 'package:phase1/constants.dart';
@@ -27,12 +28,14 @@ class ConfirmRequestPage extends StatefulWidget {
 class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
   int amount = 0;
   String specificDescription = '';
+  String itemUnit = '';
 
   @override
   Widget build(BuildContext context) {
     return SecondaryLayout(
       title: '',
-      helpText: 'Hello, i will not help you',
+      helpText:
+          'To create your request, enter the amount of items you need. You can also enter extra descriptions to get a specific type of item, or units for the item.',
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
@@ -68,12 +71,9 @@ class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
                       child: Wrap(
                         crossAxisAlignment: WrapCrossAlignment.center,
                         children: <Widget>[
-                          CategoryIconButton(
+                          CategoryIconDisplay(
                             name: widget.itemName ?? null,
                             asset: widget.itemIcon ?? null,
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
                           ),
                         ],
                       ),
@@ -82,16 +82,21 @@ class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
                   SizedBox(width: 16),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
                       SizedBox(height: 20),
                       FloatingTextField(
-                        keyboardType: TextInputType.multiline,
-                        hintText: 'Item Description (Specific Brand, Type, etc.)',
-                        width: double.infinity,
+                        hintText: 'Description (Specific Brand, Type, etc.)',
                         maxLines: null,
                         onChanged: (val) {
                           specificDescription = val;
+                        },
+                      ),
+                      SizedBox(height: 24),
+                      FloatingTextField(
+                        hintText: 'Unit (Liters, Cans, etc.)',
+                        onChanged: (val) {
+                          itemUnit = val;
                         },
                       ),
                       SizedBox(height: 24),
@@ -107,39 +112,39 @@ class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
                 ],
               ),
               SizedBox(height: 16),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                child: FlatButton(
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (_) => SingleActionAlert(
-                        title: 'Confirm your request?',
-                        subtitle:
-                            'Make sure you are requesting the correct item and number of items. Requests can be edited in the \'Expected Deliveries\' tab.',
-                        actionName: 'Create Request',
-                        action: () {
-                          FirestoreHelper.createRequest(context: context, items: [
-                            Item(name: widget.itemName, amount: amount, specificDescription: specificDescription, category: widget.itemCategory)
-                          ]);
-                        },
-                      ),
-                    );
-                    //TODO Add item to the request list and to the request in volunteer side
-                  },
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30.0),
-                  ),
-                  color: colorScheme.onSecondary,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 20),
-                    child: Text(
-                      'Create Request',
-                      style: TextStyle(color: purpleAccent, fontSize: 20),
+              ColoredButton(
+                color: colorScheme.onSecondary,
+                textColor: purpleAccent,
+                text: 'Create Request',
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (_) => SingleActionAlert(
+                      title: 'Confirm your request?',
+                      subtitle:
+                          'Make sure you are requesting the correct item and number of items. Requests can be edited in the \'Expected Deliveries\' tab.',
+                      actionName: 'Create Request',
+                      action: () {
+                        FirestoreHelper.updateRequests(
+                          context: context,
+                          items: [
+                            Item(
+                                name: widget.itemName,
+                                amount: amount,
+                                specificDescription: specificDescription,
+                                unit: itemUnit,
+                                category: widget.itemCategory)
+                          ],
+                        );
+                        Navigator.pop(context);
+                        Navigator.pop(context);
+                      },
                     ),
-                  ),
-                ),
+                  );
+                  //TODO Add item to the request list and to the request in volunteer side
+                },
               ),
+              SizedBox(height: 16.0),
             ],
           ),
         ),

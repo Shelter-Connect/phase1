@@ -1,12 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 
 import 'item.dart';
 import 'organization.dart';
 
 class Donation {
-  String volunteerId, donationId, volunteerEmail;
+  String volunteerId, donationId, volunteerEmail, volunteerName;
   Organization organization;
   DateTime date;
   List<Item> items = List();
@@ -14,22 +13,31 @@ class Donation {
   Donation({
     this.volunteerId,
     this.volunteerEmail,
+    this.volunteerName,
     this.organization,
     this.donationId,
     this.items,
     this.date,
   });
 
-  Donation.fromFirestoreMap({BuildContext context, DocumentSnapshot donationSnapshot}) {
+  Donation.fromFirestoreMap(DocumentSnapshot donationSnapshot) {
     volunteerId = donationSnapshot['volunteerId'];
+    volunteerEmail = donationSnapshot['volunteerEmail'];
+    volunteerName = donationSnapshot['volunteerName'];
     donationId = donationSnapshot.documentID;
     date = donationSnapshot['date'].toDate();
-    items = donationSnapshot['items'].map((item) => Item(
-      name: item['name'],
-      amount: item['amount'],
-      specificDescription: item['specificDescription'],
-      category: item['category'],
-    )).toList().cast<Item>();
+    items = donationSnapshot['items']
+        .map(
+          (item) => Item(
+            name: item['name'],
+            amount: item['amount'],
+            specificDescription: item['specificDescription'],
+            category: item['category'],
+            unit: item['unit'],
+          ),
+        )
+        .toList()
+        .cast<Item>();
     organization = Organization(
       name: donationSnapshot['organizationName'],
       description: donationSnapshot['organizationDescription'],
@@ -40,16 +48,16 @@ class Donation {
     );
   }
 
-  Donation.clone(Donation donation) {
-    this.volunteerId = donation.volunteerId;
-    this.date = donation.date;
-    this.date = this.date;
-    this.organization = donation.organization;
-    this.organization = this.organization;
-    this.donationId = donationId;
-    for (Item item in donation.items) {
-      this.items.add(Item.clone(item: item));
-    }
+  Donation clone() {
+    return Donation(
+      volunteerId: volunteerId,
+      volunteerName: volunteerName,
+      volunteerEmail: volunteerEmail,
+      date: DateTime(date.year, date.month, date.day),
+      organization: organization.clone(),
+      donationId: donationId,
+      items: items.map((item) => item.clone()).toList(),
+    );
   }
 
   Map<String, dynamic> toFirestoreMap() {
@@ -64,6 +72,7 @@ class Donation {
       'organizationAddress': organization.address,
       'organizationLocation': GeoPoint(organization.location.latitude, organization.location.longitude),
       'volunteerEmail': volunteerEmail,
+      'volunteerName': volunteerName,
     };
   }
 }

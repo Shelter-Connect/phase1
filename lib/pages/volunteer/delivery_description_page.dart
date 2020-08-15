@@ -1,14 +1,19 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:phase1/components/alerts.dart';
 import 'package:phase1/models/donation.dart';
+import 'package:phase1/models/item.dart';
 import 'package:phase1/models/organization.dart';
+import 'package:phase1/services/firestore_helper.dart';
 
 import '../../components/standard_layout.dart';
 import '../../constants.dart';
+import 'edit_delivery_page.dart';
 
 class DeliveryDescriptionPage extends StatefulWidget {
-  final Organization organization;
+  Organization organization;
   final Donation donation;
 
   DeliveryDescriptionPage(this.organization, this.donation);
@@ -18,109 +23,184 @@ class DeliveryDescriptionPage extends StatefulWidget {
 }
 
 class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
+  bool loading = true;
+
+  @override
+  void initState() {
+    DocumentReference organizationReference = db.collection('organizations').document(widget.organization.id);
+    organizationReference.collection('requests').getDocuments().then((documents) {
+      widget.organization.requestedItems = Map();
+      for (DocumentSnapshot document in documents.documents) {
+        if (widget.organization.requestedItems[document['category']] == null) widget.organization.requestedItems[document['category']] = [];
+        setState(() {
+          widget.organization.requestedItems[document['category']].add(
+            Item(
+              name: document['name'],
+              amount: document['amount'],
+              category: document['category'],
+              specificDescription: document['specificDescription'],
+              unit: document['unit'],
+            ),
+          );
+        });
+      }
+      setState(() {
+        loading = false;
+      });
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return StandardLayout(
-        title: ' ',
-        helpText: 'If u don\'t know how to use this app u stupid lmao',
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  'Delivery to ${widget.organization.name}',
-                  style: mainTitleStyle
-                ),
-                SizedBox(height: 20),
-                OrganizationInformation(
-                  orgEmail: widget.organization.email,
-                  orgAddress: widget.organization.address,
-                  dateTime: widget.donation.date,
-                ),
-                SizedBox(height: 20),
-                Container(
-                  decoration: elevatedBoxStyle,
-                  width: MediaQuery.of(context).size.width,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Row(
-                              children: <Widget>[
-                                Text(
-                                  'Selected Donations',
+      title: ' ',
+      helpText: 'This page shows a delivery you have signed up for. Here, you can edit or cancel this delivery. ',
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text('Delivery to ${widget.organization.name}', style: mainTitleStyle),
+              SizedBox(height: 20),
+              OrganizationInformation(
+                orgEmail: widget.organization.email,
+                orgAddress: widget.organization.address,
+                dateTime: widget.donation.date,
+              ),
+              SizedBox(height: 20),
+              Container(
+                decoration: elevatedBoxStyle,
+                width: MediaQuery.of(context).size.width,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text(
+                                'Selected Donations',
+                                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                              ),
+                              FlatButton(
+                                padding: EdgeInsets.all(0.0),
+                                splashColor: transparent,
+                                highlightColor: transparent,
+                                child: Text(
+                                  'Edit',
                                   style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w600
+                                    decoration: TextDecoration.underline,
+                                    color: colorScheme.error,
+                                    fontSize: 17.0,
                                   ),
                                 ),
-                                FlatButton(
-                                  padding: EdgeInsets.all(0.0),
-                                  splashColor: transparent,
-                                  highlightColor: transparent,
-                                  child: Text(
-                                    'Edit',
-                                    style: TextStyle(
-                                      decoration: TextDecoration.underline,
-                                      color: colorScheme.error,
-                                      fontSize: 17.0,
-                                    ),
-                                  ),
-                                  onPressed: () {
-                                    //TODO: Navigator.push(context, MaterialPageRoute(builder: (context) => DonationCreationPage()));
-                                  },
-                                ),
-                              ],
+                                onPressed: () {
+                                  Navigator.push(
+                                      context, MaterialPageRoute(builder: (context) => EditDeliveryPage(widget.organization, widget.donation)));
+                                },
+                              ),
+                            ],
+                          ),
+                          Container(
+                            height: 5,
+                            width: 100,
+                            decoration: BoxDecoration(
+                              color: purpleAccent,
+                              borderRadius: BorderRadius.circular(21),
                             ),
-                            Container(
-                              height: 5,
-                              width: 100,
-                              decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: widget.donation.items.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                return Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Padding(
-                                      padding: const EdgeInsets.only(bottom: 5.0),
-                                      child: Text(
-                                        '${widget.donation.items[index].name} x ${widget.donation.items[index].amount}',
-                                        style: TextStyle(
-                                          fontSize: 17.0,
-                                          fontWeight: FontWeight.w400,
-                                        ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          ListView.builder(
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount: widget.donation.items.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 5.0),
+                                    child: Text(
+                                      '${widget.donation.items[index].name} - ${widget.donation.items[index].amount} ${widget.donation.items[index].unit ?? ''}'
+                                          .trim(),
+                                      style: TextStyle(
+                                        fontSize: 17.0,
+                                        fontWeight: FontWeight.w400,
                                       ),
                                     ),
-                                    Divider(color: Colors.grey, thickness: 2,)
-                                  ],
-                                );
-                              },
-                            ),
-                            SizedBox(height: 5)
-                          ],
+                                  ),
+                                  if (widget.donation.items[index].specificDescription != null)
+                                    Text(
+                                      widget.donation.items[index].specificDescription,
+                                      style: TextStyle(fontSize: 14, color: Colors.grey),
+                                    ),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                ],
+                              );
+                            },
+                          ),
+                          SizedBox(height: 5)
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(height: 20),
+              InkWell(
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (_) => SingleActionAlert(
+                      action: () {
+                        FirestoreHelper.cancelVolunteerDelivery(context, widget.donation);
+                        Navigator.pop(context);
+                      },
+                      actionName: 'Cancel Delivery',
+                      title: 'Cancel Delivery?',
+                      subtitle: 'You cannot revert this action',
+                    ),
+                  );
+                },
+                child: Container(
+                  height: 45.0,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(21),
+                    color: colorScheme.error,
+                  ),
+                  child: Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(Icons.cancel, color: Colors.white, size: 28),
+                        SizedBox(width: 5),
+                        Text(
+                          'Cancel Delivery',
+                          style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600, color: Colors.white),
                         ),
                       ],
                     ),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
 
@@ -158,7 +238,10 @@ class OrganizationInformation extends StatelessWidget {
                 Container(
                   height: 5,
                   width: 100,
-                  decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
+                  decoration: BoxDecoration(
+                    color: purpleAccent,
+                    borderRadius: BorderRadius.circular(21),
+                  ),
                 ),
                 SizedBox(
                   height: 10,
@@ -168,61 +251,73 @@ class OrganizationInformation extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     RichText(
-                      text: TextSpan(children: <TextSpan>[
-                        TextSpan(
+                      text: TextSpan(
+                        children: <TextSpan>[
+                          TextSpan(
                             text: 'Email Address: ',
                             style: TextStyle(
                               fontSize: 17,
                               fontWeight: FontWeight.w400,
                               color: Colors.black,
-                            )),
-                        TextSpan(
+                            ),
+                          ),
+                          TextSpan(
                             text: orgEmail,
                             style: TextStyle(
                               fontSize: 17,
                               fontWeight: FontWeight.w600,
                               color: Colors.black,
-                            ))
-                      ]),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                     SizedBox(
                       height: 5,
                     ),
                     RichText(
-                      text: TextSpan(children: <TextSpan>[
-                        TextSpan(
+                      text: TextSpan(
+                        children: <TextSpan>[
+                          TextSpan(
                             text: 'Donation Location: ',
                             style: TextStyle(
                               fontSize: 17,
                               fontWeight: FontWeight.w400,
                               color: Colors.black,
-                            )),
-                        TextSpan(
+                            ),
+                          ),
+                          TextSpan(
                             text: orgAddress,
                             style: TextStyle(
                               fontSize: 17,
                               fontWeight: FontWeight.w600,
                               color: Colors.black,
-                            ))
-                      ]),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                     RichText(
-                      text: TextSpan(children: <TextSpan>[
-                        TextSpan(
+                      text: TextSpan(
+                        children: <TextSpan>[
+                          TextSpan(
                             text: 'Deliver By: ',
                             style: TextStyle(
                               fontSize: 17,
                               fontWeight: FontWeight.w400,
                               color: Colors.black,
-                            )),
-                        TextSpan(
+                            ),
+                          ),
+                          TextSpan(
                             text: '${DateFormat('MMMMd').format(dateTime)}',
                             style: TextStyle(
                               fontSize: 17,
                               fontWeight: FontWeight.w600,
                               color: Colors.black,
-                            ))
-                      ]),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                     SizedBox(height: 5)
                   ],

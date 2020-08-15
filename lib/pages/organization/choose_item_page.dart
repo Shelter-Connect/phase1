@@ -24,7 +24,9 @@ class ChooseItemPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SecondaryLayout(
       title: '',
-      helpText: 'Hello, i will not help you',
+      helpText:
+          'To create a new request, choose an item that you need. If you do not see the item you are looking for, it might be in a different category, '
+          'or you may have to enter it manually under the "Other" category.',
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
@@ -58,40 +60,43 @@ class ChooseItemPage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
+                      SizedBox(height: 10),
                       Row(
                         children: <Widget>[
-                          CategoryIconButton(
-                            name: categoryName,
-                            asset: categoryIcon,
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                          ),
+                          SizedBox(width: 20),
+                          Text(categoryName, style: headerStyle),
                           SizedBox(width: 5),
                           CategoryDescriptionContainer(info: categoryInfo),
                         ],
                       ),
+                      SizedBox(height: 10),
                       Wrap(
                         children: <Widget>[
                           ...items
-                              .map((name, icon) => MapEntry(
+                              .map(
+                                (name, icon) => MapEntry(
                                   name,
-                                  CategoryIconButton(
-                                    name: name,
-                                    asset: icon,
-                                    onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => ConfirmRequestPage(
-                                            itemName: name,
-                                            itemIcon: icon,
-                                            itemCategory: categoryName,
+                                  Padding(
+                                    padding: const EdgeInsets.all(2.0),
+                                    child: ItemIconButton(
+                                      name: name,
+                                      asset: icon,
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => ConfirmRequestPage(
+                                              itemName: name,
+                                              itemIcon: icon,
+                                              itemCategory: categoryName,
+                                            ),
                                           ),
-                                        ),
-                                      );
-                                    },
-                                  )))
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
+                              )
                               .values
                               .toList(),
                           CategoryIconButton(
@@ -101,9 +106,11 @@ class ChooseItemPage extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => OtherItemPage(
-                                          itemCategory: categoryName,
-                                        )),
+                                  builder: (context) => OtherItemPage(
+                                    itemCategory: categoryName,
+                                    asset: categoryIcon,
+                                  ),
+                                ),
                               );
                             },
                           ),

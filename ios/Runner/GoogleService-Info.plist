@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>793826128569-ud3dn0mcf37d151mvi9ihegk3h0ga4qt.apps.googleusercontent.com</string>
+	<string>475836614185-srmkasq71olgs55hvkrm4cuj9c9fcr7p.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.793826128569-ud3dn0mcf37d151mvi9ihegk3h0ga4qt</string>
+	<string>com.googleusercontent.apps.475836614185-srmkasq71olgs55hvkrm4cuj9c9fcr7p</string>
 	<key>API_KEY</key>
-	<string>AIzaSyDXHM_gZUSTM4wD3gzx---q3bxI7VKQf7c</string>
+	<string>AIzaSyDwzo_IckN5lIVvG_g79ZW_eBJzEPyjtY0</string>
 	<key>GCM_SENDER_ID</key>
-	<string>793826128569</string>
+	<string>475836614185</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>shelter-connect.phase1</string>
+	<string>linkare.phase1</string>
 	<key>PROJECT_ID</key>
-	<string>shelterconnect-6c32c</string>
+	<string>linkare</string>
 	<key>STORAGE_BUCKET</key>
-	<string>shelterconnect-6c32c.appspot.com</string>
+	<string>linkare.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,8 +29,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:793826128569:ios:5e8edb77928bd9c6052168</string>
+	<string>1:475836614185:ios:9c0204381298f248d83e38</string>
 	<key>DATABASE_URL</key>
-	<string>https://shelterconnect-6c32c.firebaseio.com</string>
+	<string>https://linkare.firebaseio.com</string>
 </dict>
 </plist>

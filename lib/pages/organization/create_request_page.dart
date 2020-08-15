@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:phase1/components/secondary_layout.dart';
 import 'package:phase1/constants.dart';
 import 'package:phase1/pages/organization/choose_item_page.dart';
+import 'package:phase1/pages/organization/other_item_page.dart';
 
 import '../../components/category_icon_button.dart';
 
@@ -18,8 +19,8 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
       tag: 'create request',
       child: SecondaryLayout(
         title: 'Create Requests',
-        helpText: '''   This is the Create Requests Page. Choose any category from which you would like to request and specify the amount desired. 
-   You could also name a specific item from this page and specify the quantity desired.''',
+        helpText: 'On this page, you can create a new item request. To start, choose the category of the item you would like to receive. '
+            'If the item you are looking for is not included in any category, choose the "Other" option to enter it manually.',
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
@@ -43,6 +44,7 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
                 ),
                 SizedBox(height: 20),
                 GridView.builder(
+                  physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: categories.length + 1,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -52,9 +54,19 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
                   ),
                   itemBuilder: (BuildContext context, int index) {
                     if (index == categories.length) {
-                      return Container(); //TODO: make other page;
-                    }
-                    else {
+                      return CategoryIconButton(
+                        asset: 'assets/other_svgs/other.svg',
+                        name: 'Other',
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => OtherItemPage(),
+                            ),
+                          );
+                        },
+                      ); //TODO: make other page;
+                    } else {
                       return CategoryIconButton(
                         asset: categories[index]['asset'],
                         name: categories[index]['name'],
@@ -66,7 +78,7 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
                                 categoryIcon: categories[index]['asset'],
                                 categoryName: categories[index]['name'],
                                 items: categories[index]['items'],
-                                categoryInfo: categories[index]['description']
+                                categoryInfo: categories[index]['description'],
                               ),
                             ),
                           );

@@ -44,17 +44,19 @@ class _OrganizationConfirmationPageState extends State<OrganizationConfirmationP
                 SizedBox(height: 30),
                 RoundedButton(
                   title: 'Check Verification',
+                  textColor: Colors.white,
                   onPressed: () async {
                     setState(() {
                       loading = true;
                     });
-                    DocumentSnapshot organizationSnapshot = await db.collection('organizations').document(Provider.of<User>(context, listen: false).user.uid).get();
+                    DocumentSnapshot organizationSnapshot =
+                        await db.collection('organizations').document(Provider.of<User>(context, listen: false).user.uid).get();
                     setState(() {
                       loading = false;
                     });
 
                     if (organizationSnapshot['verified']) {
-                      Navigator.pushReplacementNamed(context, '/organization_navigation');
+                      Navigator.pushReplacementNamed(context, '/organization_bottom_navigation');
                     } else {
                       showDialog(
                         context: context,

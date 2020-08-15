@@ -16,6 +16,9 @@ class OrganizationContactUsPage extends StatefulWidget with NavigationTab {
 
   @override
   String get title => 'Contact Us';
+
+
+
 }
 
 class _OrganizationContactUsPageState extends State<OrganizationContactUsPage> {
@@ -32,23 +35,25 @@ class _OrganizationContactUsPageState extends State<OrganizationContactUsPage> {
             style: TextStyle(fontSize: 35, fontWeight: FontWeight.w900, color: purpleAccent),
           ),
           DashboardComponent(
-            boxTitle: 'Shelter Connect',
-            column: Column(children: <Widget>[
-              Text(
-                'E-mail address: shelterconnect20@gmail.com',
-                style: TextStyle(fontSize: 25, color: colorScheme.onBackground),
-              ),
-              SizedBox(height: 30),
-              Text(
-                'Phone Number: 408-999-9999',
-                style: TextStyle(fontSize: 25, color: colorScheme.onBackground),
-              ),
-              SizedBox(height: 30),
-              Text(
-                'Location: 960 W Hedding St, San Jose, CA 95126',
-                style: TextStyle(fontSize: 25, color: colorScheme.onBackground),
-              )
-            ]),
+            boxTitle: 'Linkare',
+            column: Column(
+              children: <Widget>[
+                Text(
+                  'E-mail address: linkare20@gmail.com',
+                  style: TextStyle(fontSize: 25, color: colorScheme.onBackground),
+                ),
+                SizedBox(height: 30),
+                Text(
+                  'Phone Number: 408-999-9999',
+                  style: TextStyle(fontSize: 25, color: colorScheme.onBackground),
+                ),
+                SizedBox(height: 30),
+                Text(
+                  'Location: 960 W Hedding St, San Jose, CA 95126',
+                  style: TextStyle(fontSize: 25, color: colorScheme.onBackground),
+                )
+              ],
+            ),
           ),
         ],
       ),

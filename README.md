@@ -1,6 +1,6 @@
 # phase1
 
-Phase 1 of the Shelter Connect App.
+Phase 1 of the Linkare App.
 
 ## Phase 1 Goals
 

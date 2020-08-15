@@ -35,14 +35,66 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
+                SizedBox(height: 20),
                 Text('Organization Sign Up', style: largeTitleStyle),
-                SizedBox(height: 35),
+                SizedBox(height: 40),
+                FloatingTextField(
+                  hintText: 'Organization Name',
+                  onChanged: (val) {
+                    organizationName = val.trim();
+                  },
+                ),
+                SizedBox(height: 20),
                 FloatingTextField(
                   keyboardType: TextInputType.emailAddress,
                   hintText: 'Organization Email',
                   onChanged: (val) {
                     email = val.trim();
                   },
+                ),
+                SizedBox(height: 20),
+                FloatingDescriptionField(
+                  maxLength: 300,
+                  onChanged: (val) {
+                    setState(() {
+                      description = val;
+                    });
+                  },
+                  maxLines: null,
+                  hintText: 'Short Description of Organization',
+                ),
+                SizedBox(height: 20),
+                FloatingTextField(
+                  controller: controller,
+                  hintText: 'Organization Location',
+                  onTapped: () async {
+                    Prediction p = await PlacesAutocomplete.show(context: context, apiKey: kGoogleApiKey, mode: Mode.overlay, controller: controller);
+                    if (p != null)
+                      controller.value = TextEditingValue(
+                        text: await displayPrediction(p),
+                        selection: TextSelection.fromPosition(
+                          TextPosition(offset: 0),
+                        ),
+                      );
+                  },
+                  onChanged: (val) {
+                    controller.value = TextEditingValue(
+                      text: val,
+                      selection: TextSelection.fromPosition(
+                        TextPosition(offset: 0),
+                      ),
+                    );
+                  },
+                ),
+                SizedBox(height: 20),
+                FloatingTextField(
+                  onChanged: (val) {
+                    setState(() {
+                      website = val;
+                    });
+                  },
+                  maxLines: null,
+                  hintText: 'Website (Optional)',
                 ),
                 SizedBox(height: 20),
                 FloatingTextField(
@@ -61,70 +113,10 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
                   },
                 ),
                 SizedBox(height: 20),
-                FloatingTextField(
-                  hintText: 'Organization Name',
-                  onChanged: (val) {
-                    organizationName = val.trim();
-                  },
-                ),
-                SizedBox(height: 20),
-                FloatingTextField(
-                  onChanged: (val) {
-                    setState(() {
-                      description = val;
-                    });
-                  },
-                  maxLines: null,
-                  hintText: 'Short Description of Organization',
-                ),
-                SizedBox(height: 20),
-                FloatingTextField(
-                  controller: controller,
-                  hintText: 'Organization Location',
-                  onTapped: () async {
-                    Prediction p = await PlacesAutocomplete.show(context: context, apiKey: kGoogleApiKey, mode: Mode.overlay, controller: controller);
-                    controller.value = TextEditingValue(
-                      text: await displayPrediction(p),
-                      selection: TextSelection.fromPosition(
-                        TextPosition(offset: 0),
-                      ),
-                    );
-                  },
-                  onChanged: (val) {
-                    controller.value = TextEditingValue(
-                      text: val,
-                      selection: TextSelection.fromPosition(
-                        TextPosition(offset: 0),
-                      ),
-                    );
-                  },
-                ),
-                SizedBox(height: 30),
-                FloatingTextField(
-                  maxLength: 11,
-                  keyboardType: TextInputType.number,
-                  onChanged: (val) {
-                    setState(() {
-                      number = val;
-                    });
-                  },
-                  maxLines: null,
-                  hintText: 'Number (Optional)',
-                ),
-                SizedBox(height: 30),
-                FloatingTextField(
-                  onChanged: (val) {
-                    setState(() {
-                      website = val;
-                    });
-                  },
-                  maxLines: null,
-                  hintText: 'Website (Optional)',
-                ),
-                SizedBox(height: 20),
                 RoundedButton(
                   color: purpleAccent,
-                  title: 'Create Account', textColor: Colors.white,
+                  title: 'Create Account',
+                  textColor: Colors.white,
                   onPressed: () async {
                     if (password != password2) {
                       showDialog(
@@ -170,12 +162,14 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
                 Padding(
                   padding: const EdgeInsets.only(left: 5.0),
                   child: TextButton(
-                    text: 'Not an Organization?', textColor: Colors.redAccent,
+                    text: 'Not an Organization?',
+                    textColor: purpleAccent,
                     onPressed: () {
                       Navigator.pop(context);
                     },
                   ),
                 ),
+                SizedBox(height: 20)
               ],
             ),
           ),
@@ -193,6 +187,6 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
       location = new GeoPoint(detail.result.geometry.location.lat, detail.result.geometry.location.lng);
       return detail.result.formattedAddress;
     }
-    throw new Exception('Illegal Argument Exception: Prediction is null');
+    return '';
   }
 }

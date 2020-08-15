@@ -8,7 +8,7 @@ import '../../constants.dart';
 import '../../models/user.dart';
 import '../navigation_tab.dart';
 import '../volunteer/current_deliveries_page.dart';
-import '../volunteer/donation_opportunities_page.dart';
+import '../volunteer/discover_page.dart';
 import '../volunteer/volunteer_settings_page.dart';
 
 class VolunteerNavigationPage extends StatefulWidget {
@@ -19,7 +19,7 @@ class VolunteerNavigationPage extends StatefulWidget {
 class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
   int _selectedIndex = 0;
   final List<NavigationTab> _pages = [
-    DonationOpportunities(),
+    OrganizationDiscover(),
     CurrentDeliveriesPage(),
     VolunteerSettingsPage(),
   ];
@@ -36,7 +36,7 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
             brightness: Brightness.light,
             title: Text(
               _pages[_selectedIndex].title,
-              style: TextStyle(color: Color(0xFFF5F5F5)),
+              style: TextStyle(color: Colors.transparent),
             ),
             backgroundColor: Color(0xFFF5F5F5),
             elevation: 0.0,
@@ -65,16 +65,19 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
           drawer: Drawer(
             child: SafeArea(
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Expanded(
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
                         DrawerHeader(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Shelter Connect',
+                                'Linkare',
                                 style: TextStyle(
                                   fontSize: 30.0,
                                   fontWeight: FontWeight.bold,
@@ -87,7 +90,8 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
                         ),
                         ..._pages
                             .asMap()
-                            .map((index, tab) => MapEntry(
+                            .map(
+                              (index, tab) => MapEntry(
                                 index,
                                 ListTile(
                                   title: Text(tab.title),
@@ -98,7 +102,9 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
                                     });
                                     Navigator.pop(context);
                                   },
-                                )))
+                                ),
+                              ),
+                            )
                             .values
                             .toList(),
                       ],
@@ -128,8 +134,8 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
     showModalBottomSheet(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(40.0),
-          topRight: Radius.circular(40.0),
+          topLeft: Radius.circular(20.0),
+          topRight: Radius.circular(20.0),
         ),
       ),
       context: context,
@@ -140,7 +146,43 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
             padding: EdgeInsets.all(25.0),
             child: Column(
               children: <Widget>[
-                Text(_pages[_selectedIndex].helpDescription),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8, top: 0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text('Help', style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
+                      IconButton(
+                        iconSize: 30,
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: Icon(Icons.help),
+                      ),
+                    ],
+                  ),
+                ),
+                Text(_pages[_selectedIndex].helpDescription, style: TextStyle(fontSize: 17)),
+                Spacer(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    InkWell(
+                      child: new Text(
+                        'Report Issues',
+                        style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 17),
+                      ),
+                      onTap: () => launch('https://forms.gle/ue5idWtztcgevh9Q7'),
+                    ),
+                    IconButton(
+                      iconSize: 30,
+                      onPressed: () {
+                        launch('https://forms.gle/ue5idWtztcgevh9Q7');
+                      },
+                      icon: Icon(Icons.bug_report),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
