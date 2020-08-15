@@ -108,7 +108,8 @@ class _EditCurrentRequestsPageState extends State<EditCurrentRequestsPage> {
                                                           context: context,
                                                           builder: (_) => SingleActionAlert(
                                                             title: 'Confirm delete Request?',
-                                                            subtitle: 'This action cannot be undone',
+                                                            subtitle:
+                                                                'This action cannot be undone, and expected deliveries with this request will still arrive.',
                                                             actionName: 'Delete Request',
                                                             action: () {
                                                               FirestoreHelper.deleteRequest(context, itemCategories[category][index]);
