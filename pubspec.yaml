@@ -53,7 +53,7 @@ dependencies:
 flutter_icons:
   ios: true
   android: "launcher_icon"
-  image_path: "assets/logo_svgs/LinkareFinal.png"
+  image_path: "assets/logo_svgs/LinkareLink.png"
 
 dev_dependencies:
   flutter_test:
