@@ -26,19 +26,21 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
     organizationReference.collection('requests').getDocuments().then((documents) {
       widget.organization.requestedItems.clear();
       for (DocumentSnapshot document in documents.documents) {
-        if (widget.organization.requestedItems[document['category']] == null) widget.organization.requestedItems[document['category']] = [];
-        setState(() {
-          if (document['amount'] > 0) noRequests = false;
-          widget.organization.requestedItems[document['category']].add(
-            Item(
-              name: document['name'],
-              amount: document['amount'],
-              category: document['category'],
-              specificDescription: document['specificDescription'],
-              unit: document['unit'],
-            ),
-          );
-        });
+        if (widget.organization.itemCategories.contains(document['category'])) {
+          if (widget.organization.requestedItems[document['category']] == null) widget.organization.requestedItems[document['category']] = [];
+          setState(() {
+            if (document['amount'] > 0) noRequests = false;
+            widget.organization.requestedItems[document['category']].add(
+              Item(
+                name: document['name'],
+                amount: document['amount'],
+                category: document['category'],
+                specificDescription: document['specificDescription'],
+                unit: document['unit'],
+              ),
+            );
+          });
+        }
       }
       setState(() {
         loading = false;
@@ -283,28 +285,13 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                                       child: Column(
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: <Widget>[
-                                                          if (item.amount > 0)
-                                                            Text(
-                                                              '${item.name} - ${item.amount} ${item.unit ?? ''}'.trim(),
-                                                              style: TextStyle(
-                                                                fontSize: 17.0,
-                                                                fontWeight: FontWeight.w400,
-                                                              ),
-                                                            )
-                                                          /*else
-                                                            Text(
-                                                              'Request Completed!',
-                                                              style: TextStyle(
-                                                                fontSize: 17.0,
-                                                                fontWeight: FontWeight.w400,
-                                                                color: Colors.green,
-                                                              ),
+                                                          Text(
+                                                            '${item.name} - ${item.amount} ${item.unit ?? ''}'.trim(),
+                                                            style: TextStyle(
+                                                              fontSize: 17.0,
+                                                              fontWeight: FontWeight.w400,
                                                             ),
-                                                          if (item.specificDescription != null)
-                                                            Text(
-                                                              item.specificDescription,
-                                                              style: TextStyle(fontSize: 14, color: Colors.grey),
-                                                            ),*/
+                                                          )
                                                         ],
                                                       ),
                                                     ),

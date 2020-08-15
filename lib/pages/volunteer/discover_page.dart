@@ -25,10 +25,18 @@ class OrganizationDiscover extends StatefulWidget with NavigationTab {
 }
 
 class _OrganizationDiscoverState extends State<OrganizationDiscover> {
+  bool hasPosition = true;
+
   @override
   void initState() {
     LocationHelper.getUserPosition().then((position) {
       Provider.of<UserPosition>(context, listen: false).position = position;
+    }).catchError((error) {
+      if (Provider.of<UserPosition>(context, listen: false).position == null) {
+        setState(() {
+          hasPosition = false;
+        });
+      }
     });
     super.initState();
   }
@@ -49,7 +57,7 @@ class _OrganizationDiscoverState extends State<OrganizationDiscover> {
             StreamBuilder(
               stream: db.collection('organizations').snapshots(),
               builder: (context, snapshot) {
-                if (!snapshot.hasData || Provider.of<UserPosition>(context).position == null) {
+                if (!snapshot.hasData || (Provider.of<UserPosition>(context).position == null && hasPosition)) {
                   return Center(
                     child: CircularProgressIndicator(),
                   );
@@ -64,9 +72,11 @@ class _OrganizationDiscoverState extends State<OrganizationDiscover> {
                     );
                   }
                 }
-                widgets.sort((a, b) {
-                  return (a as OrganizationDonationProfile).organization.distance.compareTo((b as OrganizationDonationProfile).organization.distance);
-                });
+                if (hasPosition) {
+                  widgets.sort((a, b) {
+                    return (a as OrganizationDonationProfile).organization.distance.compareTo((b as OrganizationDonationProfile).organization.distance);
+                  });
+                }
                 for (int i = 1; i < widgets.length; i++) {
                   widgets.insert(
                     i++,

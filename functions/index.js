@@ -30,3 +30,16 @@ exports.updateVolunteerInfo = functions.firestore.document('volunteers/{uid}').o
         });
     }
 });
+
+exports.updateOrganizationCategories = functions.firestore.document('organizations/{uid}/requests/{item}').onUpdate(async (doc, context) => {
+    let organizationReference = db.collection('organizations').doc(context.params.uid);
+    let currentRequests = await organizationReference.collection('requests').get();
+    let requests = new Array();
+    let x = 0;
+    for (const request of currentRequests.docs) {
+        if (request.data().amount > 0) requests[x++] = request.data().category;
+    }
+    organizationReference.update({
+        itemCategories: requests
+    });
+});

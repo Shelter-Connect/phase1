@@ -156,7 +156,7 @@ class _EditDeliveryPageState extends State<EditDeliveryPage> {
                           context: context,
                           builder: (_) => NoActionAlert(title: 'Please choose a date that has not passed'),
                         );
-                      else{
+                      else {
                         List<Item> delta = List();
                         for (Item newItem in newDonation.items) {
                           Item item = newItem.clone();
@@ -164,7 +164,8 @@ class _EditDeliveryPageState extends State<EditDeliveryPage> {
                           delta.add(item);
                         }
                         FirestoreHelper.cancelVolunteerDelivery(context, widget.donation);
-                        FirestoreHelper.updateRequests(context: context, items: delta, organizationId: widget.donation.organization.id);
+                        FirestoreHelper.updateRequests(
+                            context: context, items: delta, organizationId: widget.donation.organization.id, isCreating: false);
                         FirestoreHelper.createDonation(context, newDonation);
                         Navigator.pop(context);
                         //TODO: dateTime does not work

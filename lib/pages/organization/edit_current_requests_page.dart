@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:phase1/components/alerts.dart';
 import 'package:phase1/components/increment.dart';
 import 'package:phase1/components/rounded_button.dart';
 import 'package:phase1/components/standard_layout.dart';
@@ -9,6 +10,7 @@ import 'package:phase1/services/firestore_helper.dart';
 
 class EditCurrentRequestsPage extends StatefulWidget {
   List<Item> items = List();
+  List<Item> cancelledItems = List();
 
   @override
   _EditCurrentRequestsPageState createState() => _EditCurrentRequestsPageState();
@@ -99,10 +101,24 @@ class _EditCurrentRequestsPageState extends State<EditCurrentRequestsPage> {
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 textDirection: TextDirection.rtl,
                                                 children: [
-                                                  IconButton(icon: Icon(Icons.cancel), onPressed: () {  },
-                                                      //TODO: Make it cancel
-                                                      color: colorScheme.error
-                                                  ),
+                                                  IconButton(
+                                                      icon: Icon(Icons.cancel),
+                                                      onPressed: () {
+                                                        showDialog(
+                                                          context: context,
+                                                          builder: (_) => SingleActionAlert(
+                                                            title: 'Confirm delete Request?',
+                                                            subtitle:
+                                                                'This action cannot be undone, and expected deliveries with this request will still arrive.',
+                                                            actionName: 'Delete Request',
+                                                            action: () {
+                                                              FirestoreHelper.deleteRequest(context, itemCategories[category][index]);
+                                                              Navigator.pop(context);
+                                                            },
+                                                          ),
+                                                        );
+                                                      },
+                                                      color: colorScheme.error),
                                                   Padding(
                                                     padding: const EdgeInsets.only(left: 4.0),
                                                     child: ItemIncrementWithText(
@@ -127,7 +143,6 @@ class _EditCurrentRequestsPageState extends State<EditCurrentRequestsPage> {
                                                       ),
                                                     ),
                                                   ),
-
                                                 ],
                                               ),
                                               if (itemCategories[category][index].specificDescription != null)
