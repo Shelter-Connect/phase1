@@ -186,7 +186,7 @@ class UserInfo extends StatelessWidget {
                       Icon(Icons.edit, color: Colors.white, size: 25),
                       SizedBox(width: 2),
                       Text(
-                        'Change Name',
+                        'Change Information',
                         style: TextStyle(
                           color: colorScheme.onSecondary,
                           fontWeight: FontWeight.w500,

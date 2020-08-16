@@ -127,11 +127,10 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                                             FirestoreHelper.cancelVolunteerDelivery(context, donation);
                                             FirestoreHelper.updateRequests(
                                                 context: context, items: delta, organizationId: newDonation.organization.id, isCreating: false);
-                                            FirestoreHelper.createDonation(context, newDonation);
+                                            FirestoreHelper.createDonation(context, newDonation).then((value) => updateOrganizationRequests());
                                             setState(() {
                                               donation = newDonation;
                                             });
-                                            updateOrganizationRequests();
                                           }
                                         });
                                       },
