@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:phase1/components/alerts.dart';
 import 'package:phase1/components/date_time_field.dart';
+import 'package:phase1/components/flushbar.dart';
 import 'package:phase1/components/increment.dart';
 import 'package:phase1/components/rounded_button.dart';
 import 'package:phase1/models/donation.dart';
@@ -177,6 +178,7 @@ class _EditDeliveryPageState extends State<EditDeliveryPage> {
                         );
                       else {
                         Navigator.pop(context, newDonation);
+                        FlushBar(message: 'Your donation has been edited', duration: Duration(seconds: 3), margin: EdgeInsets.all(0),).build(context);
                       }
                     });
                   },

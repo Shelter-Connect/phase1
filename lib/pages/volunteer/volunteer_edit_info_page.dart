@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:phase1/components/alerts.dart';
+import 'package:phase1/components/flushbar.dart';
 import 'package:phase1/components/standard_layout.dart';
 import 'package:phase1/models/user.dart';
 import 'package:phase1/services/firestore_helper.dart';
@@ -80,6 +81,7 @@ class _VolunteerEditInfoPageState extends State<VolunteerEditInfoPage> {
                   info.displayName = '${firstNameController.text} ${lastNameController.text}';
                   Provider.of<User>(context, listen: false).user.updateProfile(info);
                   Navigator.pop(context, true);
+                  FlushBar(message: 'Name Updated!', duration: Duration(seconds: 3)).build(context);
                 },
               ),
               SizedBox(height: 10.0),

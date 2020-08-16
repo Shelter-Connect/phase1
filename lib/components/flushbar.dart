@@ -9,7 +9,8 @@ class FlushBar extends StatelessWidget {
   final Widget mainButton;
   final Function onTap;
   final bool isDismissible;
-  FlushBar({this.title, this.message, this.icon, this.duration, this.mainButton, this.onTap, this.isDismissible});
+  final EdgeInsets margin;
+  FlushBar({this.title, this.message, this.icon, this.duration, this.mainButton, this.onTap, this.isDismissible, this.margin});
   @override
   Widget build(BuildContext context) {
     Flushbar(
@@ -20,7 +21,9 @@ class FlushBar extends StatelessWidget {
       duration: duration ?? Duration(seconds: 3),
       mainButton: mainButton,
       onTap: onTap,
-      isDismissible: isDismissible ?? true,
+      isDismissible: true,
+      flushbarStyle:  FlushbarStyle.FLOATING,
+      margin: margin ?? EdgeInsets.only(bottom: 56)
     ).show(context);
   }
 }

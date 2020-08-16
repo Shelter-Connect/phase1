@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 
 import '../constants.dart';
 import 'floating_text_field.dart';
+import 'flushbar.dart';
 
 class FeedbackForm extends StatefulWidget with NavigationTab {
   @override
