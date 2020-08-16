@@ -61,6 +61,7 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                 widget.organization.name,
                 style: mainTitleStyle,
               ),
+              if(widget.organization.distance != null)
               Text('${widget.organization.distance.toStringAsFixed(1)} miles away', style: subTitleStyle),
               SizedBox(height: 20.0),
               Container(

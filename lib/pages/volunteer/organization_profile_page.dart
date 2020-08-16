@@ -77,10 +77,11 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                         widget.organization.name,
                         style: mainTitleStyle,
                       ),
-                      Text(
-                        widget.organization.distance.toStringAsFixed(1) + ' miles away',
-                        style: subTitleStyle,
-                      ),
+                      if (widget.organization.distance != null)
+                        Text(
+                          widget.organization.distance.toStringAsFixed(1) + ' miles away',
+                          style: subTitleStyle,
+                        ),
                       SizedBox(height: 20),
                       Container(
                         width: MediaQuery.of(context).size.width,
