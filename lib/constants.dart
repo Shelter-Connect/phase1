@@ -1,13 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:map_launcher/map_launcher.dart';
 
 //Firebase
 FirebaseAuth auth = FirebaseAuth.instance;
 Firestore db = Firestore.instance;
 
-//Google Maps
+//Maps
 final kGoogleApiKey = "AIzaSyDtBjj6ReiOlVtylupAx-wcLe2HmsJXXFs";
+List<AvailableMap> availableMaps = List();
+Coords coords = Coords(0, 0);
+String title = '';
 
 //Styles
 //Text Styles

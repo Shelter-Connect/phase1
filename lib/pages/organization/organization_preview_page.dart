@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:map_launcher/map_launcher.dart';
+import 'package:phase1/components/maps_sheet.dart';
 import 'package:phase1/components/standard_layout.dart';
 import 'package:phase1/constants.dart';
 import 'package:phase1/models/item.dart';
@@ -32,6 +34,9 @@ class _OrganizationPreviewPageState extends State<OrganizationPreviewPage> {
           });
         }
       }
+      MapLauncher.installedMaps.then((value) => availableMaps = value);
+      coords = Coords(widget.organization.location.latitude, widget.organization.location.longitude);
+      title = widget.organization.address;
       setState(() {
         loading = false;
       });
@@ -78,29 +83,47 @@ class _OrganizationPreviewPageState extends State<OrganizationPreviewPage> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text(
-                                    'About This Organization',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                  Container(
-                                    height: 5,
-                                    width: 100,
-                                    decoration: BoxDecoration(
-                                      color: purpleAccent,
-                                      borderRadius: BorderRadius.circular(21),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    textDirection: TextDirection.rtl,
+                                    children: [
+                                      IconButton(
+                                        onPressed: () {
+                                          MapSheet().build(context);
+                                        },
+                                        icon: Icon(Icons.explore),
+                                      ),
+                                      Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          Text(
+                                            'About This Organization',
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 5,
+                                          ),
+                                          Container(
+                                            height: 5,
+                                            width: 100,
+                                            decoration: BoxDecoration(
+                                              color: purpleAccent,
+                                              borderRadius: BorderRadius.circular(21),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                        ],
+                                      ),
+                                    ],
                                   ),
                                   Text(
                                     widget.organization.description,

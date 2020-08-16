@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 
 import '../constants.dart';
 import 'floating_text_field.dart';
-import 'flushbar.dart';
 
 class FeedbackForm extends StatefulWidget with NavigationTab {
   @override
@@ -49,7 +48,7 @@ class _FeedbackFormState extends State<FeedbackForm> {
                 maxLength: 1500,
                 controller: bug,
                 maxLines: null,
-                labelText: ('Please report any bugs here'),
+                labelText: ('Please report any bugs here.'),
                 labelStyle: TextStyle(color: Colors.grey, fontSize: 15),
                 counterText: '',
               ),
