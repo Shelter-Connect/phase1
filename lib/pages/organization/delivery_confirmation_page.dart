@@ -33,7 +33,6 @@ class _ConfirmDeliveryPageState extends State<ConfirmDeliveryPage> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: clean, clean, clean, clean, clean, and clean again
     return StandardLayout(
       title: "Confirm Delivery",
       helpText: 'If not all items have been delivered, enter the amount received and press the Confirm Items Delivered button.',
@@ -89,7 +88,6 @@ class _ConfirmDeliveryPageState extends State<ConfirmDeliveryPage> {
                                                   item.name,
                                                   style: TextStyle(fontSize: 19, fontWeight: FontWeight.w400),
                                                 ),
-
                                                 //TODO: Units implementation
                                               ],
                                             ),

@@ -21,7 +21,6 @@ class DeliveryInformationPage extends StatefulWidget {
 class _DeliveryInformationPageState extends State<DeliveryInformationPage> {
   @override
   Widget build(BuildContext context) {
-    // TODO: clean, clean, clean, clean, clean, and clean again
     return StandardLayout(
       title: "Delivery Information",
       helpText: 'This page shows information about a specific delivery. If this delivery has been received, press the Confirm Delivery button.',

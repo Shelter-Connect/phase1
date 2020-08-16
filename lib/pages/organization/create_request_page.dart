@@ -65,7 +65,7 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
                             ),
                           );
                         },
-                      ); //TODO: make other page;
+                      );
                     } else {
                       return CategoryIconButton(
                         asset: categories[index]['asset'],

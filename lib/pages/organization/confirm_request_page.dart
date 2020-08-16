@@ -141,7 +141,6 @@ class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
                       },
                     ),
                   );
-                  //TODO Add item to the request list and to the request in volunteer side
                 },
               ),
               SizedBox(height: 16.0),
