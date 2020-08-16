@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:phase1/constants.dart';
+import 'package:phase1/pages/volunteer/volunteer_sign_up_page.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -97,7 +98,20 @@ class HomePage extends StatelessWidget {
                   height: 50.0,
                   child: RaisedButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, '/volunteer_sign_up');
+                      Navigator.push(context, PageRouteBuilder(
+                        transitionDuration: Duration(milliseconds: 1000),
+                        transitionsBuilder: (context, animation, animationTime, child){
+                          animation = CurvedAnimation(parent: animation, curve: Curves.easeOutExpo);
+                          return ScaleTransition(
+                            alignment: Alignment.center,
+                            scale: animation,
+                            child: child,
+                          );
+                        },
+                        pageBuilder: (context, animation,  animationTime){
+                          return VolunteerSignUp();
+                        }
+                      ));
                     },
                     textColor: Colors.white,
                     color: purpleAccent,

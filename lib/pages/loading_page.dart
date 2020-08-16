@@ -60,9 +60,9 @@ class _LoadingPageState extends State<LoadingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFF5F5F5),
+      backgroundColor: Colors.white,
       body: Center(
-        child: Image.asset('assets/logo_svgs/finalithink.png', width: MediaQuery.of(context).size.width * 0.45),
+        child: Image.asset('assets/logo_svgs/Linkare_logo_purpleblack_transparent.png', width: MediaQuery.of(context).size.width * 0.30),
       ),
     );
   }

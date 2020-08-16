@@ -36,16 +36,16 @@ class _FeedbackFormState extends State<FeedbackForm> {
         child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 24.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               SizedBox(height: 20),
-              Text('Feedback Form', style: largeTitleStyle),
+              Text('Feedback Form', style: mainTitleStyle),
               SizedBox(height: 20),
               Text('We\'d love to hear your feedback!', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 20, color: Colors.black)),
               SizedBox(height: 20),
               FloatingDescriptionField(
-                height: 200,
+                height: 150,
                 maxLength: 1500,
                 controller: bug,
                 maxLines: null,
@@ -55,7 +55,7 @@ class _FeedbackFormState extends State<FeedbackForm> {
               ),
               SizedBox(height: 20),
               FloatingDescriptionField(
-                height: 200,
+                height: 150,
                 maxLength: 1500,
                 controller: improvement,
                 maxLines: null,

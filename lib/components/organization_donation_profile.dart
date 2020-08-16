@@ -45,11 +45,6 @@ class OrganizationDonationProfile extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: 30.0,
-                    width: 30.0,
-                    child: Icon(Icons.keyboard_arrow_right),
-                  ),
                 ],
               ),
               if (organization.distance != null) Text(

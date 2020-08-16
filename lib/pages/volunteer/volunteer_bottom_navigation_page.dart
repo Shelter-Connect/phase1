@@ -22,8 +22,8 @@ class _VolunteerBottomNavigationPageState extends State<VolunteerBottomNavigatio
   final List<NavigationTab> _tabs = [
     OrganizationDiscover(),
     CurrentDeliveriesPage(),
-    VolunteerSettingsPage(),
     FeedbackForm(),
+    VolunteerSettingsPage(),
   ];
 
   @override

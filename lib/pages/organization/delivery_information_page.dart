@@ -27,6 +27,7 @@ class _DeliveryInformationPageState extends State<DeliveryInformationPage> {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
+            SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
               child: Container(
