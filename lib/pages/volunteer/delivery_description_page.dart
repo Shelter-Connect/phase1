@@ -1,8 +1,12 @@
+import 'dart:ui' as ui;
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:map_launcher/map_launcher.dart';
 import 'package:phase1/components/alerts.dart';
+import 'package:phase1/components/maps_sheet.dart';
 import 'package:phase1/models/donation.dart';
 import 'package:phase1/models/item.dart';
 import 'package:phase1/services/firestore_helper.dart';
@@ -52,6 +56,9 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
           );
         });
       }
+      MapLauncher.installedMaps.then((value) => availableMaps = value);
+      coords = Coords(widget.donation.organization.location.latitude, widget.donation.organization.location.longitude);
+      title = widget.donation.organization.address;
       setState(() {
         loading = false;
       });
@@ -252,27 +259,47 @@ class OrganizationInformation extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                SizedBox(height: 10),
-                Text(
-                  'Organization Information ',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                Container(
-                  height: 5,
-                  width: 100,
-                  decoration: BoxDecoration(
-                    color: purpleAccent,
-                    borderRadius: BorderRadius.circular(21),
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  textDirection: ui.TextDirection.rtl,
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        MapSheet().build(context);
+                      },
+                      icon: Icon(Icons.explore),
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          'About This Organization',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Container(
+                          height: 5,
+                          width: 100,
+                          decoration: BoxDecoration(
+                            color: purpleAccent,
+                            borderRadius: BorderRadius.circular(21),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
