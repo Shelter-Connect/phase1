@@ -9,6 +9,7 @@ import 'package:phase1/pages/organization/organization_settings_page.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants.dart';
+
 class OrganizationBottomNavigationPage extends StatefulWidget {
   @override
   _OrganizationBottomNavigationPageState createState() => _OrganizationBottomNavigationPageState();
@@ -36,9 +37,7 @@ class _OrganizationBottomNavigationPageState extends State<OrganizationBottomNav
             brightness: Brightness.light,
             title: Text(
               _tabs[_selectedIndex].title,
-              style: TextStyle(
-                color: Colors.transparent
-              ),
+              style: TextStyle(color: Colors.transparent),
             ),
             backgroundColor: Color(0xFFF5F5F5),
             elevation: 0.0,
@@ -57,7 +56,7 @@ class _OrganizationBottomNavigationPageState extends State<OrganizationBottomNav
           ),
           body: _tabs[_selectedIndex],
           bottomNavigationBar: BottomNavigationBar(
-            currentIndex : _selectedIndex,
+            currentIndex: _selectedIndex,
             type: BottomNavigationBarType.fixed,
             backgroundColor: Colors.white,
             iconSize: 25,
@@ -70,18 +69,16 @@ class _OrganizationBottomNavigationPageState extends State<OrganizationBottomNav
                   .asMap()
                   .map(
                     (index, tab) => MapEntry(
-                    index,
-                    BottomNavigationBarItem(
-                      icon: Icon(tab.icon),
-                      title: Text(tab.title),
-
-                    )
-                ),
-              )
+                        index,
+                        BottomNavigationBarItem(
+                          icon: Icon(tab.icon),
+                          title: Text(tab.title),
+                        )),
+                  )
                   .values
                   .toList(),
             ],
-            onTap: (index){
+            onTap: (index) {
               setState(() {
                 _selectedIndex = index;
               });
@@ -125,6 +122,7 @@ class _OrganizationBottomNavigationPageState extends State<OrganizationBottomNav
                   ),
                 ),
                 Text(_tabs[_selectedIndex].helpDescription, style: TextStyle(fontSize: 17)),
+                Spacer(),
               ],
             ),
           ),
