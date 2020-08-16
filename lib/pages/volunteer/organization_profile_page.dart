@@ -263,6 +263,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                             Column(
                               children: widget.organization.itemCategories.map((String category) {
                                 List<Item> items = widget.organization.requestedItems[category];
+                                if (items == null) return Container();
                                 return Column(
                                   crossAxisAlignment: CrossAxisAlignment.stretch,
                                   children: [
