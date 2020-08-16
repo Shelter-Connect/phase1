@@ -107,7 +107,6 @@ class _EditDeliveryPageState extends State<EditDeliveryPage> {
                               itemCount: widget.donation.items.length,
                               itemBuilder: (BuildContext context, int index) {
                                 return Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
