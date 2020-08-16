@@ -139,7 +139,9 @@ class _ConfirmDeliveryPageState extends State<ConfirmDeliveryPage> {
                   List<Item> delta = List();
                   for (Item deliveredItem in items) {
                     for (Item oldItem in widget.donation.items) {
-                      if ((deliveredItem.specificDescription == oldItem.specificDescription) && (deliveredItem.name == oldItem.name) && (deliveredItem.category == oldItem.category)) {
+                      if ((deliveredItem.specificDescription == oldItem.specificDescription) &&
+                          (deliveredItem.name == oldItem.name) &&
+                          (deliveredItem.category == oldItem.category)) {
                         Item item = oldItem.clone();
                         item.amount -= deliveredItem.amount;
                         delta.add(item);
