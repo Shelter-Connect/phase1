@@ -125,27 +125,6 @@ class _OrganizationBottomNavigationPageState extends State<OrganizationBottomNav
                   ),
                 ),
                 Text(_tabs[_selectedIndex].helpDescription, style: TextStyle(fontSize: 17)),
-                Spacer(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    InkWell(
-                        child: new Text(
-                          'Report Issues',
-                          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 17),
-                        ),
-                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => OrganizationBottomNavigationPage()))
-                    ),
-                    IconButton(
-                      iconSize: 30,
-                      onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => OrganizationBottomNavigationPage()));
-                        //TODO: Make this go to the feedback page
-                      },
-                      icon: Icon(Icons.bug_report),
-                    ),
-                  ],
-                ),
               ],
             ),
           ),

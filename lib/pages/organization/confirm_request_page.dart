@@ -4,6 +4,7 @@ import 'package:phase1/components/alerts.dart';
 import 'package:phase1/components/category_icon_button.dart';
 import 'package:phase1/components/colored_button.dart';
 import 'package:phase1/components/floating_text_field.dart';
+import 'package:phase1/components/flushbar.dart';
 import 'package:phase1/components/increment.dart';
 import 'package:phase1/constants.dart';
 import 'package:phase1/models/item.dart';
@@ -138,6 +139,7 @@ class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
                         );
                         Navigator.pop(context);
                         Navigator.pop(context);
+                        FlushBar(message: 'Your request has been received.', duration: Duration(seconds: 3), margin: EdgeInsets.all(0), leftBarIndicatorColor: Colors.transparent,).build(context);
                       },
                     ),
                   );

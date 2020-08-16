@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:phase1/components/alerts.dart';
+import 'package:phase1/components/flushbar.dart';
 import 'package:phase1/models/organization.dart';
 import 'package:phase1/pages/organization/organization_edit_info_page.dart';
 import 'package:phase1/pages/organization/organization_preview_page.dart';
@@ -205,11 +206,7 @@ class OrganizationInfo extends StatelessWidget {
                     ),
                   );
                   if (updated) {
-                    Scaffold.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('Your organization information has been updated.'),
-                      ),
-                    );
+                    FlushBar( message: 'Your organization information has been updated', duration: Duration(seconds: 3)).build(context);
                   }
                 },
                 child: Container(

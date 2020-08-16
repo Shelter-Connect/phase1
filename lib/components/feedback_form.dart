@@ -72,10 +72,7 @@ class _FeedbackFormState extends State<FeedbackForm> {
                   );
                   bug.clear();
                   improvement.clear();
-                  Scaffold.of(context).showSnackBar(SnackBar(
-                    content: Text('Your feedback has been submitted. Thank you for your input!'),
-                  ));
-                  FocusScope.of(context).unfocus();
+                  FlushBar(message: 'Thank you for the feedback!', duration: Duration(seconds: 3)).build(context);
                 },
                 textColor: Colors.white,
               )

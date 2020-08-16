@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:phase1/components/alerts.dart';
+import 'package:phase1/components/flushbar.dart';
 import 'package:phase1/models/donation.dart';
 import 'package:phase1/models/item.dart';
 import 'package:phase1/services/firestore_helper.dart';
@@ -195,6 +196,7 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                             action: () {
                               FirestoreHelper.cancelVolunteerDelivery(context, donation);
                               Navigator.pop(context);
+                              FlushBar(message: 'Your delivery has been cancelled', duration: Duration(seconds: 3)).build(context);
                             },
                             actionName: 'Cancel Delivery',
                             title: 'Cancel Delivery?',

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:phase1/components/colored_button.dart';
+import 'package:phase1/components/flushbar.dart';
 import 'package:phase1/components/increment.dart';
 import 'package:phase1/models/donation.dart';
 import 'package:phase1/models/item.dart';
@@ -33,7 +34,6 @@ class _ConfirmDeliveryPageState extends State<ConfirmDeliveryPage> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: clean, clean, clean, clean, clean, and clean again
     return StandardLayout(
       title: "Confirm Delivery",
       helpText: 'If not all items have been delivered, enter the amount received and press the Confirm Items Delivered button.',
@@ -62,76 +62,66 @@ class _ConfirmDeliveryPageState extends State<ConfirmDeliveryPage> {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      SizedBox(height: 5),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          Padding(
-                            padding: EdgeInsets.only(bottom: 10),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: <Widget>[
-                                ...items
-                                    .map(
-                                      (item) => Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          Padding(
-                                            padding: EdgeInsets.all(16),
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  item.name,
-                                                  style: TextStyle(fontSize: 19, fontWeight: FontWeight.w400),
-                                                ),
-
-                                                //TODO: Units implementation
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                    .toList(),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(bottom: 10),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: items
-                                  .asMap()
+                          Column(
+                            children: <Widget>[
+                              ...items
                                   .map(
-                                    (index, item) => MapEntry(
-                                      index,
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          Padding(
-                                            padding: EdgeInsets.all(10),
-                                            child: ItemIncrementWithText(
-                                              initialQuantity: item.amount,
-                                              onChanged: (val) {
-                                                setState(() {
-                                                  items[index].amount = val;
-                                                });
-                                              },
+                                    (item) => Padding(
+                                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                      child: Container(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: <Widget>[
+                                            Text(
+                                              '${item.name}',
+                                              style: TextStyle(fontSize: 19, fontWeight: FontWeight.w400),
                                             ),
+                                            Text(
+                                              '${item.unit}',
+                                              style: TextStyle(fontSize: 19, fontWeight: FontWeight.w400),
+                                            ),
+                                            if (item.specificDescription != null)
+                                              Text(
+                                                item.specificDescription,
+                                                style: TextStyle(fontSize: 14, color: Colors.grey),
+                                              ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                  .toList(),
+                            ],
+                          ),
+                          Column(
+                            children: items
+                                .asMap()
+                                .map(
+                                  (index, item) => MapEntry(
+                                    index,
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                      child: Column(
+                                        children: <Widget>[
+                                          ItemIncrementWithText(
+                                            initialQuantity: item.amount,
+                                            onChanged: (val) {
+                                              setState(() {
+                                                items[index].amount = val;
+                                              });
+                                            },
                                           ),
                                         ],
                                       ),
                                     ),
-                                  )
-                                  .values
-                                  .toList(),
-                            ),
+                                  ),
+                                )
+                                .values
+                                .toList(),
                           )
                         ],
                       ),
@@ -149,9 +139,7 @@ class _ConfirmDeliveryPageState extends State<ConfirmDeliveryPage> {
                   List<Item> delta = List();
                   for (Item deliveredItem in items) {
                     for (Item oldItem in widget.donation.items) {
-                      if ((deliveredItem.specificDescription == oldItem.specificDescription) &&
-                          (deliveredItem.name == oldItem.name) &&
-                          (deliveredItem.category == oldItem.category)) {
+                      if ((deliveredItem.specificDescription == oldItem.specificDescription) && (deliveredItem.name == oldItem.name) && (deliveredItem.category == oldItem.category)) {
                         Item item = oldItem.clone();
                         item.amount -= deliveredItem.amount;
                         delta.add(item);
@@ -163,6 +151,7 @@ class _ConfirmDeliveryPageState extends State<ConfirmDeliveryPage> {
                   widget.donation.items = items;
                   FirestoreHelper.confirmDelivery(context, widget.donation);
                   Navigator.popUntil(context, ModalRoute.withName('/organization_bottom_navigation'));
+                  FlushBar(message: 'Items have been Confirmed. Thank you for using Linkare!', duration: Duration(seconds: 3)).build(context);
                 },
               ),
             )

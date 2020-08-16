@@ -10,14 +10,15 @@ class FlushBar extends StatelessWidget {
   final Function onTap;
   final bool isDismissible;
   final EdgeInsets margin;
-  FlushBar({this.title, this.message, this.icon, this.duration, this.mainButton, this.onTap, this.isDismissible, this.margin});
+  final Color leftBarIndicatorColor;
+  FlushBar({this.title, this.message, this.icon, this.duration, this.mainButton, this.onTap, this.isDismissible, this.margin, this.leftBarIndicatorColor});
   @override
   Widget build(BuildContext context) {
     Flushbar(
       title: title ?? null,
       message: message ?? null,
       icon: icon ?? Icon(Icons.info_outline, color: Colors.white,),
-      leftBarIndicatorColor: purpleAccent,
+      leftBarIndicatorColor: leftBarIndicatorColor ?? purpleAccent,
       duration: duration ?? Duration(seconds: 3),
       mainButton: mainButton,
       onTap: onTap,
