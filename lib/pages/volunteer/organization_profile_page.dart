@@ -58,8 +58,8 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
           'To sign up for a donation, press the Make a Donation button!',
       body: loading
           ? Center(
-        child: CircularProgressIndicator(),
-      )
+              child: CircularProgressIndicator(),
+            )
           : SingleChildScrollView(
         child: Container(
           color: Color(0xFFF5F5F5),
