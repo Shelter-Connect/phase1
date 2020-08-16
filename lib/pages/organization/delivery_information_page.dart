@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:phase1/components/colored_button.dart';
 import 'package:phase1/models/donation.dart';
+import 'package:phase1/services/firestore_helper.dart';
 
 import '../../components/standard_layout.dart';
 import '../../constants.dart';
@@ -141,7 +142,8 @@ class _DeliveryInformationPageState extends State<DeliveryInformationPage> {
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: ColoredButton(
                     onPressed: () {
-//TODO: Add option for organization to cancel order
+                      FirestoreHelper.cancelVolunteerDelivery(context, widget.donation);
+                      Navigator.pop(context);
                     },
                     text: 'Cancel Order',
                     color: purpleAccent,
