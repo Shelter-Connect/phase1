@@ -23,6 +23,9 @@ class ExpectedDeliveriesPage extends StatefulWidget with NavigationTab {
 
   @override
   String get title => 'Deliveries';
+
+  @override
+  String get barTitle => 'Expected Deliveries';
 }
 
 class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {

@@ -22,6 +22,9 @@ class OrganizationDiscover extends StatefulWidget with NavigationTab {
 
   @override
   String get title => 'Discover';
+
+  @override
+  String get barTitle => 'Discover';
 }
 
 class _OrganizationDiscoverState extends State<OrganizationDiscover> {
@@ -43,55 +46,43 @@ class _OrganizationDiscoverState extends State<OrganizationDiscover> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xFFF5F5F5),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4.0),
-              child: Text('Discover', style: mainTitleStyle),
-            ),
-            SizedBox(height: 20),
-            StreamBuilder(
-              stream: db.collection('organizations').snapshots(),
-              builder: (context, snapshot) {
-                if (!snapshot.hasData || (Provider.of<UserPosition>(context).position == null && hasPosition)) {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-                List<Widget> widgets = [];
-                for (DocumentSnapshot organizationSnapshot in snapshot.data.documents) {
-                  if (organizationSnapshot['itemCategories'] != null && organizationSnapshot['itemCategories'].length != 0) {
-                    Organization organization =
-                        Organization.fromFirestoreMap(context: context, organizationSnapshot: organizationSnapshot, isVolunteer: true);
-                    widgets.add(
-                      OrganizationDonationProfile(organization: organization),
-                    );
-                  }
-                }
-                if (hasPosition) {
-                  widgets.sort((a, b) {
-                    return (a as OrganizationDonationProfile).organization.distance.compareTo((b as OrganizationDonationProfile).organization.distance);
-                  });
-                }
-                for (int i = 1; i < widgets.length; i++) {
-                  widgets.insert(
-                    i++,
-                    SizedBox(height: 20.0),
-                  );
-                }
-                return Column(
-                  children: widgets,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        StreamBuilder(
+          stream: db.collection('organizations').snapshots(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData || (Provider.of<UserPosition>(context).position == null && hasPosition)) {
+              return Center(child: CircularProgressIndicator());
+            }
+            List<Widget> widgets = [];
+            for (DocumentSnapshot organizationSnapshot in snapshot.data.documents) {
+              if (organizationSnapshot['itemCategories'] != null && organizationSnapshot['itemCategories'].length != 0) {
+                Organization organization =
+                    Organization.fromFirestoreMap(context: context, organizationSnapshot: organizationSnapshot, isVolunteer: true);
+                widgets.add(
+                  OrganizationDonationProfile(organization: organization),
                 );
-              },
-            ),
-            SizedBox(height: 20),
-          ],
+              }
+            }
+            if (hasPosition) {
+              widgets.sort((a, b) {
+                return (a as OrganizationDonationProfile).organization.distance.compareTo((b as OrganizationDonationProfile).organization.distance);
+              });
+            }
+            for (int i = 1; i < widgets.length; i++) {
+              widgets.insert(
+                i++,
+                SizedBox(height: 20.0),
+              );
+            }
+            return Column(
+              children: widgets,
+            );
+          },
         ),
-      ),
+        SizedBox(height: 20),
+      ],
     );
   }
 }

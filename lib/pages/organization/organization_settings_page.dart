@@ -24,6 +24,8 @@ class OrganizationSettingsPage extends StatefulWidget with NavigationTab {
   @override
   String get title => 'Account';
 
+  @override
+  String get barTitle => 'Account Settings';
 }
 
 class _OrganizationSettingsPageState extends State<OrganizationSettingsPage> {

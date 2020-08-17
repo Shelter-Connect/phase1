@@ -24,6 +24,9 @@ class CurrentRequestsPage extends StatefulWidget with NavigationTab {
 
   @override
   String get title => 'Requests';
+
+  @override
+  String get barTitle => 'Current Requests';
 }
 
 class _CurrentRequestsPageState extends State<CurrentRequestsPage> {

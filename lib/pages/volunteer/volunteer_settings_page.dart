@@ -23,6 +23,9 @@ class VolunteerSettingsPage extends StatefulWidget with NavigationTab {
 
   @override
   String get title => 'Settings';
+
+  @override
+  String get barTitle => 'Settings';
 }
 
 class _VolunteerSettingsPageState extends State<VolunteerSettingsPage> {
@@ -45,28 +48,17 @@ class _VolunteerSettingsPageState extends State<VolunteerSettingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xFFF5F5F5),
-      body: loading
-          ? Center(
-              child: CircularProgressIndicator(),
-            )
-          : SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text('Account Settings', style: mainTitleStyle),
-                    SizedBox(height: 20),
-                    UserInfo(email: Provider.of<User>(context, listen: false).user.email, firstName: firstName, lastName: lastName),
-                    SizedBox(height: 20),
-                    SignOut(),
-                    SizedBox(height: 20),
-                  ],
-                ),
-              ),
-            ),
+    return loading ? CircularProgressIndicator() : Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          UserInfo(email: Provider.of<User>(context, listen: false).user.email, firstName: firstName, lastName: lastName),
+          SizedBox(height: 20),
+          SignOut(),
+          SizedBox(height: 20),
+        ],
+      ),
     );
   }
 }
