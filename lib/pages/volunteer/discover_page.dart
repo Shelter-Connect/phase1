@@ -73,9 +73,13 @@ class _OrganizationDiscoverState extends State<OrganizationDiscover> {
                 if (hasPosition) {
                   widgets.sort((a, b) {
                     if (((a as OrganizationDonationProfile).organization.itemCategories == null) ||
-                        ((a as OrganizationDonationProfile).organization.itemCategories.length == 0))
-                      return 1;
-                    else if (((b as OrganizationDonationProfile).organization.itemCategories == null) ||
+                        ((a as OrganizationDonationProfile).organization.itemCategories.length == 0)) {
+                      if (((b as OrganizationDonationProfile).organization.itemCategories == null) ||
+                          ((b as OrganizationDonationProfile).organization.itemCategories.length == 0))
+                        ;
+                      else
+                        return 1;
+                    } else if (((b as OrganizationDonationProfile).organization.itemCategories == null) ||
                         ((b as OrganizationDonationProfile).organization.itemCategories.length == 0)) return -1;
                     return (a as OrganizationDonationProfile)
                         .organization
