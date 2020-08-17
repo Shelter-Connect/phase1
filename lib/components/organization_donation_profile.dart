@@ -45,20 +45,16 @@ class OrganizationDonationProfile extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: 30.0,
-                    width: 30.0,
-                    child: Icon(Icons.keyboard_arrow_right),
-                  ),
                 ],
               ),
-              Text(
-                '${organization.distance.toStringAsFixed(1)} miles',
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500,
+              if (organization.distance != null)
+                Text(
+                  '${organization.distance.toStringAsFixed(1)} miles',
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
-              ),
               SizedBox(
                 height: 5,
               ),
@@ -79,35 +75,39 @@ class OrganizationDonationProfile extends StatelessWidget {
                   fontWeight: FontWeight.w400,
                 ),
               ),
-              SizedBox(
-                height: 15,
-              ),
-              Text(
-                'Looking to Receive:',
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
-              ),
-              SizedBox(height: 5.0),
-              Wrap(
-                spacing: 5.0,
-                runSpacing: 5.0,
-                children: organization.itemCategories
-                    .map(
-                      (category) => Container(
-                        decoration: BoxDecoration(
-                          color: whiteBackground,
-                          borderRadius: BorderRadius.circular(21),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-                          child: Text(
-                            category,
-                            style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w700),
-                          ),
-                        ),
-                      ),
-                    )
-                    .toList(),
-              ),
+              if (organization.itemCategories != null)
+                if (organization.itemCategories.length != 0)
+                  Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Text(
+                      'Looking to Receive:',
+                      style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+                    ),
+                    SizedBox(height: 5.0),
+                    Wrap(
+                      spacing: 5.0,
+                      runSpacing: 5.0,
+                      children: organization.itemCategories
+                          .map(
+                            (category) => Container(
+                              decoration: BoxDecoration(
+                                color: whiteBackground,
+                                borderRadius: BorderRadius.circular(21),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                                child: Text(
+                                  category,
+                                  style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w700),
+                                ),
+                              ),
+                            ),
+                          )
+                          .toList(),
+                    ),
+                  ])
             ],
           ),
         ),

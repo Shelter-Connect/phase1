@@ -76,7 +76,7 @@ class _VolunteerConfirmationState extends State<VolunteerConfirmation> {
                   user = await auth.currentUser();
                   if (user.isEmailVerified) {
                     print('verified');
-                    Navigator.pushReplacementNamed(context, '/volunteer_navigation');
+                    Navigator.pushReplacementNamed(context, '/volunteer_bottom_navigation');
                   } else {
                     showDialog(
                       context: context,

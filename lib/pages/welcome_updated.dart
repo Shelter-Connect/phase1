@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:phase1/constants.dart';
+import 'package:phase1/pages/volunteer/volunteer_sign_up_page.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -97,14 +98,14 @@ class HomePage extends StatelessWidget {
                   height: 50.0,
                   child: RaisedButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, '/volunteer_sign_up');
+                      Navigator.push(context, MaterialPageRoute(builder: (_) => VolunteerSignUp()));
                     },
                     textColor: Colors.white,
                     color: purpleAccent,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40.0)),
                     child: Container(
                       child: Text(
-                        'Continue as a Volunteer',
+                        'Sign up as a Volunteer',
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,

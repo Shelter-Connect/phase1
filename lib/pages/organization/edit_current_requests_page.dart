@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:phase1/components/alerts.dart';
+import 'package:phase1/components/flushbar.dart';
 import 'package:phase1/components/increment.dart';
 import 'package:phase1/components/rounded_button.dart';
 import 'package:phase1/components/standard_layout.dart';
@@ -108,11 +109,13 @@ class _EditCurrentRequestsPageState extends State<EditCurrentRequestsPage> {
                                                           context: context,
                                                           builder: (_) => SingleActionAlert(
                                                             title: 'Confirm delete Request?',
-                                                            subtitle: 'This action cannot be undone',
+                                                            subtitle:
+                                                                'This action cannot be undone, and expected deliveries with this request will still arrive.',
                                                             actionName: 'Delete Request',
                                                             action: () {
                                                               FirestoreHelper.deleteRequest(context, itemCategories[category][index]);
                                                               Navigator.pop(context);
+                                                              FlushBar(title: 'Request Cancelled', message: 'You may create the request again using the create request button', duration: Duration(seconds: 3)).build(context);
                                                             },
                                                           ),
                                                         );
@@ -189,6 +192,7 @@ class _EditCurrentRequestsPageState extends State<EditCurrentRequestsPage> {
                             }
                           }
                           FirestoreHelper.updateRequests(context: context, items: delta);
+                          FlushBar( message: 'Your request has been edited.', duration: Duration(seconds: 3)).build(context);
                         },
                         textColor: Colors.white,
                       )

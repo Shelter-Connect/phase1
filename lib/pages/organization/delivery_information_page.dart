@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:phase1/components/colored_button.dart';
 import 'package:phase1/models/donation.dart';
+import 'package:phase1/services/firestore_helper.dart';
 
 import '../../components/standard_layout.dart';
 import '../../constants.dart';
@@ -20,13 +21,13 @@ class DeliveryInformationPage extends StatefulWidget {
 class _DeliveryInformationPageState extends State<DeliveryInformationPage> {
   @override
   Widget build(BuildContext context) {
-    // TODO: clean, clean, clean, clean, clean, and clean again
     return StandardLayout(
       title: "Delivery Information",
       helpText: 'This page shows information about a specific delivery. If this delivery has been received, press the Confirm Delivery button.',
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
+            SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
               child: Container(
@@ -141,7 +142,8 @@ class _DeliveryInformationPageState extends State<DeliveryInformationPage> {
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: ColoredButton(
                     onPressed: () {
-//TODO: Add option for organization to cancel order
+                      FirestoreHelper.cancelVolunteerDelivery(context, widget.donation);
+                      Navigator.pop(context);
                     },
                     text: 'Cancel Order',
                     color: purpleAccent,

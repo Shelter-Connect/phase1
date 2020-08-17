@@ -1,19 +1,29 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:map_launcher/map_launcher.dart';
 
 //Firebase
 FirebaseAuth auth = FirebaseAuth.instance;
 Firestore db = Firestore.instance;
 
-//Google Maps
+//Maps
 final kGoogleApiKey = "AIzaSyDtBjj6ReiOlVtylupAx-wcLe2HmsJXXFs";
+List<AvailableMap> availableMaps = List();
+Coords coords = Coords(0, 0);
+String title = '';
 
 //Styles
 //Text Styles
 final largeTitleStyle = TextStyle(
   fontWeight: FontWeight.w900,
   fontSize: 47.0,
+);
+
+final settingsTitle = TextStyle(
+  fontWeight: FontWeight.w900,
+  fontSize: 47.0,
+  color: purpleAccent,
 );
 
 final headerStyle = TextStyle(
@@ -28,7 +38,7 @@ final subHeaderStyle = TextStyle(
 
 final mainTitleStyle = TextStyle(fontWeight: FontWeight.w900, fontSize: 35, color: purpleAccent);
 
-final mainTitleStyle2 = TextStyle(fontWeight: FontWeight.w800, fontSize: 29.8, color: purpleAccent);
+final mainTitleStyle2 = TextStyle(fontWeight: FontWeight.w800, fontSize: 28, color: Colors.black);
 
 final subTitleStyle = TextStyle(fontSize: 25, fontWeight: FontWeight.w700, color: purpleLight);
 

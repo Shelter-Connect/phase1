@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:phase1/components/feedback_form.dart';
+import 'package:phase1/pages/feedback_form.dart';
 import 'package:phase1/models/user_position.dart';
 import 'package:phase1/pages/navigation_tab.dart';
-import 'package:phase1/pages/organization/organization_bottom_navigation.dart';
 import 'package:phase1/pages/volunteer/discover_page.dart';
 import 'package:phase1/pages/volunteer/volunteer_settings_page.dart';
 import 'package:provider/provider.dart';
@@ -22,8 +21,8 @@ class _VolunteerBottomNavigationPageState extends State<VolunteerBottomNavigatio
   final List<NavigationTab> _tabs = [
     OrganizationDiscover(),
     CurrentDeliveriesPage(),
-    VolunteerSettingsPage(),
     FeedbackForm(),
+    VolunteerSettingsPage(),
   ];
 
   @override
@@ -33,48 +32,35 @@ class _VolunteerBottomNavigationPageState extends State<VolunteerBottomNavigatio
       child: WillPopScope(
         onWillPop: () async => false,
         child: Scaffold(
-          backgroundColor: colorScheme.background,
-          appBar: AppBar(
-            automaticallyImplyLeading: false,
-            brightness: Brightness.light,
-            title: Text(
-              _tabs[_selectedIndex].title,
-              style: TextStyle(color: Colors.transparent),
-            ),
-            backgroundColor: Color(0xFFF5F5F5),
-            elevation: 0.0,
-            actions: <Widget>[
-              Visibility(
-                visible: _tabs[_selectedIndex].helpDescription != '',
-                child: IconButton(
-                  icon: Icon(Icons.help),
-                  color: purpleAccent,
-                  onPressed: () {
-                    _helpModalBottomSheet(context);
-                  },
-                ),
+          backgroundColor: Color(0xfff5f5f5),
+          body: SafeArea(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 16, bottom: 4.0, top: 8.0),
+                        child: Text(_tabs[_selectedIndex].barTitle, style: mainTitleStyle),
+                      ),
+                      Visibility(
+                        visible: _tabs[_selectedIndex].helpDescription != '',
+                        child: IconButton(
+                          icon: Icon(Icons.help),
+                          color: purpleAccent,
+                          onPressed: () {
+                            _helpModalBottomSheet(context);
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                  _tabs[_selectedIndex],
+                ],
               ),
-//              IconButton(
-//                icon: Icon(Icons.feedback,
-//                  color: Colors.orange),
-//                onPressed: () {
-//                  showDialog(
-//                    context: context,
-//                    builder: (_) => SingleActionAlert(
-//                      title: 'Feedback',
-//                      subtitle:
-//                      'Do you have a bug that you want to report or would like to suggest a feature that would make your user experience better? Give feedback below!',
-//                      actionName: 'Give Feedback',
-//                      action: () {
-//                        launch('https://forms.gle/WjpQoEBNmBEQXoDP8');
-//                      },
-//                    ),
-//                  );
-//                },
-//              ),
-            ],
+            ),
           ),
-          body: _tabs[_selectedIndex],
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: _selectedIndex,
             type: BottomNavigationBarType.fixed,

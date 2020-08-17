@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:phase1/components/alerts.dart';
+import 'package:phase1/components/flushbar.dart';
 import 'package:phase1/pages/navigation_tab.dart';
 import 'package:phase1/services/firestore_helper.dart';
 import 'package:provider/provider.dart';
@@ -22,7 +23,10 @@ class VolunteerSettingsPage extends StatefulWidget with NavigationTab {
   IconData get icon => Icons.settings;
 
   @override
-  String get title => 'Settings';
+  String get title => 'Account';
+
+  @override
+  String get barTitle => 'Settings';
 }
 
 class _VolunteerSettingsPageState extends State<VolunteerSettingsPage> {
@@ -45,28 +49,17 @@ class _VolunteerSettingsPageState extends State<VolunteerSettingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xFFF5F5F5),
-      body: loading
-          ? Center(
-              child: CircularProgressIndicator(),
-            )
-          : SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text('Account Settings', style: mainTitleStyle),
-                    SizedBox(height: 20),
-                    UserInfo(email: Provider.of<User>(context, listen: false).user.email, firstName: firstName, lastName: lastName),
-                    SizedBox(height: 20),
-                    SignOut(),
-                    SizedBox(height: 20),
-                  ],
-                ),
-              ),
-            ),
+    return loading ? CircularProgressIndicator() : Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          UserInfo(email: Provider.of<User>(context, listen: false).user.email, firstName: firstName, lastName: lastName),
+          SizedBox(height: 20),
+          SignOut(),
+          SizedBox(height: 20),
+        ],
+      ),
     );
   }
 }
@@ -164,16 +157,8 @@ class UserInfo extends StatelessWidget {
                     builder: (context) => VolunteerEditInfoPage(firstName, lastName),
                   ),
                 );
-                if (updated) {
-                  Scaffold.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text('Your name has been updated.'),
-                    ),
-                  );
-                }
               },
               child: Container(
-                width: 160,
                 height: 37,
                 decoration: BoxDecoration(
                   color: purpleAccent,
@@ -181,12 +166,12 @@ class UserInfo extends StatelessWidget {
                 ),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
-                  child: Row(
+                  child: Wrap(
                     children: <Widget>[
                       Icon(Icons.edit, color: Colors.white, size: 25),
                       SizedBox(width: 2),
                       Text(
-                        'Change Name',
+                        'Change User Information',
                         style: TextStyle(
                           color: colorScheme.onSecondary,
                           fontWeight: FontWeight.w500,

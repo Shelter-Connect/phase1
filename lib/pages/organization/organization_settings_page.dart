@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:phase1/components/alerts.dart';
+import 'package:phase1/components/flushbar.dart';
 import 'package:phase1/models/organization.dart';
 import 'package:phase1/pages/organization/organization_edit_info_page.dart';
 import 'package:phase1/pages/organization/organization_preview_page.dart';
@@ -18,11 +19,13 @@ class OrganizationSettingsPage extends StatefulWidget with NavigationTab {
       'In addition, you can preview your profile as volunteers will see it.';
 
   @override
-  IconData get icon => Icons.person_outline;
+  IconData get icon => Icons.settings;
 
   @override
-  String get title => 'Account';
+  String get title => 'Settings';
 
+  @override
+  String get barTitle => 'Settings';
 }
 
 class _OrganizationSettingsPageState extends State<OrganizationSettingsPage> {
@@ -41,31 +44,24 @@ class _OrganizationSettingsPageState extends State<OrganizationSettingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xFFF5F5F5),
-      body: organization == null
-          ? Center(
-              child: CircularProgressIndicator(),
-            )
-          : SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-                    child: Text('Account Settings', style: mainTitleStyle),
-                  ),
-                  SizedBox(height: 20),
-                  OrganizationInfo(organization: organization),
-                  SizedBox(height: 20),
-                  DemoProfileButton(organization),
-                  SizedBox(height: 10),
-                  DeleteAccount(),
-                  SizedBox(height: 20),
-                ],
-              ),
-            ),
-    );
+    return organization == null
+      ? Center(
+          child: CircularProgressIndicator(),
+        )
+      : SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              SizedBox(height: 10),
+              OrganizationInfo(organization: organization),
+              SizedBox(height: 20),
+              DemoProfileButton(organization),
+              SizedBox(height: 10),
+              DeleteAccount(),
+              SizedBox(height: 20),
+            ],
+          ),
+        );
   }
 }
 
@@ -205,11 +201,7 @@ class OrganizationInfo extends StatelessWidget {
                     ),
                   );
                   if (updated) {
-                    Scaffold.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('Your organization information has been updated.'),
-                      ),
-                    );
+                    FlushBar( message: 'Your organization information has been updated', duration: Duration(seconds: 3)).build(context);
                   }
                 },
                 child: Container(

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:phase1/components/feedback_form.dart';
+import 'package:phase1/pages/organization/create_request_page.dart';
+import '../feedback_form.dart';
 import 'package:phase1/models/user_position.dart';
 import 'package:phase1/pages/navigation_tab.dart';
 import 'package:phase1/pages/organization/current_requests_page.dart';
@@ -9,6 +10,7 @@ import 'package:phase1/pages/organization/organization_settings_page.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants.dart';
+
 class OrganizationBottomNavigationPage extends StatefulWidget {
   @override
   _OrganizationBottomNavigationPageState createState() => _OrganizationBottomNavigationPageState();
@@ -19,8 +21,8 @@ class _OrganizationBottomNavigationPageState extends State<OrganizationBottomNav
   final List<NavigationTab> _tabs = [
     ExpectedDeliveriesPage(),
     CurrentRequestsPage(),
-    OrganizationSettingsPage(),
     FeedbackForm(),
+    OrganizationSettingsPage(),
   ];
 
   @override
@@ -30,52 +32,39 @@ class _OrganizationBottomNavigationPageState extends State<OrganizationBottomNav
       child: WillPopScope(
         onWillPop: () async => false,
         child: Scaffold(
-          backgroundColor: colorScheme.background,
-          appBar: AppBar(
-            automaticallyImplyLeading: false,
-            brightness: Brightness.light,
-            title: Text(
-              _tabs[_selectedIndex].title,
-              style: TextStyle(
-                color: Colors.transparent
-              ),
+          backgroundColor: Color(0xfff5f5f5),
+          body: SafeArea(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 16, bottom: 4.0, top: 8.0),
+                          child: Text(_tabs[_selectedIndex].barTitle, style: mainTitleStyle),
+                        ),
+                      ),
+                      Visibility(
+                        visible: _tabs[_selectedIndex].helpDescription != '',
+                        child: IconButton(
+                          icon: Icon(Icons.help),
+                          color: purpleAccent,
+                          onPressed: () {
+                            _helpModalBottomSheet(context);
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                  _tabs[_selectedIndex],
+                ],
+              )
             ),
-            backgroundColor: Color(0xFFF5F5F5),
-            elevation: 0.0,
-            actions: <Widget>[
-              Visibility(
-                visible: _tabs[_selectedIndex].helpDescription != '',
-                child: IconButton(
-                  icon: Icon(Icons.help),
-                  color: purpleAccent,
-                  onPressed: () {
-                    _helpModalBottomSheet(context);
-                  },
-                ),
-              ),
-//              IconButton(
-//                icon: Icon(Icons.feedback,
-//                    color: Colors.orange),
-//                onPressed: () {
-//                  showDialog(
-//                    context: context,
-//                    builder: (_) => SingleActionAlert(
-//                      title: 'Feedback',
-//                      subtitle:
-//                      'Do you have a bug that you want to report or would like to suggest a feature that would make your user experience better? Give feedback below!',
-//                      actionName: 'Give Feedback',
-//                      action: () {
-//                        launch('https://forms.gle/WjpQoEBNmBEQXoDP8');
-//                      },
-//                    ),
-//                  );
-//                },
-//              ),
-            ],
           ),
-          body: _tabs[_selectedIndex],
           bottomNavigationBar: BottomNavigationBar(
-            currentIndex : _selectedIndex,
+            currentIndex: _selectedIndex,
             type: BottomNavigationBarType.fixed,
             backgroundColor: Colors.white,
             iconSize: 25,
@@ -88,27 +77,35 @@ class _OrganizationBottomNavigationPageState extends State<OrganizationBottomNav
                   .asMap()
                   .map(
                     (index, tab) => MapEntry(
-                    index,
-                    BottomNavigationBarItem(
-                      icon: Icon(tab.icon),
-                      title: Text(tab.title),
-
-                    )
-                ),
-              )
+                        index,
+                        BottomNavigationBarItem(
+                          icon: Icon(tab.icon),
+                          title: Text(tab.title),
+                        )),
+                  )
                   .values
                   .toList(),
             ],
-            onTap: (index){
+            onTap: (index) {
               setState(() {
                 _selectedIndex = index;
               });
             },
           ),
+          floatingActionButton: FloatingActionButton(
+            backgroundColor: purpleAccent,
+
+            child: Icon(Icons.add),
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => CreateRequestPage()));
+            },
+          ),
+          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         ),
       ),
     );
   }
+
   void _helpModalBottomSheet(BuildContext context) {
     showModalBottomSheet(
       shape: RoundedRectangleBorder(
@@ -143,26 +140,6 @@ class _OrganizationBottomNavigationPageState extends State<OrganizationBottomNav
                 ),
                 Text(_tabs[_selectedIndex].helpDescription, style: TextStyle(fontSize: 17)),
                 Spacer(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    InkWell(
-                      child: new Text(
-                        'Report Issues',
-                        style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 17),
-                      ),
-                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => OrganizationBottomNavigationPage()))
-                    ),
-                    IconButton(
-                      iconSize: 30,
-                      onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => OrganizationBottomNavigationPage()));
-                        //TODO: Make this go to the feedback page
-                      },
-                      icon: Icon(Icons.bug_report),
-                    ),
-                  ],
-                ),
               ],
             ),
           ),

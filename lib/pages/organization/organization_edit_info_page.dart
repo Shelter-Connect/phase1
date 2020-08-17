@@ -50,7 +50,8 @@ class _OrganizationEditInfoPageState extends State<OrganizationEditInfoPage> {
   @override
   Widget build(BuildContext context) {
     return StandardLayout(
-      title: 'Update Your Information',
+      title: 'Update',
+      titleColor: purpleAccent,
       body: ModalProgressHUD(
         inAsyncCall: loading,
         child: SafeArea(
@@ -60,9 +61,7 @@ class _OrganizationEditInfoPageState extends State<OrganizationEditInfoPage> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                SizedBox(height: 20),
-                Text('Update Your Information', style: largeTitleStyle),
-                SizedBox(height: 40),
+                SizedBox(height: 10),
                 FloatingTextField(
                   hintText: 'Organization Name',
                   controller: nameController,
@@ -144,9 +143,6 @@ class _OrganizationEditInfoPageState extends State<OrganizationEditInfoPage> {
                       'website': organization.website,
                     });
                     Navigator.pop(context, true);
-                    Scaffold.of(context).showSnackBar(SnackBar(
-                      content: Text('Your organization information has been updated.'),
-                    ));
                   },
                 ),
                 SizedBox(height: 10.0),

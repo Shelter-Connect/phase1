@@ -24,7 +24,7 @@ class FirestoreHelper {
   }
 
   //Creates a request of items for an organization
-  static Future<void> updateRequests({BuildContext context, List<Item> items, String organizationId}) async {
+  static Future<void> updateRequests({BuildContext context, List<Item> items, String organizationId, bool isCreating = true}) async {
     DocumentReference organizationReference =
         organizationId == null ? getCurrentOrganizationReference(context) : db.collection('organizations').document(organizationId);
     CollectionReference requestsReference = organizationReference.collection('requests');
@@ -39,7 +39,7 @@ class FirestoreHelper {
           .where('specificDescription', isEqualTo: item.specificDescription)
           .getDocuments();
       if (document.documents.length == 0) {
-        if (item.amount != 0) await requestsReference.add(item.toFirestoreMap());
+        if (isCreating && item.amount != 0) await requestsReference.add(item.toFirestoreMap());
       } else if (document.documents.length == 1) {
         DocumentSnapshot itemSnapshot = document.documents[0];
         await requestsReference.document(itemSnapshot.documentID).updateData({
@@ -80,11 +80,11 @@ class FirestoreHelper {
     DocumentSnapshot volunteerSnapshot = await volunteerReference.get();
     donation.volunteerName = '${volunteerSnapshot['firstName']} ${volunteerSnapshot['lastName']}';
     DocumentReference donationDocument = await volunteerDonationCollection.add(donation.toFirestoreMap());
-    donation.donationId = donationDocument.documentID;
+    donation.id = donationDocument.documentID;
 
     CollectionReference organizationDonationCollection =
         db.collection('organizations').document(donation.organization.id).collection('currentDonations');
-    await organizationDonationCollection.document(donation.donationId).setData(donation.toFirestoreMap());
+    await organizationDonationCollection.document(donation.id).setData(donation.toFirestoreMap());
   }
 
   //Moves a donation from currentDonations to pastDonations
@@ -94,21 +94,21 @@ class FirestoreHelper {
     CollectionReference volunteerPastDonationCollection = db.collection('volunteers').document(donation.volunteerId).collection('pastDonations');
     CollectionReference organizationPastDonationCollection = getCurrentOrganizationReference(context).collection('pastDonations');
 
-    await volunteerCurrentDonationCollection.document(donation.donationId).delete();
-    await organizationCurrentDonationCollection.document(donation.donationId).delete();
-    await volunteerPastDonationCollection.document(donation.donationId).setData(donation.toFirestoreMap());
-    await organizationPastDonationCollection.document(donation.donationId).setData(donation.toFirestoreMap());
+    await volunteerCurrentDonationCollection.document(donation.id).delete();
+    await organizationCurrentDonationCollection.document(donation.id).delete();
+    await volunteerPastDonationCollection.document(donation.id).setData(donation.toFirestoreMap());
+    await organizationPastDonationCollection.document(donation.id).setData(donation.toFirestoreMap());
   }
 
   //cancels delivery from volunteer side
   static Future<void> cancelVolunteerDelivery(BuildContext context, Donation donation) async {
     CollectionReference volunteerDonationCollection = getCurrentVolunteerReference(context).collection('currentDonations');
-    await volunteerDonationCollection.document(donation.donationId).delete();
+    await volunteerDonationCollection.document(donation.id).delete();
 
     CollectionReference organizationDonationCollection =
         db.collection('organizations').document(donation.organization.id).collection('currentDonations');
-    await organizationDonationCollection.document(donation.donationId).delete();
+    await organizationDonationCollection.document(donation.id).delete();
 
-    updateRequests(context: context, items: donation.items, organizationId: donation.organization.id);
+    updateRequests(context: context, items: donation.items, organizationId: donation.organization.id, isCreating: false);
   }
 }

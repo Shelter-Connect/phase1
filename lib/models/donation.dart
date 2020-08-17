@@ -5,7 +5,7 @@ import 'item.dart';
 import 'organization.dart';
 
 class Donation {
-  String volunteerId, donationId, volunteerEmail, volunteerName;
+  String volunteerId, id, volunteerEmail, volunteerName;
   Organization organization;
   DateTime date;
   List<Item> items = List();
@@ -15,7 +15,7 @@ class Donation {
     this.volunteerEmail,
     this.volunteerName,
     this.organization,
-    this.donationId,
+    this.id,
     this.items,
     this.date,
   });
@@ -24,7 +24,7 @@ class Donation {
     volunteerId = donationSnapshot['volunteerId'];
     volunteerEmail = donationSnapshot['volunteerEmail'];
     volunteerName = donationSnapshot['volunteerName'];
-    donationId = donationSnapshot.documentID;
+    id = donationSnapshot.documentID;
     date = donationSnapshot['date'].toDate();
     items = donationSnapshot['items']
         .map(
@@ -55,7 +55,7 @@ class Donation {
       volunteerEmail: volunteerEmail,
       date: DateTime(date.year, date.month, date.day),
       organization: organization.clone(),
-      donationId: donationId,
+      id: id,
       items: items.map((item) => item.clone()).toList(),
     );
   }
