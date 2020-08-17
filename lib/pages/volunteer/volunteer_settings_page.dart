@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:phase1/components/alerts.dart';
+import 'package:phase1/components/flushbar.dart';
 import 'package:phase1/pages/navigation_tab.dart';
 import 'package:phase1/services/firestore_helper.dart';
 import 'package:provider/provider.dart';
@@ -164,13 +165,6 @@ class UserInfo extends StatelessWidget {
                     builder: (context) => VolunteerEditInfoPage(firstName, lastName),
                   ),
                 );
-                if (updated) {
-                  Scaffold.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text('Your name has been updated.'),
-                    ),
-                  );
-                }
               },
               child: Container(
                 height: 37,
