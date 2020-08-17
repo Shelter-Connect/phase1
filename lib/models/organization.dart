@@ -60,9 +60,10 @@ class Organization {
     itemCategories = organizationSnapshot['itemCategories']?.cast<String>();
 
     Map<String, List<Item>> items = {};
-
-    for (String category in organizationSnapshot['itemCategories']) {
-      items[category] = List<Item>();
+    if (organizationSnapshot['itemCategories'] != null) if (organizationSnapshot['itemCategories'].length != 0) {
+      for (String category in organizationSnapshot['itemCategories']) {
+        items[category] = List<Item>();
+      }
     }
     requestedItems = items;
 

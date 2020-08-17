@@ -64,17 +64,23 @@ class _OrganizationDiscoverState extends State<OrganizationDiscover> {
                 }
                 List<Widget> widgets = [];
                 for (DocumentSnapshot organizationSnapshot in snapshot.data.documents) {
-                  if (organizationSnapshot['itemCategories'] != null && organizationSnapshot['itemCategories'].length != 0) {
-                    Organization organization =
-                        Organization.fromFirestoreMap(context: context, organizationSnapshot: organizationSnapshot, isVolunteer: true);
-                    widgets.add(
-                      OrganizationDonationProfile(organization: organization),
-                    );
-                  }
+                  Organization organization =
+                      Organization.fromFirestoreMap(context: context, organizationSnapshot: organizationSnapshot, isVolunteer: true);
+                  widgets.add(
+                    OrganizationDonationProfile(organization: organization),
+                  );
                 }
                 if (hasPosition) {
                   widgets.sort((a, b) {
-                    return (a as OrganizationDonationProfile).organization.distance.compareTo((b as OrganizationDonationProfile).organization.distance);
+                    if (((a as OrganizationDonationProfile).organization.itemCategories == null) ||
+                        ((a as OrganizationDonationProfile).organization.itemCategories.length == 0))
+                      return 1;
+                    else if (((b as OrganizationDonationProfile).organization.itemCategories == null) ||
+                        ((b as OrganizationDonationProfile).organization.itemCategories.length == 0)) return -1;
+                    return (a as OrganizationDonationProfile)
+                        .organization
+                        .distance
+                        .compareTo((b as OrganizationDonationProfile).organization.distance);
                   });
                 }
                 for (int i = 1; i < widgets.length; i++) {

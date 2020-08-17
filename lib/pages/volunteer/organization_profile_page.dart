@@ -258,87 +258,88 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                         ),
                       ),
                       SizedBox(height: 20),
-                      Column(
-                        children: <Widget>[
-                          Container(
-                            decoration: elevatedBoxStyle,
-                            width: MediaQuery.of(context).size.width,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16.0),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Text(
-                                    'Requested Items',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                  Container(
-                                    height: 5,
-                                    width: 100,
-                                    decoration: BoxDecoration(
-                                      color: purpleAccent,
-                                      borderRadius: BorderRadius.circular(21),
-                                    ),
-                                  ),
-                                  Column(
-                                    children: widget.organization.itemCategories.map((String category) {
-                                      List<Item> items = widget.organization.requestedItems[category];
-                                      if (items == null) return Container();
-                                      return Column(
-                                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                                        children: [
-                                          SizedBox(height: 10.0),
-                                          Text(
-                                            category,
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 23.0,
-                                            ),
-                                          ),
-                                          ...items.map(
-                                            (item) => item.amount != 0
-                                                ? Container(
-                                                    alignment: Alignment.centerLeft,
-                                                    child: Padding(
-                                                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                                      child: Column(
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                                        children: [
-                                                          Text(
-                                                            '${item.name} - ${item.amount} ${item.unit ?? ''}'.trim(),
-                                                            style: TextStyle(
-                                                              fontSize: 17.0,
-                                                              fontWeight: FontWeight.w400,
-                                                            ),
+                      if (widget.organization.itemCategories != null)
+                        if (widget.organization.itemCategories.length != 0)
+                          Column(
+                            children: <Widget>[
+                              Container(
+                                decoration: elevatedBoxStyle,
+                                width: MediaQuery.of(context).size.width,
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16.0),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Text(
+                                        'Requested Items',
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Container(
+                                        height: 5,
+                                        width: 100,
+                                        decoration: BoxDecoration(
+                                          color: purpleAccent,
+                                          borderRadius: BorderRadius.circular(21),
+                                        ),
+                                      ),
+                                      Column(
+                                        children: widget.organization.itemCategories.map((String category) {
+                                          List<Item> items = widget.organization.requestedItems[category];
+                                          return Column(
+                                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                                            children: [
+                                              SizedBox(height: 10.0),
+                                              Text(
+                                                category,
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 23.0,
+                                                ),
+                                              ),
+                                              ...items.map(
+                                                (item) => item.amount != 0
+                                                    ? Container(
+                                                        alignment: Alignment.centerLeft,
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                                          child: Column(
+                                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                                            children: [
+                                                              Text(
+                                                                '${item.name} - ${item.amount} ${item.unit ?? ''}'.trim(),
+                                                                style: TextStyle(
+                                                                  fontSize: 17.0,
+                                                                  fontWeight: FontWeight.w400,
+                                                                ),
+                                                              ),
+                                                              if (item.specificDescription != null)
+                                                                Text(
+                                                                  item.specificDescription,
+                                                                  style: TextStyle(fontSize: 14, color: Colors.grey),
+                                                                ),
+                                                            ],
                                                           ),
-                                                          if (item.specificDescription != null)
-                                                            Text(
-                                                              item.specificDescription,
-                                                              style: TextStyle(fontSize: 14, color: Colors.grey),
-                                                            ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  )
-                                                : Container(),
-                                          ),
-                                        ],
-                                      );
-                                    }).toList(),
-                                  )
-                                ],
+                                                        ),
+                                                      )
+                                                    : Container(),
+                                              ),
+                                            ],
+                                          );
+                                        }).toList(),
+                                      )
+                                    ],
+                                  ),
+                                ),
                               ),
-                            ),
+                            ],
                           ),
-                        ],
-                      ),
                       SizedBox(height: 20),
                       if (!noRequests)
                         Container(
