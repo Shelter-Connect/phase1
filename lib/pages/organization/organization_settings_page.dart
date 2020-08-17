@@ -52,6 +52,7 @@ class _OrganizationSettingsPageState extends State<OrganizationSettingsPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+              SizedBox(height: 10),
               OrganizationInfo(organization: organization),
               SizedBox(height: 20),
               DemoProfileButton(organization),

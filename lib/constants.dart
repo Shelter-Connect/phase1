@@ -20,6 +20,12 @@ final largeTitleStyle = TextStyle(
   fontSize: 47.0,
 );
 
+final settingsTitle = TextStyle(
+  fontWeight: FontWeight.w900,
+  fontSize: 47.0,
+  color: purpleAccent,
+);
+
 final headerStyle = TextStyle(
   fontWeight: FontWeight.w500,
   fontSize: 30.0,

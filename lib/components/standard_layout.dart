@@ -7,8 +7,9 @@ class StandardLayout extends StatelessWidget {
   final String title, helpText;
   final Widget body;
   final Color color;
+  final Color titleColor;
 
-  StandardLayout({@required this.title, this.body, this.helpText = '', this.color});
+  StandardLayout({@required this.title, this.titleColor, this.body, this.helpText = '', this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,8 @@ class StandardLayout extends StatelessWidget {
         title: Text(
           title,
           style: TextStyle(
-            color: Color(0xFFF5F5F5),
+            fontWeight: FontWeight.w900, fontSize: 35,
+            color: titleColor ?? Color(0xFFF5F5F5),
           ),
         ),
         actions: <Widget>[
