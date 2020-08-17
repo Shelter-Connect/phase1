@@ -55,7 +55,7 @@ class CategoryIconDisplay extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             WebsafeSvg.asset(asset, height: 55, width: 55),
-            Text(name, style: TextStyle(fontSize: 15)),
+            Text(name, style: TextStyle(fontSize: 15), textAlign: TextAlign.center),
           ],
         ),
       ),
@@ -87,7 +87,7 @@ class ItemIconButton extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               WebsafeSvg.asset(asset, height: 55, width: 55),
-              Text(name, style: TextStyle(fontSize: 15), textAlign: TextAlign.center,),
+              Text(name, style: TextStyle(fontSize: 15), textAlign: TextAlign.center),
             ],
           ),
         ),

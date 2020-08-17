@@ -23,7 +23,7 @@ class VolunteerSettingsPage extends StatefulWidget with NavigationTab {
   IconData get icon => Icons.settings;
 
   @override
-  String get title => 'Settings';
+  String get title => 'Account';
 
   @override
   String get barTitle => 'Settings';
