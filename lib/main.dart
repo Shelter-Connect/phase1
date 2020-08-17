@@ -34,6 +34,7 @@ class MyApp extends StatelessWidget {
       ],
     );
     precacheImage(AssetImage('assets/logo_svgs/ShelterConnectLogo.png'), context);
+    precacheImage(AssetImage('assets/foodgivingsmaller.png'), context);
 
     return ChangeNotifierProvider<User>(
       create: (_) => User(),
