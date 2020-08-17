@@ -31,30 +31,35 @@ class _OrganizationBottomNavigationPageState extends State<OrganizationBottomNav
       child: WillPopScope(
         onWillPop: () async => false,
         child: Scaffold(
-          backgroundColor: colorScheme.background,
-          appBar: AppBar(
-            automaticallyImplyLeading: false,
-            brightness: Brightness.light,
-            title: Text(
-              _tabs[_selectedIndex].title,
-              style: TextStyle(color: Colors.transparent),
+          backgroundColor: Color(0xfff5f5f5),
+          body: SafeArea(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 16, bottom: 4.0, top: 8.0),
+                        child: Text(_tabs[_selectedIndex].barTitle, style: mainTitleStyle),
+                      ),
+                      Visibility(
+                        visible: _tabs[_selectedIndex].helpDescription != '',
+                        child: IconButton(
+                          icon: Icon(Icons.help),
+                          color: purpleAccent,
+                          onPressed: () {
+                            _helpModalBottomSheet(context);
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                  _tabs[_selectedIndex],
+                ],
+              )
             ),
-            backgroundColor: Color(0xFFF5F5F5),
-            elevation: 0.0,
-            actions: <Widget>[
-              Visibility(
-                visible: _tabs[_selectedIndex].helpDescription != '',
-                child: IconButton(
-                  icon: Icon(Icons.help),
-                  color: purpleAccent,
-                  onPressed: () {
-                    _helpModalBottomSheet(context);
-                  },
-                ),
-              ),
-            ],
           ),
-          body: _tabs[_selectedIndex],
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: _selectedIndex,
             type: BottomNavigationBarType.fixed,

@@ -19,13 +19,13 @@ class OrganizationSettingsPage extends StatefulWidget with NavigationTab {
       'In addition, you can preview your profile as volunteers will see it.';
 
   @override
-  IconData get icon => Icons.person_outline;
+  IconData get icon => Icons.settings;
 
   @override
-  String get title => 'Account';
+  String get title => 'Settings';
 
   @override
-  String get barTitle => 'Account Settings';
+  String get barTitle => 'Settings';
 }
 
 class _OrganizationSettingsPageState extends State<OrganizationSettingsPage> {
@@ -44,31 +44,23 @@ class _OrganizationSettingsPageState extends State<OrganizationSettingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xFFF5F5F5),
-      body: organization == null
-          ? Center(
-              child: CircularProgressIndicator(),
-            )
-          : SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-                    child: Text('Account Settings', style: mainTitleStyle),
-                  ),
-                  SizedBox(height: 20),
-                  OrganizationInfo(organization: organization),
-                  SizedBox(height: 20),
-                  DemoProfileButton(organization),
-                  SizedBox(height: 10),
-                  DeleteAccount(),
-                  SizedBox(height: 20),
-                ],
-              ),
-            ),
-    );
+    return organization == null
+      ? Center(
+          child: CircularProgressIndicator(),
+        )
+      : SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              OrganizationInfo(organization: organization),
+              SizedBox(height: 20),
+              DemoProfileButton(organization),
+              SizedBox(height: 10),
+              DeleteAccount(),
+              SizedBox(height: 20),
+            ],
+          ),
+        );
   }
 }
 

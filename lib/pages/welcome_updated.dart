@@ -118,7 +118,7 @@ class HomePage extends StatelessWidget {
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40.0)),
                     child: Container(
                       child: Text(
-                        'Continue as a Volunteer',
+                        'Sign up as a Volunteer',
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
