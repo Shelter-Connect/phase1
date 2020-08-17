@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:phase1/pages/organization/create_request_page.dart';
 import '../feedback_form.dart';
 import 'package:phase1/models/user_position.dart';
 import 'package:phase1/pages/navigation_tab.dart';
@@ -89,6 +90,15 @@ class _OrganizationBottomNavigationPageState extends State<OrganizationBottomNav
               });
             },
           ),
+          floatingActionButton: FloatingActionButton(
+            backgroundColor: purpleAccent,
+
+            child: Icon(Icons.add),
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => CreateRequestPage()));
+            },
+          ),
+          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         ),
       ),
     );
