@@ -40,9 +40,11 @@ class _OrganizationBottomNavigationPageState extends State<OrganizationBottomNav
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 16, bottom: 4.0, top: 8.0),
-                        child: Text(_tabs[_selectedIndex].barTitle, style: mainTitleStyle),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 16, bottom: 4.0, top: 8.0),
+                          child: Text(_tabs[_selectedIndex].barTitle, style: mainTitleStyle),
+                        ),
                       ),
                       Visibility(
                         visible: _tabs[_selectedIndex].helpDescription != '',
