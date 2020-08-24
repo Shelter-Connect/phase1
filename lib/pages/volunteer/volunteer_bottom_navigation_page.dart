@@ -42,7 +42,7 @@ class _VolunteerBottomNavigationPageState extends State<VolunteerBottomNavigatio
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(left: 16, bottom: 4.0, top: 8.0),
-                        child: Text(_tabs[_selectedIndex].barTitle, style: mainTitleStyle),
+                        child: Text(_tabs[_selectedIndex].barTitle, style: appBarTitleStyle),
                       ),
                       Visibility(
                         visible: _tabs[_selectedIndex].helpDescription != '',
@@ -61,34 +61,37 @@ class _VolunteerBottomNavigationPageState extends State<VolunteerBottomNavigatio
               ),
             ),
           ),
-          bottomNavigationBar: BottomNavigationBar(
-            currentIndex: _selectedIndex,
-            type: BottomNavigationBarType.fixed,
-            backgroundColor: Colors.white,
-            iconSize: 25,
-            selectedFontSize: 15,
-            selectedItemColor: purpleAccent,
-            unselectedItemColor: Color(0xFFBEBEBE),
-            unselectedFontSize: 15,
-            items: [
-              ..._tabs
-                  .asMap()
-                  .map(
-                    (index, tab) => MapEntry(
-                        index,
-                        BottomNavigationBarItem(
-                          icon: Icon(tab.icon),
-                          title: Text(tab.title),
-                        )),
-                  )
-                  .values
-                  .toList(),
-            ],
-            onTap: (index) {
-              setState(() {
-                _selectedIndex = index;
-              });
-            },
+          bottomNavigationBar: SizedBox(
+            height: 50,
+            child: BottomNavigationBar(
+              currentIndex: _selectedIndex,
+              type: BottomNavigationBarType.fixed,
+              backgroundColor: Colors.white,
+              iconSize: 25,
+              selectedFontSize: 0,
+              selectedItemColor: purpleAccent,
+              unselectedItemColor: Color(0xFFBEBEBE),
+              unselectedFontSize: 0,
+              items: [
+                ..._tabs
+                    .asMap()
+                    .map(
+                      (index, tab) => MapEntry(
+                          index,
+                          BottomNavigationBarItem(
+                            icon: Icon(tab.icon),
+                            title: Text(tab.title),
+                          )),
+                    )
+                    .values
+                    .toList(),
+              ],
+              onTap: (index) {
+                setState(() {
+                  _selectedIndex = index;
+                });
+              },
+            ),
           ),
         ),
       ),

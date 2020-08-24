@@ -8,6 +8,7 @@ import 'package:phase1/pages/organization/current_requests_page.dart';
 import 'package:phase1/pages/organization/expected_deliveries_page.dart';
 import 'package:phase1/pages/organization/organization_settings_page.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 import '../../constants.dart';
 
@@ -68,10 +69,10 @@ class _OrganizationBottomNavigationPageState extends State<OrganizationBottomNav
             type: BottomNavigationBarType.fixed,
             backgroundColor: Colors.white,
             iconSize: 25,
-            selectedFontSize: 15,
+            selectedFontSize: 0,
             selectedItemColor: purpleAccent,
             unselectedItemColor: Color(0xFFBEBEBE),
-            unselectedFontSize: 15,
+            unselectedFontSize: 0,
             items: [
               ..._tabs
                   .asMap()
@@ -92,15 +93,52 @@ class _OrganizationBottomNavigationPageState extends State<OrganizationBottomNav
               });
             },
           ),
-          floatingActionButton: FloatingActionButton(
-            backgroundColor: purpleAccent,
+floatingActionButton: SpeedDial(
+  // both default to 16
+  marginRight: 25,
+  marginBottom: 20,
+  animatedIcon: AnimatedIcons.menu_close,
+  animatedIconTheme: IconThemeData(size: 22.0),
+  // this is ignored if animatedIcon is non null
+  // child: Icon(Icons.add),
+//  visible: _dialVisible,
+  // If true user is forced to close dial manually
+  // by tapping main button and overlay is not rendered.
+  closeManually: false,
+  curve: Curves.bounceIn,
+  overlayColor: Colors.black,
+  overlayOpacity: 0.05,
+  tooltip: 'Choose the type of item to request',
+  heroTag: 'speed-dial-hero-tag',
+  backgroundColor: Colors.white,
+  foregroundColor: Colors.black,
+  elevation: 2.0,
+  shape: CircleBorder(),
+  children: [
+    SpeedDialChild(
+      child: Icon(Icons.add),
+      backgroundColor: purpleAccent,
+      label: 'Create Request',
+      labelStyle: TextStyle(fontSize: 18.0),
+      onTap: () => print('SECOND CHILD'),
+    ),
+    SpeedDialChild(
+        child: Icon(Icons.category),
+        backgroundColor: Colors.greenAccent,
+        label: 'Create Custom Item',
+        labelStyle: TextStyle(fontSize: 18.0),
+        onTap: () => print('FIRST CHILD')
+    ),
+    SpeedDialChild(
+      child: Icon(Icons.content_paste),
+      backgroundColor: Color(0xFF5546EC),
+      label: 'View Cart',
+      labelStyle: TextStyle(fontSize: 18.0),
+      onTap: () => print('THIRD CHILD'),
+    ),
+  ],
+),
 
-            child: Icon(Icons.add),
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => CreateRequestPage()));
-            },
-          ),
-          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         ),
       ),
     );

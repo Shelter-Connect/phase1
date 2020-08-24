@@ -37,6 +37,7 @@ class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+          SizedBox(height: 10),
           StreamBuilder(
             stream: FirestoreHelper.getCurrentOrganizationReference(context).collection('currentDonations').orderBy('date').snapshots(),
             builder: (context, snapshot) {

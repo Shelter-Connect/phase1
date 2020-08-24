@@ -76,7 +76,7 @@ class _CurrentDeliveriesPageState extends State<CurrentDeliveriesPage> {
                     return Column(
                       children: [
                         Text(
-                          'You have no items to deliver. Go makes some donations!',
+                          'You have no items to deliver. Go make some donations!',
                           style: TextStyle(
                             color: Colors.grey,
                             fontSize: 15.0,

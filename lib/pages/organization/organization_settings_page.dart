@@ -19,13 +19,13 @@ class OrganizationSettingsPage extends StatefulWidget with NavigationTab {
       'In addition, you can preview your profile as volunteers will see it.';
 
   @override
-  IconData get icon => Icons.settings;
+  IconData get icon => Icons.person_outline;
 
   @override
-  String get title => 'Settings';
+  String get title => 'Account';
 
   @override
-  String get barTitle => 'Settings';
+  String get barTitle => 'Account';
 }
 
 class _OrganizationSettingsPageState extends State<OrganizationSettingsPage> {

@@ -83,7 +83,7 @@ class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
                 return Column(
                   children: [
                     Text(
-                      'Your organization currently does not have any requests. Create a request with the \'New Request\' button on the bottom right.',
+                      'Your organization currently does not have any requests. Create a request with the \'New Request\' button at the bottom.',
                       style: TextStyle(
                         color: Colors.grey,
                         fontSize: 15.0,
