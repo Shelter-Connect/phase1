@@ -19,7 +19,7 @@ class OrganizationDiscover extends StatefulWidget with NavigationTab {
       'To see more information about an organization, or to sign up for a donation, click on an organization. ';
 
   @override
-  IconData get icon => Icons.search;
+  IconData get icon => Icons.explore;
 
   @override
   String get title => 'Discover';
