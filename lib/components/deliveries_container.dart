@@ -14,12 +14,11 @@ class DeliveriesContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     DateTime now = DateTime.now();
 
-    return RawMaterialButton(
-      onPressed: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => DeliveryDescriptionPage(donation)));
-      },
-      child: Container(
-        decoration: elevatedBoxStyle,
+    return Card(
+      child: RawMaterialButton(
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => DeliveryDescriptionPage(donation)));
+        },
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
           child: Column(

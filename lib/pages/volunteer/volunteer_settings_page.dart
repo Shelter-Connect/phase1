@@ -20,7 +20,7 @@ class VolunteerSettingsPage extends StatefulWidget with NavigationTab {
       'This page shows your account settings and information. Here, you can edit your information, or sign out, if you\'d like. ';
 
   @override
-  IconData get icon => Icons.settings;
+  IconData get icon => Icons.person;
 
   @override
   String get title => 'Account';
@@ -72,121 +72,122 @@ class UserInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: elevatedBoxStyle,
-      width: MediaQuery.of(context).size.width,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            SizedBox(height: 10),
-            Text(
-              'User Information',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
+    return Card(
+      child: Container(
+        width: MediaQuery.of(context).size.width,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              SizedBox(height: 10),
+              Text(
+                'User Information',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Container(
-              height: 5,
-              width: 100,
-              decoration: BoxDecoration(
-                color: purpleAccent,
-                borderRadius: BorderRadius.circular(21),
+              SizedBox(
+                height: 5,
               ),
-            ),
-            SizedBox(height: 10),
-            RichText(
-              text: TextSpan(
-                children: <TextSpan>[
-                  TextSpan(
-                    text: 'Name: ',
-                    style: TextStyle(
-                      fontSize: 17,
-                      color: colorScheme.onBackground,
-                    ),
-                  ),
-                  TextSpan(
-                    text: '$firstName $lastName',
-                    style: TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.w600,
-                      color: colorScheme.onBackground,
-                    ),
-                  )
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            RichText(
-              text: TextSpan(
-                children: <TextSpan>[
-                  TextSpan(
-                    text: 'Email Address: ',
-                    style: TextStyle(
-                      fontSize: 17,
-                      color: colorScheme.onBackground,
-                    ),
-                  ),
-                  TextSpan(
-                    text: email,
-                    style: TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.w600,
-                      color: colorScheme.onBackground,
-                    ),
-                  )
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            InkWell(
-              onTap: () async {
-                bool updated = await Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => VolunteerEditInfoPage(firstName, lastName),
-                  ),
-                );
-              },
-              child: Container(
-                height: 37,
+              Container(
+                height: 5,
+                width: 100,
                 decoration: BoxDecoration(
                   color: purpleAccent,
                   borderRadius: BorderRadius.circular(21),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
-                  child: Wrap(
-                    children: <Widget>[
-                      Icon(Icons.edit, color: Colors.white, size: 25),
-                      SizedBox(width: 2),
-                      Text(
-                        'Change User Information',
-                        style: TextStyle(
-                          color: colorScheme.onSecondary,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 16.0,
-                        ),
+              ),
+              SizedBox(height: 10),
+              RichText(
+                text: TextSpan(
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: 'Name: ',
+                      style: TextStyle(
+                        fontSize: 17,
+                        color: colorScheme.onBackground,
                       ),
-                    ],
+                    ),
+                    TextSpan(
+                      text: '$firstName $lastName',
+                      style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w600,
+                        color: colorScheme.onBackground,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              RichText(
+                text: TextSpan(
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: 'Email Address: ',
+                      style: TextStyle(
+                        fontSize: 17,
+                        color: colorScheme.onBackground,
+                      ),
+                    ),
+                    TextSpan(
+                      text: email,
+                      style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w600,
+                        color: colorScheme.onBackground,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              InkWell(
+                onTap: () async {
+                  bool updated = await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => VolunteerEditInfoPage(firstName, lastName),
+                    ),
+                  );
+                },
+                child: Container(
+                  height: 37,
+                  decoration: BoxDecoration(
+                    color: purpleAccent,
+                    borderRadius: BorderRadius.circular(21),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+                    child: Wrap(
+                      children: <Widget>[
+                        Icon(Icons.edit, color: Colors.white, size: 25),
+                        SizedBox(width: 2),
+                        Text(
+                          'Change User Information',
+                          style: TextStyle(
+                            color: colorScheme.onSecondary,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16.0,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-          ],
+              SizedBox(
+                height: 10,
+              ),
+            ],
+          ),
         ),
       ),
     );

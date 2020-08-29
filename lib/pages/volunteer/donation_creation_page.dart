@@ -64,27 +64,28 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
               if(widget.organization.distance != null)
               Text('${widget.organization.distance.toStringAsFixed(1)} miles away', style: subTitleStyle),
               SizedBox(height: 20.0),
-              Container(
-                decoration: elevatedBoxStyle,
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Expected Delivery Date',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w500,
+              Card(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Expected Delivery Date',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
-                    ),
-                    BasicDateField(
-                      onChanged: (val) {
-                        setState(() {
-                          donation.date = val;
-                        });
-                      },
-                    ),
-                  ],
+                      BasicDateField(
+                        onChanged: (val) {
+                          setState(() {
+                            donation.date = val;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ),
               SizedBox(height: 20),
@@ -96,17 +97,13 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                       category,
                       Column(
                         children: [
-                          Container(
-                            decoration: elevatedBoxStyle,
+                          Card(
                             child: Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  SizedBox(
-                                    height: 10,
-                                  ),
                                   SizedBox(height: 10),
                                   Text(
                                     category,

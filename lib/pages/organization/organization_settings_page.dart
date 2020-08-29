@@ -19,13 +19,13 @@ class OrganizationSettingsPage extends StatefulWidget with NavigationTab {
       'In addition, you can preview your profile as volunteers will see it.';
 
   @override
-  IconData get icon => Icons.settings;
+  IconData get icon => Icons.person_outline;
 
   @override
-  String get title => 'Settings';
+  String get title => 'Account';
 
   @override
-  String get barTitle => 'Settings';
+  String get barTitle => 'Account';
 }
 
 class _OrganizationSettingsPageState extends State<OrganizationSettingsPage> {
@@ -74,9 +74,7 @@ class OrganizationInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Container(
-        decoration: elevatedBoxStyle,
-        width: MediaQuery.of(context).size.width,
+      child: Card(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
           child: Column(
@@ -181,6 +179,30 @@ class OrganizationInfo extends StatelessWidget {
                     ),
                     TextSpan(
                       text: organization.description,
+                      style: TextStyle(
+                        fontSize: 17,
+                        color: colorScheme.onBackground,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              RichText(
+                text: TextSpan(
+                  children: <InlineSpan>[
+                    TextSpan(
+                      text: 'Website: ',
+                      style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w600,
+                        color: colorScheme.onBackground,
+                      ),
+                    ),
+                    TextSpan(
+                      text: organization.website,
                       style: TextStyle(
                         fontSize: 17,
                         color: colorScheme.onBackground,

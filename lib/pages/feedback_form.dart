@@ -36,6 +36,7 @@ class _FeedbackFormState extends State<FeedbackForm> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+          SizedBox(height: 10),
           FloatingDescriptionField(
             height: 150,
             maxLength: 1500,

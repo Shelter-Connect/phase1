@@ -19,8 +19,8 @@ class OrganizationBottomNavigationPage extends StatefulWidget {
 class _OrganizationBottomNavigationPageState extends State<OrganizationBottomNavigationPage> {
   int _selectedIndex = 0;
   final List<NavigationTab> _tabs = [
-    ExpectedDeliveriesPage(),
     CurrentRequestsPage(),
+    ExpectedDeliveriesPage(),
     FeedbackForm(),
     OrganizationSettingsPage(),
   ];
@@ -43,7 +43,7 @@ class _OrganizationBottomNavigationPageState extends State<OrganizationBottomNav
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.only(left: 16, bottom: 4.0, top: 8.0),
-                          child: Text(_tabs[_selectedIndex].barTitle, style: mainTitleStyle),
+                          child: Text(_tabs[_selectedIndex].barTitle, style: appBarTitleStyle),
                         ),
                       ),
                       Visibility(
@@ -63,15 +63,23 @@ class _OrganizationBottomNavigationPageState extends State<OrganizationBottomNav
               )
             ),
           ),
+          floatingActionButton: FloatingActionButton(
+            backgroundColor: purpleAccent,
+
+            child: Icon(Icons.add),
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => CreateRequestPage()));
+            },
+          ),
+          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: _selectedIndex,
             type: BottomNavigationBarType.fixed,
             backgroundColor: Colors.white,
             iconSize: 25,
-            selectedFontSize: 15,
+            selectedFontSize: 0,
             selectedItemColor: purpleAccent,
-            unselectedItemColor: Color(0xFFBEBEBE),
-            unselectedFontSize: 15,
+            unselectedFontSize: 0,
             items: [
               ..._tabs
                   .asMap()
@@ -92,15 +100,6 @@ class _OrganizationBottomNavigationPageState extends State<OrganizationBottomNav
               });
             },
           ),
-          floatingActionButton: FloatingActionButton(
-            backgroundColor: purpleAccent,
-
-            child: Icon(Icons.add),
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => CreateRequestPage()));
-            },
-          ),
-          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         ),
       ),
     );

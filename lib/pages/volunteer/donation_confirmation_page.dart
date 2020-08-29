@@ -50,9 +50,7 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
               SizedBox(height: 20),
               Column(
                 children: <Widget>[
-                  Container(
-                    decoration: elevatedBoxStyle,
-                    width: MediaQuery.of(context).size.width,
+                  Card(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16.0),
                       child: Column(
@@ -88,9 +86,7 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                 ],
               ),
               SizedBox(height: 20),
-              Container(
-                decoration: elevatedBoxStyle,
-                width: MediaQuery.of(context).size.width,
+              Card(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 4.0),
                   child: Column(

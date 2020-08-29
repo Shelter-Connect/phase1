@@ -30,8 +30,7 @@ class _DeliveryInformationPageState extends State<DeliveryInformationPage> {
             SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-              child: Container(
-                decoration: elevatedBoxStyle,
+              child: Card(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
                   child: Column(

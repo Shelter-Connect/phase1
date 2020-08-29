@@ -41,36 +41,35 @@ class _EditDeliveryPageState extends State<EditDeliveryPage> {
               children: <Widget>[
                 Text('Delivery to ${widget.donation.organization.name}', style: mainTitleStyle),
                 SizedBox(height: 20),
-                Container(
-                  decoration: elevatedBoxStyle,
-                  padding: const EdgeInsets.all(20.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Expected Delivery Date',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w500,
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Expected Delivery Date',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
-                      ),
-                      BasicDateField(
-                        initialValue: widget.donation.date,
-                        onChanged: (val) {
-                          setState(() {
-                            newDonation.date = val;
-                          });
-                        },
-                      ),
-                    ],
+                        BasicDateField(
+                          initialValue: widget.donation.date,
+                          onChanged: (val) {
+                            setState(() {
+                              newDonation.date = val;
+                            });
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 SizedBox(height: 20),
-                Container(
-                  decoration: elevatedBoxStyle,
-                  width: MediaQuery.of(context).size.width,
+                Card(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,

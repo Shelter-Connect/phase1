@@ -33,30 +33,25 @@ class FloatingTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      elevation: 5,
-      borderRadius: BorderRadius.circular(10),
-      child: Container(
-        width: width,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2),
-          child: TextField(
-            controller: controller,
-            autofocus: autofocus,
-            style: textStyle,
-            obscureText: obscureText,
-            onChanged: onChanged,
-            onTap: onTapped,
-            maxLength: maxLength,
-            maxLines: maxLines,
-            keyboardType: keyboardType,
-            decoration: InputDecoration(
-              suffixIcon: suffixIcon,
-              contentPadding: EdgeInsets.symmetric(horizontal: 12.0),
-              hintText: hintText,
-              hintStyle: hintStyle,
-              border: InputBorder.none,
-            ),
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2),
+        child: TextField(
+          controller: controller,
+          autofocus: autofocus,
+          style: textStyle,
+          obscureText: obscureText,
+          onChanged: onChanged,
+          onTap: onTapped,
+          maxLength: maxLength,
+          maxLines: maxLines,
+          keyboardType: keyboardType,
+          decoration: InputDecoration(
+            suffixIcon: suffixIcon,
+            contentPadding: EdgeInsets.symmetric(horizontal: 12.0),
+            hintText: hintText,
+            hintStyle: hintStyle,
+            border: InputBorder.none,
           ),
         ),
       ),
@@ -102,34 +97,28 @@ class FloatingDescriptionField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      elevation: 5,
-      borderRadius: BorderRadius.circular(10),
-      child: Container(
-        width: width,
-        height: height,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 10),
-          child: TextField(
-            controller: controller,
-            autofocus: autofocus,
-            style: textStyle,
-            obscureText: obscureText,
-            onChanged: onChanged,
-            onTap: onTapped,
-            maxLength: maxLength,
-            maxLines: maxLines,
-            keyboardType: keyboardType,
-            decoration: InputDecoration(
-              suffixIcon: suffixIcon,
-              contentPadding: EdgeInsets.symmetric(horizontal: 12.0),
-              hintText: hintText,
-              hintStyle: hintStyle,
-              border: InputBorder.none,
-              counterText: counterText,
-              labelText: labelText,
-              labelStyle: labelStyle,
-            ),
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 10),
+        child: TextField(
+          controller: controller,
+          autofocus: autofocus,
+          style: textStyle,
+          obscureText: obscureText,
+          onChanged: onChanged,
+          onTap: onTapped,
+          maxLength: maxLength,
+          maxLines: maxLines,
+          keyboardType: keyboardType,
+          decoration: InputDecoration(
+            suffixIcon: suffixIcon,
+            contentPadding: EdgeInsets.symmetric(horizontal: 12.0),
+            hintText: hintText,
+            hintStyle: hintStyle,
+            border: InputBorder.none,
+            counterText: counterText,
+            labelText: labelText,
+            labelStyle: labelStyle,
           ),
         ),
       ),

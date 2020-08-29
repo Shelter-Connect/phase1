@@ -47,7 +47,7 @@ dependencies:
   maps_launcher: ^1.2.2+1
   animated_splash: ^1.0.0
   map_launcher: ^0.12.0
-
+  flutter_speed_dial: ^1.2.5
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.3
@@ -79,6 +79,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - assets/random_svgs/googlemaps.svg
     - assets/ui_svgs/road_sign.svg
     - assets/ui_svgs/searching.svg
     - assets/ui_svgs/dood.svg

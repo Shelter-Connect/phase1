@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:phase1/models/organization.dart';
 import 'package:phase1/models/user_position.dart';
 import 'package:phase1/services/location_helper.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../components/organization_donation_profile.dart';
 import '../../constants.dart';
@@ -18,13 +20,13 @@ class OrganizationDiscover extends StatefulWidget with NavigationTab {
       'To see more information about an organization, or to sign up for a donation, click on an organization. ';
 
   @override
-  IconData get icon => Icons.search;
+  IconData get icon => Icons.home;
 
   @override
-  String get title => 'Discover';
+  String get title => 'Linkare';
 
   @override
-  String get barTitle => 'Discover';
+  String get barTitle => 'Linkare';
 }
 
 class _OrganizationDiscoverState extends State<OrganizationDiscover> {
@@ -54,6 +56,30 @@ class _OrganizationDiscoverState extends State<OrganizationDiscover> {
           builder: (context, snapshot) {
             if (!snapshot.hasData || (Provider.of<UserPosition>(context).position == null && hasPosition)) {
               return Center(child: CircularProgressIndicator());
+            }
+            if (snapshot.data.documents == null) {
+              return Column(
+                children: [
+                  Text(
+                    'There are no organizations on the app yet, but please stick around! There are many organizations eager to start requesting!',
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 15.0,
+                    ),
+                  ),
+                  SizedBox(height: 40),
+                  Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                      child: Center(
+                        child: SvgPicture.asset('assets/ui_svgs/searching.svg',
+                          semanticsLabel: 'Go Discover More Organizations to Help!',
+                          width: MediaQuery.of(context).size.width,
+                        ),
+                      )
+                  ),
+                  SizedBox(height: 20),
+                ],
+              );
             }
             List<Widget> widgets = [];
             for (DocumentSnapshot organizationSnapshot in snapshot.data.documents) {
