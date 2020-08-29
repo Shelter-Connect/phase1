@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:map_launcher/map_launcher.dart';
 import 'package:phase1/components/maps_sheet.dart';
 import 'package:phase1/components/standard_layout.dart';
@@ -70,9 +71,7 @@ class _OrganizationPreviewPageState extends State<OrganizationPreviewPage> {
                         style: subTitleStyle,
                       ),
                       SizedBox(height: 20),
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        decoration: elevatedBoxStyle,
+                      Card(
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
                           child: Column(
@@ -88,11 +87,9 @@ class _OrganizationPreviewPageState extends State<OrganizationPreviewPage> {
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     textDirection: TextDirection.rtl,
                                     children: [
-                                      IconButton(
-                                        onPressed: () {
-                                          MapSheet().build(context);
-                                        },
-                                        icon: Icon(Icons.explore),
+                                      FlatButton(
+                                          onPressed: () { MapSheet().build(context); },
+                                          child: SvgPicture.asset("assets/random_svgs/googlemaps.svg", height: 28,)
                                       ),
                                       Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -247,9 +244,7 @@ class _OrganizationPreviewPageState extends State<OrganizationPreviewPage> {
                       SizedBox(height: 20),
                       Column(
                         children: <Widget>[
-                          Container(
-                            decoration: elevatedBoxStyle,
-                            width: MediaQuery.of(context).size.width,
+                          Card(
                             child: Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16.0),
                               child: Column(

@@ -69,8 +69,8 @@ class _VolunteerBottomNavigationPageState extends State<VolunteerBottomNavigatio
               backgroundColor: Colors.white,
               iconSize: 25,
               selectedFontSize: 0,
-              selectedItemColor: purpleAccent,
-              unselectedItemColor: Color(0xFFBEBEBE),
+              selectedItemColor: Color(0xFF6576EC),
+              unselectedItemColor: Colors.black12,
               unselectedFontSize: 0,
               items: [
                 ..._tabs

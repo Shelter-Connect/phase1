@@ -5,6 +5,7 @@ import 'package:phase1/models/organization.dart';
 import 'package:phase1/models/user_position.dart';
 import 'package:phase1/services/location_helper.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../components/organization_donation_profile.dart';
 import '../../constants.dart';
@@ -19,13 +20,13 @@ class OrganizationDiscover extends StatefulWidget with NavigationTab {
       'To see more information about an organization, or to sign up for a donation, click on an organization. ';
 
   @override
-  IconData get icon => Icons.explore;
+  IconData get icon => Icons.home;
 
   @override
-  String get title => 'Discover';
+  String get title => 'Linkare';
 
   @override
-  String get barTitle => 'Discover';
+  String get barTitle => 'Linkare';
 }
 
 class _OrganizationDiscoverState extends State<OrganizationDiscover> {

@@ -19,8 +19,8 @@ class OrganizationBottomNavigationPage extends StatefulWidget {
 class _OrganizationBottomNavigationPageState extends State<OrganizationBottomNavigationPage> {
   int _selectedIndex = 0;
   final List<NavigationTab> _tabs = [
-    ExpectedDeliveriesPage(),
     CurrentRequestsPage(),
+    ExpectedDeliveriesPage(),
     FeedbackForm(),
     OrganizationSettingsPage(),
   ];
@@ -79,7 +79,6 @@ class _OrganizationBottomNavigationPageState extends State<OrganizationBottomNav
             iconSize: 25,
             selectedFontSize: 0,
             selectedItemColor: purpleAccent,
-            unselectedItemColor: Color(0xFFBEBEBE),
             unselectedFontSize: 0,
             items: [
               ..._tabs
