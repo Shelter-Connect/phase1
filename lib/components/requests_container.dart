@@ -48,11 +48,24 @@ class RequestContainer extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             if (items[index].amount > 0)
-                              Text(
-                                '${items[index].name} - ${items[index].amount.toString()} ${items[index].unit ?? ''}'.trim(),
-                                style: TextStyle(
-                                  fontSize: 17,
-                                ),
+                              Row(
+                                children: [
+                                  Container(
+                                    height: 12,
+                                    width: 12,
+                                    decoration: BoxDecoration(
+                                        color: Colors.green,
+                                        borderRadius: BorderRadius.circular(40)
+                                    ),
+                                  ),
+                                  SizedBox(width: 10),
+                                  Text(
+                                    '${items[index].name} - ${items[index].amount.toString()} ${items[index].unit ?? ''}'.trim(),
+                                    style: TextStyle(
+                                      fontSize: 17,
+                                    ),
+                                  ),
+                                ],
                               )
                             else
                               Text(
