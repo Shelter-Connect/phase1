@@ -170,10 +170,7 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                                               Container(
                                                 height: 12,
                                                 width: 12,
-                                                decoration: BoxDecoration(
-                                                    color: Colors.green,
-                                                    borderRadius: BorderRadius.circular(40)
-                                                ),
+                                                decoration: BoxDecoration(color: Colors.green, borderRadius: BorderRadius.circular(40)),
                                               ),
                                               SizedBox(width: 10),
                                               Text(
@@ -265,21 +262,23 @@ class OrganizationInformation extends StatelessWidget {
     return Column(
       children: <Widget>[
         Card(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Row(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0, left: 20.0),
+                child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   textDirection: ui.TextDirection.rtl,
                   children: [
                     FlatButton(
-                        onPressed: () { MapSheet().build(context); },
-                        child: SvgPicture.asset("assets/random_svgs/googlemaps.svg", height: 28,)
-                    ),
+                        onPressed: () {
+                          MapSheet().build(context);
+                        },
+                        child: SvgPicture.asset(
+                          "assets/random_svgs/googlemaps.svg",
+                          height: 28,
+                        )),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -311,84 +310,93 @@ class OrganizationInformation extends StatelessWidget {
                     ),
                   ],
                 ),
-                Column(
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8.0, left: 20.0, right: 20.0),
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    RichText(
-                      text: TextSpan(
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: 'Email Address: ',
-                            style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.black,
-                            ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        RichText(
+                          text: TextSpan(
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: 'Email Address: ',
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              TextSpan(
+                                text: orgEmail,
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.black,
+                                ),
+                              )
+                            ],
                           ),
-                          TextSpan(
-                            text: orgEmail,
-                            style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black,
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    RichText(
-                      text: TextSpan(
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: 'Donation Location: ',
-                            style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.black,
-                            ),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        RichText(
+                          text: TextSpan(
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: 'Donation Location: ',
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              TextSpan(
+                                text: orgAddress,
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.black,
+                                ),
+                              )
+                            ],
                           ),
-                          TextSpan(
-                            text: orgAddress,
-                            style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black,
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    RichText(
-                      text: TextSpan(
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: 'Deliver By: ',
-                            style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.black,
-                            ),
+                        ),
+                        RichText(
+                          text: TextSpan(
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: 'Deliver By: ',
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              TextSpan(
+                                text: '${DateFormat('MMMMd').format(dateTime)}',
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ],
                           ),
-                          TextSpan(
-                            text: '${DateFormat('MMMMd').format(dateTime)}',
-                            style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 5)
+                        ),
+                        SizedBox(height: 5)
+                      ],
+                    )
                   ],
-                )
-              ],
-            ),
+                ),
+              ),
+            ],
           ),
         ),
       ],
