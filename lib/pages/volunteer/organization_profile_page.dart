@@ -111,7 +111,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                             height: 10,
                                           ),
                                           Text(
-                                            'About This Organization',
+                                            'About',
                                             style: TextStyle(
                                               fontSize: 20,
                                               fontWeight: FontWeight.w600,
@@ -122,7 +122,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                           ),
                                           Container(
                                             height: 5,
-                                            width: 100,
+                                            width: 50,
                                             decoration: BoxDecoration(
                                               color: purpleAccent,
                                               borderRadius: BorderRadius.circular(21),
@@ -278,7 +278,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                       ),
                                       Container(
                                         height: 5,
-                                        width: 100,
+                                        width: 50,
                                         decoration: BoxDecoration(
                                           color: purpleAccent,
                                           borderRadius: BorderRadius.circular(21),
