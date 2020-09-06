@@ -89,7 +89,8 @@ class FirestoreHelper {
 
   //Moves a donation from currentDonations to pastDonations
   static Future<void> confirmDelivery(BuildContext context, Donation donation) async {
-    CollectionReference volunteerCurrentDonationCollection = getCurrentVolunteerReference(context).collection('currentDonations');
+    CollectionReference volunteerCurrentDonationCollection =
+        db.collection('volunteers').document(donation.volunteerId).collection('currentDonations');
     CollectionReference organizationCurrentDonationCollection = getCurrentOrganizationReference(context).collection('currentDonations');
     CollectionReference volunteerPastDonationCollection = db.collection('volunteers').document(donation.volunteerId).collection('pastDonations');
     CollectionReference organizationPastDonationCollection = getCurrentOrganizationReference(context).collection('pastDonations');
