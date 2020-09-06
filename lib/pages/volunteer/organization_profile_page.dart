@@ -86,7 +86,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                       SizedBox(height: 20),
                       Card(
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
+                          padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, left: 20.0),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -101,9 +101,13 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                     textDirection: TextDirection.rtl,
                                     children: [
                                       FlatButton(
-                                        onPressed: () { MapSheet().build(context); },
-                                        child: SvgPicture.asset("assets/random_svgs/googlemaps.svg", height: 28,)
-                                      ),
+                                          onPressed: () {
+                                            MapSheet().build(context);
+                                          },
+                                          child: SvgPicture.asset(
+                                            "assets/random_svgs/googlemaps.svg",
+                                            height: 28,
+                                          )),
                                       Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
@@ -312,10 +316,8 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                                                   Container(
                                                                     height: 12,
                                                                     width: 12,
-                                                                    decoration: BoxDecoration(
-                                                                        color: Colors.green,
-                                                                        borderRadius: BorderRadius.circular(40)
-                                                                    ),
+                                                                    decoration:
+                                                                        BoxDecoration(color: Colors.green, borderRadius: BorderRadius.circular(40)),
                                                                   ),
                                                                   SizedBox(width: 10),
                                                                   Text(
