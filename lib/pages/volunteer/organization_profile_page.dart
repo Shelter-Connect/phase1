@@ -111,7 +111,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                             height: 10,
                                           ),
                                           Text(
-                                            'About This Organization',
+                                            'About',
                                             style: TextStyle(
                                               fontSize: 20,
                                               fontWeight: FontWeight.w600,
@@ -122,7 +122,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                           ),
                                           Container(
                                             height: 5,
-                                            width: 100,
+                                            width: 50,
                                             decoration: BoxDecoration(
                                               color: purpleAccent,
                                               borderRadius: BorderRadius.circular(21),
@@ -278,7 +278,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                       ),
                                       Container(
                                         height: 5,
-                                        width: 100,
+                                        width: 50,
                                         decoration: BoxDecoration(
                                           color: purpleAccent,
                                           borderRadius: BorderRadius.circular(21),
@@ -307,12 +307,25 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                                           child: Column(
                                                             crossAxisAlignment: CrossAxisAlignment.start,
                                                             children: [
-                                                              Text(
-                                                                '${item.name} - ${item.amount} ${item.unit ?? ''}'.trim(),
-                                                                style: TextStyle(
-                                                                  fontSize: 17.0,
-                                                                  fontWeight: FontWeight.w400,
-                                                                ),
+                                                              Row(
+                                                                children: [
+                                                                  Container(
+                                                                    height: 12,
+                                                                    width: 12,
+                                                                    decoration: BoxDecoration(
+                                                                        color: Colors.green,
+                                                                        borderRadius: BorderRadius.circular(40)
+                                                                    ),
+                                                                  ),
+                                                                  SizedBox(width: 10),
+                                                                  Text(
+                                                                    '${item.name} - ${item.amount} ${item.unit ?? ''}'.trim(),
+                                                                    style: TextStyle(
+                                                                      fontSize: 17.0,
+                                                                      fontWeight: FontWeight.w400,
+                                                                    ),
+                                                                  ),
+                                                                ],
                                                               ),
                                                               if (item.specificDescription != null)
                                                                 Text(

@@ -63,7 +63,20 @@ class _DeliveryInformationPageState extends State<DeliveryInformationPage> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(widget.donation.items[index].name, style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400)),
+                                  Row(
+                                    children: [
+                                      Container(
+                                        height: 12,
+                                        width: 12,
+                                        decoration: BoxDecoration(
+                                            color: Colors.green,
+                                            borderRadius: BorderRadius.circular(40)
+                                        ),
+                                      ),
+                                      SizedBox(width: 10),
+                                      Text(widget.donation.items[index].name, style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400)),
+                                    ],
+                                  ),
                                   Text('${widget.donation.items[index].amount} ${widget.donation.items[index].unit ?? ''}',
                                       style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400))
                                 ],

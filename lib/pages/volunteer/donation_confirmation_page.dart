@@ -145,12 +145,25 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                                             children: [
                                               Padding(
                                                 padding: const EdgeInsets.only(bottom: 5.0),
-                                                child: Text(
-                                                  '${item.name} - ${item.amount} ${item.unit ?? ''}'.trim(),
-                                                  style: TextStyle(
-                                                    fontSize: 17.0,
-                                                    fontWeight: FontWeight.w400,
-                                                  ),
+                                                child: Row(
+                                                  children: [
+                                                    Container(
+                                                      height: 12,
+                                                      width: 12,
+                                                      decoration: BoxDecoration(
+                                                          color: Colors.green,
+                                                          borderRadius: BorderRadius.circular(40)
+                                                      ),
+                                                    ),
+                                                    SizedBox(width: 10),
+                                                    Text(
+                                                      '${item.name} - ${item.amount} ${item.unit ?? ''}'.trim(),
+                                                      style: TextStyle(
+                                                        fontSize: 17.0,
+                                                        fontWeight: FontWeight.w400,
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
                                               ),
                                             ],

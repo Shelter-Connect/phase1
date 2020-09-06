@@ -34,8 +34,8 @@ class FloatingTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      elevation: 5,
-      borderRadius: BorderRadius.circular(10),
+      elevation: 2,
+      borderRadius: BorderRadius.circular(5),
       child: Container(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2),
@@ -102,9 +102,10 @@ class FloatingDescriptionField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      elevation: 5,
-      borderRadius: BorderRadius.circular(10),
+      elevation: 2,
+      borderRadius: BorderRadius.circular(5),
       child: Container(
+        height: 200,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 10),
           child: TextField(

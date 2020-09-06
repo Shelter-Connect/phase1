@@ -73,22 +73,35 @@ class _ConfirmDeliveryPageState extends State<ConfirmDeliveryPage> {
                                     (item) => Padding(
                                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                                       child: Container(
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: <Widget>[
-                                            Text(
-                                              '${item.name}',
-                                              style: TextStyle(fontSize: 19, fontWeight: FontWeight.w400),
-                                            ),
-                                            Text(
-                                              '${item.unit}',
-                                              style: TextStyle(fontSize: 19, fontWeight: FontWeight.w400),
-                                            ),
-                                            if (item.specificDescription != null)
-                                              Text(
-                                                item.specificDescription,
-                                                style: TextStyle(fontSize: 14, color: Colors.grey),
+                                        child: Row(
+                                          children: [
+                                            Container(
+                                              height: 12,
+                                              width: 12,
+                                              decoration: BoxDecoration(
+                                                  color: Colors.green,
+                                                  borderRadius: BorderRadius.circular(40)
                                               ),
+                                            ),
+                                            SizedBox(width: 10),
+                                            Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: <Widget>[
+                                                Text(
+                                                  '${item.name}',
+                                                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400),
+                                                ),
+                                                Text(
+                                                  'Unit: ${item.unit}',
+                                                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400, color: Colors.black54),
+                                                ),
+                                                if (item.specificDescription != null)
+                                                  Text(
+                                                    item.specificDescription,
+                                                    style: TextStyle(fontSize: 14, color: Colors.grey),
+                                                  ),
+                                              ],
+                                            ),
                                           ],
                                         ),
                                       ),

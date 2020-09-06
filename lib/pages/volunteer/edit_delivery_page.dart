@@ -114,13 +114,28 @@ class _EditDeliveryPageState extends State<EditDeliveryPage> {
                                           child: Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
-                                              Text(
-                                                '${widget.donation.items[index].name} - ${widget.donation.items[index].amount} ${widget.donation.items[index].unit ?? ''}'
-                                                    .trim(),
-                                                style: TextStyle(
-                                                  fontSize: 17.0,
-                                                  fontWeight: FontWeight.w400,
-                                                ),
+                                              Row(
+                                                children: [
+                                                  Container(
+                                                    height: 12,
+                                                    width: 12,
+                                                    decoration: BoxDecoration(
+                                                        color: Colors.green,
+                                                        borderRadius: BorderRadius.circular(40)
+                                                    ),
+                                                  ),
+                                                  SizedBox(width: 10),
+                                                  Expanded(
+                                                    child: Text(
+                                                      '${widget.donation.items[index].name} - ${widget.donation.items[index].amount} ${widget.donation.items[index].unit ?? ''}'
+                                                          .trim(),
+                                                      style: TextStyle(
+                                                        fontSize: 17.0,
+                                                        fontWeight: FontWeight.w400,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
                                               if (widget.donation.items[index].specificDescription != null)
                                                 Text(

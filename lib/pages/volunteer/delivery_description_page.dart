@@ -165,13 +165,26 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                                       children: <Widget>[
                                         Padding(
                                           padding: const EdgeInsets.only(bottom: 5.0),
-                                          child: Text(
-                                            '${donation.items[index].name} - ${donation.items[index].amount} ${donation.items[index].unit ?? ''}'
-                                                .trim(),
-                                            style: TextStyle(
-                                              fontSize: 17.0,
-                                              fontWeight: FontWeight.w400,
-                                            ),
+                                          child: Row(
+                                            children: [
+                                              Container(
+                                                height: 12,
+                                                width: 12,
+                                                decoration: BoxDecoration(
+                                                    color: Colors.green,
+                                                    borderRadius: BorderRadius.circular(40)
+                                                ),
+                                              ),
+                                              SizedBox(width: 10),
+                                              Text(
+                                                '${donation.items[index].name} - ${donation.items[index].amount} ${donation.items[index].unit ?? ''}'
+                                                    .trim(),
+                                                style: TextStyle(
+                                                  fontSize: 17.0,
+                                                  fontWeight: FontWeight.w400,
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
                                         if (donation.items[index].specificDescription != null)

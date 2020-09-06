@@ -63,7 +63,20 @@ class ExpectedDeliveryContainer extends StatelessWidget {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('${donation.items[index].name} - ${donation.items[index].amount.toString()} ${donation.items[index].unit ?? ''}', style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400)),
+                        Row(
+                          children: [
+                            Container(
+                              height: 12,
+                              width: 12,
+                              decoration: BoxDecoration(
+                                  color: Colors.green,
+                                  borderRadius: BorderRadius.circular(40)
+                              ),
+                            ),
+                            SizedBox(width: 10),
+                            Text('${donation.items[index].name} - ${donation.items[index].amount.toString()} ${donation.items[index].unit ?? ''}', style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400)),
+                          ],
+                        ),
                         if (donation.items[index].specificDescription != null)
                           Text(
                             donation.items[index].specificDescription,

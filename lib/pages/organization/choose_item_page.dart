@@ -52,7 +52,7 @@ class ChooseItemPage extends StatelessWidget {
               SizedBox(height: 20),
               Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(5),
                   color: colorScheme.background,
                 ),
                 child: Padding(
