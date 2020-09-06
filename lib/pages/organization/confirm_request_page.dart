@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:phase1/components/alerts.dart';
 import 'package:phase1/components/category_icon_button.dart';
 import 'package:phase1/components/colored_button.dart';
+import 'package:phase1/components/dropdownmenu.dart';
 import 'package:phase1/components/floating_text_field.dart';
 import 'package:phase1/components/flushbar.dart';
 import 'package:phase1/components/increment.dart';
@@ -84,14 +85,16 @@ class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
                           specificDescription = val;
                         },
                       ),
-                      SizedBox(height: 24),
+                      SizedBox(height: 20),
                       FloatingTextField(
                         hintText: 'Unit (Liters, Cans, etc.)',
                         onChanged: (val) {
                           itemUnit = val;
                         },
                       ),
-                      SizedBox(height: 24),
+                      SizedBox(height: 20),
+                      DropDown(),
+                      SizedBox(height: 20),
                       ItemIncrementCreateRequest(
                         onChanged: (val) {
                           setState(() {
@@ -103,7 +106,7 @@ class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
                   ),
                 ],
               ),
-              SizedBox(height: 16),
+              SizedBox(height: 20),
               ColoredButton(
                 color: colorScheme.onSecondary,
                 textColor: purpleAccent,
