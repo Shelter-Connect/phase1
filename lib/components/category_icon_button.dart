@@ -19,7 +19,7 @@ class CategoryIconButton extends StatelessWidget {
           height: 105.0,
           width: 105.0,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(5),
             color: colorScheme.background,
           ),
           child: Column(
@@ -48,7 +48,7 @@ class CategoryIconDisplay extends StatelessWidget {
         height: 105.0,
         width: 105.0,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(21),
+          borderRadius: BorderRadius.circular(5),
           color: colorScheme.background,
         ),
         child: Column(

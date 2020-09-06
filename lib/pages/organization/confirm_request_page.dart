@@ -62,23 +62,14 @@ class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
               SizedBox(height: 20),
               Wrap(
                 children: <Widget>[
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: colorScheme.background,
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
-                      child: Wrap(
-                        crossAxisAlignment: WrapCrossAlignment.center,
-                        children: <Widget>[
-                          CategoryIconDisplay(
-                            name: widget.itemName ?? null,
-                            asset: widget.itemIcon ?? null,
-                          ),
-                        ],
+                  Wrap(
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    children: <Widget>[
+                      CategoryIconDisplay(
+                        name: widget.itemName ?? null,
+                        asset: widget.itemIcon ?? null,
                       ),
-                    ),
+                    ],
                   ),
                   SizedBox(width: 16),
                   Column(
