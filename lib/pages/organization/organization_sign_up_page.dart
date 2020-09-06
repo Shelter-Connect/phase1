@@ -66,7 +66,7 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
                 SizedBox(height: 20),
                 FloatingTextField(
                   controller: controller,
-                  hintText: 'Organization Location',
+                  hintText: 'Organization Address',
                   onTapped: () async {
                     Prediction p = await PlacesAutocomplete.show(context: context, apiKey: kGoogleApiKey, mode: Mode.overlay, controller: controller);
                     if (p != null)
