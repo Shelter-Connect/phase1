@@ -139,23 +139,14 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                                             ),
                                           ),
                                         Padding(
-                                          padding: const EdgeInsets.only(top: 3.0),
+                                          padding: const EdgeInsets.only(bottom: 5.0),
                                           child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Padding(
-                                                padding: const EdgeInsets.only(bottom: 5.0),
-                                                child: Row(
+                                              Align(
+                                                alignment: Alignment.centerLeft,
+                                                child: Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
                                                   children: [
-                                                    Container(
-                                                      height: 12,
-                                                      width: 12,
-                                                      decoration: BoxDecoration(
-                                                          color: Colors.green,
-                                                          borderRadius: BorderRadius.circular(40)
-                                                      ),
-                                                    ),
-                                                    SizedBox(width: 10),
                                                     Text(
                                                       '${item.name} - ${item.amount} ${item.unit ?? ''}'.trim(),
                                                       style: TextStyle(
@@ -163,17 +154,30 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                                                         fontWeight: FontWeight.w400,
                                                       ),
                                                     ),
+                                                    if (item.specificDescription != null)
+                                                      Text(
+                                                        item.specificDescription,
+                                                        style: TextStyle(fontSize: 14, color: Colors.grey),
+                                                      ),
                                                   ],
+                                                ),
+                                              ),
+                                              Expanded(
+                                                child: Align(
+                                                  alignment: Alignment.centerRight,
+                                                  child: Container(
+                                                    height: 12,
+                                                    width: 12,
+                                                    decoration: BoxDecoration(
+                                                        color: Colors.green,
+                                                        borderRadius: BorderRadius.circular(40)
+                                                    ),
+                                                  ),
                                                 ),
                                               ),
                                             ],
                                           ),
                                         ),
-                                        if (item.specificDescription != null)
-                                          Text(
-                                            item.specificDescription,
-                                            style: TextStyle(fontSize: 14, color: Colors.grey),
-                                          ),
                                       ],
                                     ),
                                   );

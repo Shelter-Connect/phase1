@@ -136,6 +136,15 @@ class _EditCurrentRequestsPageState extends State<EditCurrentRequestsPage> {
                                                 Expanded(
                                                   child: Row(
                                                     children: [
+                                                      Expanded(
+                                                        child: Text(
+                                                          itemCategories[category][index].name,
+                                                          style: TextStyle(
+                                                            fontSize: 17,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      SizedBox(width: 5),
                                                       Container(
                                                         height: 14,
                                                         width: 14,
@@ -145,14 +154,6 @@ class _EditCurrentRequestsPageState extends State<EditCurrentRequestsPage> {
                                                         ),
                                                       ),
                                                       SizedBox(width: 10),
-                                                      Expanded(
-                                                        child: Text(
-                                                          itemCategories[category][index].name,
-                                                          style: TextStyle(
-                                                            fontSize: 17,
-                                                          ),
-                                                        ),
-                                                      ),
                                                     ],
                                                   ),
                                                 ),

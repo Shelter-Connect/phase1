@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:phase1/components/alerts.dart';
 import 'package:phase1/components/category_icon_button.dart';
 import 'package:phase1/components/colored_button.dart';
+import 'package:phase1/components/date_time_field.dart';
 import 'package:phase1/components/dropdownmenu.dart';
 import 'package:phase1/components/floating_text_field.dart';
 import 'package:phase1/components/flushbar.dart';
@@ -93,14 +94,40 @@ class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
                         },
                       ),
                       SizedBox(height: 20),
-                      DropDown(),
-                      SizedBox(height: 20),
                       ItemIncrementCreateRequest(
                         onChanged: (val) {
                           setState(() {
                             amount = val;
                           });
                         },
+                      ),
+                      SizedBox(height: 20),
+                      DropDown(),
+                      SizedBox(height: 20),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(5)
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 15),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Donation Deadline Date',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.black54
+                                ),
+                              ),
+                              BasicDateField(
+                                onChanged: (val) {print('Hello');} //TODO Add deadline date save feature
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
                     ],
                   ),

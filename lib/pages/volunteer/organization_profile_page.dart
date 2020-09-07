@@ -315,32 +315,39 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                                         alignment: Alignment.centerLeft,
                                                         child: Padding(
                                                           padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                                          child: Column(
-                                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                                          child: Row(
                                                             children: [
-                                                              Row(
-                                                                children: [
-                                                                  Container(
+                                                              Align(
+                                                                alignment: Alignment.centerLeft,
+                                                                child: Column(
+                                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                                  children: [
+                                                                    Text(
+                                                                      '${item.name} - ${item.amount} ${item.unit ?? ''}'.trim(),
+                                                                      style: TextStyle(
+                                                                        fontSize: 17.0,
+                                                                        fontWeight: FontWeight.w400,
+                                                                      ),
+                                                                    ),
+                                                                    if (item.specificDescription != null)
+                                                                      Text(
+                                                                        item.specificDescription,
+                                                                        style: TextStyle(fontSize: 14, color: Colors.grey),
+                                                                      ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                              Expanded(
+                                                                child: Align(
+                                                                  alignment: Alignment.centerRight,
+                                                                  child: Container(
                                                                     height: 12,
                                                                     width: 12,
                                                                     decoration:
-                                                                        BoxDecoration(color: Colors.green, borderRadius: BorderRadius.circular(40)),
+                                                                    BoxDecoration(color: Colors.green, borderRadius: BorderRadius.circular(40)),
                                                                   ),
-                                                                  SizedBox(width: 10),
-                                                                  Text(
-                                                                    '${item.name} - ${item.amount} ${item.unit ?? ''}'.trim(),
-                                                                    style: TextStyle(
-                                                                      fontSize: 17.0,
-                                                                      fontWeight: FontWeight.w400,
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                              if (item.specificDescription != null)
-                                                                Text(
-                                                                  item.specificDescription,
-                                                                  style: TextStyle(fontSize: 14, color: Colors.grey),
                                                                 ),
+                                                              ),
                                                             ],
                                                           ),
                                                         ),
