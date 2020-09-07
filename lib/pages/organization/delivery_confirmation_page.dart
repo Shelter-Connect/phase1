@@ -75,15 +75,6 @@ class _ConfirmDeliveryPageState extends State<ConfirmDeliveryPage> {
                                       child: Container(
                                         child: Row(
                                           children: [
-                                            Container(
-                                              height: 12,
-                                              width: 12,
-                                              decoration: BoxDecoration(
-                                                  color: Colors.green,
-                                                  borderRadius: BorderRadius.circular(40)
-                                              ),
-                                            ),
-                                            SizedBox(width: 10),
                                             Column(
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: <Widget>[

@@ -72,33 +72,36 @@ class _OrganizationBottomNavigationPageState extends State<OrganizationBottomNav
             },
           ),
           floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-          bottomNavigationBar: BottomNavigationBar(
-            currentIndex: _selectedIndex,
-            type: BottomNavigationBarType.fixed,
-            backgroundColor: Colors.white,
-            iconSize: 25,
-            selectedFontSize: 0,
-            selectedItemColor: purpleAccent,
-            unselectedFontSize: 0,
-            items: [
-              ..._tabs
-                  .asMap()
-                  .map(
-                    (index, tab) => MapEntry(
-                        index,
-                        BottomNavigationBarItem(
-                          icon: Icon(tab.icon),
-                          title: Text(tab.title),
-                        )),
-                  )
-                  .values
-                  .toList(),
-            ],
-            onTap: (index) {
-              setState(() {
-                _selectedIndex = index;
-              });
-            },
+          bottomNavigationBar: SizedBox(
+            height: MediaQuery.of(context).size.height / 14,
+            child: BottomNavigationBar(
+              currentIndex: _selectedIndex,
+              type: BottomNavigationBarType.fixed,
+              backgroundColor: Colors.white,
+              iconSize: 25,
+              selectedFontSize: 0,
+              selectedItemColor: purpleAccent,
+              unselectedFontSize: 0,
+              items: [
+                ..._tabs
+                    .asMap()
+                    .map(
+                      (index, tab) => MapEntry(
+                          index,
+                          BottomNavigationBarItem(
+                            icon: Icon(tab.icon),
+                            title: Text(tab.title),
+                          )),
+                    )
+                    .values
+                    .toList(),
+              ],
+              onTap: (index) {
+                setState(() {
+                  _selectedIndex = index;
+                });
+              },
+            ),
           ),
         ),
       ),

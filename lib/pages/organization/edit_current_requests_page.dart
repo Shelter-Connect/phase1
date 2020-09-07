@@ -141,12 +141,6 @@ class _EditCurrentRequestsPageState extends State<EditCurrentRequestsPage> {
                                                 Expanded(
                                                   child: Row(
                                                     children: [
-                                                      Container(
-                                                        height: 14,
-                                                        width: 14,
-                                                        decoration: BoxDecoration(color: Colors.green, borderRadius: BorderRadius.circular(40)),
-                                                      ),
-                                                      SizedBox(width: 10),
                                                       Expanded(
                                                         child: Text(
                                                           itemCategories[category][index].name,
@@ -155,6 +149,13 @@ class _EditCurrentRequestsPageState extends State<EditCurrentRequestsPage> {
                                                           ),
                                                         ),
                                                       ),
+                                                      SizedBox(width: 5),
+                                                      Container(
+                                                        height: 14,
+                                                        width: 14,
+                                                        decoration: BoxDecoration(color: Colors.green, borderRadius: BorderRadius.circular(40)),
+                                                      ),
+                                                      SizedBox(width: 10),
                                                     ],
                                                   ),
                                                 ),

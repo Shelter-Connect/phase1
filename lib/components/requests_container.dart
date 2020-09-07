@@ -44,25 +44,36 @@ class RequestContainer extends StatelessWidget {
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 5.0),
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             if (items[index].amount > 0)
                               Row(
                                 children: [
-                                  Container(
-                                    height: 12,
-                                    width: 12,
-                                    decoration: BoxDecoration(
-                                        color: Colors.green,
-                                        borderRadius: BorderRadius.circular(40)
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          '${items[index].name} - ${items[index].amount.toString()} ${items[index].unit ?? ''}'.trim(),
+                                          style: TextStyle(
+                                            fontSize: 17,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                  SizedBox(width: 10),
-                                  Text(
-                                    '${items[index].name} - ${items[index].amount.toString()} ${items[index].unit ?? ''}'.trim(),
-                                    style: TextStyle(
-                                      fontSize: 17,
+                                  Expanded(
+                                    child: Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Container(
+                                        height: 12,
+                                        width: 12,
+                                        decoration: BoxDecoration(
+                                            color: Colors.green,
+                                            borderRadius: BorderRadius.circular(40)
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ],

@@ -56,7 +56,9 @@ class _OrganizationSettingsPageState extends State<OrganizationSettingsPage> {
               OrganizationInfo(organization: organization),
               SizedBox(height: 20),
               DemoProfileButton(organization),
-              SizedBox(height: 10),
+              SizedBox(height: 20),
+              DonationAvailabilityHourSettings(),
+              SizedBox(height: 20),
               DeleteAccount(),
               SizedBox(height: 20),
             ],
@@ -241,6 +243,167 @@ class OrganizationInfo extends StatelessWidget {
                         SizedBox(width: 2),
                         Text(
                           'Edit Account Information',
+                          style: TextStyle(
+                            color: colorScheme.onSecondary,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16.0,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 5),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class DonationAvailabilityHourSettings extends StatelessWidget {
+  final Organization organization;
+
+  DonationAvailabilityHourSettings({this.organization});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Card(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                'Donation Availability Hours',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Container(
+                height: 5,
+                width: 100,
+                decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
+              ),
+              SizedBox(height: 10),
+              Text(
+                'Weekly Schedule',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+              ),
+              SizedBox(height: 10),
+              Table(
+                  border: TableBorder.all(),
+                  children: [
+                    TableRow(children: [
+                      Padding(
+                        padding: const EdgeInsets.all(4),
+                        child: Text('M'),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(4),
+                        child: Text('T'),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(4),
+                        child: Text('W'),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(4),
+                        child: Text('Th'),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(4),
+                        child: Text('F'),
+                      ),
+                    ]),
+                    TableRow(children: [
+                      Padding(
+                        padding: const EdgeInsets.all(4),
+                        child: Text('1:30 - 2:30'),
+                      ), //TODO Add date functionality
+                      Padding(
+                        padding: const EdgeInsets.all(4),
+                        child: Text('1:30 - 2:30'),
+                      ), //TODO Add date functionality
+                      Padding(
+                        padding: const EdgeInsets.all(4),
+                        child: Text('1:30 - 2:30'),
+                      ), //TODO Add date functionality
+                      Padding(
+                        padding: const EdgeInsets.all(4),
+                        child: Text('1:30 - 2:30'),
+                      ), //TODO Add date functionality
+                      Padding(
+                        padding: const EdgeInsets.all(4),
+                        child: Text('1:30 - 2:30'),
+                      ), //TODO Add date functionality
+                    ]),
+                  ]
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Table(
+                  border: TableBorder.all(),
+                  children: [
+                    TableRow(children: [
+                      Padding(
+                        padding: const EdgeInsets.all(4),
+                        child: Text('S'),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(4),
+                        child: Text('Su'),
+                      ),
+                    ]),
+                    TableRow(children: [
+                      Padding(
+                        padding: const EdgeInsets.all(4),
+                        child: Text('1:30 - 2:30'),
+                      ), //TODO Add date functionality
+                      Padding(
+                        padding: const EdgeInsets.all(4),
+                        child: Text('1:30 - 2:30'),
+                      ), //TODO Add date functionality
+                    ]),
+                  ]
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              InkWell(
+                onTap: () async {
+                  bool updated = await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => OrganizationEditInfoPage(organization),
+                    ),
+                  );
+                  if (updated) {
+                    FlushBar( message: 'Your donation availability hours has been updated', duration: Duration(seconds: 3)).build(context);
+                  }
+                },
+                child: Container(
+                  width: 250,
+                  height: 37,
+                  decoration: BoxDecoration(
+                    color: purpleAccent,
+                    borderRadius: BorderRadius.circular(21),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+                    child: Row(
+                      children: <Widget>[
+                        Icon(Icons.edit, color: Colors.white, size: 25),
+                        SizedBox(width: 2),
+                        Text(
+                          'Edit Hours',
                           style: TextStyle(
                             color: colorScheme.onSecondary,
                             fontWeight: FontWeight.w500,

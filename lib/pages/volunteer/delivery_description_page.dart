@@ -162,35 +162,41 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                                   itemBuilder: (BuildContext context, int index) {
                                     return Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Padding(
-                                          padding: const EdgeInsets.only(bottom: 5.0),
-                                          child: Row(
-                                            children: [
-                                              Container(
-                                                height: 12,
-                                                width: 12,
-                                                decoration: BoxDecoration(color: Colors.green, borderRadius: BorderRadius.circular(40)),
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    '${donation.items[index].name} - ${donation.items[index].amount} ${donation.items[index].unit ?? ''}'
+                                                        .trim(),
+                                                    style: TextStyle(
+                                                      fontSize: 17.0,
+                                                      fontWeight: FontWeight.w400,
+                                                    ),
+                                                  ),
+                                                  if (donation.items[index].specificDescription != null)
+                                                    Text(
+                                                      donation.items[index].specificDescription,
+                                                      style: TextStyle(fontSize: 14, color: Colors.grey),
+                                                    ),
+                                                ],
                                               ),
-                                              SizedBox(width: 10),
-                                              Text(
-                                                '${donation.items[index].name} - ${donation.items[index].amount} ${donation.items[index].unit ?? ''}'
-                                                    .trim(),
-                                                style: TextStyle(
-                                                  fontSize: 17.0,
-                                                  fontWeight: FontWeight.w400,
+                                            ),
+                                            Expanded(
+                                              child: Align(
+                                                alignment: Alignment.centerRight,
+                                                child: Container(
+                                                  height: 12,
+                                                  width: 12,
+                                                  decoration: BoxDecoration(color: Colors.green, borderRadius: BorderRadius.circular(40)),
                                                 ),
                                               ),
-                                            ],
-                                          ),
-                                        ),
-                                        if (donation.items[index].specificDescription != null)
-                                          Text(
-                                            donation.items[index].specificDescription,
-                                            style: TextStyle(fontSize: 14, color: Colors.grey),
-                                          ),
-                                        SizedBox(
-                                          height: 5,
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     );
