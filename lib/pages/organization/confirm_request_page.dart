@@ -93,14 +93,6 @@ class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
                         },
                       ),
                       SizedBox(height: 20),
-                      DropDown(
-                        onChanged: (val) {
-                          setState(() {
-                            urgency = val;
-                          });
-                        },
-                      ),
-                      SizedBox(height: 20),
                       ItemIncrementCreateRequest(
                         onChanged: (val) {
                           setState(() {
@@ -109,7 +101,13 @@ class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
                         },
                       ),
                       SizedBox(height: 20),
-                      DropDown(),
+                      DropDown(
+                        onChanged: (val) {
+                          setState(() {
+                            urgency = val - 1;
+                          });
+                        },
+                      ),
                       SizedBox(height: 20),
                       Container(
                         decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(5)),
@@ -119,7 +117,7 @@ class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Donation Deadline Date',
+                                'Donation Deadline Date (Option)',
                                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: Colors.black54),
                               ),
                               BasicDateField(onChanged: (val) {

@@ -141,9 +141,7 @@ class _EditDeliveryPageState extends State<EditDeliveryPage> {
                                                     height: 12,
                                                     width: 12,
                                                     decoration: BoxDecoration(
-                                                        color: Colors.green,
-                                                        borderRadius: BorderRadius.circular(40)
-                                                    ),
+                                                        color: widget.donation.items[index].urgencyColor, borderRadius: BorderRadius.circular(40)),
                                                   ),
                                                   SizedBox(width: 15),
                                                 ],
@@ -197,7 +195,11 @@ class _EditDeliveryPageState extends State<EditDeliveryPage> {
                         );
                       else {
                         Navigator.pop(context, newDonation);
-                        FlushBar(message: 'Your donation has been edited', duration: Duration(seconds: 3), margin: EdgeInsets.all(0),).build(context);
+                        FlushBar(
+                          message: 'Your donation has been edited',
+                          duration: Duration(seconds: 3),
+                          margin: EdgeInsets.all(0),
+                        ).build(context);
                       }
                     });
                   },

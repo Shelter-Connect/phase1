@@ -5,6 +5,7 @@ class DropDown extends StatefulWidget {
   _DropDownState createState() => _DropDownState();
 
   final Function onChanged;
+
   const DropDown({this.onChanged});
 }
 
@@ -25,7 +26,7 @@ class _DropDownState extends State<DropDown> {
                   children: [
                     SizedBox(width: 5),
                     Text(
-                      "Urgency",
+                      "Urgency (Optional)",
                       style: TextStyle(color: Colors.black54),
                     ),
                   ],
@@ -73,7 +74,12 @@ class _DropDownState extends State<DropDown> {
                   ),
                   value: 4)
             ],
-            onChanged: widget.onChanged),
+            onChanged: (value) {
+              setState(() {
+                widget.onChanged(value);
+                _value = value;
+              });
+            }),
       ),
     );
   }

@@ -69,10 +69,7 @@ class RequestContainer extends StatelessWidget {
                                       child: Container(
                                         height: 12,
                                         width: 12,
-                                        decoration: BoxDecoration(
-                                            color: Colors.green,
-                                            borderRadius: BorderRadius.circular(40)
-                                        ),
+                                        decoration: BoxDecoration(color: items[index].urgencyColor, borderRadius: BorderRadius.circular(40)),
                                       ),
                                     ),
                                   ),

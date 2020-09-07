@@ -47,6 +47,22 @@ class _EditCurrentRequestsPageState extends State<EditCurrentRequestsPage> {
                     if (!itemCategories.containsKey(document['category'])) {
                       itemCategories[document['category']] = [];
                     }
+                    Color urgencyColor;
+                    switch (document['urgency']) {
+                      case 0:
+                        urgencyColor = Colors.transparent;
+                        break;
+                      case 1:
+                        urgencyColor = Colors.green;
+                        break;
+                      case 2:
+                        urgencyColor = Colors.yellow;
+                        break;
+                      case 3:
+                        urgencyColor = Colors.red;
+                        break;
+                    }
+                    ;
                     itemCategories[document['category']].add(
                       Item(
                         name: document['name'],
@@ -54,6 +70,7 @@ class _EditCurrentRequestsPageState extends State<EditCurrentRequestsPage> {
                         amount: document['amount'],
                         specificDescription: document['specificDescription'],
                         urgency: document['urgency'],
+                        urgencyColor: urgencyColor,
                       ),
                     );
                   }
@@ -153,7 +170,9 @@ class _EditCurrentRequestsPageState extends State<EditCurrentRequestsPage> {
                                                       Container(
                                                         height: 14,
                                                         width: 14,
-                                                        decoration: BoxDecoration(color: Colors.green, borderRadius: BorderRadius.circular(40)),
+                                                        decoration: BoxDecoration(
+                                                            color: itemCategories[category][index].urgencyColor,
+                                                            borderRadius: BorderRadius.circular(40)),
                                                       ),
                                                       SizedBox(width: 10),
                                                     ],

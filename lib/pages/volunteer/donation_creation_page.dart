@@ -61,8 +61,7 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                 widget.organization.name,
                 style: mainTitleStyle,
               ),
-              if(widget.organization.distance != null)
-              Text('${widget.organization.distance.toStringAsFixed(1)} miles away', style: subTitleStyle),
+              if (widget.organization.distance != null) Text('${widget.organization.distance.toStringAsFixed(1)} miles away', style: subTitleStyle),
               SizedBox(height: 20.0),
               Card(
                 child: Padding(
@@ -89,7 +88,10 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                 ),
               ),
               SizedBox(height: 20),
-              Text('*All Items can be slightly used unless explicitly stated by the organization', style: TextStyle(fontSize: 15, color: Colors.red),),
+              Text(
+                '*All Items can be slightly used unless explicitly stated by the organization',
+                style: TextStyle(fontSize: 15, color: Colors.red),
+              ),
               SizedBox(height: 20),
               ...widget.organization.requestedItems
                   .map(
@@ -157,10 +159,8 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                                                             Container(
                                                               height: 12,
                                                               width: 12,
-                                                              decoration: BoxDecoration(
-                                                                  color: Colors.green,
-                                                                  borderRadius: BorderRadius.circular(40)
-                                                              ),
+                                                              decoration:
+                                                                  BoxDecoration(color: item.urgencyColor, borderRadius: BorderRadius.circular(40)),
                                                             ),
                                                             SizedBox(width: 15),
                                                           ],

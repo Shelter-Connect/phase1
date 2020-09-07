@@ -1,4 +1,3 @@
-import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -168,10 +167,7 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                                                   child: Container(
                                                     height: 12,
                                                     width: 12,
-                                                    decoration: BoxDecoration(
-                                                        color: Colors.green,
-                                                        borderRadius: BorderRadius.circular(40)
-                                                    ),
+                                                    decoration: BoxDecoration(color: item.urgencyColor, borderRadius: BorderRadius.circular(40)),
                                                   ),
                                                 ),
                                               ),
@@ -208,7 +204,11 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                     }
                     FirestoreHelper.updateRequests(context: context, items: delta, organizationId: widget.donation.organization.id);
                     FirestoreHelper.createDonation(context, widget.donation);
-                    FlushBar(title: 'Donation Received', message: 'Go to the Delivery page to see delivery information', duration: Duration(seconds: 3)).build(context);
+                    FlushBar(
+                            title: 'Donation Received',
+                            message: 'Go to the Delivery page to see delivery information',
+                            duration: Duration(seconds: 3))
+                        .build(context);
                   },
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30.0),

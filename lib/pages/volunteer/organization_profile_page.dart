@@ -33,6 +33,22 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
           if (widget.organization.requestedItems[document['category']] == null) widget.organization.requestedItems[document['category']] = [];
           setState(() {
             if (document['amount'] > 0) noRequests = false;
+            Color urgencyColor;
+            switch (document['urgency']) {
+              case 0:
+                urgencyColor = Colors.transparent;
+                break;
+              case 1:
+                urgencyColor = Colors.green;
+                break;
+              case 2:
+                urgencyColor = Colors.yellow;
+                break;
+              case 3:
+                urgencyColor = Colors.red;
+                break;
+            }
+            ;
             widget.organization.requestedItems[document['category']].add(
               Item(
                 name: document['name'],
@@ -40,6 +56,8 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                 category: document['category'],
                 specificDescription: document['specificDescription'],
                 unit: document['unit'],
+                urgency: document['urgency'],
+                urgencyColor: urgencyColor,
               ),
             );
           });
@@ -343,8 +361,8 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                                                   child: Container(
                                                                     height: 12,
                                                                     width: 12,
-                                                                    decoration:
-                                                                    BoxDecoration(color: Colors.green, borderRadius: BorderRadius.circular(40)),
+                                                                    decoration: BoxDecoration(
+                                                                        color: item.urgencyColor, borderRadius: BorderRadius.circular(40)),
                                                                   ),
                                                                 ),
                                                               ),

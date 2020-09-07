@@ -66,7 +66,8 @@ class _DeliveryInformationPageState extends State<DeliveryInformationPage> {
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Text('${widget.donation.items[index].name} - ${widget.donation.items[index].amount} ${widget.donation.items[index].unit ?? ''}',
+                                        Text(
+                                            '${widget.donation.items[index].name} - ${widget.donation.items[index].amount} ${widget.donation.items[index].unit ?? ''}',
                                             style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400)),
                                         if (widget.donation.items[index].specificDescription != null)
                                           Text(
@@ -82,16 +83,13 @@ class _DeliveryInformationPageState extends State<DeliveryInformationPage> {
                                       child: Container(
                                         height: 12,
                                         width: 12,
-                                        decoration: BoxDecoration(
-                                            color: Colors.green,
-                                            borderRadius: BorderRadius.circular(40)
-                                        ),
+                                        decoration:
+                                            BoxDecoration(color: widget.donation.items[index].urgencyColor, borderRadius: BorderRadius.circular(40)),
                                       ),
                                     ),
                                   ),
                                 ],
                               ),
-
                             ],
                           );
                         },
