@@ -112,10 +112,7 @@ class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
                       DropDown(),
                       SizedBox(height: 20),
                       Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(5)
-                        ),
+                        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(5)),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 15),
                           child: Column(
@@ -123,15 +120,12 @@ class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
                             children: [
                               Text(
                                 'Donation Deadline Date',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.black54
-                                ),
+                                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: Colors.black54),
                               ),
-                              BasicDateField(
-                                onChanged: (val) {print('Hello');} //TODO Add deadline date save feature
-                              ),
+                              BasicDateField(onChanged: (val) {
+                                print('Hello');
+                              } //TODO Add deadline date save feature
+                                  ),
                             ],
                           ),
                         ),
