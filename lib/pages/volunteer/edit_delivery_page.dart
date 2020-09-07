@@ -116,6 +116,27 @@ class _EditDeliveryPageState extends State<EditDeliveryPage> {
                                             children: [
                                               Row(
                                                 children: [
+                                                  Expanded(
+                                                    child: Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Text(
+                                                          '${widget.donation.items[index].name} - ${widget.donation.items[index].amount} ${widget.donation.items[index].unit ?? ''}'
+                                                              .trim(),
+                                                          style: TextStyle(
+                                                            fontSize: 17.0,
+                                                            fontWeight: FontWeight.w400,
+                                                          ),
+                                                        ),
+                                                        if (widget.donation.items[index].specificDescription != null)
+                                                          Text(
+                                                            widget.donation.items[index].specificDescription,
+                                                            style: TextStyle(fontSize: 14, color: Colors.grey),
+                                                          ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  SizedBox(width: 5),
                                                   Container(
                                                     height: 12,
                                                     width: 12,
@@ -124,24 +145,9 @@ class _EditDeliveryPageState extends State<EditDeliveryPage> {
                                                         borderRadius: BorderRadius.circular(40)
                                                     ),
                                                   ),
-                                                  SizedBox(width: 10),
-                                                  Expanded(
-                                                    child: Text(
-                                                      '${widget.donation.items[index].name} - ${widget.donation.items[index].amount} ${widget.donation.items[index].unit ?? ''}'
-                                                          .trim(),
-                                                      style: TextStyle(
-                                                        fontSize: 17.0,
-                                                        fontWeight: FontWeight.w400,
-                                                      ),
-                                                    ),
-                                                  ),
+                                                  SizedBox(width: 15),
                                                 ],
                                               ),
-                                              if (widget.donation.items[index].specificDescription != null)
-                                                Text(
-                                                  widget.donation.items[index].specificDescription,
-                                                  style: TextStyle(fontSize: 14, color: Colors.grey),
-                                                ),
                                             ],
                                           ),
                                         ),

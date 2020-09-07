@@ -144,15 +144,6 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                                                         padding: const EdgeInsets.only(bottom: 5.0),
                                                         child: Row(
                                                           children: [
-                                                            Container(
-                                                              height: 12,
-                                                              width: 12,
-                                                              decoration: BoxDecoration(
-                                                                  color: Colors.green,
-                                                                  borderRadius: BorderRadius.circular(40)
-                                                              ),
-                                                            ),
-                                                            SizedBox(width: 10),
                                                             Expanded(
                                                               child: Text(
                                                                 '${item.name} - ${item.amount} ${item.unit ?? ''}'.trim(),
@@ -162,6 +153,16 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                                                                 ),
                                                               ),
                                                             ),
+                                                            SizedBox(width: 5),
+                                                            Container(
+                                                              height: 12,
+                                                              width: 12,
+                                                              decoration: BoxDecoration(
+                                                                  color: Colors.green,
+                                                                  borderRadius: BorderRadius.circular(40)
+                                                              ),
+                                                            ),
+                                                            SizedBox(width: 15),
                                                           ],
                                                         ),
                                                       ),
