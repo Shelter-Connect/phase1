@@ -1,8 +1,8 @@
 class Item {
   String name, category, specificDescription, unit;
-  int amount;
+  int amount, urgency;
 
-  Item({this.name, this.category, this.amount, this.specificDescription, this.unit});
+  Item({this.name, this.category, this.amount, this.specificDescription, this.unit, this.urgency = 0});
 
   Item clone() {
     return Item(
@@ -11,6 +11,7 @@ class Item {
       specificDescription: specificDescription,
       amount: amount,
       unit: unit,
+      urgency: urgency,
     );
   }
 
@@ -21,6 +22,7 @@ class Item {
       'specificDescription': specificDescription,
       'amount': amount,
       'unit': unit,
+      'urgency': urgency,
     };
   }
 }

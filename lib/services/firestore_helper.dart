@@ -44,6 +44,7 @@ class FirestoreHelper {
         DocumentSnapshot itemSnapshot = document.documents[0];
         await requestsReference.document(itemSnapshot.documentID).updateData({
           'amount': item.amount + itemSnapshot['amount'],
+          'urgency': item.urgency,
         });
       } else {
         throw new Exception('ERROR: Cannot have duplicate items with same name and category in collection');

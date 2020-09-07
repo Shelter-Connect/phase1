@@ -28,9 +28,8 @@ class ConfirmRequestPage extends StatefulWidget {
 }
 
 class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
-  int amount = 0;
-  String specificDescription = '';
-  String itemUnit = '';
+  int amount = 0, urgency = 0;
+  String specificDescription = '', itemUnit = '';
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +92,13 @@ class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
                         },
                       ),
                       SizedBox(height: 20),
-                      DropDown(),
+                      DropDown(
+                        onChanged: (val) {
+                          setState(() {
+                            urgency = val;
+                          });
+                        },
+                      ),
                       SizedBox(height: 20),
                       ItemIncrementCreateRequest(
                         onChanged: (val) {
@@ -128,12 +133,18 @@ class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
                                 amount: amount,
                                 specificDescription: specificDescription,
                                 unit: itemUnit,
-                                category: widget.itemCategory)
+                                category: widget.itemCategory,
+                                urgency: urgency)
                           ],
                         );
                         Navigator.pop(context);
                         Navigator.pop(context);
-                        FlushBar(message: 'Your request has been received.', duration: Duration(seconds: 3), margin: EdgeInsets.all(0), leftBarIndicatorColor: Colors.transparent,).build(context);
+                        FlushBar(
+                          message: 'Your request has been received.',
+                          duration: Duration(seconds: 3),
+                          margin: EdgeInsets.all(0),
+                          leftBarIndicatorColor: Colors.transparent,
+                        ).build(context);
                       },
                     ),
                   );
