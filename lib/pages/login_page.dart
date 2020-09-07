@@ -13,7 +13,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  String email, password;
+  String email = '', password;
   TextEditingController passwordController = TextEditingController();
   bool loading = false;
 
@@ -48,7 +48,41 @@ class _LoginPageState extends State<LoginPage> {
                       password = val.trim();
                     },
                   ),
-                  SizedBox(height: 30),
+                  Row(
+                    textDirection: TextDirection.rtl,
+                    children: [
+                      TextButton(
+                        text: 'Forgot Password?',
+                        textColor: colorScheme.error,
+                        onPressed: () {
+                          if (email == '') {
+                            showDialog(
+                              context: context,
+                              builder: (_) => NoActionAlert(title: 'Please enter an email'),
+                            );
+                          } else if (!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(email)) {
+                            //is valid email address
+                            showDialog(
+                              context: context,
+                              builder: (_) => NoActionAlert(title: 'Please enter a valid email address.'),
+                            );
+                          } else
+                            try {
+                              auth.sendPasswordResetEmail(email: email);
+                              showDialog(
+                                context: context,
+                                builder: (_) => NoActionAlert(title: 'Password reset email sent to $email'),
+                              );
+                            } catch (e) {
+                              showDialog(
+                                context: context,
+                                builder: (_) => NoActionAlert(title: 'Invalid Email'),
+                              );
+                            }
+                        },
+                      )
+                    ],
+                  ),
                   RoundedButton(
                     color: purpleAccent,
                     title: 'Sign In',

@@ -128,6 +128,12 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
                         context: context,
                         builder: (_) => NoActionAlert(title: 'Please enter an email'),
                       );
+                    } else if (!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(email)) {
+                      //is valid email address
+                      showDialog(
+                        context: context,
+                        builder: (_) => NoActionAlert(title: 'Please enter a valid email address.'),
+                      );
                     } else if (description == '') {
                       showDialog(
                         context: context,
@@ -151,12 +157,12 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
                     } else if (password != password2) {
                       showDialog(
                         context: context,
-                        builder: (_) => NoActionAlert(title: 'Passwords do not match'),
+                        builder: (_) => NoActionAlert(title: 'Passwords needs to be at least 6 characters in length'),
                       );
                     } else if (password.length < 6) {
                       showDialog(
                         context: context,
-                        builder: (_) => NoActionAlert(title: 'Passwords needs to be at least 6 characters in length'),
+                        builder: (_) => NoActionAlert(title: 'Passwords do not match'),
                       );
                     } else {
                       try {
@@ -181,14 +187,14 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
                         } else {
                           showDialog(
                             context: context,
-                            builder: (_) => NoActionAlert(title: 'Invalid Email or email already taken'),
+                            builder: (_) => NoActionAlert(title: 'Email already taken'),
                           );
                         }
                         FocusScope.of(context).unfocus();
                       } catch (e) {
                         showDialog(
                           context: context,
-                          builder: (_) => NoActionAlert(title: 'Invalid Email or email already taken'),
+                          builder: (_) => NoActionAlert(title: 'Email already taken'),
                         );
                       }
                     }
