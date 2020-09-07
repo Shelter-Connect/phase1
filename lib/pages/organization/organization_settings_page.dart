@@ -384,7 +384,7 @@ class DonationAvailabilityHourSettings extends StatelessWidget {
                   }
                 },
                 child: Container(
-                  width: 250,
+                  width: 140,
                   height: 37,
                   decoration: BoxDecoration(
                     color: purpleAccent,
