@@ -41,8 +41,7 @@ class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => EditCurrentRequestsPage()),
+                MaterialPageRoute(builder: (context) => EditCurrentRequestsPage()),
               );
             },
             color: purpleAccent,
@@ -62,17 +61,14 @@ class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
                       color: Colors.white,
                     ),
                   ),
-                  Text('Edit',
-                      style: TextStyle(fontSize: 17, color: Colors.white))
+                  Text('Edit', style: TextStyle(fontSize: 17, color: Colors.white))
                 ],
               ),
             ),
           ),
           SizedBox(height: 10),
           StreamBuilder(
-            stream: FirestoreHelper.getCurrentOrganizationReference(context)
-                .collection('requests')
-                .snapshots(),
+            stream: FirestoreHelper.getCurrentOrganizationReference(context).collection('requests').snapshots(),
             builder: (context, snapshot) {
               if (!snapshot.hasData) {
                 return Center(
@@ -83,7 +79,7 @@ class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
                 return Column(
                   children: [
                     Text(
-                      'Your organization currently does not have any requests. Create a request with the \'New Request\' button on the bottom right.',
+                      'Your organization currently does not have any requests. Create a request with the \'New Request\' button at the bottom.',
                       style: TextStyle(
                         color: Colors.grey,
                         fontSize: 15.0,
@@ -93,7 +89,8 @@ class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 4),
                       child: Center(
-                        child: SvgPicture.asset('assets/ui_svgs/shopping.svg',
+                        child: SvgPicture.asset(
+                          'assets/ui_svgs/shopping.svg',
                           semanticsLabel: 'Create an Item Request!',
                           width: MediaQuery.of(context).size.width,
                         ),
@@ -108,6 +105,22 @@ class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
                 if (!itemCategories.containsKey(document['category'])) {
                   itemCategories[document['category']] = [];
                 }
+                Color urgencyColor;
+                switch (document['urgency']) {
+                  case 0:
+                    urgencyColor = Colors.transparent;
+                    break;
+                  case 1:
+                    urgencyColor = Colors.green;
+                    break;
+                  case 2:
+                    urgencyColor = Colors.yellow;
+                    break;
+                  case 3:
+                    urgencyColor = Colors.red;
+                    break;
+                }
+                ;
                 itemCategories[document['category']].add(
                   Item(
                     name: document['name'],
@@ -115,6 +128,8 @@ class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
                     amount: document['amount'],
                     specificDescription: document['specificDescription'],
                     unit: document['unit'],
+                    urgency: document['urgency'],
+                    urgencyColor: urgencyColor,
                   ),
                 );
               }

@@ -14,12 +14,11 @@ class DeliveriesContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     DateTime now = DateTime.now();
 
-    return RawMaterialButton(
-      onPressed: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => DeliveryDescriptionPage(donation)));
-      },
-      child: Container(
-        decoration: elevatedBoxStyle,
+    return Card(
+      child: RawMaterialButton(
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => DeliveryDescriptionPage(donation)));
+        },
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
           child: Column(
@@ -77,21 +76,40 @@ class DeliveriesContainer extends StatelessWidget {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 5.0),
-                        child: Text(
-                          '${donation.items[index].name} - ${donation.items[index].amount} ${donation.items[index].unit ?? ''}'.trim(),
-                          style: TextStyle(
-                            fontSize: 17.0,
-                            fontWeight: FontWeight.w400,
+                      Row(
+                        children: [
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  '${donation.items[index].name} - ${donation.items[index].amount} ${donation.items[index].unit ?? ''}'.trim(),
+                                  style: TextStyle(
+                                    fontSize: 17.0,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                                if (donation.items[index].specificDescription != null)
+                                  Text(
+                                    donation.items[index].specificDescription,
+                                    style: TextStyle(fontSize: 14, color: Colors.grey),
+                                  ),
+                              ],
+                            ),
                           ),
-                        ),
+                          Expanded(
+                            child: Align(
+                              alignment: Alignment.centerRight,
+                              child: Container(
+                                height: 12,
+                                width: 12,
+                                decoration: BoxDecoration(color: donation.items[index].urgencyColor, borderRadius: BorderRadius.circular(40)),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                      if (donation.items[index].specificDescription != null)
-                        Text(
-                          donation.items[index].specificDescription,
-                          style: TextStyle(fontSize: 14, color: Colors.grey),
-                        ),
                     ],
                   );
                 },

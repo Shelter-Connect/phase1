@@ -1,8 +1,11 @@
+import 'dart:ui';
+
 class Item {
   String name, category, specificDescription, unit;
-  int amount;
+  int amount, urgency;
+  Color urgencyColor;
 
-  Item({this.name, this.category, this.amount, this.specificDescription, this.unit});
+  Item({this.name, this.category, this.amount, this.specificDescription, this.unit, this.urgency = 0, this.urgencyColor});
 
   Item clone() {
     return Item(
@@ -11,6 +14,8 @@ class Item {
       specificDescription: specificDescription,
       amount: amount,
       unit: unit,
+      urgency: urgency,
+      urgencyColor: urgencyColor,
     );
   }
 
@@ -21,6 +26,7 @@ class Item {
       'specificDescription': specificDescription,
       'amount': amount,
       'unit': unit,
+      'urgency': urgency,
     };
   }
 }

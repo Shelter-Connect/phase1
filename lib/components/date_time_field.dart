@@ -21,7 +21,7 @@ class BasicDateField extends StatelessWidget {
         labelText: labelText,
       ),
       onShowPicker: (context, currentValue) async {
-        return await showDatePicker(context: context, firstDate: DateTime(1900), initialDate: DateTime.now(), lastDate: DateTime(2100));
+        return await showDatePicker(context: context, firstDate: DateTime(1900), initialDate: DateTime.now(), lastDate: DateTime(3100));
       },
       onChanged: onChanged,
     );

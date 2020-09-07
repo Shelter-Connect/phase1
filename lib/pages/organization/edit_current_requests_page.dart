@@ -47,12 +47,30 @@ class _EditCurrentRequestsPageState extends State<EditCurrentRequestsPage> {
                     if (!itemCategories.containsKey(document['category'])) {
                       itemCategories[document['category']] = [];
                     }
+                    Color urgencyColor;
+                    switch (document['urgency']) {
+                      case 0:
+                        urgencyColor = Colors.transparent;
+                        break;
+                      case 1:
+                        urgencyColor = Colors.green;
+                        break;
+                      case 2:
+                        urgencyColor = Colors.yellow;
+                        break;
+                      case 3:
+                        urgencyColor = Colors.red;
+                        break;
+                    }
+                    ;
                     itemCategories[document['category']].add(
                       Item(
                         name: document['name'],
                         category: document['category'],
                         amount: document['amount'],
                         specificDescription: document['specificDescription'],
+                        urgency: document['urgency'],
+                        urgencyColor: urgencyColor,
                       ),
                     );
                   }
@@ -62,103 +80,117 @@ class _EditCurrentRequestsPageState extends State<EditCurrentRequestsPage> {
                     requestContainers.add(
                       Padding(
                         padding: const EdgeInsets.only(bottom: 16.0),
-                        child: Material(
-                          elevation: 5,
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                          child: Container(
-                            decoration: elevatedBoxStyle,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
-                              child: SingleChildScrollView(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    SizedBox(height: 10),
-                                    Text(
-                                      '$category',
-                                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-                                    ),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                    Container(
-                                      height: 5,
-                                      width: 100,
-                                      decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
-                                    ),
-                                    SizedBox(height: 10),
-                                    ListView.builder(
-                                      physics: NeverScrollableScrollPhysics(),
-                                      shrinkWrap: true,
-                                      itemCount: itemCategories[category].length,
-                                      itemBuilder: (context, index) {
-                                        return Padding(
-                                          padding: const EdgeInsets.only(bottom: 5.0),
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                textDirection: TextDirection.rtl,
-                                                children: [
-                                                  IconButton(
-                                                      icon: Icon(Icons.cancel),
-                                                      onPressed: () {
-                                                        showDialog(
-                                                          context: context,
-                                                          builder: (_) => SingleActionAlert(
-                                                            title: 'Confirm delete Request?',
-                                                            subtitle:
-                                                                'This action cannot be undone, and expected deliveries with this request will still arrive.',
-                                                            actionName: 'Delete Request',
-                                                            action: () {
-                                                              FirestoreHelper.deleteRequest(context, itemCategories[category][index]);
-                                                              Navigator.pop(context);
-                                                              FlushBar(title: 'Request Cancelled', message: 'You may create the request again using the create request button', duration: Duration(seconds: 3)).build(context);
-                                                            },
-                                                          ),
-                                                        );
-                                                      },
-                                                      color: colorScheme.error),
-                                                  Padding(
-                                                    padding: const EdgeInsets.only(left: 4.0),
-                                                    child: ItemIncrementWithText(
-                                                      initialQuantity: itemCategories[category][index].amount,
-                                                      onChanged: (val) {
-                                                        Item currentItem = itemCategories[category][index].clone();
-                                                        currentItem.amount = val;
-                                                        widget.items.removeWhere((prevItem) =>
-                                                            prevItem.name == currentItem.name &&
-                                                            prevItem.category == currentItem.category &&
-                                                            prevItem.specificDescription == currentItem.specificDescription &&
-                                                            prevItem.unit == currentItem.unit);
-                                                        if (currentItem.amount != 0) widget.items.add(currentItem);
-                                                      },
-                                                    ),
+                        child: Card(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
+                            child: SingleChildScrollView(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  SizedBox(height: 10),
+                                  Text(
+                                    '$category',
+                                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                                  ),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  Container(
+                                    height: 5,
+                                    width: 100,
+                                    decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
+                                  ),
+                                  SizedBox(height: 10),
+                                  ListView.builder(
+                                    physics: NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemCount: itemCategories[category].length,
+                                    itemBuilder: (context, index) {
+                                      return Padding(
+                                        padding: const EdgeInsets.only(bottom: 5.0),
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              textDirection: TextDirection.rtl,
+                                              children: [
+                                                IconButton(
+                                                    icon: Icon(Icons.cancel),
+                                                    onPressed: () {
+                                                      showDialog(
+                                                        context: context,
+                                                        builder: (_) => SingleActionAlert(
+                                                          title: 'Confirm delete Request?',
+                                                          subtitle:
+                                                              'This action cannot be undone, and expected deliveries with this request will still arrive.',
+                                                          actionName: 'Delete Request',
+                                                          action: () {
+                                                            FirestoreHelper.deleteRequest(context, itemCategories[category][index]);
+                                                            Navigator.pop(context);
+                                                            FlushBar(
+                                                                    title: 'Request Cancelled',
+                                                                    message: 'You may create the request again using the create request button',
+                                                                    duration: Duration(seconds: 3))
+                                                                .build(context);
+                                                          },
+                                                        ),
+                                                      );
+                                                    },
+                                                    color: colorScheme.error),
+                                                Padding(
+                                                  padding: const EdgeInsets.only(left: 4.0),
+                                                  child: ItemIncrementWithText(
+                                                    initialQuantity: itemCategories[category][index].amount,
+                                                    onChanged: (val) {
+                                                      Item currentItem = itemCategories[category][index].clone();
+                                                      currentItem.amount = val;
+                                                      widget.items.removeWhere((prevItem) =>
+                                                          prevItem.name == currentItem.name &&
+                                                          prevItem.category == currentItem.category &&
+                                                          prevItem.specificDescription == currentItem.specificDescription &&
+                                                          prevItem.unit == currentItem.unit);
+                                                      if (currentItem.amount != 0) widget.items.add(currentItem);
+                                                    },
                                                   ),
-                                                  Expanded(
-                                                    child: Text(
-                                                      itemCategories[category][index].name,
-                                                      style: TextStyle(
-                                                        fontSize: 17,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              if (itemCategories[category][index].specificDescription != null)
-                                                Text(
-                                                  itemCategories[category][index].specificDescription,
-                                                  style: TextStyle(fontSize: 14, color: Colors.grey),
                                                 ),
-                                            ],
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  ],
-                                ),
+                                                Expanded(
+                                                  child: Row(
+                                                    children: [
+                                                      Expanded(
+                                                        child: Text(
+                                                          itemCategories[category][index].name,
+                                                          style: TextStyle(
+                                                            fontSize: 17,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      SizedBox(width: 5),
+                                                      Container(
+                                                        height: 14,
+                                                        width: 14,
+                                                        decoration: BoxDecoration(
+                                                            color: itemCategories[category][index].urgencyColor,
+                                                            borderRadius: BorderRadius.circular(40)),
+                                                      ),
+                                                      SizedBox(width: 10),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            if (itemCategories[category][index].specificDescription != null)
+                                              Text(
+                                                itemCategories[category][index].specificDescription,
+                                                style: TextStyle(fontSize: 14, color: Colors.grey),
+                                              ),
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ],
                               ),
                             ),
                           ),
@@ -192,7 +224,7 @@ class _EditCurrentRequestsPageState extends State<EditCurrentRequestsPage> {
                             }
                           }
                           FirestoreHelper.updateRequests(context: context, items: delta);
-                          FlushBar( message: 'Your request has been edited.', duration: Duration(seconds: 3)).build(context);
+                          FlushBar(message: 'Your request has been edited.', duration: Duration(seconds: 3)).build(context);
                         },
                         textColor: Colors.white,
                       )

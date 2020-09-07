@@ -38,6 +38,8 @@ final subHeaderStyle = TextStyle(
 
 final mainTitleStyle = TextStyle(fontWeight: FontWeight.w900, fontSize: 35, color: purpleAccent);
 
+final appBarTitleStyle = TextStyle(fontWeight: FontWeight.w900, fontSize: 30, color: purpleAccent);
+
 final mainTitleStyle2 = TextStyle(fontWeight: FontWeight.w800, fontSize: 28, color: Colors.black);
 
 final subTitleStyle = TextStyle(fontSize: 25, fontWeight: FontWeight.w700, color: purpleLight);
@@ -98,7 +100,7 @@ final colorScheme = ColorScheme(
   secondaryVariant: Color(0xff0077c2),
   surface: Color(0xffacc0e6),
   background: Color(0xffffffff),
-  error: Color(0xfffe445c),
+  error: Color(0xffff3053),
   onPrimary: Color(0xff000000),
   onSecondary: Color(0xfffafafa),
   onSurface: Color(0xffbbdefb),

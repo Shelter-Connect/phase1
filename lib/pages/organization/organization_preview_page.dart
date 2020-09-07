@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:map_launcher/map_launcher.dart';
 import 'package:phase1/components/maps_sheet.dart';
 import 'package:phase1/components/standard_layout.dart';
@@ -70,186 +71,191 @@ class _OrganizationPreviewPageState extends State<OrganizationPreviewPage> {
                         style: subTitleStyle,
                       ),
                       SizedBox(height: 20),
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        decoration: elevatedBoxStyle,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
+                      Card(
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 8.0, left: 20.0),
+                              child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                textDirection: TextDirection.rtl,
+                                children: [
+                                  FlatButton(
+                                      onPressed: () {
+                                        MapSheet().build(context);
+                                      },
+                                      child: SvgPicture.asset(
+                                        "assets/random_svgs/googlemaps.svg",
+                                        height: 28,
+                                      )),
+                                  Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    textDirection: TextDirection.rtl,
                                     children: [
-                                      IconButton(
-                                        onPressed: () {
-                                          MapSheet().build(context);
-                                        },
-                                        icon: Icon(Icons.explore),
+                                      SizedBox(
+                                        height: 10,
                                       ),
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          Text(
-                                            'About This Organization',
-                                            style: TextStyle(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            height: 5,
-                                          ),
-                                          Container(
-                                            height: 5,
-                                            width: 100,
-                                            decoration: BoxDecoration(
-                                              color: purpleAccent,
-                                              borderRadius: BorderRadius.circular(21),
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                        ],
+                                      Text(
+                                        'About This Organization',
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Container(
+                                        height: 5,
+                                        width: 100,
+                                        decoration: BoxDecoration(
+                                          color: purpleAccent,
+                                          borderRadius: BorderRadius.circular(21),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 10,
                                       ),
                                     ],
                                   ),
-                                  Text(
-                                    widget.organization.description,
-                                    style: TextStyle(
-                                      fontSize: 17.0,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  if (widget.organization.address != null)
-                                    RichText(
-                                      text: TextSpan(
-                                        children: <TextSpan>[
-                                          TextSpan(
-                                            text: 'Address: ',
-                                            style: TextStyle(
-                                              fontSize: 17,
-                                              color: colorScheme.onBackground,
-                                            ),
-                                          ),
-                                          TextSpan(
-                                            text: widget.organization.address,
-                                            style: TextStyle(
-                                              fontSize: 17,
-                                              fontWeight: FontWeight.w600,
-                                              color: colorScheme.onBackground,
-                                            ),
-                                          )
-                                        ],
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 8.0, left: 20.0, right: 20.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Text(
+                                        widget.organization.description,
+                                        style: TextStyle(
+                                          fontSize: 17.0,
+                                          fontWeight: FontWeight.w400,
+                                        ),
                                       ),
-                                    ),
-                                  if (widget.organization.address != null)
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                  if (widget.organization.website != null)
-                                    RichText(
-                                      text: TextSpan(
-                                        children: <TextSpan>[
-                                          TextSpan(
-                                            text: 'Website: ',
-                                            style: TextStyle(
-                                              fontSize: 17,
-                                              color: colorScheme.onBackground,
-                                            ),
-                                          ),
-                                          TextSpan(
-                                            text: widget.organization.website,
-                                            style: TextStyle(
-                                              fontSize: 17,
-                                              fontWeight: FontWeight.w600,
-                                              color: colorScheme.onBackground,
-                                            ),
-                                          )
-                                        ],
+                                      SizedBox(
+                                        height: 10,
                                       ),
-                                    ),
-                                  if (widget.organization.website != null)
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                  if (widget.organization.number != null)
-                                    RichText(
-                                      text: TextSpan(
-                                        children: <TextSpan>[
-                                          TextSpan(
-                                            text: 'Phone Number: ',
-                                            style: TextStyle(
-                                              fontSize: 17,
-                                              color: colorScheme.onBackground,
-                                            ),
+                                      if (widget.organization.address != null)
+                                        RichText(
+                                          text: TextSpan(
+                                            children: <TextSpan>[
+                                              TextSpan(
+                                                text: 'Address: ',
+                                                style: TextStyle(
+                                                  fontSize: 17,
+                                                  color: colorScheme.onBackground,
+                                                ),
+                                              ),
+                                              TextSpan(
+                                                text: widget.organization.address,
+                                                style: TextStyle(
+                                                  fontSize: 17,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: colorScheme.onBackground,
+                                                ),
+                                              )
+                                            ],
                                           ),
-                                          TextSpan(
-                                            text: widget.organization.number,
-                                            style: TextStyle(
-                                              fontSize: 17,
-                                              fontWeight: FontWeight.w600,
-                                              color: colorScheme.onBackground,
-                                            ),
+                                        ),
+                                      if (widget.organization.address != null)
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                      if (widget.organization.website != null)
+                                        RichText(
+                                          text: TextSpan(
+                                            children: <TextSpan>[
+                                              TextSpan(
+                                                text: 'Website: ',
+                                                style: TextStyle(
+                                                  fontSize: 17,
+                                                  color: colorScheme.onBackground,
+                                                ),
+                                              ),
+                                              TextSpan(
+                                                text: widget.organization.website,
+                                                style: TextStyle(
+                                                  fontSize: 17,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: colorScheme.onBackground,
+                                                ),
+                                              )
+                                            ],
                                           ),
-                                        ],
+                                        ),
+                                      if (widget.organization.website != null)
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                      if (widget.organization.number != null)
+                                        RichText(
+                                          text: TextSpan(
+                                            children: <TextSpan>[
+                                              TextSpan(
+                                                text: 'Phone Number: ',
+                                                style: TextStyle(
+                                                  fontSize: 17,
+                                                  color: colorScheme.onBackground,
+                                                ),
+                                              ),
+                                              TextSpan(
+                                                text: widget.organization.number,
+                                                style: TextStyle(
+                                                  fontSize: 17,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: colorScheme.onBackground,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      if (widget.organization.number != null)
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                      if (widget.organization.email != null)
+                                        RichText(
+                                          text: TextSpan(
+                                            children: <TextSpan>[
+                                              TextSpan(
+                                                text: 'Email: ',
+                                                style: TextStyle(
+                                                  fontSize: 17,
+                                                  color: colorScheme.onBackground,
+                                                ),
+                                              ),
+                                              TextSpan(
+                                                text: widget.organization.email,
+                                                style: TextStyle(
+                                                  fontSize: 17,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: colorScheme.onBackground,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      SizedBox(
+                                        height: 10,
                                       ),
-                                    ),
-                                  if (widget.organization.number != null)
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                  if (widget.organization.email != null)
-                                    RichText(
-                                      text: TextSpan(
-                                        children: <TextSpan>[
-                                          TextSpan(
-                                            text: 'Email: ',
-                                            style: TextStyle(
-                                              fontSize: 17,
-                                              color: colorScheme.onBackground,
-                                            ),
-                                          ),
-                                          TextSpan(
-                                            text: widget.organization.email,
-                                            style: TextStyle(
-                                              fontSize: 17,
-                                              fontWeight: FontWeight.w600,
-                                              color: colorScheme.onBackground,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  SizedBox(
-                                    height: 10,
+                                    ],
                                   ),
                                 ],
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
                       SizedBox(height: 20),
                       Column(
                         children: <Widget>[
-                          Container(
-                            decoration: elevatedBoxStyle,
-                            width: MediaQuery.of(context).size.width,
+                          Card(
                             child: Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16.0),
                               child: Column(

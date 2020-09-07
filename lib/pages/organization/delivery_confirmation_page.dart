@@ -73,22 +73,26 @@ class _ConfirmDeliveryPageState extends State<ConfirmDeliveryPage> {
                                     (item) => Padding(
                                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                                       child: Container(
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: <Widget>[
-                                            Text(
-                                              '${item.name}',
-                                              style: TextStyle(fontSize: 19, fontWeight: FontWeight.w400),
+                                        child: Row(
+                                          children: [
+                                            Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: <Widget>[
+                                                Text(
+                                                  '${item.name}',
+                                                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400),
+                                                ),
+                                                Text(
+                                                  'Unit: ${item.unit}',
+                                                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400, color: Colors.black54),
+                                                ),
+                                                if (item.specificDescription != null)
+                                                  Text(
+                                                    item.specificDescription,
+                                                    style: TextStyle(fontSize: 14, color: Colors.grey),
+                                                  ),
+                                              ],
                                             ),
-                                            Text(
-                                              '${item.unit}',
-                                              style: TextStyle(fontSize: 19, fontWeight: FontWeight.w400),
-                                            ),
-                                            if (item.specificDescription != null)
-                                              Text(
-                                                item.specificDescription,
-                                                style: TextStyle(fontSize: 14, color: Colors.grey),
-                                              ),
                                           ],
                                         ),
                                       ),

@@ -16,7 +16,7 @@ class OrganizationSignUpPage extends StatefulWidget {
 }
 
 class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
-  String email, password, password2, organizationName, description, number, website;
+  String email = '', password = '', password2 = '', organizationName = '', description = '', number, website;
   GeoPoint location;
   TextEditingController controller = TextEditingController();
   GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: kGoogleApiKey);
@@ -66,7 +66,7 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
                 SizedBox(height: 20),
                 FloatingTextField(
                   controller: controller,
-                  hintText: 'Organization Location',
+                  hintText: 'Organization Address',
                   onTapped: () async {
                     Prediction p = await PlacesAutocomplete.show(context: context, apiKey: kGoogleApiKey, mode: Mode.overlay, controller: controller);
                     if (p != null)
@@ -118,15 +118,51 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
                   title: 'Create Account',
                   textColor: Colors.white,
                   onPressed: () async {
-                    if (password != password2) {
+                    if (organizationName == '') {
                       showDialog(
                         context: context,
-                        builder: (_) => NoActionAlert(title: 'Passwords do not match'),
+                        builder: (_) => NoActionAlert(title: 'Please enter an organization name'),
+                      );
+                    } else if (email == '') {
+                      showDialog(
+                        context: context,
+                        builder: (_) => NoActionAlert(title: 'Please enter an email'),
+                      );
+                    } else if (!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(email)) {
+                      //is valid email address
+                      showDialog(
+                        context: context,
+                        builder: (_) => NoActionAlert(title: 'Please enter a valid email address.'),
+                      );
+                    } else if (description == '') {
+                      showDialog(
+                        context: context,
+                        builder: (_) => NoActionAlert(title: 'Please enter a description'),
+                      );
+                    } else if ((controller.text == '') || (controller.text == null)) {
+                      showDialog(
+                        context: context,
+                        builder: (_) => NoActionAlert(title: 'Please enter the location of your organization'),
+                      );
+                    } else if (password == '') {
+                      showDialog(
+                        context: context,
+                        builder: (_) => NoActionAlert(title: 'Please enter a password'),
+                      );
+                    } else if (password2 == '') {
+                      showDialog(
+                        context: context,
+                        builder: (_) => NoActionAlert(title: 'Please enter your password a second time'),
+                      );
+                    } else if (password != password2) {
+                      showDialog(
+                        context: context,
+                        builder: (_) => NoActionAlert(title: 'Passwords needs to be at least 6 characters in length'),
                       );
                     } else if (password.length < 6) {
                       showDialog(
                         context: context,
-                        builder: (_) => NoActionAlert(title: 'Passwords needs to be at least 6 characters in length'),
+                        builder: (_) => NoActionAlert(title: 'Passwords do not match'),
                       );
                     } else {
                       try {
@@ -148,12 +184,17 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
                             'number': number,
                             'website': website,
                           });
+                        } else {
+                          showDialog(
+                            context: context,
+                            builder: (_) => NoActionAlert(title: 'Email already taken'),
+                          );
                         }
                         FocusScope.of(context).unfocus();
                       } catch (e) {
                         showDialog(
                           context: context,
-                          builder: (_) => NoActionAlert(title: 'Invalid Email'),
+                          builder: (_) => NoActionAlert(title: 'Email already taken'),
                         );
                       }
                     }

@@ -1,12 +1,13 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:phase1/models/organization.dart';
 import 'package:phase1/models/user_position.dart';
 import 'package:phase1/services/location_helper.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../components/organization_donation_profile.dart';
-import '../../constants.dart';
 import '../navigation_tab.dart';
 
 class OrganizationDiscover extends StatefulWidget with NavigationTab {
@@ -18,13 +19,13 @@ class OrganizationDiscover extends StatefulWidget with NavigationTab {
       'To see more information about an organization, or to sign up for a donation, click on an organization. ';
 
   @override
-  IconData get icon => Icons.search;
+  IconData get icon => Icons.home;
 
   @override
-  String get title => 'Discover';
+  String get title => 'Linkare';
 
   @override
-  String get barTitle => 'Discover';
+  String get barTitle => 'Linkare';
 }
 
 class _OrganizationDiscoverState extends State<OrganizationDiscover> {
@@ -49,17 +50,44 @@ class _OrganizationDiscoverState extends State<OrganizationDiscover> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        StreamBuilder(
-          stream: db.collection('organizations').snapshots(),
-          builder: (context, snapshot) {
-            if (!snapshot.hasData || (Provider.of<UserPosition>(context).position == null && hasPosition)) {
+        (Provider.of<UserPosition>(context).position == null && hasPosition) ? Center(child: CircularProgressIndicator()) :
+        Consumer<List<Organization>>(
+          builder: (context, organizations, widget) {
+            if (organizations == null) {
               return Center(child: CircularProgressIndicator());
             }
+            if (organizations.length == 0) {
+              return Column(
+                children: [
+                  Text(
+                    'There are no organizations on the app yet, but please stick around! There are many organizations eager to start requesting!',
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 15.0,
+                    ),
+                  ),
+                  SizedBox(height: 40),
+                  Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                      child: Center(
+                        child: SvgPicture.asset('assets/ui_svgs/searching.svg',
+                          semanticsLabel: 'Go Discover More Organizations to Help!',
+                          width: MediaQuery.of(context).size.width,
+                        ),
+                      )
+                  ),
+                  SizedBox(height: 20),
+                ],
+              );
+            }
             List<Widget> widgets = [];
-            for (DocumentSnapshot organizationSnapshot in snapshot.data.documents) {
-              if (organizationSnapshot['itemCategories'] != null && organizationSnapshot['itemCategories'].length != 0) {
-                Organization organization =
-                    Organization.fromFirestoreMap(context: context, organizationSnapshot: organizationSnapshot, isVolunteer: true);
+            Position userPosition = Provider.of<UserPosition>(context, listen: false).position;
+            for (Organization organization in organizations) {
+              if (organization.itemCategories != null && organization.itemCategories.length != 0) {
+                organization.distance = userPosition != null
+                    ? LocationHelper.distance(
+                    organization.location.latitude, organization.location.longitude, userPosition.latitude, userPosition.longitude)
+                    : null;
                 widgets.add(
                   OrganizationDonationProfile(organization: organization),
                 );
