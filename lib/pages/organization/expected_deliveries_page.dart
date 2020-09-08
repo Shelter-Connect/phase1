@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:phase1/components/alerts.dart';
 import 'package:phase1/components/sync_calendar.dart';
 import 'package:phase1/models/donation.dart';
 import 'package:phase1/services/firestore_helper.dart';
@@ -46,6 +48,19 @@ class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
             alignment: Alignment.centerLeft,
             child: FlatButton(
               onPressed: () async {
+                var status = await Permission.calendar.status;
+                if (status.isRestricted || status.isPermanentlyDenied || status.isDenied) {
+                  return SingleActionAlert(
+                      title: 'Calendar Access',
+                      subtitle: 'To allow Linkare to access your calendar, please give it permissions it settings',
+                      actionName: 'Open Settings',
+                      action: () {
+                        openAppSettings();
+                      });
+                } else if (status.isUndetermined) {
+                  print(123);
+                  await Permission.calendar.request();
+                }
                 SyncCalendar(donations, true);
               },
               color: purpleAccent,
