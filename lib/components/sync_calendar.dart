@@ -76,14 +76,14 @@ class SyncCalendar extends StatelessWidget {
 
 List<Calendar> _retrieveCalendars() {
   try {
-    var permissionsGranted;
+    /*var permissionsGranted;
     _deviceCalendarPlugin.hasPermissions().then((value) => permissionsGranted = value);
     if (permissionsGranted.isSuccess && !permissionsGranted.data) {
       _deviceCalendarPlugin.requestPermissions().then((value) => permissionsGranted = value);
       if (!permissionsGranted.isSuccess || !permissionsGranted.data) {
         return null;
       }
-    }
+    }*/
 
     var calendarsResult;
     _deviceCalendarPlugin.retrieveCalendars().then((value) => calendarsResult = value);

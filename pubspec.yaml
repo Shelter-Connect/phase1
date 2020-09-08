@@ -24,6 +24,7 @@ dependencies:
   flutter:
     sdk: flutter
   cloud_firestore: ^0.13.7
+  permission_handler: ^5.0.1+1
   device_calendar: ^3.1.0
   firebase_core: ^0.4.5
   firebase_analytics: ^5.0.16

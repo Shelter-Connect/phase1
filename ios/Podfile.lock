@@ -357,6 +357,8 @@ PODS:
     - nanopb/encode (= 1.30905.0)
   - nanopb/decode (1.30905.0)
   - nanopb/encode (1.30905.0)
+  - "permission_handler (5.0.1+1)":
+    - Flutter
   - PromisesObjC (1.2.10)
   - url_launcher (0.0.1):
     - Flutter
@@ -373,6 +375,7 @@ DEPENDENCIES:
   - location_permissions (from `.symlinks/plugins/location_permissions/ios`)
   - map_launcher (from `.symlinks/plugins/map_launcher/ios`)
   - maps_launcher (from `.symlinks/plugins/maps_launcher/ios`)
+  - permission_handler (from `.symlinks/plugins/permission_handler/ios`)
   - url_launcher (from `.symlinks/plugins/url_launcher/ios`)
 
 SPEC REPOS:
@@ -419,6 +422,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/map_launcher/ios"
   maps_launcher:
     :path: ".symlinks/plugins/maps_launcher/ios"
+  permission_handler:
+    :path: ".symlinks/plugins/permission_handler/ios"
   url_launcher:
     :path: ".symlinks/plugins/url_launcher/ios"
 
@@ -451,9 +456,10 @@ SPEC CHECKSUMS:
   map_launcher: e325db1261d029ff33e08e03baccffe09593ffea
   maps_launcher: eae38ee13a9c3f210fa04e04bb4c073fa4c6ed92
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
+  permission_handler: eac8e15b4a1a3fba55b761d19f3f4e6b005d15b6
   PromisesObjC: b14b1c6b68e306650688599de8a45e49fae81151
   url_launcher: 6fef411d543ceb26efce54b05a0a40bfd74cbbef
 
-PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
+PODFILE CHECKSUM: 96f18cf118dfb17794c34ab0cac1d9223d9e4cb0
 
 COCOAPODS: 1.9.1
