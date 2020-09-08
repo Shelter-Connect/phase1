@@ -57,10 +57,7 @@ class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
                       action: () {
                         openAppSettings();
                       });
-                } else if (status.isUndetermined) {
-                  print(123);
-                  await Permission.calendar.request();
-                }
+                } else if (status.isUndetermined) await Permission.calendar.request();
                 SyncCalendar(donations, true);
               },
               color: purpleAccent,
