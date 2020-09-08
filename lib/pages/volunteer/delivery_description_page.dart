@@ -47,32 +47,17 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
       for (DocumentSnapshot document in documents.documents) {
         if (donation.organization.requestedItems[document['category']] == null) donation.organization.requestedItems[document['category']] = [];
         setState(() {
-          Color urgencyColor;
-          switch (document['urgency']) {
-            case 0:
-              urgencyColor = Colors.transparent;
-              break;
-            case 1:
-              urgencyColor = Colors.green;
-              break;
-            case 2:
-              urgencyColor = Colors.yellow;
-              break;
-            case 3:
-              urgencyColor = Colors.red;
-              break;
-          }
-          ;
           donation.organization.requestedItems[document['category']].add(
             Item(
-              name: document['name'],
-              amount: document['amount'],
-              category: document['category'],
-              specificDescription: document['specificDescription'],
-              unit: document['unit'],
-              urgency: document['urgency'],
-              urgencyColor: urgencyColor,
-            ),
+                name: document['name'],
+                amount: document['amount'],
+                category: document['category'],
+                specificDescription: document['specificDescription'],
+                unit: document['unit'],
+                urgency: document['urgency'],
+                urgencyColor: (document['urgency'] == 0)
+                    ? Colors.transparent
+                    : (document['urgency'] == 1) ? Colors.green : (document['urgency'] == 2) ? Colors.yellow : Colors.red),
           );
         });
       }

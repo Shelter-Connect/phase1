@@ -35,6 +35,10 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCalendarsUsageDescription</key>
+    <string>Linkare needs access to your Calendar app(s) to help you sync your deliveries.</string>
+    <key>NSContactsUsageDescription</key>
+    <string>Linkare needs access to your Calendar Contacts to help you sync your deliveries.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Linkare needs your location to show you organizations nearby.</string>
 	<key>NSLocationAlwaysUsageDescription</key>

@@ -37,34 +37,44 @@ class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          FlatButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => EditCurrentRequestsPage()),
-              );
-            },
-            color: purpleAccent,
-            padding: EdgeInsets.all(8.0),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30.0),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Wrap(
-                crossAxisAlignment: WrapCrossAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 8.0),
-                    child: Icon(
-                      Icons.edit,
-                      color: Colors.white,
+          Row(
+            children: [
+              Align(
+                alignment: Alignment.centerLeft,
+                child: FlatButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => EditCurrentRequestsPage()),
+                    );
+                  },
+                  color: purpleAccent,
+                  padding: EdgeInsets.all(8.0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Wrap(
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(right: 8.0),
+                          child: Icon(
+                            Icons.edit,
+                            color: Colors.white,
+                          ),
+                        ),
+                        Text('Edit',
+                            style: TextStyle(fontSize: 17, color: Colors.white))
+                      ],
                     ),
                   ),
-                  Text('Edit', style: TextStyle(fontSize: 17, color: Colors.white))
-                ],
+                ),
               ),
-            ),
+              SizedBox(width: MediaQuery.of(context).size.width / 3),
+            ],
           ),
           SizedBox(height: 10),
           StreamBuilder(
@@ -105,32 +115,17 @@ class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
                 if (!itemCategories.containsKey(document['category'])) {
                   itemCategories[document['category']] = [];
                 }
-                Color urgencyColor;
-                switch (document['urgency']) {
-                  case 0:
-                    urgencyColor = Colors.transparent;
-                    break;
-                  case 1:
-                    urgencyColor = Colors.green;
-                    break;
-                  case 2:
-                    urgencyColor = Colors.yellow;
-                    break;
-                  case 3:
-                    urgencyColor = Colors.red;
-                    break;
-                }
-                ;
                 itemCategories[document['category']].add(
                   Item(
-                    name: document['name'],
-                    category: document['category'],
-                    amount: document['amount'],
-                    specificDescription: document['specificDescription'],
-                    unit: document['unit'],
-                    urgency: document['urgency'],
-                    urgencyColor: urgencyColor,
-                  ),
+                      name: document['name'],
+                      category: document['category'],
+                      amount: document['amount'],
+                      specificDescription: document['specificDescription'],
+                      unit: document['unit'],
+                      urgency: document['urgency'],
+                      urgencyColor: (document['urgency'] == 0)
+                          ? Colors.transparent
+                          : (document['urgency'] == 1) ? Colors.green : (document['urgency'] == 2) ? Colors.yellow : Colors.red),
                 );
               }
 

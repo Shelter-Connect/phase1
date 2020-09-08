@@ -3,8 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:phase1/models/donation.dart';
 import 'package:phase1/models/organization.dart';
-import 'package:phase1/pages/feedback_form.dart';
 import 'package:phase1/models/user_position.dart';
+import 'package:phase1/pages/feedback_form.dart';
 import 'package:phase1/pages/navigation_tab.dart';
 import 'package:phase1/pages/volunteer/discover_page.dart';
 import 'package:phase1/pages/volunteer/volunteer_settings_page.dart';
@@ -35,20 +35,24 @@ class _VolunteerBottomNavigationPageState extends State<VolunteerBottomNavigatio
       create: (_) => UserPosition(),
       child: MultiProvider(
         providers: [
-          StreamProvider<List<Organization>>.value(value: db.collection('organizations').snapshots().map((snapshot) {
+          StreamProvider<List<Organization>>.value(
+              value: db.collection('organizations').snapshots().map((snapshot) {
             if (snapshot.documents.length == 0) return [];
             if (snapshot == null) return null;
             List<Organization> organizations = [];
             for (DocumentSnapshot document in snapshot.documents) {
+              if (document.documentID == 'categories') continue;
               organizations.add(Organization.fromFirestoreMap(context: context, organizationSnapshot: document, isVolunteer: false));
             }
             return organizations;
           })),
-          StreamProvider<List<Donation>>.value(value: FirestoreHelper.getCurrentVolunteerReference(context).collection('currentDonations').orderBy('date').snapshots().map((snapshot) {
+          StreamProvider<List<Donation>>.value(
+              value: FirestoreHelper.getCurrentVolunteerReference(context).collection('currentDonations').orderBy('date').snapshots().map((snapshot) {
             if (snapshot.documents.length == 0) return [];
             if (snapshot == null) return null;
             List<Donation> donations = [];
             for (DocumentSnapshot document in snapshot.documents) {
+              if (document.documentID == 'categories') continue;
               donations.add(Donation.fromFirestoreMap(document));
             }
             return donations;
@@ -87,7 +91,7 @@ class _VolunteerBottomNavigationPageState extends State<VolunteerBottomNavigatio
               ),
             ),
             bottomNavigationBar: SizedBox(
-              height: 50,
+              height: 60,
               child: BottomNavigationBar(
                 currentIndex: _selectedIndex,
                 type: BottomNavigationBarType.fixed,

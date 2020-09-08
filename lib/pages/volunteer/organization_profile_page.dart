@@ -33,22 +33,6 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
           if (widget.organization.requestedItems[document['category']] == null) widget.organization.requestedItems[document['category']] = [];
           setState(() {
             if (document['amount'] > 0) noRequests = false;
-            Color urgencyColor;
-            switch (document['urgency']) {
-              case 0:
-                urgencyColor = Colors.transparent;
-                break;
-              case 1:
-                urgencyColor = Colors.green;
-                break;
-              case 2:
-                urgencyColor = Colors.yellow;
-                break;
-              case 3:
-                urgencyColor = Colors.red;
-                break;
-            }
-            ;
             widget.organization.requestedItems[document['category']].add(
               Item(
                 name: document['name'],
@@ -57,7 +41,9 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                 specificDescription: document['specificDescription'],
                 unit: document['unit'],
                 urgency: document['urgency'],
-                urgencyColor: urgencyColor,
+                urgencyColor: (document['urgency'] == 0)
+                    ? Colors.transparent
+                    : (document['urgency'] == 1) ? Colors.green : (document['urgency'] == 2) ? Colors.yellow : Colors.red,
               ),
             );
           });
