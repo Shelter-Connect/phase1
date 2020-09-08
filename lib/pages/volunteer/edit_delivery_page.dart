@@ -114,19 +114,38 @@ class _EditDeliveryPageState extends State<EditDeliveryPage> {
                                           child: Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
-                                              Text(
-                                                '${widget.donation.items[index].name} - ${widget.donation.items[index].amount} ${widget.donation.items[index].unit ?? ''}'
-                                                    .trim(),
-                                                style: TextStyle(
-                                                  fontSize: 17.0,
-                                                  fontWeight: FontWeight.w400,
-                                                ),
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                    child: Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Text(
+                                                          '${widget.donation.items[index].name} - ${widget.donation.items[index].amount} ${widget.donation.items[index].unit ?? ''}'
+                                                              .trim(),
+                                                          style: TextStyle(
+                                                            fontSize: 17.0,
+                                                            fontWeight: FontWeight.w400,
+                                                          ),
+                                                        ),
+                                                        if (widget.donation.items[index].specificDescription != null)
+                                                          Text(
+                                                            widget.donation.items[index].specificDescription,
+                                                            style: TextStyle(fontSize: 14, color: Colors.grey),
+                                                          ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  SizedBox(width: 5),
+                                                  Container(
+                                                    height: 12,
+                                                    width: 12,
+                                                    decoration: BoxDecoration(
+                                                        color: widget.donation.items[index].urgencyColor, borderRadius: BorderRadius.circular(40)),
+                                                  ),
+                                                  SizedBox(width: 15),
+                                                ],
                                               ),
-                                              if (widget.donation.items[index].specificDescription != null)
-                                                Text(
-                                                  widget.donation.items[index].specificDescription,
-                                                  style: TextStyle(fontSize: 14, color: Colors.grey),
-                                                ),
                                             ],
                                           ),
                                         ),
@@ -176,7 +195,11 @@ class _EditDeliveryPageState extends State<EditDeliveryPage> {
                         );
                       else {
                         Navigator.pop(context, newDonation);
-                        FlushBar(message: 'Your donation has been edited', duration: Duration(seconds: 3), margin: EdgeInsets.all(0),).build(context);
+                        FlushBar(
+                          message: 'Your donation has been edited',
+                          duration: Duration(seconds: 3),
+                          margin: EdgeInsets.all(0),
+                        ).build(context);
                       }
                     });
                   },

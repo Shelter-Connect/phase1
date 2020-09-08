@@ -14,7 +14,7 @@ class VolunteerSignUp extends StatefulWidget {
 }
 
 class _VolunteerSignUpState extends State<VolunteerSignUp> {
-  String firstName, lastName, email, password, password2;
+  String firstName = '', lastName = '', email = '', password = '', password2 = '';
   bool loading = false;
 
   @override
@@ -89,15 +89,46 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
                     title: 'Sign Up',
                     textColor: Colors.white,
                     onPressed: () async {
-                      if (password != password2) {
+                      if (firstName == '') {
                         showDialog(
                           context: context,
-                          builder: (_) => NoActionAlert(title: 'Passwords do not match'),
+                          builder: (_) => NoActionAlert(title: 'Please enter your first name'),
+                        );
+                      } else if (lastName == '') {
+                        showDialog(
+                          context: context,
+                          builder: (_) => NoActionAlert(title: 'Please enter your last name'),
+                        );
+                      } else if (email == '') {
+                        showDialog(
+                          context: context,
+                          builder: (_) => NoActionAlert(title: 'Please enter an email'),
+                        );
+                      } else if (!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(email)) {
+                        //is valid email address
+                        showDialog(
+                          context: context,
+                          builder: (_) => NoActionAlert(title: 'Please enter a valid email address.'),
+                        );
+                      } else if (password == '') {
+                        showDialog(
+                          context: context,
+                          builder: (_) => NoActionAlert(title: 'Please enter a password'),
+                        );
+                      } else if (password2 == '') {
+                        showDialog(
+                          context: context,
+                          builder: (_) => NoActionAlert(title: 'Please re-enter your password'),
+                        );
+                      } else if (password != password2) {
+                        showDialog(
+                          context: context,
+                          builder: (_) => NoActionAlert(title: 'Password needs to be at least 6 characters long'),
                         );
                       } else if (password.length < 6) {
                         showDialog(
                           context: context,
-                          builder: (_) => NoActionAlert(title: 'Password needs to be at least 6 characters long'),
+                          builder: (_) => NoActionAlert(title: 'Passwords do not match'),
                         );
                       } else {
                         try {

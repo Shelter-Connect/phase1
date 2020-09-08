@@ -100,7 +100,7 @@ final colorScheme = ColorScheme(
   secondaryVariant: Color(0xff0077c2),
   surface: Color(0xffacc0e6),
   background: Color(0xffffffff),
-  error: Color(0xfffe445c),
+  error: Color(0xffff3053),
   onPrimary: Color(0xff000000),
   onSecondary: Color(0xfffafafa),
   onSurface: Color(0xffbbdefb),

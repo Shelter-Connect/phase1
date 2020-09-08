@@ -13,7 +13,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  String email, password;
+  String email = '', password = '';
   TextEditingController passwordController = TextEditingController();
   bool loading = false;
 
@@ -48,32 +48,100 @@ class _LoginPageState extends State<LoginPage> {
                       password = val.trim();
                     },
                   ),
-                  SizedBox(height: 30),
+                  Row(
+                    textDirection: TextDirection.rtl,
+                    children: [
+                      TextButton(
+                        text: 'Forgot Password?',
+                        textColor: colorScheme.error,
+                        onPressed: () {
+                          if (email == '') {
+                            showDialog(
+                              context: context,
+                              builder: (_) => NoActionAlert(title: 'Please enter an email'),
+                            );
+                          } else if (!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(email)) {
+                            //is valid email address
+                            showDialog(
+                              context: context,
+                              builder: (_) => NoActionAlert(title: 'Please enter a valid email address.'),
+                            );
+                          } else
+                            try {
+                              auth.sendPasswordResetEmail(email: email);
+                              showDialog(
+                                context: context,
+                                builder: (_) => NoActionAlert(title: 'Password reset email sent to $email'),
+                              );
+                            } catch (e) {
+                              showDialog(
+                                context: context,
+                                builder: (_) => NoActionAlert(title: 'Invalid Email'),
+                              );
+                            }
+                        },
+                      )
+                    ],
+                  ),
                   RoundedButton(
                     color: purpleAccent,
                     title: 'Sign In',
                     textColor: Colors.white,
                     onPressed: () async {
-                      setState(() {
-                        loading = true;
-                      });
-                      try {
-                        await auth.signInWithEmailAndPassword(email: email, password: password);
-
-                        setState(() {
-                          loading = false;
-                        });
-                        FocusScope.of(context).unfocus();
-                      } catch (e) {
-                        print(e);
-                        passwordController.clear();
-                        setState(() {
-                          loading = false;
-                        });
+                      if (email == '') {
                         showDialog(
                           context: context,
-                          builder: (_) => NoActionAlert(title: 'Invalid email or password'),
+                          builder: (_) => NoActionAlert(title: 'Please enter an email'),
                         );
+                      } else if ((password == '') || (passwordController.text == '')) {
+                        showDialog(
+                          context: context,
+                          builder: (_) => NoActionAlert(title: 'Please enter a password'),
+                        );
+                      } else {
+                        setState(() {
+                          loading = true;
+                        });
+                        try {
+                          await auth.signInWithEmailAndPassword(email: email, password: password);
+
+                          setState(() {
+                            loading = false;
+                          });
+                          FocusScope.of(context).unfocus();
+                        } catch (e) {
+                          String errorMessage;
+                          switch (e.code) {
+                            case 'ERROR_INVALID_EMAIL':
+                              errorMessage = 'Please enter a valid email address.';
+                              break;
+                            case 'ERROR_WRONG_PASSWORD':
+                              errorMessage = 'Your password is incorrect.';
+                              break;
+                            case 'ERROR_USER_NOT_FOUND':
+                              errorMessage = 'This email address hasn\'t been signed up yet.';
+                              break;
+                            case 'ERROR_USER_DISABLED':
+                              errorMessage = 'A user with this email has been disabled.';
+                              break;
+                            case 'ERROR_TOO_MANY_REQUESTS':
+                              errorMessage = 'Too many attempts. Try again later.';
+                              break;
+                            case 'ERROR_OPERATION_NOT_ALLOWED':
+                              errorMessage = 'Signing in with Email and Password is not enabled.';
+                              break;
+                            default:
+                              errorMessage = 'An undefined Error happened. Please restart the app.';
+                          }
+                          passwordController.clear();
+                          setState(() {
+                            loading = false;
+                          });
+                          showDialog(
+                            context: context,
+                            builder: (_) => NoActionAlert(title: errorMessage),
+                          );
+                        }
                       }
                     },
                   ),

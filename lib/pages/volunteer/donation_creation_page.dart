@@ -61,8 +61,7 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                 widget.organization.name,
                 style: mainTitleStyle,
               ),
-              if(widget.organization.distance != null)
-              Text('${widget.organization.distance.toStringAsFixed(1)} miles away', style: subTitleStyle),
+              if (widget.organization.distance != null) Text('${widget.organization.distance.toStringAsFixed(1)} miles away', style: subTitleStyle),
               SizedBox(height: 20.0),
               Card(
                 child: Padding(
@@ -89,7 +88,10 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                 ),
               ),
               SizedBox(height: 20),
-              Text('*All Items can be slightly used unless explicitly stated by the organization', style: TextStyle(fontSize: 15, color: Colors.red),),
+              Text(
+                '*All Items can be slightly used unless explicitly stated by the organization',
+                style: TextStyle(fontSize: 15, color: Colors.red),
+              ),
               SizedBox(height: 20),
               ...widget.organization.requestedItems
                   .map(
@@ -142,12 +144,26 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                                                     Expanded(
                                                       child: Padding(
                                                         padding: const EdgeInsets.only(bottom: 5.0),
-                                                        child: Text(
-                                                          '${item.name} - ${item.amount} ${item.unit ?? ''}'.trim(),
-                                                          style: TextStyle(
-                                                            fontSize: 17.0,
-                                                            fontWeight: FontWeight.w400,
-                                                          ),
+                                                        child: Row(
+                                                          children: [
+                                                            Expanded(
+                                                              child: Text(
+                                                                '${item.name} - ${item.amount} ${item.unit ?? ''}'.trim(),
+                                                                style: TextStyle(
+                                                                  fontSize: 17.0,
+                                                                  fontWeight: FontWeight.w400,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            SizedBox(width: 5),
+                                                            Container(
+                                                              height: 12,
+                                                              width: 12,
+                                                              decoration:
+                                                                  BoxDecoration(color: item.urgencyColor, borderRadius: BorderRadius.circular(40)),
+                                                            ),
+                                                            SizedBox(width: 15),
+                                                          ],
                                                         ),
                                                       ),
                                                     ),

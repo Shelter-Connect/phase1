@@ -47,12 +47,30 @@ class _EditCurrentRequestsPageState extends State<EditCurrentRequestsPage> {
                     if (!itemCategories.containsKey(document['category'])) {
                       itemCategories[document['category']] = [];
                     }
+                    Color urgencyColor;
+                    switch (document['urgency']) {
+                      case 0:
+                        urgencyColor = Colors.transparent;
+                        break;
+                      case 1:
+                        urgencyColor = Colors.green;
+                        break;
+                      case 2:
+                        urgencyColor = Colors.yellow;
+                        break;
+                      case 3:
+                        urgencyColor = Colors.red;
+                        break;
+                    }
+                    ;
                     itemCategories[document['category']].add(
                       Item(
                         name: document['name'],
                         category: document['category'],
                         amount: document['amount'],
                         specificDescription: document['specificDescription'],
+                        urgency: document['urgency'],
+                        urgencyColor: urgencyColor,
                       ),
                     );
                   }
@@ -111,7 +129,11 @@ class _EditCurrentRequestsPageState extends State<EditCurrentRequestsPage> {
                                                           action: () {
                                                             FirestoreHelper.deleteRequest(context, itemCategories[category][index]);
                                                             Navigator.pop(context);
-                                                            FlushBar(title: 'Request Cancelled', message: 'You may create the request again using the create request button', duration: Duration(seconds: 3)).build(context);
+                                                            FlushBar(
+                                                                    title: 'Request Cancelled',
+                                                                    message: 'You may create the request again using the create request button',
+                                                                    duration: Duration(seconds: 3))
+                                                                .build(context);
                                                           },
                                                         ),
                                                       );
@@ -134,11 +156,26 @@ class _EditCurrentRequestsPageState extends State<EditCurrentRequestsPage> {
                                                   ),
                                                 ),
                                                 Expanded(
-                                                  child: Text(
-                                                    itemCategories[category][index].name,
-                                                    style: TextStyle(
-                                                      fontSize: 17,
-                                                    ),
+                                                  child: Row(
+                                                    children: [
+                                                      Expanded(
+                                                        child: Text(
+                                                          itemCategories[category][index].name,
+                                                          style: TextStyle(
+                                                            fontSize: 17,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      SizedBox(width: 5),
+                                                      Container(
+                                                        height: 14,
+                                                        width: 14,
+                                                        decoration: BoxDecoration(
+                                                            color: itemCategories[category][index].urgencyColor,
+                                                            borderRadius: BorderRadius.circular(40)),
+                                                      ),
+                                                      SizedBox(width: 10),
+                                                    ],
                                                   ),
                                                 ),
                                               ],
@@ -187,7 +224,7 @@ class _EditCurrentRequestsPageState extends State<EditCurrentRequestsPage> {
                             }
                           }
                           FirestoreHelper.updateRequests(context: context, items: delta);
-                          FlushBar( message: 'Your request has been edited.', duration: Duration(seconds: 3)).build(context);
+                          FlushBar(message: 'Your request has been edited.', duration: Duration(seconds: 3)).build(context);
                         },
                         textColor: Colors.white,
                       )

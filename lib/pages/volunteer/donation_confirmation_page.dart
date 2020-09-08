@@ -1,4 +1,3 @@
-import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -139,28 +138,42 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                                             ),
                                           ),
                                         Padding(
-                                          padding: const EdgeInsets.only(top: 3.0),
+                                          padding: const EdgeInsets.only(bottom: 5.0),
                                           child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Padding(
-                                                padding: const EdgeInsets.only(bottom: 5.0),
-                                                child: Text(
-                                                  '${item.name} - ${item.amount} ${item.unit ?? ''}'.trim(),
-                                                  style: TextStyle(
-                                                    fontSize: 17.0,
-                                                    fontWeight: FontWeight.w400,
+                                              Align(
+                                                alignment: Alignment.centerLeft,
+                                                child: Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      '${item.name} - ${item.amount} ${item.unit ?? ''}'.trim(),
+                                                      style: TextStyle(
+                                                        fontSize: 17.0,
+                                                        fontWeight: FontWeight.w400,
+                                                      ),
+                                                    ),
+                                                    if (item.specificDescription != null)
+                                                      Text(
+                                                        item.specificDescription,
+                                                        style: TextStyle(fontSize: 14, color: Colors.grey),
+                                                      ),
+                                                  ],
+                                                ),
+                                              ),
+                                              Expanded(
+                                                child: Align(
+                                                  alignment: Alignment.centerRight,
+                                                  child: Container(
+                                                    height: 12,
+                                                    width: 12,
+                                                    decoration: BoxDecoration(color: item.urgencyColor, borderRadius: BorderRadius.circular(40)),
                                                   ),
                                                 ),
                                               ),
                                             ],
                                           ),
                                         ),
-                                        if (item.specificDescription != null)
-                                          Text(
-                                            item.specificDescription,
-                                            style: TextStyle(fontSize: 14, color: Colors.grey),
-                                          ),
                                       ],
                                     ),
                                   );
@@ -191,7 +204,11 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                     }
                     FirestoreHelper.updateRequests(context: context, items: delta, organizationId: widget.donation.organization.id);
                     FirestoreHelper.createDonation(context, widget.donation);
-                    FlushBar(title: 'Donation Received', message: 'Go to the Delivery page to see delivery information', duration: Duration(seconds: 3)).build(context);
+                    FlushBar(
+                            title: 'Donation Received',
+                            message: 'Go to the Delivery page to see delivery information',
+                            duration: Duration(seconds: 3))
+                        .build(context);
                   },
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30.0),

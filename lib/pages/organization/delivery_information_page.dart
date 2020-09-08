@@ -58,21 +58,38 @@ class _DeliveryInformationPageState extends State<DeliveryInformationPage> {
                         itemCount: widget.donation.items.length,
                         itemBuilder: (context, index) {
                           return Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(widget.donation.items[index].name, style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400)),
-                                  Text('${widget.donation.items[index].amount} ${widget.donation.items[index].unit ?? ''}',
-                                      style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400))
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                            '${widget.donation.items[index].name} - ${widget.donation.items[index].amount} ${widget.donation.items[index].unit ?? ''}',
+                                            style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400)),
+                                        if (widget.donation.items[index].specificDescription != null)
+                                          Text(
+                                            widget.donation.items[index].specificDescription,
+                                            style: TextStyle(fontSize: 14, color: Colors.grey),
+                                          ),
+                                      ],
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Container(
+                                        height: 12,
+                                        width: 12,
+                                        decoration:
+                                            BoxDecoration(color: widget.donation.items[index].urgencyColor, borderRadius: BorderRadius.circular(40)),
+                                      ),
+                                    ),
+                                  ),
                                 ],
                               ),
-                              if (widget.donation.items[index].specificDescription != null)
-                                Text(
-                                  widget.donation.items[index].specificDescription,
-                                  style: TextStyle(fontSize: 14, color: Colors.grey),
-                                ),
                             ],
                           );
                         },

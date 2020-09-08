@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 
 import 'item.dart';
@@ -29,12 +30,15 @@ class Donation {
     items = donationSnapshot['items']
         .map(
           (item) => Item(
-            name: item['name'],
-            amount: item['amount'],
-            specificDescription: item['specificDescription'],
-            category: item['category'],
-            unit: item['unit'],
-          ),
+              name: item['name'],
+              amount: item['amount'],
+              specificDescription: item['specificDescription'],
+              category: item['category'],
+              unit: item['unit'],
+              urgency: item['urgency'],
+              urgencyColor: (item['urgency'] == 0)
+                  ? Colors.transparent
+                  : (item['urgency'] == 1) ? Colors.green : (item['urgency'] == 2) ? Colors.yellow : Colors.red),
         )
         .toList()
         .cast<Item>();

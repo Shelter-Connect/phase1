@@ -47,6 +47,22 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
       for (DocumentSnapshot document in documents.documents) {
         if (donation.organization.requestedItems[document['category']] == null) donation.organization.requestedItems[document['category']] = [];
         setState(() {
+          Color urgencyColor;
+          switch (document['urgency']) {
+            case 0:
+              urgencyColor = Colors.transparent;
+              break;
+            case 1:
+              urgencyColor = Colors.green;
+              break;
+            case 2:
+              urgencyColor = Colors.yellow;
+              break;
+            case 3:
+              urgencyColor = Colors.red;
+              break;
+          }
+          ;
           donation.organization.requestedItems[document['category']].add(
             Item(
               name: document['name'],
@@ -54,6 +70,8 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
               category: document['category'],
               specificDescription: document['specificDescription'],
               unit: document['unit'],
+              urgency: document['urgency'],
+              urgencyColor: urgencyColor,
             ),
           );
         });
@@ -162,25 +180,42 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                                   itemBuilder: (BuildContext context, int index) {
                                     return Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Padding(
-                                          padding: const EdgeInsets.only(bottom: 5.0),
-                                          child: Text(
-                                            '${donation.items[index].name} - ${donation.items[index].amount} ${donation.items[index].unit ?? ''}'
-                                                .trim(),
-                                            style: TextStyle(
-                                              fontSize: 17.0,
-                                              fontWeight: FontWeight.w400,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    '${donation.items[index].name} - ${donation.items[index].amount} ${donation.items[index].unit ?? ''}'
+                                                        .trim(),
+                                                    style: TextStyle(
+                                                      fontSize: 17.0,
+                                                      fontWeight: FontWeight.w400,
+                                                    ),
+                                                  ),
+                                                  if (donation.items[index].specificDescription != null)
+                                                    Text(
+                                                      donation.items[index].specificDescription,
+                                                      style: TextStyle(fontSize: 14, color: Colors.grey),
+                                                    ),
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                        ),
-                                        if (donation.items[index].specificDescription != null)
-                                          Text(
-                                            donation.items[index].specificDescription,
-                                            style: TextStyle(fontSize: 14, color: Colors.grey),
-                                          ),
-                                        SizedBox(
-                                          height: 5,
+                                            Expanded(
+                                              child: Align(
+                                                alignment: Alignment.centerRight,
+                                                child: Container(
+                                                  height: 12,
+                                                  width: 12,
+                                                  decoration: BoxDecoration(
+                                                      color: donation.items[index].urgencyColor, borderRadius: BorderRadius.circular(40)),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     );
@@ -252,21 +287,23 @@ class OrganizationInformation extends StatelessWidget {
     return Column(
       children: <Widget>[
         Card(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Row(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0, left: 20.0),
+                child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   textDirection: ui.TextDirection.rtl,
                   children: [
                     FlatButton(
-                        onPressed: () { MapSheet().build(context); },
-                        child: SvgPicture.asset("assets/random_svgs/googlemaps.svg", height: 28,)
-                    ),
+                        onPressed: () {
+                          MapSheet().build(context);
+                        },
+                        child: SvgPicture.asset(
+                          "assets/random_svgs/googlemaps.svg",
+                          height: 28,
+                        )),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -298,84 +335,93 @@ class OrganizationInformation extends StatelessWidget {
                     ),
                   ],
                 ),
-                Column(
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8.0, left: 20.0, right: 20.0),
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    RichText(
-                      text: TextSpan(
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: 'Email Address: ',
-                            style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.black,
-                            ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        RichText(
+                          text: TextSpan(
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: 'Email Address: ',
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              TextSpan(
+                                text: orgEmail,
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.black,
+                                ),
+                              )
+                            ],
                           ),
-                          TextSpan(
-                            text: orgEmail,
-                            style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black,
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    RichText(
-                      text: TextSpan(
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: 'Donation Location: ',
-                            style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.black,
-                            ),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        RichText(
+                          text: TextSpan(
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: 'Donation Location: ',
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              TextSpan(
+                                text: orgAddress,
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.black,
+                                ),
+                              )
+                            ],
                           ),
-                          TextSpan(
-                            text: orgAddress,
-                            style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black,
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    RichText(
-                      text: TextSpan(
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: 'Deliver By: ',
-                            style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.black,
-                            ),
+                        ),
+                        RichText(
+                          text: TextSpan(
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: 'Deliver By: ',
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              TextSpan(
+                                text: '${DateFormat('MMMMd').format(dateTime)}',
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ],
                           ),
-                          TextSpan(
-                            text: '${DateFormat('MMMMd').format(dateTime)}',
-                            style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 5)
+                        ),
+                        SizedBox(height: 5)
+                      ],
+                    )
                   ],
-                )
-              ],
-            ),
+                ),
+              ),
+            ],
           ),
         ),
       ],

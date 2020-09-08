@@ -50,7 +50,7 @@ class _OrganizationEditInfoPageState extends State<OrganizationEditInfoPage> {
   @override
   Widget build(BuildContext context) {
     return StandardLayout(
-      title: 'Update',
+      title: 'Edit',
       titleColor: purpleAccent,
       body: ModalProgressHUD(
         inAsyncCall: loading,
