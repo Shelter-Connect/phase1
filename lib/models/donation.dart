@@ -10,6 +10,7 @@ class Donation {
   Organization organization;
   DateTime date;
   List<Item> items = List();
+  bool sync;
 
   Donation({
     this.volunteerId,
@@ -19,6 +20,7 @@ class Donation {
     this.id,
     this.items,
     this.date,
+    this.sync = false,
   });
 
   Donation.fromFirestoreMap(DocumentSnapshot donationSnapshot) {
@@ -30,15 +32,17 @@ class Donation {
     items = donationSnapshot['items']
         .map(
           (item) => Item(
-              name: item['name'],
-              amount: item['amount'],
-              specificDescription: item['specificDescription'],
-              category: item['category'],
-              unit: item['unit'],
-              urgency: item['urgency'],
-              urgencyColor: (item['urgency'] == 0)
-                  ? Colors.transparent
-                  : (item['urgency'] == 1) ? Colors.green : (item['urgency'] == 2) ? Colors.yellow : Colors.red),
+            name: item['name'],
+            amount: item['amount'],
+            specificDescription: item['specificDescription'],
+            category: item['category'],
+            unit: item['unit'],
+            urgency: item['urgency'],
+            urgencyColor: (item['urgency'] == 0)
+                ? Colors.transparent
+                : (item['urgency'] == 1) ? Colors.green : (item['urgency'] == 2) ? Colors.yellow : Colors.red,
+            sync: item['sync'],
+          ),
         )
         .toList()
         .cast<Item>();

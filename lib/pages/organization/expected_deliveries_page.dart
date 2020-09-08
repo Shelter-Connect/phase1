@@ -1,3 +1,4 @@
+import 'package:add_2_calendar/add_2_calendar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -30,6 +31,7 @@ class ExpectedDeliveriesPage extends StatefulWidget with NavigationTab {
 
 class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
   String dropdownValue = 'Sort by';
+  List<Donation> donations = [];
 
   @override
   Widget build(BuildContext context) {
@@ -43,8 +45,19 @@ class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
           Align(
             alignment: Alignment.centerLeft,
             child: FlatButton(
-              onPressed: () {
-                //TODO Sync w/ cloud
+              onPressed: () async {
+                for (Donation donation in donations) {
+                  if (donation.sync) continue;
+                  Event event = Event(
+                    title: 'Donation to ${donation.organization.name}',
+                    description: 'Event description',
+                    location: donation.organization.address,
+                    startDate: DateTime(0),
+                    endDate: DateTime(0),
+                  );
+                  await Add2Calendar.addEvent2Cal(event);
+                  donation.sync = true;
+                }
               },
               color: purpleAccent,
               padding: EdgeInsets.all(8.0),
@@ -105,9 +118,11 @@ class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
               }
               List<Widget> widgets = [];
               for (DocumentSnapshot document in snapshot.data.documents) {
+                Donation donation = Donation.fromFirestoreMap(document);
+                donations.add(donation);
                 widgets.add(
                   ExpectedDeliveryContainer(
-                    donation: Donation.fromFirestoreMap(document),
+                    donation: donation,
                   ),
                 );
                 widgets.add(
