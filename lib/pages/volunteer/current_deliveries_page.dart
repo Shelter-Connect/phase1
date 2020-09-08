@@ -6,6 +6,7 @@ import 'package:phase1/models/user_position.dart';
 import 'package:phase1/services/location_helper.dart';
 import 'package:provider/provider.dart';
 
+import '../../constants.dart';
 import '../navigation_tab.dart';
 
 class CurrentDeliveriesPage extends StatefulWidget with NavigationTab {
@@ -53,6 +54,37 @@ class _CurrentDeliveriesPageState extends State<CurrentDeliveriesPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+          Align(
+            alignment: Alignment.centerLeft,
+            child: FlatButton(
+              onPressed: () {
+                //TODO Sync w/ cloud
+              },
+              color: purpleAccent,
+              padding: EdgeInsets.all(8.0),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30.0),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Wrap(
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: Icon(
+                        Icons.cloud_upload,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Text('Sync',
+                        style: TextStyle(fontSize: 17, color: Colors.white))
+                  ],
+                ),
+              ),
+            ),
+          ),
+          SizedBox(height: 10),
           (Provider.of<UserPosition>(context).position == null && hasPosition) ?
           Center(
             child: CircularProgressIndicator()

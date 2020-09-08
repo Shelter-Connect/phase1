@@ -5,6 +5,7 @@ import 'package:phase1/models/donation.dart';
 import 'package:phase1/services/firestore_helper.dart';
 
 import '../../components/expected_deliveries_container.dart';
+import '../../constants.dart';
 import '../navigation_tab.dart';
 
 class ExpectedDeliveriesPage extends StatefulWidget with NavigationTab {
@@ -37,6 +38,37 @@ class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+          SizedBox(height: 10),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: FlatButton(
+              onPressed: () {
+                //TODO Sync w/ cloud
+              },
+              color: purpleAccent,
+              padding: EdgeInsets.all(8.0),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30.0),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Wrap(
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: Icon(
+                        Icons.cloud_upload,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Text('Sync',
+                        style: TextStyle(fontSize: 17, color: Colors.white))
+                  ],
+                ),
+              ),
+            ),
+          ),
           SizedBox(height: 10),
           StreamBuilder(
             stream: FirestoreHelper.getCurrentOrganizationReference(context).collection('currentDonations').orderBy('date').snapshots(),
