@@ -42,14 +42,14 @@ class SyncCalendar extends StatelessWidget {
                           final result = await _deviceCalendarPlugin.createOrUpdateEvent(event);
                           donation.sync = result.data;
                           if (isOrg) {
-                            db
+                            await db
                                 .collection('organizations')
                                 .document(donation.volunteerId)
                                 .collection('currentDonations')
                                 .document(donation.id)
                                 .updateData({'sync': result.data});
                           } else
-                            db
+                            await db
                                 .collection('volunteers')
                                 .document(donation.volunteerId)
                                 .collection('currentDonations')
