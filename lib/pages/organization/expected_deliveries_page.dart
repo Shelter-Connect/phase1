@@ -1,7 +1,7 @@
-import 'package:add_2_calendar/add_2_calendar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:phase1/components/sync_calendar.dart';
 import 'package:phase1/models/donation.dart';
 import 'package:phase1/services/firestore_helper.dart';
 
@@ -46,18 +46,7 @@ class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
             alignment: Alignment.centerLeft,
             child: FlatButton(
               onPressed: () async {
-                for (Donation donation in donations) {
-                  if (donation.sync) continue;
-                  Event event = Event(
-                    title: 'Donation to ${donation.organization.name}',
-                    description: 'Event description',
-                    location: donation.organization.address,
-                    startDate: DateTime(0),
-                    endDate: DateTime(0),
-                  );
-                  await Add2Calendar.addEvent2Cal(event);
-                  donation.sync = true;
-                }
+                SyncCalendar(donations, true);
               },
               color: purpleAccent,
               padding: EdgeInsets.all(8.0),

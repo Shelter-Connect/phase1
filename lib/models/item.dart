@@ -4,9 +4,9 @@ class Item {
   String name, category, specificDescription, unit;
   int amount, urgency;
   Color urgencyColor;
-  bool sync;
+  String sync;
 
-  Item({this.name, this.category, this.amount, this.specificDescription, this.unit, this.urgency = 0, this.urgencyColor, this.sync = false});
+  Item({this.name, this.category, this.amount, this.specificDescription, this.unit, this.urgency = 0, this.urgencyColor, this.sync = ''});
 
   Item clone() {
     return Item(

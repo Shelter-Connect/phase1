@@ -10,7 +10,7 @@ class Donation {
   Organization organization;
   DateTime date;
   List<Item> items = List();
-  bool sync;
+  String sync;
 
   Donation({
     this.volunteerId,
@@ -20,7 +20,7 @@ class Donation {
     this.id,
     this.items,
     this.date,
-    this.sync = false,
+    this.sync = '',
   });
 
   Donation.fromFirestoreMap(DocumentSnapshot donationSnapshot) {

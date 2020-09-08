@@ -31,7 +31,6 @@ class FirestoreHelper {
 
     Set<String> itemCategories = Set<String>();
     for (Item item in items) {
-      item.sync = false;
       itemCategories.add(item.category);
       QuerySnapshot document = await requestsReference
           .where('name', isEqualTo: item.name)
@@ -77,7 +76,6 @@ class FirestoreHelper {
 
   //Creates a donation from the volunteer side
   static Future<void> createDonation(BuildContext context, Donation donation) async {
-    donation.sync = false;
     DocumentReference volunteerReference = getCurrentVolunteerReference(context);
     CollectionReference volunteerDonationCollection = volunteerReference.collection('currentDonations');
     DocumentSnapshot volunteerSnapshot = await volunteerReference.get();
