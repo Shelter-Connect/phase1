@@ -52,6 +52,7 @@ class _VolunteerBottomNavigationPageState extends State<VolunteerBottomNavigatio
             if (snapshot == null) return null;
             List<Donation> donations = [];
             for (DocumentSnapshot document in snapshot.documents) {
+              if (document.documentID == 'categories') continue;
               donations.add(Donation.fromFirestoreMap(document));
             }
             return donations;

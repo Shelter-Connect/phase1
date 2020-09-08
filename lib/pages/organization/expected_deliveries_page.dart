@@ -15,7 +15,8 @@ class ExpectedDeliveriesPage extends StatefulWidget with NavigationTab {
   @override
   String get helpDescription =>
       'This is the Expected Deliveries page. Here, you can see any items that the volunteers have signed up to deliver to your organization. '
-      'Click on a delivery to see more information regarding the items being delivered, the arrival time, and donor contact information.';
+      'Click on a delivery to see more information regarding the items being delivered, the arrival time, and donor contact information.'
+      'The Sync button syncs your expected deliveries to a calendar of your choice';
 
   @override
   IconData get icon => Icons.access_time;
@@ -62,8 +63,7 @@ class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
                         color: Colors.white,
                       ),
                     ),
-                    Text('Sync',
-                        style: TextStyle(fontSize: 17, color: Colors.white))
+                    Text('Sync', style: TextStyle(fontSize: 17, color: Colors.white))
                   ],
                 ),
               ),
@@ -92,7 +92,8 @@ class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 4),
                       child: Center(
-                        child: SvgPicture.asset('assets/ui_svgs/dood.svg',
+                        child: SvgPicture.asset(
+                          'assets/ui_svgs/dood.svg',
                           semanticsLabel: 'Create some requests!',
                           width: MediaQuery.of(context).size.width,
                         ),
