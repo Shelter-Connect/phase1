@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:phase1/components/alerts.dart';
 import 'package:phase1/components/category_icon_button.dart';
+import 'package:phase1/components/dropdownmenu.dart';
 import 'package:phase1/components/floating_text_field.dart';
 import 'package:phase1/components/increment.dart';
 import 'package:phase1/constants.dart';
@@ -56,28 +57,22 @@ class _OtherItemPageState extends State<OtherItemPage> {
               SizedBox(height: 20),
               Wrap(
                 children: <Widget>[
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: colorScheme.background,
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
-                      child: Wrap(
-                        crossAxisAlignment: WrapCrossAlignment.center,
-                        children: <Widget>[
-                          CategoryIconDisplay(
-                            name: widget.itemCategory,
-                            asset: widget.asset,
-                          ),
-                        ],
-                      ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
+                    child: Wrap(
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      children: <Widget>[
+                        CategoryIconDisplay(
+                          name: widget.itemCategory,
+                          asset: widget.asset,
+                        ),
+                      ],
                     ),
                   ),
                   SizedBox(width: 16),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
                       SizedBox(height: 20),
                       FloatingTextField(
@@ -102,7 +97,7 @@ class _OtherItemPageState extends State<OtherItemPage> {
                           specificDescription = val;
                         },
                       ),
-                      SizedBox(height: 24),
+                      SizedBox(height: 20),
                       ItemIncrementCreateRequest(
                         onChanged: (val) {
                           setState(() {
@@ -110,11 +105,13 @@ class _OtherItemPageState extends State<OtherItemPage> {
                           });
                         },
                       ),
+                      SizedBox(height: 20),
                     ],
                   ),
+                  DropDown(),
                 ],
               ),
-              SizedBox(height: 16),
+              SizedBox(height: 20),
               Container(
                 width: MediaQuery.of(context).size.width,
                 child: FlatButton(
