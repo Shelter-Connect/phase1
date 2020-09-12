@@ -26,18 +26,30 @@ class SyncCalendar extends StatelessWidget {
                       if (donation.sync != '') event.eventId = donation.sync;
                       event.allDay = true;
                       event.start = donation.date;
+                      event.end = donation.date;
                       event.location = donation.organization.address;
                       event.title = isOrg ? 'Delivery from ${donation.volunteerName}' : 'Delivery to ${donation.organization.name}';
                       String description = 'A delivery of';
                       for (Item item in donation.items)
-                        description += ' ${item.amount}${item.unit != '' ? ' ' + item.unit : ''} ${item.name}${item.specificDescription != '' ? ' ' + item.specificDescription : ''}\n';
+                        description +=
+                            ' ${item.amount}${item.unit != '' ? ' ' + item.unit : ''} ${item.name}${item.specificDescription != '' ? ' ' + item.specificDescription : ''}\n';
                       event.description = description;
                       final result = await deviceCalendarPlugin.createOrUpdateEvent(event);
                       donation.sync = result.data;
                       if (isOrg) {
-                        await db.collection('organizations').document(donation.volunteerId).collection('currentDonations').document(donation.id).updateData({'sync': result.data});
+                        await db
+                            .collection('organizations')
+                            .document(donation.volunteerId)
+                            .collection('currentDonations')
+                            .document(donation.id)
+                            .updateData({'sync': result.data});
                       } else
-                        await db.collection('volunteers').document(donation.volunteerId).collection('currentDonations').document(donation.id).updateData({'sync': result.data});
+                        await db
+                            .collection('volunteers')
+                            .document(donation.volunteerId)
+                            .collection('currentDonations')
+                            .document(donation.id)
+                            .updateData({'sync': result.data});
                     }
                   },
                   title: Text(calendar.name),
