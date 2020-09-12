@@ -9,6 +9,7 @@ class SyncCalendar extends StatelessWidget {
 
   final List<Donation> donations;
   final bool isOrg;
+  bool done = false;
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +21,7 @@ class SyncCalendar extends StatelessWidget {
               ...calendars.map((calendar) {
                 return ListTile(
                   onTap: () async {
+                    if (done) Navigator.pop(context);
                     for (int i = 0; i < donations.length; i++) {
                       Donation donation = donations[i];
                       Event event = Event(calendar.id);
@@ -36,22 +38,23 @@ class SyncCalendar extends StatelessWidget {
                       event.description = description;
                       final result = await deviceCalendarPlugin.createOrUpdateEvent(event);
                       donation.sync = result.data;
-                      if (isOrg) {
+                      if ((donation.sync == '' || donation.sync == null) && isOrg) {
                         await db
                             .collection('organizations')
                             .document(donation.organization.id)
                             .collection('currentDonations')
                             .document(donation.id)
                             .updateData({'sync': result.data});
-                      } else
+                        done = true;
+                      } else if (donation.sync == '' || donation.sync == null)
                         await db
                             .collection('volunteers')
                             .document(donation.volunteerId)
                             .collection('currentDonations')
                             .document(donation.id)
                             .updateData({'sync': result.data});
+                      done = true;
                     }
-                    Navigator.pop(context);
                   },
                   title: Text(calendar.name),
                   leading: SizedBox(
