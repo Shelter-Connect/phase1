@@ -202,6 +202,7 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                       item.amount *= -1;
                       delta.add(item);
                     }
+                    widget.donation.sync = '';
                     FirestoreHelper.updateRequests(context: context, items: delta, organizationId: widget.donation.organization.id);
                     FirestoreHelper.createDonation(context, widget.donation);
                     FlushBar(

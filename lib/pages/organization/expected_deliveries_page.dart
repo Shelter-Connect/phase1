@@ -60,7 +60,6 @@ class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
                       });
                 } else if (status.isUndetermined) await Permission.calendar.request();
                 await _retrieveCalendars();
-                print('ethayus pp length: -' + calendars.length.toString() + '000 mi');
                 showModalBottomSheet(context: context, builder: (context) => SyncCalendar(donations, true));
               },
               color: purpleAccent,
