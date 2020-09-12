@@ -20,7 +20,6 @@ class SyncCalendar extends StatelessWidget {
               ...calendars.map((calendar) {
                 return ListTile(
                   onTap: () async {
-                    print(1233);
                     for (Donation donation in donations) {
                       Event event = Event(calendar.id);
                       if (donation.sync != '') event.eventId = donation.sync;
