@@ -18,12 +18,13 @@ class SyncCalendar extends StatelessWidget {
           child: Wrap(
             children: <Widget>[
               ...calendars.map((calendar) {
+                print(calendar.id);
                 return ListTile(
                   onTap: () async {
-                    print(1233);
-                    for (Donation donation in donations) {
+                    for (int i = 0; i < donations.length; i++) {
+                      Donation donation = donations[i];
                       Event event = Event(calendar.id);
-                      if (donation.sync != '') event.eventId = donation.sync;
+                      if (donation.sync != '' || donation.sync != null) event.eventId = donation.sync;
                       event.allDay = true;
                       event.start = donation.date;
                       event.end = donation.date;
@@ -36,10 +37,11 @@ class SyncCalendar extends StatelessWidget {
                       event.description = description;
                       final result = await deviceCalendarPlugin.createOrUpdateEvent(event);
                       donation.sync = result.data;
+                      print('1231231 ${result.data}');
                       if (isOrg) {
                         await db
                             .collection('organizations')
-                            .document(donation.volunteerId)
+                            .document(donation.organization.id)
                             .collection('currentDonations')
                             .document(donation.id)
                             .updateData({'sync': result.data});
