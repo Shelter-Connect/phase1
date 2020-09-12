@@ -29,7 +29,7 @@ class SyncCalendar extends StatelessWidget {
                       event.end = donation.date;
                       event.location = donation.organization.address;
                       event.title = isOrg ? 'Delivery from ${donation.volunteerName}' : 'Delivery to ${donation.organization.name}';
-                      String description = 'A delivery of';
+                      String description = 'A delivery of\n';
                       for (Item item in donation.items)
                         description +=
                             ' ${item.amount}${item.unit != '' ? ' ' + item.unit : ''} ${item.name}${item.specificDescription != '' ? ' ' + item.specificDescription : ''}\n';
@@ -50,6 +50,7 @@ class SyncCalendar extends StatelessWidget {
                             .collection('currentDonations')
                             .document(donation.id)
                             .updateData({'sync': result.data});
+                      Navigator.pop(context);
                     }
                   },
                   title: Text(calendar.name),
