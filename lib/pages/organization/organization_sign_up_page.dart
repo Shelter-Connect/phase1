@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_webservice/places.dart';
+import 'package:intl/intl.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 import '../../components/alerts.dart';
@@ -22,6 +23,7 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
   GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: kGoogleApiKey);
   bool loading = false;
   TextEditingController timeCtl = TextEditingController();
+  TextEditingController timeCtl1 = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -114,8 +116,7 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
                           setState(() {
                             time = picked;
                           });
-                          timeCtl.text =  picked.toString();
-
+                          timeCtl.text =  picked.format(context);
                         }
                       },
                     ),
@@ -123,7 +124,7 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
                     FloatingTextField(
                       width: MediaQuery.of(context).size.width*(7.5/18),
                       hintText: 'Closed',
-                      controller: timeCtl,  // add this line.
+                      controller: timeCtl1,  // add this line.
                       onTapped: () async {
                         TimeOfDay time = TimeOfDay.now();
                         FocusScope.of(context).requestFocus(new FocusNode());
@@ -134,8 +135,7 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
                           setState(() {
                             time = picked;
                           });
-                          timeCtl.text =  picked.toString();
-
+                          timeCtl1.text =  picked.format(context);
                         }
                       },
                     ),

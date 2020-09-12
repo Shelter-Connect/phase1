@@ -12,60 +12,48 @@ class SyncCalendar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return SafeArea(
-          child: SingleChildScrollView(
-            child: Container(
-              child: Wrap(
-                children: <Widget>[
-                  for (Calendar calendar in calendars)
-                    ListTile(
-                      onTap: () async {
-                        for (Donation donation in donations) {
-                          Event event = Event(calendar.id);
-                          if (donation.sync != '') event.eventId = donation.sync;
-                          event.allDay = true;
-                          event.start = donation.date;
-                          event.location = donation.organization.address;
-                          event.title = isOrg ? 'Delivery from ${donation.volunteerName}' : 'Delivery to ${donation.organization.name}';
-                          String description = 'A delivery of';
-                          for (Item item in donation.items)
-                            description +=
-                                ' ${item.amount}${item.unit != '' ? ' ' + item.unit : ''} ${item.name}${item.specificDescription != '' ? ' ' + item.specificDescription : ''}\n';
-                          event.description = description;
-                          final result = await deviceCalendarPlugin.createOrUpdateEvent(event);
-                          donation.sync = result.data;
-                          if (isOrg) {
-                            await db
-                                .collection('organizations')
-                                .document(donation.volunteerId)
-                                .collection('currentDonations')
-                                .document(donation.id)
-                                .updateData({'sync': result.data});
-                          } else
-                            await db
-                                .collection('volunteers')
-                                .document(donation.volunteerId)
-                                .collection('currentDonations')
-                                .document(donation.id)
-                                .updateData({'sync': result.data});
-                        }
-                      },
-                      title: Text(calendar.name),
-                      leading: Image(
-                        image: Icons.calendar_today as ImageProvider,
-                        height: 30.0,
-                        width: 30.0,
-                      ),
+    return SafeArea(
+      child: SingleChildScrollView(
+        child: Container(
+          child: Wrap(
+            children: <Widget>[
+              ...calendars.map((calendar) {
+                return ListTile(
+                  onTap: () async {
+                    print(1233);
+                    for (Donation donation in donations) {
+                      Event event = Event(calendar.id);
+                      if (donation.sync != '') event.eventId = donation.sync;
+                      event.allDay = true;
+                      event.start = donation.date;
+                      event.location = donation.organization.address;
+                      event.title = isOrg ? 'Delivery from ${donation.volunteerName}' : 'Delivery to ${donation.organization.name}';
+                      String description = 'A delivery of';
+                      for (Item item in donation.items)
+                        description += ' ${item.amount}${item.unit != '' ? ' ' + item.unit : ''} ${item.name}${item.specificDescription != '' ? ' ' + item.specificDescription : ''}\n';
+                      event.description = description;
+                      final result = await deviceCalendarPlugin.createOrUpdateEvent(event);
+                      donation.sync = result.data;
+                      if (isOrg) {
+                        await db.collection('organizations').document(donation.volunteerId).collection('currentDonations').document(donation.id).updateData({'sync': result.data});
+                      } else
+                        await db.collection('volunteers').document(donation.volunteerId).collection('currentDonations').document(donation.id).updateData({'sync': result.data});
+                    }
+                  },
+                  title: Text(calendar.name),
+                  leading: SizedBox(
+                    height: 30.0,
+                    width: 30.0,
+                    child: Icon(
+                      Icons.calendar_today,
                     ),
-                ],
-              ),
-            ),
+                  ),
+                );
+              }).toList(),
+            ],
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 }

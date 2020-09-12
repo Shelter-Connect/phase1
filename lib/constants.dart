@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:map_launcher/map_launcher.dart';
 
 //Firebase
-FirebaseAuth auth = FirebaseAuth.instance;
-Firestore db = Firestore.instance;
+final FirebaseAuth auth = FirebaseAuth.instance;
+final Firestore db = Firestore.instance;
 
 //Maps
 final kGoogleApiKey = "AIzaSyDtBjj6ReiOlVtylupAx-wcLe2HmsJXXFs";

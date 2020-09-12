@@ -59,8 +59,9 @@ class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
                         openAppSettings();
                       });
                 } else if (status.isUndetermined) await Permission.calendar.request();
-                _retrieveCalendars();
-                SyncCalendar(donations, true);
+                await _retrieveCalendars();
+                print('ethayus pp length: -' + calendars.length.toString() + '000 mi');
+                showModalBottomSheet(context: context, builder: (context) => SyncCalendar(donations, true));
               },
               color: purpleAccent,
               padding: EdgeInsets.all(8.0),
@@ -144,7 +145,7 @@ class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
   }
 }
 
-void _retrieveCalendars() async {
+Future<void> _retrieveCalendars() async {
   try {
     var permissionsGranted = await deviceCalendarPlugin.hasPermissions();
     if (permissionsGranted.isSuccess && !permissionsGranted.data) {
@@ -154,7 +155,7 @@ void _retrieveCalendars() async {
       }
     }
 
-    deviceCalendarPlugin.retrieveCalendars().then((value) => calendars = value?.data);
+    calendars = (await deviceCalendarPlugin.retrieveCalendars())?.data;
   } on PlatformException catch (e) {
     print(e);
   }
