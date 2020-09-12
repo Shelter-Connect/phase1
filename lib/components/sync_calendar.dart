@@ -20,9 +20,10 @@ class SyncCalendar extends StatelessWidget {
               ...calendars.map((calendar) {
                 return ListTile(
                   onTap: () async {
-                    for (Donation donation in donations) {
+                    for (int i = 0; i < donations.length; i++) {
+                      Donation donation = donations[i];
                       Event event = Event(calendar.id);
-                      if (donation.sync != '') event.eventId = donation.sync;
+                      if (donation.sync != '' || donation.sync != null) event.eventId = donation.sync;
                       event.allDay = true;
                       event.start = donation.date;
                       event.end = donation.date;
@@ -38,7 +39,7 @@ class SyncCalendar extends StatelessWidget {
                       if (isOrg) {
                         await db
                             .collection('organizations')
-                            .document(donation.volunteerId)
+                            .document(donation.organization.id)
                             .collection('currentDonations')
                             .document(donation.id)
                             .updateData({'sync': result.data});
