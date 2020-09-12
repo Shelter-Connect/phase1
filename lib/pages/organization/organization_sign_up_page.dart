@@ -21,6 +21,7 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
   TextEditingController controller = TextEditingController();
   GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: kGoogleApiKey);
   bool loading = false;
+  TextEditingController timeCtl = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -95,6 +96,50 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
                   },
                   maxLines: null,
                   hintText: 'Website (Optional)',
+                ),
+                SizedBox(height: 20),
+                Row(
+                  children: [
+                    FloatingTextField(
+                      width: MediaQuery.of(context).size.width*(7.5/18),
+                      hintText: 'Open',
+                      controller: timeCtl,  // add this line.
+                      onTapped: () async {
+                        TimeOfDay time = TimeOfDay.now();
+                        FocusScope.of(context).requestFocus(new FocusNode());
+
+                        TimeOfDay picked =
+                        await showTimePicker(context: context, initialTime: time);
+                        if (picked != null) {
+                          setState(() {
+                            time = picked;
+                          });
+                          timeCtl.text =  picked.toString();
+
+                        }
+                      },
+                    ),
+                    SizedBox(width: 10,),
+                    FloatingTextField(
+                      width: MediaQuery.of(context).size.width*(7.5/18),
+                      hintText: 'Closed',
+                      controller: timeCtl,  // add this line.
+                      onTapped: () async {
+                        TimeOfDay time = TimeOfDay.now();
+                        FocusScope.of(context).requestFocus(new FocusNode());
+
+                        TimeOfDay picked =
+                        await showTimePicker(context: context, initialTime: time);
+                        if (picked != null) {
+                          setState(() {
+                            time = picked;
+                          });
+                          timeCtl.text =  picked.toString();
+
+                        }
+                      },
+                    ),
+                  ],
                 ),
                 SizedBox(height: 20),
                 FloatingTextField(

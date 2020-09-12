@@ -37,6 +37,7 @@ class FloatingTextField extends StatelessWidget {
       elevation: 2,
       borderRadius: BorderRadius.circular(5),
       child: Container(
+        width: width,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2),
           child: TextField(

@@ -11,6 +11,7 @@ import 'package:phase1/components/increment.dart';
 import 'package:phase1/constants.dart';
 import 'package:phase1/models/item.dart';
 import 'package:phase1/services/firestore_helper.dart';
+import 'package:date_range_picker/date_range_picker.dart' as DateRagePicker;
 
 import '../../components/secondary_layout.dart';
 
@@ -128,6 +129,24 @@ class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
                           ),
                         ),
                       ),
+                      SizedBox(height: 10,),
+                      MaterialButton(
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                          color: Colors.white,
+                          onPressed: () async {
+                            final List<DateTime> picked = await DateRagePicker.showDatePicker(
+                                context: context,
+                                initialFirstDate: DateTime.now(),
+                                initialLastDate: (DateTime.now()).add( Duration(days: 7)),
+                                firstDate:  DateTime(2015),
+                                lastDate:  DateTime(2021)
+                            );
+                            if (picked != null && picked.length == 2) {
+                              print(picked);
+                            }
+                          },
+                          child: Text('Pick date range (Optional)', style: TextStyle(color: purpleAccent, fontSize: 15))
+                      )
                     ],
                   ),
                 ],
