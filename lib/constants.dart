@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:device_calendar/device_calendar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:map_launcher/map_launcher.dart';
@@ -12,6 +13,10 @@ final kGoogleApiKey = "AIzaSyDtBjj6ReiOlVtylupAx-wcLe2HmsJXXFs";
 List<AvailableMap> availableMaps = List();
 Coords coords = Coords(0, 0);
 String title = '';
+
+//Calendars
+List<Calendar> calendars;
+DeviceCalendarPlugin deviceCalendarPlugin = DeviceCalendarPlugin();
 
 //Styles
 //Text Styles

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:phase1/components/alerts.dart';
@@ -58,6 +59,7 @@ class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
                         openAppSettings();
                       });
                 } else if (status.isUndetermined) await Permission.calendar.request();
+                _retrieveCalendars();
                 SyncCalendar(donations, true);
               },
               color: purpleAccent,
@@ -139,5 +141,21 @@ class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
         ],
       ),
     );
+  }
+}
+
+void _retrieveCalendars() async {
+  try {
+    var permissionsGranted = await deviceCalendarPlugin.hasPermissions();
+    if (permissionsGranted.isSuccess && !permissionsGranted.data) {
+      permissionsGranted = await deviceCalendarPlugin.requestPermissions();
+      if (!permissionsGranted.isSuccess || !permissionsGranted.data) {
+        return;
+      }
+    }
+
+    deviceCalendarPlugin.retrieveCalendars().then((value) => calendars = value?.data);
+  } on PlatformException catch (e) {
+    print(e);
   }
 }

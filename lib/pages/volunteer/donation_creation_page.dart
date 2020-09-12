@@ -146,23 +146,25 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                                                         padding: const EdgeInsets.only(bottom: 5.0),
                                                         child: Row(
                                                           children: [
-                                                            Expanded(
-                                                              child: Text(
-                                                                '${item.name} - ${item.amount} ${item.unit ?? ''}'.trim(),
-                                                                style: TextStyle(
-                                                                  fontSize: 17.0,
-                                                                  fontWeight: FontWeight.w400,
+                                                            if (item.amount > 0)
+                                                              Expanded(
+                                                                child: Text(
+                                                                  '${item.name} - ${item.amount} ${item.unit ?? ''}'.trim(),
+                                                                  style: TextStyle(
+                                                                    fontSize: 17.0,
+                                                                    fontWeight: FontWeight.w400,
+                                                                  ),
                                                                 ),
                                                               ),
-                                                            ),
-                                                            SizedBox(width: 5),
-                                                            Container(
-                                                              height: 12,
-                                                              width: 12,
-                                                              decoration:
-                                                                  BoxDecoration(color: item.urgencyColor, borderRadius: BorderRadius.circular(40)),
-                                                            ),
-                                                            SizedBox(width: 15),
+                                                            if (item.amount > 0) SizedBox(width: 5),
+                                                            if (item.amount > 0)
+                                                              Container(
+                                                                height: 12,
+                                                                width: 12,
+                                                                decoration:
+                                                                    BoxDecoration(color: item.urgencyColor, borderRadius: BorderRadius.circular(40)),
+                                                              ),
+                                                            if (item.amount > 0) SizedBox(width: 15),
                                                           ],
                                                         ),
                                                       ),

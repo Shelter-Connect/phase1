@@ -41,7 +41,6 @@ class Donation {
             urgencyColor: (item['urgency'] == 0)
                 ? Colors.transparent
                 : (item['urgency'] == 1) ? Colors.green : (item['urgency'] == 2) ? Colors.yellow : Colors.red,
-            sync: item['sync'],
           ),
         )
         .toList()

@@ -4,15 +4,11 @@ import 'package:phase1/constants.dart';
 import 'package:phase1/models/donation.dart';
 import 'package:phase1/models/item.dart';
 
-DeviceCalendarPlugin _deviceCalendarPlugin = DeviceCalendarPlugin();
-
 class SyncCalendar extends StatelessWidget {
   SyncCalendar(this.donations, this.isOrg);
 
   final List<Donation> donations;
   final bool isOrg;
-  List<Calendar> _calendars = _retrieveCalendars();
-  int i = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +20,7 @@ class SyncCalendar extends StatelessWidget {
             child: Container(
               child: Wrap(
                 children: <Widget>[
-                  for (Calendar calendar in _calendars)
+                  for (Calendar calendar in calendars)
                     ListTile(
                       onTap: () async {
                         for (Donation donation in donations) {
@@ -39,7 +35,7 @@ class SyncCalendar extends StatelessWidget {
                             description +=
                                 ' ${item.amount}${item.unit != '' ? ' ' + item.unit : ''} ${item.name}${item.specificDescription != '' ? ' ' + item.specificDescription : ''}\n';
                           event.description = description;
-                          final result = await _deviceCalendarPlugin.createOrUpdateEvent(event);
+                          final result = await deviceCalendarPlugin.createOrUpdateEvent(event);
                           donation.sync = result.data;
                           if (isOrg) {
                             await db
@@ -71,24 +67,5 @@ class SyncCalendar extends StatelessWidget {
         );
       },
     );
-  }
-}
-
-List<Calendar> _retrieveCalendars() {
-  try {
-    /*var permissionsGranted;
-    _deviceCalendarPlugin.hasPermissions().then((value) => permissionsGranted = value);
-    if (permissionsGranted.isSuccess && !permissionsGranted.data) {
-      _deviceCalendarPlugin.requestPermissions().then((value) => permissionsGranted = value);
-      if (!permissionsGranted.isSuccess || !permissionsGranted.data) {
-        return null;
-      }
-    }*/
-
-    var calendarsResult;
-    _deviceCalendarPlugin.retrieveCalendars().then((value) => calendarsResult = value);
-    return calendarsResult?.data;
-  } catch (e) {
-    print(e);
   }
 }
