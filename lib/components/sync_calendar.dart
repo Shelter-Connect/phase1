@@ -51,6 +51,7 @@ class SyncCalendar extends StatelessWidget {
                             .document(donation.id)
                             .updateData({'sync': result.data});
                     }
+                    Navigator.pop(context);
                   },
                   title: Text(calendar.name),
                   leading: SizedBox(
