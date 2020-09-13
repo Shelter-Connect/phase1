@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:phase1/models/donation.dart';
 import 'package:phase1/pages/organization/create_request_page.dart';
+import 'package:phase1/services/firestore_helper.dart';
 import '../feedback_form.dart';
-import 'package:phase1/models/user_position.dart';
 import 'package:phase1/pages/navigation_tab.dart';
 import 'package:phase1/pages/organization/current_requests_page.dart';
 import 'package:phase1/pages/organization/expected_deliveries_page.dart';
@@ -27,8 +29,20 @@ class _OrganizationBottomNavigationPageState extends State<OrganizationBottomNav
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<UserPosition>(
-      create: (_) => UserPosition(),
+    return MultiProvider(
+      providers: [
+        StreamProvider<List<Donation>>.value(
+          value: FirestoreHelper.getCurrentOrganizationReference(context).collection('currentDonations').orderBy('date').snapshots().map((snapshot) {
+            if (snapshot.documents.length == 0) return [];
+            if (snapshot == null) return null;
+            List<Donation> donations = [];
+            for (DocumentSnapshot document in snapshot.documents) {
+              donations.add(Donation.fromFirestoreMap(document));
+            }
+            return donations;
+          }),
+        ),
+      ],
       child: WillPopScope(
         onWillPop: () async => false,
         child: Scaffold(
