@@ -70,7 +70,7 @@ class HomePage extends StatelessWidget {
             ),
             Expanded(
               child: ButtonTheme(
-                minWidth: 320.0,
+                minWidth: 290.0,
                 height: 50.0,
                 child: RaisedButton(
                   onPressed: () {
@@ -94,7 +94,7 @@ class HomePage extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(20),
                 child: ButtonTheme(
-                  minWidth: 320.0,
+                  minWidth: 290.0,
                   height: 50.0,
                   child: RaisedButton(
                     onPressed: () {

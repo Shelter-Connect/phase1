@@ -29,6 +29,7 @@ class Donation {
     volunteerName = donationSnapshot['volunteerName'];
     id = donationSnapshot.documentID;
     date = donationSnapshot['date'].toDate();
+    sync = donationSnapshot['sync'];
     items = donationSnapshot['items']
         .map(
           (item) => Item(
@@ -80,6 +81,7 @@ class Donation {
       'organizationLocation': GeoPoint(organization.location.latitude, organization.location.longitude),
       'volunteerEmail': volunteerEmail,
       'volunteerName': volunteerName,
+      'sync': sync,
     };
   }
 }

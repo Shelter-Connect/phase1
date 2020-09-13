@@ -9,7 +9,7 @@ class SyncCalendar extends StatelessWidget {
 
   final List<Donation> donations;
   final bool isOrg;
-  bool done = false;
+  bool tapped = false;
 
   @override
   Widget build(BuildContext context) {
@@ -21,39 +21,47 @@ class SyncCalendar extends StatelessWidget {
               ...calendars.map((calendar) {
                 return ListTile(
                   onTap: () async {
-                    if (done) Navigator.pop(context);
-                    for (int i = 0; i < donations.length; i++) {
-                      Donation donation = donations[i];
-                      Event event = Event(calendar.id);
-                      if (donation.sync != '' || donation.sync != null) event.eventId = donation.sync;
-                      event.allDay = true;
-                      event.start = donation.date;
-                      event.end = donation.date;
-                      event.location = donation.organization.address;
-                      event.title = isOrg ? 'Delivery from ${donation.volunteerName}' : 'Delivery to ${donation.organization.name}';
-                      String description = 'A delivery of\n';
-                      for (Item item in donation.items)
-                        description +=
-                            ' ${item.amount}${item.unit != '' ? ' ' + item.unit : ''} ${item.name}${item.specificDescription != '' ? ' ' + item.specificDescription : ''}\n';
-                      event.description = description;
-                      final result = await deviceCalendarPlugin.createOrUpdateEvent(event);
-                      donation.sync = result.data;
-                      if ((donation.sync == '' || donation.sync == null) && isOrg) {
-                        await db
-                            .collection('organizations')
-                            .document(donation.organization.id)
-                            .collection('currentDonations')
-                            .document(donation.id)
-                            .updateData({'sync': result.data});
-                        done = true;
-                      } else if (donation.sync == '' || donation.sync == null)
-                        await db
-                            .collection('volunteers')
-                            .document(donation.volunteerId)
-                            .collection('currentDonations')
-                            .document(donation.id)
-                            .updateData({'sync': result.data});
-                      done = true;
+                    if (!tapped) {
+                      tapped = true;
+                      for (int i = 0; i < donations.length; i++) {
+                        Donation donation = donations[i];
+                        Event event = Event(calendar.id);
+                        if (donation.sync != '' || donation.sync != null) event.eventId = donation.sync;
+                        event.allDay = true;
+                        event.start = donation.date;
+                        event.end = donation.date;
+                        event.location = donation.organization.address;
+                        event.title = isOrg ? 'Delivery from ${donation.volunteerName}' : 'Delivery to ${donation.organization.name}';
+                        String description = 'A delivery of\n';
+                        for (Item item in donation.items)
+                          description +=
+                              ' ${item.amount}${item.unit != '' ? ' ' + item.unit : ''} ${item.name}${item.specificDescription != '' ? ' ' + item.specificDescription : ''}\n';
+                        event.description = description;
+                        await deviceCalendarPlugin.createOrUpdateEvent(event).then((val) async {
+                          if ((donation.sync == '' || donation.sync == null) && isOrg) {
+                            donation.sync = val.data;
+                            await db
+                                .collection('organizations')
+                                .document(donation.organization.id)
+                                .collection('currentDonations')
+                                .document(donation.id)
+                                .updateData({'sync': val.data}).then((val) {
+                              Navigator.pop(context);
+                            });
+                          } else if (donation.sync == '' || donation.sync == null) {
+                            donation.sync = val.data;
+                            await db
+                                .collection('volunteers')
+                                .document(donation.volunteerId)
+                                .collection('currentDonations')
+                                .document(donation.id)
+                                .updateData({'sync': val.data}).then((val) {
+                              Navigator.pop(context);
+                            });
+                          }
+                          Navigator.pop(context);
+                        });
+                      }
                     }
                   },
                   title: Text(calendar.name),
