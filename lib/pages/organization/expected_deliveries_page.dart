@@ -87,9 +87,7 @@ class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
           SizedBox(height: 10),
           Consumer<List<Donation>>(
             builder: (context, donations, widget) {
-              setState(() {
-                this.donations = donations;
-              });
+              this.donations = donations;
               if (donations == null) {
                 return Center(
                   child: CircularProgressIndicator(),
