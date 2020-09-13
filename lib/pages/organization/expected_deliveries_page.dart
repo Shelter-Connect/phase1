@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -6,7 +5,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:phase1/components/alerts.dart';
 import 'package:phase1/components/sync_calendar.dart';
 import 'package:phase1/models/donation.dart';
-import 'package:phase1/services/firestore_helper.dart';
+import 'package:provider/provider.dart';
 
 import '../../components/expected_deliveries_container.dart';
 import '../../constants.dart';
@@ -34,7 +33,6 @@ class ExpectedDeliveriesPage extends StatefulWidget with NavigationTab {
 
 class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
   String dropdownValue = 'Sort by';
-  List<Donation> donations = [];
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +58,7 @@ class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
                       });
                 } else if (status.isUndetermined) await Permission.calendar.request();
                 await _retrieveCalendars();
-                showModalBottomSheet(context: context, builder: (context) => SyncCalendar(donations, true));
+                showModalBottomSheet(context: context, builder: (context) => SyncCalendar(Provider.of<List<Donation>>(context), true));
               },
               color: purpleAccent,
               padding: EdgeInsets.all(8.0),
@@ -86,15 +84,14 @@ class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
             ),
           ),
           SizedBox(height: 10),
-          StreamBuilder(
-            stream: FirestoreHelper.getCurrentOrganizationReference(context).collection('currentDonations').orderBy('date').snapshots(),
-            builder: (context, snapshot) {
-              if (!snapshot.hasData) {
+          Consumer<List<Donation>>(
+            builder: (context, donations, widget) {
+              if (donations == null) {
                 return Center(
                   child: CircularProgressIndicator(),
                 );
               }
-              if (snapshot.data.documents.length == 0) {
+              if (donations.length == 0) {
                 return Column(
                   children: [
                     Text(
@@ -120,9 +117,7 @@ class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
                 );
               }
               List<Widget> widgets = [];
-              for (DocumentSnapshot document in snapshot.data.documents) {
-                Donation donation = Donation.fromFirestoreMap(document);
-                donations.add(donation);
+              for (Donation donation in donations) {
                 widgets.add(
                   ExpectedDeliveryContainer(
                     donation: donation,
