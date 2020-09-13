@@ -33,6 +33,7 @@ class ExpectedDeliveriesPage extends StatefulWidget with NavigationTab {
 
 class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
   String dropdownValue = 'Sort by';
+  List<Donation> donations;
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +59,7 @@ class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
                       });
                 } else if (status.isUndetermined) await Permission.calendar.request();
                 await _retrieveCalendars();
-                showModalBottomSheet(context: context, builder: (context) => SyncCalendar(Provider.of<List<Donation>>(context), true));
+                showModalBottomSheet(context: context, builder: (context) => SyncCalendar(donations, true));
               },
               color: purpleAccent,
               padding: EdgeInsets.all(8.0),
@@ -86,6 +87,9 @@ class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
           SizedBox(height: 10),
           Consumer<List<Donation>>(
             builder: (context, donations, widget) {
+              setState(() {
+                this.donations = donations;
+              });
               if (donations == null) {
                 return Center(
                   child: CircularProgressIndicator(),
