@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:phase1/models/donation.dart';
 import 'package:phase1/models/organization.dart';
 import 'package:phase1/models/user_position.dart';
@@ -10,6 +11,7 @@ import 'package:phase1/pages/volunteer/discover_page.dart';
 import 'package:phase1/pages/volunteer/volunteer_settings_page.dart';
 import 'package:phase1/services/firestore_helper.dart';
 import 'package:provider/provider.dart';
+import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 
 import '../../constants.dart';
 import '../volunteer/current_deliveries_page.dart';
@@ -76,7 +78,7 @@ class _VolunteerBottomNavigationPageState extends State<VolunteerBottomNavigatio
                         Visibility(
                           visible: _tabs[_selectedIndex].helpDescription != '',
                           child: IconButton(
-                            icon: Icon(Icons.help),
+                            icon: Icon(Feather.help_circle),
                             color: purpleAccent,
                             onPressed: () {
                               _helpModalBottomSheet(context);
@@ -91,7 +93,7 @@ class _VolunteerBottomNavigationPageState extends State<VolunteerBottomNavigatio
               ),
             ),
             bottomNavigationBar: SizedBox(
-              height: 60,
+              height: 50,
               child: BottomNavigationBar(
                 currentIndex: _selectedIndex,
                 type: BottomNavigationBarType.fixed,

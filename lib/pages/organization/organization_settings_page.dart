@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:phase1/components/alerts.dart';
 import 'package:phase1/components/flushbar.dart';
 import 'package:phase1/models/organization.dart';
+import 'package:phase1/pages/organization/edit_hours_page.dart';
 import 'package:phase1/pages/organization/organization_edit_info_page.dart';
 import 'package:phase1/pages/organization/organization_preview_page.dart';
 import 'package:phase1/services/firestore_helper.dart';
@@ -19,7 +21,7 @@ class OrganizationSettingsPage extends StatefulWidget with NavigationTab {
       'In addition, you can preview your profile as volunteers will see it.';
 
   @override
-  IconData get icon => Icons.person_outline;
+  IconData get icon => Feather.user;
 
   @override
   String get title => 'Account';
@@ -77,6 +79,9 @@ class OrganizationInfo extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0),
+        ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
           child: Column(
@@ -273,6 +278,9 @@ class DonationAvailabilityHourSettings extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0),
+        ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
           child: Column(
@@ -293,7 +301,7 @@ class DonationAvailabilityHourSettings extends StatelessWidget {
               ),
               SizedBox(height: 10),
               Text(
-                'Weekly Schedule',
+                'This Week\'s Schedule',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
               ),
               SizedBox(height: 10),
@@ -376,7 +384,7 @@ class DonationAvailabilityHourSettings extends StatelessWidget {
                   bool updated = await Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => OrganizationEditInfoPage(organization),
+                      builder: (context) => EditHours(),
                     ),
                   );
                   if (updated) {

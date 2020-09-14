@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:phase1/components/deliveries_container.dart';
 import 'package:phase1/models/donation.dart';
 import 'package:phase1/models/user_position.dart';
@@ -19,7 +20,7 @@ class CurrentDeliveriesPage extends StatefulWidget with NavigationTab {
       'or to edit or cancel the delivery. ';
 
   @override
-  IconData get icon => Icons.local_shipping;
+  IconData get icon => Feather.truck;
 
   @override
   String get title => 'Deliver';

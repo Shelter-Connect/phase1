@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:phase1/components/alerts.dart';
 import 'package:phase1/components/flushbar.dart';
 import 'package:phase1/pages/navigation_tab.dart';
@@ -20,7 +21,7 @@ class VolunteerSettingsPage extends StatefulWidget with NavigationTab {
       'This page shows your account settings and information. Here, you can edit your information, or sign out, if you\'d like. ';
 
   @override
-  IconData get icon => Icons.person;
+  IconData get icon => Feather.user;
 
   @override
   String get title => 'Account';
@@ -73,6 +74,9 @@ class UserInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15.0),
+      ),
       child: Container(
         width: MediaQuery.of(context).size.width,
         child: Padding(
@@ -168,8 +172,8 @@ class UserInfo extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
                     child: Wrap(
                       children: <Widget>[
-                        Icon(Icons.edit, color: Colors.white, size: 25),
-                        SizedBox(width: 2),
+                        Icon(Feather.edit, color: Colors.white, size: 20),
+                        SizedBox(width: 4),
                         Text(
                           'Change User Information',
                           style: TextStyle(

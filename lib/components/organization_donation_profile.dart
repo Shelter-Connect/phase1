@@ -26,6 +26,9 @@ class OrganizationDonationProfile extends StatelessWidget {
           borderRadius: BorderRadius.circular(20.0),
         ),
         child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0),
+          ),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
               child: Column(

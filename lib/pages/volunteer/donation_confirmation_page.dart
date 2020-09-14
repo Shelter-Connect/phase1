@@ -50,6 +50,9 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
               Column(
                 children: <Widget>[
                   Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16.0),
                       child: Column(
@@ -86,6 +89,9 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
               ),
               SizedBox(height: 20),
               Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 4.0),
                   child: Column(

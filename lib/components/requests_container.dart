@@ -15,6 +15,9 @@ class RequestContainer extends StatelessWidget {
     return Column(
       children: [
         Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
             child: SingleChildScrollView(

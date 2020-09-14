@@ -92,6 +92,9 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                     ),
                     SizedBox(height: 20),
                     Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
                         child: Column(
@@ -272,6 +275,9 @@ class OrganizationInformation extends StatelessWidget {
     return Column(
       children: <Widget>[
         Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
           child: Column(
             children: [
               Padding(

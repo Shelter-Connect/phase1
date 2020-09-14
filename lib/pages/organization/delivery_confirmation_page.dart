@@ -73,6 +73,9 @@ class _ConfirmDeliveryPageState extends State<ConfirmDeliveryPage> {
                                     (item) => Padding(
                                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                                       child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(15),
+                                        ),
                                         child: Row(
                                           children: [
                                             Column(

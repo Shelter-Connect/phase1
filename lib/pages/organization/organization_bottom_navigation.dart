@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:phase1/models/donation.dart';
 import 'package:phase1/pages/organization/create_request_page.dart';
 import 'package:phase1/services/firestore_helper.dart';
@@ -10,6 +11,7 @@ import 'package:phase1/pages/organization/current_requests_page.dart';
 import 'package:phase1/pages/organization/expected_deliveries_page.dart';
 import 'package:phase1/pages/organization/organization_settings_page.dart';
 import 'package:provider/provider.dart';
+
 
 import '../../constants.dart';
 
@@ -63,7 +65,7 @@ class _OrganizationBottomNavigationPageState extends State<OrganizationBottomNav
                       Visibility(
                         visible: _tabs[_selectedIndex].helpDescription != '',
                         child: IconButton(
-                          icon: Icon(Icons.help),
+                          icon: Icon(Feather.help_circle),
                           color: purpleAccent,
                           onPressed: () {
                             _helpModalBottomSheet(context);
@@ -79,42 +81,47 @@ class _OrganizationBottomNavigationPageState extends State<OrganizationBottomNav
           ),
           floatingActionButton: FloatingActionButton(
             backgroundColor: purpleAccent,
-
-            child: Icon(Icons.add),
+            elevation: 0,
+            child: Icon(Feather.plus),
             onPressed: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) => CreateRequestPage()));
             },
           ),
           floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
           bottomNavigationBar: SizedBox(
-            height: MediaQuery.of(context).size.height / 14,
-            child: BottomNavigationBar(
-              currentIndex: _selectedIndex,
-              type: BottomNavigationBarType.fixed,
-              backgroundColor: Colors.white,
-              iconSize: 25,
-              selectedFontSize: 0,
-              selectedItemColor: purpleAccent,
-              unselectedFontSize: 0,
-              items: [
-                ..._tabs
-                    .asMap()
-                    .map(
-                      (index, tab) => MapEntry(
-                          index,
-                          BottomNavigationBarItem(
-                            icon: Icon(tab.icon),
-                            title: Text(tab.title),
-                          )),
-                    )
-                    .values
-                    .toList(),
-              ],
-              onTap: (index) {
-                setState(() {
-                  _selectedIndex = index;
-                });
-              },
+            height: 50,
+            child: BottomAppBar(
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+              shape: CircularNotchedRectangle(),
+              notchMargin: 5,
+              child: BottomNavigationBar(
+                currentIndex: _selectedIndex,
+                type: BottomNavigationBarType.fixed,
+                backgroundColor: Colors.white,
+                iconSize: 25,
+                selectedFontSize: 0,
+                selectedItemColor: purpleAccent,
+                unselectedFontSize: 0,
+                items: [
+                  ..._tabs
+                      .asMap()
+                      .map(
+                        (index, tab) => MapEntry(
+                            index,
+                            BottomNavigationBarItem(
+                              icon: Icon(tab.icon, size: 22),
+                              title: Text(tab.title),
+                            )),
+                      )
+                      .values
+                      .toList(),
+                ],
+                onTap: (index) {
+                  setState(() {
+                    _selectedIndex = index;
+                  });
+                },
+              ),
             ),
           ),
         ),
