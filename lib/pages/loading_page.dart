@@ -21,10 +21,10 @@ class _LoadingPageState extends State<LoadingPage> {
             (value) {
               if (value.data != null) {
                 if (user.isEmailVerified) {
-                  Navigator.pushNamed(context, '/welcome_updated');
+                  Navigator.pushNamed(context, '/welcome');
                   Navigator.pushNamed(context, '/volunteer_navigation');
                 } else {
-                  Navigator.pushNamed(context, '/welcome_updated');
+                  Navigator.pushNamed(context, '/welcome');
                   Navigator.pushNamed(context, '/volunteer_confirmation');
                 }
               }
@@ -35,10 +35,10 @@ class _LoadingPageState extends State<LoadingPage> {
             (value) {
               if (value.data != null) {
                 if (value['verified']) {
-                  Navigator.pushNamed(context, '/welcome_updated');
+                  Navigator.pushNamed(context, '/welcome');
                   Navigator.pushNamed(context, '/organization_navigation');
                 } else {
-                  Navigator.pushNamed(context, '/welcome_updated');
+                  Navigator.pushNamed(context, '/welcome');
                   Navigator.pushNamed(context, '/organization_confirmation');
                 }
               }
@@ -46,9 +46,9 @@ class _LoadingPageState extends State<LoadingPage> {
           );
         } else {
           if (ModalRoute.of(context).isCurrent) {
-            Navigator.pushNamed(context, '/welcome_updated');
+            Navigator.pushNamed(context, '/welcome');
           } else {
-            Navigator.popUntil(context, ModalRoute.withName('/welcome_updated'));
+            Navigator.popUntil(context, ModalRoute.withName('/welcome'));
           }
         }
       },

@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:phase1/components/alerts.dart';
-import 'package:phase1/components/flushbar.dart';
 import 'package:phase1/pages/navigation_tab.dart';
 import 'package:phase1/services/firestore_helper.dart';
 import 'package:provider/provider.dart';

@@ -15,7 +15,6 @@ import 'pages/signup_page.dart';
 import 'pages/volunteer/volunteer_confirmation_page.dart';
 import 'pages/volunteer/volunteer_sign_up_page.dart';
 import 'pages/welcome_page.dart';
-import 'pages/welcome_updated.dart';
 
 void main() {
   runApp(
@@ -42,7 +41,6 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         routes: {
           '/welcome': (_) => WelcomePage(),
-          '/welcome_updated': (_) => HomePage(),
           '/': (_) => LoadingPage(),
           '/login': (_) => LoginPage(),
           '/organization_confirmation': (_) => OrganizationConfirmationPage(),

@@ -1,82 +1,156 @@
 import 'package:flutter/material.dart';
+import 'package:phase1/constants.dart';
+import 'package:phase1/pages/volunteer/volunteer_sign_up_page.dart';
 
-import '../components/rounded_button.dart';
-import '../components/text_button.dart';
-import '../constants.dart';
-
-class WelcomePage extends StatefulWidget {
-  @override
-  _WelcomePageState createState() => _WelcomePageState();
-}
-
-class _WelcomePageState extends State<WelcomePage> {
+class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Container(
+    return Material(
+      child: Stack(children: <Widget>[
+        Container(
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topRight,
-              end: Alignment.bottomLeft,
-              stops: [0.1, 0.4, 0.6, 0.9],
-              colors: [
-                Color(0xFFC1D7FF),
-                Color(0xFFC7DBFE),
-                Color(0xFFDAE5F9),
-                Color(0xFFFFFFFF),
-              ],
+            color: Colors.transparent,
+            image: DecorationImage(
+              fit: BoxFit.fill,
+              image: AssetImage(
+                'assets/foodgivingsmaller.png',
+              ),
             ),
           ),
-          padding: EdgeInsets.symmetric(horizontal: 24.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                'Welcome!',
-                style: largeTitleStyle,
-                textAlign: TextAlign.center,
-              ),
-              Align(
-                child: Image.asset('assets/logo_svgs/ShelterConnectLogo.png', height: 150),
-                alignment: Alignment.center,
-              ),
-              SizedBox(height: 10.0),
-              Image.asset('assets/logo_svgs/LogoName.png', width: 400),
-              Text(
-                'Connecting non-profit organizations and kind hearted people',
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 10.0),
-              RoundedButton(
-                title: 'Continue as Volunteer',
-                onPressed: () {
-                  Navigator.pushNamed(context, '/volunteer_sign_up');
-                },
-              ),
-              RoundedButton(
-                title: 'Continue as Organization',
-                onPressed: () {
-                  Navigator.pushNamed(context, '/organization_sign_up');
-                },
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 5.0),
-                child: TextButton(
-                  text: 'Existing User? Sign in here.',
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/login');
-                  },
-                ),
-              ),
-            ],
+          height: MediaQuery.of(context).size.height,
+        ),
+        Container(
+          height: MediaQuery.of(context).size.height,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: FractionalOffset.topCenter,
+              end: FractionalOffset.bottomCenter,
+              colors: [
+                Colors.grey.withOpacity(0.0),
+                Colors.black,
+                Colors.black,
+                Colors.black,
+              ],
+              stops: [0.0, 0.6, 0.8, 1.0],
+            ),
           ),
         ),
-      ),
+        Column(
+          children: [
+            Expanded(
+              child: Image.asset('assets/logo_svgs/whitelogofinal2.png', width: 140),
+              flex: 1,
+            ),
+            Expanded(
+              child: Container(
+                margin: EdgeInsets.only(bottom: 10.0),
+                child: Text(
+                  'Help out Non-Profit Organizations',
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              flex: 0,
+            ),
+            Expanded(
+              child: Container(
+                margin: EdgeInsets.only(bottom: 28.0),
+                color: Colors.transparent,
+                child: Text(
+                  'Welcome, and thank you so much for joining our community. We are thrilled to act as the connector between non-profit organizations and kind hearted people',
+                  style: TextStyle(fontSize: 18.0, color: Colors.white),
+                  textAlign: TextAlign.center,
+                ),
+                padding: EdgeInsets.symmetric(vertical: 18.0),
+                constraints: BoxConstraints(
+                  maxWidth: 330.0,
+                ),
+              ),
+              flex: 0,
+            ),
+            Expanded(
+              child: ButtonTheme(
+                minWidth: 290.0,
+                height: 50.0,
+                child: RaisedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/organization_sign_up');
+                  },
+                  textColor: purpleAccent,
+                  color: Colors.white,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40.0)),
+                  child: Container(
+                    child: Text(
+                      'Sign up as an Organization',
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+              ),
+              flex: 0,
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: ButtonTheme(
+                  minWidth: 290.0,
+                  height: 50.0,
+                  child: RaisedButton(
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (_) => VolunteerSignUp()));
+                    },
+                    textColor: Colors.white,
+                    color: purpleAccent,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40.0)),
+                    child: Container(
+                      child: Text(
+                        'Sign up as a Volunteer',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              flex: 0,
+            ),
+            Expanded(
+              child: Container(
+                margin: EdgeInsets.only(bottom: 20.0),
+                child: ButtonTheme(
+                  minWidth: 200.0,
+                  height: 50.0,
+                  child: FlatButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/login');
+                    },
+                    textColor: Colors.white,
+                    child: Container(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            'Existing User? Log In',
+                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                          ),
+                          Icon(
+                            Icons.keyboard_arrow_right,
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              flex: 0,
+            ),
+          ],
+        ),
+      ]),
     );
   }
 }
