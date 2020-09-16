@@ -56,7 +56,7 @@ class _OrganizationConfirmationPageState extends State<OrganizationConfirmationP
                     });
 
                     if (organizationSnapshot['verified']) {
-                      Navigator.pushReplacementNamed(context, '/organization_bottom_navigation');
+                      Navigator.pushReplacementNamed(context, '/organization_navigation');
                     } else {
                       showDialog(
                         context: context,

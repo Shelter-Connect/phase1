@@ -1,14 +1,18 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:phase1/models/donation.dart';
+import 'package:phase1/models/organization.dart';
 import 'package:phase1/models/user_position.dart';
+import 'package:phase1/pages/feedback_form.dart';
+import 'package:phase1/pages/navigation_tab.dart';
+import 'package:phase1/pages/volunteer/discover_page.dart';
 import 'package:phase1/pages/volunteer/volunteer_settings_page.dart';
+import 'package:phase1/services/firestore_helper.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../constants.dart';
-import '../../models/user.dart';
-import '../navigation_tab.dart';
 import '../volunteer/current_deliveries_page.dart';
-import '../volunteer/discover_page.dart';
 import '../volunteer/volunteer_settings_page.dart';
 
 class VolunteerNavigationPage extends StatefulWidget {
@@ -18,9 +22,10 @@ class VolunteerNavigationPage extends StatefulWidget {
 
 class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
   int _selectedIndex = 0;
-  final List<NavigationTab> _pages = [
+  final List<NavigationTab> _tabs = [
     OrganizationDiscover(),
     CurrentDeliveriesPage(),
+    FeedbackForm(),
     VolunteerSettingsPage(),
   ];
 
@@ -28,103 +33,96 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<UserPosition>(
       create: (_) => UserPosition(),
-      child: WillPopScope(
-        onWillPop: () async => false,
-        child: Scaffold(
-          backgroundColor: colorScheme.background,
-          appBar: AppBar(
-            brightness: Brightness.light,
-            title: Text(
-              _pages[_selectedIndex].title,
-              style: TextStyle(color: Colors.transparent),
+      child: MultiProvider(
+        providers: [
+          StreamProvider<List<Organization>>.value(
+              value: db.collection('organizations').snapshots().map((snapshot) {
+            if (snapshot.documents.length == 0) return [];
+            if (snapshot == null) return null;
+            List<Organization> organizations = [];
+            for (DocumentSnapshot document in snapshot.documents) {
+              if (document.documentID == 'categories') continue;
+              organizations.add(Organization.fromFirestoreMap(context: context, organizationSnapshot: document, isVolunteer: false));
+            }
+            return organizations;
+          })),
+          StreamProvider<List<Donation>>.value(
+              value: FirestoreHelper.getCurrentVolunteerReference(context).collection('currentDonations').orderBy('date').snapshots().map((snapshot) {
+            if (snapshot.documents.length == 0) return [];
+            if (snapshot == null) return null;
+            List<Donation> donations = [];
+            for (DocumentSnapshot document in snapshot.documents) {
+              if (document.documentID == 'categories') continue;
+              donations.add(Donation.fromFirestoreMap(document));
+            }
+            return donations;
+          })),
+        ],
+        child: WillPopScope(
+          onWillPop: () async => false,
+          child: Scaffold(
+            backgroundColor: Color(0xfff5f5f5),
+            body: SafeArea(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 16, bottom: 4.0, top: 8.0),
+                          child: Text(_tabs[_selectedIndex].barTitle, style: appBarTitleStyle),
+                        ),
+                        Visibility(
+                          visible: _tabs[_selectedIndex].helpDescription != '',
+                          child: IconButton(
+                            icon: Icon(Icons.help),
+                            color: purpleAccent,
+                            onPressed: () {
+                              _helpModalBottomSheet(context);
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                    _tabs[_selectedIndex],
+                  ],
+                ),
+              ),
             ),
-            backgroundColor: Color(0xFFF5F5F5),
-            elevation: 0.0,
-            leading: Builder(
-              builder: (context) => IconButton(
-                icon: Icon(Icons.menu),
-                color: purpleAccent,
-                onPressed: () {
-                  Scaffold.of(context).openDrawer();
+            bottomNavigationBar: SizedBox(
+              height: 60,
+              child: BottomNavigationBar(
+                currentIndex: _selectedIndex,
+                type: BottomNavigationBarType.fixed,
+                backgroundColor: Colors.white,
+                iconSize: 25,
+                selectedFontSize: 0,
+                selectedItemColor: Color(0xFF6576EC),
+                unselectedItemColor: Colors.black12,
+                unselectedFontSize: 0,
+                items: [
+                  ..._tabs
+                      .asMap()
+                      .map(
+                        (index, tab) => MapEntry(
+                            index,
+                            BottomNavigationBarItem(
+                              icon: Icon(tab.icon),
+                              title: Text(tab.title),
+                            )),
+                      )
+                      .values
+                      .toList(),
+                ],
+                onTap: (index) {
+                  setState(() {
+                    _selectedIndex = index;
+                  });
                 },
               ),
             ),
-            actions: <Widget>[
-              Visibility(
-                visible: _pages[_selectedIndex].helpDescription != '',
-                child: IconButton(
-                  icon: Icon(Icons.help),
-                  color: purpleAccent,
-                  onPressed: () {
-                    _helpModalBottomSheet(context);
-                  },
-                ),
-              ),
-            ],
           ),
-          drawer: Drawer(
-            child: SafeArea(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: <Widget>[
-                        DrawerHeader(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Linkare',
-                                style: TextStyle(
-                                  fontSize: 30.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              SizedBox(height: 10.0),
-                              Text(Provider.of<User>(context, listen: false).user.email),
-                            ],
-                          ),
-                        ),
-                        ..._pages
-                            .asMap()
-                            .map(
-                              (index, tab) => MapEntry(
-                                index,
-                                ListTile(
-                                  title: Text(tab.title),
-                                  leading: Icon(tab.icon),
-                                  onTap: () {
-                                    setState(() {
-                                      _selectedIndex = index;
-                                    });
-                                    Navigator.pop(context);
-                                  },
-                                ),
-                              ),
-                            )
-                            .values
-                            .toList(),
-                      ],
-                    ),
-                  ),
-                  ListTile(
-                    title: Text('Give Feedback'),
-                    leading: Icon(
-                      Icons.feedback,
-                      color: Colors.orange,
-                    ),
-                    onTap: () {
-                      launch('https://forms.gle/WjpQoEBNmBEQXoDP8');
-                    },
-                  ),
-                ],
-              ),
-            ),
-          ),
-          body: _pages[_selectedIndex],
         ),
       ),
     );
@@ -162,7 +160,7 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
                     ],
                   ),
                 ),
-                Text(_pages[_selectedIndex].helpDescription, style: TextStyle(fontSize: 17)),
+                Text(_tabs[_selectedIndex].helpDescription, style: TextStyle(fontSize: 17)),
               ],
             ),
           ),

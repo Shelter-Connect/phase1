@@ -1,11 +1,17 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:phase1/models/user.dart';
+import 'package:phase1/models/donation.dart';
+import 'package:phase1/pages/organization/create_request_page.dart';
+import 'package:phase1/services/firestore_helper.dart';
+import '../feedback_form.dart';
+import 'package:phase1/pages/navigation_tab.dart';
+import 'package:phase1/pages/organization/current_requests_page.dart';
+import 'package:phase1/pages/organization/expected_deliveries_page.dart';
+import 'package:phase1/pages/organization/organization_settings_page.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../constants.dart';
-import '../navigation_tab.dart';
 
 class OrganizationNavigationPage extends StatefulWidget {
   @override
@@ -14,100 +20,104 @@ class OrganizationNavigationPage extends StatefulWidget {
 
 class _OrganizationNavigationPageState extends State<OrganizationNavigationPage> {
   int _selectedIndex = 0;
-  final List<NavigationTab> _pages = [];
+  final List<NavigationTab> _tabs = [
+    CurrentRequestsPage(),
+    ExpectedDeliveriesPage(),
+    FeedbackForm(),
+    OrganizationSettingsPage(),
+  ];
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async => false,
-      child: Scaffold(
-        backgroundColor: Color(0xFFF5F5F5),
-        appBar: AppBar(
-          brightness: Brightness.light,
-          title: Text(
-            _pages[_selectedIndex].title,
-            style: TextStyle(
-              color: Color(0xFFF5F5F5),
+    return MultiProvider(
+      providers: [
+        StreamProvider<List<Donation>>.value(
+          value: FirestoreHelper.getCurrentOrganizationReference(context).collection('currentDonations').orderBy('date').snapshots().map((snapshot) {
+            if (snapshot.documents.length == 0) return [];
+            if (snapshot == null) return null;
+            List<Donation> donations = [];
+            for (DocumentSnapshot document in snapshot.documents) {
+              donations.add(Donation.fromFirestoreMap(document));
+            }
+            return donations;
+          }),
+        ),
+      ],
+      child: WillPopScope(
+        onWillPop: () async => false,
+        child: Scaffold(
+          backgroundColor: Color(0xfff5f5f5),
+          body: SafeArea(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 16, bottom: 4.0, top: 8.0),
+                          child: Text(_tabs[_selectedIndex].barTitle, style: appBarTitleStyle),
+                        ),
+                      ),
+                      Visibility(
+                        visible: _tabs[_selectedIndex].helpDescription != '',
+                        child: IconButton(
+                          icon: Icon(Icons.help),
+                          color: purpleAccent,
+                          onPressed: () {
+                            _helpModalBottomSheet(context);
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                  _tabs[_selectedIndex],
+                ],
+              )
             ),
           ),
-          backgroundColor: Color(0xFFF5F5F5),
-          elevation: 0.0,
-          leading: Builder(
-            builder: (context) => IconButton(
-              icon: Icon(Icons.menu),
-              color: purpleAccent,
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
+          floatingActionButton: FloatingActionButton(
+            backgroundColor: purpleAccent,
+
+            child: Icon(Icons.add),
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => CreateRequestPage()));
+            },
+          ),
+          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+          bottomNavigationBar: SizedBox(
+            height: MediaQuery.of(context).size.height / 14,
+            child: BottomNavigationBar(
+              currentIndex: _selectedIndex,
+              type: BottomNavigationBarType.fixed,
+              backgroundColor: Colors.white,
+              iconSize: 25,
+              selectedFontSize: 0,
+              selectedItemColor: purpleAccent,
+              unselectedFontSize: 0,
+              items: [
+                ..._tabs
+                    .asMap()
+                    .map(
+                      (index, tab) => MapEntry(
+                          index,
+                          BottomNavigationBarItem(
+                            icon: Icon(tab.icon),
+                            title: Text(tab.title),
+                          )),
+                    )
+                    .values
+                    .toList(),
+              ],
+              onTap: (index) {
+                setState(() {
+                  _selectedIndex = index;
+                });
               },
             ),
           ),
-          actions: <Widget>[
-            Visibility(
-              visible: _pages[_selectedIndex].helpDescription != '',
-              child: IconButton(
-                icon: Icon(Icons.help),
-                color: purpleAccent,
-                onPressed: () {
-                  _helpModalBottomSheet(context);
-                },
-              ),
-            ),
-          ],
         ),
-        drawer: Drawer(
-          child: Column(
-            children: <Widget>[
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    DrawerHeader(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Linkare',
-                            style: TextStyle(
-                              fontSize: 30.0,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(Provider.of<User>(context, listen: false).user.email),
-                        ],
-                      ),
-                    ),
-                    ..._pages
-                        .asMap()
-                        .map(
-                          (index, tab) => MapEntry(
-                            index,
-                            ListTile(
-                                title: Text(tab.title),
-                                leading: Icon(tab.icon),
-                                onTap: () {
-                                  setState(() {
-                                    _selectedIndex = index;
-                                  });
-                                  Navigator.pop(context);
-                                }),
-                          ),
-                        )
-                        .values
-                        .toList(),
-                  ],
-                ),
-              ),
-              ListTile(
-                title: Text('Give Feedback'),
-                leading: Icon(Icons.feedback, color: Colors.orange),
-                onTap: () {
-                  launch('https://forms.gle/wivNmdkjj3yvLPzf7');
-                },
-              ),
-            ],
-          ),
-        ),
-        body: _pages[_selectedIndex],
       ),
     );
   }
@@ -133,18 +143,19 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text('Help', style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold, color: Colors.black)),
+                      Text('Help', style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
                       IconButton(
                         iconSize: 30,
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        icon: Icon(Icons.help, color: Colors.black),
+                        icon: Icon(Icons.help),
                       ),
                     ],
                   ),
                 ),
-                Text(_pages[_selectedIndex].helpDescription, style: TextStyle(fontSize: 17)),
+                Text(_tabs[_selectedIndex].helpDescription, style: TextStyle(fontSize: 17)),
+                Spacer(),
               ],
             ),
           ),
