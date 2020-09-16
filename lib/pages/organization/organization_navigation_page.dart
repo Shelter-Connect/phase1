@@ -2,16 +2,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:phase1/models/donation.dart';
-import 'package:phase1/pages/organization/create_request_page.dart';
-import 'package:phase1/services/firestore_helper.dart';
-import '../feedback_form.dart';
 import 'package:phase1/pages/navigation_tab.dart';
+import 'package:phase1/pages/organization/create_request_page.dart';
 import 'package:phase1/pages/organization/current_requests_page.dart';
 import 'package:phase1/pages/organization/expected_deliveries_page.dart';
 import 'package:phase1/pages/organization/organization_settings_page.dart';
+import 'package:phase1/services/firestore_helper.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants.dart';
+import '../feedback_form.dart';
 
 class OrganizationNavigationPage extends StatefulWidget {
   @override
@@ -49,37 +49,35 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
           backgroundColor: Color(0xfff5f5f5),
           body: SafeArea(
             child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 16, bottom: 4.0, top: 8.0),
-                          child: Text(_tabs[_selectedIndex].barTitle, style: appBarTitleStyle),
-                        ),
+                child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 16, bottom: 4.0, top: 8.0),
+                        child: Text(_tabs[_selectedIndex].barTitle, style: appBarTitleStyle),
                       ),
-                      Visibility(
-                        visible: _tabs[_selectedIndex].helpDescription != '',
-                        child: IconButton(
-                          icon: Icon(Icons.help),
-                          color: purpleAccent,
-                          onPressed: () {
-                            _helpModalBottomSheet(context);
-                          },
-                        ),
+                    ),
+                    Visibility(
+                      visible: _tabs[_selectedIndex].helpDescription != '',
+                      child: IconButton(
+                        icon: Icon(Icons.help),
+                        color: purpleAccent,
+                        onPressed: () {
+                          _helpModalBottomSheet(context);
+                        },
                       ),
-                    ],
-                  ),
-                  _tabs[_selectedIndex],
-                ],
-              )
-            ),
+                    ),
+                  ],
+                ),
+                _tabs[_selectedIndex],
+              ],
+            )),
           ),
           floatingActionButton: FloatingActionButton(
             backgroundColor: purpleAccent,
-
             child: Icon(Icons.add),
             onPressed: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) => CreateRequestPage()));
@@ -87,7 +85,7 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
           ),
           floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
           bottomNavigationBar: SizedBox(
-            height: MediaQuery.of(context).size.height / 14,
+            height: MediaQuery.of(context).size.height / 14 + 2,
             child: BottomNavigationBar(
               currentIndex: _selectedIndex,
               type: BottomNavigationBarType.fixed,

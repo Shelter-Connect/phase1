@@ -58,8 +58,8 @@ class SyncCalendar extends StatelessWidget {
                                 .updateData({'sync': val.data}).then((val) {
                               Navigator.of(context).pop();
                             });
-                          }
-                          Navigator.of(context).pop();
+                          } else
+                            Navigator.of(context).pop();
                         });
                       }
                     }
