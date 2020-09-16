@@ -187,7 +187,7 @@ final categories = [
   },
   {
     'asset': 'assets/covid-19_response_svg/covid_19.svg',
-    'name': 'COVID-19',
+    'name': 'COVID-19 Response',
     'items': {
       'Face Shields': 'assets/covid-19_response_svg/face_shield.svg',
       'Hand Sanitizers': 'assets/covid-19_response_svg/hand_sanitizer.svg',

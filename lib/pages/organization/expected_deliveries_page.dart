@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:phase1/components/alerts.dart';
 import 'package:phase1/components/sync_calendar.dart';
@@ -22,13 +23,13 @@ class ExpectedDeliveriesPage extends StatefulWidget with NavigationTab {
       'The Sync button syncs your expected deliveries to a calendar of your choice';
 
   @override
-  IconData get icon => Icons.access_time;
+  IconData get icon => Feather.package;
 
   @override
   String get title => 'Deliveries';
 
   @override
-  String get barTitle => 'Expected Deliveries';
+  String get barTitle => 'Deliveries';
 }
 
 class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
@@ -44,45 +45,100 @@ class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           SizedBox(height: 10),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: FlatButton(
-              onPressed: () async {
-                var status = await Permission.calendar.status;
-                if (status.isRestricted || status.isPermanentlyDenied || status.isDenied) {
-                  return SingleActionAlert(
-                      title: 'Calendar Access',
-                      subtitle: 'To allow Linkare to access your calendar, please give it permissions it settings',
-                      actionName: 'Open Settings',
-                      action: () {
-                        openAppSettings();
-                      });
-                } else if (status.isUndetermined) await Permission.calendar.request();
-                await _retrieveCalendars();
-                showModalBottomSheet(context: context, builder: (context) => SyncCalendar(donations, true));
-              },
-              color: purpleAccent,
-              padding: EdgeInsets.all(8.0),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30.0),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Wrap(
-                  crossAxisAlignment: WrapCrossAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 8.0),
-                      child: Icon(
-                        Icons.cloud_upload,
-                        color: Colors.white,
-                      ),
+          Row(
+            children: [
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Container(
+                  width: 60,
+                  child: MaterialButton(
+                    onPressed: () {},
+                    color: Colors.white,
+                    child: Icon(
+                      Feather.clock,
+                      size: 25.0,
+                      color: purpleAccent,
                     ),
-                    Text('Sync', style: TextStyle(fontSize: 17, color: Colors.white))
-                  ],
+                    padding: EdgeInsets.all(12.0),
+                    shape: CircleBorder(),
+                  ),
                 ),
               ),
-            ),
+              SizedBox(width: 20),
+              Text('Expected', style: subTitleStyle,),
+              SizedBox(width: 20),
+              Align(
+                alignment: Alignment.centerRight,
+                child: Container(
+                  width: 60,
+                  child: MaterialButton(
+                    onPressed: () async {
+                      var status = await Permission.calendar.status;
+                      if (status.isRestricted || status.isPermanentlyDenied || status.isDenied) {
+                        return SingleActionAlert(
+                            title: 'Calendar Access',
+                            subtitle: 'To allow Linkare to access your calendar, please give it permissions it settings',
+                            actionName: 'Open Settings',
+                            action: () {
+                              openAppSettings();
+                            });
+                      } else if (status.isUndetermined) await Permission.calendar.request();
+                      await _retrieveCalendars();
+                      showModalBottomSheet(context: context, builder: (context) => SyncCalendar(donations, true));
+                    },
+                    elevation: 2.0,
+                    color: Colors.white,
+                    child: Icon(
+                      Feather.upload_cloud,
+                      color: purpleAccent,
+                      size: 25.0,
+                    ),
+                    padding: EdgeInsets.all(12.0),
+                    shape: CircleBorder(),
+                  ),
+                ),
+              ),
+//              Align(
+//                alignment: Alignment.centerLeft,
+//                child: FlatButton(
+//                  onPressed: () async {
+//                    var status = await Permission.calendar.status;
+//                    if (status.isRestricted || status.isPermanentlyDenied || status.isDenied) {
+//                      return SingleActionAlert(
+//                          title: 'Calendar Access',
+//                          subtitle: 'To allow Linkare to access your calendar, please give it permissions it settings',
+//                          actionName: 'Open Settings',
+//                          action: () {
+//                            openAppSettings();
+//                          });
+//                    } else if (status.isUndetermined) await Permission.calendar.request();
+//                    await _retrieveCalendars();
+//                    showModalBottomSheet(context: context, builder: (context) => SyncCalendar(donations, true));
+//                  },
+//                  color: purpleAccent,
+//                  padding: EdgeInsets.all(8.0),
+//                  shape: RoundedRectangleBorder(
+//                    borderRadius: BorderRadius.circular(30.0),
+//                  ),
+//                  child: Padding(
+//                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+//                    child: Wrap(
+//                      crossAxisAlignment: WrapCrossAlignment.center,
+//                      children: [
+//                        Padding(
+//                          padding: const EdgeInsets.only(right: 8.0),
+//                          child: Icon(
+//                            Icons.cloud_upload,
+//                            color: Colors.white,
+//                          ),
+//                        ),
+//                        Text('Sync', style: TextStyle(fontSize: 17, color: Colors.white))
+//                      ],
+//                    ),
+//                  ),
+//                ),
+//              ),
+            ],
           ),
           SizedBox(height: 10),
           Consumer<List<Donation>>(

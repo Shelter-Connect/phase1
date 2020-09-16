@@ -89,6 +89,9 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                         ),
                       SizedBox(height: 20),
                       Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
                         child: Column(
                           children: [
                             Padding(
@@ -275,6 +278,9 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                           Column(
                             children: <Widget>[
                               Card(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15.0),
+                                ),
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16.0),
                                   child: Column(

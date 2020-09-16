@@ -67,6 +67,9 @@ class _EditCurrentRequestsPageState extends State<EditCurrentRequestsPage> {
                       Padding(
                         padding: const EdgeInsets.only(bottom: 16.0),
                         child: Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
                             child: SingleChildScrollView(

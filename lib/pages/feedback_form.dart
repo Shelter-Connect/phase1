@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:phase1/components/rounded_button.dart';
 import 'package:phase1/models/user.dart';
 import 'package:phase1/pages/navigation_tab.dart';
@@ -16,7 +17,7 @@ class FeedbackForm extends StatefulWidget with NavigationTab {
   String get helpDescription => '';
 
   @override
-  IconData get icon => Icons.feedback;
+  IconData get icon => Feather.message_square;
 
   @override
   String get title => 'Feedback';

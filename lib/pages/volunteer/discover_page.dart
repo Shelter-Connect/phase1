@@ -6,6 +6,7 @@ import 'package:phase1/models/organization.dart';
 import 'package:phase1/models/user_position.dart';
 import 'package:phase1/services/location_helper.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
 import '../../components/organization_donation_profile.dart';
 import '../navigation_tab.dart';
@@ -19,7 +20,7 @@ class OrganizationDiscover extends StatefulWidget with NavigationTab {
       'To see more information about an organization, or to sign up for a donation, click on an organization. ';
 
   @override
-  IconData get icon => Icons.home;
+  IconData get icon => Feather.compass;
 
   @override
   String get title => 'Linkare';

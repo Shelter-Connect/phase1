@@ -26,7 +26,7 @@ class SyncCalendar extends StatelessWidget {
                       for (int i = 0; i < donations.length; i++) {
                         Donation donation = donations[i];
                         Event event = Event(calendar.id);
-                        if (donation.sync != '' || donation.sync != null) event.eventId = donation.sync;
+                        if (donation.sync != '' && donation.sync != null) event.eventId = donation.sync;
                         event.allDay = true;
                         event.start = donation.date;
                         event.end = donation.date;
@@ -46,7 +46,7 @@ class SyncCalendar extends StatelessWidget {
                                 .collection('currentDonations')
                                 .document(donation.id)
                                 .updateData({'sync': val.data}).then((val) {
-                              Navigator.pop(context);
+                              Navigator.of(context).pop();
                             });
                           } else if (donation.sync == '' || donation.sync == null) {
                             donation.sync = val.data;
@@ -56,7 +56,7 @@ class SyncCalendar extends StatelessWidget {
                                 .collection('currentDonations')
                                 .document(donation.id)
                                 .updateData({'sync': val.data}).then((val) {
-                              Navigator.pop(context);
+                              Navigator.of(context).pop();
                             });
                           }
                           Navigator.of(context).pop();

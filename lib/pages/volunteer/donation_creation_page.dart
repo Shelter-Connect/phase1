@@ -64,6 +64,9 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
               if (widget.organization.distance != null) Text('${widget.organization.distance.toStringAsFixed(1)} miles away', style: subTitleStyle),
               SizedBox(height: 20.0),
               Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15),
                   child: Column(
@@ -100,6 +103,9 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                       Column(
                         children: [
                           Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
                             child: Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
                               child: Column(

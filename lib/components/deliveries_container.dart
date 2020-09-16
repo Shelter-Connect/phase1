@@ -15,6 +15,9 @@ class DeliveriesContainer extends StatelessWidget {
     DateTime now = DateTime.now();
 
     return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15.0),
+      ),
       child: RawMaterialButton(
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (context) => DeliveryDescriptionPage(donation)));
