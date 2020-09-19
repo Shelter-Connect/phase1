@@ -99,7 +99,7 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
                 iconSize: 25,
                 selectedFontSize: 0,
                 selectedItemColor: Color(0xFF6576EC),
-                unselectedItemColor: Colors.black12,
+//                unselectedItemColor: Colors.black12,
                 unselectedFontSize: 0,
                 items: [
                   ..._tabs
