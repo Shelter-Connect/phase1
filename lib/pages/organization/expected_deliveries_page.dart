@@ -190,7 +190,6 @@ class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
               );
             },
           ),
-          SizedBox(height: 20),
         ],
       ),
     );

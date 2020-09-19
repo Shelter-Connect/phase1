@@ -61,8 +61,8 @@ class _OrganizationSettingsPageState extends State<OrganizationSettingsPage> {
                 SizedBox(height: 20),
                 DemoProfileButton(organization),
                 SizedBox(height: 20),
-                DeleteAccount(),
-                SizedBox(height: 20),
+                SignOutButton(),
+                SizedBox(height: 40),
               ],
             ),
           );
@@ -426,7 +426,7 @@ class DonationAvailabilityHourSettings extends StatelessWidget {
   }
 }
 
-class DeleteAccount extends StatelessWidget {
+class SignOutButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(

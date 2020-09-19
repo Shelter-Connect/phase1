@@ -10,14 +10,14 @@ import 'package:phase1/models/item.dart';
 import 'package:phase1/services/firestore_helper.dart';
 
 class EditCurrentRequestsPage extends StatefulWidget {
-  List<Item> items = List();
-  List<Item> cancelledItems = List();
-
   @override
   _EditCurrentRequestsPageState createState() => _EditCurrentRequestsPageState();
 }
 
 class _EditCurrentRequestsPageState extends State<EditCurrentRequestsPage> {
+  List<Item> items = [];
+  List<Item> cancelledItems = [];
+
   @override
   Widget build(BuildContext context) {
     return StandardLayout(
@@ -79,7 +79,7 @@ class _EditCurrentRequestsPageState extends State<EditCurrentRequestsPage> {
                                 children: <Widget>[
                                   SizedBox(height: 10),
                                   Text(
-                                    '$category',
+                                    category,
                                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                                   ),
                                   SizedBox(
@@ -135,12 +135,12 @@ class _EditCurrentRequestsPageState extends State<EditCurrentRequestsPage> {
                                                     onChanged: (val) {
                                                       Item currentItem = itemCategories[category][index].clone();
                                                       currentItem.amount = val;
-                                                      widget.items.removeWhere((prevItem) =>
+                                                      items.removeWhere((prevItem) =>
                                                           prevItem.name == currentItem.name &&
                                                           prevItem.category == currentItem.category &&
                                                           prevItem.specificDescription == currentItem.specificDescription &&
                                                           prevItem.unit == currentItem.unit);
-                                                      if (currentItem.amount != 0) widget.items.add(currentItem);
+                                                      if (currentItem.amount != 0) items.add(currentItem);
                                                     },
                                                   ),
                                                 ),
@@ -198,7 +198,7 @@ class _EditCurrentRequestsPageState extends State<EditCurrentRequestsPage> {
                         onPressed: () {
                           Navigator.pop(context);
                           List<Item> delta = List();
-                          for (Item newItem in widget.items) {
+                          for (Item newItem in items) {
                             for (String category in itemCategories.keys) {
                               for (Item oldItem in itemCategories[category]) {
                                 if ((newItem.specificDescription == oldItem.specificDescription) &&
