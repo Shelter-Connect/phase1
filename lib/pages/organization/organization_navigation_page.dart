@@ -42,6 +42,9 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
             return donations;
           }),
         ),
+        StreamProvider<QuerySnapshot>.value(
+          value: FirestoreHelper.getCurrentOrganizationReference(context).collection('requests').snapshots(),
+        ),
       ],
       child: WillPopScope(
         onWillPop: () async => false,

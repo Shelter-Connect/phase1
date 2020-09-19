@@ -5,8 +5,7 @@ import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:phase1/components/requests_container.dart';
 import 'package:phase1/constants.dart';
 import 'package:phase1/models/item.dart';
-import 'package:phase1/services/firestore_helper.dart';
-import 'package:feather_icons_flutter/feather_icons_flutter.dart';
+import 'package:provider/provider.dart';
 
 import '../navigation_tab.dart';
 import 'edit_current_requests_page.dart';
@@ -79,15 +78,14 @@ class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
             ],
           ),
           SizedBox(height: 10),
-          StreamBuilder(
-            stream: FirestoreHelper.getCurrentOrganizationReference(context).collection('requests').snapshots(),
-            builder: (context, snapshot) {
-              if (!snapshot.hasData) {
+          Consumer<QuerySnapshot>(
+            builder: (context, snapshot, widget) {
+              if (snapshot == null) {
                 return Center(
                   child: CircularProgressIndicator(),
                 );
               }
-              if (snapshot.data.documents.length == 0) {
+              if (snapshot.documents.length == 0) {
                 return Column(
                   children: [
                     Text(
@@ -113,7 +111,7 @@ class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
                 );
               }
               Map<String, List<Item>> itemCategories = {};
-              for (DocumentSnapshot document in snapshot.data.documents) {
+              for (DocumentSnapshot document in snapshot.documents) {
                 if (!itemCategories.containsKey(document['category'])) {
                   itemCategories[document['category']] = [];
                 }
