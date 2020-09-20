@@ -1,9 +1,9 @@
-import 'package:circular_check_box/circular_check_box.dart';
 import 'package:flutter/material.dart';
 import 'package:phase1/components/edit_hours_dates.dart';
 import 'package:phase1/components/rounded_button.dart';
 import 'package:phase1/components/standard_layout.dart';
 import 'package:phase1/constants.dart';
+import 'package:date_range_picker/date_range_picker.dart' as DateRagePicker;
 
 class EditHours extends StatefulWidget {
   @override
@@ -12,10 +12,7 @@ class EditHours extends StatefulWidget {
 
 class _EditHoursState extends State<EditHours> {
   bool selected = true;
-  bool Monday = true, Tuesday = true, Wednesday = true;
-//
-//  TextEditingController Monday_timeCtl_1= TextEditingController();
-//  TextEditingController Monday_timeCtl_2 = TextEditingController();
+  bool Monday = true, Tuesday = true, Wednesday = true, Thursday = true, Friday = true, Saturday = true, Sunday = true;
 
   @override
   Widget build(BuildContext context) {
@@ -23,11 +20,11 @@ class _EditHoursState extends State<EditHours> {
       title: 'Edit Hours',
       titleColor: purpleAccent,
       body: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 10.0),
-          child: Column(
-            children: [
-              Container(
-                  child: Column(
+        padding: EdgeInsets.symmetric(horizontal: 10.0),
+        child: Column(
+          children: [
+            Container(
+              child: Column(
                 children: [
                   Text('Weekly Schedules:'),
 //                  CheckboxListTile(
@@ -103,62 +100,71 @@ class _EditHoursState extends State<EditHours> {
                     boolean: Tuesday,
                     controllerClosed: TextEditingController(),
                     controllerOpen: TextEditingController(),
-                    day: 'Monday',
+                    day: 'Tuesday',
                   ),
                   EditHoursDate(
                     boolean: Wednesday,
                     controllerClosed: TextEditingController(),
                     controllerOpen: TextEditingController(),
-                    day: 'Monday',
+                    day: 'Wednesday',
                   ),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: Icon(Icons.add),
-                      color: Colors.grey,
-                    ),
+                  EditHoursDate(
+                    boolean: Thursday,
+                    controllerClosed: TextEditingController(),
+                    controllerOpen: TextEditingController(),
+                    day: 'Thursday',
+                  ),
+                  EditHoursDate(
+                    boolean: Friday,
+                    controllerClosed: TextEditingController(),
+                    controllerOpen: TextEditingController(),
+                    day: 'Friday',
+                  ),
+                  EditHoursDate(
+                    boolean: Saturday,
+                    controllerClosed: TextEditingController(),
+                    controllerOpen: TextEditingController(),
+                    day: 'Saturday',
+                  ),
+                  EditHoursDate(
+                    boolean: Sunday,
+                    controllerClosed: TextEditingController(),
+                    controllerOpen: TextEditingController(),
+                    day: 'Sunday',
                   ),
                   SizedBox(height: 20),
                   Text('Specific Dates:'),
-                  Row(
-                    children: [
-                      CircularCheckBox(
-                          value: this.selected,
-                          checkColor: Colors.white,
-                          activeColor: purpleAccent,
-                          inactiveColor: Colors.grey,
-                          disabledColor: Colors.grey,
-                          onChanged: (val) => this.setState(() {
-                                this.selected = !this.selected;
-                              })),
-                      //TODO Add specific date
-                      //TODO Add opening time
-                      //TODO Add closing time
-                    ],
-                  ),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: Icon(Icons.add),
-                      color: Colors.grey,
-                    ),
+                  RoundedButton(
+                    color: purpleAccent,
+                    textColor: Colors.white,
+                    onPressed: () async {
+                      final List<DateTime> picked = await DateRagePicker.showDatePicker(
+                          context: context, initialFirstDate: DateTime.now(), initialLastDate: (DateTime.now()).add(Duration(days: 7)), firstDate: DateTime(2015), lastDate: DateTime(2021));
+                      if (picked != null && picked.length == 2) {
+                        print(picked);
+                      }
+                    },
+                    title: 'Dates your organization is not open',
+
                   ),
                 ],
-              )),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: RoundedButton(
-                    color: purpleAccent,
-                    title: 'Update Availability Date',
-                    textColor: Colors.white,
-                    onPressed: () {
-                      //TODO Add save features
-                    }),
               ),
-            ],
-          )),
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: RoundedButton(
+                color: purpleAccent,
+                title: 'Update Availability Date',
+                textColor: Colors.white,
+                onPressed: () {
+                  //TODO Add save features
+                },
+                style: TextStyle(fontSize: 20, color: Colors.white),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
