@@ -13,7 +13,7 @@ class FloatingTextField extends StatelessWidget {
   final bool autofocus;
   final bool obscureText;
   final IconButton suffixIcon;
-  final double width;
+  final double width, height;
   final TextInputType keyboardType;
 
   FloatingTextField(
@@ -28,6 +28,7 @@ class FloatingTextField extends StatelessWidget {
       this.hintStyle,
       this.autofocus = false,
       this.width,
+        this.height,
       this.maxLength,
       this.keyboardType = TextInputType.text});
 
@@ -37,9 +38,10 @@ class FloatingTextField extends StatelessWidget {
       elevation: 2,
       borderRadius: BorderRadius.circular(5),
       child: Container(
-        width: width,
+        width: width ?? null,
+        height: height,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2),
+          padding: const EdgeInsets.symmetric(vertical: 0),
           child: TextField(
             controller: controller,
             autofocus: autofocus,
