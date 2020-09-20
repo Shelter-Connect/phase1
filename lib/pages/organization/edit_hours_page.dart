@@ -1,9 +1,9 @@
+import 'package:circular_check_box/circular_check_box.dart';
 import 'package:flutter/material.dart';
 import 'package:phase1/components/edit_hours_dates.dart';
 import 'package:phase1/components/rounded_button.dart';
 import 'package:phase1/components/standard_layout.dart';
 import 'package:phase1/constants.dart';
-import 'package:circular_check_box/circular_check_box.dart';
 
 class EditHours extends StatefulWidget {
   @override
@@ -12,7 +12,7 @@ class EditHours extends StatefulWidget {
 
 class _EditHoursState extends State<EditHours> {
   bool selected = true;
-  bool Monday, Tuesday, Wednesday = true;
+  bool Monday = true, Tuesday = true, Wednesday = true;
 //
 //  TextEditingController Monday_timeCtl_1= TextEditingController();
 //  TextEditingController Monday_timeCtl_2 = TextEditingController();
