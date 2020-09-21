@@ -84,13 +84,21 @@ class _OrganizationPreviewPageState extends State<OrganizationPreviewPage> {
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 textDirection: TextDirection.rtl,
                                 children: [
-                                  FlatButton(
+                                  FlatButton.icon(
                                       onPressed: () {
                                         MapSheet().build(context);
                                       },
-                                      child: SvgPicture.asset(
+                                      label: Text(
+                                        'Directions',
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                      icon: SvgPicture.asset(
                                         "assets/random_svgs/googlemaps.svg",
                                         height: 28,
+                                        semanticsLabel: 'Directions:',
                                       )),
                                   Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
