@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:phase1/models/organization.dart';
 import 'package:phase1/models/user_position.dart';
 import 'package:phase1/services/location_helper.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
 import '../../components/organization_donation_profile.dart';
 import '../navigation_tab.dart';
@@ -23,7 +23,7 @@ class OrganizationDiscover extends StatefulWidget with NavigationTab {
   IconData get icon => Feather.compass;
 
   @override
-  String get title => 'Linkare';
+  String get title => 'Discover';
 
   @override
   String get barTitle => 'Linkare';
@@ -98,10 +98,7 @@ class _OrganizationDiscoverState extends State<OrganizationDiscover> {
                   }
                   if (hasPosition) {
                     widgets.sort((a, b) {
-                      return (a as ProfileDonation)
-                          .organization
-                          .distance
-                          .compareTo((b as ProfileDonation).organization.distance);
+                      return (a as ProfileDonation).organization.distance.compareTo((b as ProfileDonation).organization.distance);
                     });
                   }
                   for (int i = 1; i < widgets.length; i++) {

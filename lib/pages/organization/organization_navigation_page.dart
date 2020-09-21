@@ -1,3 +1,4 @@
+import 'package:animations/animations.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,6 @@ import 'package:phase1/pages/organization/expected_deliveries_page.dart';
 import 'package:phase1/pages/organization/organization_settings_page.dart';
 import 'package:phase1/services/firestore_helper.dart';
 import 'package:provider/provider.dart';
-import 'package:animations/animations.dart';
 
 import '../../constants.dart';
 import '../feedback_form.dart';
@@ -81,14 +81,19 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
             )),
           ),
           floatingActionButton: OpenContainer(
-            closedShape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(30.0))),
-            transitionDuration: Duration(milliseconds: 200),closedBuilder: (context,openWidget){
-            return FloatingActionButton(backgroundColor: purpleAccent,
-              child: Icon(Icons.add),
-              onPressed: openWidget,);}, openBuilder: (context,closedWidget){
+            closedShape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(30.0))),
+            transitionDuration: Duration(milliseconds: 200),
+            closedBuilder: (context, openWidget) {
+              return FloatingActionButton(
+                backgroundColor: purpleAccent,
+                child: Icon(Icons.add),
+                onPressed: openWidget,
+              );
+            },
+            openBuilder: (context, closedWidget) {
               return CreateRequestPage();
-                },),
+            },
+          ),
           floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
           bottomNavigationBar: SizedBox(
             height: MediaQuery.of(context).size.height / 14 + 2,
@@ -258,4 +263,3 @@ class FABBottomAppBarState extends State<FABBottomAppBar> {
     );
   }
 }
-

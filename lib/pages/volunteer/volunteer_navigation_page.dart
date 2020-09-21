@@ -11,7 +11,6 @@ import 'package:phase1/pages/volunteer/discover_page.dart';
 import 'package:phase1/pages/volunteer/volunteer_settings_page.dart';
 import 'package:phase1/services/firestore_helper.dart';
 import 'package:provider/provider.dart';
-import 'package:animations/animations.dart';
 
 import '../../constants.dart';
 import '../volunteer/current_deliveries_page.dart';
@@ -92,34 +91,37 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
                 ),
               ),
             ),
-            bottomNavigationBar: BottomNavigationBar(
-              showSelectedLabels: false,
-              showUnselectedLabels: false,
-              currentIndex: _selectedIndex,
-              type: BottomNavigationBarType.fixed,
-              backgroundColor: purpleAccent, //Colors.white
-              iconSize: 25,
-              selectedItemColor: colorScheme.onSecondary, //Color(0xFF6576EC)
-              unselectedItemColor: darkPurpleAccent, //Colors.black12,
-              items: [
-                ..._tabs
-                    .asMap()
-                    .map(
-                      (index, tab) => MapEntry(
-                      index,
-                      BottomNavigationBarItem(
-                        icon: Icon(tab.icon),
-                        title: Text(tab.title),
-                      )),
-                )
-                    .values
-                    .toList(),
-              ],
-              onTap: (index) {
-                setState(() {
-                  _selectedIndex = index;
-                });
-              },
+            bottomNavigationBar: SizedBox(
+              height: MediaQuery.of(context).size.height / 14 + 25,
+              child: BottomNavigationBar(
+                showSelectedLabels: true,
+                showUnselectedLabels: false,
+                currentIndex: _selectedIndex,
+                type: BottomNavigationBarType.fixed,
+                backgroundColor: purpleAccent, //Colors.white
+                iconSize: 25,
+                selectedItemColor: colorScheme.onSecondary, //Color(0xFF6576EC)
+                unselectedItemColor: darkPurpleAccent, //Colors.black12,
+                items: [
+                  ..._tabs
+                      .asMap()
+                      .map(
+                        (index, tab) => MapEntry(
+                            index,
+                            BottomNavigationBarItem(
+                              icon: Icon(tab.icon),
+                              title: Text(tab.title),
+                            )),
+                      )
+                      .values
+                      .toList(),
+                ],
+                onTap: (index) {
+                  setState(() {
+                    _selectedIndex = index;
+                  });
+                },
+              ),
             ),
           ),
         ),
