@@ -1,5 +1,7 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:phase1/constants.dart';
+import 'package:phase1/pages/organization/organization_sign_up_page.dart';
 import 'package:phase1/pages/volunteer/volunteer_sign_up_page.dart';
 
 class WelcomePage extends StatelessWidget {
@@ -38,7 +40,8 @@ class WelcomePage extends StatelessWidget {
         Column(
           children: [
             Expanded(
-              child: Image.asset('assets/logo_svgs/whitelogofinal2.png', width: 140),
+              child: Image.asset('assets/logo_svgs/whitelogofinal2.png',
+                  width: 140),
               flex: 1,
             ),
             Expanded(
@@ -46,7 +49,10 @@ class WelcomePage extends StatelessWidget {
                 margin: EdgeInsets.only(bottom: 10.0),
                 child: Text(
                   'Help out Non-Profit Organizations',
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white),
+                  style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -68,56 +74,76 @@ class WelcomePage extends StatelessWidget {
               ),
               flex: 0,
             ),
-            Expanded(
-              child: ButtonTheme(
-                minWidth: 290.0,
-                height: 50.0,
-                child: RaisedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/organization_sign_up');
-                  },
-                  textColor: purpleAccent,
-                  color: Colors.white,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40.0)),
-                  child: Container(
-                    child: Text(
-                      'Sign up as an Organization',
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ),
-              ),
-              flex: 0,
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(20),
-                child: ButtonTheme(
-                  minWidth: 290.0,
-                  height: 50.0,
-                  child: RaisedButton(
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (_) => VolunteerSignUp()));
-                    },
-                    textColor: Colors.white,
-                    color: purpleAccent,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40.0)),
-                    child: Container(
-                      child: Text(
-                        'Sign up as a Volunteer',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 32.0),
+              child: OpenContainer(
+                closedColor: Color(0xfff5f5f5),
+                closedShape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(40.0))),
+                closedElevation: 2,
+                transitionDuration: Duration(milliseconds: 250),
+                closedBuilder: (context, openWidget) {
+                  return Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 50.0,
+                    child: RaisedButton(
+                      onPressed: openWidget,
+                      textColor: purpleAccent,
+                      color: Colors.white,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(40.0)),
+                      child: Container(
+                        child: Text(
+                          'Sign up as an Organization',
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
                         ),
-                        textAlign: TextAlign.center,
                       ),
                     ),
-                  ),
-                ),
+                  );
+                },
+                openBuilder: (context, closedWidget) {
+                  return OrganizationSignUpPage();
+                },
               ),
-              flex: 0,
             ),
+            SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 32.0),
+              child: OpenContainer(
+                closedColor: Color(0xfff5f5f5),
+                closedShape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(40.0))),
+                closedElevation: 2,
+                transitionDuration: Duration(milliseconds: 250),
+                closedBuilder: (context, openWidget) {
+                  return Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 50.0,
+                    child: RaisedButton(
+                      onPressed: openWidget,
+                      textColor: Colors.white,
+                      color: purpleAccent,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(40.0)),
+                      child: Container(
+                        child: Text(
+                          'Sign up as a Volunteer',
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                  );
+                },
+                openBuilder: (context, closedWidget) {
+                  return VolunteerSignUp();
+                },
+              ),
+            ),
+            SizedBox(height: 10),
             Expanded(
               child: Container(
                 margin: EdgeInsets.only(bottom: 20.0),
@@ -135,7 +161,8 @@ class WelcomePage extends StatelessWidget {
                         children: <Widget>[
                           Text(
                             'Existing User? Log In',
-                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.bold),
                           ),
                           Icon(
                             Icons.keyboard_arrow_right,

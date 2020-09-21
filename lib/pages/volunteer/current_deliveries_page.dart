@@ -127,7 +127,7 @@ class _CurrentDeliveriesPageState extends State<CurrentDeliveriesPage> {
               List<Widget> widgets = [];
               for (Donation donation in donations) {
                 widgets.add(
-                  DeliveriesContainer(donation: donation),
+                  Items(donation: donation),
                 );
               }
               for (int i = 1; i < widgets.length; i++) {

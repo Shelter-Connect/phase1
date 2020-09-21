@@ -214,3 +214,37 @@ final categories = [
 //    'The need for warmth has been engraved into humans since the beginning of life, and has never disappeared'
   },
 ];
+
+class GreyLine extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Divider(
+        color: Colors.black12,
+        height: 20,
+        thickness: 3,
+        endIndent: 0);
+  }
+}
+
+class SmallGreyLine extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Divider(
+        color: Colors.black12,
+        height: 20,
+        indent: 20,
+        thickness: 3,
+        endIndent: 20);
+  }
+}
+class SmallestGreyLine extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Divider(
+        color: Colors.black12,
+        height: 20,
+        indent: 30,
+        thickness: 2,
+        endIndent: 30);
+  }
+}

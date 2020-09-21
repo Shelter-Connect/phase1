@@ -92,22 +92,22 @@ class _OrganizationDiscoverState extends State<OrganizationDiscover> {
                               organization.location.latitude, organization.location.longitude, userPosition.latitude, userPosition.longitude)
                           : null;
                       widgets.add(
-                        OrganizationDonationProfile(organization: organization),
+                        ProfileDonation(organization: organization),
                       );
                     }
                   }
                   if (hasPosition) {
                     widgets.sort((a, b) {
-                      return (a as OrganizationDonationProfile)
+                      return (a as ProfileDonation)
                           .organization
                           .distance
-                          .compareTo((b as OrganizationDonationProfile).organization.distance);
+                          .compareTo((b as ProfileDonation).organization.distance);
                     });
                   }
                   for (int i = 1; i < widgets.length; i++) {
                     widgets.insert(
                       i++,
-                      SizedBox(height: 20.0),
+                      SizedBox(height: 5.0),
                     );
                   }
                   return Column(

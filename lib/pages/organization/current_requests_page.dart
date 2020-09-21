@@ -1,3 +1,4 @@
+import 'package:animations/animations.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -42,36 +43,43 @@ class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
             children: [
               Align(
                 alignment: Alignment.centerLeft,
-                child: FlatButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => EditCurrentRequestsPage()),
+                child: OpenContainer(
+                  closedShape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(30.0))),
+                  closedColor: Color(0xfff5f5f5),
+                  closedElevation: 0,
+                  transitionDuration: Duration(milliseconds: 190),
+                  closedBuilder: (context, openWidget) {
+                    return FlatButton(
+                      onPressed: openWidget,
+                      color: purpleAccent,
+                      padding: EdgeInsets.all(8.0),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30.0),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Wrap(
+                          crossAxisAlignment: WrapCrossAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(right: 8.0),
+                              child: Icon(
+                                Icons.edit,
+                                color: Colors.white,
+                              ),
+                            ),
+                            Text('Edit',
+                                style: TextStyle(
+                                    fontSize: 17, color: Colors.white))
+                          ],
+                        ),
+                      ),
                     );
                   },
-                  color: purpleAccent,
-                  padding: EdgeInsets.all(8.0),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30.0),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Wrap(
-                      crossAxisAlignment: WrapCrossAlignment.center,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(right: 8.0),
-                          child: Icon(
-                            Icons.edit,
-                            color: Colors.white,
-                          ),
-                        ),
-                        Text('Edit',
-                            style: TextStyle(fontSize: 17, color: Colors.white))
-                      ],
-                    ),
-                  ),
+                  openBuilder: (context, closedWidget) {
+                    return EditCurrentRequestsPage();
+                  },
                 ),
               ),
               SizedBox(width: MediaQuery.of(context).size.width / 3),
@@ -125,7 +133,11 @@ class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
                       urgency: document['urgency'],
                       urgencyColor: (document['urgency'] == 0)
                           ? Colors.transparent
-                          : (document['urgency'] == 1) ? Colors.green : (document['urgency'] == 2) ? Colors.yellow : Colors.red),
+                          : (document['urgency'] == 1)
+                              ? Colors.green
+                              : (document['urgency'] == 2)
+                                  ? Colors.yellow
+                                  : Colors.red),
                 );
               }
 

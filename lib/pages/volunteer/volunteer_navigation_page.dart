@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:phase1/models/donation.dart';
 import 'package:phase1/models/organization.dart';
 import 'package:phase1/models/user_position.dart';
@@ -10,6 +11,7 @@ import 'package:phase1/pages/volunteer/discover_page.dart';
 import 'package:phase1/pages/volunteer/volunteer_settings_page.dart';
 import 'package:phase1/services/firestore_helper.dart';
 import 'package:provider/provider.dart';
+import 'package:animations/animations.dart';
 
 import '../../constants.dart';
 import '../volunteer/current_deliveries_page.dart';
@@ -90,37 +92,34 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
                 ),
               ),
             ),
-            bottomNavigationBar: SizedBox(
-              height: 60,
-              child: BottomNavigationBar(
-                currentIndex: _selectedIndex,
-                type: BottomNavigationBarType.fixed,
-                backgroundColor: Colors.white,
-                iconSize: 25,
-                selectedFontSize: 0,
-                selectedItemColor: Color(0xFF6576EC),
-//                unselectedItemColor: Colors.black12,
-                unselectedFontSize: 0,
-                items: [
-                  ..._tabs
-                      .asMap()
-                      .map(
-                        (index, tab) => MapEntry(
-                            index,
-                            BottomNavigationBarItem(
-                              icon: Icon(tab.icon),
-                              title: Text(tab.title),
-                            )),
-                      )
-                      .values
-                      .toList(),
-                ],
-                onTap: (index) {
-                  setState(() {
-                    _selectedIndex = index;
-                  });
-                },
-              ),
+            bottomNavigationBar: BottomNavigationBar(
+              showSelectedLabels: false,
+              showUnselectedLabels: false,
+              currentIndex: _selectedIndex,
+              type: BottomNavigationBarType.fixed,
+              backgroundColor: Colors.white,
+              iconSize: 25,
+              selectedItemColor: Color(0xFF6576EC),
+              unselectedItemColor: Colors.black12,
+              items: [
+                ..._tabs
+                    .asMap()
+                    .map(
+                      (index, tab) => MapEntry(
+                      index,
+                      BottomNavigationBarItem(
+                        icon: Icon(tab.icon),
+                        title: Text(tab.title),
+                      )),
+                )
+                    .values
+                    .toList(),
+              ],
+              onTap: (index) {
+                setState(() {
+                  _selectedIndex = index;
+                });
+              },
             ),
           ),
         ),
