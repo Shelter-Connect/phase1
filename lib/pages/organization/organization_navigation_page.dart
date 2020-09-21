@@ -90,10 +90,10 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
           bottomNavigationBar: SizedBox(
             height: MediaQuery.of(context).size.height / 14 + 2,
             child: FABBottomAppBar(
-              backgroundColor: Colors.white,
+              backgroundColor: purpleAccent, //Colors.white
               iconSize: 25,
+              color: darkPurpleAccent, //remove color parameter
               notchedShape: CircularNotchedRectangle(),
-
               items: _tabs,
               onTabSelected: (index) {
                 setState(() {
@@ -191,16 +191,20 @@ class FABBottomAppBarState extends State<FABBottomAppBar> {
   @override
   Widget build(BuildContext context) {
     List<Widget> items = List.generate(widget.items.length, (int index) {
-      return _buildTabItem(
-        item: widget.items[index],
-        index: index,
-        onPressed: _updateIndex,
+      return Expanded(
+        child: _buildTabItem(
+          item: widget.items[index],
+          index: index,
+          onPressed: _updateIndex,
+        ),
       );
     });
     items.insert(items.length >> 1, _buildMiddleTabItem());
 
     return BottomAppBar(
       shape: widget.notchedShape,
+      notchMargin: 2.0,
+      clipBehavior: Clip.antiAlias,
       child: Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -214,9 +218,7 @@ class FABBottomAppBarState extends State<FABBottomAppBar> {
     return Expanded(
       child: SizedBox(
         height: widget.height,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: ListView(
           children: <Widget>[
             SizedBox(height: widget.iconSize),
             Text(
@@ -234,25 +236,22 @@ class FABBottomAppBarState extends State<FABBottomAppBar> {
     int index,
     ValueChanged<int> onPressed,
   }) {
-    Color color = _selectedIndex == index ? purpleAccent : widget.color;
-    return Expanded(
-      child: SizedBox(
-        height: widget.height,
-        child: Material(
-          type: MaterialType.transparency,
-          child: InkWell(
-            onTap: () => onPressed(index),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Icon(item.icon, color: color, size: widget.iconSize),
-              ],
-            ),
+    Color color = _selectedIndex == index ? colorScheme.onSecondary : widget.color; //purpleAccent instead of onSecondary
+    return SizedBox(
+      height: widget.height,
+      child: Material(
+        type: MaterialType.transparency,
+        child: InkWell(
+          onTap: () => onPressed(index),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Icon(item.icon, color: color, size: widget.iconSize),
+            ],
           ),
         ),
       ),
     );
   }
 }
-

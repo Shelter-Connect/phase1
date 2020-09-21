@@ -115,6 +115,7 @@ final colorScheme = ColorScheme(
 );
 
 Color purpleAccent = Color(0xFF6576EC);
+Color darkPurpleAccent = Color(0xFF4652a5);
 Color purpleLight = Color(0xFF919DEE);
 Color blueAccent = Color(0xff187CFF);
 Color whiteBackground = Color(0xFFDAE5F9);

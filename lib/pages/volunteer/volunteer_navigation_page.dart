@@ -95,11 +95,11 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
               child: BottomNavigationBar(
                 currentIndex: _selectedIndex,
                 type: BottomNavigationBarType.fixed,
-                backgroundColor: Colors.white,
+                backgroundColor: purpleAccent, //Colors.white
                 iconSize: 25,
                 selectedFontSize: 0,
-                selectedItemColor: Color(0xFF6576EC),
-//                unselectedItemColor: Colors.black12,
+                selectedItemColor: colorScheme.onSecondary, //Color(0xFF6576EC)
+                unselectedItemColor: darkPurpleAccent, //Colors.black12,
                 unselectedFontSize: 0,
                 items: [
                   ..._tabs
