@@ -52,20 +52,30 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
       title: ' ',
       helpText: 'To make a donation, enter a date when you can deliver the items, and choose the amount of items you can deliver. ',
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                widget.organization.name,
-                style: mainTitleStyle,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    widget.organization.name,
+                    style: mainTitleStyle,
+                  ),
+                  if (widget.organization.distance != null) Text('${widget.organization.distance.toStringAsFixed(1)} miles away', style: subTitleStyle),
+                ],
               ),
-              if (widget.organization.distance != null) Text('${widget.organization.distance.toStringAsFixed(1)} miles away', style: subTitleStyle),
-              SizedBox(height: 20.0),
-              Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.0),
+            ),
+            GreyLine(),
+            SizedBox(height: 10.0),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5.0),
+                  color: Color(0xFFF5F5F5),
                 ),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15),
@@ -90,134 +100,144 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                   ),
                 ),
               ),
-              SizedBox(height: 20),
-              Text(
-                '*All Items can be slightly used unless explicitly stated by the organization',
-                style: TextStyle(fontSize: 15, color: Colors.red),
+            ),
+            SizedBox(height: 10),
+            SmallGreyLine(),
+            SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 18.0),
+              child: Center(
+                child: Text(
+                  '*All Items can be slightly used unless explicitly stated by the organization',
+                  style: TextStyle(fontSize: 15, color: Colors.red),
+                ),
               ),
-              SizedBox(height: 20),
-              ...widget.organization.requestedItems
-                  .map(
-                    (category, categoryItems) => MapEntry(
-                      category,
-                      Column(
-                        children: [
-                          Card(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15.0),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  SizedBox(height: 10),
-                                  Text(
-                                    category,
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w500,
-                                    ),
+            ),
+            SizedBox(height: 10),
+            SmallGreyLine(),
+            SizedBox(height: 5),
+            ...widget.organization.requestedItems
+                .map(
+                  (category, categoryItems) => MapEntry(
+                    category,
+                    Column(
+                      children: [
+                        Container(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                SizedBox(height: 10),
+                                Text(
+                                  category,
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w500,
                                   ),
-                                  SizedBox(
-                                    height: 10,
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Container(
+                                  height: 5,
+                                  width: 50,
+                                  decoration: BoxDecoration(
+                                    color: purpleAccent,
+                                    borderRadius: BorderRadius.circular(21),
                                   ),
-                                  Container(
-                                    height: 5,
-                                    width: 50,
-                                    decoration: BoxDecoration(
-                                      color: purpleAccent,
-                                      borderRadius: BorderRadius.circular(21),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  ...categoryItems
-                                      .asMap()
-                                      .map(
-                                        (index, item) => MapEntry(
-                                          index,
-                                          Padding(
-                                            padding: const EdgeInsets.only(bottom: 3.0),
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Row(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                  children: [
-                                                    Expanded(
-                                                      child: Padding(
-                                                        padding: const EdgeInsets.only(bottom: 5.0),
-                                                        child: Row(
-                                                          children: [
-                                                            if (item.amount > 0)
-                                                              Expanded(
-                                                                child: Text(
-                                                                  '${item.name} - ${item.amount} ${item.unit ?? ''}'.trim(),
-                                                                  style: TextStyle(
-                                                                    fontSize: 17.0,
-                                                                    fontWeight: FontWeight.w400,
-                                                                  ),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                ...categoryItems
+                                    .asMap()
+                                    .map(
+                                      (index, item) => MapEntry(
+                                        index,
+                                        Padding(
+                                          padding: const EdgeInsets.only(bottom: 3.0),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  Expanded(
+                                                    child: Padding(
+                                                      padding: const EdgeInsets.only(bottom: 5.0),
+                                                      child: Row(
+                                                        children: [
+                                                          if (item.amount > 0)
+                                                            Expanded(
+                                                              child: Text(
+                                                                '${item.name} - ${item.amount} ${item.unit ?? ''}'.trim(),
+                                                                style: TextStyle(
+                                                                  fontSize: 17.0,
+                                                                  fontWeight: FontWeight.w400,
                                                                 ),
                                                               ),
-                                                            if (item.amount > 0) SizedBox(width: 5),
-                                                            if (item.amount > 0)
-                                                              Container(
-                                                                height: 12,
-                                                                width: 12,
-                                                                decoration:
-                                                                    BoxDecoration(color: item.urgencyColor, borderRadius: BorderRadius.circular(40)),
-                                                              ),
-                                                            if (item.amount > 0) SizedBox(width: 15),
-                                                          ],
-                                                        ),
+                                                            ),
+                                                          if (item.amount > 0) SizedBox(width: 5),
+                                                          if (item.amount > 0)
+                                                            Container(
+                                                              height: 12,
+                                                              width: 12,
+                                                              decoration:
+                                                                  BoxDecoration(color: item.urgencyColor, borderRadius: BorderRadius.circular(40)),
+                                                            ),
+                                                          if (item.amount > 0) SizedBox(width: 15),
+                                                        ],
                                                       ),
                                                     ),
-                                                    ItemIncrementWithText(
-                                                      itemName: item.name,
-                                                      initialQuantity: 0,
-                                                      maxQuantity: item.amount,
-                                                      onChanged: (val) {
-                                                        Item currentItem = item.clone();
-                                                        currentItem.amount = val;
-                                                        donation.items.removeWhere((prevItem) =>
-                                                            prevItem.name == currentItem.name &&
-                                                            prevItem.category == currentItem.category &&
-                                                            prevItem.specificDescription == currentItem.specificDescription &&
-                                                            prevItem.unit == currentItem.unit);
-                                                        if (currentItem.amount != 0) donation.items.add(currentItem);
-                                                      },
-                                                    ),
-                                                    SizedBox(height: 10.0),
-                                                  ],
-                                                ),
-                                                if (item.specificDescription != null)
-                                                  Text(
-                                                    item.specificDescription,
-                                                    style: TextStyle(fontSize: 14, color: Colors.grey),
                                                   ),
-                                              ],
-                                            ),
+                                                  ItemIncrementWithText(
+                                                    itemName: item.name,
+                                                    initialQuantity: 0,
+                                                    maxQuantity: item.amount,
+                                                    onChanged: (val) {
+                                                      Item currentItem = item.clone();
+                                                      currentItem.amount = val;
+                                                      donation.items.removeWhere((prevItem) =>
+                                                          prevItem.name == currentItem.name &&
+                                                          prevItem.category == currentItem.category &&
+                                                          prevItem.specificDescription == currentItem.specificDescription &&
+                                                          prevItem.unit == currentItem.unit);
+                                                      if (currentItem.amount != 0) donation.items.add(currentItem);
+                                                    },
+                                                  ),
+                                                  SizedBox(height: 10.0),
+                                                ],
+                                              ),
+                                              if (item.specificDescription != null)
+                                                Text(
+                                                  item.specificDescription,
+                                                  style: TextStyle(fontSize: 14, color: Colors.grey),
+                                                ),
+                                            ],
                                           ),
                                         ),
-                                      )
-                                      .values
-                                      .toList(),
-                                ],
-                              ),
+                                      ),
+                                    )
+                                    .values
+                                    .toList(),
+                              ],
                             ),
                           ),
-                          SizedBox(height: 10.0),
-                        ],
-                      ),
+                        ),
+                        SizedBox(height: 5.0),
+                        SmallestGreyLine(),
+                      ],
                     ),
-                  )
-                  .values
-                  .toList(),
-              SizedBox(height: 10),
-              Container(
+                  ),
+                )
+                .values
+                .toList(),
+            SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Container(
                 width: MediaQuery.of(context).size.width,
                 child: FlatButton(
                   onPressed: () {
@@ -259,9 +279,9 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                   ),
                 ),
               ),
-              SizedBox(height: 20),
-            ],
-          ),
+            ),
+            SizedBox(height: 20),
+          ],
         ),
       ),
     );

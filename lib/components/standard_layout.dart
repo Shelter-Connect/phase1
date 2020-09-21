@@ -14,10 +14,12 @@ class StandardLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: color ?? Color(0xFFF5F5F5),
+      backgroundColor: color ?? Colors.white,
+      //Color(0xFFF5F5F5)
       appBar: AppBar(
         brightness: Brightness.light,
-        backgroundColor: color ?? Color(0xFFF5F5F5),
+        backgroundColor: color ?? Colors.white,
+        //Color(0xFFF5F5F5)
         elevation: 0.0,
         leading: IconButton(
           onPressed: () {
