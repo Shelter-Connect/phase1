@@ -22,6 +22,22 @@ class SyncCalendar extends StatelessWidget {
                 return ListTile(
                   onTap: () async {
                     if (!tapped) {
+                      var calendarEventsResult = await deviceCalendarPlugin.retrieveEvents(calendar.id,
+                          RetrieveEventsParams(startDate: DateTime.now().add(Duration(days: -69)), endDate: DateTime.now().add(Duration(days: 365))));
+                      List<Event> events = [];
+                      for (Event event in calendarEventsResult.data) {
+                        bool yes = false;
+                        for (Donation donation in donations) {
+                          if (event.eventId == donation.sync) {
+                            yes = true;
+                            break;
+                          }
+                        }
+                        if (!yes) events.add(event);
+                      }
+                      for (Event event in events) {
+                        deviceCalendarPlugin.deleteEvent(calendar.id, event.eventId);
+                      }
                       for (int i = 0; i < donations.length; i++) {
                         Donation donation = donations[i];
                         Event event = Event(calendar.id);
