@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import '../constants.dart';
 import '../models/user.dart';
 
@@ -44,6 +45,7 @@ class _LoadingPageState extends State<LoadingPage> {
             },
           );
         } else {
+          auth.signOut();
           if (ModalRoute.of(context).isCurrent) {
             Navigator.pushNamed(context, '/welcome');
           } else {

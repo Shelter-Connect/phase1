@@ -22,7 +22,6 @@ class SyncCalendar extends StatelessWidget {
                 return ListTile(
                   onTap: () async {
                     if (!tapped) {
-                      tapped = true;
                       for (int i = 0; i < donations.length; i++) {
                         Donation donation = donations[i];
                         Event event = Event(calendar.id);
@@ -38,7 +37,9 @@ class SyncCalendar extends StatelessWidget {
                               ' ${item.amount}${item.unit != '' ? ' ' + item.unit : ''} ${item.name}${item.specificDescription != '' ? ' ' + item.specificDescription : ''}\n';
                         event.description = description;
                         await deviceCalendarPlugin.createOrUpdateEvent(event).then((val) async {
-                          if ((donation.sync == '' || donation.sync == null) && isOrg) {
+                          if (tapped)
+                            ;
+                          else if ((donation.sync == '' || donation.sync == null) && isOrg) {
                             donation.sync = val.data;
                             await db
                                 .collection('organizations')
@@ -59,7 +60,8 @@ class SyncCalendar extends StatelessWidget {
                               Navigator.of(context).pop();
                             });
                           } else
-                            Navigator.of(context).pop();
+                            Navigator.pop(context);
+                          tapped = true;
                         });
                       }
                     }
