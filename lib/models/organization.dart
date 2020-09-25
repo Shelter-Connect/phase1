@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:phase1/models/user_position.dart';
 import 'package:phase1/services/location_helper.dart';
@@ -13,6 +14,8 @@ class Organization {
   double distance;
   Map<String, List<Item>> requestedItems = Map();
   List<String> itemCategories = List();
+  Map<String, List<TimeOfDay>> schedule = Map();
+  List<DateTime> breaks = List();
 
   Organization(
       {this.address,
@@ -25,7 +28,9 @@ class Organization {
       this.distance,
       this.requestedItems,
       this.itemCategories,
-      this.number});
+      this.number,
+      this.schedule,
+      this.breaks});
 
   Organization clone() {
     return Organization(
@@ -44,6 +49,13 @@ class Organization {
           items.map((item) => item.clone()).toList(),
         ),
       ),
+      schedule: schedule?.map(
+        (day, times) => MapEntry(
+          day,
+          times.map((time) => new TimeOfDay(hour: time.hour, minute: time.minute)).toList(),
+        ),
+      ),
+      breaks: breaks.map((dates) => new DateTime(dates.year, dates.month, dates.day, dates.hour, dates.minute)).toList(),
       distance: distance,
     );
   }
@@ -66,6 +78,10 @@ class Organization {
       }
     }
     requestedItems = items;
+
+    schedule = organizationSnapshot['times']['schedule']?.map(
+        (day, times) => MapEntry(day, times.map((time) => new TimeOfDay.fromDateTime(DateTime.fromMillisecondsSinceEpoch(time * 1000))).toList()));
+    breaks = organizationSnapshot['times']['breaks'].map((dates) => new DateTime.fromMillisecondsSinceEpoch(dates * 1000)).toList();
 
     if (isVolunteer) {
       Position userPosition = Provider.of<UserPosition>(context, listen: false).position;

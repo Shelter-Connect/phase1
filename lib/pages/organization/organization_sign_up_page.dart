@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_webservice/places.dart';
-import 'package:intl/intl.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 import '../../components/alerts.dart';
@@ -19,6 +18,7 @@ class OrganizationSignUpPage extends StatefulWidget {
 class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
   String email = '', password = '', password2 = '', organizationName = '', description = '', number, website;
   GeoPoint location;
+  TimeOfDay open, closed;
   TextEditingController controller = TextEditingController();
   GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: kGoogleApiKey);
   bool loading = false;
@@ -103,39 +103,38 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
                 Row(
                   children: [
                     FloatingTextField(
-                      width: MediaQuery.of(context).size.width*(7.5/18),
+                      width: MediaQuery.of(context).size.width * (7.5 / 18),
                       hintText: 'Open',
-                      controller: timeCtl,  // add this line.
+                      controller: timeCtl, // add this line.
                       onTapped: () async {
                         TimeOfDay time = TimeOfDay.now();
                         FocusScope.of(context).requestFocus(new FocusNode());
 
-                        TimeOfDay picked =
-                        await showTimePicker(context: context, initialTime: time);
-                        if (picked != null) {
+                        open = await showTimePicker(context: context, initialTime: time);
+                        if (open != null) {
                           setState(() {
-                            time = picked;
+                            time = open;
                           });
-                          timeCtl.text =  picked.format(context);
+                          timeCtl.text = open.format(context);
                         }
                       },
                     ),
-                    SizedBox(width: 10,),
+                    SizedBox(
+                      width: 10,
+                    ),
                     FloatingTextField(
-                      width: MediaQuery.of(context).size.width*(7.5/18),
+                      width: MediaQuery.of(context).size.width * (7.5 / 18),
                       hintText: 'Closed',
-                      controller: timeCtl1,  // add this line.
+                      controller: timeCtl1, // add this line.
                       onTapped: () async {
                         TimeOfDay time = TimeOfDay.now();
                         FocusScope.of(context).requestFocus(new FocusNode());
-
-                        TimeOfDay picked =
-                        await showTimePicker(context: context, initialTime: time);
-                        if (picked != null) {
+                        closed = await showTimePicker(context: context, initialTime: time);
+                        if (closed != null) {
                           setState(() {
-                            time = picked;
+                            time = closed;
                           });
-                          timeCtl1.text =  picked.format(context);
+                          timeCtl1.text = closed.format(context);
                         }
                       },
                     ),
@@ -209,8 +208,43 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
                         context: context,
                         builder: (_) => NoActionAlert(title: 'Passwords do not match'),
                       );
+                    } else if ((timeCtl.text == null || timeCtl.text == '') && (timeCtl1.text != null || timeCtl1.text != '')) {
+                      showDialog(
+                        context: context,
+                        builder: (_) => NoActionAlert(title: 'Please enter an opening time.'),
+                      );
+                    } else if ((timeCtl.text != null || timeCtl.text != '') && (timeCtl1.text == null || timeCtl1.text == '')) {
+                      showDialog(
+                        context: context,
+                        builder: (_) => NoActionAlert(title: 'Please enter a closing time.'),
+                      );
                     } else {
                       try {
+                        Map<String, List<Timestamp>> schedule = {
+                          'Monday': [
+                            Timestamp.fromDate(new DateTime(1969, 1, 1, open.hour, open.minute)),
+                            Timestamp.fromDate(new DateTime(1969, 1, 1, closed.hour, closed.minute))
+                          ],
+                          'Tuesday': [
+                            Timestamp.fromDate(new DateTime(1969, 1, 1, open.hour, open.minute)),
+                            Timestamp.fromDate(new DateTime(1969, 1, 1, closed.hour, closed.minute))
+                          ],
+                          'Wednesday': [
+                            Timestamp.fromDate(new DateTime(1969, 1, 1, open.hour, open.minute)),
+                            Timestamp.fromDate(new DateTime(1969, 1, 1, closed.hour, closed.minute))
+                          ],
+                          'Thursday': [
+                            Timestamp.fromDate(new DateTime(1969, 1, 1, open.hour, open.minute)),
+                            Timestamp.fromDate(new DateTime(1969, 1, 1, closed.hour, closed.minute))
+                          ],
+                          'Friday': [
+                            Timestamp.fromDate(new DateTime(1969, 1, 1, open.hour, open.minute)),
+                            Timestamp.fromDate(new DateTime(1969, 1, 1, closed.hour, closed.minute))
+                          ],
+                          'Saturday': [],
+                          'Sunday': [],
+                        };
+                        List<Timestamp> breaks = [];
                         setState(() {
                           loading = true;
                         });
@@ -228,6 +262,7 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
                             'verified': false,
                             'number': number,
                             'website': website,
+                            'times': {'breaks': breaks, 'schedule': schedule},
                           });
                         } else {
                           showDialog(
@@ -237,6 +272,9 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
                         }
                         FocusScope.of(context).unfocus();
                       } catch (e) {
+                        setState(() {
+                          loading = false;
+                        });
                         showDialog(
                           context: context,
                           builder: (_) => NoActionAlert(title: 'Email already taken'),
