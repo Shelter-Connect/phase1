@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:phase1/models/donation.dart';
 import 'package:phase1/models/organization.dart';
+import 'package:phase1/models/past_donation.dart';
 import 'package:phase1/models/user_position.dart';
 import 'package:phase1/pages/feedback_form.dart';
 import 'package:phase1/pages/navigation_tab.dart';
@@ -37,27 +38,41 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
       child: MultiProvider(
         providers: [
           StreamProvider<List<Organization>>.value(
-              value: db.collection('organizations').snapshots().map((snapshot) {
-            if (snapshot.documents.length == 0) return [];
-            if (snapshot == null) return null;
-            List<Organization> organizations = [];
-            for (DocumentSnapshot document in snapshot.documents) {
-              if (document.documentID == 'categories') continue;
-              organizations.add(Organization.fromFirestoreMap(context: context, organizationSnapshot: document, isVolunteer: false));
-            }
-            return organizations;
-          })),
+            value: db.collection('organizations').snapshots().map((snapshot) {
+              if (snapshot.documents.length == 0) return [];
+              if (snapshot == null) return null;
+              List<Organization> organizations = [];
+              for (DocumentSnapshot document in snapshot.documents) {
+                if (document.documentID == 'categories') continue;
+                organizations.add(Organization.fromFirestoreMap(context: context, organizationSnapshot: document, isVolunteer: false));
+              }
+              return organizations;
+            }),
+          ),
           StreamProvider<List<Donation>>.value(
-              value: FirestoreHelper.getCurrentVolunteerReference(context).collection('currentDonations').orderBy('date').snapshots().map((snapshot) {
-            if (snapshot.documents.length == 0) return [];
-            if (snapshot == null) return null;
-            List<Donation> donations = [];
-            for (DocumentSnapshot document in snapshot.documents) {
-              if (document.documentID == 'categories') continue;
-              donations.add(Donation.fromFirestoreMap(document));
-            }
-            return donations;
-          })),
+            value: FirestoreHelper.getCurrentVolunteerReference(context).collection('currentDonations').orderBy('date').snapshots().map((snapshot) {
+              if (snapshot.documents.length == 0) return [];
+              if (snapshot == null) return null;
+              List<Donation> donations = [];
+              for (DocumentSnapshot document in snapshot.documents) {
+                if (document.documentID == 'categories') continue;
+                donations.add(Donation.fromFirestoreMap(document));
+              }
+              return donations;
+            }),
+          ),
+          StreamProvider<List<PastDonation>>.value(
+            value: FirestoreHelper.getCurrentVolunteerReference(context).collection('pastDonations').orderBy('date').snapshots().map((snapshot) {
+              if (snapshot.documents.length == 0) return [];
+              if (snapshot == null) return null;
+              List<PastDonation> donations = [];
+              for (DocumentSnapshot document in snapshot.documents) {
+                if (document.documentID == 'categories') continue;
+                donations.add(PastDonation.fromFirestoreMap(document));
+              }
+              return donations;
+            }),
+          ),
         ],
         child: WillPopScope(
           onWillPop: () async => false,
