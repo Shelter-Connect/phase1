@@ -79,9 +79,15 @@ class Organization {
     }
     requestedItems = items;
 
-    schedule = organizationSnapshot['times']['schedule']?.map(
-        (day, times) => MapEntry(day, times.map((time) => new TimeOfDay.fromDateTime(DateTime.fromMillisecondsSinceEpoch(time * 1000))).toList()));
-    breaks = organizationSnapshot['times']['breaks'].map((dates) => new DateTime.fromMillisecondsSinceEpoch(dates * 1000)).toList();
+    schedule = Map<String, List<dynamic>>.from(organizationSnapshot['schedule'])?.map(
+      (day, times) => MapEntry(
+        day,
+        times.map((time) => new TimeOfDay.fromDateTime(DateTime.fromMillisecondsSinceEpoch((time as Timestamp).millisecondsSinceEpoch))).toList(),
+      ),
+    );
+    breaks = List<dynamic>.from(organizationSnapshot['breaks'])
+        .map((dates) => new DateTime.fromMillisecondsSinceEpoch((dates as Timestamp).millisecondsSinceEpoch))
+        .toList();
 
     if (isVolunteer) {
       Position userPosition = Provider.of<UserPosition>(context, listen: false).position;

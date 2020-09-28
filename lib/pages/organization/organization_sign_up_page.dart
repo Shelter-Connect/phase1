@@ -220,31 +220,16 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
                       );
                     } else {
                       try {
-                        Map<String, List<Timestamp>> schedule = {
-                          'Monday': [
-                            Timestamp.fromDate(new DateTime(1969, 1, 1, open.hour, open.minute)),
-                            Timestamp.fromDate(new DateTime(1969, 1, 1, closed.hour, closed.minute))
-                          ],
-                          'Tuesday': [
-                            Timestamp.fromDate(new DateTime(1969, 1, 1, open.hour, open.minute)),
-                            Timestamp.fromDate(new DateTime(1969, 1, 1, closed.hour, closed.minute))
-                          ],
-                          'Wednesday': [
-                            Timestamp.fromDate(new DateTime(1969, 1, 1, open.hour, open.minute)),
-                            Timestamp.fromDate(new DateTime(1969, 1, 1, closed.hour, closed.minute))
-                          ],
-                          'Thursday': [
-                            Timestamp.fromDate(new DateTime(1969, 1, 1, open.hour, open.minute)),
-                            Timestamp.fromDate(new DateTime(1969, 1, 1, closed.hour, closed.minute))
-                          ],
-                          'Friday': [
-                            Timestamp.fromDate(new DateTime(1969, 1, 1, open.hour, open.minute)),
-                            Timestamp.fromDate(new DateTime(1969, 1, 1, closed.hour, closed.minute))
-                          ],
+                        Map<String, List<DateTime>> schedule = {
+                          'Monday': [new DateTime(1969, 1, 1, open.hour, open.minute), new DateTime(1969, 1, 1, closed.hour, closed.minute)],
+                          'Tuesday': [new DateTime(1969, 1, 1, open.hour, open.minute), new DateTime(1969, 1, 1, closed.hour, closed.minute)],
+                          'Wednesday': [new DateTime(1969, 1, 1, open.hour, open.minute), new DateTime(1969, 1, 1, closed.hour, closed.minute)],
+                          'Thursday': [new DateTime(1969, 1, 1, open.hour, open.minute), new DateTime(1969, 1, 1, closed.hour, closed.minute)],
+                          'Friday': [new DateTime(1969, 1, 1, open.hour, open.minute), new DateTime(1969, 1, 1, closed.hour, closed.minute)],
                           'Saturday': [],
                           'Sunday': [],
                         };
-                        List<Timestamp> breaks = [];
+                        List<DateTime> breaks = [];
                         setState(() {
                           loading = true;
                         });
@@ -262,7 +247,8 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
                             'verified': false,
                             'number': number,
                             'website': website,
-                            'times': {'breaks': breaks, 'schedule': schedule},
+                            'breaks': breaks,
+                            'schedule': schedule,
                           });
                         } else {
                           showDialog(
