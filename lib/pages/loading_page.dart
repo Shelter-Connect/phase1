@@ -45,7 +45,6 @@ class _LoadingPageState extends State<LoadingPage> {
             },
           );
         } else {
-          auth.signOut();
           if (ModalRoute.of(context).isCurrent) {
             Navigator.pushNamed(context, '/welcome');
           } else {
