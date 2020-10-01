@@ -2,29 +2,38 @@ import 'package:animations/animations.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:phase1/components/floating_text_field.dart';
+import 'package:phase1/components/flushbar.dart';
+import 'package:phase1/components/rounded_button.dart';
 import 'package:phase1/models/donation.dart';
+import 'package:phase1/models/user.dart';
 import 'package:phase1/pages/navigation_tab.dart';
 import 'package:phase1/pages/organization/create_request_page.dart';
 import 'package:phase1/pages/organization/current_requests_page.dart';
 import 'package:phase1/pages/organization/expected_deliveries_page.dart';
 import 'package:phase1/pages/organization/organization_settings_page.dart';
+import 'package:phase1/pages/organization/past_actions_page.dart';
 import 'package:phase1/services/firestore_helper.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants.dart';
-import '../feedback_form.dart';
+//import '../feedback_form.dart';
 
 class OrganizationNavigationPage extends StatefulWidget {
   @override
-  _OrganizationNavigationPageState createState() => _OrganizationNavigationPageState();
+  _OrganizationNavigationPageState createState() =>
+      _OrganizationNavigationPageState();
 }
 
-class _OrganizationNavigationPageState extends State<OrganizationNavigationPage> {
+class _OrganizationNavigationPageState
+    extends State<OrganizationNavigationPage> {
   int _selectedIndex = 0;
   final List<NavigationTab> _tabs = [
     CurrentRequestsPage(),
     ExpectedDeliveriesPage(),
-    FeedbackForm(),
+    PastActionsPage(),
+//    FeedbackForm(),
     OrganizationSettingsPage(),
   ];
 
@@ -33,7 +42,11 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
     return MultiProvider(
       providers: [
         StreamProvider<List<Donation>>.value(
-          value: FirestoreHelper.getCurrentOrganizationReference(context).collection('currentDonations').orderBy('date').snapshots().map((snapshot) {
+          value: FirestoreHelper.getCurrentOrganizationReference(context)
+              .collection('currentDonations')
+              .orderBy('date')
+              .snapshots()
+              .map((snapshot) {
             if (snapshot.documents.length == 0) return [];
             if (snapshot == null) return null;
             List<Donation> donations = [];
@@ -44,7 +57,9 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
           }),
         ),
         StreamProvider<QuerySnapshot>.value(
-          value: FirestoreHelper.getCurrentOrganizationReference(context).collection('requests').snapshots(),
+          value: FirestoreHelper.getCurrentOrganizationReference(context)
+              .collection('requests')
+              .snapshots(),
         ),
       ],
       child: WillPopScope(
@@ -60,19 +75,32 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
                   children: [
                     Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 16, bottom: 4.0, top: 8.0),
-                        child: Text(_tabs[_selectedIndex].barTitle, style: appBarTitleStyle),
+                        padding: const EdgeInsets.only(
+                            left: 16, bottom: 4.0, top: 8.0),
+                        child: Text(_tabs[_selectedIndex].barTitle,
+                            style: appBarTitleStyle),
                       ),
                     ),
-                    Visibility(
-                      visible: _tabs[_selectedIndex].helpDescription != '',
-                      child: IconButton(
-                        icon: Icon(Icons.help),
-                        color: purpleAccent,
-                        onPressed: () {
-                          _helpModalBottomSheet(context);
-                        },
-                      ),
+                    Row(
+                      children: [
+                        Visibility(
+                          visible: _tabs[_selectedIndex].helpDescription != '',
+                          child: IconButton(
+                            icon: Icon(Icons.help),
+                            color: purpleAccent,
+                            onPressed: () {
+                              _helpModalBottomSheet(context);
+                            },
+                          ),
+                        ),
+                        IconButton(
+                          icon: Icon(Feather.thumbs_up),
+                          color: purpleAccent,
+                          onPressed: () {
+                            _helpModalBottomSheet2(context);
+                          },
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -81,7 +109,8 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
             )),
           ),
           floatingActionButton: OpenContainer(
-            closedShape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(30.0))),
+            closedShape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(30.0))),
             transitionDuration: Duration(milliseconds: 200),
             closedBuilder: (context, openWidget) {
               return FloatingActionButton(
@@ -94,13 +123,16 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
               return CreateRequestPage();
             },
           ),
-          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
           bottomNavigationBar: SizedBox(
             height: MediaQuery.of(context).size.height / 14 + 2,
             child: FABBottomAppBar(
-              backgroundColor: purpleAccent, //Colors.white
+              backgroundColor: purpleAccent,
+              //Colors.white
               iconSize: 25,
-              color: darkPurpleAccent, //remove color parameter
+              color: darkPurpleAccent,
+              //remove color parameter
               notchedShape: CircularNotchedRectangle(),
               items: _tabs,
               onTabSelected: (index) {
@@ -132,11 +164,14 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
             child: Column(
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8, top: 0),
+                  padding: const EdgeInsets.only(
+                      left: 8, right: 8, bottom: 8, top: 0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text('Help', style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
+                      Text('Help',
+                          style: TextStyle(
+                              fontSize: 40, fontWeight: FontWeight.bold)),
                       IconButton(
                         iconSize: 30,
                         onPressed: () {
@@ -147,8 +182,106 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
                     ],
                   ),
                 ),
-                Text(_tabs[_selectedIndex].helpDescription, style: TextStyle(fontSize: 17)),
+                Text(_tabs[_selectedIndex].helpDescription,
+                    style: TextStyle(fontSize: 17)),
                 Spacer(),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void _helpModalBottomSheet2(BuildContext context) {
+    TextEditingController bug = TextEditingController(),
+        improvement = TextEditingController();
+    showModalBottomSheet(
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(0.0),
+          topRight: Radius.circular(0.0),
+        ),
+      ),
+      context: context,
+      builder: (BuildContext bc) {
+        return Container(
+          height: MediaQuery.of(context).size.height,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
+            child: ListView(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(
+                      left: 8, right: 8, bottom: 8, top: 16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text('Feedback',
+                          style: TextStyle(
+                              fontSize: 40, fontWeight: FontWeight.bold)),
+                      IconButton(
+                        iconSize: 30,
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: Icon(Feather.thumbs_up),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      SizedBox(height: 10),
+                      FloatingDescriptionField(
+                        height: 150,
+                        maxLength: 1500,
+                        controller: bug,
+                        maxLines: null,
+                        labelText: ('Please report any bugs here.'),
+                        labelStyle: TextStyle(color: Colors.grey, fontSize: 15),
+                        counterText: '',
+                      ),
+                      SizedBox(height: 20),
+                      FloatingDescriptionField(
+                        height: 150,
+                        maxLength: 1500,
+                        controller: improvement,
+                        maxLines: null,
+                        labelText: ('What do you think we can improve on?'),
+                        labelStyle: TextStyle(color: Colors.grey, fontSize: 15),
+                        counterText: '',
+                      ),
+                      SizedBox(height: 20),
+                      RoundedButton(
+                        title: 'Submit Feedback',
+                        onPressed: () {
+                          db.collection('feedback').add(
+                            {
+                              'bug': bug.text,
+                              'improvement': improvement.text,
+                              'email': Provider.of<User>(context, listen: false)
+                                  .user
+                                  .email
+                            },
+                          );
+                          bug.clear();
+                          improvement.clear();
+                          FlushBar(
+                                  message: 'Thank you for the feedback!',
+                                  duration: Duration(seconds: 3))
+                              .build(context);
+                        },
+                        textColor: Colors.white,
+                      )
+                    ],
+                  ),
+                )
               ],
             ),
           ),
@@ -170,8 +303,9 @@ class FABBottomAppBar extends StatefulWidget {
     this.notchedShape,
     this.onTabSelected,
   }) {
-    assert(this.items.length == 2 || this.items.length == 4);
+    assert(this.items.length == 3 || this.items.length == 4);
   }
+
   final List<NavigationTab> items;
   final String centerItemText;
   final double height;
@@ -244,7 +378,9 @@ class FABBottomAppBarState extends State<FABBottomAppBar> {
     int index,
     ValueChanged<int> onPressed,
   }) {
-    Color color = _selectedIndex == index ? colorScheme.onSecondary : widget.color; //purpleAccent instead of onSecondary
+    Color color = _selectedIndex == index
+        ? colorScheme.onSecondary
+        : widget.color; //purpleAccent instead of onSecondary
     return SizedBox(
       height: widget.height,
       child: Material(
