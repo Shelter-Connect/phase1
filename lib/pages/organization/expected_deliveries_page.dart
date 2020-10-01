@@ -1,3 +1,4 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -26,7 +27,7 @@ class ExpectedDeliveriesPage extends StatefulWidget with NavigationTab {
   IconData get icon => Feather.package;
 
   @override
-  String get title => 'Deliveries';
+  String get title => 'Current Deliveries';
 
   @override
   String get barTitle => 'Deliveries';
@@ -47,26 +48,7 @@ class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
           SizedBox(height: 10),
           Row(
             children: [
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Container(
-                  width: 60,
-                  child: MaterialButton(
-                    onPressed: () {},
-                    color: Colors.white,
-                    child: Icon(
-                      Feather.clock,
-                      size: 25.0,
-                      color: purpleAccent,
-                    ),
-                    padding: EdgeInsets.all(12.0),
-                    shape: CircleBorder(),
-                  ),
-                ),
-              ),
-              SizedBox(width: 20),
-              Text('Expected', style: subTitleStyle,),
-              SizedBox(width: 20),
+              SizedBox(width: 0),
               Align(
                 alignment: Alignment.centerRight,
                 child: Container(
@@ -98,46 +80,6 @@ class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
                   ),
                 ),
               ),
-//              Align(
-//                alignment: Alignment.centerLeft,
-//                child: FlatButton(
-//                  onPressed: () async {
-//                    var status = await Permission.calendar.status;
-//                    if (status.isRestricted || status.isPermanentlyDenied || status.isDenied) {
-//                      return SingleActionAlert(
-//                          title: 'Calendar Access',
-//                          subtitle: 'To allow Linkare to access your calendar, please give it permissions it settings',
-//                          actionName: 'Open Settings',
-//                          action: () {
-//                            openAppSettings();
-//                          });
-//                    } else if (status.isUndetermined) await Permission.calendar.request();
-//                    await _retrieveCalendars();
-//                    showModalBottomSheet(context: context, builder: (context) => SyncCalendar(donations, true));
-//                  },
-//                  color: purpleAccent,
-//                  padding: EdgeInsets.all(8.0),
-//                  shape: RoundedRectangleBorder(
-//                    borderRadius: BorderRadius.circular(30.0),
-//                  ),
-//                  child: Padding(
-//                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-//                    child: Wrap(
-//                      crossAxisAlignment: WrapCrossAlignment.center,
-//                      children: [
-//                        Padding(
-//                          padding: const EdgeInsets.only(right: 8.0),
-//                          child: Icon(
-//                            Icons.cloud_upload,
-//                            color: Colors.white,
-//                          ),
-//                        ),
-//                        Text('Sync', style: TextStyle(fontSize: 17, color: Colors.white))
-//                      ],
-//                    ),
-//                  ),
-//                ),
-//              ),
             ],
           ),
           SizedBox(height: 10),
