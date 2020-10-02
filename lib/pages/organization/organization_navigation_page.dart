@@ -13,7 +13,7 @@ import 'package:phase1/pages/organization/create_request_page.dart';
 import 'package:phase1/pages/organization/current_requests_page.dart';
 import 'package:phase1/pages/organization/expected_deliveries_page.dart';
 import 'package:phase1/pages/organization/organization_settings_page.dart';
-import 'package:phase1/pages/organization/past_actions_page.dart';
+import 'package:phase1/pages/organization/history_page.dart';
 import 'package:phase1/services/firestore_helper.dart';
 import 'package:provider/provider.dart';
 
@@ -30,7 +30,7 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
   final List<NavigationTab> _tabs = [
     CurrentRequestsPage(),
     ExpectedDeliveriesPage(),
-    PastActionsPage(),
+    HistoryPage(),
 //    FeedbackForm(),
     OrganizationSettingsPage(),
   ];
