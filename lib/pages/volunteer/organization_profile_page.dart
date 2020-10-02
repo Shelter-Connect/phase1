@@ -1,3 +1,5 @@
+import 'dart:io' show Platform;
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -110,50 +112,45 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               textDirection: TextDirection.rtl,
                               children: [
-                                FlatButton.icon(
+                                FlatButton(
                                     onPressed: () {
                                       MapSheet().build(context);
                                     },
-                                    label: Text(
-                                      'Directions',
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                    icon: SvgPicture.asset(
-                                      "assets/random_svgs/googlemaps.svg",
+                                    child: SvgPicture.asset(
+                                      Platform.isIOS ? "assets/random_svgs/applemaps.svg" : "assets/random_svgs/googlemaps.svg",
                                       height: 28,
-                                      semanticsLabel: 'Directions:',
                                     )),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text(
-                                      'About',
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w600,
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 8.0, left: 20.0),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                        height: 10,
                                       ),
-                                    ),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                    Container(
-                                      height: 5,
-                                      width: 50,
-                                      decoration: BoxDecoration(
-                                        color: purpleAccent,
-                                        borderRadius: BorderRadius.circular(21),
+                                      Text(
+                                        'About this Organization',
+                                        style: TextStyle(
+                                          fontSize: Platform.isIOS ? 19 : 20,
+                                          fontWeight: FontWeight.w600,
+                                        ),
                                       ),
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                  ],
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Container(
+                                        height: 5,
+                                        width: 50,
+                                        decoration: BoxDecoration(
+                                          color: purpleAccent,
+                                          borderRadius: BorderRadius.circular(21),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),

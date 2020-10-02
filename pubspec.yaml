@@ -89,6 +89,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/random_svgs/googlemaps.svg
+    - assets/random_svgs/applemaps.svg
     - assets/jam_icons/home.svg
     - assets/ui_svgs/road_sign.svg
     - assets/ui_svgs/searching.svg

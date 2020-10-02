@@ -22,12 +22,10 @@ import '../../constants.dart';
 
 class OrganizationNavigationPage extends StatefulWidget {
   @override
-  _OrganizationNavigationPageState createState() =>
-      _OrganizationNavigationPageState();
+  _OrganizationNavigationPageState createState() => _OrganizationNavigationPageState();
 }
 
-class _OrganizationNavigationPageState
-    extends State<OrganizationNavigationPage> {
+class _OrganizationNavigationPageState extends State<OrganizationNavigationPage> {
   int _selectedIndex = 0;
   final List<NavigationTab> _tabs = [
     CurrentRequestsPage(),
@@ -42,11 +40,7 @@ class _OrganizationNavigationPageState
     return MultiProvider(
       providers: [
         StreamProvider<List<Donation>>.value(
-          value: FirestoreHelper.getCurrentOrganizationReference(context)
-              .collection('currentDonations')
-              .orderBy('date')
-              .snapshots()
-              .map((snapshot) {
+          value: FirestoreHelper.getCurrentOrganizationReference(context).collection('currentDonations').orderBy('date').snapshots().map((snapshot) {
             if (snapshot.documents.length == 0) return [];
             if (snapshot == null) return null;
             List<Donation> donations = [];
@@ -57,9 +51,7 @@ class _OrganizationNavigationPageState
           }),
         ),
         StreamProvider<QuerySnapshot>.value(
-          value: FirestoreHelper.getCurrentOrganizationReference(context)
-              .collection('requests')
-              .snapshots(),
+          value: FirestoreHelper.getCurrentOrganizationReference(context).collection('requests').snapshots(),
         ),
       ],
       child: WillPopScope(
@@ -75,10 +67,8 @@ class _OrganizationNavigationPageState
                   children: [
                     Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.only(
-                            left: 16, bottom: 4.0, top: 8.0),
-                        child: Text(_tabs[_selectedIndex].barTitle,
-                            style: appBarTitleStyle),
+                        padding: const EdgeInsets.only(left: 16, bottom: 4.0, top: 8.0),
+                        child: Text(_tabs[_selectedIndex].barTitle, style: appBarTitleStyle),
                       ),
                     ),
                     Row(
@@ -109,8 +99,7 @@ class _OrganizationNavigationPageState
             )),
           ),
           floatingActionButton: OpenContainer(
-            closedShape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(30.0))),
+            closedShape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(30.0))),
             transitionDuration: Duration(milliseconds: 200),
             closedBuilder: (context, openWidget) {
               return FloatingActionButton(
@@ -123,8 +112,7 @@ class _OrganizationNavigationPageState
               return CreateRequestPage();
             },
           ),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
+          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
           bottomNavigationBar: SizedBox(
             height: MediaQuery.of(context).size.height / 14 + 2,
             child: FABBottomAppBar(
@@ -164,14 +152,11 @@ class _OrganizationNavigationPageState
             child: Column(
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.only(
-                      left: 8, right: 8, bottom: 8, top: 0),
+                  padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8, top: 0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text('Help',
-                          style: TextStyle(
-                              fontSize: 40, fontWeight: FontWeight.bold)),
+                      Text('Help', style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
                       IconButton(
                         iconSize: 30,
                         onPressed: () {
@@ -182,8 +167,7 @@ class _OrganizationNavigationPageState
                     ],
                   ),
                 ),
-                Text(_tabs[_selectedIndex].helpDescription,
-                    style: TextStyle(fontSize: 17)),
+                Text(_tabs[_selectedIndex].helpDescription, style: TextStyle(fontSize: 17)),
                 Spacer(),
               ],
             ),
@@ -194,33 +178,29 @@ class _OrganizationNavigationPageState
   }
 
   void _helpModalBottomSheet2(BuildContext context) {
-    TextEditingController bug = TextEditingController(),
-        improvement = TextEditingController();
+    TextEditingController bug = TextEditingController(), improvement = TextEditingController();
     showModalBottomSheet(
       isScrollControlled: true,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(0.0),
-          topRight: Radius.circular(0.0),
+          topLeft: Radius.circular(20.0),
+          topRight: Radius.circular(20.0),
         ),
       ),
       context: context,
       builder: (BuildContext bc) {
         return Container(
-          height: MediaQuery.of(context).size.height,
+          height: MediaQuery.of(context).size.height * 0.8,
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
             child: ListView(
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.only(
-                      left: 8, right: 8, bottom: 8, top: 16),
+                  padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8, top: 16),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text('Feedback',
-                          style: TextStyle(
-                              fontSize: 40, fontWeight: FontWeight.bold)),
+                      Text('Feedback', style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
                       IconButton(
                         iconSize: 30,
                         onPressed: () {
@@ -262,20 +242,11 @@ class _OrganizationNavigationPageState
                         title: 'Submit Feedback',
                         onPressed: () {
                           db.collection('feedback').add(
-                            {
-                              'bug': bug.text,
-                              'improvement': improvement.text,
-                              'email': Provider.of<User>(context, listen: false)
-                                  .user
-                                  .email
-                            },
+                            {'bug': bug.text, 'improvement': improvement.text, 'email': Provider.of<User>(context, listen: false).user.email},
                           );
                           bug.clear();
                           improvement.clear();
-                          FlushBar(
-                                  message: 'Thank you for the feedback!',
-                                  duration: Duration(seconds: 3))
-                              .build(context);
+                          FlushBar(message: 'Thank you for the feedback!', duration: Duration(seconds: 3)).build(context);
                         },
                         textColor: Colors.white,
                       )
@@ -378,9 +349,7 @@ class FABBottomAppBarState extends State<FABBottomAppBar> {
     int index,
     ValueChanged<int> onPressed,
   }) {
-    Color color = _selectedIndex == index
-        ? colorScheme.onSecondary
-        : widget.color; //purpleAccent instead of onSecondary
+    Color color = _selectedIndex == index ? colorScheme.onSecondary : widget.color; //purpleAccent instead of onSecondary
     return SizedBox(
       height: widget.height,
       child: Material(
