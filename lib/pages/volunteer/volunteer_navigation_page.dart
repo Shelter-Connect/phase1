@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:phase1/components/floating_text_field.dart';
 import 'package:phase1/components/flushbar.dart';
@@ -141,8 +142,9 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
                       (index, tab) => MapEntry(
                           index,
                           BottomNavigationBarItem(
-                            icon: Icon(tab.icon),
+                            icon: tab.icon,
                             title: Text(tab.title),
+                            activeIcon: tab.activeIcon,
                           )),
                     )
                     .values

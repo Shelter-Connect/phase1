@@ -17,7 +17,10 @@ class FeedbackForm extends StatefulWidget with NavigationTab {
   String get helpDescription => '';
 
   @override
-  IconData get icon => Feather.message_square;
+  Widget get icon => Icon(Feather.message_square);
+
+  @override
+  Widget get activeIcon => Icon(Feather.message_square);
 
   @override
   String get title => 'Feedback';

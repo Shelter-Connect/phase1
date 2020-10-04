@@ -2,7 +2,6 @@ import 'package:animations/animations.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:phase1/components/requests_container.dart';
 import 'package:phase1/constants.dart';
 import 'package:phase1/models/item.dart';
@@ -21,7 +20,12 @@ class CurrentRequestsPage extends StatefulWidget with NavigationTab {
       'To see items that volunteers have committed to, check the Expected Deliveries page.';
 
   @override
-  IconData get icon => Feather.list;
+  Widget get icon => SvgPicture.asset(
+      "assets/jam_icons/task-list.svg", color: Colors.white);
+
+  @override
+  Widget get activeIcon => SvgPicture.asset(
+      "assets/jam_icons/task-list-f.svg", color: Colors.white);
 
   @override
   String get title => 'Requests';

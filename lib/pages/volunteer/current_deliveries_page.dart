@@ -24,7 +24,12 @@ class CurrentDeliveriesPage extends StatefulWidget with NavigationTab {
       'or to edit or cancel the delivery. ';
 
   @override
-  IconData get icon => Feather.truck;
+  Widget get icon => SvgPicture.asset(
+      "assets/jam_icons/car.svg", color: Colors.white);
+
+  @override
+  Widget get activeIcon => SvgPicture.asset(
+      "assets/jam_icons/car-f.svg", color: Colors.white);
 
   @override
   String get title => 'Deliver';

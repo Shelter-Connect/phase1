@@ -90,7 +90,25 @@ flutter:
   assets:
     - assets/random_svgs/googlemaps.svg
     - assets/random_svgs/applemaps.svg
+    - assets/jam_icons/box.svg
+    - assets/jam_icons/box-f.svg
+    - assets/jam_icons/car.svg
+    - assets/jam_icons/car-f.svg
+    - assets/jam_icons/clock.svg
+    - assets/jam_icons/clock-f.svg
+    - assets/jam_icons/compass.svg
+    - assets/jam_icons/compass-f.svg
+    - assets/jam_icons/help-f.svg
+    - assets/jam_icons/lifebuoy-f.svg
+    - assets/jam_icons/ordered-list.svg
+    - assets/jam_icons/pencil-f.svg
+    - assets/jam_icons/search.svg
+    - assets/jam_icons/task-list.svg
+    - assets/jam_icons/task-list-f.svg
+    - assets/jam_icons/user.svg
+    - assets/jam_icons/user-f.svg
     - assets/jam_icons/home.svg
+    - assets/jam_icons/home-f.svg
     - assets/ui_svgs/road_sign.svg
     - assets/ui_svgs/searching.svg
     - assets/ui_svgs/dood.svg
