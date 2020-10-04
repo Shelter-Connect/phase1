@@ -25,11 +25,11 @@ class CurrentDeliveriesPage extends StatefulWidget with NavigationTab {
 
   @override
   Widget get icon => SvgPicture.asset(
-      "assets/jam_icons/car.svg", color: Colors.white);
+      "assets/jam_icons/car.svg", color: purpleAccent);
 
   @override
   Widget get activeIcon => SvgPicture.asset(
-      "assets/jam_icons/car-f.svg", color: Colors.white);
+      "assets/jam_icons/car-f.svg", color: purpleAccent);
 
   @override
   String get title => 'Deliver';

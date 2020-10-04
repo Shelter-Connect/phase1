@@ -124,16 +124,16 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
               ),
             ),
             bottomNavigationBar: BottomNavigationBar(
-              showSelectedLabels: true,
+              showSelectedLabels: false,
               showUnselectedLabels: false,
               currentIndex: _selectedIndex,
               type: BottomNavigationBarType.fixed,
-              backgroundColor: purpleAccent,
-              //Colors.white
+              backgroundColor: Colors.white,
+//              purpleAccent,
               iconSize: 25,
-              selectedItemColor: colorScheme.onSecondary,
-              //Color(0xFF6576EC)
-              unselectedItemColor: darkPurpleAccent,
+              selectedItemColor: purpleAccent,
+//              colorScheme.onSecondary
+              unselectedItemColor: purpleAccent,
               //Colors.black12,
               items: [
                 ..._tabs

@@ -5,9 +5,9 @@ import 'package:phase1/constants.dart';
 
 import '../navigation_tab.dart';
 
-class HistoryPage extends StatefulWidget with NavigationTab {
+class PastDeliveries extends StatefulWidget with NavigationTab {
   @override
-  _HistoryPageState createState() => _HistoryPageState();
+  _PastDeliveriesState createState() => _PastDeliveriesState();
 
   @override
   String get helpDescription =>
@@ -16,11 +16,11 @@ class HistoryPage extends StatefulWidget with NavigationTab {
 
   @override
   Widget get icon => SvgPicture.asset(
-      "assets/jam_icons/clock.svg", color: Colors.white);
+      "assets/jam_icons/clock.svg", color: purpleAccent);
 
   @override
   Widget get activeIcon => SvgPicture.asset(
-      "assets/jam_icons/clock-f.svg", color: Colors.white);
+      "assets/jam_icons/clock-f.svg", color: purpleAccent);
 
   @override
   String get title => 'History';
@@ -29,7 +29,7 @@ class HistoryPage extends StatefulWidget with NavigationTab {
   String get barTitle => 'History';
 }
 
-class _HistoryPageState extends State<HistoryPage>
+class _PastDeliveriesState extends State<PastDeliveries>
     with TickerProviderStateMixin {
   TabController _controller;
 

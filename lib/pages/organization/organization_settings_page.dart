@@ -23,11 +23,11 @@ class OrganizationSettingsPage extends StatefulWidget with NavigationTab {
 
   @override
  Widget get icon => SvgPicture.asset(
-      "assets/jam_icons/user.svg", color: Colors.white);
+      "assets/jam_icons/user-f.svg", color: purpleAccent);
 
   @override
   Widget get activeIcon => SvgPicture.asset(
-      "assets/jam_icons/user-f.svg", color: Colors.white);
+      "assets/jam_icons/user.svg", color: purpleAccent);
 
   @override
   String get title => 'Account';

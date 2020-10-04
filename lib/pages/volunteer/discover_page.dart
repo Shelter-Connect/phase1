@@ -9,6 +9,7 @@ import 'package:phase1/services/location_helper.dart';
 import 'package:provider/provider.dart';
 
 import '../../components/organization_donation_profile.dart';
+import '../../constants.dart';
 import '../navigation_tab.dart';
 
 class OrganizationDiscover extends StatefulWidget with NavigationTab {
@@ -21,11 +22,11 @@ class OrganizationDiscover extends StatefulWidget with NavigationTab {
 
   @override
   Widget get icon => SvgPicture.asset(
-      "assets/jam_icons/compass.svg", color: Colors.white);
+      "assets/jam_icons/compass.svg", color: purpleAccent);
 
   @override
   Widget get activeIcon => SvgPicture.asset(
-      "assets/jam_icons/compass-f.svg", color: Colors.white);
+      "assets/jam_icons/compass-f.svg", color: purpleAccent);
 
   @override
   String get title => 'Discover';

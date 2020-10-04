@@ -13,7 +13,7 @@ import 'package:phase1/pages/organization/create_request_page.dart';
 import 'package:phase1/pages/organization/current_requests_page.dart';
 import 'package:phase1/pages/organization/expected_deliveries_page.dart';
 import 'package:phase1/pages/organization/organization_settings_page.dart';
-import 'package:phase1/pages/organization/history_page.dart';
+import 'package:phase1/pages/organization/past_deliveries.dart';
 import 'package:phase1/services/firestore_helper.dart';
 import 'package:provider/provider.dart';
 
@@ -30,7 +30,7 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
   final List<NavigationTab> _tabs = [
     CurrentRequestsPage(),
     ExpectedDeliveriesPage(),
-    HistoryPage(),
+    PastDeliveries(),
 //    FeedbackForm(),
     OrganizationSettingsPage(),
   ];
@@ -116,10 +116,10 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
           bottomNavigationBar: SizedBox(
             height: MediaQuery.of(context).size.height / 14 + 2,
             child: FABBottomAppBar(
-              backgroundColor: purpleAccent,
+              backgroundColor: Colors.white,
               //Colors.white
               iconSize: 25,
-              color: darkPurpleAccent,
+              color: purpleAccent,
               //remove color parameter
               notchedShape: CircularNotchedRectangle(),
               items: _tabs,
