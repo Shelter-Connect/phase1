@@ -20,7 +20,12 @@ class OrganizationDiscover extends StatefulWidget with NavigationTab {
       'To see more information about an organization, or to sign up for a donation, click on an organization. ';
 
   @override
-  IconData get icon => Feather.compass;
+  Widget get icon => SvgPicture.asset(
+      "assets/jam_icons/compass.svg", color: Colors.white);
+
+  @override
+  Widget get activeIcon => SvgPicture.asset(
+      "assets/jam_icons/compass-f.svg", color: Colors.white);
 
   @override
   String get title => 'Discover';

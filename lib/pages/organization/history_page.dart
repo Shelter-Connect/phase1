@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:phase1/constants.dart';
 
@@ -14,7 +15,12 @@ class HistoryPage extends StatefulWidget with NavigationTab {
       'To see items that volunteers have committed to, check the Expected Deliveries page.';
 
   @override
-  IconData get icon => Feather.clock;
+  Widget get icon => SvgPicture.asset(
+      "assets/jam_icons/clock.svg", color: Colors.white);
+
+  @override
+  Widget get activeIcon => SvgPicture.asset(
+      "assets/jam_icons/clock-f.svg", color: Colors.white);
 
   @override
   String get title => 'History';

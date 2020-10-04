@@ -5,7 +5,9 @@ mixin NavigationTab on StatefulWidget {
 
   String get barTitle;
 
-  IconData get icon;
+  Widget get icon;
+
+  Widget get activeIcon;
 
   String get helpDescription;
 }

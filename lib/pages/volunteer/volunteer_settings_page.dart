@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:phase1/components/alerts.dart';
 import 'package:phase1/pages/navigation_tab.dart';
@@ -20,7 +21,12 @@ class VolunteerSettingsPage extends StatefulWidget with NavigationTab {
       'This page shows your account settings and information. Here, you can edit your information, or sign out, if you\'d like. ';
 
   @override
-  IconData get icon => Feather.user;
+  Widget get icon => SvgPicture.asset(
+  "assets/jam_icons/user-f.svg", color: Colors.white);
+
+  @override
+  Widget get activeIcon => SvgPicture.asset(
+      "assets/jam_icons/user.svg", color: Colors.white);
 
   @override
   String get title => 'Account';

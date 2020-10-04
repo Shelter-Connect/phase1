@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:phase1/components/alerts.dart';
 import 'package:phase1/components/flushbar.dart';
@@ -21,7 +22,12 @@ class OrganizationSettingsPage extends StatefulWidget with NavigationTab {
       'In addition, you can preview your profile as volunteers will see it.';
 
   @override
-  IconData get icon => Feather.user;
+ Widget get icon => SvgPicture.asset(
+      "assets/jam_icons/user.svg", color: Colors.white);
+
+  @override
+  Widget get activeIcon => SvgPicture.asset(
+      "assets/jam_icons/user-f.svg", color: Colors.white);
 
   @override
   String get title => 'Account';
