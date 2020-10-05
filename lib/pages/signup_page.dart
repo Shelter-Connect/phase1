@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide TextButton;
 
 import '../components/rounded_button.dart';
 import '../components/text_button.dart';

@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide TextButton;
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 import '../../components/alerts.dart';
@@ -32,11 +32,7 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   SizedBox(height: 20),
-                  Text('Volunteer Sign Up', style: TextStyle(
-                    fontWeight: FontWeight.w900,
-                    fontSize: 47.0,
-                    color: Colors.white
-                  )),
+                  Text('Volunteer Sign Up', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 47.0, color: Colors.white)),
                   SizedBox(height: 40),
                   Row(
                     children: <Widget>[

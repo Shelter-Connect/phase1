@@ -343,7 +343,6 @@ class FABBottomAppBarState extends State<FABBottomAppBar> {
       ),
     );
   }
-  //TODO Under here somewhere is where u gotta change for activeIcon to work. Probably
 
   Widget _buildTabItem({
     NavigationTab item,
@@ -361,8 +360,7 @@ class FABBottomAppBarState extends State<FABBottomAppBar> {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Container(child: item.icon,),
-//              Icon(item.icon, color: color, size: widget.iconSize),
+              Container(child: _selectedIndex == index ? item.activeIcon : item.icon),
             ],
           ),
         ),
