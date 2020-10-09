@@ -7,10 +7,12 @@ import 'floating_text_field.dart';
 class EditHoursDate extends StatefulWidget {
   final TextEditingController controllerOpen;
   final TextEditingController controllerClosed;
+  TimeOfDay open, closed;
   String day;
   var boolean;
+  bool isEditing;
 
-  EditHoursDate({@required this.day, this.controllerOpen, this.controllerClosed, this.boolean});
+  EditHoursDate({@required this.day, this.controllerOpen, this.controllerClosed, this.boolean, this.open, this.closed, this.isEditing});
 
   @override
   _EditHoursDateState createState() => _EditHoursDateState();
@@ -46,8 +48,8 @@ class _EditHoursDateState extends State<EditHoursDate> {
             FloatingTextField(
               width: 100,
               height: 45,
-              hintText: 'Open',
-              controller: widget.controllerOpen,
+              hintText: widget.isEditing ? widget.open.format(context): 'Open',
+              controller: TextEditingController(text: widget.open.toString()),
               // add this line.
               onTapped: () async {
                 TimeOfDay time = TimeOfDay.now();

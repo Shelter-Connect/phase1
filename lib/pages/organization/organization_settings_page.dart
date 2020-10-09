@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:phase1/components/alerts.dart';
 import 'package:phase1/components/flushbar.dart';
 import 'package:phase1/models/organization.dart';
@@ -390,7 +389,7 @@ class DonationAvailabilityHourSettings extends StatelessWidget {
                   bool updated = await Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => EditHours(),
+                      builder: (context) => EditHours(organization: organization),
                     ),
                   );
                   if (updated) {
