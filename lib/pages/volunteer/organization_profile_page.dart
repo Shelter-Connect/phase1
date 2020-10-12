@@ -45,7 +45,11 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                 urgency: document['urgency'],
                 urgencyColor: (document['urgency'] == 0)
                     ? Colors.transparent
-                    : (document['urgency'] == 1) ? Colors.green : (document['urgency'] == 2) ? Colors.yellow : Colors.red,
+                    : (document['urgency'] == 1)
+                        ? Colors.green
+                        : (document['urgency'] == 2)
+                            ? Colors.yellow
+                            : Colors.red,
               ),
             );
           });
@@ -297,94 +301,96 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16.0),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Text(
-                                      'Requested Items',
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                    Container(
-                                      height: 5,
-                                      width: 50,
-                                      decoration: BoxDecoration(
-                                        color: purpleAccent,
-                                        borderRadius: BorderRadius.circular(21),
-                                      ),
-                                    ),
-                                    Column(
-                                      children: widget.organization.itemCategories.map((String category) {
-                                        List<Item> items = widget.organization.requestedItems[category];
-                                        return Column(
-                                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                                          children: [
-                                            SizedBox(height: 10.0),
-                                            Text(
-                                              category,
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 23.0,
-                                              ),
+                                child: widget.organization.requestedItems.isEmpty
+                                    ? Container()
+                                    : Column(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Text(
+                                            'Requested Items',
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w600,
                                             ),
-                                            ...items.map(
-                                              (item) => item.amount != 0
-                                                  ? Container(
-                                                      alignment: Alignment.centerLeft,
-                                                      child: Padding(
-                                                        padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                                        child: Row(
-                                                          children: [
-                                                            Align(
-                                                              alignment: Alignment.centerLeft,
-                                                              child: Column(
-                                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                          ),
+                                          SizedBox(
+                                            height: 5,
+                                          ),
+                                          Container(
+                                            height: 5,
+                                            width: 50,
+                                            decoration: BoxDecoration(
+                                              color: purpleAccent,
+                                              borderRadius: BorderRadius.circular(21),
+                                            ),
+                                          ),
+                                          Column(
+                                            children: widget.organization.itemCategories.map((String category) {
+                                              List<Item> items = widget.organization.requestedItems[category];
+                                              return Column(
+                                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                                children: [
+                                                  SizedBox(height: 10.0),
+                                                  Text(
+                                                    category,
+                                                    style: TextStyle(
+                                                      fontWeight: FontWeight.bold,
+                                                      fontSize: 23.0,
+                                                    ),
+                                                  ),
+                                                  ...items.map(
+                                                    (item) => item.amount != 0
+                                                        ? Container(
+                                                            alignment: Alignment.centerLeft,
+                                                            child: Padding(
+                                                              padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                                              child: Row(
                                                                 children: [
-                                                                  Text(
-                                                                    '${item.name} - ${item.amount} ${item.unit ?? ''}'.trim(),
-                                                                    style: TextStyle(
-                                                                      fontSize: 17.0,
-                                                                      fontWeight: FontWeight.w400,
+                                                                  Align(
+                                                                    alignment: Alignment.centerLeft,
+                                                                    child: Column(
+                                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                                      children: [
+                                                                        Text(
+                                                                          '${item.name} - ${item.amount} ${item.unit ?? ''}'.trim(),
+                                                                          style: TextStyle(
+                                                                            fontSize: 17.0,
+                                                                            fontWeight: FontWeight.w400,
+                                                                          ),
+                                                                        ),
+                                                                        if (item.specificDescription != null)
+                                                                          Text(
+                                                                            item.specificDescription,
+                                                                            style: TextStyle(fontSize: 14, color: Colors.grey),
+                                                                          ),
+                                                                      ],
                                                                     ),
                                                                   ),
-                                                                  if (item.specificDescription != null)
-                                                                    Text(
-                                                                      item.specificDescription,
-                                                                      style: TextStyle(fontSize: 14, color: Colors.grey),
+                                                                  Expanded(
+                                                                    child: Align(
+                                                                      alignment: Alignment.centerRight,
+                                                                      child: Container(
+                                                                        height: 12,
+                                                                        width: 12,
+                                                                        decoration: BoxDecoration(
+                                                                            color: item.urgencyColor, borderRadius: BorderRadius.circular(40)),
+                                                                      ),
                                                                     ),
+                                                                  ),
                                                                 ],
                                                               ),
                                                             ),
-                                                            Expanded(
-                                                              child: Align(
-                                                                alignment: Alignment.centerRight,
-                                                                child: Container(
-                                                                  height: 12,
-                                                                  width: 12,
-                                                                  decoration: BoxDecoration(
-                                                                      color: item.urgencyColor, borderRadius: BorderRadius.circular(40)),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    )
-                                                  : Container(),
-                                            ),
-                                            SmallGreyLine()
-                                          ],
-                                        );
-                                      }).toList(),
-                                    )
-                                  ],
-                                ),
+                                                          )
+                                                        : Container(),
+                                                  ),
+                                                  SmallGreyLine()
+                                                ],
+                                              );
+                                            }).toList(),
+                                          )
+                                        ],
+                                      ),
                               ),
                             ),
                           ],

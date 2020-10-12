@@ -1,13 +1,15 @@
+import 'package:date_range_picker/date_range_picker.dart' as DateRagePicker;
 import 'package:flutter/material.dart';
 import 'package:phase1/components/edit_hours_dates.dart';
 import 'package:phase1/components/rounded_button.dart';
 import 'package:phase1/components/standard_layout.dart';
 import 'package:phase1/constants.dart';
-import 'package:date_range_picker/date_range_picker.dart' as DateRagePicker;
 import 'package:phase1/models/organization.dart';
 
 class EditHours extends StatefulWidget {
   Organization organization;
+  Map<String, List<TextEditingController>> controllerOpen = {};
+  Map<String, List<TextEditingController>> controllerClosed = {};
 
   EditHours({this.organization});
 
@@ -16,10 +18,21 @@ class EditHours extends StatefulWidget {
 }
 
 class _EditHoursState extends State<EditHours> {
-  bool selected = true;
-  bool Monday = true, Tuesday = true, Wednesday = true, Thursday = true, Friday = true, Saturday = true, Sunday = true;
-  TextEditingController fdas = TextEditingController();
-  TextEditingController asdf = TextEditingController();
+  @override
+  void initState() {
+    for (String key in widget.organization.schedule.keys) {
+      List<TextEditingController> open;
+      List<TextEditingController> closed;
+      for (TimeOfDay time in widget.organization.schedule[key]) {
+        open.add(new TextEditingController(text: time.format(context)));
+        closed.add(new TextEditingController(text: time.format(context)));
+      }
+      widget.controllerOpen.addAll({key: open});
+      widget.controllerClosed.addAll({key: closed});
+    }
+    ;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,45 +48,31 @@ class _EditHoursState extends State<EditHours> {
                 children: [
                   Text('Weekly Schedules:'),
                   EditHoursDate(
-                    boolean: Monday,
-                    controllerClosed: TextEditingController(),
-                    controllerOpen: TextEditingController(),
+                    //organization: widget.organization,
                     day: 'Monday',
                   ),
                   EditHoursDate(
-                    boolean: Tuesday,
-                    controllerClosed: TextEditingController(),
-                    controllerOpen: TextEditingController(),
+                    //organization: widget.organization,
                     day: 'Tuesday',
                   ),
                   EditHoursDate(
-                    boolean: Wednesday,
-                    controllerClosed: TextEditingController(),
-                    controllerOpen: TextEditingController(),
+                    //organization: widget.organization,
                     day: 'Wednesday',
                   ),
                   EditHoursDate(
-                    boolean: Thursday,
-                    controllerClosed: TextEditingController(),
-                    controllerOpen: TextEditingController(),
+                    //organization: widget.organization,
                     day: 'Thursday',
                   ),
                   EditHoursDate(
-                    boolean: Friday,
-                    controllerClosed: TextEditingController(),
-                    controllerOpen: TextEditingController(),
+                    //organization: widget.organization,
                     day: 'Friday',
                   ),
                   EditHoursDate(
-                    boolean: Saturday,
-                    controllerClosed: TextEditingController(),
-                    controllerOpen: TextEditingController(),
+                    //organization: widget.organization,
                     day: 'Saturday',
                   ),
                   EditHoursDate(
-                    boolean: Sunday,
-                    controllerClosed: asdf,
-                    controllerOpen: fdas,
+                    //organization: widget.organization,
                     day: 'Sunday',
                   ),
                   SizedBox(height: 20),
@@ -83,13 +82,16 @@ class _EditHoursState extends State<EditHours> {
                     textColor: Colors.white,
                     onPressed: () async {
                       final List<DateTime> picked = await DateRagePicker.showDatePicker(
-                          context: context, initialFirstDate: DateTime.now(), initialLastDate: (DateTime.now()).add(Duration(days: 7)), firstDate: DateTime(2015), lastDate: DateTime(2021));
+                          context: context,
+                          initialFirstDate: DateTime.now(),
+                          initialLastDate: (DateTime.now()).add(Duration(days: 7)),
+                          firstDate: DateTime(2015),
+                          lastDate: DateTime(2021));
                       if (picked != null && picked.length == 2) {
                         print(picked);
                       }
                     },
                     title: 'Dates your organization is not open',
-
                   ),
                 ],
               ),
@@ -102,7 +104,6 @@ class _EditHoursState extends State<EditHours> {
                 textColor: Colors.white,
                 onPressed: () {
                   //TODO Add save features
-print(asdf.text);
                 },
                 style: TextStyle(fontSize: 20, color: Colors.white),
               ),

@@ -48,7 +48,7 @@ class _EditHoursDateState extends State<EditHoursDate> {
             FloatingTextField(
               width: 100,
               height: 45,
-              hintText: widget.isEditing ? widget.open.format(context): 'Open',
+              hintText: widget.isEditing ? widget.open.format(context) : 'Open',
               controller: TextEditingController(text: widget.open.toString()),
               // add this line.
               onTapped: () async {
