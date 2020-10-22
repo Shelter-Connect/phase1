@@ -20,12 +20,10 @@ class CurrentRequestsPage extends StatefulWidget with NavigationTab {
       'To see items that volunteers have committed to, check the Expected Deliveries page.';
 
   @override
-  Widget get icon => SvgPicture.asset(
-      "assets/jam_icons/task-list.svg", color: purpleAccent);
+  Widget get icon => SvgPicture.asset("assets/jam_icons/task-list.svg", color: purpleAccent);
 
   @override
-  Widget get activeIcon => SvgPicture.asset(
-      "assets/jam_icons/task-list-f.svg", color: purpleAccent);
+  Widget get activeIcon => SvgPicture.asset("assets/jam_icons/task-list-f.svg", color: purpleAccent);
 
   @override
   String get title => 'Requests';
@@ -48,8 +46,7 @@ class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
               Align(
                 alignment: Alignment.centerLeft,
                 child: OpenContainer(
-                  closedShape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(30.0))),
+                  closedShape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(30.0))),
                   closedColor: Color(0xfff5f5f5),
                   closedElevation: 0,
                   transitionDuration: Duration(milliseconds: 190),
@@ -73,9 +70,7 @@ class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
                                 color: Colors.white,
                               ),
                             ),
-                            Text('Edit',
-                                style: TextStyle(
-                                    fontSize: 17, color: Colors.white))
+                            Text('Edit', style: TextStyle(fontSize: 17, color: Colors.white))
                           ],
                         ),
                       ),

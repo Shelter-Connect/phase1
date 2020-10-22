@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:phase1/components/secondary_layout.dart';
@@ -13,6 +14,30 @@ class CreateRequestPage extends StatefulWidget {
 }
 
 class _CreateRequestPageState extends State<CreateRequestPage> {
+  @override
+  void initState() {
+    DocumentReference categoriesReference = db.collection('constants').document('categories');
+    categoriesReference.get().then((value) {
+      for (String category in value.data.keys) {
+        String asset, description, name;
+        Map<String, String> items = {};
+        asset = value.data[category]['asset'];
+        description = value.data[category]['description'];
+        name = value.data[category]['name'];
+        for (String item in value.data[category]['items'].keys) {
+          items[item] = value.data[category]['items'][item];
+        }
+        categories.add({
+          'asset': asset,
+          'description': description,
+          'name': name,
+          'items': items,
+        });
+      }
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Hero(
