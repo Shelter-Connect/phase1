@@ -16,6 +16,8 @@ exports.updateOrganizationInfo = functions.firestore.document('organizations/{ui
             organizationLocation: updatedInfo.data().location,
             organizationName: updatedInfo.data().name,
             organizationEmail: updatedInfo.data().email,
+            organizationWebsite: updatedInfo.data().website,
+            organizationNumber: updatedInfo.data().number,
         });
     }
 });

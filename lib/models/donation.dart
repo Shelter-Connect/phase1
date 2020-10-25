@@ -53,6 +53,8 @@ class Donation {
       address: donationSnapshot['organizationAddress'],
       location: Position(latitude: donationSnapshot['organizationLocation'].latitude, longitude: donationSnapshot['organizationLocation'].longitude),
       id: donationSnapshot['organizationId'],
+      website: donationSnapshot['organizationWebsite'],
+      number: donationSnapshot['organizationNumber'],
     );
   }
 
@@ -79,6 +81,8 @@ class Donation {
       'organizationEmail': organization.email,
       'organizationAddress': organization.address,
       'organizationLocation': GeoPoint(organization.location.latitude, organization.location.longitude),
+      'organizationWebsite': organization.website,
+      'organizationNumber': organization.number,
       'volunteerEmail': volunteerEmail,
       'volunteerName': volunteerName,
       'sync': sync,
