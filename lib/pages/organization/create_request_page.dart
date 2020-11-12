@@ -5,6 +5,7 @@ import 'package:phase1/components/secondary_layout.dart';
 import 'package:phase1/constants.dart';
 import 'package:phase1/pages/organization/choose_item_page.dart';
 import 'package:phase1/pages/organization/other_item_page.dart';
+import 'package:phase1/pages/organization/volunteer_request_item_page.dart';
 
 import '../../components/category_icon_button.dart';
 
@@ -18,6 +19,7 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
   void initState() {
     DocumentReference categoriesReference = db.collection('constants').document('categories');
     categoriesReference.get().then((value) {
+      categories.clear();
       for (String category in value.data.keys) {
         String asset, description, name;
         Map<String, String> items = {};
@@ -71,7 +73,7 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
                 GridView.builder(
                   physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  itemCount: categories.length + 1,
+                  itemCount: categories.length + 2,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3,
                     crossAxisSpacing: 4.0,
@@ -79,6 +81,20 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
                   ),
                   itemBuilder: (BuildContext context, int index) {
                     if (index == categories.length) {
+                      return CategoryIconButton(
+                        asset: 'assets/other_svgs/other.svg',
+                        name: 'Volunteer Opportunities',
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => VolunteerItemPage(),
+                            ),
+                          );
+                        },
+                      );
+                    } else
+                    if (index == categories.length + 1) {
                       return CategoryIconButton(
                         asset: 'assets/other_svgs/other.svg',
                         name: 'Other',
