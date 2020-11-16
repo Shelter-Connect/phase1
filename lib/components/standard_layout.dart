@@ -30,8 +30,9 @@ class StandardLayout extends StatelessWidget {
         title: Text(
           title,
           style: TextStyle(
-            fontWeight: FontWeight.w900, fontSize: 35,
-            color: titleColor ?? Color(0xFFF5F5F5),
+            fontWeight: FontWeight.w900, fontSize: 25,
+            color: purpleAccent ,
+//              titleColor ?? Color(0xFFF5F5F5)
           ),
         ),
         actions: <Widget>[

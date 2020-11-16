@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:phase1/components/expected_deliveries_container.dart';
 import 'package:phase1/constants.dart';
+import 'package:phase1/models/donation.dart';
+import 'package:provider/provider.dart';
 
 import '../navigation_tab.dart';
 
@@ -15,101 +17,79 @@ class PastDeliveries extends StatefulWidget with NavigationTab {
       'To see items that volunteers have committed to, check the Expected Deliveries page.';
 
   @override
-  Widget get icon => SvgPicture.asset(
-      "assets/jam_icons/clock.svg", color: purpleAccent);
+  Widget get icon =>
+      SvgPicture.asset("assets/jam_icons/clock.svg", color: purpleAccent);
 
   @override
-  Widget get activeIcon => SvgPicture.asset(
-      "assets/jam_icons/clock-f.svg", color: purpleAccent);
+  Widget get activeIcon =>
+      SvgPicture.asset("assets/jam_icons/clock-f.svg", color: purpleAccent);
 
   @override
-  String get title => 'History';
+  String get title => 'Past Deliveries';
 
   @override
-  String get barTitle => 'History';
+  String get barTitle => 'Past Deliveries';
 }
 
-class _PastDeliveriesState extends State<PastDeliveries>
-    with TickerProviderStateMixin {
-  TabController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = new TabController(length: 2, vsync: this);
-  }
-
+class _PastDeliveriesState extends State<PastDeliveries> {
+  String dropdownValue = 'Sort by';
+  List<Donation> donations;
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4.0),
       child: Column(
         children: <Widget>[
-//            Card(
-//              child: ListTile(
-//                title: const Text('Some information'),
-//              ),
-//            ),
-          SizedBox(height: 5),
-          Container(
-            decoration: BoxDecoration(
-                color: purpleAccent,
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20))),
-            child: TabBar(
-              indicatorColor: Colors.white,
-              unselectedLabelColor: darkPurpleAccent,
-              labelColor: Colors.white,
-              controller: _controller,
-              tabs: [
-                Tab(
-                  icon: const Icon(Feather.gift),
-                  text: 'Past Deliveries',
-                ),
-                Tab(
-                  icon: const Icon(Feather.shopping_cart),
-                  text: 'Past Requests',
-                ),
-              ],
-            ),
+          SizedBox(height: 10),
+          Consumer<List<Donation>>(
+            builder: (context, donations, widget) {
+              this.donations = donations;
+              if (donations == null) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              if (donations.length == 0) {
+                return Column(
+                  children: [
+                    Text(
+                      'Your organization currently does not have any expected deliveries.',
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 15.0,
+                      ),
+                    ),
+                    SizedBox(height: 40),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 4),
+                      child: Center(
+                        child: SvgPicture.asset(
+                          'assets/ui_svgs/dood.svg',
+                          semanticsLabel: 'Create some requests!',
+                          width: MediaQuery.of(context).size.width,
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 60),
+                  ],
+                );
+              }
+              List<Widget> widgets = [];
+              for (Donation donation in donations) {
+                widgets.add(
+                  ExpectedDeliveryContainer(
+                    donation: donation,
+                  ),
+                );
+                widgets.add(
+                  SizedBox(height: 20.0),
+                );
+              }
+              return Column(
+                children: widgets,
+              );
+            },
           ),
-          Material(
-            elevation: 2,
-            child: Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10)),
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
-              child: TabBarView(
-                controller: _controller,
-                children: <Widget>[
-                  Container(
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Column(
-                        children: [Text('Add de stuff')],
-                      )),
-                  Container(
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Column(
-                        children: [Text('Add de stuff')],
-                      )),
-                ],
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 20,
-          )
-//            Card(
-//              child: ListTile(
-//                title: Text('Some more information'),
-//              ),
-//            ),
         ],
       ),
     );
