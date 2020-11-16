@@ -6,6 +6,7 @@ import 'package:phase1/components/requests_container.dart';
 import 'package:phase1/constants.dart';
 import 'package:phase1/models/item.dart';
 import 'package:provider/provider.dart';
+import 'package:ripple_effect/ripple_effect.dart';
 
 import '../navigation_tab.dart';
 import 'edit_current_requests_page.dart';
@@ -33,6 +34,9 @@ class CurrentRequestsPage extends StatefulWidget with NavigationTab {
 }
 
 class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
+  final pageKey = RipplePage.createGlobalKey();
+  final effectKey = RippleEffect.createGlobalKey();
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -43,42 +47,33 @@ class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
         children: <Widget>[
           Row(
             children: [
+              SizedBox(height: 60),
               Align(
                 alignment: Alignment.centerLeft,
-                child: OpenContainer(
-                  closedShape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(30.0))),
-                  closedColor: Color(0xfff5f5f5),
-                  closedElevation: 0,
-                  transitionDuration: Duration(milliseconds: 190),
-                  closedBuilder: (context, openWidget) {
-                    return FlatButton(
-                      onPressed: openWidget,
-                      color: purpleAccent,
-                      padding: EdgeInsets.all(8.0),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30.0),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: Wrap(
-                          crossAxisAlignment: WrapCrossAlignment.center,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(right: 8.0),
-                              child: Icon(
-                                Icons.edit,
-                                color: Colors.white,
-                              ),
-                            ),
-                            Text('Edit', style: TextStyle(fontSize: 17, color: Colors.white))
-                          ],
+                child: Container(
+                  width: 100,
+                  height: 40.0,
+                  child: RaisedButton(
+                    onPressed: () {Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => EditCurrentRequestsPage()),
+                    ); },
+                    textColor: purpleAccent,
+                    color: Colors.white,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30.0)),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.edit,
+                          color: purpleAccent,
                         ),
-                      ),
-                    );
-                  },
-                  openBuilder: (context, closedWidget) {
-                    return EditCurrentRequestsPage();
-                  },
+                        SizedBox(width: 5),
+                        Text('Edit', style: TextStyle(fontSize: 17))
+                      ],
+                    ),
+                  ),
                 ),
               ),
               SizedBox(width: MediaQuery.of(context).size.width / 3),

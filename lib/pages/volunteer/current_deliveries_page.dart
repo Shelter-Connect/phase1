@@ -142,7 +142,7 @@ class _CurrentDeliveriesPageState extends State<CurrentDeliveriesPage> {
                                   Padding(
                                     padding: const EdgeInsets.only(right: 8.0),
                                     child: Icon(
-                                      Icons.cloud_upload,
+                                      Feather.upload_cloud,
                                       color: Colors.white,
                                     ),
                                   ),

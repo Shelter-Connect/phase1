@@ -76,7 +76,7 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
                         Visibility(
                           visible: _tabs[_selectedIndex].helpDescription != '',
                           child: IconButton(
-                            icon: Icon(Icons.help),
+                            icon: Icon(Feather.help_circle),
                             color: purpleAccent,
                             onPressed: () {
                               _helpModalBottomSheet(context);

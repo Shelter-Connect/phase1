@@ -29,11 +29,7 @@ class _EditCurrentRequestsPageState extends State<EditCurrentRequestsPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
-                'Edit Current Requests',
-                style: mainTitleStyle,
-              ),
-              SizedBox(height: 20),
+              SizedBox(height: 10),
               StreamBuilder(
                 stream: FirestoreHelper.getCurrentOrganizationReference(context).collection('requests').snapshots(),
                 builder: (context, snapshot) {

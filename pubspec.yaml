@@ -51,12 +51,12 @@ dependencies:
   map_launcher: ^0.12.0
   flutter_speed_dial: ^1.2.5
   date_range_picker: ^1.0.6
-  circular_check_box: ^1.0.4
   feather_icons_flutter: ^4.7.4
   flutter_vector_icons: ^0.2.1
   toggle_bar: ^1.0.0
   animations: ^1.1.2
   animated_splash_screen: ^1.0.1
+  ripple_effect: ^0.1.1
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.3
@@ -156,6 +156,7 @@ flutter:
     - assets/logo_svgs/linklogo.png
     - assets/logo_svgs/whitelogofinal2.png
     - assets/logo_svgs/final.JPG
+    - assets/logo_svgs/link.svg
     - assets/logo_svgs/work.JPG
     - assets/logo_svgs/finalithink.png
     - assets/logo_svgs/appiconlogo.png

@@ -1,4 +1,3 @@
-import 'package:circular_check_box/circular_check_box.dart';
 import 'package:flutter/material.dart';
 
 import '../constants.dart';
@@ -9,10 +8,10 @@ class EditHoursDate extends StatefulWidget {
   final TextEditingController controllerClosed;
   TimeOfDay open, closed;
   String day;
-  var boolean;
+  bool isActive;
   bool isEditing;
 
-  EditHoursDate({@required this.day, this.controllerOpen, this.controllerClosed, this.boolean, this.open, this.closed, this.isEditing});
+  EditHoursDate({@required this.day, this.controllerOpen, this.controllerClosed, this.isActive, this.open, this.closed, this.isEditing});
 
   @override
   _EditHoursDateState createState() => _EditHoursDateState();
@@ -25,30 +24,30 @@ class _EditHoursDateState extends State<EditHoursDate> {
       children: [
         Row(
           children: [
-            CircularCheckBox(
-              value: widget.boolean,
+            Checkbox(
+              value: widget.isActive,
               checkColor: Colors.white,
               activeColor: purpleAccent,
-              inactiveColor: Colors.grey,
-              disabledColor: Colors.grey,
+              focusColor: Colors.grey,
+              hoverColor: Colors.grey,
               onChanged: (val) => this.setState(() {
-                widget.boolean = !widget.boolean;
+                widget.isActive = !widget.isActive;
               }),
             ),
-            Expanded(
-              child: Text(
-                widget.day,
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 18.0,
-                ),
-              ),
-            ),
-            SizedBox(width: 10),
+//            Expanded(
+//              child: Text(
+//                widget.day,
+//                style: TextStyle(
+//                  fontWeight: FontWeight.w500,
+//                  fontSize: 18.0,
+//                ),
+//              ),
+//            ),
+            SizedBox(width: 5),
             FloatingTextField(
               width: 100,
               height: 45,
-              hintText: widget.isEditing ? widget.open.format(context) : 'Open',
+              hintText: 'Open', //widget.isEditing ? widget.open.format(context) :
               controller: TextEditingController(text: widget.open.toString()),
               // add this line.
               onTapped: () async {
@@ -62,7 +61,7 @@ class _EditHoursDateState extends State<EditHoursDate> {
                   });
                   widget.controllerOpen.text = picked.format(context);
                 }
-                if (widget.boolean != null) {
+                if (widget.isActive != null) {
                   setState(() {
                     time = picked;
                   });
@@ -71,11 +70,11 @@ class _EditHoursDateState extends State<EditHoursDate> {
               },
             ),
             SizedBox(
-              width: 5,
+              width: 15,
             ),
             Text('to', style: TextStyle(fontSize: 20)),
             SizedBox(
-              width: 5,
+              width: 15,
             ),
             FloatingTextField(
               width: 100,

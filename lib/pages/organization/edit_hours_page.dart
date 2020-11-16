@@ -1,5 +1,7 @@
 import 'package:date_range_picker/date_range_picker.dart' as DateRagePicker;
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:phase1/components/edit_hours_dates.dart';
 import 'package:phase1/components/rounded_button.dart';
 import 'package:phase1/components/standard_layout.dart';
@@ -11,91 +13,228 @@ class EditHours extends StatefulWidget {
   Map<String, List<TextEditingController>> controllerOpen = {};
   Map<String, List<TextEditingController>> controllerClosed = {};
 
-  EditHours({this.organization});
+  EditHours({this.organization, this.controllerOpen, this.controllerClosed});
 
   @override
   _EditHoursState createState() => _EditHoursState();
 }
 
-class _EditHoursState extends State<EditHours> {
+class _EditHoursState extends State<EditHours> with TickerProviderStateMixin {
+  TabController _controller;
+
   @override
   void initState() {
-    for (String key in widget.organization.schedule.keys) {
-      List<TextEditingController> open;
-      List<TextEditingController> closed;
-      for (TimeOfDay time in widget.organization.schedule[key]) {
-        open.add(new TextEditingController(text: time.format(context)));
-        closed.add(new TextEditingController(text: time.format(context)));
-      }
-      widget.controllerOpen.addAll({key: open});
-      widget.controllerClosed.addAll({key: closed});
-    }
-    ;
     super.initState();
+    _controller = new TabController(length: 7, vsync: this);
   }
-
   @override
   Widget build(BuildContext context) {
     return StandardLayout(
       title: 'Edit Hours',
       titleColor: purpleAccent,
       body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: 10.0),
+        padding: EdgeInsets.symmetric(horizontal: 16.0),
         child: Column(
           children: [
+            Align(
+              alignment: Alignment.centerLeft,
+                child: Text('Weekly Schedule', style: mainTitleStyle2)),
+            SizedBox(height: 10),
             Container(
-              child: Column(
-                children: [
-                  Text('Weekly Schedules:'),
-                  EditHoursDate(
-                    //organization: widget.organization,
-                    day: 'Monday',
+              decoration: BoxDecoration(
+                  color: purpleAccent,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20))),
+              child: TabBar(
+                indicatorColor: Colors.white,
+                unselectedLabelColor: darkPurpleAccent,
+                labelColor: Colors.white,
+                controller: _controller,
+                tabs: [
+                  Tab(
+                    icon: Text('M', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: Colors.white),)
                   ),
-                  EditHoursDate(
-                    //organization: widget.organization,
-                    day: 'Tuesday',
+                  Tab(
+                      icon: Text('T', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: Colors.white),)
                   ),
-                  EditHoursDate(
-                    //organization: widget.organization,
-                    day: 'Wednesday',
+                  Tab(
+                      icon: Text('W', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: Colors.white),)
                   ),
-                  EditHoursDate(
-                    //organization: widget.organization,
-                    day: 'Thursday',
+                  Tab(
+                      icon: Text('Th', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: Colors.white),)
                   ),
-                  EditHoursDate(
-                    //organization: widget.organization,
-                    day: 'Friday',
+                  Tab(
+                      icon: Text('F', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: Colors.white),)
                   ),
-                  EditHoursDate(
-                    //organization: widget.organization,
-                    day: 'Saturday',
+                  Tab(
+                      icon: Text('S', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: Colors.white),)
                   ),
-                  EditHoursDate(
-                    //organization: widget.organization,
-                    day: 'Sunday',
-                  ),
-                  SizedBox(height: 20),
-                  Text('Specific Dates:'),
-                  RoundedButton(
-                    color: purpleAccent,
-                    textColor: Colors.white,
-                    onPressed: () async {
-                      final List<DateTime> picked = await DateRagePicker.showDatePicker(
-                          context: context,
-                          initialFirstDate: DateTime.now(),
-                          initialLastDate: (DateTime.now()).add(Duration(days: 7)),
-                          firstDate: DateTime(2015),
-                          lastDate: DateTime(2021));
-                      if (picked != null && picked.length == 2) {
-                        print(picked);
-                      }
-                    },
-                    title: 'Dates your organization is not open',
+                  Tab(
+                      icon: Text('Su', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: Colors.white),)
                   ),
                 ],
               ),
             ),
+            Material(
+              elevation: 2,
+              child: Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20)),
+                height: 350,
+                width: MediaQuery.of(context).size.width,
+                child: TabBarView(
+                  controller: _controller,
+                  children: <Widget>[
+                    Container(
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8),
+                          child: Column(
+                            children: [
+                              EditHoursDate(
+                                isEditing: false,
+                                day: 'Monday',
+                                isActive: false,
+                              ),
+                              Align(
+                                  alignment: Alignment.centerRight,
+                                  child: IconButton(icon: Icon(Icons.add), onPressed: () {  },))],
+                          ),
+                        )),
+                    Container(
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Column(
+                          children: [EditHoursDate(
+                            isEditing: false,
+                            day: 'Monday',
+                            isActive: false,
+                          ),
+                            Align(
+                                alignment: Alignment.centerRight,
+                                child: IconButton(icon: Icon(Icons.add), onPressed: () {  },))],
+                        )),
+                    Container(
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Column(
+                          children: [EditHoursDate(
+                            isEditing: false,
+                            day: 'Monday',
+                            isActive: false,
+                          ),
+                            Align(
+                                alignment: Alignment.centerRight,
+                                child: IconButton(icon: Icon(Icons.add), onPressed: () {  },))],
+                        )),
+                    Container(
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Column(
+                          children: [EditHoursDate(
+                            isEditing: false,
+                            day: 'Monday',
+                            isActive: false,
+                          ),
+                            Align(
+                                alignment: Alignment.centerRight,
+                                child: IconButton(icon: Icon(Icons.add), onPressed: () {  },))],
+                        )),
+                    Container(
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Column(
+                          children: [EditHoursDate(
+                            isEditing: false,
+                            day: 'Monday',
+                            isActive: false,
+                          ),
+                            Align(
+                                alignment: Alignment.centerRight,
+                                child: IconButton(icon: Icon(Icons.add), onPressed: () {  },))],
+                        )),
+                    Container(
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Column(
+                          children: [EditHoursDate(
+                            isEditing: false,
+                            day: 'Monday',
+                            isActive: false,
+                          ),
+                            Align(
+                                alignment: Alignment.centerRight,
+                                child: IconButton(icon: Icon(Icons.add), onPressed: () {  },))],
+                        )),
+                    Container(
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Column(
+                          children: [EditHoursDate(
+                            isEditing: false,
+                            day: 'Monday',
+                            isActive: false,
+                          ),
+                            Align(
+                                alignment: Alignment.centerRight,
+                                child: IconButton(icon: Icon(Icons.add), onPressed: () {  },))],
+                        )),
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              child: Column(
+                children: [
+                  SizedBox(height: 20),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                      child: Text('Specific Dates:', style: mainTitleStyle2,)),
+                  SizedBox(height: 10),
+                  Material(
+                    elevation: 2,
+                    child: Column(
+                      children: [
+                        Container(
+                          child: EditHoursDate(isEditing: false,
+                            day: 'Monday',
+                            isActive: false,) //TODO Change this to a date and time picker, not just time picker
+                        ),
+                        Align(
+                            alignment: Alignment.centerRight,
+                            child: IconButton(icon: Icon(Icons.add), onPressed: () {  },))
+                      ],
+                    ),
+                  )
+//                  RoundedButton(
+//                    color: purpleAccent,
+//                    textColor: Colors.white,
+//                    onPressed: () async {
+//                      final List<DateTime> picked = await DateRagePicker.showDatePicker(
+//                          context: context,
+//                          initialFirstDate: DateTime.now(),
+//                          initialLastDate: (DateTime.now()).add(Duration(days: 7)),
+//                          firstDate: DateTime(2015),
+//                          lastDate: DateTime(2021));
+//                      if (picked != null && picked.length == 2) {
+//                        print(picked);
+//                      }
+//                    },
+//                    title: 'Dates your organization is not open',
+//                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 20),
             Align(
               alignment: Alignment.bottomCenter,
               child: RoundedButton(

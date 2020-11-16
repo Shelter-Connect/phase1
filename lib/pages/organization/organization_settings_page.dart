@@ -62,7 +62,7 @@ class _OrganizationSettingsPageState extends State<OrganizationSettingsPage> {
                 SizedBox(height: 10),
                 OrganizationInfo(organization: organization),
                 SizedBox(height: 20),
-                DonationAvailabilityHourSettings(),
+                DonationAvailabilityHourSettings(organization: organization),
                 SizedBox(height: 20),
                 DemoProfileButton(organization),
                 SizedBox(height: 20),
@@ -386,10 +386,23 @@ class DonationAvailabilityHourSettings extends StatelessWidget {
               ),
               InkWell(
                 onTap: () async {
+                  Map<String, List<TextEditingController>> controllerOpen = {};
+                  Map<String, List<TextEditingController>> controllerClosed = {};
+
+                  for (String key in organization.schedule.keys) {
+                    List<TextEditingController> open = [];
+                    List<TextEditingController> closed = [];
+                    for (TimeOfDay time in organization.schedule[key]) {
+                      open.add(new TextEditingController(text: time.format(context)));
+                      closed.add(new TextEditingController(text: time.format(context)));
+                    }
+                    controllerOpen.addAll({key: open});
+                    controllerClosed.addAll({key: closed});
+                  };
                   bool updated = await Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => EditHours(organization: organization),
+                      builder: (context) => EditHours(organization: organization, controllerClosed: controllerClosed, controllerOpen: controllerOpen,),
                     ),
                   );
                   if (updated) {

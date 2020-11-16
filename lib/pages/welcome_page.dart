@@ -1,183 +1,192 @@
-import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:phase1/constants.dart';
 import 'package:phase1/pages/organization/organization_sign_up_page.dart';
 import 'package:phase1/pages/volunteer/volunteer_sign_up_page.dart';
+import 'package:ripple_effect/ripple_effect.dart';
 
-class WelcomePage extends StatelessWidget {
+class WelcomePage extends StatefulWidget {
+  @override
+  _WelcomePageState createState() => _WelcomePageState();
+}
+
+class _WelcomePageState extends State<WelcomePage> {
+  final pageKey = RipplePage.createGlobalKey();
+  final effectKey = RippleEffect.createGlobalKey();
+  final effectKey2 = RippleEffect.createGlobalKey();
+
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: Stack(children: <Widget>[
-        Container(
-          decoration: BoxDecoration(
-            color: Colors.transparent,
-            image: DecorationImage(
-              fit: BoxFit.fill,
-              image: AssetImage(
-                'assets/foodgivingsmaller.png',
-              ),
-            ),
-          ),
-          height: MediaQuery.of(context).size.height,
-        ),
-        Container(
-          height: MediaQuery.of(context).size.height,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: FractionalOffset.topCenter,
-              end: FractionalOffset.bottomCenter,
-              colors: [
-                Colors.grey.withOpacity(0.0),
-                Colors.black,
-                Colors.black,
-                Colors.black,
-              ],
-              stops: [0.0, 0.6, 0.8, 1.0],
-            ),
-          ),
-        ),
-        Column(
-          children: [
-            Expanded(
-              child: Image.asset('assets/logo_svgs/whitelogofinal2.png',
-                  width: 140),
-              flex: 1,
-            ),
-            Expanded(
-              child: Container(
-                margin: EdgeInsets.only(bottom: 10.0),
-                child: Text(
-                  'Help out Non-Profit Organizations',
-                  style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              flex: 0,
-            ),
-            Expanded(
-              child: Container(
-                margin: EdgeInsets.only(bottom: 28.0),
+    return RipplePage(
+        pageKey: pageKey,
+        child: Material(
+          child: Stack(children: <Widget>[
+            Container(
+              decoration: BoxDecoration(
                 color: Colors.transparent,
-                child: Text(
-                  'Welcome, and thank you so much for joining our community. We are thrilled to act as the connector between non-profit organizations and kind hearted people',
-                  style: TextStyle(fontSize: 18.0, color: Colors.white),
-                  textAlign: TextAlign.center,
-                ),
-                padding: EdgeInsets.symmetric(vertical: 18.0),
-                constraints: BoxConstraints(
-                  maxWidth: 330.0,
-                ),
-              ),
-              flex: 0,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 32.0),
-              child: OpenContainer(
-                closedColor: Color(0xfff5f5f5),
-                closedShape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(40.0))),
-                closedElevation: 2,
-                transitionDuration: Duration(milliseconds: 250),
-                closedBuilder: (context, openWidget) {
-                  return Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 50.0,
-                    child: RaisedButton(
-                      onPressed: openWidget,
-                      textColor: purpleAccent,
-                      color: Colors.white,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(40.0)),
-                      child: Container(
-                        child: Text(
-                          'Sign up as an Organization',
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ),
-                  );
-                },
-                openBuilder: (context, closedWidget) {
-                  return OrganizationSignUpPage();
-                },
-              ),
-            ),
-            SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 32.0),
-              child: OpenContainer(
-                closedColor: Color(0xfff5f5f5),
-                closedShape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(40.0))),
-                closedElevation: 2,
-                transitionDuration: Duration(milliseconds: 250),
-                closedBuilder: (context, openWidget) {
-                  return Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 50.0,
-                    child: RaisedButton(
-                      onPressed: openWidget,
-                      textColor: Colors.white,
-                      color: purpleAccent,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(40.0)),
-                      child: Container(
-                        child: Text(
-                          'Sign up as a Volunteer',
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ),
-                  );
-                },
-                openBuilder: (context, closedWidget) {
-                  return VolunteerSignUp();
-                },
-              ),
-            ),
-            SizedBox(height: 10),
-            Expanded(
-              child: Container(
-                margin: EdgeInsets.only(bottom: 20.0),
-                child: ButtonTheme(
-                  minWidth: 200.0,
-                  height: 50.0,
-                  child: FlatButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/login');
-                    },
-                    textColor: Colors.white,
-                    child: Container(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            'Existing User? Log In',
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.bold),
-                          ),
-                          Icon(
-                            Icons.keyboard_arrow_right,
-                          )
-                        ],
-                      ),
-                    ),
+                image: DecorationImage(
+                  fit: BoxFit.fill,
+                  image: AssetImage(
+                    'assets/foodgivingsmaller.png',
                   ),
                 ),
               ),
-              flex: 0,
+              height: MediaQuery.of(context).size.height,
             ),
-          ],
-        ),
-      ]),
-    );
+            Container(
+              height: MediaQuery.of(context).size.height,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: FractionalOffset.topCenter,
+                  end: FractionalOffset.bottomCenter,
+                  colors: [
+                    Colors.grey.withOpacity(0.0),
+                    Colors.black,
+                    Colors.black,
+                    Colors.black,
+                  ],
+                  stops: [0.0, 0.6, 0.8, 1.0],
+                ),
+              ),
+            ),
+            Column(
+              children: [
+                Expanded(
+                  child: SvgPicture.asset('assets/logo_svgs/link.svg', //whitelogofinal2.png
+                      width: 100, color: Colors.white70,),
+                  flex: 1,
+                ),
+                Expanded(
+                  child: Container(
+                    margin: EdgeInsets.only(bottom: 10.0),
+                    child: Text(
+                      'Help out Non-Profit Organizations',
+                      style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  flex: 0,
+                ),
+                Expanded(
+                  child: Container(
+                    margin: EdgeInsets.only(bottom: 28.0),
+                    color: Colors.transparent,
+                    child: Text(
+                      'Welcome, and thank you so much for joining our community. We are thrilled to act as the connector between non-profit organizations and kind hearted people',
+                      style: TextStyle(fontSize: 18.0, color: Colors.white),
+                      textAlign: TextAlign.center,
+                    ),
+                    padding: EdgeInsets.symmetric(vertical: 18.0),
+                    constraints: BoxConstraints(
+                      maxWidth: 330.0,
+                    ),
+                  ),
+                  flex: 0,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                  child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 50.0,
+                        child: RippleEffect(
+                          color: Colors.white,
+                          effectKey: effectKey,
+                          pageKey: pageKey,
+                          child: RaisedButton(
+                            onPressed: () => RippleEffect.start(effectKey, toOrganizationSignup),
+                            textColor: purpleAccent,
+                            color: Colors.white,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(40.0)),
+                            child: Container(
+                              child: Text(
+                                'Sign up as an Organization',
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+                  ),
+                SizedBox(height: 20),
+                Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: 50.0,
+                      child: RippleEffect(
+                        color: purpleAccent,
+                        effectKey: effectKey2,
+                        pageKey: pageKey,
+                        child: RaisedButton(
+                          onPressed: () => RippleEffect.start(effectKey2, toVolunteerSignup),
+                          textColor: Colors.white,
+                          color: purpleAccent,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(40.0)),
+                          child: Container(
+                            child: Text(
+                              'Sign up as a Volunteer',
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                ),
+                SizedBox(height: 10),
+                Expanded(
+                  child: Container(
+                    margin: EdgeInsets.only(bottom: 20.0),
+                    child: ButtonTheme(
+                      minWidth: 200.0,
+                      height: 50.0,
+                      child: FlatButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/login');
+                        },
+                        textColor: Colors.white,
+                        child: Container(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text(
+                                'Existing User? Log In',
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.bold),
+                              ),
+                              Icon(
+                                Icons.keyboard_arrow_right,
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  flex: 0,
+                ),
+              ],
+            ),
+          ]),
+        ));
   }
+
+  Future<void> toOrganizationSignup() => Navigator.of(context).push(
+    FadeRouteBuilder(
+      page: OrganizationSignUpPage(),
+    ),
+  );
+  Future<void> toVolunteerSignup() => Navigator.of(context).push(
+    FadeRouteBuilder(
+      page: VolunteerSignUp(),
+    ),
+  );
 }
