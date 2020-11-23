@@ -1,14 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:phase1/components/colored_button.dart';
-import 'package:phase1/models/donation.dart';
 import 'package:phase1/models/past_donation.dart';
-import 'package:phase1/services/firestore_helper.dart';
 
 import '../../components/standard_layout.dart';
 import '../../constants.dart';
-import 'delivery_confirmation_page.dart';
 
 class PastDeliveryInformationPage extends StatefulWidget {
   final PastDonation donation;

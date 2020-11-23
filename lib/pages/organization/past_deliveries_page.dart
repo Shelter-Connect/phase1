@@ -1,12 +1,5 @@
-import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:phase1/components/alerts.dart';
-import 'package:phase1/components/sync_calendar.dart';
-import 'package:phase1/models/donation.dart';
 import 'package:phase1/models/past_donation.dart';
 import 'package:provider/provider.dart';
 
