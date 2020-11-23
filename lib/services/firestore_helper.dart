@@ -98,6 +98,7 @@ class FirestoreHelper {
 
     await volunteerCurrentDonationCollection.document(donation.id).delete();
     await organizationCurrentDonationCollection.document(donation.id).delete();
+    donation.date = DateTime.now();
     await volunteerPastDonationCollection.document(donation.id).setData(donation.toFirestoreMap());
     await organizationPastDonationCollection.document(donation.id).setData(donation.toFirestoreMap());
   }

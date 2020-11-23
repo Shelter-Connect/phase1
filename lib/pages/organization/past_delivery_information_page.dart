@@ -1,29 +1,26 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:phase1/components/colored_button.dart';
-import 'package:phase1/models/donation.dart';
-import 'package:phase1/services/firestore_helper.dart';
+import 'package:phase1/models/past_donation.dart';
 
 import '../../components/standard_layout.dart';
 import '../../constants.dart';
-import 'delivery_confirmation_page.dart';
 
-class DeliveryInformationPage extends StatefulWidget {
-  final Donation donation;
+class PastDeliveryInformationPage extends StatefulWidget {
+  final PastDonation donation;
 
-  DeliveryInformationPage({this.donation});
+  PastDeliveryInformationPage({this.donation});
 
   @override
-  _DeliveryInformationPageState createState() => _DeliveryInformationPageState();
+  _PastDeliveryInformationPageState createState() => _PastDeliveryInformationPageState();
 }
 
-class _DeliveryInformationPageState extends State<DeliveryInformationPage> {
+class _PastDeliveryInformationPageState extends State<PastDeliveryInformationPage> {
   @override
   Widget build(BuildContext context) {
     return StandardLayout(
       title: 'Delivery Information',
-      helpText: 'This page shows information about a specific delivery. If this delivery has been received, press the Confirm Delivery button.',
+      helpText: 'This page shows information about a specific past delivery.',
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
@@ -42,7 +39,7 @@ class _DeliveryInformationPageState extends State<DeliveryInformationPage> {
                     children: <Widget>[
                       SizedBox(height: 10),
                       Text(
-                        'Items to be Delivered',
+                        'Delivered Items',
                         style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                       ),
                       SizedBox(
@@ -87,7 +84,7 @@ class _DeliveryInformationPageState extends State<DeliveryInformationPage> {
                                         height: 12,
                                         width: 12,
                                         decoration:
-                                            BoxDecoration(color: widget.donation.items[index].urgencyColor, borderRadius: BorderRadius.circular(40)),
+                                        BoxDecoration(color: widget.donation.items[index].urgencyColor, borderRadius: BorderRadius.circular(40)),
                                       ),
                                     ),
                                   ),
@@ -108,7 +105,7 @@ class _DeliveryInformationPageState extends State<DeliveryInformationPage> {
                         child: Align(
                           alignment: Alignment.topLeft,
                           child: Text(
-                            'Expected Date: ${(DateFormat('yMMMMd').format(widget.donation.date))}',
+                            'Date Received: ${(DateFormat('yMMMMd').format(widget.donation.date))}',
                             style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400),
                           ),
                         ),
@@ -138,39 +135,6 @@ class _DeliveryInformationPageState extends State<DeliveryInformationPage> {
                 ),
               ),
             ),
-            Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: ColoredButton(
-                    color: purpleAccent,
-                    text: 'Confirm Delivery',
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ConfirmDeliveryPage(
-                            donation: widget.donation,
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: ColoredButton(
-                    onPressed: () {
-                      FirestoreHelper.cancelVolunteerDelivery(context, widget.donation);
-                      Navigator.pop(context);
-                    },
-                    text: 'Cancel Order',
-                    color: purpleAccent,
-                    textColor: Colors.white,
-                  ),
-                )
-              ],
-            )
           ],
         ),
       ),
