@@ -9,7 +9,7 @@ import 'package:phase1/components/sync_calendar.dart';
 import 'package:phase1/models/donation.dart';
 import 'package:provider/provider.dart';
 
-import '../../components/expected_deliveries_container.dart';
+import '../../components/delivery_containers.dart';
 import '../../constants.dart';
 import '../navigation_tab.dart';
 
@@ -53,7 +53,6 @@ class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
           SizedBox(height: 10),
           Row(
             children: [
-              SizedBox(width: 0),
               Align(
                 alignment: Alignment.centerRight,
                 child: Container(

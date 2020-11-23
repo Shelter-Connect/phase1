@@ -1,28 +1,35 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:phase1/components/expected_deliveries_container.dart';
-import 'package:phase1/constants.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:phase1/components/alerts.dart';
+import 'package:phase1/components/sync_calendar.dart';
 import 'package:phase1/models/donation.dart';
+import 'package:phase1/models/past_donation.dart';
 import 'package:provider/provider.dart';
 
+import '../../components/delivery_containers.dart';
+import '../../constants.dart';
 import '../navigation_tab.dart';
 
-class PastDeliveries extends StatefulWidget with NavigationTab {
+class PastDeliveriesPage extends StatefulWidget with NavigationTab {
   @override
-  _PastDeliveriesState createState() => _PastDeliveriesState();
+  _PastDeliveriesPageState createState() => _PastDeliveriesPageState();
 
   @override
   String get helpDescription =>
-      'This is your Current Requests page. Here, you can see items that you have requested that have not volunteers have not signed up for. '
-      'To see items that volunteers have committed to, check the Expected Deliveries page.';
+      'This is the Past Deliveries page. Here, you can see any items that the volunteers have already delivered to your organization. '
+  ;
 
   @override
-  Widget get icon =>
-      SvgPicture.asset("assets/jam_icons/clock.svg", color: purpleAccent);
+  Widget get icon => SvgPicture.asset(
+      "assets/jam_icons/box.svg", color: purpleAccent); //TODO: find icon for past deliveries page
 
   @override
-  Widget get activeIcon =>
-      SvgPicture.asset("assets/jam_icons/clock-f.svg", color: purpleAccent);
+  Widget get activeIcon => SvgPicture.asset(
+      "assets/jam_icons/box-f.svg", color: purpleAccent);
 
   @override
   String get title => 'Past Deliveries';
@@ -31,17 +38,20 @@ class PastDeliveries extends StatefulWidget with NavigationTab {
   String get barTitle => 'Past Deliveries';
 }
 
-class _PastDeliveriesState extends State<PastDeliveries> {
+class _PastDeliveriesPageState extends State<PastDeliveriesPage> {
   String dropdownValue = 'Sort by';
-  List<Donation> donations;
+  List<PastDonation> donations;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4.0),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           SizedBox(height: 10),
-          Consumer<List<Donation>>(
+          Consumer<List<PastDonation>>(
             builder: (context, donations, widget) {
               this.donations = donations;
               if (donations == null) {
@@ -53,7 +63,7 @@ class _PastDeliveriesState extends State<PastDeliveries> {
                 return Column(
                   children: [
                     Text(
-                      'Your organization currently does not have any expected deliveries.',
+                      'Your organization does not have any past deliveries.',
                       style: TextStyle(
                         color: Colors.grey,
                         fontSize: 15.0,
@@ -75,14 +85,14 @@ class _PastDeliveriesState extends State<PastDeliveries> {
                 );
               }
               List<Widget> widgets = [];
-              for (Donation donation in donations) {
+              for (PastDonation donation in donations) {
                 widgets.add(
-                  ExpectedDeliveryContainer(
+                  PastDeliveryContainer(
                     donation: donation,
                   ),
                 );
                 widgets.add(
-                  SizedBox(height: 20.0),
+                  SizedBox(height: 5.0),
                 );
               }
               return Column(

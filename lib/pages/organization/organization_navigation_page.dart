@@ -7,13 +7,14 @@ import 'package:phase1/components/floating_text_field.dart';
 import 'package:phase1/components/flushbar.dart';
 import 'package:phase1/components/rounded_button.dart';
 import 'package:phase1/models/donation.dart';
+import 'package:phase1/models/past_donation.dart';
 import 'package:phase1/models/user.dart';
 import 'package:phase1/pages/navigation_tab.dart';
 import 'package:phase1/pages/organization/create_request_page.dart';
 import 'package:phase1/pages/organization/current_requests_page.dart';
 import 'package:phase1/pages/organization/expected_deliveries_page.dart';
 import 'package:phase1/pages/organization/organization_settings_page.dart';
-import 'package:phase1/pages/organization/past_deliveries.dart';
+import 'package:phase1/pages/organization/past_deliveries_page.dart';
 import 'package:phase1/services/firestore_helper.dart';
 import 'package:provider/provider.dart';
 
@@ -30,7 +31,7 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
   final List<NavigationTab> _tabs = [
     CurrentRequestsPage(),
     ExpectedDeliveriesPage(),
-    PastDeliveries(),
+    PastDeliveriesPage(),
 //    FeedbackForm(),
     OrganizationSettingsPage(),
   ];
@@ -46,6 +47,17 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
             List<Donation> donations = [];
             for (DocumentSnapshot document in snapshot.documents) {
               donations.add(Donation.fromFirestoreMap(document));
+            }
+            return donations;
+          }),
+        ),
+        StreamProvider<List<PastDonation>>.value(
+          value: FirestoreHelper.getCurrentOrganizationReference(context).collection('pastDonations').orderBy('date', descending: true).snapshots().map((snapshot) {
+            if (snapshot.documents.length == 0) return [];
+            if (snapshot == null) return null;
+            List<PastDonation> donations = [];
+            for (DocumentSnapshot document in snapshot.documents) {
+              donations.add(PastDonation.fromFirestoreMap(document));
             }
             return donations;
           }),
