@@ -18,11 +18,11 @@ class PastDeliveriesPage extends StatefulWidget with NavigationTab {
 
   @override
   Widget get icon => SvgPicture.asset(
-      "assets/jam_icons/box.svg", color: purpleAccent); //TODO: find icon for past deliveries page
+      "assets/jam_icons/clock.svg", color: purpleAccent);
 
   @override
   Widget get activeIcon => SvgPicture.asset(
-      "assets/jam_icons/box-f.svg", color: purpleAccent);
+      "assets/jam_icons/clock-f.svg", color: purpleAccent);
 
   @override
   String get title => 'Past Deliveries';

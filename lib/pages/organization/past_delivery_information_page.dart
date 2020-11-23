@@ -20,7 +20,7 @@ class _PastDeliveryInformationPageState extends State<PastDeliveryInformationPag
   Widget build(BuildContext context) {
     return StandardLayout(
       title: 'Delivery Information',
-      helpText: 'This page shows information about a specific delivery. If this delivery has been received, press the Confirm Delivery button.',
+      helpText: 'This page shows information about a specific past delivery.',
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
@@ -39,7 +39,7 @@ class _PastDeliveryInformationPageState extends State<PastDeliveryInformationPag
                     children: <Widget>[
                       SizedBox(height: 10),
                       Text(
-                        'Items to be Delivered',
+                        'Delivered Items',
                         style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                       ),
                       SizedBox(
@@ -105,7 +105,7 @@ class _PastDeliveryInformationPageState extends State<PastDeliveryInformationPag
                         child: Align(
                           alignment: Alignment.topLeft,
                           child: Text(
-                            'Expected Date: ${(DateFormat('yMMMMd').format(widget.donation.date))}',
+                            'Date Received: ${(DateFormat('yMMMMd').format(widget.donation.date))}',
                             style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400),
                           ),
                         ),
