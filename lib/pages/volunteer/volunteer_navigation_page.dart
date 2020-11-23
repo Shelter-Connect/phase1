@@ -38,6 +38,7 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
 
   @override
   Widget build(BuildContext context) {
+    TimeOfDay open = new TimeOfDay.now(), closed = new TimeOfDay.now();
     return ChangeNotifierProvider<UserPosition>(
       create: (_) => UserPosition(),
       child: MultiProvider(
