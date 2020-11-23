@@ -48,7 +48,7 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
               if (snapshot == null) return null;
               List<Organization> organizations = [];
               for (DocumentSnapshot document in snapshot.documents) {
-                if (document.documentID == 'categories') continue;
+                if (document.documentID == 'bVRQfZpizSQWty24zFgFqIrB60i2') continue;
                 organizations.add(Organization.fromFirestoreMap(context: context, organizationSnapshot: document, isVolunteer: false));
               }
               return organizations;
