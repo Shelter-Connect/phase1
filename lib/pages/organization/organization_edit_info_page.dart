@@ -30,6 +30,7 @@ class _OrganizationEditInfoPageState extends State<OrganizationEditInfoPage> {
   TextEditingController descriptionController = TextEditingController();
   TextEditingController locationController = TextEditingController();
   TextEditingController websiteController = TextEditingController();
+  TextEditingController donationLinkController = TextEditingController();
 
   GoogleMapsPlaces _places = GoogleMapsPlaces(apiKey: kGoogleApiKey);
   bool loading = false;
@@ -43,6 +44,7 @@ class _OrganizationEditInfoPageState extends State<OrganizationEditInfoPage> {
       descriptionController.text = organization.description;
       locationController.text = organization.address;
       websiteController.text = organization.website;
+      donationLinkController.text = organization.donationLink;
     });
     super.initState();
   }
@@ -116,6 +118,17 @@ class _OrganizationEditInfoPageState extends State<OrganizationEditInfoPage> {
                   hintText: 'Website',
                 ),
                 SizedBox(height: 20),
+                FloatingTextField( // Cash donations link
+                  controller: donationLinkController,
+                  onChanged: (val) {
+                    setState(() {
+                      organization.donationLink = val;
+                    });
+                  },
+                  maxLines: null,
+                  hintText: 'Cash Donations',
+                ),
+                SizedBox(height: 20),
                 RoundedButton(
                   onPressed: () {
                     FirestoreHelper.resetPassword(Provider.of<User>(context, listen: false).user.email);
@@ -141,6 +154,7 @@ class _OrganizationEditInfoPageState extends State<OrganizationEditInfoPage> {
                       'location': location,
                       'address': locationController.text,
                       'website': organization.website,
+                      'donationLink': organization.donationLink
                     });
                     Navigator.pop(context, true);
                   },

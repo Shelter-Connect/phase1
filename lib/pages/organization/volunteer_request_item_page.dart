@@ -23,7 +23,9 @@ class VolunteerItemPage extends StatefulWidget {
 
 class _VolunteerItemPageState extends State<VolunteerItemPage> {
   int amount = 0;
-  String specificDescription = '', itemName, itemUnit;
+  String specificDescription = '';
+  String itemName = '';
+
 
   @override
   Widget build(BuildContext context) {
@@ -76,21 +78,21 @@ class _VolunteerItemPageState extends State<VolunteerItemPage> {
                     children: <Widget>[
                       SizedBox(height: 20),
                       FloatingTextField(
-                        hintText: 'Custom Item Name',
+                        hintText: 'Task Name (Planting Trees, etc.)',
                         onChanged: (val) {
                           itemName = val;
                         },
                       ),
+                      // SizedBox(height: 20),
+                      // FloatingTextField(
+                      //   hintText: 'Custom Item Unit',
+                      //   onChanged: (val) {
+                      //     itemUnit = val;
+                      //   },
+                      // ),
                       SizedBox(height: 20),
                       FloatingTextField(
-                        hintText: 'Custom Item Unit',
-                        onChanged: (val) {
-                          itemUnit = val;
-                        },
-                      ),
-                      SizedBox(height: 20),
-                      FloatingTextField(
-                        hintText: 'Item Description (Specific Brand, Type, etc.)',
+                        hintText: 'Task Description',
                         width: double.infinity,
                         maxLines: null,
                         onChanged: (val) {
