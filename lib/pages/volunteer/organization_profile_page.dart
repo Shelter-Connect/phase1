@@ -11,9 +11,9 @@ import 'package:phase1/constants.dart';
 import 'package:phase1/models/item.dart';
 import 'package:phase1/models/organization.dart';
 import 'package:phase1/pages/volunteer/donation_creation_page.dart';
-
 import 'package:url_launcher/url_launcher.dart'; // For website links
 import 'package:flutter/gestures.dart';
+import 'package:flutter/services.dart';
 
 class OrganizationProfilePage extends StatefulWidget {
   final Organization organization;
@@ -90,15 +90,17 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
       websiteURL = "https://" + widget.organization.website;
     }
     launch(websiteURL);
+    HapticFeedback.lightImpact();
   }
   void _donationLinkHandleTap() {
     String donationURL = '';
     if (widget.organization.donationLink.startsWith(RegExp('https{0, 1}://'))) {
-    donationURL = widget.organization.donationLink;
+      donationURL = widget.organization.donationLink;
     } else {
-    donationURL = "https://" + widget.organization.website;
+      donationURL = "https://" + widget.organization.donationLink;
     }
     launch(donationURL);
+    HapticFeedback.lightImpact();
   }
 
   @override
@@ -273,7 +275,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                         text: TextSpan(
                                           children: <TextSpan>[
                                             TextSpan(
-                                              text: 'Donation Link: ',
+                                              text: 'Cash Donations: ',
                                               style: TextStyle(
                                                 fontSize: 17,
                                                 color: colorScheme.onBackground,

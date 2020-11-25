@@ -16,7 +16,7 @@ class OrganizationSignUpPage extends StatefulWidget {
 }
 
 class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
-  String email = '', password = '', password2 = '', organizationName = '', description = '', number, website;
+  String email = '', password = '', password2 = '', organizationName = '', description = '', number, website, donationLink;
   GeoPoint location;
   TimeOfDay open, closed;
   TextEditingController controller = TextEditingController();
@@ -98,6 +98,16 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
                   },
                   maxLines: null,
                   hintText: 'Website (Optional)',
+                ),
+                SizedBox(height: 20),
+                FloatingTextField( // Cash donations link
+                  onChanged: (val) {
+                    setState(() {
+                      donationLink = val;
+                    });
+                  },
+                  maxLines: null,
+                  hintText: 'Cash Donations (Optional)',
                 ),
                 SizedBox(height: 20),
                 Row(
@@ -247,6 +257,7 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
                             'verified': false,
                             'number': number,
                             'website': website,
+                            'donationLink': donationLink,
                             'breaks': breaks,
                             'schedule': schedule,
                           });

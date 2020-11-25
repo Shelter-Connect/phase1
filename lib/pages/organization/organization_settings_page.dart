@@ -226,6 +226,30 @@ class OrganizationInfo extends StatelessWidget {
               SizedBox(
                 height: 10,
               ),
+              RichText( // Cash donations link
+                text: TextSpan(
+                  children: <InlineSpan>[
+                    TextSpan(
+                      text: 'Cash Donations: ',
+                      style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w600,
+                        color: colorScheme.onBackground,
+                      ),
+                    ),
+                    TextSpan(
+                      text: organization.donationLink,
+                      style: TextStyle(
+                        fontSize: 17,
+                        color: colorScheme.onBackground,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
               InkWell(
                 onTap: () async {
                   bool updated = await Navigator.push(
