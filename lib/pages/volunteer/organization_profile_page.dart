@@ -27,7 +27,8 @@ class OrganizationProfilePage extends StatefulWidget {
 class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
   bool loading = true;
   bool noRequests = true;
-  TapGestureRecognizer _tapGestureRecognizer;
+  TapGestureRecognizer _websiteLinkTapGestureRecognizer;
+  TapGestureRecognizer _donationLinkTapGestureRecognizer;
 
   _OrganizationProfilePageState();
 
@@ -69,16 +70,19 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
       });
     });
     super.initState();
-    _tapGestureRecognizer = TapGestureRecognizer()
-      ..onTap = _handleTap;
+    _websiteLinkTapGestureRecognizer = TapGestureRecognizer()
+      ..onTap = _websiteLinkHandleTap;
+    _donationLinkTapGestureRecognizer = TapGestureRecognizer()
+      ..onTap = _donationLinkHandleTap;
   }
 
   @override
-  void dispose() { // For the tap gesture recognizer
-    _tapGestureRecognizer?.dispose();
+  void dispose() { // For the tap gesture recognizers
+    _websiteLinkTapGestureRecognizer?.dispose();
+    _donationLinkTapGestureRecognizer?.dispose();
     super.dispose();
   }
-  void _handleTap() {
+  void _websiteLinkHandleTap() {
     String websiteURL = '';
     if (widget.organization.website.startsWith(RegExp('https{0, 1}://'))) {
       websiteURL = widget.organization.website;
@@ -86,7 +90,15 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
       websiteURL = "https://" + widget.organization.website;
     }
     launch(websiteURL);
-    print('On Tap method called');
+  }
+  void _donationLinkHandleTap() {
+    String donationURL = '';
+    if (widget.organization.donationLink.startsWith(RegExp('https{0, 1}://'))) {
+    donationURL = widget.organization.donationLink;
+    } else {
+    donationURL = "https://" + widget.organization.website;
+    }
+    launch(donationURL);
   }
 
   @override
@@ -247,16 +259,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                                 fontWeight: FontWeight.w600,
                                                 color: Colors.blue,
                                               ),
-                                              recognizer: _tapGestureRecognizer
-                                                // ..onTap = () {
-                                                //   String websiteURL = '';
-                                                //   if (widget.organization.website.startsWith(RegExp('https{0, 1}://'))) {
-                                                //     websiteURL = widget.organization.website;
-                                                //   } else {
-                                                //     websiteURL = "https://" + widget.organization.website;
-                                                //   }
-                                                //   launch(websiteURL);
-                                                // }
+                                              recognizer: _websiteLinkTapGestureRecognizer
                                             ),
                                           ],
                                         ),
@@ -283,16 +286,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                                 fontWeight: FontWeight.w600,
                                                 color: Colors.blue,
                                               ),
-                                              recognizer: _tapGestureRecognizer
-                                                // ..onTap = () {
-                                                //   String donationURL = '';
-                                                //   if (widget.organization.donationLink.startsWith(RegExp('https{0, 1}://'))) {
-                                                //     donationURL = widget.organization.donationLink;
-                                                //   } else {
-                                                //     donationURL = "https://" + widget.organization.website;
-                                                //   }
-                                                //   launch(donationURL);
-                                                // }
+                                              recognizer: _donationLinkTapGestureRecognizer
                                             ),
                                           ],
                                         ),
