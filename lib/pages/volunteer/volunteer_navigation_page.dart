@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:phase1/components/floating_text_field.dart';
 import 'package:phase1/components/flushbar.dart';
@@ -38,7 +37,6 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
 
   @override
   Widget build(BuildContext context) {
-    TimeOfDay open = new TimeOfDay.now(), closed = new TimeOfDay.now();
     return ChangeNotifierProvider<UserPosition>(
       create: (_) => UserPosition(),
       child: MultiProvider(
@@ -144,7 +142,7 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
                           index,
                           BottomNavigationBarItem(
                             icon: tab.icon,
-                            title: Text(tab.title),
+                            label: tab.title,
                             activeIcon: tab.activeIcon,
                           )),
                     )
