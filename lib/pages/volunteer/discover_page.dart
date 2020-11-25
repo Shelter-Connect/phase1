@@ -56,7 +56,7 @@ class _OrganizationDiscoverState extends State<OrganizationDiscover> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         (Provider.of<UserPosition>(context).position == null && hasPosition)
-            ? Center(child: Text(Provider.of<UserPosition>(context).position.toString()))
+            ? Center(child: CircularProgressIndicator())
             : Consumer<List<Organization>>(
                 builder: (context, organizations, widget) {
                   if (organizations == null) {
