@@ -84,7 +84,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
   }
   void _websiteLinkHandleTap() {
     String websiteURL = '';
-    if (widget.organization.website.startsWith(RegExp('https{0, 1}://'))) {
+    if (widget.organization.website.startsWith(RegExp('https{0,1}://'))) {
       websiteURL = widget.organization.website;
     } else {
       websiteURL = "https://" + widget.organization.website;
@@ -94,7 +94,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
   }
   void _donationLinkHandleTap() {
     String donationURL = '';
-    if (widget.organization.donationLink.startsWith(RegExp('https{0, 1}://'))) {
+    if (widget.organization.donationLink.startsWith(RegExp('https{0,1}://'))) {
       donationURL = widget.organization.donationLink;
     } else {
       donationURL = "https://" + widget.organization.donationLink;

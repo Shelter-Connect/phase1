@@ -142,7 +142,7 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
                           index,
                           BottomNavigationBarItem(
                             icon: tab.icon,
-                            label: tab.title,
+                            title: Text(tab.title),
                             activeIcon: tab.activeIcon,
                           )),
                     )
