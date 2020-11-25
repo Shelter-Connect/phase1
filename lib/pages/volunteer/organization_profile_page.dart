@@ -12,6 +12,9 @@ import 'package:phase1/models/item.dart';
 import 'package:phase1/models/organization.dart';
 import 'package:phase1/pages/volunteer/donation_creation_page.dart';
 
+import 'package:url_launcher/url_launcher.dart'; // For website links
+import 'package:flutter/gestures.dart';
+
 class OrganizationProfilePage extends StatefulWidget {
   final Organization organization;
 
@@ -24,6 +27,9 @@ class OrganizationProfilePage extends StatefulWidget {
 class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
   bool loading = true;
   bool noRequests = true;
+  TapGestureRecognizer _tapGestureRecognizer;
+
+  _OrganizationProfilePageState();
 
   @override
   void initState() {
@@ -63,6 +69,24 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
       });
     });
     super.initState();
+    _tapGestureRecognizer = TapGestureRecognizer()
+      ..onTap = _handleTap;
+  }
+
+  @override
+  void dispose() { // For the tap gesture recognizer
+    _tapGestureRecognizer?.dispose();
+    super.dispose();
+  }
+  void _handleTap() {
+    String websiteURL = '';
+    if (widget.organization.website.startsWith(RegExp('https{0, 1}://'))) {
+      websiteURL = widget.organization.website;
+    } else {
+      websiteURL = "https://" + widget.organization.website;
+    }
+    launch(websiteURL);
+    print('On Tap method called');
   }
 
   @override
@@ -221,13 +245,59 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                               style: TextStyle(
                                                 fontSize: 17,
                                                 fontWeight: FontWeight.w600,
-                                                color: colorScheme.onBackground,
+                                                color: Colors.blue,
                                               ),
+                                              recognizer: _tapGestureRecognizer
+                                                // ..onTap = () {
+                                                //   String websiteURL = '';
+                                                //   if (widget.organization.website.startsWith(RegExp('https{0, 1}://'))) {
+                                                //     websiteURL = widget.organization.website;
+                                                //   } else {
+                                                //     websiteURL = "https://" + widget.organization.website;
+                                                //   }
+                                                //   launch(websiteURL);
+                                                // }
                                             ),
                                           ],
                                         ),
                                       ),
                                     if (widget.organization.website != null)
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                    if (widget.organization.donationLink != null) // Donation Link
+                                      RichText(
+                                        text: TextSpan(
+                                          children: <TextSpan>[
+                                            TextSpan(
+                                              text: 'Donation Link: ',
+                                              style: TextStyle(
+                                                fontSize: 17,
+                                                color: colorScheme.onBackground,
+                                              ),
+                                            ),
+                                            TextSpan(
+                                              text: widget.organization.donationLink,
+                                              style: TextStyle(
+                                                fontSize: 17,
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.blue,
+                                              ),
+                                              recognizer: _tapGestureRecognizer
+                                                // ..onTap = () {
+                                                //   String donationURL = '';
+                                                //   if (widget.organization.donationLink.startsWith(RegExp('https{0, 1}://'))) {
+                                                //     donationURL = widget.organization.donationLink;
+                                                //   } else {
+                                                //     donationURL = "https://" + widget.organization.website;
+                                                //   }
+                                                //   launch(donationURL);
+                                                // }
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    if (widget.organization.donationLink != null)
                                       SizedBox(
                                         height: 10,
                                       ),

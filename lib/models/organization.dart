@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 import 'item.dart';
 
 class Organization {
-  String address, website, number, email, id, description, name;
+  String address, website, donationLink, number, email, id, description, name;
   Position location;
   double distance;
   Map<String, List<Item>> requestedItems = Map();
@@ -20,6 +20,7 @@ class Organization {
   Organization(
       {this.address,
       this.website,
+      this.donationLink,
       this.email,
       this.id,
       this.description,
@@ -37,6 +38,7 @@ class Organization {
       address: address,
       location: location,
       website: website,
+      donationLink: donationLink,
       number: number,
       email: email,
       id: id,
@@ -64,6 +66,7 @@ class Organization {
     address = organizationSnapshot['address'];
     location = Position(longitude: organizationSnapshot['location'].longitude, latitude: organizationSnapshot['location'].latitude);
     website = organizationSnapshot['website'];
+    donationLink = organizationSnapshot['donationLink'];
     number = organizationSnapshot['number'];
     email = organizationSnapshot['email'];
     id = organizationSnapshot.documentID;
