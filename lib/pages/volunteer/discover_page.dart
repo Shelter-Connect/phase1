@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:phase1/models/organization.dart';
 import 'package:phase1/models/user_position.dart';
@@ -21,12 +20,10 @@ class OrganizationDiscover extends StatefulWidget with NavigationTab {
       'To see more information about an organization, or to sign up for a donation, click on an organization. ';
 
   @override
-  Widget get icon => SvgPicture.asset(
-      "assets/jam_icons/compass.svg", color: purpleAccent);
+  Widget get icon => SvgPicture.asset("assets/jam_icons/compass.svg", color: purpleAccent);
 
   @override
-  Widget get activeIcon => SvgPicture.asset(
-      "assets/jam_icons/compass-f.svg", color: purpleAccent);
+  Widget get activeIcon => SvgPicture.asset("assets/jam_icons/compass-f.svg", color: purpleAccent);
 
   @override
   String get title => 'Discover';

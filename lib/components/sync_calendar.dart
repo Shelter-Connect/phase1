@@ -26,6 +26,7 @@ class SyncCalendar extends StatelessWidget {
                           RetrieveEventsParams(startDate: DateTime.now().add(Duration(days: -69)), endDate: DateTime.now().add(Duration(days: 365))));
                       List<Event> events = [];
                       for (Event event in calendarEventsResult.data) {
+                        if (event.title.substring(0, 21) == 'A Linkare delivery of') continue;
                         bool yes = false;
                         for (Donation donation in donations) {
                           if (event.eventId == donation.sync) {
@@ -47,7 +48,7 @@ class SyncCalendar extends StatelessWidget {
                         event.end = donation.date;
                         event.location = donation.organization.address;
                         event.title = isOrg ? 'Delivery from ${donation.volunteerName}' : 'Delivery to ${donation.organization.name}';
-                        String description = 'A delivery of\n';
+                        String description = 'A Linkare delivery of\n';
                         for (Item item in donation.items)
                           description +=
                               ' ${item.amount}${item.unit != '' ? ' ' + item.unit : ''} ${item.name}${item.specificDescription != '' ? ' ' + item.specificDescription : ''}\n';
