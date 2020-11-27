@@ -589,7 +589,7 @@ class EditHourContainer extends StatelessWidget {
               icon: Icon(Feather.edit, color: Colors.red, size: 20),
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(
-                    builder: (context) => EditHoursWeekDay(date: day))); //TODO Give it a list of TextEditing COntrollers
+                    builder: (context) => EditHoursWeekDay(date: day, timeFrames: timeFrames))); //TODO Give it a list of TextEditing COntrollers
               },
             ),
           ],

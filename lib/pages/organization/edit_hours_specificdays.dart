@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
-import 'package:phase1/components/edit_hours_dates.dart';
 import 'package:phase1/components/standard_layout.dart';
 
 import '../../constants.dart';
@@ -26,7 +25,6 @@ class _EditHoursSpecificDayState extends State<EditHoursSpecificDay> {
             child: Column(
               children: [
                 SizedBox(height: 10),
-                EditHoursDate(),
                 SizedBox(height: 10),
               ],
             ),

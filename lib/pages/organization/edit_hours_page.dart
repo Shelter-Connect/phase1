@@ -1,7 +1,6 @@
 import 'package:date_range_picker/date_range_picker.dart' as DateRagePicker;
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
-import 'package:phase1/components/edit_hours_dates.dart';
 import 'package:phase1/components/rounded_button.dart';
 import 'package:phase1/components/standard_layout.dart';
 import 'package:phase1/constants.dart';
@@ -100,7 +99,7 @@ class _EditHoursState extends State<EditHours> with TickerProviderStateMixin {
                       IconButton(
                         icon: Icon(Feather.edit, color: Colors.red, size: 22),
                         onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => EditHoursWeekDay(date: 'Monday')));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => EditHoursWeekDay(date: 'Monday', timeFrames: widget.organization.schedule['Monday'])));
                         },
                       ),
                     ],
@@ -149,7 +148,7 @@ class _EditHoursState extends State<EditHours> with TickerProviderStateMixin {
                     IconButton(
                       icon: Icon(Feather.edit, color: Colors.red, size: 22),
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => EditHoursWeekDay(date: 'Tuesday')));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => EditHoursWeekDay(date: 'Tuesday', timeFrames: widget.organization.schedule['Tuesday'],)));
                       },
                     ),
                   ],
@@ -198,7 +197,7 @@ class _EditHoursState extends State<EditHours> with TickerProviderStateMixin {
                     IconButton(
                       icon: Icon(Feather.edit, color: Colors.red, size: 22),
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => EditHoursWeekDay(date: 'Wednesday')));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => EditHoursWeekDay(date: 'Wednesday', timeFrames: widget.organization.schedule['Wednesday'])));
                       },
                     ),
                   ],
@@ -247,7 +246,7 @@ class _EditHoursState extends State<EditHours> with TickerProviderStateMixin {
                     IconButton(
                       icon: Icon(Feather.edit, color: Colors.red, size: 22),
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => EditHoursWeekDay(date: 'Thursday')));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => EditHoursWeekDay(date: 'Thursday', timeFrames: widget.organization.schedule['Thursday'])));
                       },
                     ),
                   ],
@@ -296,7 +295,7 @@ class _EditHoursState extends State<EditHours> with TickerProviderStateMixin {
                     IconButton(
                       icon: Icon(Feather.edit, color: Colors.red, size: 22),
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => EditHoursWeekDay(date: 'Friday')));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => EditHoursWeekDay(date: 'Friday', timeFrames: widget.organization.schedule['Friday'])));
                       },
                     ),
                   ],
@@ -345,7 +344,7 @@ class _EditHoursState extends State<EditHours> with TickerProviderStateMixin {
                     IconButton(
                       icon: Icon(Feather.edit, color: Colors.red, size: 22),
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => EditHoursWeekDay(date: 'Saturday')));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => EditHoursWeekDay(date: 'Saturday',timeFrames: widget.organization.schedule['Saturday'])));
                       },
                     ),
                   ],
@@ -394,7 +393,7 @@ class _EditHoursState extends State<EditHours> with TickerProviderStateMixin {
                     IconButton(
                       icon: Icon(Feather.edit, color: Colors.red, size: 22),
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => EditHoursWeekDay(date: 'Sunday')));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => EditHoursWeekDay(date: 'Sunday', timeFrames: widget.organization.schedule['Sunday'])));
                       },
                     ),
                   ],
