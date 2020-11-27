@@ -350,19 +350,19 @@ class DonationAvailabilityHourSettings extends StatelessWidget {
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
               ),
               SizedBox(height: 10),
-              EditHourContainer(day: 'Monday', timeFrames: organization.schedule['Monday']),
+              EditHourContainer(day: 'Monday', timeFrames: organization.schedule['Monday'], organization: organization),
               SizedBox(height: 5),
-              EditHourContainer(day: 'Tuesday', timeFrames: organization.schedule['Tuesday']),
+              EditHourContainer(day: 'Tuesday', timeFrames: organization.schedule['Tuesday'], organization: organization),
               SizedBox(height: 5),
-              EditHourContainer(day: 'Wednesday', timeFrames: organization.schedule['Wednesday']),
+              EditHourContainer(day: 'Wednesday', timeFrames: organization.schedule['Wednesday'], organization: organization),
               SizedBox(height: 5),
-              EditHourContainer(day: 'Thursday', timeFrames: organization.schedule['Thursday']),
+              EditHourContainer(day: 'Thursday', timeFrames: organization.schedule['Thursday'], organization: organization),
               SizedBox(height: 5),
-              EditHourContainer(day: 'Friday', timeFrames: organization.schedule['Friday']),
+              EditHourContainer(day: 'Friday', timeFrames: organization.schedule['Friday'], organization: organization),
               SizedBox(height: 5),
-              EditHourContainer(day: 'Saturday', timeFrames: organization.schedule['Saturday']),
+              EditHourContainer(day: 'Saturday', timeFrames: organization.schedule['Saturday'], organization: organization),
               SizedBox(height: 5),
-              EditHourContainer(day: 'Sunday',timeFrames: organization.schedule['Sunday']),
+              EditHourContainer(day: 'Sunday',timeFrames: organization.schedule['Sunday'], organization: organization),
               SizedBox(height: 10),
 //              Text(
 //                'Specific Holiday Dates',
@@ -534,10 +534,12 @@ class DemoProfileButton extends StatelessWidget {
 class EditHourContainer extends StatelessWidget {
   final List<TimeOfDay> timeFrames;
   final String day;
+  Organization organization;
 
   EditHourContainer({
     this.day,
-    this.timeFrames
+    this.timeFrames,
+    @required this.organization
   });
 
   @override
@@ -563,12 +565,12 @@ class EditHourContainer extends StatelessWidget {
                 )),
             Spacer(),
             Column(
-                children: [for (int i = 0; i < timeFrames.length; i++)
+                children: [for (int i = 0; i < timeFrames.length; i = i + 2)
                   Container(
                       child: Row(
                         children: [
                           Text(
-                              '${timeFrames[i].hour}:${timeFrames[i++].minute}',
+                              '${timeFrames[i].hour}:${timeFrames[i].minute}',
                               style: TextStyle(fontWeight: FontWeight.w400,
                                   fontSize: 20,
                                   color: Colors.black)),
@@ -576,7 +578,7 @@ class EditHourContainer extends StatelessWidget {
                               fontWeight: FontWeight.w400,
                               fontSize: 20,
                               color: Colors.black)),
-                          Text('${timeFrames[i].hour}:${timeFrames[i].minute}',
+                          Text('${timeFrames[i+1].hour}:${timeFrames[i+1].minute}',
                               style: TextStyle(fontWeight: FontWeight.w400,
                                   fontSize: 20,
                                   color: Colors.black)),
@@ -588,8 +590,9 @@ class EditHourContainer extends StatelessWidget {
             IconButton(
               icon: Icon(Feather.edit, color: Colors.red, size: 20),
               onPressed: () {
+                print(timeFrames.length);
                 Navigator.push(context, MaterialPageRoute(
-                    builder: (context) => EditHoursWeekDay(date: day, timeFrames: timeFrames))); //TODO Give it a list of TextEditing COntrollers
+                    builder: (context) => EditHoursWeekDay(date: day, timeFrames: timeFrames, schedule: organization.schedule,))); //TODO Give it a list of TextEditing COntrollers
               },
             ),
           ],

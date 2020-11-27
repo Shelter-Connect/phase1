@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:phase1/components/floating_text_field.dart';
 import 'package:phase1/components/standard_layout.dart';
+import 'package:phase1/services/firestore_helper.dart';
 
 import '../../constants.dart';
 
 class EditHoursWeekDay extends StatefulWidget {
   final String date;
+  Map<String, List<TimeOfDay>> schedule;
   List<TimeOfDay> timeFrames;
+  Map<String, List<DateTime>> temp = {};
 
-  EditHoursWeekDay({@required this.date, @required this.timeFrames});
+  EditHoursWeekDay(
+      {@required this.date,
+      @required this.timeFrames,
+      @required this.schedule});
 
   @override
   _EditHoursWeekDayState createState() => _EditHoursWeekDayState();
@@ -24,6 +29,16 @@ class _EditHoursWeekDayState extends State<EditHoursWeekDay> {
     for (TimeOfDay time in widget.timeFrames)
       controllers.add(
           new TextEditingController(text: '${time.hour} : ${time.minute}'));
+    widget.schedule[widget.date] = widget.timeFrames;
+    for (String dayOfWeek in widget.schedule.keys) {
+      List<DateTime> day = [];
+      DateTime now = DateTime.now();
+      for (TimeOfDay time in widget.schedule[dayOfWeek])
+        day.add(
+            new DateTime(now.year, now.month, now.day, time.hour, time.minute));
+      widget.temp[dayOfWeek] = day;
+    }
+
     super.initState();
   }
 
@@ -50,7 +65,7 @@ class _EditHoursWeekDayState extends State<EditHoursWeekDay> {
                             children: [
                               SizedBox(width: 5),
                               FloatingTextField(
-                                width: MediaQuery.of(context).size.width * 0.35,
+                                width: MediaQuery.of(context).size.width * 0.30,
                                 height: 45,
                                 hintText: 'Open',
                                 controller: controllers[i],
@@ -65,8 +80,8 @@ class _EditHoursWeekDayState extends State<EditHoursWeekDay> {
                                     setState(() {
                                       time = open;
                                     });
-                                    controllers[i].text =
-                                        open.format(context);
+                                    controllers[i].text = open.format(context);
+                                    widget.timeFrames[i] = open;
                                   }
                                 },
                               ),
@@ -78,10 +93,10 @@ class _EditHoursWeekDayState extends State<EditHoursWeekDay> {
                                 width: 15,
                               ),
                               FloatingTextField(
-                                width: MediaQuery.of(context).size.width * 0.35,
+                                width: MediaQuery.of(context).size.width * 0.30,
                                 height: 45,
                                 hintText: 'Closed',
-                                controller: controllers[i+1],
+                                controller: controllers[i + 1],
                                 // add this line.
                                 onTapped: () async {
                                   TimeOfDay time = TimeOfDay.now();
@@ -93,22 +108,61 @@ class _EditHoursWeekDayState extends State<EditHoursWeekDay> {
                                     setState(() {
                                       time = closed;
                                     });
-                                    controllers[i+1].text =
+                                    controllers[i + 1].text =
                                         closed.format(context);
+                                    widget.timeFrames[i + 1] = closed;
                                   }
                                 },
                               ),
+                              IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    controllers.removeAt(i);
+                                    widget.timeFrames.removeAt(i);
+                                    controllers.removeAt(i);
+                                    widget.timeFrames.removeAt(i);
+                                  });
+                                },
+                                icon: Icon(Icons.delete, color: Colors.red),
+                              )
                             ],
                           ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 SizedBox(height: 20),
                 Align(
+                    alignment: Alignment.centerRight,
+                    child: IconButton(
+                      icon: Icon(Icons.add, size: 24, color: purpleAccent),
+                      onPressed: () {
+                        TimeOfDay open = new TimeOfDay.now();
+                        TimeOfDay close = new TimeOfDay.now();
+                        setState(() {
+                          controllers.add(new TextEditingController(
+                              text: '${open.hour} : ${open.minute}'));
+                          controllers.add(new TextEditingController(
+                              text: '${close.hour} : ${close.minute}'));
+                          widget.timeFrames.add(open);
+                          widget.timeFrames.add(close);
+                        });
+                      },
+                    )),
+                Align(
                   alignment: Alignment.centerLeft,
                   child: InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      DateTime now = new DateTime.now();
+                      widget.temp[widget.date] = [];
+                      for (TimeOfDay time in widget.timeFrames)
+                        widget.temp[widget.date].add(new DateTime(now.year,
+                            now.month, now.day, time.hour, time.minute));
+                      FirestoreHelper.getCurrentOrganizationReference(context)
+                          .updateData({
+                        'schedule': widget.temp,
+                      }).then((value) => null);
+                    },
                     child: Container(
                       height: 37,
                       width: MediaQuery.of(context).size.width * 0.65,
@@ -125,8 +179,7 @@ class _EditHoursWeekDayState extends State<EditHoursWeekDay> {
                               Icon(Icons.edit, color: Colors.white, size: 25),
                               SizedBox(width: 2),
                               Text(
-                                'Update Hours for ${widget.date}',
-                                //TODO Change to : Update Business Hours
+                                'Save Changes for ${widget.date}',
                                 style: TextStyle(
                                   color: colorScheme.onSecondary,
                                   fontWeight: FontWeight.w500,
