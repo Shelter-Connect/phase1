@@ -2,7 +2,9 @@ import 'dart:io' show Platform;
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:map_launcher/map_launcher.dart';
 import 'package:phase1/components/maps_sheet.dart';
@@ -12,8 +14,6 @@ import 'package:phase1/models/item.dart';
 import 'package:phase1/models/organization.dart';
 import 'package:phase1/pages/volunteer/donation_creation_page.dart';
 import 'package:url_launcher/url_launcher.dart'; // For website links
-import 'package:flutter/gestures.dart';
-import 'package:flutter/services.dart';
 
 class OrganizationProfilePage extends StatefulWidget {
   final Organization organization;
@@ -70,18 +70,18 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
       });
     });
     super.initState();
-    _websiteLinkTapGestureRecognizer = TapGestureRecognizer()
-      ..onTap = _websiteLinkHandleTap;
-    _donationLinkTapGestureRecognizer = TapGestureRecognizer()
-      ..onTap = _donationLinkHandleTap;
+    _websiteLinkTapGestureRecognizer = TapGestureRecognizer()..onTap = _websiteLinkHandleTap;
+    _donationLinkTapGestureRecognizer = TapGestureRecognizer()..onTap = _donationLinkHandleTap;
   }
 
   @override
-  void dispose() { // For the tap gesture recognizers
+  void dispose() {
+    // For the tap gesture recognizers
     _websiteLinkTapGestureRecognizer?.dispose();
     _donationLinkTapGestureRecognizer?.dispose();
     super.dispose();
   }
+
   void _websiteLinkHandleTap() {
     String websiteURL = '';
     if (widget.organization.website.startsWith(RegExp('https{0,1}://'))) {
@@ -92,6 +92,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
     launch(websiteURL);
     HapticFeedback.lightImpact();
   }
+
   void _donationLinkHandleTap() {
     String donationURL = '';
     if (widget.organization.donationLink.startsWith(RegExp('https{0,1}://'))) {
@@ -163,7 +164,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                       height: 28,
                                     )),
                                 Padding(
-                                  padding: const EdgeInsets.only(top: 8.0, left: 20.0),
+                                  padding: const EdgeInsets.only(top: 8.0),
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
@@ -255,14 +256,13 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                               ),
                                             ),
                                             TextSpan(
-                                              text: widget.organization.website,
-                                              style: TextStyle(
-                                                fontSize: 17,
-                                                fontWeight: FontWeight.w600,
-                                                color: Colors.blue,
-                                              ),
-                                              recognizer: _websiteLinkTapGestureRecognizer
-                                            ),
+                                                text: widget.organization.website,
+                                                style: TextStyle(
+                                                  fontSize: 17,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: Colors.blue,
+                                                ),
+                                                recognizer: _websiteLinkTapGestureRecognizer),
                                           ],
                                         ),
                                       ),
@@ -282,14 +282,13 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                               ),
                                             ),
                                             TextSpan(
-                                              text: widget.organization.donationLink,
-                                              style: TextStyle(
-                                                fontSize: 17,
-                                                fontWeight: FontWeight.w600,
-                                                color: Colors.blue,
-                                              ),
-                                              recognizer: _donationLinkTapGestureRecognizer
-                                            ),
+                                                text: widget.organization.donationLink,
+                                                style: TextStyle(
+                                                  fontSize: 17,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: Colors.blue,
+                                                ),
+                                                recognizer: _donationLinkTapGestureRecognizer),
                                           ],
                                         ),
                                       ),

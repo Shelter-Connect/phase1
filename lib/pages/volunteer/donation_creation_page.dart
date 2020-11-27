@@ -64,7 +64,8 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                     widget.organization.name,
                     style: mainTitleStyle,
                   ),
-                  if (widget.organization.distance != null) Text('${widget.organization.distance.toStringAsFixed(1)} miles away', style: subTitleStyle),
+                  if (widget.organization.distance != null)
+                    Text('${widget.organization.distance.toStringAsFixed(1)} miles away', style: subTitleStyle),
                 ],
               ),
             ),
@@ -252,7 +253,6 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                         builder: (_) => NoActionAlert(title: 'Please enter the expected delivery date of the donation'),
                       );
                     } else if (donation.date.isBefore(today)) {
-                      print(donation.date);
                       showDialog(
                         context: context,
                         builder: (_) => NoActionAlert(title: 'The expected delivery date cannot be before today'),

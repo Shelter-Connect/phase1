@@ -121,9 +121,7 @@ class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
                                 'Donation Deadline Date (Option)',
                                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: Colors.black54),
                               ),
-                              BasicDateField(onChanged: (val) {
-                                print('Hello');
-                              } //TODO Add deadline date save feature
+                              BasicDateField(onChanged: (val) {} //TODO Add deadline date save feature
                                   ),
                             ],
                           ),

@@ -9,33 +9,24 @@ class EditHoursWeekDay extends StatefulWidget {
   final String date;
   Map<String, List<TimeOfDay>> schedule;
   List<TimeOfDay> timeFrames;
+  List<TextEditingController> controllers = [];
   Map<String, List<DateTime>> temp = {};
 
-  EditHoursWeekDay(
-      {@required this.date,
-      @required this.timeFrames,
-      @required this.schedule});
+  EditHoursWeekDay({@required this.date, @required this.timeFrames, @required this.schedule, @required this.controllers});
 
   @override
   _EditHoursWeekDayState createState() => _EditHoursWeekDayState();
 }
 
 class _EditHoursWeekDayState extends State<EditHoursWeekDay> {
-  List<TextEditingController> controllers = [];
-
   @override
   void initState() {
     if (widget.timeFrames == null) widget.timeFrames = [];
-    for (TimeOfDay time in widget.timeFrames)
-      controllers.add(
-          new TextEditingController(text: '${time.hour} : ${time.minute}'));
     widget.schedule[widget.date] = widget.timeFrames;
     for (String dayOfWeek in widget.schedule.keys) {
       List<DateTime> day = [];
       DateTime now = DateTime.now();
-      for (TimeOfDay time in widget.schedule[dayOfWeek])
-        day.add(
-            new DateTime(now.year, now.month, now.day, time.hour, time.minute));
+      for (TimeOfDay time in widget.schedule[dayOfWeek]) day.add(new DateTime(now.year, now.month, now.day, time.hour, time.minute));
       widget.temp[dayOfWeek] = day;
     }
 
@@ -68,19 +59,17 @@ class _EditHoursWeekDayState extends State<EditHoursWeekDay> {
                                 width: MediaQuery.of(context).size.width * 0.30,
                                 height: 45,
                                 hintText: 'Open',
-                                controller: controllers[i],
+                                controller: widget.controllers[i],
                                 // add this line.
                                 onTapped: () async {
                                   TimeOfDay time = TimeOfDay.now();
-                                  FocusScope.of(context)
-                                      .requestFocus(new FocusNode());
-                                  TimeOfDay open = await showTimePicker(
-                                      context: context, initialTime: time);
+                                  FocusScope.of(context).requestFocus(new FocusNode());
+                                  TimeOfDay open = await showTimePicker(context: context, initialTime: time);
                                   if (open != null) {
                                     setState(() {
                                       time = open;
                                     });
-                                    controllers[i].text = open.format(context);
+                                    widget.controllers[i].text = open.format(context);
                                     widget.timeFrames[i] = open;
                                   }
                                 },
@@ -96,20 +85,17 @@ class _EditHoursWeekDayState extends State<EditHoursWeekDay> {
                                 width: MediaQuery.of(context).size.width * 0.30,
                                 height: 45,
                                 hintText: 'Closed',
-                                controller: controllers[i + 1],
+                                controller: widget.controllers[i + 1],
                                 // add this line.
                                 onTapped: () async {
                                   TimeOfDay time = TimeOfDay.now();
-                                  FocusScope.of(context)
-                                      .requestFocus(new FocusNode());
-                                  TimeOfDay closed = await showTimePicker(
-                                      context: context, initialTime: time);
+                                  FocusScope.of(context).requestFocus(new FocusNode());
+                                  TimeOfDay closed = await showTimePicker(context: context, initialTime: time);
                                   if (closed != null) {
                                     setState(() {
                                       time = closed;
                                     });
-                                    controllers[i + 1].text =
-                                        closed.format(context);
+                                    widget.controllers[i + 1].text = closed.format(context);
                                     widget.timeFrames[i + 1] = closed;
                                   }
                                 },
@@ -117,9 +103,9 @@ class _EditHoursWeekDayState extends State<EditHoursWeekDay> {
                               IconButton(
                                 onPressed: () {
                                   setState(() {
-                                    controllers.removeAt(i);
+                                    widget.controllers.removeAt(i);
                                     widget.timeFrames.removeAt(i);
-                                    controllers.removeAt(i);
+                                    widget.controllers.removeAt(i);
                                     widget.timeFrames.removeAt(i);
                                   });
                                 },
@@ -140,10 +126,8 @@ class _EditHoursWeekDayState extends State<EditHoursWeekDay> {
                         TimeOfDay open = new TimeOfDay.now();
                         TimeOfDay close = new TimeOfDay.now();
                         setState(() {
-                          controllers.add(new TextEditingController(
-                              text: '${open.hour} : ${open.minute}'));
-                          controllers.add(new TextEditingController(
-                              text: '${close.hour} : ${close.minute}'));
+                          widget.controllers.add(new TextEditingController(text: '${open.hour} : ${open.minute}'));
+                          widget.controllers.add(new TextEditingController(text: '${close.hour} : ${close.minute}'));
                           widget.timeFrames.add(open);
                           widget.timeFrames.add(close);
                         });
@@ -156,10 +140,8 @@ class _EditHoursWeekDayState extends State<EditHoursWeekDay> {
                       DateTime now = new DateTime.now();
                       widget.temp[widget.date] = [];
                       for (TimeOfDay time in widget.timeFrames)
-                        widget.temp[widget.date].add(new DateTime(now.year,
-                            now.month, now.day, time.hour, time.minute));
-                      FirestoreHelper.getCurrentOrganizationReference(context)
-                          .updateData({
+                        widget.temp[widget.date].add(new DateTime(now.year, now.month, now.day, time.hour, time.minute));
+                      FirestoreHelper.getCurrentOrganizationReference(context).updateData({
                         'schedule': widget.temp,
                       }).then((value) => null);
                     },
@@ -172,8 +154,7 @@ class _EditHoursWeekDayState extends State<EditHoursWeekDay> {
                       ),
                       child: Center(
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 12.0, vertical: 8.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
                           child: Row(
                             children: <Widget>[
                               Icon(Icons.edit, color: Colors.white, size: 25),

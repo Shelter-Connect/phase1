@@ -5,35 +5,27 @@ import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:phase1/components/alerts.dart';
 import 'package:phase1/components/flushbar.dart';
 import 'package:phase1/models/organization.dart';
-import 'package:phase1/pages/organization/edit_hours_page.dart';
 import 'package:phase1/pages/organization/organization_edit_info_page.dart';
 import 'package:phase1/pages/organization/organization_preview_page.dart';
 import 'package:phase1/services/firestore_helper.dart';
 
 import '../../constants.dart';
 import '../navigation_tab.dart';
-import 'edit_hours_specificdays.dart';
 import 'edit_hours_weekdays.dart';
 
 class OrganizationSettingsPage extends StatefulWidget with NavigationTab {
   @override
-  _OrganizationSettingsPageState createState() =>
-      _OrganizationSettingsPageState();
+  _OrganizationSettingsPageState createState() => _OrganizationSettingsPageState();
 
   @override
-  String get helpDescription =>
-      'This is your Account Settings page. Here, you can see and edit your account and sign out, if you\'d like. '
-          'In addition, you can preview your profile as volunteers will see it.';
+  String get helpDescription => 'This is your Account Settings page. Here, you can see and edit your account and sign out, if you\'d like. '
+      'In addition, you can preview your profile as volunteers will see it.';
 
   @override
-  Widget get icon =>
-      SvgPicture.asset(
-          "assets/jam_icons/user-f.svg", color: purpleAccent);
+  Widget get icon => SvgPicture.asset("assets/jam_icons/user-f.svg", color: purpleAccent);
 
   @override
-  Widget get activeIcon =>
-      SvgPicture.asset(
-          "assets/jam_icons/user.svg", color: purpleAccent);
+  Widget get activeIcon => SvgPicture.asset("assets/jam_icons/user.svg", color: purpleAccent);
 
   @override
   String get title => 'Account';
@@ -47,13 +39,10 @@ class _OrganizationSettingsPageState extends State<OrganizationSettingsPage> {
 
   @override
   void initState() {
-    DocumentReference organizationReference = FirestoreHelper
-        .getCurrentOrganizationReference(context);
+    DocumentReference organizationReference = FirestoreHelper.getCurrentOrganizationReference(context);
     organizationReference.get().then((snapshot) {
       setState(() {
-        organization = Organization.fromFirestoreMap(context: context,
-            organizationSnapshot: snapshot,
-            isVolunteer: false);
+        organization = Organization.fromFirestoreMap(context: context, organizationSnapshot: snapshot, isVolunteer: false);
       });
     });
     super.initState();
@@ -63,24 +52,24 @@ class _OrganizationSettingsPageState extends State<OrganizationSettingsPage> {
   Widget build(BuildContext context) {
     return organization == null
         ? Center(
-      child: CircularProgressIndicator(),
-    )
+            child: CircularProgressIndicator(),
+          )
         : SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          SizedBox(height: 10),
-          OrganizationInfo(organization: organization),
-          SizedBox(height: 20),
-          DonationAvailabilityHourSettings(organization: organization),
-          SizedBox(height: 20),
-          DemoProfileButton(organization),
-          SizedBox(height: 20),
-          SignOutButton(),
-          SizedBox(height: 40),
-        ],
-      ),
-    );
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                SizedBox(height: 10),
+                OrganizationInfo(organization: organization),
+                SizedBox(height: 20),
+                DonationAvailabilityHourSettings(organization: organization),
+                SizedBox(height: 20),
+                DemoProfileButton(organization),
+                SizedBox(height: 20),
+                SignOutButton(),
+                SizedBox(height: 40),
+              ],
+            ),
+          );
   }
 }
 
@@ -113,8 +102,7 @@ class OrganizationInfo extends StatelessWidget {
               Container(
                 height: 5,
                 width: 100,
-                decoration: BoxDecoration(color: purpleAccent,
-                    borderRadius: BorderRadius.circular(21)),
+                decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
               ),
               SizedBox(height: 10),
               RichText(
@@ -237,7 +225,8 @@ class OrganizationInfo extends StatelessWidget {
               SizedBox(
                 height: 10,
               ),
-              RichText( // Cash donations link
+              RichText(
+                // Cash donations link
                 text: TextSpan(
                   children: <InlineSpan>[
                     TextSpan(
@@ -266,14 +255,11 @@ class OrganizationInfo extends StatelessWidget {
                   bool updated = await Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) =>
-                          OrganizationEditInfoPage(organization),
+                      builder: (context) => OrganizationEditInfoPage(organization),
                     ),
                   );
                   if (updated) {
-                    FlushBar(
-                        message: 'Your organization information has been updated',
-                        duration: Duration(seconds: 3)).build(context);
+                    FlushBar(message: 'Your organization information has been updated', duration: Duration(seconds: 3)).build(context);
                   }
                 },
                 child: Container(
@@ -284,8 +270,7 @@ class OrganizationInfo extends StatelessWidget {
                     borderRadius: BorderRadius.circular(21),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 12.0, vertical: 8.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
                     child: Row(
                       children: <Widget>[
                         Icon(Icons.edit, color: Colors.white, size: 25),
@@ -341,8 +326,7 @@ class DonationAvailabilityHourSettings extends StatelessWidget {
               Container(
                 height: 5,
                 width: 100,
-                decoration: BoxDecoration(color: purpleAccent,
-                    borderRadius: BorderRadius.circular(21)),
+                decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
               ),
               SizedBox(height: 10),
               Text(
@@ -362,7 +346,7 @@ class DonationAvailabilityHourSettings extends StatelessWidget {
               SizedBox(height: 5),
               EditHourContainer(day: 'Saturday', timeFrames: organization.schedule['Saturday'], organization: organization),
               SizedBox(height: 5),
-              EditHourContainer(day: 'Sunday',timeFrames: organization.schedule['Sunday'], organization: organization),
+              EditHourContainer(day: 'Sunday', timeFrames: organization.schedule['Sunday'], organization: organization),
               SizedBox(height: 10),
 //              Text(
 //                'Specific Holiday Dates',
@@ -458,15 +442,14 @@ class SignOutButton extends StatelessWidget {
         onTap: () {
           showDialog(
             context: context,
-            builder: (_) =>
-                SingleActionAlert(
-                  action: () {
-                    auth.signOut();
-                  },
-                  actionName: 'Sign Out',
-                  title: 'Sign Out?',
-                  subtitle: 'Your login info will not be remembered.',
-                ),
+            builder: (_) => SingleActionAlert(
+              action: () {
+                auth.signOut();
+              },
+              actionName: 'Sign Out',
+              title: 'Sign Out?',
+              subtitle: 'Your login info will not be remembered.',
+            ),
           );
         },
         child: Container(
@@ -484,9 +467,7 @@ class SignOutButton extends StatelessWidget {
                 SizedBox(width: 5),
                 Text(
                   'Sign Out',
-                  style: TextStyle(fontSize: 22,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white),
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600, color: Colors.white),
                 ),
               ],
             ),
@@ -522,8 +503,7 @@ class DemoProfileButton extends StatelessWidget {
         child: Center(
           child: Text(
             'Preview Profile',
-            style: TextStyle(
-                fontSize: 20, fontWeight: FontWeight.w600, color: Colors.white),
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.white),
           ),
         ),
       ),
@@ -532,24 +512,17 @@ class DemoProfileButton extends StatelessWidget {
 }
 
 class EditHourContainer extends StatelessWidget {
-  final List<TimeOfDay> timeFrames;
+  List<TimeOfDay> timeFrames;
   final String day;
   Organization organization;
 
-  EditHourContainer({
-    this.day,
-    this.timeFrames,
-    @required this.organization
-  });
+  EditHourContainer({this.day, this.timeFrames, @required this.organization});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       color: Color(0xFFF5F5F5),
-      width: MediaQuery
-          .of(context)
-          .size
-          .width,
+      width: MediaQuery.of(context).size.width,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6),
         child: Row(
@@ -557,47 +530,57 @@ class EditHourContainer extends StatelessWidget {
           children: [
             Container(
                 child: Row(
+              children: [
+                SizedBox(width: 5),
+                Text(
+                    (day == 'Monday')
+                        ? 'M'
+                        : (day == 'Tuesday')
+                            ? 'T'
+                            : (day == 'Wednesday')
+                                ? 'W'
+                                : (day == 'Thursday')
+                                    ? 'Th'
+                                    : (day == 'Friday')
+                                        ? 'F'
+                                        : (day == 'Saturday')
+                                            ? 'S'
+                                            : (day == 'Sunday')
+                                                ? 'Su'
+                                                : (day == 'None'),
+                    style: subTitleStyle2),
+              ],
+            )),
+            Spacer(),
+            Column(children: [
+              for (int i = 0; i < timeFrames.length; i = i + 2)
+                Container(
+                    child: Row(
                   children: [
-                    SizedBox(width: 5),
-                    Text((day == 'Monday') ? 'M' : (day == 'Tuesday') ? 'T': (day == 'Wednesday') ? 'W': (day == 'Thursday') ? 'Th':(day == 'Friday') ? 'F':(day == 'Saturday') ? 'S':(day == 'Sunday') ? 'Su':(day == 'None'),
-                        style: subTitleStyle2),
+                    Text(timeFrames[i].format(context), style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20, color: Colors.black)),
+                    Text('  -  ', style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20, color: Colors.black)),
+                    Text(timeFrames[i + 1].format(context), style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20, color: Colors.black)),
                   ],
                 )),
-            Spacer(),
-            Column(
-                children: [for (int i = 0; i < timeFrames.length; i = i + 2)
-                  Container(
-                      child: Row(
-                        children: [
-                          Text(
-                              '${timeFrames[i].hour}:${timeFrames[i].minute}',
-                              style: TextStyle(fontWeight: FontWeight.w400,
-                                  fontSize: 20,
-                                  color: Colors.black)),
-                          Text('  -  ', style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 20,
-                              color: Colors.black)),
-                          Text('${timeFrames[i+1].hour}:${timeFrames[i+1].minute}',
-                              style: TextStyle(fontWeight: FontWeight.w400,
-                                  fontSize: 20,
-                                  color: Colors.black)),
-                        ],
-                      )
-                  ),
-                ]),
+            ]),
             Spacer(),
             IconButton(
               icon: Icon(Feather.edit, color: Colors.red, size: 20),
               onPressed: () {
-                print(timeFrames.length);
-                Navigator.push(context, MaterialPageRoute(
-                    builder: (context) => EditHoursWeekDay(date: day, timeFrames: timeFrames, schedule: organization.schedule,))); //TODO Give it a list of TextEditing COntrollers
+                if (timeFrames == null) timeFrames = [];
+                List<TextEditingController> controllers = [];
+                for (TimeOfDay time in timeFrames) controllers.add(new TextEditingController(text: time.format(context)));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            EditHoursWeekDay(date: day, timeFrames: timeFrames, schedule: organization.schedule, controllers: controllers)));
               },
             ),
           ],
         ),
-      ),);
+      ),
+    );
   }
 }
 
@@ -615,10 +598,9 @@ class EditSpecificDate extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6),
         child: Center(
-          child: Container(
-              child: Text('$month/$day', style: smallButtonStyle)),
+          child: Container(child: Text('$month/$day', style: smallButtonStyle)),
         ),
-      ),);
+      ),
+    );
   }
 }
-
