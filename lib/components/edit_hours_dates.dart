@@ -1,104 +1,74 @@
 import 'package:flutter/material.dart';
-
-import '../constants.dart';
 import 'floating_text_field.dart';
-
 class EditHoursDate extends StatefulWidget {
-  final TextEditingController controllerOpen;
-  final TextEditingController controllerClosed;
-  TimeOfDay open, closed;
-  String day;
-  bool isActive;
-  bool isEditing;
-
-  EditHoursDate({@required this.day, this.controllerOpen, this.controllerClosed, this.isActive, this.open, this.closed, this.isEditing});
-
+  final String day;
+  EditHoursDate({this.day});
   @override
   _EditHoursDateState createState() => _EditHoursDateState();
 }
 
 class _EditHoursDateState extends State<EditHoursDate> {
+  TextEditingController controllerOpen;
+  TextEditingController controllerClosed;
+  TimeOfDay open, closed;
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
+    return Container(
+      color: Color(0xFFF5F5F5),
+      child: Padding(
+        padding: const EdgeInsets.all(4.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Checkbox(
-              value: widget.isActive,
-              checkColor: Colors.white,
-              activeColor: purpleAccent,
-              focusColor: Colors.grey,
-              hoverColor: Colors.grey,
-              onChanged: (val) => this.setState(() {
-                widget.isActive = !widget.isActive;
-              }),
-            ),
-//            Expanded(
-//              child: Text(
-//                widget.day,
-//                style: TextStyle(
-//                  fontWeight: FontWeight.w500,
-//                  fontSize: 18.0,
-//                ),
-//              ),
-//            ),
             SizedBox(width: 5),
             FloatingTextField(
-              width: 100,
+              width: MediaQuery.of(context).size.width * 0.35,
               height: 45,
-              hintText: 'Open', //widget.isEditing ? widget.open.format(context) :
-              controller: TextEditingController(text: widget.open.toString()),
-              // add this line.
+              hintText: 'Open',
+              controller: controllerOpen, // add this line.
               onTapped: () async {
                 TimeOfDay time = TimeOfDay.now();
                 FocusScope.of(context).requestFocus(new FocusNode());
-
-                TimeOfDay picked = await showTimePicker(context: context, initialTime: time);
-                if (picked != null) {
+                open = await showTimePicker(context: context, initialTime: time);
+                if (open != null) {
                   setState(() {
-                    time = picked;
+                    time = open;
                   });
-                  widget.controllerOpen.text = picked.format(context);
-                }
-                if (widget.isActive != null) {
-                  setState(() {
-                    time = picked;
-                  });
-                  widget.controllerOpen.text = picked.format(context);
+                  controllerOpen.text = open.format(context);
                 }
               },
+//              onChanged: (time){
+//                organization.schedule.
+//              },
             ),
             SizedBox(
               width: 15,
             ),
-            Text('to', style: TextStyle(fontSize: 20)),
+            Text('  -  ', style: TextStyle(fontSize: 30)),
             SizedBox(
               width: 15,
             ),
             FloatingTextField(
-              width: 100,
+              width: MediaQuery.of(context).size.width * 0.35,
               height: 45,
               hintText: 'Closed',
-              controller: widget.controllerClosed,
+              controller: controllerClosed,
               // add this line.
               onTapped: () async {
                 TimeOfDay time = TimeOfDay.now();
                 FocusScope.of(context).requestFocus(new FocusNode());
-
-                TimeOfDay picked = await showTimePicker(context: context, initialTime: time);
-                if (picked != null) {
+                TimeOfDay closed = await showTimePicker(context: context, initialTime: time);
+                if (closed != null) {
                   setState(() {
-                    time = picked;
+                    time = closed;
                   });
-                  widget.controllerClosed.text = picked.format(context);
+                  controllerClosed.text = closed.format(context);
                 }
               },
             ),
           ],
         ),
-        SizedBox(height: 5),
-      ],
+      ),
     );
   }
 }

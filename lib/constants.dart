@@ -49,6 +49,8 @@ final mainTitleStyle2 = TextStyle(fontWeight: FontWeight.w800, fontSize: 28, col
 
 final subTitleStyle = TextStyle(fontSize: 25, fontWeight: FontWeight.w700, color: purpleLight);
 
+final subTitleStyle2 = TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: purpleAccent);
+
 final smallButtonStyle = TextStyle(fontWeight: FontWeight.w700, fontSize: 20, color: purpleAccent);
 
 final elevatedBoxStyle = BoxDecoration(

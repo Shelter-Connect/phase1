@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:phase1/components/alerts.dart';
 import 'package:phase1/components/flushbar.dart';
 import 'package:phase1/models/organization.dart';
@@ -11,22 +12,28 @@ import 'package:phase1/services/firestore_helper.dart';
 
 import '../../constants.dart';
 import '../navigation_tab.dart';
+import 'edit_hours_specificdays.dart';
+import 'edit_hours_weekdays.dart';
 
 class OrganizationSettingsPage extends StatefulWidget with NavigationTab {
   @override
-  _OrganizationSettingsPageState createState() => _OrganizationSettingsPageState();
+  _OrganizationSettingsPageState createState() =>
+      _OrganizationSettingsPageState();
 
   @override
-  String get helpDescription => 'This is your Account Settings page. Here, you can see and edit your account and sign out, if you\'d like. '
-      'In addition, you can preview your profile as volunteers will see it.';
+  String get helpDescription =>
+      'This is your Account Settings page. Here, you can see and edit your account and sign out, if you\'d like. '
+          'In addition, you can preview your profile as volunteers will see it.';
 
   @override
- Widget get icon => SvgPicture.asset(
-      "assets/jam_icons/user-f.svg", color: purpleAccent);
+  Widget get icon =>
+      SvgPicture.asset(
+          "assets/jam_icons/user-f.svg", color: purpleAccent);
 
   @override
-  Widget get activeIcon => SvgPicture.asset(
-      "assets/jam_icons/user.svg", color: purpleAccent);
+  Widget get activeIcon =>
+      SvgPicture.asset(
+          "assets/jam_icons/user.svg", color: purpleAccent);
 
   @override
   String get title => 'Account';
@@ -40,10 +47,13 @@ class _OrganizationSettingsPageState extends State<OrganizationSettingsPage> {
 
   @override
   void initState() {
-    DocumentReference organizationReference = FirestoreHelper.getCurrentOrganizationReference(context);
+    DocumentReference organizationReference = FirestoreHelper
+        .getCurrentOrganizationReference(context);
     organizationReference.get().then((snapshot) {
       setState(() {
-        organization = Organization.fromFirestoreMap(context: context, organizationSnapshot: snapshot, isVolunteer: false);
+        organization = Organization.fromFirestoreMap(context: context,
+            organizationSnapshot: snapshot,
+            isVolunteer: false);
       });
     });
     super.initState();
@@ -53,24 +63,24 @@ class _OrganizationSettingsPageState extends State<OrganizationSettingsPage> {
   Widget build(BuildContext context) {
     return organization == null
         ? Center(
-            child: CircularProgressIndicator(),
-          )
+      child: CircularProgressIndicator(),
+    )
         : SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                SizedBox(height: 10),
-                OrganizationInfo(organization: organization),
-                SizedBox(height: 20),
-                DonationAvailabilityHourSettings(organization: organization),
-                SizedBox(height: 20),
-                DemoProfileButton(organization),
-                SizedBox(height: 20),
-                SignOutButton(),
-                SizedBox(height: 40),
-              ],
-            ),
-          );
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          SizedBox(height: 10),
+          OrganizationInfo(organization: organization),
+          SizedBox(height: 20),
+          DonationAvailabilityHourSettings(organization: organization),
+          SizedBox(height: 20),
+          DemoProfileButton(organization),
+          SizedBox(height: 20),
+          SignOutButton(),
+          SizedBox(height: 40),
+        ],
+      ),
+    );
   }
 }
 
@@ -103,7 +113,8 @@ class OrganizationInfo extends StatelessWidget {
               Container(
                 height: 5,
                 width: 100,
-                decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
+                decoration: BoxDecoration(color: purpleAccent,
+                    borderRadius: BorderRadius.circular(21)),
               ),
               SizedBox(height: 10),
               RichText(
@@ -255,11 +266,14 @@ class OrganizationInfo extends StatelessWidget {
                   bool updated = await Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => OrganizationEditInfoPage(organization),
+                      builder: (context) =>
+                          OrganizationEditInfoPage(organization),
                     ),
                   );
                   if (updated) {
-                    FlushBar(message: 'Your organization information has been updated', duration: Duration(seconds: 3)).build(context);
+                    FlushBar(
+                        message: 'Your organization information has been updated',
+                        duration: Duration(seconds: 3)).build(context);
                   }
                 },
                 child: Container(
@@ -270,7 +284,8 @@ class OrganizationInfo extends StatelessWidget {
                     borderRadius: BorderRadius.circular(21),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 12.0, vertical: 8.0),
                     child: Row(
                       children: <Widget>[
                         Icon(Icons.edit, color: Colors.white, size: 25),
@@ -326,139 +341,105 @@ class DonationAvailabilityHourSettings extends StatelessWidget {
               Container(
                 height: 5,
                 width: 100,
-                decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
+                decoration: BoxDecoration(color: purpleAccent,
+                    borderRadius: BorderRadius.circular(21)),
               ),
               SizedBox(height: 10),
               Text(
-                'This Week\'s Schedule',
+                'Weekly Schedule',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
               ),
               SizedBox(height: 10),
-              Table(border: TableBorder.all(), children: [
-                TableRow(children: [
-                  Padding(
-                    padding: const EdgeInsets.all(4),
-                    child: Text('M'),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(4),
-                    child: Text('T'),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(4),
-                    child: Text('W'),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(4),
-                    child: Text('Th'),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(4),
-                    child: Text('F'),
-                  ),
-                ]),
-                TableRow(children: [
-                  Padding(
-                    padding: const EdgeInsets.all(4),
-                    child: Text('1:30 - 2:30'),
-                  ), //TODO Add date functionality
-                  Padding(
-                    padding: const EdgeInsets.all(4),
-                    child: Text('1:30 - 2:30'),
-                  ), //TODO Add date functionality
-                  Padding(
-                    padding: const EdgeInsets.all(4),
-                    child: Text('1:30 - 2:30'),
-                  ), //TODO Add date functionality
-                  Padding(
-                    padding: const EdgeInsets.all(4),
-                    child: Text('1:30 - 2:30'),
-                  ), //TODO Add date functionality
-                  Padding(
-                    padding: const EdgeInsets.all(4),
-                    child: Text('1:30 - 2:30'),
-                  ), //TODO Add date functionality
-                ]),
-              ]),
+              EditHourContainer(day: 'Monday', timeFrames: organization.schedule['Monday']),
+              SizedBox(height: 5),
+              EditHourContainer(day: 'Tuesday', timeFrames: organization.schedule['Tuesday']),
+              SizedBox(height: 5),
+              EditHourContainer(day: 'Wednesday', timeFrames: organization.schedule['Wednesday']),
+              SizedBox(height: 5),
+              EditHourContainer(day: 'Thursday', timeFrames: organization.schedule['Thursday']),
+              SizedBox(height: 5),
+              EditHourContainer(day: 'Friday', timeFrames: organization.schedule['Friday']),
+              SizedBox(height: 5),
+              EditHourContainer(day: 'Saturday', timeFrames: organization.schedule['Saturday']),
+              SizedBox(height: 5),
+              EditHourContainer(day: 'Sunday',timeFrames: organization.schedule['Sunday']),
+              SizedBox(height: 10),
+//              Text(
+//                'Specific Holiday Dates',
+//                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+//              ),
+//              SizedBox(height: 10),
+//              EditSpecificDate(month: 1, day: 2),
+//              Align(
+//                  alignment: Alignment.centerRight,
+//                  child: IconButton(
+//                    icon: Icon(Icons.add),
+//                    onPressed:
+//                        () {}, //TODO Add a new group with the visible delete icon
+//                  )),
               SizedBox(
                 height: 10,
               ),
-              Table(border: TableBorder.all(), children: [
-                TableRow(children: [
-                  Padding(
-                    padding: const EdgeInsets.all(4),
-                    child: Text('S'),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(4),
-                    child: Text('Su'),
-                  ),
-                ]),
-                TableRow(children: [
-                  Padding(
-                    padding: const EdgeInsets.all(4),
-                    child: Text('1:30 - 2:30'),
-                  ), //TODO Add date functionality
-                  Padding(
-                    padding: const EdgeInsets.all(4),
-                    child: Text('1:30 - 2:30'),
-                  ), //TODO Add date functionality
-                ]),
-              ]),
-              SizedBox(
-                height: 10,
-              ),
-              InkWell(
-                onTap: () async {
-                  Map<String, List<TextEditingController>> controllerOpen = {};
-                  Map<String, List<TextEditingController>> controllerClosed = {};
-
-                  for (String key in organization.schedule.keys) {
-                    List<TextEditingController> open = [];
-                    List<TextEditingController> closed = [];
-                    for (TimeOfDay time in organization.schedule[key]) {
-                      open.add(new TextEditingController(text: time.format(context)));
-                      closed.add(new TextEditingController(text: time.format(context)));
-                    }
-                    controllerOpen.addAll({key: open});
-                    controllerClosed.addAll({key: closed});
-                  };
-                  bool updated = await Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => EditHours(organization: organization, controllerClosed: controllerClosed, controllerOpen: controllerOpen,),
-                    ),
-                  );
-                  if (updated) {
-                    FlushBar(message: 'Your donation availability hours has been updated', duration: Duration(seconds: 3)).build(context);
-                  }
-                },
-                child: Container(
-                  width: 140,
-                  height: 37,
-                  decoration: BoxDecoration(
-                    color: purpleAccent,
-                    borderRadius: BorderRadius.circular(21),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
-                    child: Row(
-                      children: <Widget>[
-                        Icon(Icons.edit, color: Colors.white, size: 25),
-                        SizedBox(width: 2),
-                        Text(
-                          'Edit Hours',
-                          style: TextStyle(
-                            color: colorScheme.onSecondary,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 16.0,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
+//              InkWell(
+//                onTap: () async {
+//                  Map<String, List<TextEditingController>> controllerOpen = {};
+//                  Map<String, List<TextEditingController>> controllerClosed = {
+//                  };
+//
+//                  for (String key in organization.schedule.keys) {
+//                    List<TextEditingController> open = [];
+//                    List<TextEditingController> closed = [];
+//                    for (TimeOfDay time in organization.schedule[key]) {
+//                      open.add(new TextEditingController(
+//                          text: time.format(context)));
+//                      closed.add(new TextEditingController(
+//                          text: time.format(context)));
+//                    }
+//                    controllerOpen.addAll({key: open});
+//                    controllerClosed.addAll({key: closed});
+//                  };
+//                  bool updated = await Navigator.push(
+//                    context,
+//                    MaterialPageRoute(
+//                      builder: (context) =>
+//                          EditHours(organization: organization,
+//                            controllerClosed: controllerClosed,
+//                            controllerOpen: controllerOpen,),
+//                    ),
+//                  );
+//                  if (updated) {
+//                    FlushBar(
+//                        message: 'Your donation availability hours has been updated',
+//                        duration: Duration(seconds: 3)).build(context);
+//                  }
+//                },
+//                child: Container(
+//                  width: 140,
+//                  height: 37,
+//                  decoration: BoxDecoration(
+//                    color: purpleAccent,
+//                    borderRadius: BorderRadius.circular(21),
+//                  ),
+//                  child: Padding(
+//                    padding: const EdgeInsets.symmetric(
+//                        horizontal: 12.0, vertical: 8.0),
+//                    child: Row(
+//                      children: <Widget>[
+//                        Icon(Icons.edit, color: Colors.white, size: 25),
+//                        SizedBox(width: 2),
+//                        Text(
+//                          'Edit Hours', //TODO Change to : Update Business Hours
+//                          style: TextStyle(
+//                            color: colorScheme.onSecondary,
+//                            fontWeight: FontWeight.w500,
+//                            fontSize: 16.0,
+//                          ),
+//                        ),
+//                      ],
+//                    ),
+//                  ),
+//                ),
+//              ),
               SizedBox(height: 5),
             ],
           ),
@@ -477,14 +458,15 @@ class SignOutButton extends StatelessWidget {
         onTap: () {
           showDialog(
             context: context,
-            builder: (_) => SingleActionAlert(
-              action: () {
-                auth.signOut();
-              },
-              actionName: 'Sign Out',
-              title: 'Sign Out?',
-              subtitle: 'Your login info will not be remembered.',
-            ),
+            builder: (_) =>
+                SingleActionAlert(
+                  action: () {
+                    auth.signOut();
+                  },
+                  actionName: 'Sign Out',
+                  title: 'Sign Out?',
+                  subtitle: 'Your login info will not be remembered.',
+                ),
           );
         },
         child: Container(
@@ -502,7 +484,9 @@ class SignOutButton extends StatelessWidget {
                 SizedBox(width: 5),
                 Text(
                   'Sign Out',
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600, color: Colors.white),
+                  style: TextStyle(fontSize: 22,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white),
                 ),
               ],
             ),
@@ -538,10 +522,100 @@ class DemoProfileButton extends StatelessWidget {
         child: Center(
           child: Text(
             'Preview Profile',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.white),
+            style: TextStyle(
+                fontSize: 20, fontWeight: FontWeight.w600, color: Colors.white),
           ),
         ),
       ),
     );
   }
 }
+
+class EditHourContainer extends StatelessWidget {
+  final List<TimeOfDay> timeFrames;
+  final String day;
+
+  EditHourContainer({
+    this.day,
+    this.timeFrames
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Color(0xFFF5F5F5),
+      width: MediaQuery
+          .of(context)
+          .size
+          .width,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Container(
+                child: Row(
+                  children: [
+                    SizedBox(width: 5),
+                    Text((day == 'Monday') ? 'M' : (day == 'Tuesday') ? 'T': (day == 'Wednesday') ? 'W': (day == 'Thursday') ? 'Th':(day == 'Friday') ? 'F':(day == 'Saturday') ? 'S':(day == 'Sunday') ? 'Su':(day == 'None'),
+                        style: subTitleStyle2),
+                  ],
+                )),
+            Spacer(),
+            Column(
+                children: [for (int i = 0; i < timeFrames.length; i++)
+                  Container(
+                      child: Row(
+                        children: [
+                          Text(
+                              '${timeFrames[i].hour}:${timeFrames[i++].minute}',
+                              style: TextStyle(fontWeight: FontWeight.w400,
+                                  fontSize: 20,
+                                  color: Colors.black)),
+                          Text('  -  ', style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 20,
+                              color: Colors.black)),
+                          Text('${timeFrames[i].hour}:${timeFrames[i].minute}',
+                              style: TextStyle(fontWeight: FontWeight.w400,
+                                  fontSize: 20,
+                                  color: Colors.black)),
+                        ],
+                      )
+                  ),
+                ]),
+            Spacer(),
+            IconButton(
+              icon: Icon(Feather.edit, color: Colors.red, size: 20),
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (context) => EditHoursWeekDay(date: day))); //TODO Give it a list of TextEditing COntrollers
+              },
+            ),
+          ],
+        ),
+      ),);
+  }
+}
+
+class EditSpecificDate extends StatelessWidget {
+  final int month;
+  final int day;
+
+  EditSpecificDate({this.month, this.day});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Color(0xFFF5F5F5),
+      width: MediaQuery.of(context).size.width * 0.15,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 6),
+        child: Center(
+          child: Container(
+              child: Text('$month/$day', style: smallButtonStyle)),
+        ),
+      ),);
+  }
+}
+
