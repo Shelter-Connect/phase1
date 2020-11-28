@@ -60,17 +60,17 @@ class _EditHoursWeekDayState extends State<EditHoursWeekDay> {
                                 height: 45,
                                 hintText: 'Open',
                                 controller: widget.controllers[i],
-                                // add this line.
                                 onTapped: () async {
-                                  TimeOfDay time = TimeOfDay.now();
+                                  TimeOfDay time = widget.timeFrames[i];
                                   FocusScope.of(context).requestFocus(new FocusNode());
                                   TimeOfDay open = await showTimePicker(context: context, initialTime: time);
                                   if (open != null) {
+                                    //TODO: if (widget.timeFrames[i-1] > open && widget.timeFrames[i+1] < open)
                                     setState(() {
                                       time = open;
-                                    });
-                                    widget.controllers[i].text = open.format(context);
-                                    widget.timeFrames[i] = open;
+                                      widget.controllers[i].text = open.format(context);
+                                      widget.timeFrames[i] = open;
+                                    }); //TODO: |else showDialog that says that new starting time has to be between those two values
                                   }
                                 },
                               ),
@@ -88,15 +88,16 @@ class _EditHoursWeekDayState extends State<EditHoursWeekDay> {
                                 controller: widget.controllers[i + 1],
                                 // add this line.
                                 onTapped: () async {
-                                  TimeOfDay time = TimeOfDay.now();
+                                  TimeOfDay time = widget.timeFrames[i + 1];
                                   FocusScope.of(context).requestFocus(new FocusNode());
                                   TimeOfDay closed = await showTimePicker(context: context, initialTime: time);
+                                  //TODO: Same logic as open counterpart (remember that i is i+1 now)
                                   if (closed != null) {
                                     setState(() {
                                       time = closed;
+                                      widget.controllers[i + 1].text = closed.format(context);
+                                      widget.timeFrames[i + 1] = closed;
                                     });
-                                    widget.controllers[i + 1].text = closed.format(context);
-                                    widget.timeFrames[i + 1] = closed;
                                   }
                                 },
                               ),
@@ -122,15 +123,38 @@ class _EditHoursWeekDayState extends State<EditHoursWeekDay> {
                     alignment: Alignment.centerRight,
                     child: IconButton(
                       icon: Icon(Icons.add, size: 24, color: purpleAccent),
-                      onPressed: () {
-                        TimeOfDay open = new TimeOfDay.now();
-                        TimeOfDay close = new TimeOfDay.now();
+                      onPressed: () async {
+                        TimeOfDay open = await showTimePicker(
+                            context: context, initialTime: TimeOfDay.now(), helpText: 'Choose the starting time for your new interval.');
+                        /*int valid = -1;
+                        if (widget.timeFrames.first > open)
+                          valid = 0;
+                        else if (widget.timeFrames.last < open)
+                          valid = widget.timeFrames.length;
+                        else
+                          for (int i = 1; i < widget.timeFrames.length - 2; i + i + 2) {
+                            if (widget.timeFrames[i] > open && widget.timeFrames[i + 1] < open) {
+                              valid = i + 1;
+                              break;
+                            }
+                          }
+                        if (valid == -1) {
+                          //showdialog that says starting time can't be between a current interval and to retry adding new interval
+                        } else {*/
+                        //show singleactionalert that tells person to chose ending time
+                        TimeOfDay close = await showTimePicker(
+                            context: context, initialTime: TimeOfDay.now(), helpText: 'Choose the ending time for your new interval.');
+                        //if (close > open && close < widget.timeFrames[valid])
                         setState(() {
-                          widget.controllers.add(new TextEditingController(text: '${open.hour} : ${open.minute}'));
-                          widget.controllers.add(new TextEditingController(text: '${close.hour} : ${close.minute}'));
+                          /*widget.controllers.insert(valid, new TextEditingController(text: open.format(context)));
+                          widget.controllers.insert(valid + 1, new TextEditingController(text: close.format(context)));
+                          widget.timeFrames.insert(valid, open);
+                          widget.timeFrames.insert(valid + 1, close);*/
+                          widget.controllers.add(new TextEditingController(text: open.format(context)));
+                          widget.controllers.add(new TextEditingController(text: close.format(context)));
                           widget.timeFrames.add(open);
                           widget.timeFrames.add(close);
-                        });
+                        }); //else showDialog that says that closing/ending time has to be greater than open.format(context) and less than the {next opening time}
                       },
                     )),
                 Align(
@@ -143,7 +167,7 @@ class _EditHoursWeekDayState extends State<EditHoursWeekDay> {
                         widget.temp[widget.date].add(new DateTime(now.year, now.month, now.day, time.hour, time.minute));
                       FirestoreHelper.getCurrentOrganizationReference(context).updateData({
                         'schedule': widget.temp,
-                      }).then((value) => null);
+                      }).then((value) => Navigator.pop(context));
                     },
                     child: Container(
                       height: 37,
