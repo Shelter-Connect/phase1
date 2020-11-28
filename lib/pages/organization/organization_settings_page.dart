@@ -548,7 +548,7 @@ class EditHourContainer extends StatelessWidget {
                                             : (day == 'Sunday')
                                                 ? 'Su'
                                                 : (day == 'None'),
-                    style: subTitleStyle2),
+                    style: subTitleStyle),
               ],
             )),
             Spacer(),
