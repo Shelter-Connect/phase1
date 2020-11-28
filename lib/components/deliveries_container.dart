@@ -19,12 +19,12 @@ class DeliveriesContainer extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15.0),
       ),
-      child: RawMaterialButton(
+      child: MaterialButton(
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (context) => DeliveryDescriptionPage(donation)));
         },
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,14 +63,7 @@ class DeliveriesContainer extends StatelessWidget {
                       style: TextStyle(fontSize: 15, color: donation.date.isBefore(now) ? Colors.red : Colors.black),
                     ),
               SizedBox(height: 5),
-              Container(
-                height: 5,
-                width: 50,
-                decoration: BoxDecoration(
-                  color: purpleAccent,
-                  borderRadius: BorderRadius.circular(21),
-                ),
-              ),
+              Divider(),
               SizedBox(height: 10),
               ListView.builder(
                 physics: NeverScrollableScrollPhysics(),
@@ -128,7 +121,6 @@ class DeliveriesContainer extends StatelessWidget {
 }
 
 class Items extends StatelessWidget {
-
   final Donation donation;
 
   Items({this.donation});
@@ -137,8 +129,7 @@ class Items extends StatelessWidget {
   Widget build(BuildContext context) {
     DateTime now = DateTime.now();
     return OpenContainer(
-      closedShape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(15.0))),
+      closedShape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15.0))),
       closedElevation: 0,
       closedColor: Color(0xFFF5F5F5),
       transitionDuration: Duration(milliseconds: 500),
@@ -147,7 +138,7 @@ class Items extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15.0),
           ),
-          child: RawMaterialButton(
+          child: MaterialButton(
             onPressed: openWidget,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
@@ -181,21 +172,18 @@ class Items extends StatelessWidget {
                   ),
                   donation.date.year == now.year && donation.date.month == now.month && donation.date.day == now.day
                       ? Text(
-                    'Deliver by: Today',
-                    style: TextStyle(fontSize: 15),
-                  )
+                          'Deliver by: Today',
+                          style: TextStyle(fontSize: 15),
+                        )
                       : Text(
-                    'Deliver by: ${DateFormat('MMMMd').format(donation.date)}',
-                    style: TextStyle(fontSize: 15, color: donation.date.isBefore(now) ? Colors.red : Colors.black),
-                  ),
+                          'Deliver by: ${DateFormat('MMMMd').format(donation.date)}',
+                          style: TextStyle(fontSize: 15, color: donation.date.isBefore(now) ? Colors.red : Colors.black),
+                        ),
                   SizedBox(height: 5),
-                  Container(
-                    height: 5,
-                    width: 50,
-                    decoration: BoxDecoration(
-                      color: purpleAccent,
-                      borderRadius: BorderRadius.circular(21),
-                    ),
+                  Divider(
+                    height: 2,
+                    thickness: 2,
+                    color: purpleAccent,
                   ),
                   SizedBox(height: 10),
                   ListView.builder(

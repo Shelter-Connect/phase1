@@ -107,8 +107,6 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
   @override
   Widget build(BuildContext context) {
     return StandardLayout(
-      color: Colors.white,
-//      Color(0xFFF5F5F5),
       title: '',
       helpText: 'This is an organization profile page. Here, you can see information about this organization and its requests. '
           'To sign up for a donation, press the Make a Donation button!',
@@ -117,381 +115,369 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
               child: CircularProgressIndicator(),
             )
           : SingleChildScrollView(
-              child: Container(
-                color: Colors.white,
-//                Color(0xFFF5F5F5),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.organization.name,
+                          style: mainTitleStyle,
+                        ),
+                        if (widget.organization.distance != null)
                           Text(
-                            widget.organization.name,
-                            style: mainTitleStyle,
+                            widget.organization.distance.toStringAsFixed(1) + ' miles away',
+                            style: subTitleStyle,
                           ),
-                          if (widget.organization.distance != null)
-                            Text(
-                              widget.organization.distance.toStringAsFixed(1) + ' miles away',
-                              style: subTitleStyle,
-                            ),
-                        ],
-                      ),
+                      ],
                     ),
-                    SizedBox(height: 20),
-                    GreyLine(),
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15.0),
-                      ),
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8.0, left: 20.0),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              textDirection: TextDirection.rtl,
-                              children: [
-                                FlatButton(
-                                    onPressed: () {
-                                      MapSheet().build(context);
-                                    },
-                                    child: SvgPicture.asset(
-                                      Platform.isIOS ? "assets/random_svgs/applemaps.svg" : "assets/random_svgs/googlemaps.svg",
-                                      height: 28,
-                                    )),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 8.0),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                      Text(
-                                        'About this Organization',
-                                        style: TextStyle(
-                                          fontSize: Platform.isIOS ? 19 : 20,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Container(
-                                        height: 5,
-                                        width: 50,
-                                        decoration: BoxDecoration(
-                                          color: purpleAccent,
-                                          borderRadius: BorderRadius.circular(21),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 8.0, left: 20.0, right: 20.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                  ),
+                  SizedBox(height: 20),
+                  Card(
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8.0, left: 20.0),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            textDirection: TextDirection.rtl,
+                            children: [
+                              FlatButton(
+                                  onPressed: () {
+                                    MapSheet().build(context);
+                                  },
+                                  child: SvgPicture.asset(
+                                    Platform.isIOS ? "assets/random_svgs/applemaps.svg" : "assets/random_svgs/googlemaps.svg",
+                                    height: 28,
+                                  )),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 8.0),
+                                child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Text(
-                                      widget.organization.description,
-                                      style: TextStyle(
-                                        fontSize: 17.0,
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                    ),
+                                  children: [
                                     SizedBox(
                                       height: 10,
                                     ),
-                                    if (widget.organization.address != null)
-                                      RichText(
-                                        text: TextSpan(
-                                          children: <TextSpan>[
-                                            TextSpan(
-                                              text: 'Address: ',
-                                              style: TextStyle(
-                                                fontSize: 17,
-                                                color: colorScheme.onBackground,
-                                              ),
-                                            ),
-                                            TextSpan(
-                                              text: widget.organization.address,
-                                              style: TextStyle(
-                                                fontSize: 17,
-                                                fontWeight: FontWeight.w600,
-                                                color: colorScheme.onBackground,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
+                                    Text(
+                                      'About this Organization',
+                                      style: TextStyle(
+                                        fontSize: Platform.isIOS ? 19 : 20,
+                                        fontWeight: FontWeight.w600,
                                       ),
-                                    if (widget.organization.address != null)
-                                      SizedBox(
-                                        height: 10,
+                                    ),
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Container(
+                                      height: 5,
+                                      width: 50,
+                                      decoration: BoxDecoration(
+                                        color: purpleAccent,
+                                        borderRadius: BorderRadius.circular(21),
                                       ),
-                                    if (widget.organization.website != null)
-                                      RichText(
-                                        text: TextSpan(
-                                          children: <TextSpan>[
-                                            TextSpan(
-                                              text: 'Website: ',
-                                              style: TextStyle(
-                                                fontSize: 17,
-                                                color: colorScheme.onBackground,
-                                              ),
-                                            ),
-                                            TextSpan(
-                                                text: widget.organization.website,
-                                                style: TextStyle(
-                                                  fontSize: 17,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: Colors.blue,
-                                                ),
-                                                recognizer: _websiteLinkTapGestureRecognizer),
-                                          ],
-                                        ),
-                                      ),
-                                    if (widget.organization.website != null)
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                    if (widget.organization.donationLink != null) // Donation Link
-                                      RichText(
-                                        text: TextSpan(
-                                          children: <TextSpan>[
-                                            TextSpan(
-                                              text: 'Cash Donations: ',
-                                              style: TextStyle(
-                                                fontSize: 17,
-                                                color: colorScheme.onBackground,
-                                              ),
-                                            ),
-                                            TextSpan(
-                                                text: widget.organization.donationLink,
-                                                style: TextStyle(
-                                                  fontSize: 17,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: Colors.blue,
-                                                ),
-                                                recognizer: _donationLinkTapGestureRecognizer),
-                                          ],
-                                        ),
-                                      ),
-                                    if (widget.organization.donationLink != null)
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                    if (widget.organization.number != null)
-                                      RichText(
-                                        text: TextSpan(
-                                          children: <TextSpan>[
-                                            TextSpan(
-                                              text: 'Phone Number: ',
-                                              style: TextStyle(
-                                                fontSize: 17,
-                                                color: colorScheme.onBackground,
-                                              ),
-                                            ),
-                                            TextSpan(
-                                              text: widget.organization.number,
-                                              style: TextStyle(
-                                                fontSize: 17,
-                                                fontWeight: FontWeight.w600,
-                                                color: colorScheme.onBackground,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    if (widget.organization.number != null)
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                    if (widget.organization.email != null)
-                                      RichText(
-                                        text: TextSpan(
-                                          children: <TextSpan>[
-                                            TextSpan(
-                                              text: 'Email: ',
-                                              style: TextStyle(
-                                                fontSize: 17,
-                                                color: colorScheme.onBackground,
-                                              ),
-                                            ),
-                                            TextSpan(
-                                              text: widget.organization.email,
-                                              style: TextStyle(
-                                                fontSize: 17,
-                                                fontWeight: FontWeight.w600,
-                                                color: colorScheme.onBackground,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
+                                    ),
                                     SizedBox(
                                       height: 10,
                                     ),
                                   ],
                                 ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SmallGreyLine(),
-                    if (widget.organization.itemCategories != null)
-                      if (widget.organization.itemCategories.length != 0)
-                        Column(
-                          children: <Widget>[
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15.0),
                               ),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16.0),
-                                child: widget.organization.requestedItems.isEmpty
-                                    ? Container()
-                                    : Column(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          Text(
-                                            'Requested Items',
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 8.0, left: 20.0, right: 20.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Text(
+                                    widget.organization.description,
+                                    style: TextStyle(
+                                      fontSize: 17.0,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  if (widget.organization.address != null)
+                                    RichText(
+                                      text: TextSpan(
+                                        children: <TextSpan>[
+                                          TextSpan(
+                                            text: 'Address: ',
                                             style: TextStyle(
-                                              fontSize: 20,
+                                              fontSize: 17,
+                                              color: colorScheme.onBackground,
+                                            ),
+                                          ),
+                                          TextSpan(
+                                            text: widget.organization.address,
+                                            style: TextStyle(
+                                              fontSize: 17,
                                               fontWeight: FontWeight.w600,
+                                              color: colorScheme.onBackground,
                                             ),
                                           ),
-                                          SizedBox(
-                                            height: 5,
-                                          ),
-                                          Container(
-                                            height: 5,
-                                            width: 50,
-                                            decoration: BoxDecoration(
-                                              color: purpleAccent,
-                                              borderRadius: BorderRadius.circular(21),
-                                            ),
-                                          ),
-                                          Column(
-                                            children: widget.organization.itemCategories.map((String category) {
-                                              List<Item> items = widget.organization.requestedItems[category];
-                                              return Column(
-                                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                                children: [
-                                                  SizedBox(height: 10.0),
-                                                  Text(
-                                                    category,
-                                                    style: TextStyle(
-                                                      fontWeight: FontWeight.bold,
-                                                      fontSize: 23.0,
-                                                    ),
-                                                  ),
-                                                  ...items.map(
-                                                    (item) => item.amount != 0
-                                                        ? Container(
-                                                            alignment: Alignment.centerLeft,
-                                                            child: Padding(
-                                                              padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                                              child: Row(
-                                                                children: [
-                                                                  Align(
-                                                                    alignment: Alignment.centerLeft,
-                                                                    child: Column(
-                                                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                                                      children: [
-                                                                        Text(
-                                                                          '${item.name} - ${item.amount} ${item.unit ?? ''}'.trim(),
-                                                                          style: TextStyle(
-                                                                            fontSize: 17.0,
-                                                                            fontWeight: FontWeight.w400,
-                                                                          ),
-                                                                        ),
-                                                                        if (item.specificDescription != null)
-                                                                          Text(
-                                                                            item.specificDescription,
-                                                                            style: TextStyle(fontSize: 14, color: Colors.grey),
-                                                                          ),
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                  Expanded(
-                                                                    child: Align(
-                                                                      alignment: Alignment.centerRight,
-                                                                      child: Container(
-                                                                        height: 12,
-                                                                        width: 12,
-                                                                        decoration: BoxDecoration(
-                                                                            color: item.urgencyColor, borderRadius: BorderRadius.circular(40)),
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                          )
-                                                        : Container(),
-                                                  ),
-                                                  SmallGreyLine()
-                                                ],
-                                              );
-                                            }).toList(),
-                                          )
                                         ],
                                       ),
+                                    ),
+                                  if (widget.organization.address != null)
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                  if (widget.organization.website != null)
+                                    RichText(
+                                      text: TextSpan(
+                                        children: <TextSpan>[
+                                          TextSpan(
+                                            text: 'Website: ',
+                                            style: TextStyle(
+                                              fontSize: 17,
+                                              color: colorScheme.onBackground,
+                                            ),
+                                          ),
+                                          TextSpan(
+                                              text: widget.organization.website,
+                                              style: TextStyle(
+                                                fontSize: 17,
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.blue,
+                                              ),
+                                              recognizer: _websiteLinkTapGestureRecognizer),
+                                        ],
+                                      ),
+                                    ),
+                                  if (widget.organization.website != null)
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                  if (widget.organization.donationLink != null) // Donation Link
+                                    RichText(
+                                      text: TextSpan(
+                                        children: <TextSpan>[
+                                          TextSpan(
+                                            text: 'Cash Donations: ',
+                                            style: TextStyle(
+                                              fontSize: 17,
+                                              color: colorScheme.onBackground,
+                                            ),
+                                          ),
+                                          TextSpan(
+                                              text: widget.organization.donationLink,
+                                              style: TextStyle(
+                                                fontSize: 17,
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.blue,
+                                              ),
+                                              recognizer: _donationLinkTapGestureRecognizer),
+                                        ],
+                                      ),
+                                    ),
+                                  if (widget.organization.donationLink != null)
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                  if (widget.organization.number != null)
+                                    RichText(
+                                      text: TextSpan(
+                                        children: <TextSpan>[
+                                          TextSpan(
+                                            text: 'Phone Number: ',
+                                            style: TextStyle(
+                                              fontSize: 17,
+                                              color: colorScheme.onBackground,
+                                            ),
+                                          ),
+                                          TextSpan(
+                                            text: widget.organization.number,
+                                            style: TextStyle(
+                                              fontSize: 17,
+                                              fontWeight: FontWeight.w600,
+                                              color: colorScheme.onBackground,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  if (widget.organization.number != null)
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                  if (widget.organization.email != null)
+                                    RichText(
+                                      text: TextSpan(
+                                        children: <TextSpan>[
+                                          TextSpan(
+                                            text: 'Email: ',
+                                            style: TextStyle(
+                                              fontSize: 17,
+                                              color: colorScheme.onBackground,
+                                            ),
+                                          ),
+                                          TextSpan(
+                                            text: widget.organization.email,
+                                            style: TextStyle(
+                                              fontSize: 17,
+                                              fontWeight: FontWeight.w600,
+                                              color: colorScheme.onBackground,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                ],
                               ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  if (widget.organization.itemCategories != null)
+                    if (widget.organization.itemCategories.length != 0)
+                      Card(
+                        elevation: 2,
+                        child: Column(
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16.0),
+                              child: widget.organization.requestedItems.isEmpty
+                                  ? Container()
+                                  : Column(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Text(
+                                          'Requested Items',
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        Container(
+                                          height: 5,
+                                          width: 50,
+                                          decoration: BoxDecoration(
+                                            color: purpleAccent,
+                                            borderRadius: BorderRadius.circular(21),
+                                          ),
+                                        ),
+                                        Column(
+                                          children: widget.organization.itemCategories.map((String category) {
+                                            List<Item> items = widget.organization.requestedItems[category];
+                                            return Column(
+                                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                                              children: [
+                                                SizedBox(height: 10.0),
+                                                Text(
+                                                  category,
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 23.0,
+                                                  ),
+                                                ),
+                                                ...items.map(
+                                                  (item) => item.amount != 0
+                                                      ? Container(
+                                                          alignment: Alignment.centerLeft,
+                                                          child: Padding(
+                                                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                                            child: Row(
+                                                              children: [
+                                                                Align(
+                                                                  alignment: Alignment.centerLeft,
+                                                                  child: Column(
+                                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                                    children: [
+                                                                      Text(
+                                                                        '${item.name} - ${item.amount} ${item.unit ?? ''}'.trim(),
+                                                                        style: TextStyle(
+                                                                          fontSize: 17.0,
+                                                                          fontWeight: FontWeight.w400,
+                                                                        ),
+                                                                      ),
+                                                                      if (item.specificDescription != null)
+                                                                        Text(
+                                                                          item.specificDescription,
+                                                                          style: TextStyle(fontSize: 14, color: Colors.grey),
+                                                                        ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                                Expanded(
+                                                                  child: Align(
+                                                                    alignment: Alignment.centerRight,
+                                                                    child: Container(
+                                                                      height: 12,
+                                                                      width: 12,
+                                                                      decoration: BoxDecoration(
+                                                                          color: item.urgencyColor, borderRadius: BorderRadius.circular(40)),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        )
+                                                      : Container(),
+                                                ),
+                                              ],
+                                            );
+                                          }).toList(),
+                                        )
+                                      ],
+                                    ),
                             ),
                           ],
                         ),
-                    SizedBox(height: 10),
-                    if (!noRequests)
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          child: FlatButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => DonationCreationPage(organization: widget.organization),
-                                ),
-                              );
-                            },
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30.0),
-                            ),
-                            color: purpleAccent,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 20),
-                              child: Text(
-                                'Make a Donation!',
-                                style: TextStyle(color: colorScheme.onSecondary, fontSize: 20),
+                      ),
+                  SizedBox(height: 10),
+                  if (!noRequests)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        child: FlatButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => DonationCreationPage(organization: widget.organization),
                               ),
+                            );
+                          },
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30.0),
+                          ),
+                          color: purpleAccent,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 20),
+                            child: Text(
+                              'Make a Donation!',
+                              style: TextStyle(color: colorScheme.onSecondary, fontSize: 20),
                             ),
                           ),
                         ),
                       ),
-                    SizedBox(height: 20),
-                  ],
-                ),
+                    ),
+                  SizedBox(height: 20),
+                ],
               ),
             ),
     );
