@@ -553,15 +553,18 @@ class EditHourContainer extends StatelessWidget {
             )),
             Spacer(),
             Column(children: [
-              for (int i = 0; i < timeFrames.length; i = i + 2)
-                Container(
-                    child: Row(
-                  children: [
-                    Text(timeFrames[i].format(context), style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20, color: Colors.black)),
-                    Text('  -  ', style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20, color: Colors.black)),
-                    Text(timeFrames[i + 1].format(context), style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20, color: Colors.black)),
-                  ],
-                )),
+              if (timeFrames.length == 0)
+                Text('Open for the Whole Day!')
+              else
+                for (int i = 0; i < timeFrames.length; i = i + 2)
+                  Container(
+                      child: Row(
+                    children: [
+                      Text(timeFrames[i].format(context), style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20, color: Colors.black)),
+                      Text('  -  ', style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20, color: Colors.black)),
+                      Text(timeFrames[i + 1].format(context), style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20, color: Colors.black)),
+                    ],
+                  )),
             ]),
             Spacer(),
             IconButton(
