@@ -64,7 +64,8 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                     widget.organization.name,
                     style: mainTitleStyle,
                   ),
-                  if (widget.organization.distance != null) Text('${widget.organization.distance.toStringAsFixed(1)} miles away', style: subTitleStyle),
+                  if (widget.organization.distance != null)
+                    Text('${widget.organization.distance.toStringAsFixed(1)} miles away', style: subTitleStyle),
                 ],
               ),
             ),
@@ -155,19 +156,19 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                                         (index, item) => MapEntry(
                                           index,
                                           Padding(
-                                            padding: const EdgeInsets.only(bottom: 3.0),
+                                            padding: (item.amount > 0) ? const EdgeInsets.only(bottom: 3.0) : const EdgeInsets.only(),
                                             child: Column(
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
-                                                Row(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                  children: [
-                                                    Expanded(
-                                                      child: Padding(
-                                                        padding: const EdgeInsets.only(bottom: 5.0),
-                                                        child: Row(
-                                                          children: [
-                                                            if (item.amount > 0)
+                                                if (item.amount > 0)
+                                                  Row(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    children: [
+                                                      Expanded(
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(bottom: 5.0),
+                                                          child: Row(
+                                                            children: [
                                                               Expanded(
                                                                 child: Text(
                                                                   '${item.name} - ${item.amount} ${item.unit ?? ''}'.trim(),
@@ -177,41 +178,42 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                                                                   ),
                                                                 ),
                                                               ),
-                                                            if (item.amount > 0) SizedBox(width: 5),
-                                                            if (item.amount > 0)
+                                                              SizedBox(width: 5),
                                                               Container(
                                                                 height: 12,
                                                                 width: 12,
-                                                                decoration: BoxDecoration(color: item.urgencyColor, borderRadius: BorderRadius.circular(40)),
+                                                                decoration:
+                                                                    BoxDecoration(color: item.urgencyColor, borderRadius: BorderRadius.circular(40)),
                                                               ),
-                                                            if (item.amount > 0) SizedBox(width: 15),
-                                                          ],
+                                                              SizedBox(width: 15),
+                                                            ],
+                                                          ),
                                                         ),
                                                       ),
-                                                    ),
-                                                    ItemIncrementWithText(
-                                                      itemName: item.name,
-                                                      initialQuantity: 0,
-                                                      maxQuantity: item.amount,
-                                                      onChanged: (val) {
-                                                        Item currentItem = item.clone();
-                                                        currentItem.amount = val;
-                                                        donation.items.removeWhere((prevItem) =>
-                                                            prevItem.name == currentItem.name &&
-                                                            prevItem.category == currentItem.category &&
-                                                            prevItem.specificDescription == currentItem.specificDescription &&
-                                                            prevItem.unit == currentItem.unit);
-                                                        if (currentItem.amount != 0) donation.items.add(currentItem);
-                                                      },
-                                                    ),
-                                                    SizedBox(height: 10.0),
-                                                  ],
-                                                ),
-                                                if (item.specificDescription != null)
-                                                  Text(
-                                                    item.specificDescription,
-                                                    style: TextStyle(fontSize: 14, color: Colors.grey),
+                                                      ItemIncrementWithText(
+                                                        itemName: item.name,
+                                                        initialQuantity: 0,
+                                                        maxQuantity: item.amount,
+                                                        onChanged: (val) {
+                                                          Item currentItem = item.clone();
+                                                          currentItem.amount = val;
+                                                          donation.items.removeWhere((prevItem) =>
+                                                              prevItem.name == currentItem.name &&
+                                                              prevItem.category == currentItem.category &&
+                                                              prevItem.specificDescription == currentItem.specificDescription &&
+                                                              prevItem.unit == currentItem.unit);
+                                                          if (currentItem.amount != 0) donation.items.add(currentItem);
+                                                        },
+                                                      ),
+                                                      SizedBox(height: 10.0),
+                                                    ],
                                                   ),
+                                                if (item.amount > 0)
+                                                  if (item.specificDescription != null)
+                                                    Text(
+                                                      item.specificDescription,
+                                                      style: TextStyle(fontSize: 14, color: Colors.grey),
+                                                    ),
                                               ],
                                             ),
                                           ),
