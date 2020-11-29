@@ -20,6 +20,7 @@ import 'package:provider/provider.dart';
 import '../../constants.dart';
 import '../volunteer/current_deliveries_page.dart';
 import '../volunteer/volunteer_settings_page.dart';
+import 'package:flutter/foundation.dart';
 
 class VolunteerNavigationPage extends StatefulWidget {
   @override
@@ -47,7 +48,8 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
               if (snapshot == null) return null;
               List<Organization> organizations = [];
               for (DocumentSnapshot document in snapshot.documents) {
-                if (document.documentID == 'bVRQfZpizSQWty24zFgFqIrB60i2') continue;
+                if (kReleaseMode && document.documentID == 'bVRQfZpizSQWty24zFgFqIrB60i2') // Skips over Test Linkare org if this is actual app
+                  continue;
                 organizations.add(Organization.fromFirestoreMap(context: context, organizationSnapshot: document, isVolunteer: false));
               }
               return organizations;
