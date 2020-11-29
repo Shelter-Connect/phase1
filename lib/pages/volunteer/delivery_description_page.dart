@@ -232,7 +232,7 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                               action: () {
                                 FirestoreHelper.cancelVolunteerDelivery(context, donation);
                                 Navigator.pop(context);
-                                FlushBar(message: 'Your delivery has been cancelled', duration: Duration(seconds: 3)).build(context);
+                                FlushBar(message: 'Your delivery has been cancelled ', duration: Duration(seconds: 3)).build(context);
                               },
                               actionName: 'Cancel Delivery',
                               title: 'Cancel Delivery?',
