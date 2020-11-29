@@ -106,46 +106,14 @@ class _UserInfoState extends State<UserInfo> {
                     text: TextSpan(
                       children: <TextSpan>[
                         TextSpan(
-                          text: 'First Name: ',
+                          text: 'Name: ',
                           style: TextStyle(
                             fontSize: 17,
                             color: colorScheme.onBackground,
                           ),
                         ),
                         TextSpan(
-                          text: widget.firstName,
-                          style: TextStyle(
-                            fontSize: 17,
-                            fontWeight: FontWeight.w600,
-                            color: colorScheme.onBackground,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: 20),
-            Material(
-              elevation: 2,
-              borderRadius: BorderRadius.circular(5),
-              child: Container(
-                width: double.infinity,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: RichText(
-                    text: TextSpan(
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: 'Last Name: ',
-                          style: TextStyle(
-                            fontSize: 17,
-                            color: colorScheme.onBackground,
-                          ),
-                        ),
-                        TextSpan(
-                          text: widget.lastName,
+                          text: '${widget.firstName} ${widget.lastName}',
                           style: TextStyle(
                             fontSize: 17,
                             fontWeight: FontWeight.w600,
