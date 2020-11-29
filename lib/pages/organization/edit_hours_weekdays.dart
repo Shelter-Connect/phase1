@@ -161,6 +161,7 @@ class _EditHoursWeekDayState extends State<EditHoursWeekDay> {
                         onPressed: () async {
                           TimeOfDay open = await showTimePicker(
                               context: context, initialTime: TimeOfDay.now(), helpText: 'Choose the starting time for your new interval.');
+                          if (open == null) return;
                           int validOpeningIndex = -1; // -1 is invalid, other values are index values (valid)
                           List<TimeOfDay> problematicTimeInterval = [];
                           if (timeOneGreater(widget.timeFrames.first, open)) {
