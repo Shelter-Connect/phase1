@@ -338,6 +338,96 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                   SizedBox(
                                     height: 10,
                                   ),
+                                  RichText(
+                                    text: TextSpan(
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                          text: 'Business Hours:',
+                                          style: TextStyle(
+                                            fontSize: 17,
+                                            color: colorScheme.onBackground,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(height: 10),
+                                  Table(border: TableBorder.all(), children: [
+                                    TableRow(children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(4),
+                                        child: Text('M'),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(4),
+                                        child: Text('T'),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(4),
+                                        child: Text('W'),
+                                      ),
+                                    ]),
+                                    TableRow(children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(4),
+                                        child: Text('1:30 - 2:30'),
+                                      ), //TODO Add date functionality
+                                      Padding(
+                                        padding: const EdgeInsets.all(4),
+                                        child: Text('1:30 - 2:30'),
+                                      ), //TODO Add date functionality
+                                      Padding(
+                                        padding: const EdgeInsets.all(4),
+                                        child: Text('1:30 - 2:30'),
+                                      ), //TODO Add date functionality
+                                      //TODO Add date functionality
+                                    ]),
+                                  ]),
+                                  SizedBox(height: 10),
+                                  Table(border: TableBorder.all(), children: [
+                                    TableRow(children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(4),
+                                        child: Text('Th'),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(4),
+                                        child: Text('F'),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(4),
+                                        child: Text('S'),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(4),
+                                        child: Text('Su'),
+                                      ),
+                                    ]),
+                                    TableRow(children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(4),
+                                        child: Text('1:30 - 2:30'),
+                                      ), //TODO Add date functionality
+                                      Padding(
+                                        padding: const EdgeInsets.all(4),
+                                        child: Text('1:30 - 2:30'),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(4),
+                                        child: Text('1:30 - 2:30'),
+                                      ), //TODO Add date functionality
+                                      Padding(
+                                        padding: const EdgeInsets.all(4),
+                                        child: Text('1:30 - 2:30'),
+                                      ), //TODO Add date functionality
+                                    ]),
+                                  ]),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
                                 ],
                               ),
                             ],

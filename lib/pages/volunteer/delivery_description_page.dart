@@ -80,11 +80,14 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
           ? Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
+                padding: const EdgeInsets.symmetric( vertical: 4),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text('Delivery to ${donation.organization.name}', style: mainTitleStyle),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Text('Delivery to ${donation.organization.name}', style: mainTitleStyle),
+                    ),
                     SizedBox(height: 20),
                     OrganizationInformation(
                       orgEmail: donation.organization.email,
@@ -218,40 +221,43 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                       ),
                     ),
                     SizedBox(height: 20),
-                    InkWell(
-                      onTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (_) => SingleActionAlert(
-                            action: () {
-                              FirestoreHelper.cancelVolunteerDelivery(context, donation);
-                              Navigator.pop(context);
-                              FlushBar(message: 'Your delivery has been cancelled', duration: Duration(seconds: 3)).build(context);
-                            },
-                            actionName: 'Cancel Delivery',
-                            title: 'Cancel Delivery?',
-                            subtitle: 'You cannot revert this action',
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: InkWell(
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (_) => SingleActionAlert(
+                              action: () {
+                                FirestoreHelper.cancelVolunteerDelivery(context, donation);
+                                Navigator.pop(context);
+                                FlushBar(message: 'Your delivery has been cancelled', duration: Duration(seconds: 3)).build(context);
+                              },
+                              actionName: 'Cancel Delivery',
+                              title: 'Cancel Delivery?',
+                              subtitle: 'You cannot revert this action',
+                            ),
+                          );
+                        },
+                        child: Container(
+                          height: 45.0,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(21),
+                            color: colorScheme.error,
                           ),
-                        );
-                      },
-                      child: Container(
-                        height: 45.0,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(21),
-                          color: colorScheme.error,
-                        ),
-                        child: Center(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              Icon(Icons.cancel, color: Colors.white, size: 28),
-                              SizedBox(width: 5),
-                              Text(
-                                'Cancel Delivery',
-                                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600, color: Colors.white),
-                              ),
-                            ],
+                          child: Center(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                Icon(Icons.cancel, color: Colors.white, size: 28),
+                                SizedBox(width: 5),
+                                Text(
+                                  'Cancel Delivery',
+                                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600, color: Colors.white),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
