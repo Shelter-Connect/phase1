@@ -228,14 +228,13 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                             ),
                                           ),
                                           TextSpan(
-                                            text: widget.organization.address,
-                                            style: TextStyle(
-                                              fontSize: 17,
-                                              fontWeight: FontWeight.w600,
-                                              color: Colors.blue,
-                                            ),
-                                            recognizer: _addressTapGestureRecognizer
-                                          ),
+                                              text: widget.organization.address,
+                                              style: TextStyle(
+                                                fontSize: 17,
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.blue,
+                                              ),
+                                              recognizer: _addressTapGestureRecognizer),
                                         ],
                                       ),
                                     ),
@@ -377,18 +376,44 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                     ]),
                                     TableRow(children: [
                                       Padding(
-                                        padding: const EdgeInsets.all(4),
-                                        child: Text('1:30 - 2:30'),
-                                      ), //TODO Add date functionality
+                                          padding: const EdgeInsets.all(4),
+                                          child: Column(
+                                            children: [
+                                              if (widget.organization.schedule['Monday'].length != 0 ||
+                                                  widget.organization.schedule['Monday'] == null)
+                                                for (int i = 0; i < widget.organization.schedule['Monday'].length; i = i + 2)
+                                                  Text(
+                                                      '${widget.organization.schedule['Monday'][i].format(context)} - ${widget.organization.schedule['Monday'][i + 1].format(context)}')
+                                              else
+                                                Text('Open for the Whole Day!'),
+                                            ],
+                                          )),
                                       Padding(
-                                        padding: const EdgeInsets.all(4),
-                                        child: Text('1:30 - 2:30'),
-                                      ), //TODO Add date functionality
+                                          padding: const EdgeInsets.all(4),
+                                          child: Column(
+                                            children: [
+                                              if (widget.organization.schedule['Tuesday'].length != 0 ||
+                                                  widget.organization.schedule['Tuesday'] == null)
+                                                for (int i = 0; i < widget.organization.schedule['Tuesday'].length; i = i + 2)
+                                                  Text(
+                                                      '${widget.organization.schedule['Tuesday'][i].format(context)} - ${widget.organization.schedule['Tuesday'][i + 1].format(context)}')
+                                              else
+                                                Text('Open for the Whole Day!'),
+                                            ],
+                                          )),
                                       Padding(
-                                        padding: const EdgeInsets.all(4),
-                                        child: Text('1:30 - 2:30'),
-                                      ), //TODO Add date functionality
-                                      //TODO Add date functionality
+                                          padding: const EdgeInsets.all(4),
+                                          child: Column(
+                                            children: [
+                                              if (widget.organization.schedule['Wednesday'].length != 0 ||
+                                                  widget.organization.schedule['Wednesday'] == null)
+                                                for (int i = 0; i < widget.organization.schedule['Wednesday'].length; i = i + 2)
+                                                  Text(
+                                                      '${widget.organization.schedule['Wednesday'][i].format(context)} - ${widget.organization.schedule['Wednesday'][i + 1].format(context)}')
+                                              else
+                                                Text('Open for the Whole Day!'),
+                                            ],
+                                          )),
                                     ]),
                                   ]),
                                   SizedBox(height: 10),
@@ -413,21 +438,57 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                     ]),
                                     TableRow(children: [
                                       Padding(
-                                        padding: const EdgeInsets.all(4),
-                                        child: Text('1:30 - 2:30'),
-                                      ), //TODO Add date functionality
+                                          padding: const EdgeInsets.all(4),
+                                          child: Column(
+                                            children: [
+                                              if (widget.organization.schedule['Thursday'].length != 0 ||
+                                                  widget.organization.schedule['Thursday'] == null)
+                                                for (int i = 0; i < widget.organization.schedule['Thursday'].length; i = i + 2)
+                                                  Text(
+                                                      '${widget.organization.schedule['Thursday'][i].format(context)} - ${widget.organization.schedule['Thursday'][i + 1].format(context)}')
+                                              else
+                                                Text('Open for the Whole Day!'),
+                                            ],
+                                          )),
                                       Padding(
-                                        padding: const EdgeInsets.all(4),
-                                        child: Text('1:30 - 2:30'),
-                                      ),
+                                          padding: const EdgeInsets.all(4),
+                                          child: Column(
+                                            children: [
+                                              if (widget.organization.schedule['Friday'].length != 0 ||
+                                                  widget.organization.schedule['Friday'] == null)
+                                                for (int i = 0; i < widget.organization.schedule['Friday'].length; i = i + 2)
+                                                  Text(
+                                                      '${widget.organization.schedule['Friday'][i].format(context)} - ${widget.organization.schedule['Friday'][i + 1].format(context)}')
+                                              else
+                                                Text('Open for the Whole Day!'),
+                                            ],
+                                          )),
                                       Padding(
-                                        padding: const EdgeInsets.all(4),
-                                        child: Text('1:30 - 2:30'),
-                                      ), //TODO Add date functionality
+                                          padding: const EdgeInsets.all(4),
+                                          child: Column(
+                                            children: [
+                                              if (widget.organization.schedule['Saturday'].length != 0 ||
+                                                  widget.organization.schedule['Saturday'] == null)
+                                                for (int i = 0; i < widget.organization.schedule['Saturday'].length; i = i + 2)
+                                                  Text(
+                                                      '${widget.organization.schedule['Saturday'][i].format(context)} - ${widget.organization.schedule['Saturday'][i + 1].format(context)}')
+                                              else
+                                                Text('Open for the Whole Day!'),
+                                            ],
+                                          )),
                                       Padding(
-                                        padding: const EdgeInsets.all(4),
-                                        child: Text('1:30 - 2:30'),
-                                      ), //TODO Add date functionality
+                                          padding: const EdgeInsets.all(4),
+                                          child: Column(
+                                            children: [
+                                              if (widget.organization.schedule['Sunday'].length != 0 ||
+                                                  widget.organization.schedule['Sunday'] == null)
+                                                for (int i = 0; i < widget.organization.schedule['Sunday'].length; i = i + 2)
+                                                  Text(
+                                                      '${widget.organization.schedule['Sunday'][i].format(context)} - ${widget.organization.schedule['Sunday'][i + 1].format(context)}')
+                                              else
+                                                Text('Open for the Whole Day!'),
+                                            ],
+                                          )),
                                     ]),
                                   ]),
                                   SizedBox(

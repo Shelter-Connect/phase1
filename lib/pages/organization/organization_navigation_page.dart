@@ -52,7 +52,11 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
           }),
         ),
         StreamProvider<List<PastDonation>>.value(
-          value: FirestoreHelper.getCurrentOrganizationReference(context).collection('pastDonations').orderBy('date', descending: true).snapshots().map((snapshot) {
+          value: FirestoreHelper.getCurrentOrganizationReference(context)
+              .collection('pastDonations')
+              .orderBy('date', descending: true)
+              .snapshots()
+              .map((snapshot) {
             if (snapshot.documents.length == 0) return [];
             if (snapshot == null) return null;
             List<PastDonation> donations = [];

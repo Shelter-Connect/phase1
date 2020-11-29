@@ -41,11 +41,16 @@ class Donation {
             urgency: item['urgency'],
             urgencyColor: (item['urgency'] == 0)
                 ? Colors.transparent
-                : (item['urgency'] == 1) ? Colors.green : (item['urgency'] == 2) ? Colors.yellow : Colors.red,
+                : (item['urgency'] == 1)
+                    ? Colors.green
+                    : (item['urgency'] == 2)
+                        ? Colors.yellow
+                        : Colors.red,
           ),
         )
         .toList()
         .cast<Item>();
+
     organization = Organization(
       name: donationSnapshot['organizationName'],
       description: donationSnapshot['organizationDescription'],
@@ -55,6 +60,22 @@ class Donation {
       id: donationSnapshot['organizationId'],
       website: donationSnapshot['organizationWebsite'],
       number: donationSnapshot['organizationNumber'],
+      donationLink: donationSnapshot['organizationDonationLink'] != null ? donationSnapshot['organizationDonationLink'] : null,
+      schedule: donationSnapshot['organizationSchedule'] != null
+          ? Map<String, List<dynamic>>.from(donationSnapshot['organizationSchedule'])?.map(
+              (day, times) => MapEntry(
+                day,
+                times
+                    .map((time) => new TimeOfDay.fromDateTime(DateTime.fromMillisecondsSinceEpoch((time as Timestamp).millisecondsSinceEpoch)))
+                    .toList(),
+              ),
+            )
+          : null,
+      breaks: donationSnapshot['organizationBreaks'] != null
+          ? List<dynamic>.from(donationSnapshot['organizationBreaks'])
+              .map((dates) => new DateTime.fromMillisecondsSinceEpoch((dates as Timestamp).millisecondsSinceEpoch))
+              .toList()
+          : null,
     );
   }
 
@@ -71,6 +92,14 @@ class Donation {
   }
 
   Map<String, dynamic> toFirestoreMap() {
+    Map<String, List<DateTime>> schedule = {};
+    for (String day in organization.schedule.keys) {
+      List<DateTime> timeFrames = [];
+      for (TimeOfDay time in organization.schedule[day]) {
+        timeFrames.add(new DateTime(1969, 1, 1, time.hour, time.minute));
+      }
+      schedule[day] = timeFrames;
+    }
     return {
       'volunteerId': volunteerId,
       'date': date,
@@ -78,6 +107,9 @@ class Donation {
       'organizationId': organization.id,
       'organizationName': organization.name,
       'organizationDescription': organization.description,
+      'organizationDonationLink': organization.donationLink,
+      'organizationSchedule': schedule,
+      'organizationBreaks': organization.breaks,
       'organizationEmail': organization.email,
       'organizationAddress': organization.address,
       'organizationLocation': GeoPoint(organization.location.latitude, organization.location.longitude),

@@ -31,14 +31,7 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
     donation = Donation(
       volunteerId: Provider.of<User>(context, listen: false).user.uid,
       volunteerEmail: Provider.of<User>(context, listen: false).user.email,
-      organization: Organization(
-        id: widget.organization.id,
-        name: widget.organization.name,
-        description: widget.organization.description,
-        email: widget.organization.email,
-        address: widget.organization.address,
-        location: widget.organization.location,
-      ),
+      organization: widget.organization.clone(),
     );
     donation.items = [];
     super.initState();

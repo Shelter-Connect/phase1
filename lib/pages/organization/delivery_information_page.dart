@@ -164,7 +164,7 @@ class _DeliveryInformationPageState extends State<DeliveryInformationPage> {
                       FirestoreHelper.cancelVolunteerDelivery(context, widget.donation);
                       Navigator.pop(context);
                     },
-                    text: 'Cancel Order',
+                    text: 'Cancel Delivery',
                     color: purpleAccent,
                     textColor: Colors.white,
                   ),

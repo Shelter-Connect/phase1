@@ -3,6 +3,7 @@ import 'dart:ui' as ui;
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
@@ -17,7 +18,6 @@ import 'package:phase1/services/firestore_helper.dart';
 import '../../components/standard_layout.dart';
 import '../../constants.dart';
 import 'edit_delivery_page.dart';
-import 'package:flutter/gestures.dart';
 
 class DeliveryDescriptionPage extends StatefulWidget {
   final Donation donation;
@@ -59,7 +59,11 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                 urgency: document['urgency'],
                 urgencyColor: (document['urgency'] == 0)
                     ? Colors.transparent
-                    : (document['urgency'] == 1) ? Colors.green : (document['urgency'] == 2) ? Colors.yellow : Colors.red),
+                    : (document['urgency'] == 1)
+                        ? Colors.green
+                        : (document['urgency'] == 2)
+                            ? Colors.yellow
+                            : Colors.red),
           );
         });
       }
@@ -81,7 +85,7 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
           ? Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.symmetric( vertical: 4),
+                padding: const EdgeInsets.symmetric(vertical: 4),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -94,6 +98,7 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                       orgEmail: donation.organization.email,
                       orgAddress: donation.organization.address,
                       dateTime: donation.date,
+                      schedule: donation.organization.schedule,
                     ),
                     SizedBox(height: 2),
                     Card(
@@ -275,8 +280,9 @@ class OrganizationInformation extends StatefulWidget {
   final String orgEmail;
   final String orgAddress;
   final DateTime dateTime;
+  final Map<String, List<TimeOfDay>> schedule;
 
-  OrganizationInformation({@required this.orgEmail, @required this.orgAddress, @required this.dateTime});
+  OrganizationInformation({@required this.orgEmail, @required this.orgAddress, @required this.dateTime, @required this.schedule});
 
   @override
   _OrganizationInformationState createState() => _OrganizationInformationState();
@@ -288,13 +294,13 @@ class _OrganizationInformationState extends State<OrganizationInformation> {
   @override
   void initState() {
     super.initState();
-    _addressTapGestureRecognizer = TapGestureRecognizer()
-      ..onTap = _addressHandleTap;
+    _addressTapGestureRecognizer = TapGestureRecognizer()..onTap = _addressHandleTap;
   }
 
   void _addressHandleTap() {
     MapSheet().build(context);
   }
+
   @override
   void dispose() {
     _addressTapGestureRecognizer?.dispose();
@@ -383,13 +389,12 @@ class _OrganizationInformationState extends State<OrganizationInformation> {
                                 ),
                               ),
                               TextSpan(
-                                text: widget.orgEmail,
-                                style: TextStyle(
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.black,
-                                )
-                              )
+                                  text: widget.orgEmail,
+                                  style: TextStyle(
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black,
+                                  ))
                             ],
                           ),
                         ),
@@ -408,14 +413,13 @@ class _OrganizationInformationState extends State<OrganizationInformation> {
                                 ),
                               ),
                               TextSpan(
-                                text: widget.orgAddress,
-                                style: TextStyle(
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.blue,
-                                ),
-                                recognizer: _addressTapGestureRecognizer
-                              )
+                                  text: widget.orgAddress,
+                                  style: TextStyle(
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.blue,
+                                  ),
+                                  recognizer: _addressTapGestureRecognizer)
                             ],
                           ),
                         ),
@@ -438,6 +442,86 @@ class _OrganizationInformationState extends State<OrganizationInformation> {
                                   color: Colors.black,
                                 ),
                               ),
+                              TextSpan(
+                                text: ' during ',
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              TextSpan(
+                                text: widget.dateTime.weekday == 1
+                                    ? 'Monday:\n'
+                                    : widget.dateTime.weekday == 2
+                                        ? 'Tuesday:\n'
+                                        : widget.dateTime.weekday == 3
+                                            ? 'Wednesday:\n'
+                                            : widget.dateTime.weekday == 4
+                                                ? 'Thursday:\n'
+                                                : widget.dateTime.weekday == 5
+                                                    ? 'Friday:\n'
+                                                    : widget.dateTime.weekday == 6
+                                                        ? 'Saturday:\n'
+                                                        : 'Sunday:\n',
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              if (widget
+                                      .schedule[widget.dateTime.weekday == 1
+                                          ? 'Monday'
+                                          : widget.dateTime.weekday == 2
+                                              ? 'Tuesday'
+                                              : widget.dateTime.weekday == 3
+                                                  ? 'Wednesday'
+                                                  : widget.dateTime.weekday == 4
+                                                      ? 'Thursday'
+                                                      : widget.dateTime.weekday == 5
+                                                          ? 'Friday'
+                                                          : widget.dateTime.weekday == 6
+                                                              ? 'Saturday'
+                                                              : 'Sunday']
+                                      .length !=
+                                  0)
+                                for (int i = 0;
+                                    i <
+                                        widget
+                                            .schedule[widget.dateTime.weekday == 1
+                                                ? 'Monday'
+                                                : widget.dateTime.weekday == 2
+                                                    ? 'Tuesday'
+                                                    : widget.dateTime.weekday == 3
+                                                        ? 'Wednesday'
+                                                        : widget.dateTime.weekday == 4
+                                                            ? 'Thursday'
+                                                            : widget.dateTime.weekday == 5
+                                                                ? 'Friday'
+                                                                : widget.dateTime.weekday == 6
+                                                                    ? 'Saturday'
+                                                                    : 'Sunday']
+                                            .length;
+                                    i = i + 2)
+                                  TextSpan(
+                                    text:
+                                        ' ${widget.schedule[widget.dateTime.weekday == 1 ? 'Monday' : widget.dateTime.weekday == 2 ? 'Tuesday' : widget.dateTime.weekday == 3 ? 'Wednesday' : widget.dateTime.weekday == 4 ? 'Thursday' : widget.dateTime.weekday == 5 ? 'Friday' : widget.dateTime.weekday == 6 ? 'Saturday' : 'Sunday'][i].format(context)} to ${widget.schedule[widget.dateTime.weekday == 1 ? 'Monday' : widget.dateTime.weekday == 2 ? 'Tuesday' : widget.dateTime.weekday == 3 ? 'Wednesday' : widget.dateTime.weekday == 4 ? 'Thursday' : widget.dateTime.weekday == 5 ? 'Friday' : widget.dateTime.weekday == 6 ? 'Saturday' : 'Sunday'][i + 1].format(context)}\n',
+                                    style: TextStyle(
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.black,
+                                    ),
+                                  )
+                              else
+                                TextSpan(
+                                  text: 'The Whole Day!',
+                                  style: TextStyle(
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black,
+                                  ),
+                                )
                             ],
                           ),
                         ),

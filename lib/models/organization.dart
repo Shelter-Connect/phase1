@@ -57,7 +57,7 @@ class Organization {
           times.map((time) => new TimeOfDay(hour: time.hour, minute: time.minute)).toList(),
         ),
       ),
-      breaks: breaks.map((dates) => new DateTime(dates.year, dates.month, dates.day, dates.hour, dates.minute)).toList(),
+      breaks: breaks?.map((dates) => new DateTime(dates.year, dates.month, dates.day, dates.hour, dates.minute))?.toList(),
       distance: distance,
     );
   }
