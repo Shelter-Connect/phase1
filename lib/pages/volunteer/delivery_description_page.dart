@@ -515,7 +515,7 @@ class _OrganizationInformationState extends State<OrganizationInformation> {
                                   )
                               else
                                 TextSpan(
-                                  text: 'The Whole Day!',
+                                  text: 'The Entire Day!',
                                   style: TextStyle(
                                     fontSize: 17,
                                     fontWeight: FontWeight.w600,

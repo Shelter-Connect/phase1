@@ -567,7 +567,7 @@ class EditHourContainer extends StatelessWidget {
             Spacer(),
             Column(children: [
               if (timeFrames.length == 0)
-                Text('Open for the Whole Day!', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold))
+                Text('Open for the Entire Day!', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold))
               else
                 for (int i = 0; i < timeFrames.length; i = i + 2)
                   Container(
@@ -590,7 +590,7 @@ class EditHourContainer extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            EditHoursWeekDay(date: day, timeFrames: timeFrames, schedule: organization.schedule, controllers: controllers)));
+                            EditHoursWeekDay(day: day, timeFrames: timeFrames, schedule: organization.schedule, controllers: controllers)));
               },
             ),
           ],

@@ -154,13 +154,14 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                             textDirection: TextDirection.rtl,
                             children: [
                               FlatButton(
-                                  onPressed: () {
-                                    MapSheet().build(context);
-                                  },
-                                  child: SvgPicture.asset(
-                                    Platform.isIOS ? "assets/random_svgs/applemaps.svg" : "assets/random_svgs/googlemaps.svg",
-                                    height: 28,
-                                  )),
+                                onPressed: () {
+                                  MapSheet().build(context);
+                                },
+                                child: SvgPicture.asset(
+                                  Platform.isIOS ? "assets/random_svgs/applemaps.svg" : "assets/random_svgs/googlemaps.svg",
+                                  height: 28,
+                                ),
+                              ),
                               Padding(
                                 padding: const EdgeInsets.only(top: 8.0),
                                 child: Column(
@@ -254,13 +255,14 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                             ),
                                           ),
                                           TextSpan(
-                                              text: widget.organization.website,
-                                              style: TextStyle(
-                                                fontSize: 17,
-                                                fontWeight: FontWeight.w600,
-                                                color: Colors.blue,
-                                              ),
-                                              recognizer: _websiteLinkTapGestureRecognizer),
+                                            text: widget.organization.website,
+                                            style: TextStyle(
+                                              fontSize: 17,
+                                              fontWeight: FontWeight.w600,
+                                              color: Colors.blue,
+                                            ),
+                                            recognizer: _websiteLinkTapGestureRecognizer
+                                          ),
                                         ],
                                       ),
                                     ),
@@ -280,13 +282,14 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                             ),
                                           ),
                                           TextSpan(
-                                              text: widget.organization.donationLink,
-                                              style: TextStyle(
-                                                fontSize: 17,
-                                                fontWeight: FontWeight.w600,
-                                                color: Colors.blue,
-                                              ),
-                                              recognizer: _donationLinkTapGestureRecognizer),
+                                            text: widget.organization.donationLink,
+                                            style: TextStyle(
+                                              fontSize: 17,
+                                              fontWeight: FontWeight.w600,
+                                              color: Colors.blue,
+                                            ),
+                                            recognizer: _donationLinkTapGestureRecognizer
+                                          ),
                                         ],
                                       ),
                                     ),
@@ -361,141 +364,57 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                   SizedBox(height: 10),
                                   Table(border: TableBorder.all(), children: [
                                     TableRow(children: [
-                                      Padding(
+                                      ...['M', 'T', 'W'].map((day) => Padding(
                                         padding: const EdgeInsets.all(4),
-                                        child: Text('M'),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(4),
-                                        child: Text('T'),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(4),
-                                        child: Text('W'),
-                                      ),
+                                        child: Text(day),
+                                      )),
                                     ]),
-                                    TableRow(children: [
-                                      Padding(
-                                          padding: const EdgeInsets.all(4),
-                                          child: Column(
-                                            children: [
-                                              if (widget.organization.schedule['Monday'].length != 0 ||
-                                                  widget.organization.schedule['Monday'] == null)
-                                                for (int i = 0; i < widget.organization.schedule['Monday'].length; i = i + 2)
-                                                  Text(
-                                                      '${widget.organization.schedule['Monday'][i].format(context)} - ${widget.organization.schedule['Monday'][i + 1].format(context)}')
-                                              else
-                                                Text('Open for the Whole Day!'),
-                                            ],
-                                          )),
-                                      Padding(
-                                          padding: const EdgeInsets.all(4),
-                                          child: Column(
-                                            children: [
-                                              if (widget.organization.schedule['Tuesday'].length != 0 ||
-                                                  widget.organization.schedule['Tuesday'] == null)
-                                                for (int i = 0; i < widget.organization.schedule['Tuesday'].length; i = i + 2)
-                                                  Text(
-                                                      '${widget.organization.schedule['Tuesday'][i].format(context)} - ${widget.organization.schedule['Tuesday'][i + 1].format(context)}')
-                                              else
-                                                Text('Open for the Whole Day!'),
-                                            ],
-                                          )),
-                                      Padding(
-                                          padding: const EdgeInsets.all(4),
-                                          child: Column(
-                                            children: [
-                                              if (widget.organization.schedule['Wednesday'].length != 0 ||
-                                                  widget.organization.schedule['Wednesday'] == null)
-                                                for (int i = 0; i < widget.organization.schedule['Wednesday'].length; i = i + 2)
-                                                  Text(
-                                                      '${widget.organization.schedule['Wednesday'][i].format(context)} - ${widget.organization.schedule['Wednesday'][i + 1].format(context)}')
-                                              else
-                                                Text('Open for the Whole Day!'),
-                                            ],
-                                          )),
-                                    ]),
+                                    TableRow(
+                                      children: [
+                                        ...['Monday', 'Tuesday', 'Wednesday'].map((day) {
+                                          return Padding(
+                                            padding: const EdgeInsets.all(4),
+                                            child: Column(
+                                              children: [
+                                                if (widget.organization.schedule[day].length != 0 || widget.organization.schedule[day] == null)
+                                                  for (int i = 0; i < widget.organization.schedule[day].length; i = i + 2)
+                                                    Text('${widget.organization.schedule[day][i].format(context)} - ${widget.organization.schedule[day][i + 1].format(context)}')
+                                                else
+                                                  Text('Open for the Whole Day!'),
+                                              ],
+                                            ),
+                                          );
+                                        }),
+                                      ],
+                                    ),
                                   ]),
                                   SizedBox(height: 10),
                                   Table(border: TableBorder.all(), children: [
                                     TableRow(children: [
-                                      Padding(
+                                      ...['Th', 'F', 'S', 'Su'].map((day) => Padding(
                                         padding: const EdgeInsets.all(4),
-                                        child: Text('Th'),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(4),
-                                        child: Text('F'),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(4),
-                                        child: Text('S'),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(4),
-                                        child: Text('Su'),
-                                      ),
+                                        child: Text(day),
+                                      )),
                                     ]),
                                     TableRow(children: [
-                                      Padding(
+                                      ...['Thursday', 'Friday', 'Saturday', 'Sunday'].map((day) {
+                                        return Padding(
                                           padding: const EdgeInsets.all(4),
                                           child: Column(
                                             children: [
-                                              if (widget.organization.schedule['Thursday'].length != 0 ||
-                                                  widget.organization.schedule['Thursday'] == null)
-                                                for (int i = 0; i < widget.organization.schedule['Thursday'].length; i = i + 2)
-                                                  Text(
-                                                      '${widget.organization.schedule['Thursday'][i].format(context)} - ${widget.organization.schedule['Thursday'][i + 1].format(context)}')
+                                              if (widget.organization.schedule[day].length != 0 || widget.organization.schedule[day] == null)
+                                                for (int i = 0; i < widget.organization.schedule[day].length; i = i + 2)
+                                                  Text('${widget.organization.schedule[day][i].format(context)} - ${widget.organization.schedule[day][i + 1].format(context)}')
                                               else
-                                                Text('Open for the Whole Day!'),
+                                                Text('Open for the Entire Day!'),
                                             ],
-                                          )),
-                                      Padding(
-                                          padding: const EdgeInsets.all(4),
-                                          child: Column(
-                                            children: [
-                                              if (widget.organization.schedule['Friday'].length != 0 ||
-                                                  widget.organization.schedule['Friday'] == null)
-                                                for (int i = 0; i < widget.organization.schedule['Friday'].length; i = i + 2)
-                                                  Text(
-                                                      '${widget.organization.schedule['Friday'][i].format(context)} - ${widget.organization.schedule['Friday'][i + 1].format(context)}')
-                                              else
-                                                Text('Open for the Whole Day!'),
-                                            ],
-                                          )),
-                                      Padding(
-                                          padding: const EdgeInsets.all(4),
-                                          child: Column(
-                                            children: [
-                                              if (widget.organization.schedule['Saturday'].length != 0 ||
-                                                  widget.organization.schedule['Saturday'] == null)
-                                                for (int i = 0; i < widget.organization.schedule['Saturday'].length; i = i + 2)
-                                                  Text(
-                                                      '${widget.organization.schedule['Saturday'][i].format(context)} - ${widget.organization.schedule['Saturday'][i + 1].format(context)}')
-                                              else
-                                                Text('Open for the Whole Day!'),
-                                            ],
-                                          )),
-                                      Padding(
-                                          padding: const EdgeInsets.all(4),
-                                          child: Column(
-                                            children: [
-                                              if (widget.organization.schedule['Sunday'].length != 0 ||
-                                                  widget.organization.schedule['Sunday'] == null)
-                                                for (int i = 0; i < widget.organization.schedule['Sunday'].length; i = i + 2)
-                                                  Text(
-                                                      '${widget.organization.schedule['Sunday'][i].format(context)} - ${widget.organization.schedule['Sunday'][i + 1].format(context)}')
-                                              else
-                                                Text('Open for the Whole Day!'),
-                                            ],
-                                          )),
+                                          ),
+                                        );
+                                      }),
                                     ]),
                                   ]),
                                   SizedBox(
-                                    height: 10,
-                                  ),
-                                  SizedBox(
-                                    height: 10,
+                                    height: 20,
                                   ),
                                 ],
                               ),

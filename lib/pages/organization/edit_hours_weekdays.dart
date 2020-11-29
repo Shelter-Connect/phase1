@@ -7,23 +7,27 @@ import 'package:phase1/services/firestore_helper.dart';
 import '../../constants.dart';
 
 class EditHoursWeekDay extends StatefulWidget {
-  final String date;
-  Map<String, List<TimeOfDay>> schedule;
-  List<TimeOfDay> timeFrames;
-  List<TextEditingController> controllers = [];
-  Map<String, List<DateTime>> temp = {};
+  final String day;
+  final Map<String, List<TimeOfDay>> schedule;
+  final List<TimeOfDay> timeFrames;
+  final List<TextEditingController> controllers;
+  final Map<String, List<DateTime>> temp = {};
 
-  EditHoursWeekDay({@required this.date, @required this.timeFrames, @required this.schedule, @required this.controllers});
+  EditHoursWeekDay({@required this.day, @required this.timeFrames, @required this.schedule, @required this.controllers});
 
   @override
   _EditHoursWeekDayState createState() => _EditHoursWeekDayState();
 }
 
 class _EditHoursWeekDayState extends State<EditHoursWeekDay> {
+  List<TimeOfDay> timeFrames;
+
   @override
   void initState() {
-    if (widget.timeFrames == null) widget.timeFrames = [];
-    widget.schedule[widget.date] = widget.timeFrames;
+    setState(() {
+      timeFrames = widget.timeFrames == null ? [] : widget.timeFrames;
+    });
+    widget.schedule[widget.day] = widget.timeFrames;
     for (String dayOfWeek in widget.schedule.keys) {
       List<DateTime> day = [];
       DateTime now = DateTime.now();
@@ -36,7 +40,7 @@ class _EditHoursWeekDayState extends State<EditHoursWeekDay> {
   @override
   Widget build(BuildContext context) {
     return StandardLayout(
-        title: 'Edit Hours: ${widget.date}',
+        title: 'Edit Hours: ${widget.day}',
         titleColor: purpleAccent,
         body: SingleChildScrollView(
           child: Padding(
@@ -44,7 +48,7 @@ class _EditHoursWeekDayState extends State<EditHoursWeekDay> {
             child: Column(
               children: [
                 if (widget.timeFrames.length == 0)
-                  Text('Open for the Whole Day!', style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),)
+                  Text('Open for the Entire Day!', style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),)
                 else
                   for (int i = 0; i < widget.timeFrames.length; i = i + 2)
                     Column(
@@ -237,9 +241,9 @@ class _EditHoursWeekDayState extends State<EditHoursWeekDay> {
                   child: InkWell(
                     onTap: () {
                       DateTime now = new DateTime.now();
-                      widget.temp[widget.date] = [];
+                      widget.temp[widget.day] = [];
                       for (TimeOfDay time in widget.timeFrames)
-                        widget.temp[widget.date].add(new DateTime(now.year, now.month, now.day, time.hour, time.minute));
+                        widget.temp[widget.day].add(new DateTime(now.year, now.month, now.day, time.hour, time.minute));
                       FirestoreHelper.getCurrentOrganizationReference(context).updateData({
                         'schedule': widget.temp,
                       }).then((value) => Navigator.pop(context));
@@ -258,7 +262,7 @@ class _EditHoursWeekDayState extends State<EditHoursWeekDay> {
                             Icon(Icons.edit, color: Colors.white, size: 25),
                             SizedBox(width: 2),
                             Text(
-                              'Save Changes for ${widget.date}',
+                              'Save Changes for ${widget.day}',
                               style: TextStyle(
                                 color: colorScheme.onSecondary,
                                 fontWeight: FontWeight.w500,
