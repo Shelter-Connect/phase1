@@ -27,6 +27,7 @@ class OrganizationProfilePage extends StatefulWidget {
 class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
   bool loading = true;
   bool noRequests = true;
+  TapGestureRecognizer _addressTapGestureRecognizer;
   TapGestureRecognizer _websiteLinkTapGestureRecognizer;
   TapGestureRecognizer _donationLinkTapGestureRecognizer;
 
@@ -70,6 +71,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
       });
     });
     super.initState();
+    _addressTapGestureRecognizer = TapGestureRecognizer()..onTap = _addressHandleTap;
     _websiteLinkTapGestureRecognizer = TapGestureRecognizer()..onTap = _websiteLinkHandleTap;
     _donationLinkTapGestureRecognizer = TapGestureRecognizer()..onTap = _donationLinkHandleTap;
   }
@@ -77,9 +79,14 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
   @override
   void dispose() {
     // For the tap gesture recognizers
+    _addressTapGestureRecognizer?.dispose();
     _websiteLinkTapGestureRecognizer?.dispose();
     _donationLinkTapGestureRecognizer?.dispose();
     super.dispose();
+  }
+
+  void _addressHandleTap() {
+    MapSheet().build(context);
   }
 
   void _websiteLinkHandleTap() {
@@ -225,8 +232,9 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                             style: TextStyle(
                                               fontSize: 17,
                                               fontWeight: FontWeight.w600,
-                                              color: colorScheme.onBackground,
+                                              color: Colors.blue,
                                             ),
+                                            recognizer: _addressTapGestureRecognizer
                                           ),
                                         ],
                                       ),

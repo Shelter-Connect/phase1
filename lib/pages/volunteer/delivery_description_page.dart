@@ -17,6 +17,7 @@ import 'package:phase1/services/firestore_helper.dart';
 import '../../components/standard_layout.dart';
 import '../../constants.dart';
 import 'edit_delivery_page.dart';
+import 'package:flutter/gestures.dart';
 
 class DeliveryDescriptionPage extends StatefulWidget {
   final Donation donation;
@@ -264,12 +265,35 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
   }
 }
 
-class OrganizationInformation extends StatelessWidget {
+class OrganizationInformation extends StatefulWidget {
   final String orgEmail;
   final String orgAddress;
   final DateTime dateTime;
 
   OrganizationInformation({@required this.orgEmail, @required this.orgAddress, @required this.dateTime});
+
+  @override
+  _OrganizationInformationState createState() => _OrganizationInformationState();
+}
+
+class _OrganizationInformationState extends State<OrganizationInformation> {
+  TapGestureRecognizer _addressTapGestureRecognizer;
+
+  @override
+  void initState() {
+    super.initState();
+    _addressTapGestureRecognizer = TapGestureRecognizer()
+      ..onTap = _addressHandleTap;
+  }
+
+  void _addressHandleTap() {
+    MapSheet().build(context);
+  }
+  @override
+  void dispose() {
+    _addressTapGestureRecognizer?.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -353,12 +377,12 @@ class OrganizationInformation extends StatelessWidget {
                                 ),
                               ),
                               TextSpan(
-                                text: orgEmail,
+                                text: widget.orgEmail,
                                 style: TextStyle(
                                   fontSize: 17,
                                   fontWeight: FontWeight.w600,
                                   color: Colors.black,
-                                ),
+                                )
                               )
                             ],
                           ),
@@ -378,12 +402,13 @@ class OrganizationInformation extends StatelessWidget {
                                 ),
                               ),
                               TextSpan(
-                                text: orgAddress,
+                                text: widget.orgAddress,
                                 style: TextStyle(
                                   fontSize: 17,
                                   fontWeight: FontWeight.w600,
-                                  color: Colors.black,
+                                  color: Colors.blue,
                                 ),
+                                recognizer: _addressTapGestureRecognizer
                               )
                             ],
                           ),
@@ -400,7 +425,7 @@ class OrganizationInformation extends StatelessWidget {
                                 ),
                               ),
                               TextSpan(
-                                text: '${DateFormat('MMMMd').format(dateTime)}',
+                                text: '${DateFormat('MMMMd').format(widget.dateTime)}',
                                 style: TextStyle(
                                   fontSize: 17,
                                   fontWeight: FontWeight.w600,
