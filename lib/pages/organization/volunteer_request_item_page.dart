@@ -15,7 +15,7 @@ class VolunteerItemPage extends StatefulWidget {
   final String itemCategory;
   final String asset;
 
-  VolunteerItemPage({this.itemCategory = 'Other', this.asset = 'assets/other_svgs/other.svg'});
+  VolunteerItemPage({this.itemCategory = 'Volunteering', this.asset = 'assets/other_svgs/other.svg'});
 
   @override
   _VolunteerItemPageState createState() => _VolunteerItemPageState();
@@ -25,7 +25,6 @@ class _VolunteerItemPageState extends State<VolunteerItemPage> {
   int amount = 0;
   String specificDescription = '';
   String itemName = '';
-
 
   @override
   Widget build(BuildContext context) {
@@ -118,25 +117,25 @@ class _VolunteerItemPageState extends State<VolunteerItemPage> {
                 width: MediaQuery.of(context).size.width,
                 child: FlatButton(
                   onPressed: () {
-//                    showDialog(
-//                      context: context,
-//                      builder: (_) => SingleActionAlert(
-//                        title: 'Confirm your request?',
-//                        subtitle:
-//                            'Make sure you are requesting the correct item and number of items. Requests can be edited in the \'Expected Deliveries\' tab.',
-//                        actionName: 'Create Request',
-//                        action: () {
-//                          FirestoreHelper.updateRequests(
-//                            context: context,
-//                            items: [
-//                              Item(name: itemName, amount: amount, specificDescription: specificDescription, category: widget.itemCategory, unit: itemUnit),
-//                            ],
-//                          );
-//                          Navigator.pop(context);
-//                          Navigator.pop(context);
-                       // },
-                     // ),
-                    //);
+                    showDialog(
+                      context: context,
+                      builder: (_) => SingleActionAlert(
+                        title: 'Confirm your request?',
+                        subtitle:
+                            'Make sure you are requesting the correct volunteer event and number of volunteers needed. Volunteering Requests can be edited in the \'Current Requests\' tab.',
+                        actionName: 'Create Request',
+                        action: () {
+                          FirestoreHelper.updateRequests(
+                            context: context,
+                            items: [
+                              Item(name: itemName, amount: amount, specificDescription: specificDescription, category: widget.itemCategory),
+                            ],
+                          );
+                          Navigator.pop(context);
+                          Navigator.pop(context);
+                        },
+                      ),
+                    );
                   },
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30.0),

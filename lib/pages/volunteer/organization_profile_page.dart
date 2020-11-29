@@ -348,6 +348,113 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                   ),
                   if (widget.organization.itemCategories != null)
                     if (widget.organization.itemCategories.length != 0)
+                      if (widget.organization.itemCategories.contains('Volunteering'))
+                        Card(
+                          elevation: 2,
+                          child: Column(
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16.0),
+                                child: !widget.organization.requestedItems.containsKey('Volunteering')
+                                    ? Container()
+                                    : Column(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Text(
+                                            'Volunteering Opportunities',
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 5,
+                                          ),
+                                          Container(
+                                            height: 5,
+                                            width: 50,
+                                            decoration: BoxDecoration(
+                                              color: purpleAccent,
+                                              borderRadius: BorderRadius.circular(21),
+                                            ),
+                                          ),
+                                          Column(
+                                            children: widget.organization.itemCategories.map((String category) {
+                                              List<Item> items = widget.organization.requestedItems[category];
+                                              if (category == 'Volunteering')
+                                                return Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                                                  children: [
+                                                    SizedBox(height: 10.0),
+                                                    ...items.map(
+                                                      (item) => (item.amount != 0 && item.category == 'Volunteering')
+                                                          ? Container(
+                                                              alignment: Alignment.centerLeft,
+                                                              child: Padding(
+                                                                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                                                child: Row(
+                                                                  children: [
+                                                                    Align(
+                                                                      alignment: Alignment.centerLeft,
+                                                                      child: Column(
+                                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                                        children: [
+                                                                          Text(
+                                                                            '${item.name}'.trim(),
+                                                                            style: TextStyle(
+                                                                              fontWeight: FontWeight.bold,
+                                                                              fontSize: 23.0,
+                                                                            ),
+                                                                          ),
+                                                                          Text(
+                                                                            (item.amount == 1)
+                                                                                ? '${item.amount} more volunteer needed'.trim()
+                                                                                : '${item.amount} more volunteers needed'.trim(),
+                                                                            style: TextStyle(
+                                                                              fontSize: 17.0,
+                                                                              fontWeight: FontWeight.w400,
+                                                                            ),
+                                                                          ),
+                                                                          if (item.specificDescription != null)
+                                                                            Text(
+                                                                              item.specificDescription,
+                                                                              style: TextStyle(fontSize: 14, color: Colors.grey),
+                                                                            ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                    Expanded(
+                                                                      child: Align(
+                                                                        alignment: Alignment.centerRight,
+                                                                        child: Container(
+                                                                          height: 12,
+                                                                          width: 12,
+                                                                          decoration: BoxDecoration(
+                                                                              color: item.urgencyColor, borderRadius: BorderRadius.circular(40)),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            )
+                                                          : Container(),
+                                                    ),
+                                                  ],
+                                                );
+                                              else
+                                                return Container();
+                                            }).toList(),
+                                          )
+                                        ],
+                                      ),
+                              ),
+                            ],
+                          ),
+                        ),
+                  if (widget.organization.itemCategories != null)
+                    if (widget.organization.itemCategories.length != 0)
                       Card(
                         elevation: 2,
                         child: Column(
@@ -381,64 +488,67 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                         Column(
                                           children: widget.organization.itemCategories.map((String category) {
                                             List<Item> items = widget.organization.requestedItems[category];
-                                            return Column(
-                                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                                              children: [
-                                                SizedBox(height: 10.0),
-                                                Text(
-                                                  category,
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 23.0,
+                                            if (category != "Volunteeering")
+                                              return Column(
+                                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                                children: [
+                                                  SizedBox(height: 10.0),
+                                                  Text(
+                                                    category,
+                                                    style: TextStyle(
+                                                      fontWeight: FontWeight.bold,
+                                                      fontSize: 23.0,
+                                                    ),
                                                   ),
-                                                ),
-                                                ...items.map(
-                                                  (item) => item.amount != 0
-                                                      ? Container(
-                                                          alignment: Alignment.centerLeft,
-                                                          child: Padding(
-                                                            padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                                            child: Row(
-                                                              children: [
-                                                                Align(
-                                                                  alignment: Alignment.centerLeft,
-                                                                  child: Column(
-                                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                                    children: [
-                                                                      Text(
-                                                                        '${item.name} - ${item.amount} ${item.unit ?? ''}'.trim(),
-                                                                        style: TextStyle(
-                                                                          fontSize: 17.0,
-                                                                          fontWeight: FontWeight.w400,
-                                                                        ),
-                                                                      ),
-                                                                      if (item.specificDescription != null)
+                                                  ...items.map(
+                                                    (item) => item.amount != 0
+                                                        ? Container(
+                                                            alignment: Alignment.centerLeft,
+                                                            child: Padding(
+                                                              padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                                              child: Row(
+                                                                children: [
+                                                                  Align(
+                                                                    alignment: Alignment.centerLeft,
+                                                                    child: Column(
+                                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                                      children: [
                                                                         Text(
-                                                                          item.specificDescription,
-                                                                          style: TextStyle(fontSize: 14, color: Colors.grey),
+                                                                          '${item.name} - ${item.amount} ${item.unit ?? ''}'.trim(),
+                                                                          style: TextStyle(
+                                                                            fontSize: 17.0,
+                                                                            fontWeight: FontWeight.w400,
+                                                                          ),
                                                                         ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                                Expanded(
-                                                                  child: Align(
-                                                                    alignment: Alignment.centerRight,
-                                                                    child: Container(
-                                                                      height: 12,
-                                                                      width: 12,
-                                                                      decoration: BoxDecoration(
-                                                                          color: item.urgencyColor, borderRadius: BorderRadius.circular(40)),
+                                                                        if (item.specificDescription != null)
+                                                                          Text(
+                                                                            item.specificDescription,
+                                                                            style: TextStyle(fontSize: 14, color: Colors.grey),
+                                                                          ),
+                                                                      ],
                                                                     ),
                                                                   ),
-                                                                ),
-                                                              ],
+                                                                  Expanded(
+                                                                    child: Align(
+                                                                      alignment: Alignment.centerRight,
+                                                                      child: Container(
+                                                                        height: 12,
+                                                                        width: 12,
+                                                                        decoration: BoxDecoration(
+                                                                            color: item.urgencyColor, borderRadius: BorderRadius.circular(40)),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
                                                             ),
-                                                          ),
-                                                        )
-                                                      : Container(),
-                                                ),
-                                              ],
-                                            );
+                                                          )
+                                                        : Container(),
+                                                  ),
+                                                ],
+                                              );
+                                            else
+                                              return Container();
                                           }).toList(),
                                         )
                                       ],

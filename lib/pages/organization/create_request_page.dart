@@ -93,8 +93,7 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
                           );
                         },
                       );
-                    } else
-                    if (index == categories.length + 1) {
+                    } else if (index == categories.length + 1) {
                       return CategoryIconButton(
                         asset: 'assets/other_svgs/other.svg',
                         name: 'Other',
