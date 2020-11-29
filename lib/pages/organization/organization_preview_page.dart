@@ -95,7 +95,7 @@ class _OrganizationPreviewPageState extends State<OrganizationPreviewPage> {
                                         height: 28,
                                       )),
                                   Padding(
-                                    padding: const EdgeInsets.only(top: 8.0, left: 20.0),
+                                    padding: const EdgeInsets.only(top: 8.0),
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [

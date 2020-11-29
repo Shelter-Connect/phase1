@@ -30,7 +30,6 @@ class _EditHoursWeekDayState extends State<EditHoursWeekDay> {
       for (TimeOfDay time in widget.schedule[dayOfWeek]) day.add(new DateTime(now.year, now.month, now.day, time.hour, time.minute));
       widget.temp[dayOfWeek] = day;
     }
-
     super.initState();
   }
 
@@ -44,200 +43,189 @@ class _EditHoursWeekDayState extends State<EditHoursWeekDay> {
             padding: EdgeInsets.symmetric(horizontal: 16.0),
             child: Column(
               children: [
-                for (int i = 0; i < widget.timeFrames.length; i = i + 2) //TODO: Make sure that the loop condition works
-                  Column(
-                    children: [
-                      SizedBox(height: 10),
-                      Container(
-                        color: Color(0xFFF5F5F5),
-                        child: Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SizedBox(width: 5),
-                              FloatingTextField(
-                                width: MediaQuery
-                                    .of(context)
-                                    .size
-                                    .width * 0.30,
-                                height: 45,
-                                hintText: 'Open',
-                                controller: widget.controllers[i],
-                                onTapped: () async {
-                                  TimeOfDay time = widget.timeFrames[i];
-                                  FocusScope.of(context).requestFocus(
-                                      new FocusNode());
-                                  TimeOfDay open = await showTimePicker(
-                                      context: context, initialTime: time);
-                                  if (open != null) {
-                                    if ((i != 0 ? timeOneGreater(open, widget.timeFrames[i - 1]) : true) && timeOneGreater(widget.timeFrames[i + 1], open)) {
-                                      setState(() {
-                                        time = open;
-                                        widget.controllers[i].text = open.format(context);
-                                        widget.timeFrames[i] = open;
+                if (widget.timeFrames.length == 0)
+                  Text('Open for the Whole Day!')
+                else
+                  for (int i = 0; i < widget.timeFrames.length; i = i + 2)
+                    Column(
+                      children: [
+                        SizedBox(height: 10),
+                        Container(
+                          color: Color(0xFFF5F5F5),
+                          child: Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SizedBox(width: 5),
+                                FloatingTextField(
+                                  width: MediaQuery.of(context).size.width * 0.30,
+                                  height: 45,
+                                  hintText: 'Open',
+                                  controller: widget.controllers[i],
+                                  onTapped: () async {
+                                    TimeOfDay time = widget.timeFrames[i];
+                                    FocusScope.of(context).requestFocus(new FocusNode());
+                                    TimeOfDay open = await showTimePicker(context: context, initialTime: time);
+                                    if (open != null) {
+                                      if ((i != 0 ? timeOneGreater(open, widget.timeFrames[i - 1]) : true) &&
+                                          timeOneGreater(widget.timeFrames[i + 1], open)) {
+                                        setState(() {
+                                          time = open;
+                                          widget.controllers[i].text = open.format(context);
+                                          widget.timeFrames[i] = open;
 
-                                        print("EDITED OPENING TIME | Worked");
-                                      });
-                                    } else {
-                                      showDialog(
-                                          context: context,
-                                          builder: (_) =>
-                                              NoActionAlert(title: "The new starting time ${open.format(context)} must be " + (i != 0 ? "after ${widget.timeFrames[i - 1].format(context)} and " : "") + "before ${widget.timeFrames[i + 1].format(context)}.")
-                                      );
+                                          print("EDITED OPENING TIME | Worked");
+                                        });
+                                      } else {
+                                        showDialog(
+                                            context: context,
+                                            builder: (_) => NoActionAlert(
+                                                title: "The new starting time ${open.format(context)} must be " +
+                                                    (i != 0 ? "after ${widget.timeFrames[i - 1].format(context)} and " : "") +
+                                                    "before ${widget.timeFrames[i + 1].format(context)}."));
 
-                                      print("EDITED OPENING TIME | Failed");
-                                    }
-                                  } else {
-                                    print("EDITING OPENING TIME | The user pressed 'Cancel'.");
-                                  }
-                                },
-                              ),
-                              SizedBox(
-                                width: 15,
-                              ),
-                              Text('  -  ', style: TextStyle(fontSize: 30)),
-                              SizedBox(
-                                width: 15,
-                              ),
-                              FloatingTextField(
-                                width: MediaQuery
-                                    .of(context)
-                                    .size
-                                    .width * 0.30,
-                                height: 45,
-                                hintText: 'Closed',
-                                controller: widget.controllers[i + 1],
-                                // add this line.
-                                onTapped: () async {
-                                  TimeOfDay time = widget.timeFrames[i + 1];
-                                  FocusScope.of(context).requestFocus(
-                                      new FocusNode());
-                                  TimeOfDay closed = await showTimePicker(
-                                      context: context, initialTime: time);
-                                  if (closed != null) {
-                                    if (timeOneGreater(closed, widget.timeFrames[i]) && (i + 2 < widget.timeFrames.length ? timeOneGreater(widget.timeFrames[i + 2], closed) : true) ) {
-                                      setState(() {
-                                        time = closed;
-                                        widget.controllers[i + 1].text = closed.format(context);
-                                        widget.timeFrames[i + 1] = closed;
-                                      });
+                                        print("EDITED OPENING TIME | Failed");
+                                      }
                                     } else {
-                                      showDialog(
-                                          context: context,
-                                          builder: (_) =>
-                                              NoActionAlert(title: "The new closing time ${closed.format(context)} must be after ${widget.timeFrames[i].format(context)}" + (i + 2 < widget.timeFrames.length ? " and before ${widget.timeFrames[i + 2].format(context)}." : "."))
-                                      );
+                                      print("EDITING OPENING TIME | The user pressed 'Cancel'.");
                                     }
-                                  }
-                                },
-                              ),
-                              IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    widget.controllers.removeAt(i);
-                                    widget.timeFrames.removeAt(i);
-                                    widget.controllers.removeAt(i);
-                                    widget.timeFrames.removeAt(i);
-                                  });
-                                },
-                                icon: Icon(Icons.delete, color: Colors.red),
-                              )
-                            ],
+                                  },
+                                ),
+                                SizedBox(
+                                  width: 15,
+                                ),
+                                Text('  -  ', style: TextStyle(fontSize: 30)),
+                                SizedBox(
+                                  width: 15,
+                                ),
+                                FloatingTextField(
+                                  width: MediaQuery.of(context).size.width * 0.30,
+                                  height: 45,
+                                  hintText: 'Closed',
+                                  controller: widget.controllers[i + 1],
+                                  // add this line.
+                                  onTapped: () async {
+                                    TimeOfDay time = widget.timeFrames[i + 1];
+                                    FocusScope.of(context).requestFocus(new FocusNode());
+                                    TimeOfDay closed = await showTimePicker(context: context, initialTime: time);
+                                    if (closed != null) {
+                                      if (timeOneGreater(closed, widget.timeFrames[i]) &&
+                                          (i + 2 < widget.timeFrames.length ? timeOneGreater(widget.timeFrames[i + 2], closed) : true)) {
+                                        setState(() {
+                                          time = closed;
+                                          widget.controllers[i + 1].text = closed.format(context);
+                                          widget.timeFrames[i + 1] = closed;
+                                        });
+                                      } else {
+                                        showDialog(
+                                            context: context,
+                                            builder: (_) => NoActionAlert(
+                                                title:
+                                                    "The new closing time ${closed.format(context)} must be after ${widget.timeFrames[i].format(context)}" +
+                                                        (i + 2 < widget.timeFrames.length
+                                                            ? " and before ${widget.timeFrames[i + 2].format(context)}."
+                                                            : ".")));
+                                      }
+                                    }
+                                  },
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      widget.controllers.removeAt(i);
+                                      widget.timeFrames.removeAt(i);
+                                      widget.controllers.removeAt(i);
+                                      widget.timeFrames.removeAt(i);
+                                    });
+                                  },
+                                  icon: Icon(Icons.delete, color: Colors.red),
+                                )
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
+                      ],
+                    ),
                 SizedBox(height: 20),
                 Align(
                     alignment: Alignment.centerRight,
-                    child: IconButton( // Add timeframe button
-                      icon: Icon(Icons.add, size: 24, color: purpleAccent),
-                      onPressed: () async {
-                        TimeOfDay open = await showTimePicker(
-                            context: context, initialTime: TimeOfDay.now(), helpText: 'Choose the starting time for your new interval.');
-                        int validOpeningIndex = -1; // -1 is invalid, other values are index values (valid)
-                        List<TimeOfDay> problematicTimeInterval = [];
-                        if (timeOneGreater(widget.timeFrames.first, open)) {
-                          validOpeningIndex = 0;
-                        }
-                        else if (timeOneGreater(open, widget.timeFrames.last)) {
-                          validOpeningIndex = widget.timeFrames.length;
-                        }
-                        else {
-                          for (int i = 1; i < widget.timeFrames.length; i = i + 2) {
-                            if (timeOneGreater(open, widget.timeFrames[i]) && (i < widget.timeFrames.length-1 ? timeOneGreater(widget.timeFrames[i + 1], open) : true)) {
-                              validOpeningIndex = i + 1;
-                              print(validOpeningIndex);
-                              break;
-                            } else if (timeOneGreater(open, widget.timeFrames[i-1]) && timeOneGreater(widget.timeFrames[i], open)) {
-                              problematicTimeInterval
-                                  ..add(widget.timeFrames[i-1])
-                                  ..add(widget.timeFrames[i]);
+                    child: IconButton(
+                        // Add timeframe button
+                        icon: Icon(Icons.add, size: 24, color: purpleAccent),
+                        onPressed: () async {
+                          TimeOfDay open = await showTimePicker(
+                              context: context, initialTime: TimeOfDay.now(), helpText: 'Choose the starting time for your new interval.');
+                          int validOpeningIndex = -1; // -1 is invalid, other values are index values (valid)
+                          List<TimeOfDay> problematicTimeInterval = [];
+                          if (timeOneGreater(widget.timeFrames.first, open)) {
+                            validOpeningIndex = 0;
+                          } else if (timeOneGreater(open, widget.timeFrames.last)) {
+                            validOpeningIndex = widget.timeFrames.length;
+                          } else {
+                            for (int i = 1; i < widget.timeFrames.length; i = i + 2) {
+                              if (timeOneGreater(open, widget.timeFrames[i]) &&
+                                  (i < widget.timeFrames.length - 1 ? timeOneGreater(widget.timeFrames[i + 1], open) : true)) {
+                                validOpeningIndex = i + 1;
+                                break;
+                              } else if (timeOneGreater(open, widget.timeFrames[i - 1]) && timeOneGreater(widget.timeFrames[i], open)) {
+                                problematicTimeInterval..add(widget.timeFrames[i - 1])..add(widget.timeFrames[i]);
+                              }
                             }
                           }
-                        }
 
-                        // Still on the added timeframe, but new if/else blocks, moving on to closing time now
-                        if (validOpeningIndex == -1) { // If the starting time is invalid
-                          //showdialog that says starting time can't be between a current interval and to retry adding new interval
-                          showDialog(
-                            context: context,
-                            builder: (_) => NoActionAlert(title: "The new starting time ${open.format(context)} cannot be between ${problematicTimeInterval[0].format(context)} and ${problematicTimeInterval[1].format(context)}. Try adding a new time.") //TODO: Tell them the problematic interval
-                          );
-                        } else {
-                          //show singleactionalert that tells person to chose ending time
-                          TimeOfDay close;
-                          await showDialog(
-                              context: context,
-                              builder: (_) =>
-                                  SingleActionAlert(
-                                      title: "Select Ending Time",
-                                      subtitle: "Now please choose an ending time for this interval.",
-                                      actionName: "Select",
-                                      action: () async {
-                                        close = await showTimePicker(
-                                            context: context,
-                                            initialTime: TimeOfDay.now(),
-                                            helpText: 'Choose the ending time for your new interval.');
+                          // Still on the added timeframe, but new if/else blocks, moving on to closing time now
+                          if (validOpeningIndex == -1) {
+                            // If the starting time is invalid
+                            //showdialog that says starting time can't be between a current interval and to retry adding new interval
+                            showDialog(
+                                context: context,
+                                builder: (_) => NoActionAlert(
+                                    title:
+                                        "The new starting time ${open.format(context)} cannot be between ${problematicTimeInterval[0].format(context)} and ${problematicTimeInterval[1].format(context)}. Try adding a new time.") //TODO: Tell them the problematic interval
+                                );
+                          } else {
+                            //show singleactionalert that tells person to chose ending time
+                            TimeOfDay close;
+                            await showDialog(
+                                context: context,
+                                builder: (_) => SingleActionAlert(
+                                    title: "Select Ending Time",
+                                    subtitle: "Now please choose an ending time for this interval.",
+                                    actionName: "Select",
+                                    action: () async {
+                                      close = await showTimePicker(
+                                          context: context, initialTime: TimeOfDay.now(), helpText: 'Choose the ending time for your new interval.');
 
-                                        if (timeOneGreater(close, open) && (validOpeningIndex < widget.timeFrames.length-1 ? timeOneGreater(widget.timeFrames[validOpeningIndex], close) : true)) {
-                                          setState(() {
+                                      if (timeOneGreater(close, open) &&
+                                          (validOpeningIndex < widget.timeFrames.length - 1
+                                              ? timeOneGreater(widget.timeFrames[validOpeningIndex], close)
+                                              : true)) {
+                                        setState(() {
+                                          if (validOpeningIndex != widget.timeFrames.length) {
                                             widget.controllers.insert(validOpeningIndex, new TextEditingController(text: open.format(context)));
                                             widget.controllers.insert(validOpeningIndex + 1, new TextEditingController(text: close.format(context)));
                                             widget.timeFrames.insert(validOpeningIndex, open);
                                             widget.timeFrames.insert(validOpeningIndex + 1, close);
-                                          }); //else showDialog that says that closing/ending time has to be greater than open.format(context) and less than the {next opening time}
-                                        } else {
-                                          showDialog(
-                                              context: context,
-                                              builder: (_) => NoActionAlert(title: "The new closing time ${close.format(context)} must be later than ${open.format(context)}" + (validOpeningIndex+1 != widget.timeFrames.length ? " and earlier than ${widget.timeFrames[validOpeningIndex].format(context)}." : "."))
-                                          );
-                                        }
-                                      })
-                            );
-                          // if (timeOneGreater(close, open) && timeOneGreater(close, widget.timeFrames[valid])) {
-                          //   setState(() {
-                          //     widget.controllers.insert(valid, new TextEditingController(text: open.format(context)));
-                          //     widget.controllers.insert(valid + 1, new TextEditingController(text: close.format(context)));
-                          //     widget.timeFrames.insert(valid, open);
-                          //     widget.timeFrames.insert(valid + 1, close);
-                          //     widget.controllers.add(new TextEditingController(text: open.format(context)));
-                          //     widget.controllers.add(new TextEditingController(text: close.format(context)));
-                          //     widget.timeFrames.add(open);
-                          //     widget.timeFrames.add(close);
-                          //   }); //else showDialog that says that closing/ending time has to be greater than open.format(context) and less than the {next opening time}
-                          // } else {
-                          //   showDialog(
-                          //     context: context,
-                          //     builder: (_) => NoActionAlert(title: "The new closing time $close must be later than ${open.format(context)} and earlier than ${widget.timeFrames[valid + 1]}.")
-                          //   );
-                          // }
-                        }
-                      }
-                    )
-                  ),
+                                          } else {
+                                            widget.controllers.add(new TextEditingController(text: open.format(context)));
+                                            widget.controllers.add(new TextEditingController(text: close.format(context)));
+                                            widget.timeFrames.add(open);
+                                            widget.timeFrames.add(close);
+                                          }
+                                        }); //else showDialog that says that closing/ending time has to be greater than open.format(context) and less than the {next opening time}
+                                      } else {
+                                        showDialog(
+                                            context: context,
+                                            builder: (_) => NoActionAlert(
+                                                title: "The new closing time ${close.format(context)} must be later than ${open.format(context)}" +
+                                                    (validOpeningIndex + 1 < widget.timeFrames.length
+                                                        ? " and earlier than ${widget.timeFrames[validOpeningIndex].format(context)}."
+                                                        : ".")));
+                                      }
+                                    }));
+                          }
+                        })),
                 Align(
                   alignment: Alignment.centerLeft,
                   child: InkWell(
@@ -286,7 +274,8 @@ class _EditHoursWeekDayState extends State<EditHoursWeekDay> {
   }
 }
 
-bool timeOneGreater(TimeOfDay timeOne, TimeOfDay timeTwo) { // True if the first time is greater, false if not
+bool timeOneGreater(TimeOfDay timeOne, TimeOfDay timeTwo) {
+  // True if the first time is greater, false if not
   if (timeOne != null && timeTwo != null) {
     double toDouble(TimeOfDay myTime) => myTime.hour + myTime.minute / 60.0;
     return toDouble(timeOne) > toDouble(timeTwo);

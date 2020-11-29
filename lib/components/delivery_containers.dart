@@ -71,17 +71,19 @@ class ExpectedDeliveryContainer extends StatelessWidget {
                           children: [
                             Align(
                               alignment: Alignment.centerLeft,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text('${donation.items[index].name} - ${donation.items[index].amount.toString()} ${donation.items[index].unit ?? ''}', style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400)),
-                                    if (donation.items[index].specificDescription != null)
-                                      Text(
-                                        donation.items[index].specificDescription,
-                                        style: TextStyle(fontSize: 14, color: Colors.grey),
-                                      ),
-                                  ],
-                                ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                      '${donation.items[index].name} - ${donation.items[index].amount.toString()} ${donation.items[index].unit ?? ''}',
+                                      style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400)),
+                                  if (donation.items[index].specificDescription != null)
+                                    Text(
+                                      donation.items[index].specificDescription,
+                                      style: TextStyle(fontSize: 14, color: Colors.grey),
+                                    ),
+                                ],
+                              ),
                             ),
                             Expanded(
                               child: Align(
@@ -89,10 +91,7 @@ class ExpectedDeliveryContainer extends StatelessWidget {
                                 child: Container(
                                   height: 12,
                                   width: 12,
-                                  decoration: BoxDecoration(
-                                      color: Colors.green,
-                                      borderRadius: BorderRadius.circular(40)
-                                  ),
+                                  decoration: BoxDecoration(color: donation.items[index].urgencyColor, borderRadius: BorderRadius.circular(40)),
                                 ),
                               ),
                             ),
@@ -179,7 +178,9 @@ class PastDeliveryContainer extends StatelessWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text('${donation.items[index].name} - ${donation.items[index].amount.toString()} ${donation.items[index].unit ?? ''}', style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400)),
+                                  Text(
+                                      '${donation.items[index].name} - ${donation.items[index].amount.toString()} ${donation.items[index].unit ?? ''}',
+                                      style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400)),
                                   if (donation.items[index].specificDescription != null)
                                     Text(
                                       donation.items[index].specificDescription,
@@ -194,10 +195,7 @@ class PastDeliveryContainer extends StatelessWidget {
                                 child: Container(
                                   height: 12,
                                   width: 12,
-                                  decoration: BoxDecoration(
-                                      color: Colors.green,
-                                      borderRadius: BorderRadius.circular(40)
-                                  ),
+                                  decoration: BoxDecoration(color: Colors.green, borderRadius: BorderRadius.circular(40)),
                                 ),
                               ),
                             ),

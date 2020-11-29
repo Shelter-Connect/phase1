@@ -33,6 +33,18 @@ class _LoadingPageState extends State<LoadingPage> {
 
           db.collection('organizations').document(user.uid).get().then(
             (value) {
+              /*TimeOfDay open = TimeOfDay.now();
+              TimeOfDay closed = open;
+              Map<String, List<DateTime>> schedule = {
+                'Monday': [new DateTime(1969, 1, 1, open.hour, open.minute), new DateTime(1969, 1, 1, closed.hour, closed.minute)],
+                'Tuesday': [new DateTime(1969, 1, 1, open.hour, open.minute), new DateTime(1969, 1, 1, closed.hour, closed.minute)],
+                'Wednesday': [new DateTime(1969, 1, 1, open.hour, open.minute), new DateTime(1969, 1, 1, closed.hour, closed.minute)],
+                'Thursday': [new DateTime(1969, 1, 1, open.hour, open.minute), new DateTime(1969, 1, 1, closed.hour, closed.minute)],
+                'Friday': [new DateTime(1969, 1, 1, open.hour, open.minute), new DateTime(1969, 1, 1, closed.hour, closed.minute)],
+                'Saturday': [],
+                'Sunday': [],
+              };
+              FirestoreHelper.getCurrentOrganizationReference(context).updateData({'schedule': schedule});*/
               if (value.data != null) {
                 if (value['verified']) {
                   Navigator.pushNamed(context, '/welcome');
