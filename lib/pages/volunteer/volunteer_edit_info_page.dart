@@ -33,7 +33,7 @@ class _VolunteerEditInfoPageState extends State<VolunteerEditInfoPage> {
   @override
   Widget build(BuildContext context) {
     return StandardLayout(
-      title: 'Update Your Information',
+      title: '',
       body: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 24.0),
@@ -55,22 +55,8 @@ class _VolunteerEditInfoPageState extends State<VolunteerEditInfoPage> {
               ),
               SizedBox(height: 20),
               RoundedButton(
-                onPressed: () {
-                  FirestoreHelper.resetPassword(Provider.of<User>(context, listen: false).user.email);
-                  showDialog(
-                    context: context,
-                    builder: (_) => NoActionAlert(
-                      title: 'Instructions to change your password have been sent to your email address.',
-                    ),
-                  );
-                },
-                title: 'Reset Password',
                 color: purpleAccent,
-                textColor: Colors.white,
-              ),
-              RoundedButton(
-                color: purpleAccent,
-                title: 'Update Name',
+                title: 'Confirm Name Edit',
                 textColor: Colors.white,
                 onPressed: () {
                   db.collection('volunteers').document(Provider.of<User>(context, listen: false).user.uid).updateData({

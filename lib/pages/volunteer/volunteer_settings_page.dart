@@ -9,6 +9,7 @@ import 'package:phase1/components/floating_text_field.dart';
 import 'package:phase1/components/flushbar.dart';
 import 'package:phase1/components/rounded_button.dart';
 import 'package:phase1/pages/navigation_tab.dart';
+import 'package:phase1/pages/volunteer/organization_profile_page.dart';
 import 'package:phase1/services/firestore_helper.dart';
 import 'package:provider/provider.dart';
 
@@ -100,14 +101,68 @@ class _UserInfoState extends State<UserInfo> {
             SizedBox(height: 20),
             Text('Account Info', style: largeTitleStyle),
             SizedBox(height: 40),
-            FloatingTextField(
-              hintText: '${widget.firstName}',
-              controller: firstNameController,
+            Material(
+              elevation: 2,
+              borderRadius: BorderRadius.circular(5),
+              child: Container(
+                width: double.infinity,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: RichText(
+                    text: TextSpan(
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: 'First Name: ',
+                          style: TextStyle(
+                            fontSize: 17,
+                            color: colorScheme.onBackground,
+                          ),
+                        ),
+                        TextSpan(
+                          text: widget.firstName,
+                          style: TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.w600,
+                            color: colorScheme.onBackground,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ),
             ),
             SizedBox(height: 20),
-            FloatingTextField(
-              hintText: '${widget.lastName}',
-              controller: lastNameController,
+            Material(
+              elevation: 2,
+              borderRadius: BorderRadius.circular(5),
+              child: Container(
+                width: double.infinity,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: RichText(
+                    text: TextSpan(
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: 'Last Name: ',
+                          style: TextStyle(
+                            fontSize: 17,
+                            color: colorScheme.onBackground,
+                          ),
+                        ),
+                        TextSpan(
+                          text: widget.lastName,
+                          style: TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.w600,
+                            color: colorScheme.onBackground,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ),
             ),
             SizedBox(height: 20),
             Material(
@@ -160,19 +215,11 @@ class _UserInfoState extends State<UserInfo> {
               color: purpleAccent,
               title: 'Update Name',
               textColor: Colors.white,
-              onPressed: () {
-                db.collection('volunteers').document(Provider.of<User>(context, listen: false).user.uid).updateData({
-                  'firstName': firstNameController.text.trim(),
-                  'lastName': lastNameController.text.trim(),
-                });
-                UserUpdateInfo info = UserUpdateInfo();
-                info.displayName = '${firstNameController.text} ${lastNameController.text}';
-                Provider.of<User>(context, listen: false).user.updateProfile(info);
-                FlushBar(message: 'Name Updated!', duration: Duration(seconds: 3)).build(context);
-              },
-            ),
-            SizedBox(height: 10.0),
-          ],
+              onPressed: ()  {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => VolunteerEditInfoPage(widget.firstName, widget.lastName)));
+
+                SizedBox(height: 10.0);
+              })],
         ),
       ),
     );
