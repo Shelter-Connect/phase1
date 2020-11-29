@@ -130,16 +130,19 @@ class _EditHoursWeekDayState extends State<EditHoursWeekDay> {
                                     }
                                   },
                                 ),
-                                IconButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      widget.controllers.removeAt(i);
-                                      widget.timeFrames.removeAt(i);
-                                      widget.controllers.removeAt(i);
-                                      widget.timeFrames.removeAt(i);
-                                    });
-                                  },
-                                  icon: Icon(Icons.delete, color: Colors.red),
+                                FittedBox(
+                                  fit: BoxFit.contain,
+                                  child: IconButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        widget.controllers.removeAt(i);
+                                        widget.timeFrames.removeAt(i);
+                                        widget.controllers.removeAt(i);
+                                        widget.timeFrames.removeAt(i);
+                                      });
+                                    },
+                                    icon: Icon(Icons.delete, color: Colors.red),
+                                  ),
                                 )
                               ],
                             ),

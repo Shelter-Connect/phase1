@@ -128,18 +128,20 @@ class Items extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DateTime now = DateTime.now();
-    return OpenContainer(
-      closedShape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15.0))),
-      closedElevation: 0,
-      closedColor: Color(0xFFF5F5F5),
-      transitionDuration: Duration(milliseconds: 500),
-      closedBuilder: (context, openWidget) {
-        return Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15.0),
+    return Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            color: Colors.white
           ),
           child: MaterialButton(
-            onPressed: openWidget,
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DeliveryDescriptionPage(donation)
+                ),
+              );
+            }, //TODO
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8.0),
               child: Column(
@@ -218,14 +220,12 @@ class Items extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              Expanded(
-                                child: Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Container(
-                                    height: 12,
-                                    width: 12,
-                                    decoration: BoxDecoration(color: donation.items[index].urgencyColor, borderRadius: BorderRadius.circular(40)),
-                                  ),
+                              Align(
+                                alignment: Alignment.centerRight,
+                                child: Container(
+                                  height: 12,
+                                  width: 12,
+                                  decoration: BoxDecoration(color: donation.items[index].urgencyColor, borderRadius: BorderRadius.circular(40)),
                                 ),
                               ),
                             ],
@@ -240,10 +240,5 @@ class Items extends StatelessWidget {
             ),
           ),
         );
-      },
-      openBuilder: (context, closedWidget) {
-        return DeliveryDescriptionPage(donation);
-      },
-    );
   }
 }
