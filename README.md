@@ -1,8 +1,7 @@
 <p align="center">
-  <a href="https://flutter.io/">
-    <img src="https://diegolaballos.com/files/images/flutter-icon.jpg" alt="Logo" width=72 height=72>
+  <a href="https://linkare.org/">
+    <img src="assets/logo_svgs/final.JPG" alt="Logo" width=96 height=96>
   </a>
-
   <h3 align="center">Linkare</h3>
 
   <p align="center">
