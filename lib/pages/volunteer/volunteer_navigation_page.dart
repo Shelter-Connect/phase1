@@ -123,8 +123,8 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
               ),
             ),
             bottomNavigationBar: BottomNavigationBar(
-              showSelectedLabels: false,
-              showUnselectedLabels: false,
+              showSelectedLabels: true,
+              showUnselectedLabels: true,
               currentIndex: _selectedIndex,
               type: BottomNavigationBarType.fixed,
               backgroundColor: Colors.white,
@@ -142,7 +142,7 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
                           index,
                           BottomNavigationBarItem(
                             icon: tab.icon,
-                            title: Text(tab.title),
+                            label: tab.title,
                             activeIcon: tab.activeIcon,
                           )),
                     )
