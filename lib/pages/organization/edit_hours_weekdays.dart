@@ -44,7 +44,7 @@ class _EditHoursWeekDayState extends State<EditHoursWeekDay> {
             child: Column(
               children: [
                 if (widget.timeFrames.length == 0)
-                  Text('Open for the Whole Day!')
+                  Text('Open for the Whole Day!', style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),)
                 else
                   for (int i = 0; i < widget.timeFrames.length; i = i + 2)
                     Column(

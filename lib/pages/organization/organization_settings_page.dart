@@ -554,7 +554,7 @@ class EditHourContainer extends StatelessWidget {
             Spacer(),
             Column(children: [
               if (timeFrames.length == 0)
-                Text('Open for the Whole Day!')
+                Text('Open for the Whole Day!', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold))
               else
                 for (int i = 0; i < timeFrames.length; i = i + 2)
                   Container(
