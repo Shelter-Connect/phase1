@@ -1,15 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:phase1/components/alerts.dart';
-import 'package:phase1/components/floating_text_field.dart';
-import 'package:phase1/components/flushbar.dart';
 import 'package:phase1/components/rounded_button.dart';
 import 'package:phase1/pages/navigation_tab.dart';
-import 'package:phase1/pages/volunteer/organization_profile_page.dart';
 import 'package:phase1/services/firestore_helper.dart';
 import 'package:provider/provider.dart';
 
@@ -66,8 +61,7 @@ class _VolunteerSettingsPageState extends State<VolunteerSettingsPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           UserInfo(email: Provider.of<User>(context, listen: false).user.email, firstName: firstName, lastName: lastName),
-          SizedBox(height: 20),
-          SignOut(),
+
           SizedBox(height: 20),
         ],
       ),
@@ -217,9 +211,9 @@ class _UserInfoState extends State<UserInfo> {
               textColor: Colors.white,
               onPressed: ()  {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => VolunteerEditInfoPage(widget.firstName, widget.lastName)));
-
-                SizedBox(height: 10.0);
-              })],
+              }),
+          SizedBox(height: 10.0),
+          SignOut()],
         ),
       ),
     );
@@ -245,6 +239,7 @@ class SignOut extends StatelessWidget {
       },
       child: Container(
         height: 45.0,
+        width: double.infinity,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(21),
           color: colorScheme.error,
