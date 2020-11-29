@@ -105,7 +105,7 @@ class FirestoreHelper {
 
   //cancels delivery from volunteer side
   static Future<void> cancelVolunteerDelivery(BuildContext context, Donation donation) async {
-    CollectionReference volunteerDonationCollection = getCurrentVolunteerReference(context).collection('currentDonations');
+    CollectionReference volunteerDonationCollection = db.collection('volunteers').document(donation.volunteerId).collection('currentDonations');
     await volunteerDonationCollection.document(donation.id).delete();
 
     CollectionReference organizationDonationCollection =

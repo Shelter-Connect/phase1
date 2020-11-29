@@ -91,6 +91,8 @@ flutter:
   assets:
     - assets/random_svgs/googlemaps.svg
     - assets/random_svgs/applemaps.svg
+    - assets/random_svgs/volunteer.svg
+    - assets/random_svgs/charity.svg
     - assets/jam_icons/box.svg
     - assets/jam_icons/box-f.svg
     - assets/jam_icons/car.svg

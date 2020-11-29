@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../constants.dart';
@@ -38,7 +39,7 @@ class StandardLayout extends StatelessWidget {
         actions: <Widget>[
           Visibility(
             child: IconButton(
-              icon: Icon(Icons.help),
+              icon: Icon(Feather.help_circle),
               color: purpleAccent,
               onPressed: () {
                 _helpModalBottomSheet(context);

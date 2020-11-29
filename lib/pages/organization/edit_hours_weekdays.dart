@@ -57,10 +57,10 @@ class _EditHoursWeekDayState extends State<EditHoursWeekDay> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                SizedBox(width: 5),
+                                Spacer(),
                                 FloatingTextField(
-                                  width: MediaQuery.of(context).size.width * 0.30,
-                                  height: 45,
+                                  width: MediaQuery.of(context).size.width * 0.22,
+                                  height: 48,
                                   hintText: 'Open',
                                   controller: widget.controllers[i],
                                   onTapped: () async {
@@ -100,8 +100,8 @@ class _EditHoursWeekDayState extends State<EditHoursWeekDay> {
                                   width: 15,
                                 ),
                                 FloatingTextField(
-                                  width: MediaQuery.of(context).size.width * 0.30,
-                                  height: 45,
+                                  width: MediaQuery.of(context).size.width * 0.22,
+                                  height: 48,
                                   hintText: 'Closed',
                                   controller: widget.controllers[i + 1],
                                   // add this line.
@@ -130,17 +130,22 @@ class _EditHoursWeekDayState extends State<EditHoursWeekDay> {
                                     }
                                   },
                                 ),
-                                IconButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      widget.controllers.removeAt(i);
-                                      widget.timeFrames.removeAt(i);
-                                      widget.controllers.removeAt(i);
-                                      widget.timeFrames.removeAt(i);
-                                    });
-                                  },
-                                  icon: Icon(Icons.delete, color: Colors.red),
-                                )
+                                Spacer(),
+                                FittedBox(
+                                  fit: BoxFit.contain,
+                                  child: IconButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        widget.controllers.removeAt(i);
+                                        widget.timeFrames.removeAt(i);
+                                        widget.controllers.removeAt(i);
+                                        widget.timeFrames.removeAt(i);
+                                      });
+                                    },
+                                    icon: Icon(Icons.delete, color: Colors.red),
+                                  ),
+                                ),
+                                Spacer()
                               ],
                             ),
                           ),
@@ -239,29 +244,27 @@ class _EditHoursWeekDayState extends State<EditHoursWeekDay> {
                       }).then((value) => Navigator.pop(context));
                     },
                     child: Container(
-                      height: 37,
-                      width: MediaQuery.of(context).size.width * 0.65,
                       decoration: BoxDecoration(
                         color: purpleAccent,
                         borderRadius: BorderRadius.circular(21),
                       ),
-                      child: Center(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
-                          child: Row(
-                            children: <Widget>[
-                              Icon(Icons.edit, color: Colors.white, size: 25),
-                              SizedBox(width: 2),
-                              Text(
-                                'Save Changes for ${widget.date}',
-                                style: TextStyle(
-                                  color: colorScheme.onSecondary,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 16.0,
-                                ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Icon(Icons.edit, color: Colors.white, size: 25),
+                            SizedBox(width: 2),
+                            Text(
+                              'Save Changes for ${widget.date}',
+                              style: TextStyle(
+                                color: colorScheme.onSecondary,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 20.0,
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
                     ),

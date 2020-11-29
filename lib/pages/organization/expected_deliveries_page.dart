@@ -23,12 +23,10 @@ class ExpectedDeliveriesPage extends StatefulWidget with NavigationTab {
       'The Sync button syncs your expected deliveries to a calendar of your choice';
 
   @override
-  Widget get icon => SvgPicture.asset(
-      "assets/jam_icons/box.svg", color: purpleAccent);
+  Widget get icon => SvgPicture.asset("assets/jam_icons/box.svg", color: purpleAccent);
 
   @override
-  Widget get activeIcon => SvgPicture.asset(
-      "assets/jam_icons/box-f.svg", color: purpleAccent);
+  Widget get activeIcon => SvgPicture.asset("assets/jam_icons/box-f.svg", color: purpleAccent);
 
   @override
   String get title => 'Current Deliveries';
