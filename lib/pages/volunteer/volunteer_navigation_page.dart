@@ -48,8 +48,10 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
               if (snapshot == null) return null;
               List<Organization> organizations = [];
               for (DocumentSnapshot document in snapshot.documents) {
-                if (kReleaseMode && document.documentID == 'bVRQfZpizSQWty24zFgFqIrB60i2') // Skips over Test Linkare org if this is actual app
+                // Skips over Test Linkare org if this is actual app
+                if (kReleaseMode && document.documentID == 'bVRQfZpizSQWty24zFgFqIrB60i2')
                   continue;
+
                 organizations.add(Organization.fromFirestoreMap(context: context, organizationSnapshot: document, isVolunteer: false));
               }
               return organizations;
