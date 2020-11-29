@@ -82,7 +82,7 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
                   itemBuilder: (BuildContext context, int index) {
                     if (index == categories.length) {
                       return CategoryIconButton(
-                        asset: 'assets/other_svgs/other.svg',
+                        asset: 'assets/random_svgs/volunteer.svg',
                         name: 'Volunteer Opportunities',
                         onPressed: () {
                           Navigator.push(

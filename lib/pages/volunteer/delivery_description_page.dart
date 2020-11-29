@@ -95,10 +95,10 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                       orgAddress: donation.organization.address,
                       dateTime: donation.date,
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 2),
                     Card(
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15.0),
+                        borderRadius: BorderRadius.circular(5.0),
                       ),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
@@ -232,7 +232,7 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                               action: () {
                                 FirestoreHelper.cancelVolunteerDelivery(context, donation);
                                 Navigator.pop(context);
-                                FlushBar(message: 'Your delivery has been cancelled ', duration: Duration(seconds: 3)).build(context);
+                                FlushBar(message: 'Your delivery has been cancelled', duration: Duration(seconds: 3)).build(context);
                               },
                               actionName: 'Cancel Delivery',
                               title: 'Cancel Delivery?',
@@ -307,7 +307,7 @@ class _OrganizationInformationState extends State<OrganizationInformation> {
       children: <Widget>[
         Card(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15.0),
+            borderRadius: BorderRadius.circular(5.0),
           ),
           child: Column(
             children: [

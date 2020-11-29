@@ -141,7 +141,7 @@ class Items extends StatelessWidget {
           child: MaterialButton(
             onPressed: openWidget,
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
+              padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,

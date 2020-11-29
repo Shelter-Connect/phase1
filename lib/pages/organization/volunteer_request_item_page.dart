@@ -15,7 +15,7 @@ class VolunteerItemPage extends StatefulWidget {
   final String itemCategory;
   final String asset;
 
-  VolunteerItemPage({this.itemCategory = 'Volunteering', this.asset = 'assets/other_svgs/other.svg'});
+  VolunteerItemPage({this.itemCategory = 'Volunteering', this.asset = 'assets/random_svgs/volunteer.svg'});
 
   @override
   _VolunteerItemPageState createState() => _VolunteerItemPageState();
