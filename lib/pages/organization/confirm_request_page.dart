@@ -104,29 +104,29 @@ class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
                       SizedBox(height: 20),
                       DropDown(
                         onChanged: (val) {
-                          setState(() {
-                            urgency = val - 1;
-                          });
+                            setState(() {
+                              urgency = val - 1;
+                            });
                         },
                       ),
                       SizedBox(height: 20),
-                      Container(
-                        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(5)),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 15),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Donation Deadline Date (Option)',
-                                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: Colors.black54),
-                              ),
-                              BasicDateField(onChanged: (val) {} //TODO Add deadline date save feature
-                                  ),
-                            ],
-                          ),
-                        ),
-                      ),
+//                      Container(
+//                        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(5)),
+//                        child: Padding(
+//                          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 15),
+//                          child: Column(
+//                            crossAxisAlignment: CrossAxisAlignment.start,
+//                            children: [
+//                              Text(
+//                                'Donation Deadline Date (Option)',
+//                                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: Colors.black54),
+//                              ),
+//                              BasicDateField(onChanged: (val) {} //TODO Add deadline date save feature
+//                                  ),
+//                            ],
+//                          ),
+//                        ),
+//                      ),
                       SizedBox(
                         height: 10,
                       ),

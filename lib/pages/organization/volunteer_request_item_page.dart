@@ -23,6 +23,7 @@ class VolunteerItemPage extends StatefulWidget {
 
 class _VolunteerItemPageState extends State<VolunteerItemPage> {
   int amount = 0;
+  int urgency = 0;
   String specificDescription = '';
   String itemName = '';
 
@@ -30,8 +31,7 @@ class _VolunteerItemPageState extends State<VolunteerItemPage> {
   Widget build(BuildContext context) {
     return SecondaryLayout(
       title: '',
-      helpText:
-          'To create a custom request, enter the name and amount of items you need. You can also enter extra descriptions to get a specific type of item, '
+      helpText: 'To create a custom request, enter the name and amount of items you need. You can also enter extra descriptions to get a specific type of item, '
           'or units for the item.',
       body: SingleChildScrollView(
         child: Padding(
@@ -82,13 +82,6 @@ class _VolunteerItemPageState extends State<VolunteerItemPage> {
                           itemName = val;
                         },
                       ),
-                      // SizedBox(height: 20),
-                      // FloatingTextField(
-                      //   hintText: 'Custom Item Unit',
-                      //   onChanged: (val) {
-                      //     itemUnit = val;
-                      //   },
-                      // ),
                       SizedBox(height: 20),
                       FloatingTextField(
                         hintText: 'Task Description',
@@ -109,7 +102,6 @@ class _VolunteerItemPageState extends State<VolunteerItemPage> {
                       SizedBox(height: 20),
                     ],
                   ),
-                  DropDown(),
                 ],
               ),
               SizedBox(height: 20),
@@ -117,15 +109,16 @@ class _VolunteerItemPageState extends State<VolunteerItemPage> {
                 width: MediaQuery.of(context).size.width,
                 child: FlatButton(
                   onPressed: () {
+                    print(urgency);
                     showDialog(
                       context: context,
                       builder: (_) => SingleActionAlert(
                         title: 'Confirm your request?',
-                        subtitle:
-                            'Make sure you are requesting the correct volunteer event and number of volunteers needed. Volunteering Requests can be edited in the \'Current Requests\' tab.',
+                        subtitle: 'Make sure you are requesting the correct volunteer event and number of volunteers needed. Volunteering Requests can be edited in the \'Current Requests\' tab.',
                         actionName: 'Create Request',
                         action: () {
                           FirestoreHelper.updateRequests(
+                            //that's what im
                             context: context,
                             items: [
                               Item(name: itemName, amount: amount, specificDescription: specificDescription, category: widget.itemCategory),

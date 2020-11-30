@@ -113,7 +113,6 @@ class _EditCurrentRequestsPageState extends State<EditCurrentRequestsPage> {
                                                           actionName: 'Delete Request',
                                                           action: () {
                                                             FirestoreHelper.deleteRequest(context, itemCategories[category][index]);
-                                                            Navigator.pop(context);
                                                             FlushBar(
                                                                     title: 'Request Cancelled',
                                                                     message: 'You may create the request again using the create request button',
