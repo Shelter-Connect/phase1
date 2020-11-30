@@ -147,13 +147,14 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                                           padding: const EdgeInsets.only(bottom: 5.0),
                                           child: Row(
                                             children: [
+                                              if (item.category == 'Volunteering')
                                               Align(
                                                 alignment: Alignment.centerLeft,
                                                 child: Column(
                                                   crossAxisAlignment: CrossAxisAlignment.start,
                                                   children: [
                                                     Text(
-                                                      '${item.name} - ${item.amount} ${item.unit ?? ''}'.trim(),
+                                                      '${item.name} - ${item.amount} volunteer(s)'.trim(),
                                                       style: TextStyle(
                                                         fontSize: 17.0,
                                                         fontWeight: FontWeight.w400,
@@ -164,9 +165,38 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                                                         item.specificDescription,
                                                         style: TextStyle(fontSize: 14, color: Colors.grey),
                                                       ),
+                                                    Align(
+                                                      alignment: Alignment.centerRight,
+                                                      child: Container(
+                                                        height: 12,
+                                                        width: 12,
+                                                        decoration: BoxDecoration(color: item.urgencyColor, borderRadius: BorderRadius.circular(40)),
+                                                      ),
+                                                    ),
                                                   ],
                                                 ),
                                               ),
+                                              if (item.category != 'Volunteering')
+                                                Align(
+                                                  alignment: Alignment.centerLeft,
+                                                  child: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      Text(
+                                                        '${item.name} - ${item.amount} ${item.unit}'.trim(),
+                                                        style: TextStyle(
+                                                          fontSize: 17.0,
+                                                          fontWeight: FontWeight.w400,
+                                                        ),
+                                                      ),
+                                                      if (item.specificDescription != null)
+                                                        Text(
+                                                          item.specificDescription,
+                                                          style: TextStyle(fontSize: 14, color: Colors.grey),
+                                                        ),
+                                                    ],
+                                                  ),
+                                                ),
                                               Expanded(
                                                 child: Align(
                                                   alignment: Alignment.centerRight,
