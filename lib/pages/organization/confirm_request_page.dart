@@ -130,21 +130,21 @@ class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
                       SizedBox(
                         height: 10,
                       ),
-                      MaterialButton(
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                          color: Colors.white,
-                          onPressed: () async {
-                            final List<DateTime> picked = await DateRagePicker.showDatePicker(
-                                context: context,
-                                initialFirstDate: DateTime.now(),
-                                initialLastDate: (DateTime.now()).add(Duration(days: 7)),
-                                firstDate: DateTime(2015),
-                                lastDate: DateTime(2021));
-                            if (picked != null && picked.length == 2) {
-                              print(picked);
-                            }
-                          },
-                          child: Text('Pick date range (Optional)', style: TextStyle(color: purpleAccent, fontSize: 15)))
+//                      MaterialButton(
+//                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+//                          color: Colors.white,
+//                          onPressed: () async {
+//                            final List<DateTime> picked = await DateRagePicker.showDatePicker(
+//                                context: context,
+//                                initialFirstDate: DateTime.now(),
+//                                initialLastDate: (DateTime.now()).add(Duration(days: 7)),
+//                                firstDate: DateTime(2015),
+//                                lastDate: DateTime(2021));
+//                            if (picked != null && picked.length == 2) {
+//                              print(picked);
+//                            }
+//                          },
+//                          child: Text('Pick date range (Optional)', style: TextStyle(color: purpleAccent, fontSize: 15)))
                     ],
                   ),
                 ],
