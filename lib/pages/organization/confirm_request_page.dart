@@ -155,6 +155,15 @@ class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
                 textColor: purpleAccent,
                 text: 'Create Request',
                 onPressed: () {
+                  if (amount == 0)
+                    showDialog(
+                        context: context,
+                        builder: (_) => SingleActionAlert(actionName: 'ok',
+                          action: (){},
+                          title: 'Please enter an amount',
+                        )
+                    );
+                  else
                   showDialog(
                     context: context,
                     builder: (_) => SingleActionAlert(

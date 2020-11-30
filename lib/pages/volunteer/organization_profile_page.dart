@@ -481,8 +481,8 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                                                           Text(
                                                                             '${item.name}'.trim(),
                                                                             style: TextStyle(
+                                                                              fontSize: 17.0,
                                                                               fontWeight: FontWeight.bold,
-                                                                              fontSize: 23.0,
                                                                             ),
                                                                           ),
                                                                           Text(
@@ -566,7 +566,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                         Column(
                                           children: widget.organization.itemCategories.map((String category) {
                                             List<Item> items = widget.organization.requestedItems[category];
-                                            if (category != "Volunteeering")
+                                            if (category != "Volunteering")
                                               return Column(
                                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                                 children: [
