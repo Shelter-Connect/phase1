@@ -109,7 +109,7 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
                                 },
                               ),
                             ),
-                            SizedBox(width: 5),
+                            SizedBox(width: 2),
                             IconButton(
                               icon: Icon(Feather.thumbs_up),
                               color: purpleAccent,

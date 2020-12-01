@@ -19,12 +19,12 @@ class FlushBar extends StatelessWidget {
       message: message ?? null,
       icon: icon ?? Icon(Icons.info_outline, color: Colors.white,),
       leftBarIndicatorColor: leftBarIndicatorColor ?? purpleAccent,
-      duration: duration ?? Duration(seconds: 3),
+      duration: duration ?? Duration(seconds: 2),
       mainButton: mainButton,
       onTap: onTap,
       isDismissible: true,
-      flushbarStyle:  FlushbarStyle.FLOATING,
-      margin: margin ?? EdgeInsets.only(bottom: 56)
+      animationDuration: Duration(seconds: 0),
+      flushbarStyle:  FlushbarStyle.GROUNDED,
     ).show(context);
   }
 }
