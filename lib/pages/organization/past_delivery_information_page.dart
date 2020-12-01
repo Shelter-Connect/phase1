@@ -77,17 +77,6 @@ class _PastDeliveryInformationPageState extends State<PastDeliveryInformationPag
                                       ],
                                     ),
                                   ),
-                                  Expanded(
-                                    child: Align(
-                                      alignment: Alignment.centerRight,
-                                      child: Container(
-                                        height: 12,
-                                        width: 12,
-                                        decoration:
-                                        BoxDecoration(color: widget.donation.items[index].urgencyColor, borderRadius: BorderRadius.circular(40)),
-                                      ),
-                                    ),
-                                  ),
                                 ],
                               ),
                             ],

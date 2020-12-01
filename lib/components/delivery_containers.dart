@@ -189,16 +189,6 @@ class PastDeliveryContainer extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            Expanded(
-                              child: Align(
-                                alignment: Alignment.centerRight,
-                                child: Container(
-                                  height: 12,
-                                  width: 12,
-                                  decoration: BoxDecoration(color: Colors.green, borderRadius: BorderRadius.circular(40)),
-                                ),
-                              ),
-                            ),
                           ],
                         ),
                       ],

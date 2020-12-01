@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../constants.dart';
 
@@ -16,11 +15,9 @@ class StandardLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: color ?? Color(0xfff7f7f7),
-      //Color(0xFFF5F5F5)
       appBar: AppBar(
         brightness: Brightness.light,
         backgroundColor: color ?? Color(0xfff7f7f7),
-        //Color(0xFFF5F5F5)
         elevation: 0.0,
         leading: IconButton(
           onPressed: () {
@@ -33,7 +30,6 @@ class StandardLayout extends StatelessWidget {
           style: TextStyle(
             fontWeight: FontWeight.w900, fontSize: 25,
             color: purpleAccent ,
-//              titleColor ?? Color(0xFFF5F5F5)
           ),
         ),
         actions: <Widget>[
@@ -70,7 +66,7 @@ class StandardLayout extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8, top: 0),
+                  padding: const EdgeInsets.only(right: 8, bottom: 8, top: 0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
@@ -80,7 +76,7 @@ class StandardLayout extends StatelessWidget {
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        icon: Icon(Icons.help),
+                        icon: Icon(Icons.close),
                       ),
                     ],
                   ),
