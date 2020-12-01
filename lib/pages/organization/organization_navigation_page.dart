@@ -103,7 +103,7 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
                           icon: Icon(Feather.thumbs_up),
                           color: purpleAccent,
                           onPressed: () {
-                            _helpModalBottomSheet2(context);
+                            _feedbackModalBottomSheet(context);
                           },
                         ),
                       ],
@@ -168,7 +168,7 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
             child: Column(
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8, top: 0),
+                  padding: const EdgeInsets.only(right: 8, bottom: 8, top: 0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
@@ -178,7 +178,7 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        icon: Icon(Icons.help),
+                        icon: Icon(Icons.close),
                       ),
                     ],
                   ),
@@ -193,7 +193,7 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
     );
   }
 
-  void _helpModalBottomSheet2(BuildContext context) {
+  void _feedbackModalBottomSheet(BuildContext context) {
     TextEditingController bug = TextEditingController(), improvement = TextEditingController();
     showModalBottomSheet(
       isScrollControlled: true,
@@ -222,13 +222,13 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        icon: Icon(Feather.thumbs_up),
+                        icon: Icon(Icons.close),
                       ),
                     ],
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.0),
+                  padding: EdgeInsets.symmetric(horizontal: 8.0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,

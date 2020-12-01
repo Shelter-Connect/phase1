@@ -114,7 +114,7 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
                               icon: Icon(Feather.thumbs_up),
                               color: purpleAccent,
                               onPressed: () {
-                                _helpModalBottomSheet2(context);
+                                _feedbackModalBottomSheet(context);
                               },
                             ),
                           ],
@@ -182,7 +182,7 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
             child: Column(
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8, top: 0),
+                  padding: const EdgeInsets.only(right: 8, bottom: 8),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
@@ -192,7 +192,7 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        icon: Icon(Icons.help),
+                        icon: Icon(Icons.close),
                       ),
                     ],
                   ),
@@ -207,7 +207,7 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
   }
 }
 
-void _helpModalBottomSheet2(BuildContext context) {
+void _feedbackModalBottomSheet(BuildContext context) {
   TextEditingController bug = TextEditingController(), improvement = TextEditingController();
   showModalBottomSheet(
     isScrollControlled: true,
@@ -237,7 +237,7 @@ void _helpModalBottomSheet2(BuildContext context) {
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        icon: Icon(Feather.thumbs_up),
+                        icon: Icon(Icons.close),
                       ),
                     ],
                   ),

@@ -39,7 +39,6 @@ class _OrganizationDiscoverState extends State<OrganizationDiscover> {
   void initState() {
     LocationHelper.getUserPosition().then((position) {
       Provider.of<UserPosition>(context, listen: false).position = position;
-      throw new Error();
     }).catchError((error) {
       if (Provider.of<UserPosition>(context, listen: false).position == null) {
         setState(() {
@@ -52,6 +51,7 @@ class _OrganizationDiscoverState extends State<OrganizationDiscover> {
 
   @override
   Widget build(BuildContext context) {
+    print(Provider.of<UserPosition>(context).position);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
