@@ -99,7 +99,7 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
               padding: const EdgeInsets.symmetric(horizontal: 18.0),
               child: Center(
                 child: Text(
-                  '*All Items can be slightly used unless explicitly stated by the organization',
+                  '*All items can be slightly used unless explicitly stated by the organization',
                   style: TextStyle(fontSize: 15, color: Colors.red),
                 ),
               ),

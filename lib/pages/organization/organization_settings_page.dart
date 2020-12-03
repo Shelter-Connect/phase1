@@ -525,9 +525,9 @@ class DemoProfileButton extends StatelessWidget {
 }
 
 class EditHourContainer extends StatelessWidget {
-  List<TimeOfDay> timeFrames;
+  final List<TimeOfDay> timeFrames;
   final String day;
-  Organization organization;
+  final Organization organization;
 
   EditHourContainer({this.day, this.timeFrames, @required this.organization});
 
@@ -581,11 +581,14 @@ class EditHourContainer extends StatelessWidget {
             ]),
             Spacer(),
             IconButton(
-              icon: Icon(Feather.edit, color: Colors.red, size: 20),
+              icon: Icon(Feather.edit, color: purpleAccent, size: 20),
               onPressed: () {
-                if (timeFrames == null) timeFrames = [];
                 List<TextEditingController> controllers = [];
-                for (TimeOfDay time in timeFrames) controllers.add(new TextEditingController(text: time.format(context)));
+                if (timeFrames != null) {
+                  for (TimeOfDay time in timeFrames) {
+                    controllers.add(new TextEditingController(text: time.format(context)));
+                  }
+                }
                 Navigator.push(
                     context,
                     MaterialPageRoute(

@@ -86,7 +86,7 @@ class RequestContainer extends StatelessWidget {
                                   color: Colors.green,
                                 ),
                               ),
-                            if (items[index].specificDescription != null)
+                            if (items[index].specificDescription != null && items[index].amount > 0)
                               Text(
                                 items[index].specificDescription,
                                 style: TextStyle(

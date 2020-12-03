@@ -32,7 +32,6 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
   final List<NavigationTab> _tabs = [
     OrganizationDiscover(),
     CurrentDeliveriesPage(),
-//    FeedbackForm(),
     VolunteerSettingsPage(),
   ];
 
@@ -109,7 +108,7 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
                                 },
                               ),
                             ),
-                            SizedBox(width: 5),
+                            SizedBox(width: 2),
                             IconButton(
                               icon: Icon(Feather.thumbs_up),
                               color: purpleAccent,
@@ -132,12 +131,9 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
               currentIndex: _selectedIndex,
               type: BottomNavigationBarType.fixed,
               backgroundColor: Colors.white,
-//              purpleAccent,
               iconSize: 25,
               selectedItemColor: purpleAccent,
-//              colorScheme.onSecondary
               unselectedItemColor: purpleAccent,
-              //Colors.black12,
               items: [
                 ..._tabs
                     .asMap()

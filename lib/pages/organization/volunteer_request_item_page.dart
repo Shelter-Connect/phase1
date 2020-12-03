@@ -100,6 +100,13 @@ class _VolunteerItemPageState extends State<VolunteerItemPage> {
                         },
                       ),
                       SizedBox(height: 20),
+                      DropDown(
+                        onChanged: (val){
+                          setState(() {
+                            urgency= val -1;
+                          });
+                        },
+                      )
                     ],
                   ),
                 ],
@@ -121,7 +128,7 @@ class _VolunteerItemPageState extends State<VolunteerItemPage> {
                             //that's what im
                             context: context,
                             items: [
-                              Item(name: itemName, amount: amount, specificDescription: specificDescription, category: widget.itemCategory),
+                              Item(name: itemName, amount: amount, specificDescription: specificDescription, category: widget.itemCategory, urgency: urgency),
                             ],
                           );
                           Navigator.pop(context);
