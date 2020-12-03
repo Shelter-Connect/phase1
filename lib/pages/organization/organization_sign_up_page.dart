@@ -112,42 +112,38 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
                 SizedBox(height: 20),
                 Row(
                   children: [
-                    FloatingTextField(
-                      width: MediaQuery.of(context).size.width * (7.5 / 18),
-                      hintText: 'Open',
-                      controller: timeCtl, // add this line.
-                      onTapped: () async {
-                        TimeOfDay time = TimeOfDay.now();
-                        FocusScope.of(context).requestFocus(new FocusNode());
+                    Expanded(
+                      child: FloatingTextField(
+                        hintText: 'Opening Time',
+                        controller: timeCtl,
+                        onTapped: () async {
+                          FocusScope.of(context).requestFocus(new FocusNode());
 
-                        open = await showTimePicker(context: context, initialTime: time);
-                        if (open != null) {
-                          setState(() {
-                            time = open;
-                          });
-                          timeCtl.text = open.format(context);
-                        }
-                      },
+                          open = await showTimePicker(context: context, initialTime: open ?? TimeOfDay(hour: 0, minute: 0));
+                          if (open != null) {
+                            timeCtl.text = open.format(context);
+                          }
+                        },
+                      ),
                     ),
+
                     SizedBox(
                       width: 10,
                     ),
-                    FloatingTextField(
-                      width: MediaQuery.of(context).size.width * (7.5 / 18),
-                      hintText: 'Closed',
-                      controller: timeCtl1, // add this line.
-                      onTapped: () async {
-                        TimeOfDay time = TimeOfDay.now();
-                        FocusScope.of(context).requestFocus(new FocusNode());
-                        closed = await showTimePicker(context: context, initialTime: time);
-                        if (closed != null) {
-                          setState(() {
-                            time = closed;
-                          });
-                          timeCtl1.text = closed.format(context);
-                        }
-                      },
-                    ),
+                    Expanded(
+                      child: FloatingTextField(
+                        hintText: 'Closing Time',
+                        controller: timeCtl1, // add this line.
+                        onTapped: () async {
+                          FocusScope.of(context).requestFocus(new FocusNode());
+
+                          closed = await showTimePicker(context: context, initialTime: closed ?? TimeOfDay(hour: 0, minute: 0));
+                          if (closed != null) {
+                            timeCtl1.text = closed.format(context);
+                          }
+                        },
+                      ),
+                    )
                   ],
                 ),
                 SizedBox(height: 20),
@@ -221,13 +217,14 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
                     } else if ((timeCtl.text == null || timeCtl.text == '') && (timeCtl1.text != null || timeCtl1.text != '')) {
                       showDialog(
                         context: context,
-                        builder: (_) => NoActionAlert(title: 'Please enter an opening time.'),
+                        builder: (_) => NoActionAlert(title: 'Please enter an opening time for your organization'),
                       );
                     } else if ((timeCtl.text != null || timeCtl.text != '') && (timeCtl1.text == null || timeCtl1.text == '')) {
                       showDialog(
                         context: context,
-                        builder: (_) => NoActionAlert(title: 'Please enter a closing time.'),
+                        builder: (_) => NoActionAlert(title: 'Please enter a closing time for your organization'),
                       );
+                      //TODO: Check if opening time is before closing time
                     } else {
                       try {
                         Map<String, List<DateTime>> schedule = {
