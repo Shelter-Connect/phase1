@@ -77,14 +77,6 @@ class RequestContainer extends StatelessWidget {
                                     ),
                                   ),
                                 ],
-                              )
-                            else
-                              Text(
-                                'Request Completed!',
-                                style: TextStyle(
-                                  fontSize: 17,
-                                  color: Colors.green,
-                                ),
                               ),
                             if (items[index].specificDescription != null && items[index].amount > 0)
                               Text(

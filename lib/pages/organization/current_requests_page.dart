@@ -1,4 +1,3 @@
-import 'package:animations/animations.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -137,12 +136,21 @@ class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
 
               List<Widget> requestContainers = [];
               for (String category in itemCategories.keys) {
-                requestContainers.add(
-                  RequestContainer(
-                    items: itemCategories[category],
-                    category: category,
-                  ),
-                );
+                bool nonzero = false;
+                for (Item item in itemCategories[category]) {
+                  if (item.amount > 0) {
+                    nonzero = true;
+                    break;
+                  }
+                }
+                if (nonzero) {
+                  requestContainers.add(
+                    RequestContainer(
+                      items: itemCategories[category],
+                      category: category,
+                    ),
+                  );
+                }
               }
               return Column(
                 children: requestContainers,
