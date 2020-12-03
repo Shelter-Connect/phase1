@@ -41,99 +41,100 @@ class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          SizedBox(height: 10),
-          Row(
-            children: [
-              Align(
-                alignment: Alignment.centerRight,
-                child: Container(
-                  width: 60,
-                  child: MaterialButton(
-                    onPressed: () async {
-                      var status = await Permission.calendar.status;
-                      if (status.isRestricted || status.isPermanentlyDenied || status.isDenied) {
-                        return SingleActionAlert(
-                            title: 'Calendar Access',
-                            subtitle: 'To allow Linkare to access your calendar, please give it permissions it settings',
-                            actionName: 'Open Settings',
-                            action: () {
-                              openAppSettings();
-                            });
-                      } else if (status.isUndetermined) await Permission.calendar.request();
-                      await _retrieveCalendars();
-                      showModalBottomSheet(context: context, builder: (context) => SyncCalendar(donations, true));
-                    },
-                    elevation: 2.0,
-                    color: Colors.white,
-                    child: Icon(
-                      Feather.upload_cloud,
-                      color: purpleAccent,
-                      size: 25.0,
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Row(
+              children: [
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Container(
+                    width: 60,
+                    child: MaterialButton(
+                      onPressed: () async {
+                        var status = await Permission.calendar.status;
+                        if (status.isRestricted || status.isPermanentlyDenied || status.isDenied) {
+                          return SingleActionAlert(
+                              title: 'Calendar Access',
+                              subtitle: 'To allow Linkare to access your calendar, please give it permissions it settings',
+                              actionName: 'Open Settings',
+                              action: () {
+                                openAppSettings();
+                              });
+                        } else if (status.isUndetermined) await Permission.calendar.request();
+                        await _retrieveCalendars();
+                        showModalBottomSheet(context: context, builder: (context) => SyncCalendar(donations, true));
+                      },
+                      elevation: 2.0,
+                      color: Colors.white,
+                      child: Icon(
+                        Feather.upload_cloud,
+                        color: purpleAccent,
+                        size: 25.0,
+                      ),
+                      padding: EdgeInsets.all(12.0),
+                      shape: CircleBorder(),
                     ),
-                    padding: EdgeInsets.all(12.0),
-                    shape: CircleBorder(),
                   ),
                 ),
-              ),
-            ],
-          ),
-          SizedBox(height: 10),
-          Consumer<List<Donation>>(
-            builder: (context, donations, widget) {
-              this.donations = donations;
-              if (donations == null) {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              if (donations.length == 0) {
-                return Column(
-                  children: [
-                    Text(
-                      'Your organization currently does not have any expected deliveries.',
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 15.0,
-                      ),
-                    ),
-                    SizedBox(height: 40),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 4),
-                      child: Center(
-                        child: SvgPicture.asset(
-                          'assets/ui_svgs/dood.svg',
-                          semanticsLabel: 'Create some requests!',
-                          width: MediaQuery.of(context).size.width,
+              ],
+            ),
+            SizedBox(height: 10),
+            Consumer<List<Donation>>(
+              builder: (context, donations, widget) {
+                this.donations = donations;
+                if (donations == null) {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                if (donations.length == 0) {
+                  return Column(
+                    children: [
+                      Text(
+                        'Your organization currently does not have any expected deliveries.',
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 15.0,
                         ),
                       ),
+                      SizedBox(height: 40),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 4),
+                        child: Center(
+                          child: SvgPicture.asset(
+                            'assets/ui_svgs/dood.svg',
+                            semanticsLabel: 'Create some requests!',
+                            width: MediaQuery.of(context).size.width,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 60),
+                    ],
+                  );
+                }
+                List<Widget> widgets = [];
+                for (Donation donation in donations) {
+                  widgets.add(
+                    ExpectedDeliveryContainer(
+                      donation: donation,
                     ),
-                    SizedBox(height: 60),
-                  ],
+                  );
+                  widgets.add(
+                    SizedBox(height: 20.0),
+                  );
+                }
+                return Column(
+                  children: widgets,
                 );
-              }
-              List<Widget> widgets = [];
-              for (Donation donation in donations) {
-                widgets.add(
-                  ExpectedDeliveryContainer(
-                    donation: donation,
-                  ),
-                );
-                widgets.add(
-                  SizedBox(height: 20.0),
-                );
-              }
-              return Column(
-                children: widgets,
-              );
-            },
-          ),
-        ],
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

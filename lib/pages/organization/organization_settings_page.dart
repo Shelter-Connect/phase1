@@ -50,26 +50,28 @@ class _OrganizationSettingsPageState extends State<OrganizationSettingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return organization == null
-        ? Center(
-            child: CircularProgressIndicator(),
-          )
-        : SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                SizedBox(height: 10),
-                OrganizationInfo(organization: organization),
-                SizedBox(height: 20),
-                DonationAvailabilityHourSettings(organization: organization),
-                SizedBox(height: 20),
-                DemoProfileButton(organization),
-                SizedBox(height: 20),
-                SignOutButton(),
-                SizedBox(height: 40),
-              ],
+    return SingleChildScrollView(
+      child: organization == null
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  SizedBox(height: 5),
+                  OrganizationInfo(organization: organization),
+                  SizedBox(height: 20),
+                  DonationAvailabilityHourSettings(organization: organization),
+                  SizedBox(height: 20),
+                  DemoProfileButton(organization),
+                  SizedBox(height: 20),
+                  SignOutButton(),
+                  SizedBox(height: 40),
+                ],
+              ),
             ),
-          );
+    );
   }
 }
 

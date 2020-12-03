@@ -19,7 +19,6 @@ import 'package:phase1/services/firestore_helper.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants.dart';
-//import '../feedback_form.dart';
 
 class OrganizationNavigationPage extends StatefulWidget {
   @override
@@ -32,7 +31,6 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
     CurrentRequestsPage(),
     ExpectedDeliveriesPage(),
     PastDeliveriesPage(),
-//    FeedbackForm(),
     OrganizationSettingsPage(),
   ];
 
@@ -73,46 +71,37 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
       child: WillPopScope(
         onWillPop: () async => false,
         child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: Color(0xfff5f5f5),
+            elevation: 0,
+            automaticallyImplyLeading: false,
+            title: Text(
+              _tabs[_selectedIndex].barTitle,
+              style: appBarTitleStyle,
+            ),
+            actions: [
+              Visibility(
+                visible: _tabs[_selectedIndex].helpDescription != '',
+                child: IconButton(
+                  icon: Icon(Feather.help_circle),
+                  color: purpleAccent,
+                  onPressed: () {
+                    _helpModalBottomSheet(context);
+                  },
+                ),
+              ),
+              IconButton(
+                icon: Icon(Feather.thumbs_up),
+                color: purpleAccent,
+                onPressed: () {
+                  _feedbackModalBottomSheet(context);
+                },
+              ),
+            ],
+          ),
           backgroundColor: Color(0xfff5f5f5),
           body: SafeArea(
-            child: SingleChildScrollView(
-                child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 16, bottom: 4.0, top: 8.0),
-                        child: Text(_tabs[_selectedIndex].barTitle, style: appBarTitleStyle),
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        Visibility(
-                          visible: _tabs[_selectedIndex].helpDescription != '',
-                          child: IconButton(
-                            icon: Icon(Feather.help_circle),
-                            color: purpleAccent,
-                            onPressed: () {
-                              _helpModalBottomSheet(context);
-                            },
-                          ),
-                        ),
-                        IconButton(
-                          icon: Icon(Feather.thumbs_up),
-                          color: purpleAccent,
-                          onPressed: () {
-                            _feedbackModalBottomSheet(context);
-                          },
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                _tabs[_selectedIndex],
-              ],
-            )),
+            child: _tabs[_selectedIndex],
           ),
           floatingActionButton: OpenContainer(
             closedShape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(30.0))),
@@ -133,10 +122,8 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
             height: MediaQuery.of(context).size.height / 14 + 2,
             child: FABBottomAppBar(
               backgroundColor: Colors.white,
-              //Colors.white
               iconSize: 25,
               color: purpleAccent,
-              //remove color parameter
               notchedShape: CircularNotchedRectangle(),
               items: _tabs,
               onTabSelected: (index) {

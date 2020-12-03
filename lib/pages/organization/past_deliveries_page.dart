@@ -37,63 +37,65 @@ class _PastDeliveriesPageState extends State<PastDeliveriesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          SizedBox(height: 10),
-          Consumer<List<PastDonation>>(
-            builder: (context, donations, widget) {
-              this.donations = donations;
-              if (donations == null) {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              if (donations.length == 0) {
-                return Column(
-                  children: [
-                    Text(
-                      'Your organization does not have any past deliveries.',
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 15.0,
-                      ),
-                    ),
-                    SizedBox(height: 40),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 4),
-                      child: Center(
-                        child: SvgPicture.asset(
-                          'assets/ui_svgs/dood.svg',
-                          semanticsLabel: 'Create some requests!',
-                          width: MediaQuery.of(context).size.width,
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Consumer<List<PastDonation>>(
+              builder: (context, donations, widget) {
+                this.donations = donations;
+                if (donations == null) {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                if (donations.length == 0) {
+                  return Column(
+                    children: [
+                      Text(
+                        'Your organization does not have any past deliveries.',
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 15.0,
                         ),
                       ),
+                      SizedBox(height: 40),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 4),
+                        child: Center(
+                          child: SvgPicture.asset(
+                            'assets/ui_svgs/dood.svg',
+                            semanticsLabel: 'Create some requests!',
+                            width: MediaQuery.of(context).size.width,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 60),
+                    ],
+                  );
+                }
+                List<Widget> widgets = [];
+                for (PastDonation donation in donations) {
+                  widgets.add(
+                    PastDeliveryContainer(
+                      donation: donation,
                     ),
-                    SizedBox(height: 60),
-                  ],
+                  );
+                  widgets.add(
+                    SizedBox(height: 5.0),
+                  );
+                }
+                return Column(
+                  children: widgets,
                 );
-              }
-              List<Widget> widgets = [];
-              for (PastDonation donation in donations) {
-                widgets.add(
-                  PastDeliveryContainer(
-                    donation: donation,
-                  ),
-                );
-                widgets.add(
-                  SizedBox(height: 5.0),
-                );
-              }
-              return Column(
-                children: widgets,
-              );
-            },
-          ),
-        ],
+              },
+            ),
+            SizedBox(height: 30),
+          ],
+        ),
       ),
     );
   }
