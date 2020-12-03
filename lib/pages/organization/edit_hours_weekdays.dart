@@ -168,7 +168,7 @@ class _EditHoursWeekDayState extends State<EditHoursWeekDay> {
                           if (open == null) return;
                           int validOpeningIndex = -1; // -1 is invalid, other values are index values (valid)
                           List<TimeOfDay> problematicTimeInterval = [];
-                          if (timeOneGreater(widget.timeFrames.first, open)) {
+                          if (widget.timeFrames.isEmpty || timeOneGreater(widget.timeFrames.first, open)) { // Should work with an empty list as well
                             validOpeningIndex = 0;
                           } else if (timeOneGreater(open, widget.timeFrames.last)) {
                             validOpeningIndex = widget.timeFrames.length;
@@ -185,17 +185,14 @@ class _EditHoursWeekDayState extends State<EditHoursWeekDay> {
                           }
 
                           // Still on the added timeframe, but new if/else blocks, moving on to closing time now
-                          if (validOpeningIndex == -1) {
-                            // If the starting time is invalid
-                            //showdialog that says starting time can't be between a current interval and to retry adding new interval
+                          if (validOpeningIndex == -1) { // If the starting time is invalid
                             showDialog(
                                 context: context,
                                 builder: (_) => NoActionAlert(
                                     title:
-                                        "The new starting time ${open.format(context)} cannot be between ${problematicTimeInterval[0].format(context)} and ${problematicTimeInterval[1].format(context)}. Try adding a new time.") //TODO: Tell them the problematic interval
+                                        "The new starting time ${open.format(context)} cannot be between ${problematicTimeInterval[0].format(context)} and ${problematicTimeInterval[1].format(context)}. Try adding a new time.")
                                 );
                           } else {
-                            //show singleactionalert that tells person to chose ending time
                             TimeOfDay close;
                             await showDialog(
                                 context: context,
