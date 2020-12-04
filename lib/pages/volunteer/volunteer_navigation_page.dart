@@ -45,7 +45,6 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
             value: db.collection('organizations').snapshots().map((snapshot) {
               if (snapshot.documents.length == 0) return [];
               if (snapshot == null) return null;
-              print(snapshot.documents);
               List<Organization> organizations = [];
               for (DocumentSnapshot document in snapshot.documents) {
                 if (kReleaseMode && document.documentID == 'bVRQfZpizSQWty24zFgFqIrB60i2') // Skips over Test Linkare org if this is actual app

@@ -76,15 +76,18 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
     super.initState();
     _addressTapGestureRecognizer = TapGestureRecognizer()..onTap = _addressHandleTap;
 
-    Future<bool> getWebsiteLinkLaunchableFuture = canLaunch(widget.organization.website);
-    getWebsiteLinkLaunchableFuture.then((bool canLaunch) => websiteLinkLaunchable = canLaunch);
-    Future<bool> getDonationLinkLaunchableFuture = canLaunch(widget.organization.donationLink);
-    getDonationLinkLaunchableFuture.then((bool canLaunch) => donationLinkLaunchable = canLaunch);
-
-    _websiteLinkTapGestureRecognizer = TapGestureRecognizer()
-      ..onTap = (websiteLinkLaunchable ? _websiteLinkHandleTap : (){});
-    _donationLinkTapGestureRecognizer = TapGestureRecognizer()
-      ..onTap = (donationLinkLaunchable ? _donationLinkHandleTap : (){});
+    Future<bool> getWebsiteLinkLaunchableFuture = canLaunch(makeValidURL(widget.organization.website));
+    getWebsiteLinkLaunchableFuture.then((bool canLaunch) {
+      websiteLinkLaunchable = canLaunch;
+      _websiteLinkTapGestureRecognizer = TapGestureRecognizer()
+        ..onTap = (websiteLinkLaunchable ? _websiteLinkHandleTap : (){});
+    });
+    Future<bool> getDonationLinkLaunchableFuture = canLaunch(makeValidURL(widget.organization.donationLink));
+    getDonationLinkLaunchableFuture.then((bool canLaunch) {
+      donationLinkLaunchable = canLaunch;
+      _donationLinkTapGestureRecognizer = TapGestureRecognizer()
+        ..onTap = (donationLinkLaunchable ? _donationLinkHandleTap : (){});
+    });
   }
 
   @override
@@ -101,23 +104,13 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
   }
 
   void _websiteLinkHandleTap() {
-    String websiteURL = '';
-    if (widget.organization.website.startsWith(RegExp('https{0,1}://'))) {
-      websiteURL = widget.organization.website;
-    } else {
-      websiteURL = "https://" + widget.organization.website;
-    }
+    String websiteURL = makeValidURL(widget.organization.website);
     launch(websiteURL);
     HapticFeedback.lightImpact();
   }
 
   void _donationLinkHandleTap() {
-    String donationURL = '';
-    if (widget.organization.donationLink.startsWith(RegExp('https{0,1}://'))) {
-      donationURL = widget.organization.donationLink;
-    } else {
-      donationURL = "https://" + widget.organization.donationLink;
-    }
+    String donationURL = makeValidURL(widget.organization.donationLink);
     launch(donationURL);
     HapticFeedback.lightImpact();
   }
@@ -681,4 +674,14 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
             ),
     );
   }
+}
+
+String makeValidURL(String urlString) {
+  String validURL;
+  if (urlString.startsWith(RegExp('https{0,1}://'))) {
+    validURL = urlString;
+  } else {
+    validURL = "https://" + urlString;
+  }
+  return validURL;
 }
