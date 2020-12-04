@@ -168,6 +168,7 @@ class _EditHoursWeekDayState extends State<EditHoursWeekDay> {
                           if (open == null) return;
                           int validOpeningIndex = -1; // -1 is invalid, other values are index values (valid)
                           List<TimeOfDay> problematicTimeInterval = [];
+                          Map<String, TimeOfDay> preexistingTimes = {}; // For if the new time matches an existing time
                           if (widget.timeFrames.isEmpty || timeOneGreater(widget.timeFrames.first, open)) { // Should work with an empty list as well
                             validOpeningIndex = 0;
                           } else if (timeOneGreater(open, widget.timeFrames.last)) {
@@ -180,6 +181,8 @@ class _EditHoursWeekDayState extends State<EditHoursWeekDay> {
                                 break;
                               } else if (timeOneGreater(open, widget.timeFrames[i - 1]) && timeOneGreater(widget.timeFrames[i], open)) {
                                 problematicTimeInterval..add(widget.timeFrames[i - 1])..add(widget.timeFrames[i]);
+                              } else if (open == widget.timeFrames[i-1] || open == widget.timeFrames[i]) { // If the new open time is same as an existing open time
+                                preexistingTimes[open == widget.timeFrames[i-1] ? "open" : "close"] = open;
                               }
                             }
                           }
@@ -189,8 +192,9 @@ class _EditHoursWeekDayState extends State<EditHoursWeekDay> {
                             showDialog(
                                 context: context,
                                 builder: (_) => NoActionAlert(
-                                    title:
-                                        "The new starting time ${open.format(context)} cannot be between ${problematicTimeInterval[0].format(context)} and ${problematicTimeInterval[1].format(context)}. Try adding a new time.")
+                                    title: preexistingTimes.isEmpty ?
+                                        "The new starting time ${open.format(context)} cannot be between ${problematicTimeInterval[0].format(context)} and ${problematicTimeInterval[1].format(context)}. Try adding a new time." :
+                                        "The new starting time ${open.format(context)} cannot match the existing " + (preexistingTimes.containsKey("open") ? "opening time ${preexistingTimes["open"].format(context)}." : "closing time ${preexistingTimes["close"].format(context)}."))
                                 );
                           } else {
                             TimeOfDay close;

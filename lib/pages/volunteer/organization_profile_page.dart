@@ -31,6 +31,9 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
   TapGestureRecognizer _websiteLinkTapGestureRecognizer;
   TapGestureRecognizer _donationLinkTapGestureRecognizer;
 
+  bool websiteLinkLaunchable;
+  bool donationLinkLaunchable;
+
   _OrganizationProfilePageState();
 
   @override
@@ -72,8 +75,16 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
     });
     super.initState();
     _addressTapGestureRecognizer = TapGestureRecognizer()..onTap = _addressHandleTap;
-    _websiteLinkTapGestureRecognizer = TapGestureRecognizer()..onTap = _websiteLinkHandleTap;
-    _donationLinkTapGestureRecognizer = TapGestureRecognizer()..onTap = _donationLinkHandleTap;
+
+    Future<bool> getWebsiteLinkLaunchableFuture = canLaunch(widget.organization.website);
+    getWebsiteLinkLaunchableFuture.then((bool canLaunch) => websiteLinkLaunchable = canLaunch);
+    Future<bool> getDonationLinkLaunchableFuture = canLaunch(widget.organization.donationLink);
+    getDonationLinkLaunchableFuture.then((bool canLaunch) => donationLinkLaunchable = canLaunch);
+
+    _websiteLinkTapGestureRecognizer = TapGestureRecognizer()
+      ..onTap = (websiteLinkLaunchable ? _websiteLinkHandleTap : (){});
+    _donationLinkTapGestureRecognizer = TapGestureRecognizer()
+      ..onTap = (donationLinkLaunchable ? _donationLinkHandleTap : (){});
   }
 
   @override
@@ -259,7 +270,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                             style: TextStyle(
                                               fontSize: 17,
                                               fontWeight: FontWeight.w600,
-                                              color: Colors.blue,
+                                              color: (websiteLinkLaunchable ? Colors.blue : colorScheme.onBackground),
                                             ),
                                             recognizer: _websiteLinkTapGestureRecognizer
                                           ),
@@ -286,7 +297,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                             style: TextStyle(
                                               fontSize: 17,
                                               fontWeight: FontWeight.w600,
-                                              color: Colors.blue,
+                                              color: (donationLinkLaunchable ? Colors.blue : colorScheme.onBackground),
                                             ),
                                             recognizer: _donationLinkTapGestureRecognizer
                                           ),
