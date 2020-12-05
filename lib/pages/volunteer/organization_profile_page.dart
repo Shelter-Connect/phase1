@@ -678,6 +678,8 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
 
 String makeValidURL(String urlString) {
   String validURL;
+  if (urlString == null)
+    return ""; // A definitely invalid URL
   if (urlString.startsWith(RegExp('https{0,1}://'))) {
     validURL = urlString;
   } else {
