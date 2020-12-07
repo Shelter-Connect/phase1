@@ -274,6 +274,7 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                 )
                 .values
                 .toList(),
+            Divider(height: 10, thickness: 2),
             SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),

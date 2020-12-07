@@ -130,7 +130,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -147,7 +147,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                     ),
                   ),
                   SizedBox(height: 20),
-                  Card(
+                  Container(
                     child: Column(
                       children: [
                         Padding(
@@ -428,6 +428,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                       ],
                     ),
                   ),
+                  Divider(height: 10, thickness: 2),
                   if (widget.organization.itemCategories != null && widget.organization.itemCategories.length != 0)
                     if (widget.organization.itemCategories.contains('Volunteering'))
                       Card(
@@ -608,15 +609,13 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                                                     ],
                                                                   ),
                                                                 ),
-                                                                Expanded(
-                                                                  child: Align(
-                                                                    alignment: Alignment.centerRight,
-                                                                    child: Container(
-                                                                      height: 12,
-                                                                      width: 12,
-                                                                      decoration: BoxDecoration(
-                                                                          color: item.urgencyColor, borderRadius: BorderRadius.circular(40)),
-                                                                    ),
+                                                                Align(
+                                                                  alignment: Alignment.centerRight,
+                                                                  child: Container(
+                                                                    height: 12,
+                                                                    width: 12,
+                                                                    decoration: BoxDecoration(
+                                                                        color: item.urgencyColor, borderRadius: BorderRadius.circular(40)),
                                                                   ),
                                                                 ),
                                                               ],

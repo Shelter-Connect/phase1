@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 import '../constants.dart';
 
@@ -14,10 +15,10 @@ class StandardLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: color ?? Color(0xfff7f7f7),
+      backgroundColor: color ?? Colors.white,
       appBar: AppBar(
         brightness: Brightness.light,
-        backgroundColor: color ?? Color(0xfff7f7f7),
+        backgroundColor: color ?? Colors.white,
         elevation: 0.0,
         leading: IconButton(
           onPressed: () {
@@ -25,7 +26,7 @@ class StandardLayout extends StatelessWidget {
           },
           icon: Icon(Icons.keyboard_arrow_left, size: 35, color: purpleAccent),
         ),
-        title: Text(
+        title: AutoSizeText(
           title,
           style: TextStyle(
             fontWeight: FontWeight.w900, fontSize: 25,

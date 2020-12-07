@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -92,7 +93,7 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(left: 16, bottom: 4.0, top: 8.0),
-                          child: Text(_tabs[_selectedIndex].barTitle, style: appBarTitleStyle),
+                          child: AutoSizeText(_tabs[_selectedIndex].barTitle, style: appBarTitleStyle),
                         ),
                         Row(
                           children: [

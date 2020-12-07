@@ -50,6 +50,7 @@ class _OrganizationPreviewPageState extends State<OrganizationPreviewPage> {
   @override
   Widget build(BuildContext context) {
     return StandardLayout(
+      color: Color(0xFFF5F5F5),
       title: '',
       helpText: 'This page shows your organization profile as it will be seen by volunteers. ',
       body: loading

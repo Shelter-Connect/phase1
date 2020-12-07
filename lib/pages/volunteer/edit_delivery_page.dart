@@ -164,11 +164,15 @@ class _EditDeliveryPageState extends State<EditDeliveryPage> {
                                             },
                                           )
                                         else
-                                          Expanded(
-                                            child: Text(
-                                              '${widget.donation.organization.name} has cancelled their request for ${widget.donation.items[index].name}, so you may not edit it at this time (You can still deliver it).',
-                                              style: TextStyle(fontSize: 14, color: Colors.grey),
-                                            ),
+                                          Row(
+                                            children: [
+                                              Expanded(
+                                                child: Text(
+                                                  '${widget.donation.organization.name} has cancelled their request for ${widget.donation.items[index].name}, so you may not edit it at this time (You can still deliver it).',
+                                                  style: TextStyle(fontSize: 14, color: Colors.grey),
+                                                ),
+                                              ),
+                                            ],
                                           )
                                       ],
                                     ),
