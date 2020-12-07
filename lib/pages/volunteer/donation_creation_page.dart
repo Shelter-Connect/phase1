@@ -212,7 +212,7 @@ class _DonationCreationPageState extends State<DonationCreationPage> {
                                                             children: [
                                                               Expanded(
                                                                 child: Text(
-                                                                  '${item.name} - ${item.amount} ${item.unit ?? ''}'.trim(),
+                                                                  '${item.name} - ${item.amount} volunteers'.trim(),
                                                                   style: TextStyle(
                                                                     fontSize: 17.0,
                                                                     fontWeight: FontWeight.w400,

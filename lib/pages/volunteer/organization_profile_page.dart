@@ -588,7 +588,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                                             alignment: Alignment.centerLeft,
                                                             child: Padding(
                                                               padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                                              child: Row(
+                                                              child: Wrap(
                                                                 children: [
                                                                   Align(
                                                                     alignment: Alignment.centerLeft,
@@ -596,7 +596,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                                                       crossAxisAlignment: CrossAxisAlignment.start,
                                                                       children: [
                                                                         Text(
-                                                                          '${item.name} - ${item.amount} ${item.unit ?? ''}'.trim(),
+                                                                          '${item.name} - ${item.amount} volunteers'.trim(),
                                                                           style: TextStyle(
                                                                             fontSize: 17.0,
                                                                             fontWeight: FontWeight.w400,
