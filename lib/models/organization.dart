@@ -63,7 +63,7 @@ class Organization {
   }
 
   Organization.fromFirestoreMap({BuildContext context, DocumentSnapshot organizationSnapshot, bool isVolunteer}) {
-   try { address = organizationSnapshot['address'];
+    address = organizationSnapshot['address'];
     location = Position(longitude: organizationSnapshot['location'].longitude, latitude: organizationSnapshot['location'].latitude);
     website = organizationSnapshot['website'];
     donationLink = organizationSnapshot['donationLink'];
@@ -98,9 +98,6 @@ class Organization {
           ? LocationHelper.distance(
               organizationSnapshot['location'].latitude, organizationSnapshot['location'].longitude, userPosition.latitude, userPosition.longitude)
           : null;
-    }}
-    catch (e){
-print(e);
     }
   }
 }

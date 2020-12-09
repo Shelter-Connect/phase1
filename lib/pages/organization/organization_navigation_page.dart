@@ -1,4 +1,5 @@
 import 'package:animations/animations.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -75,9 +76,12 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
             backgroundColor: Color(0xfff5f5f5),
             elevation: 0,
             automaticallyImplyLeading: false,
-            title: Text(
-              _tabs[_selectedIndex].barTitle,
-              style: appBarTitleStyle,
+            title: FittedBox(
+              fit: BoxFit.fitWidth,
+              child: AutoSizeText(
+                _tabs[_selectedIndex].barTitle,
+                style: appBarTitleStyle,
+              ),
             ),
             actions: [
               Visibility(
