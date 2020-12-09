@@ -100,7 +100,7 @@ class Organization {
           : null;
     }}
     catch (e){
-
+print(e);
     }
   }
 }
