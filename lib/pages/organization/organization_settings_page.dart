@@ -8,7 +8,7 @@ import 'package:phase1/models/organization.dart';
 import 'package:phase1/pages/organization/organization_edit_info_page.dart';
 import 'package:phase1/pages/organization/organization_preview_page.dart';
 import 'package:phase1/services/firestore_helper.dart';
-
+import 'package:flutter/gestures.dart';
 import '../../constants.dart';
 import '../navigation_tab.dart';
 import 'edit_hours_weekdays.dart';
@@ -62,7 +62,7 @@ class _OrganizationSettingsPageState extends State<OrganizationSettingsPage> {
                   SizedBox(height: 5),
                   OrganizationInfo(organization: organization),
                   SizedBox(height: 20),
-                  DonationAvailabilityHourSettings(organization: organization),
+                  DonationAvailabilityHourSettings(organization: organization, breakRanges: organization.breaks),
                   SizedBox(height: 20),
                   DemoProfileButton(organization),
                   SizedBox(height: 20),
@@ -299,10 +299,122 @@ class OrganizationInfo extends StatelessWidget {
   }
 }
 
-class DonationAvailabilityHourSettings extends StatelessWidget {
+class DonationAvailabilityHourSettings extends StatefulWidget {
   final Organization organization;
+  final List<DateTimeRange> breakRanges; // Copy of organization.breaks
 
-  DonationAvailabilityHourSettings({this.organization});
+  DonationAvailabilityHourSettings({this.organization, this.breakRanges});
+
+  @override
+  _DonationAvailabilityHourSettingsState createState() => _DonationAvailabilityHourSettingsState();
+}
+
+class _DonationAvailabilityHourSettingsState extends State<DonationAvailabilityHourSettings> {
+  List<Widget> gridViewChildren;
+  List<TapGestureRecognizer> breakTapGestureRecognizers;
+
+  @override
+  void initState() {
+    setState(() {
+      gridViewChildren = [];
+      breakTapGestureRecognizers = [];
+    });
+    for (DateTimeRange breakRange in widget.breakRanges) {
+      TapGestureRecognizer newTapGestureRecognizer = TapGestureRecognizer()
+        ..onTap = () {
+          // TODO: Implement delete functionality
+          int tapGestureRecognizerIndex = widget.breakRanges.indexOf(breakRange);
+          showModalBottomSheet(
+            context: context,
+            builder: (BuildContext context) {
+              return SafeArea(
+                child: SingleChildScrollView(
+                  child: Container(
+                    child: Wrap(
+                      children: <Widget>[
+                        ListTile(
+                          onTap: () {
+                            widget.breakRanges.removeAt(tapGestureRecognizerIndex);
+                            breakTapGestureRecognizers.removeAt(tapGestureRecognizerIndex);
+                          },
+                          title: Text("Delete"),
+                          leading: FittedBox(
+                            fit: BoxFit.contain,
+                            child: IconButton(
+                              onPressed: () {
+                                setState(() {
+
+                                });
+                              },
+                              icon: Icon(Icons.delete, color: Colors.red),
+                            ),
+                          ),
+                        ),
+                      ]
+                    ),
+                  ),
+                ),
+              );
+            }
+          );
+        };
+      breakTapGestureRecognizers.add(newTapGestureRecognizer);
+
+      Widget gridViewChild;
+      if (breakRange.duration != Duration()) {
+        gridViewChild = Container(
+          color: Color(0xFFF5F5F5),
+          width: 150,
+          height: 50,
+          child: Row(
+            children: [
+              Spacer(),
+              RichText(
+                text: TextSpan(
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: "${breakRange.start.month}/${breakRange.start.day}",
+                      style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20, color: Colors.black),
+                    ),
+                    TextSpan(
+                      text: '-',
+                      style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20, color: Colors.black),
+                      recognizer: breakTapGestureRecognizers[widget.breakRanges.indexOf(breakRange)]
+                    ),
+                    TextSpan(
+                      text: "${breakRange.end.month}/${breakRange.end.day}",
+                      style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20, color: Colors.black),
+                    )
+                  ]
+                ),
+              ),
+              Spacer(),
+            ]
+          ),
+        );
+      } else {
+        gridViewChild = Container(
+          color: Color(0xFFF5F5F5),
+            width: 75,
+            height: 50,
+          child: Center(child: Text("${breakRange.start.month}/${breakRange.start.day}", style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20, color: Colors.black)))
+        );
+      }
+      if (gridViewChild != null) {
+        setState(() {
+          gridViewChildren.add(gridViewChild);
+        });
+      }
+    }
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    for (TapGestureRecognizer tapGestureRecognizer in breakTapGestureRecognizers)
+      tapGestureRecognizer?.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -336,20 +448,80 @@ class DonationAvailabilityHourSettings extends StatelessWidget {
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
               ),
               SizedBox(height: 10),
-              EditHourContainer(day: 'Monday', timeFrames: organization.schedule['Monday'], organization: organization),
+              EditHourContainer(day: 'Monday', timeFrames: widget.organization.schedule['Monday'], organization: widget.organization),
               SizedBox(height: 5),
-              EditHourContainer(day: 'Tuesday', timeFrames: organization.schedule['Tuesday'], organization: organization),
+              EditHourContainer(day: 'Tuesday', timeFrames: widget.organization.schedule['Tuesday'], organization: widget.organization),
               SizedBox(height: 5),
-              EditHourContainer(day: 'Wednesday', timeFrames: organization.schedule['Wednesday'], organization: organization),
+              EditHourContainer(day: 'Wednesday', timeFrames: widget.organization.schedule['Wednesday'], organization: widget.organization),
               SizedBox(height: 5),
-              EditHourContainer(day: 'Thursday', timeFrames: organization.schedule['Thursday'], organization: organization),
+              EditHourContainer(day: 'Thursday', timeFrames: widget.organization.schedule['Thursday'], organization: widget.organization),
               SizedBox(height: 5),
-              EditHourContainer(day: 'Friday', timeFrames: organization.schedule['Friday'], organization: organization),
+              EditHourContainer(day: 'Friday', timeFrames: widget.organization.schedule['Friday'], organization: widget.organization),
               SizedBox(height: 5),
-              EditHourContainer(day: 'Saturday', timeFrames: organization.schedule['Saturday'], organization: organization),
+              EditHourContainer(day: 'Saturday', timeFrames: widget.organization.schedule['Saturday'], organization: widget.organization),
               SizedBox(height: 5),
-              EditHourContainer(day: 'Sunday', timeFrames: organization.schedule['Sunday'], organization: organization),
+              EditHourContainer(day: 'Sunday', timeFrames: widget.organization.schedule['Sunday'], organization: widget.organization),
               SizedBox(height: 10),
+              Text(
+                'Breaks',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+              ),
+              GridView(
+                  gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 160, mainAxisSpacing: 12.0, crossAxisSpacing: 12.0),
+                  shrinkWrap: true,
+                  children: (gridViewChildren ?? [SizedBox.shrink()]),
+              ),
+              Align(
+                alignment: Alignment.centerRight,
+                child: IconButton(
+                    icon: Icon(Icons.add, size: 24, color: purpleAccent),
+                    onPressed: () async {
+                      int currentYear = DateTime.now().year;
+                      DateTimeRange newBreakRange = await showDateRangePicker(
+                          context: context,
+                          firstDate: DateTime(currentYear, 1, 1),
+                          lastDate: DateTime(currentYear, 12, 31),
+                          helpText: "Choose one day or a range of days that your organization will have a break."
+                      );
+                      // TODO: - Prevent overlapping break ranges
+                      print("GRID VIEW CHILDREN: $gridViewChildren");
+                      setState(() {
+                        widget.breakRanges.add(newBreakRange);
+                      });
+                      // This updates Firestore
+                      Map<String, List<String>> updatedBreaksInFirestore = {};
+                      widget.breakRanges.forEach((element) {
+                        String startDateString = element.start.toString();
+                        String endDateString = element.end.toString();
+                        updatedBreaksInFirestore?.addAll({widget.breakRanges.indexOf(element).toString(): [startDateString, endDateString]});
+                      });
+                      FirestoreHelper.getCurrentOrganizationReference(context).updateData({
+                        'breaks': updatedBreaksInFirestore
+                      });
+                    }),
+              ),
+              SizedBox(height: 10),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //              Text(
 //                'Specific Holiday Dates',
 //                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
@@ -623,5 +795,139 @@ class EditSpecificDate extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class EditBreakContainer extends StatefulWidget {
+  final Organization organization;
+  final DateTimeRange dateTimeRange;
+
+  EditBreakContainer({@required this.organization, this.dateTimeRange});
+
+  @override
+  _EditBreakContainerState createState() => _EditBreakContainerState();
+}
+
+class _EditBreakContainerState extends State<EditBreakContainer> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Color(0xFFF5F5F5),
+      width: MediaQuery.of(context).size.width,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 20),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: widget.dateTimeRange.duration != Duration() ? [ // If the range is just one day
+            FittedBox(
+              fit: BoxFit.contain,
+              child: IconButton(
+                splashRadius: 0.00000000000001, // Negligible so users do not see
+                onPressed: (){},
+                icon: Icon(Icons.delete, color: Colors.transparent),
+                enableFeedback: false,
+              ),
+            ), // Empty fodder
+            Spacer(),
+            Text("${widget.dateTimeRange.start.month}/${widget.dateTimeRange.start.day}", style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20, color: Colors.black)),
+            Text('  -  ', style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20, color: Colors.black)),
+            Text("${widget.dateTimeRange.end.month}/${widget.dateTimeRange.end.day}", style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20, color: Colors.black)),
+            Spacer(),
+            FittedBox(
+              fit: BoxFit.contain,
+              child: IconButton(
+                onPressed: () {
+                  setState(() {
+
+                  });
+                },
+                icon: Icon(Icons.delete, color: Colors.red),
+              ),
+            ),
+          ]
+              : [Text("${widget.dateTimeRange.start.month}/${widget.dateTimeRange.start.day}", style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20, color: Colors.black))]
+        ),
+      )
+    );
+  }
+}
+
+class AddBreakButton extends StatelessWidget {
+  final List<DateTimeRange> breakRanges;
+
+  AddBreakButton({this.breakRanges});
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.centerRight,
+      child: IconButton(
+        icon: Icon(Icons.add, size: 24, color: purpleAccent),
+        onPressed: () async {
+          int currentYear = DateTime.now().year;
+          DateTimeRange newBreakRange = await showDateRangePicker(
+            context: context,
+            firstDate: DateTime(currentYear, 1, 1),
+            lastDate: DateTime(currentYear, 12, 31),
+            helpText: "Choose one day or a range of days that your organization will have a break."
+          );
+          breakRanges.add(newBreakRange);
+          // This updates Firestore
+          Map<int, List<String>> updatedBreaksInFirestore;
+          breakRanges.forEach((element) {
+            String startDateString = element.start.toString();
+            String endDateString = element.end.toString();
+            updatedBreaksInFirestore?.addAll({breakRanges.indexOf(element): [startDateString, endDateString]});
+                // breakRanges.indexOf(element), (_) =>
+          });
+          FirestoreHelper.getCurrentOrganizationReference(context).updateData({
+            'breaks': updatedBreaksInFirestore
+          });
+        }),
+    );
+  }
+}
+
+void updateBreaks(BuildContext context, List<DateTimeRange> breaks) {
+  Map<int, List<String>> updatedBreaksInFirestore;
+  breaks.forEach((element) {
+    String startDateString = element.start.toString();
+    String endDateString = element.end.toString();
+    updatedBreaksInFirestore?.addAll({breaks.indexOf(element): [startDateString, endDateString]});
+    // breakRanges.indexOf(element), (_) =>
+  });
+  FirestoreHelper.getCurrentOrganizationReference(context).updateData({
+    'breaks': updatedBreaksInFirestore
+  });
+}
+
+extension DateTimeComparison on DateTime { // Adds greater than operator
+  bool operator >(DateTime other) {
+    if (this.year <= other.year) {
+      if (this.year < other.year) return false;
+      // If gets to here, then years are the same
+      if (this.month <= other.month) {
+        if (this.month < other.month) return false;
+        // Month must be the same
+        if (this.day <= other.day) {
+          if (this.day < other.day) return false;
+          // Day must be the same
+          if (this.hour <= other.hour) {
+            if (this.hour < other.hour) return false;
+            // Hour must be the same
+            if (this.minute <= other.minute) {
+              if (this.minute < other.minute) return false;
+              // Minute must be the same
+              if (this.second <= other.second) {
+                if (this.second < other.second) return false;
+                // Seconds must be the same
+                if (this.millisecond <= other.millisecond) return false; // Least unit possible
+              }
+            }
+          }
+        }
+      }
+    }
+    return true;
   }
 }

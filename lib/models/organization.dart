@@ -15,7 +15,7 @@ class Organization {
   Map<String, List<Item>> requestedItems = Map();
   List<String> itemCategories = List();
   Map<String, List<TimeOfDay>> schedule = Map();
-  List<DateTime> breaks = List();
+  List<DateTimeRange> breaks = List();
 
   Organization(
       {this.address,
@@ -57,7 +57,7 @@ class Organization {
           times.map((time) => new TimeOfDay(hour: time.hour, minute: time.minute)).toList(),
         ),
       ),
-      breaks: breaks?.map((dates) => new DateTime(dates.year, dates.month, dates.day, dates.hour, dates.minute))?.toList(),
+      breaks: breaks?.map((dateRange) => new DateTimeRange(start: dateRange.start, end: dateRange.end))?.toList(),
       distance: distance,
     );
   }
@@ -88,9 +88,27 @@ class Organization {
         times.map((time) => new TimeOfDay.fromDateTime(DateTime.fromMillisecondsSinceEpoch((time as Timestamp).millisecondsSinceEpoch))).toList(),
       ),
     );
-    breaks = List<dynamic>.from(organizationSnapshot['breaks'])
-        .map((dates) => new DateTime.fromMillisecondsSinceEpoch((dates as Timestamp).millisecondsSinceEpoch))
-        .toList();
+
+    // breaks = organizationSnapshot['breaks'].entries.map((mapEntry) {
+    //   DateTime startDate = DateTime.parse(mapEntry.value[0]);
+    //   DateTime endDate = DateTime.parse(mapEntry.value[1]);
+    //   return DateTimeRange(start: startDate, end: endDate);
+    // }).toList();
+
+    organizationSnapshot['breaks']?.forEach((positionInMap, dateTimes) {
+      DateTime startDate = DateTime.parse(dateTimes[0]);
+      DateTime endDate = DateTime.parse(dateTimes[1]);
+      DateTimeRange breakRange = DateTimeRange(start: startDate, end: endDate);
+      breaks.add(breakRange);
+    });
+
+    // breaks = List<dynamic>.from(organizationSnapshot['breaks'])
+    //     .map((positionInMap, dateTimes) {
+    //       DateTime startDate = DateTime(DateTime.parse(dateTimes[0]));
+    //       DateTime endDate = DateTime(DateTime.parse(dateTimes[1]));
+    //       return DateTimeRange(start: startDate, end: endDate);
+    //     })
+    //     .toList();
 
     if (isVolunteer) {
       Position userPosition = Provider.of<UserPosition>(context, listen: false).position;

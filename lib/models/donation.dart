@@ -71,10 +71,17 @@ class Donation {
               ),
             )
           : null,
-      breaks: donationSnapshot['organizationBreaks'] != null
-          ? List<dynamic>.from(donationSnapshot['organizationBreaks'])
-              .map((dates) => new DateTime.fromMillisecondsSinceEpoch((dates as Timestamp).millisecondsSinceEpoch))
-              .toList()
+      breaks: donationSnapshot['organizationBreaks'] != null ?
+        List<DateTimeRange>.from(
+          (donationSnapshot['organizationBreaks'] as Map).entries
+              .map((mapEntry) {
+                List<String> dateRangeList = mapEntry.value;
+                DateTime startDate = DateTime.parse(dateRangeList.first);
+                DateTime endDate = DateTime.parse(dateRangeList.last);
+                DateTimeRange breakRange = DateTimeRange(start: startDate, end: endDate);
+                return breakRange;
+          })
+        )
           : null,
     );
   }
