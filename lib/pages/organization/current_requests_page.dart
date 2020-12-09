@@ -125,6 +125,7 @@ class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
                         specificDescription: document['specificDescription'],
                         unit: document['unit'],
                         urgency: document['urgency'],
+                        donationDeadline: document['donationDeadline'],
                         urgencyColor: (document['urgency'] == 0)
                             ? Colors.transparent
                             : (document['urgency'] == 1)

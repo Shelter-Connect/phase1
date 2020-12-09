@@ -63,41 +63,48 @@ class Organization {
   }
 
   Organization.fromFirestoreMap({BuildContext context, DocumentSnapshot organizationSnapshot, bool isVolunteer}) {
-    address = organizationSnapshot['address'];
-    location = Position(longitude: organizationSnapshot['location'].longitude, latitude: organizationSnapshot['location'].latitude);
-    website = organizationSnapshot['website'];
-    donationLink = organizationSnapshot['donationLink'];
-    number = organizationSnapshot['number'];
-    email = organizationSnapshot['email'];
-    id = organizationSnapshot.documentID;
-    description = organizationSnapshot['description'];
-    name = organizationSnapshot['name'];
-    itemCategories = organizationSnapshot['itemCategories']?.cast<String>();
+    try {
+      address = organizationSnapshot['address'];
+      location = Position(longitude: organizationSnapshot['location'].longitude, latitude: organizationSnapshot['location'].latitude);
+      website = organizationSnapshot['website'];
+      donationLink = organizationSnapshot['donationLink'];
+      number = organizationSnapshot['number'];
+      email = organizationSnapshot['email'];
+      id = organizationSnapshot.documentID;
+      description = organizationSnapshot['description'];
+      name = organizationSnapshot['name'];
+      itemCategories = organizationSnapshot['itemCategories']?.cast<String>();
 
-    Map<String, List<Item>> items = {};
-    if (organizationSnapshot['itemCategories'] != null) if (organizationSnapshot['itemCategories'].length != 0) {
-      for (String category in organizationSnapshot['itemCategories']) {
-        items[category] = List<Item>();
+      Map<String, List<Item>> items = {};
+      if (organizationSnapshot['itemCategories'] != null) if (organizationSnapshot['itemCategories'].length != 0) {
+        for (String category in organizationSnapshot['itemCategories']) {
+          items[category] = List<Item>();
+        }
+      }
+      requestedItems = items;
+
+      schedule = Map<String, List<dynamic>>.from(organizationSnapshot['schedule'])?.map(
+            (day, times) =>
+            MapEntry(
+              day,
+              times.map((time) => new TimeOfDay.fromDateTime(DateTime.fromMillisecondsSinceEpoch((time as Timestamp).millisecondsSinceEpoch))).toList(),
+            ),
+      );
+      breaks = List<dynamic>.from(organizationSnapshot['breaks'])
+          .map((dates) => new DateTime.fromMillisecondsSinceEpoch((dates as Timestamp).millisecondsSinceEpoch))
+          .toList();
+
+      if (isVolunteer) {
+        Position userPosition = Provider
+            .of<UserPosition>(context, listen: false)
+            .position;
+        distance = userPosition != null
+            ? LocationHelper.distance(
+            organizationSnapshot['location'].latitude, organizationSnapshot['location'].longitude, userPosition.latitude, userPosition.longitude)
+            : null;
       }
     }
-    requestedItems = items;
-
-    schedule = Map<String, List<dynamic>>.from(organizationSnapshot['schedule'])?.map(
-      (day, times) => MapEntry(
-        day,
-        times.map((time) => new TimeOfDay.fromDateTime(DateTime.fromMillisecondsSinceEpoch((time as Timestamp).millisecondsSinceEpoch))).toList(),
-      ),
-    );
-    breaks = List<dynamic>.from(organizationSnapshot['breaks'])
-        .map((dates) => new DateTime.fromMillisecondsSinceEpoch((dates as Timestamp).millisecondsSinceEpoch))
-        .toList();
-
-    if (isVolunteer) {
-      Position userPosition = Provider.of<UserPosition>(context, listen: false).position;
-      distance = userPosition != null
-          ? LocationHelper.distance(
-              organizationSnapshot['location'].latitude, organizationSnapshot['location'].longitude, userPosition.latitude, userPosition.longitude)
-          : null;
-    }
+    catch(e)
+    {}
   }
 }

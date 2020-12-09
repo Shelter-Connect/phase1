@@ -595,7 +595,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                                                     crossAxisAlignment: CrossAxisAlignment.start,
                                                                     children: [
                                                                       Text(
-                                                                        '${item.name} - ${item.amount} volunteers'.trim(),
+                                                                        '${item.name} - ${item.amount} ${item.unit}'.trim(),
                                                                         style: TextStyle(
                                                                           fontSize: 17.0,
                                                                           fontWeight: FontWeight.w400,

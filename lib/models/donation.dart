@@ -33,6 +33,7 @@ class Donation {
     items = donationSnapshot['items']
         .map(
           (item) => Item(
+            donationDeadline: item['donationDeadline'],
             name: item['name'],
             amount: item['amount'],
             specificDescription: item['specificDescription'],

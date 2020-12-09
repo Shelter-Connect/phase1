@@ -32,6 +32,7 @@ class ConfirmRequestPage extends StatefulWidget {
 class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
   int amount = 0, urgency = 0;
   String specificDescription = '', itemUnit = '';
+  DateTime donationDeadline = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -110,41 +111,45 @@ class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
                         },
                       ),
                       SizedBox(height: 20),
-//                      Container(
-//                        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(5)),
-//                        child: Padding(
-//                          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 15),
-//                          child: Column(
-//                            crossAxisAlignment: CrossAxisAlignment.start,
-//                            children: [
-//                              Text(
-//                                'Donation Deadline Date (Option)',
-//                                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: Colors.black54),
-//                              ),
-//                              BasicDateField(onChanged: (val) {} //TODO Add deadline date save feature
-//                                  ),
-//                            ],
-//                          ),
-//                        ),
-//                      ),
+                      Container(
+                        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(5)),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 15),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Donation Deadline Date (Option)',
+                                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: Colors.black54),
+                              ),
+                              BasicDateField(onChanged: (val) {
+                                setState(() {
+                                  donationDeadline = val;
+                                });
+                              } //TODO Add deadline date save feature
+                                  ),
+                            ],
+                          ),
+                        ),
+                      ),
                       SizedBox(
                         height: 10,
                       ),
-//                      MaterialButton(
-//                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-//                          color: Colors.white,
-//                          onPressed: () async {
-//                            final List<DateTime> picked = await DateRagePicker.showDatePicker(
-//                                context: context,
-//                                initialFirstDate: DateTime.now(),
-//                                initialLastDate: (DateTime.now()).add(Duration(days: 7)),
-//                                firstDate: DateTime(2015),
-//                                lastDate: DateTime(2021));
-//                            if (picked != null && picked.length == 2) {
-//                              print(picked);
-//                            }
-//                          },
-//                          child: Text('Pick date range (Optional)', style: TextStyle(color: purpleAccent, fontSize: 15)))
+                      MaterialButton(
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                          color: Colors.white,
+                          onPressed: () async {
+                            final List<DateTime> picked = await DateRagePicker.showDatePicker(
+                                context: context,
+                                initialFirstDate: DateTime.now(),
+                                initialLastDate: (DateTime.now()).add(Duration(days: 7)),
+                                firstDate: DateTime(2015),
+                                lastDate: DateTime(2021));
+                            if (picked != null && picked.length == 2) {
+                              print(picked);
+                            }
+                          },
+                          child: Text('Pick date range (Optional)', style: TextStyle(color: purpleAccent, fontSize: 15)))
                     ],
                   ),
                 ],
@@ -181,7 +186,8 @@ class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
                                 specificDescription: specificDescription.trim() == '' ? 'No Description' : specificDescription,
                                 unit: itemUnit,
                                 category: widget.itemCategory,
-                                urgency: urgency)
+                                urgency: urgency,
+                            donationDeadline: donationDeadline)
                           ],
                         );
                         Navigator.pop(context);
