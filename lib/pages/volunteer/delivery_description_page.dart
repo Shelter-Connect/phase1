@@ -293,6 +293,24 @@ class _OrganizationInformationState extends State<OrganizationInformation> {
 
   @override
   void initState() {
+    if (widget.schedule.keys.isNotEmpty)
+      {
+        for(String day in widget.schedule.keys){
+          if (widget.schedule[day] = null)
+            widget.schedule[day] = [];
+      }
+    }
+    else
+      {
+        widget.schedule['Monday'] = [];
+        widget.schedule['Tuesday'] = [];
+        widget.schedule['Wednesday'] = [];
+        widget.schedule['Thursday'] = [];
+        widget.schedule['Friday'] = [];
+        widget.schedule['Saturday'] = [];
+        widget.schedule['Sunday'] = [];
+      }
+    print(widget.schedule['Thursday'].toString());
     super.initState();
     _addressTapGestureRecognizer = TapGestureRecognizer()..onTap = _addressHandleTap;
   }
