@@ -5,7 +5,6 @@ import 'package:geolocator/geolocator.dart';
 import 'package:phase1/models/user_position.dart';
 import 'package:phase1/services/location_helper.dart';
 import 'package:provider/provider.dart';
-
 import 'item.dart';
 
 class Organization {
@@ -89,26 +88,12 @@ class Organization {
       ),
     );
 
-    // breaks = organizationSnapshot['breaks'].entries.map((mapEntry) {
-    //   DateTime startDate = DateTime.parse(mapEntry.value[0]);
-    //   DateTime endDate = DateTime.parse(mapEntry.value[1]);
-    //   return DateTimeRange(start: startDate, end: endDate);
-    // }).toList();
-
-    organizationSnapshot['breaks']?.forEach((positionInMap, dateTimes) {
+    organizationSnapshot['breaks']?.forEach((uuid, dateTimes) {
       DateTime startDate = DateTime.parse(dateTimes[0]);
       DateTime endDate = DateTime.parse(dateTimes[1]);
       DateTimeRange breakRange = DateTimeRange(start: startDate, end: endDate);
       breaks.add(breakRange);
     });
-
-    // breaks = List<dynamic>.from(organizationSnapshot['breaks'])
-    //     .map((positionInMap, dateTimes) {
-    //       DateTime startDate = DateTime(DateTime.parse(dateTimes[0]));
-    //       DateTime endDate = DateTime(DateTime.parse(dateTimes[1]));
-    //       return DateTimeRange(start: startDate, end: endDate);
-    //     })
-    //     .toList();
 
     if (isVolunteer) {
       Position userPosition = Provider.of<UserPosition>(context, listen: false).position;

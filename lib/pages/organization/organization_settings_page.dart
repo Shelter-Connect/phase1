@@ -320,10 +320,13 @@ class _DonationAvailabilityHourSettingsState extends State<DonationAvailabilityH
       breakTapGestureRecognizers = [];
     });
     for (DateTimeRange breakRange in widget.breakRanges) {
+      // Uuid breakRangeUUID = Uuid(); // To uniquely identify each break range
+      int breakRangeIndex = widget.breakRanges.indexOf(breakRange);
+
       TapGestureRecognizer newTapGestureRecognizer = TapGestureRecognizer()
         ..onTap = () {
           // TODO: Implement delete functionality
-          int tapGestureRecognizerIndex = widget.breakRanges.indexOf(breakRange);
+          // int storedBreakRangeIndex = breakRangeIndex;
           showModalBottomSheet(
             context: context,
             builder: (BuildContext context) {
@@ -334,20 +337,17 @@ class _DonationAvailabilityHourSettingsState extends State<DonationAvailabilityH
                       children: <Widget>[
                         ListTile(
                           onTap: () {
-                            widget.breakRanges.removeAt(tapGestureRecognizerIndex);
-                            breakTapGestureRecognizers.removeAt(tapGestureRecognizerIndex);
+                            setState(() {
+                              if (breakRangeIndex < widget.breakRanges.length) widget.breakRanges.removeAt(breakRangeIndex);
+                              if (breakRangeIndex < gridViewChildren.length) gridViewChildren.removeAt(breakRangeIndex);
+                              if (breakRangeIndex < breakTapGestureRecognizers.length) breakTapGestureRecognizers.removeAt(breakRangeIndex);
+                            });
+                            updateBreaks(context, widget.breakRanges);
                           },
                           title: Text("Delete"),
                           leading: FittedBox(
                             fit: BoxFit.contain,
-                            child: IconButton(
-                              onPressed: () {
-                                setState(() {
-
-                                });
-                              },
-                              icon: Icon(Icons.delete, color: Colors.red),
-                            ),
+                            child: Icon(Icons.delete, color: Colors.red)
                           ),
                         ),
                       ]
@@ -377,7 +377,7 @@ class _DonationAvailabilityHourSettingsState extends State<DonationAvailabilityH
                       style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20, color: Colors.black),
                     ),
                     TextSpan(
-                      text: '-',
+                      text: ' - ',
                       style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20, color: Colors.black),
                       recognizer: breakTapGestureRecognizers[widget.breakRanges.indexOf(breakRange)]
                     ),
@@ -484,7 +484,6 @@ class _DonationAvailabilityHourSettingsState extends State<DonationAvailabilityH
                           helpText: "Choose one day or a range of days that your organization will have a break."
                       );
                       // TODO: - Prevent overlapping break ranges
-                      print("GRID VIEW CHILDREN: $gridViewChildren");
                       setState(() {
                         widget.breakRanges.add(newBreakRange);
                       });
@@ -798,102 +797,13 @@ class EditSpecificDate extends StatelessWidget {
   }
 }
 
-class EditBreakContainer extends StatefulWidget {
-  final Organization organization;
-  final DateTimeRange dateTimeRange;
-
-  EditBreakContainer({@required this.organization, this.dateTimeRange});
-
-  @override
-  _EditBreakContainerState createState() => _EditBreakContainerState();
-}
-
-class _EditBreakContainerState extends State<EditBreakContainer> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Color(0xFFF5F5F5),
-      width: MediaQuery.of(context).size.width,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 20),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: widget.dateTimeRange.duration != Duration() ? [ // If the range is just one day
-            FittedBox(
-              fit: BoxFit.contain,
-              child: IconButton(
-                splashRadius: 0.00000000000001, // Negligible so users do not see
-                onPressed: (){},
-                icon: Icon(Icons.delete, color: Colors.transparent),
-                enableFeedback: false,
-              ),
-            ), // Empty fodder
-            Spacer(),
-            Text("${widget.dateTimeRange.start.month}/${widget.dateTimeRange.start.day}", style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20, color: Colors.black)),
-            Text('  -  ', style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20, color: Colors.black)),
-            Text("${widget.dateTimeRange.end.month}/${widget.dateTimeRange.end.day}", style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20, color: Colors.black)),
-            Spacer(),
-            FittedBox(
-              fit: BoxFit.contain,
-              child: IconButton(
-                onPressed: () {
-                  setState(() {
-
-                  });
-                },
-                icon: Icon(Icons.delete, color: Colors.red),
-              ),
-            ),
-          ]
-              : [Text("${widget.dateTimeRange.start.month}/${widget.dateTimeRange.start.day}", style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20, color: Colors.black))]
-        ),
-      )
-    );
-  }
-}
-
-class AddBreakButton extends StatelessWidget {
-  final List<DateTimeRange> breakRanges;
-
-  AddBreakButton({this.breakRanges});
-
-  @override
-  Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.centerRight,
-      child: IconButton(
-        icon: Icon(Icons.add, size: 24, color: purpleAccent),
-        onPressed: () async {
-          int currentYear = DateTime.now().year;
-          DateTimeRange newBreakRange = await showDateRangePicker(
-            context: context,
-            firstDate: DateTime(currentYear, 1, 1),
-            lastDate: DateTime(currentYear, 12, 31),
-            helpText: "Choose one day or a range of days that your organization will have a break."
-          );
-          breakRanges.add(newBreakRange);
-          // This updates Firestore
-          Map<int, List<String>> updatedBreaksInFirestore;
-          breakRanges.forEach((element) {
-            String startDateString = element.start.toString();
-            String endDateString = element.end.toString();
-            updatedBreaksInFirestore?.addAll({breakRanges.indexOf(element): [startDateString, endDateString]});
-                // breakRanges.indexOf(element), (_) =>
-          });
-          FirestoreHelper.getCurrentOrganizationReference(context).updateData({
-            'breaks': updatedBreaksInFirestore
-          });
-        }),
-    );
-  }
-}
 
 void updateBreaks(BuildContext context, List<DateTimeRange> breaks) {
-  Map<int, List<String>> updatedBreaksInFirestore;
+  Map<String, List<String>> updatedBreaksInFirestore = {};
   breaks.forEach((element) {
     String startDateString = element.start.toString();
     String endDateString = element.end.toString();
-    updatedBreaksInFirestore?.addAll({breaks.indexOf(element): [startDateString, endDateString]});
+    updatedBreaksInFirestore?.addAll({breaks.indexOf(element).toString(): [startDateString, endDateString]});
     // breakRanges.indexOf(element), (_) =>
   });
   FirestoreHelper.getCurrentOrganizationReference(context).updateData({
