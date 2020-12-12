@@ -343,6 +343,7 @@ class _DonationAvailabilityHourSettingsState extends State<DonationAvailabilityH
                               if (breakRangeIndex < breakTapGestureRecognizers.length) breakTapGestureRecognizers.removeAt(breakRangeIndex);
                             });
                             updateBreaks(context, widget.breakRanges);
+                            Navigator.of(context).pop();
                           },
                           title: Text("Delete"),
                           leading: FittedBox(
@@ -364,7 +365,7 @@ class _DonationAvailabilityHourSettingsState extends State<DonationAvailabilityH
       if (breakRange.duration != Duration()) {
         gridViewChild = Container(
           color: Color(0xFFF5F5F5),
-          width: 150,
+          width: 75,
           height: 50,
           child: Row(
             children: [
@@ -376,15 +377,15 @@ class _DonationAvailabilityHourSettingsState extends State<DonationAvailabilityH
                       text: "${breakRange.start.month}/${breakRange.start.day}",
                       style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20, color: Colors.black),
                     ),
-                    TextSpan(
-                      text: ' - ',
-                      style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20, color: Colors.black),
-                      recognizer: breakTapGestureRecognizers[widget.breakRanges.indexOf(breakRange)]
-                    ),
-                    TextSpan(
-                      text: "${breakRange.end.month}/${breakRange.end.day}",
-                      style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20, color: Colors.black),
-                    )
+                    // TextSpan(
+                    //   text: ' - ',
+                    //   style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20, color: Colors.black),
+                    //   recognizer: breakTapGestureRecognizers[widget.breakRanges.indexOf(breakRange)]
+                    // ),
+                    // TextSpan(
+                    //   text: "${breakRange.end.month}/${breakRange.end.day}",
+                    //   style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20, color: Colors.black),
+                    // )
                   ]
                 ),
               ),
@@ -397,7 +398,15 @@ class _DonationAvailabilityHourSettingsState extends State<DonationAvailabilityH
           color: Color(0xFFF5F5F5),
             width: 75,
             height: 50,
-          child: Center(child: Text("${breakRange.start.month}/${breakRange.start.day}", style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20, color: Colors.black)))
+          child: Center(child:
+              RichText(
+                text: TextSpan(
+                  text: "${breakRange.start.month}/${breakRange.start.day}",
+                  style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20, color: Colors.black),
+                  recognizer: breakTapGestureRecognizers[widget.breakRanges.indexOf(breakRange)]
+                )
+              )
+          )
         );
       }
       if (gridViewChild != null) {
@@ -466,8 +475,14 @@ class _DonationAvailabilityHourSettingsState extends State<DonationAvailabilityH
                 'Breaks',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
               ),
+              SizedBox(height: 10),
               GridView(
-                  gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 160, mainAxisSpacing: 12.0, crossAxisSpacing: 12.0),
+                  gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent: 125,
+                      mainAxisSpacing: 12.0,
+                      crossAxisSpacing: 12.0,
+                      childAspectRatio: 2
+                  ),
                   shrinkWrap: true,
                   children: (gridViewChildren ?? [SizedBox.shrink()]),
               ),
