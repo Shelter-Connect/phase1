@@ -58,7 +58,8 @@ class RequestContainer extends StatelessWidget {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          '${items[index].name} - ${items[index].amount.toString()} ${items[index].unit ?? ''}'.trim(),
+                                          '${items[index].name} - ${items[index].amount.toString()} ${items[index].unit ?? ''} ${items[index].category == 'Volunteering' ? 'people needed' : ''}'
+                                              .trim(),
                                           style: TextStyle(
                                             fontSize: 17,
                                           ),
