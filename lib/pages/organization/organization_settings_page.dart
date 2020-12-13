@@ -325,8 +325,6 @@ class _DonationAvailabilityHourSettingsState extends State<DonationAvailabilityH
 
       TapGestureRecognizer newTapGestureRecognizer = TapGestureRecognizer()
         ..onTap = () {
-          // TODO: Implement delete functionality
-          // int storedBreakRangeIndex = breakRangeIndex;
           showModalBottomSheet(
             context: context,
             builder: (BuildContext context) {
@@ -364,7 +362,10 @@ class _DonationAvailabilityHourSettingsState extends State<DonationAvailabilityH
       Widget gridViewChild;
       if (breakRange.duration != Duration()) {
         gridViewChild = Container(
-          color: Color(0xFFF5F5F5),
+          decoration: BoxDecoration(
+            color: Color(0xFFF5F5F5),
+            borderRadius: BorderRadius.all(Radius.circular(7.5))
+          ),
           width: 75,
           height: 50,
           child: Row(
@@ -395,9 +396,10 @@ class _DonationAvailabilityHourSettingsState extends State<DonationAvailabilityH
         );
       } else {
         gridViewChild = Container(
-          color: Color(0xFFF5F5F5),
-            width: 75,
-            height: 50,
+          decoration: BoxDecoration(
+              color: Color(0xFFF5F5F5),
+              borderRadius: BorderRadius.all(Radius.circular(7.5))
+          ),
           child: Center(child:
               RichText(
                 text: TextSpan(
