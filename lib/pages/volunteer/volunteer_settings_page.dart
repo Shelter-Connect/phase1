@@ -32,7 +32,7 @@ class VolunteerSettingsPage extends StatefulWidget with NavigationTab {
   String get title => 'Account';
 
   @override
-  String get barTitle => 'Settings';
+  String get barTitle => 'Account';
 }
 
 class _VolunteerSettingsPageState extends State<VolunteerSettingsPage> {
@@ -80,21 +80,24 @@ class UserInfo extends StatefulWidget {
 }
 
 class _UserInfoState extends State<UserInfo> {
+  String _firstName, _lastName;
+
+  @override
+  void initState() {
+    _firstName = widget.firstName;
+    _lastName = widget.lastName;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    TextEditingController firstNameController = TextEditingController();
-    TextEditingController lastNameController = TextEditingController();
     return Container(
-      width: MediaQuery.of(context).size.width,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            SizedBox(height: 20),
-            Text('Account Info', style: largeTitleStyle),
-            SizedBox(height: 40),
             Material(
               elevation: 2,
               borderRadius: BorderRadius.circular(5),
@@ -113,7 +116,7 @@ class _UserInfoState extends State<UserInfo> {
                           ),
                         ),
                         TextSpan(
-                          text: '${widget.firstName} ${widget.lastName}',
+                          text: '$_firstName $_lastName',
                           style: TextStyle(
                             fontSize: 17,
                             fontWeight: FontWeight.w600,
@@ -177,11 +180,19 @@ class _UserInfoState extends State<UserInfo> {
               color: purpleAccent,
               title: 'Update Name',
               textColor: Colors.white,
-              onPressed: ()  {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => VolunteerEditInfoPage(widget.firstName, widget.lastName)));
-              }),
-          SizedBox(height: 10.0),
-          SignOut()],
+              onPressed: () async {
+                var updatedName = await Navigator.push(context, MaterialPageRoute(builder: (context) => VolunteerEditInfoPage(_firstName, _lastName)));
+                if (updatedName != null) {
+                  setState(() {
+                    _firstName = updatedName['firstName'];
+                    _lastName = updatedName['lastName'];
+                  });
+                }
+              },
+            ),
+            SizedBox(height: 10.0),
+            SignOut(),
+          ],
         ),
       ),
     );
@@ -207,7 +218,6 @@ class SignOut extends StatelessWidget {
       },
       child: Container(
         height: 45.0,
-        width: double.infinity,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(21),
           color: colorScheme.error,
@@ -217,11 +227,10 @@ class SignOut extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Icon(Icons.exit_to_app, color: Colors.white, size: 28),
               SizedBox(width: 5),
               Text(
                 'Sign Out',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600, color: Colors.white),
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white),
               ),
             ],
           ),
