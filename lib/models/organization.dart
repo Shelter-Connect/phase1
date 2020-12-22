@@ -14,7 +14,7 @@ class Organization {
   Map<String, List<Item>> requestedItems = Map();
   List<String> itemCategories = List();
   Map<String, List<TimeOfDay>> schedule = Map();
-  List<DateTimeRange> breaks = List();
+  Map<int, List<int>> breaks = Map();
 
   Organization(
       {this.address,
@@ -56,7 +56,7 @@ class Organization {
           times.map((time) => new TimeOfDay(hour: time.hour, minute: time.minute)).toList(),
         ),
       ),
-      breaks: breaks?.map((dateRange) => new DateTimeRange(start: dateRange.start, end: dateRange.end))?.toList(),
+      breaks: breaks,
       distance: distance,
     );
   }
@@ -88,11 +88,11 @@ class Organization {
       ),
     );
 
-    organizationSnapshot['breaks']?.forEach((uuid, dateTimes) {
-      DateTime startDate = DateTime.parse(dateTimes[0]);
-      DateTime endDate = DateTime.parse(dateTimes[1]);
-      DateTimeRange breakRange = DateTimeRange(start: startDate, end: endDate);
-      breaks.add(breakRange);
+    organizationSnapshot['breaks']?.forEach((monthString, daysString) {
+      int month = int.parse(monthString);
+      List<int> days = [];
+      for (String dayString in daysString) days.add(int.parse(dayString));
+      breaks.addAll({month: days});
     });
 
     if (isVolunteer) {

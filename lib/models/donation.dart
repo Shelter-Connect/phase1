@@ -71,17 +71,26 @@ class Donation {
               ),
             )
           : null,
-      breaks: donationSnapshot['organizationBreaks'] != null ?
-        List<DateTimeRange>.from(
-          (donationSnapshot['organizationBreaks'] as Map).entries
-              .map((mapEntry) {
-                List<String> dateRangeList = mapEntry.value;
-                DateTime startDate = DateTime.parse(dateRangeList.first);
-                DateTime endDate = DateTime.parse(dateRangeList.last);
-                DateTimeRange breakRange = DateTimeRange(start: startDate, end: endDate);
-                return breakRange;
-          })
-        )
+      breaks: donationSnapshot['organizationBreaks'] != null ? (donationSnapshot['organizationBreaks'] as Map).map((key, value) {
+        int month;
+        List<int> days;
+        donationSnapshot['organizationBreaks']?.forEach((monthString, daysString) {
+          month = int.parse(monthString);
+          for (String dayString in daysString) days.add(int.parse(dayString));
+        });
+        return MapEntry(month, days);
+      })
+      // Map<int, List<int>>.from(donationSnapshot['organizationBreaks'])
+        // List<DateTimeRange>.from(
+        //   (donationSnapshot['organizationBreaks'] as Map).entries
+        //       .map((mapEntry) {
+        //         List<String> dateRangeList = mapEntry.value;
+        //         DateTime startDate = DateTime.parse(dateRangeList.first);
+        //         DateTime endDate = DateTime.parse(dateRangeList.last);
+        //         DateTimeRange breakRange = DateTimeRange(start: startDate, end: endDate);
+        //         return breakRange;
+        //   })
+        // )
           : null,
     );
   }

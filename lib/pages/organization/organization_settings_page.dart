@@ -62,7 +62,7 @@ class _OrganizationSettingsPageState extends State<OrganizationSettingsPage> {
                   SizedBox(height: 5),
                   OrganizationInfo(organization: organization),
                   SizedBox(height: 20),
-                  DonationAvailabilityHourSettings(organization: organization, breakRanges: organization.breaks),
+                  DonationAvailabilityHourSettings(organization: organization, breaks: organization.breaks),
                   SizedBox(height: 20),
                   DemoProfileButton(organization),
                   SizedBox(height: 20),
@@ -301,9 +301,9 @@ class OrganizationInfo extends StatelessWidget {
 
 class DonationAvailabilityHourSettings extends StatefulWidget {
   final Organization organization;
-  final List<DateTimeRange> breakRanges; // Copy of organization.breaks
+  final Map<int, List<int>> breaks; // Copy of organization.breaks
 
-  DonationAvailabilityHourSettings({this.organization, this.breakRanges});
+  DonationAvailabilityHourSettings({this.organization, this.breaks});
 
   @override
   _DonationAvailabilityHourSettingsState createState() => _DonationAvailabilityHourSettingsState();
@@ -311,121 +311,61 @@ class DonationAvailabilityHourSettings extends StatefulWidget {
 
 class _DonationAvailabilityHourSettingsState extends State<DonationAvailabilityHourSettings> {
   List<Widget> gridViewChildren;
-  List<TapGestureRecognizer> breakTapGestureRecognizers;
+  List<int> sortedBreakMonths;
+  // List<TapGestureRecognizer> breakTapGestureRecognizers;
 
   @override
   void initState() {
     setState(() {
       gridViewChildren = [];
-      breakTapGestureRecognizers = [];
+      sortedBreakMonths = widget.breaks.keys.toList()..sort();
+      // breakTapGestureRecognizers = [];
     });
-    for (DateTimeRange breakRange in widget.breakRanges) {
-      // Uuid breakRangeUUID = Uuid(); // To uniquely identify each break range
-      int breakRangeIndex = widget.breakRanges.indexOf(breakRange);
 
-      TapGestureRecognizer newTapGestureRecognizer = TapGestureRecognizer()
-        ..onTap = () {
-          showModalBottomSheet(
-            context: context,
-            builder: (BuildContext context) {
-              return SafeArea(
-                child: SingleChildScrollView(
-                  child: Container(
-                    child: Wrap(
-                      children: <Widget>[
-                        ListTile(
-                          onTap: () {
-                            setState(() {
-                              if (breakRangeIndex < widget.breakRanges.length) widget.breakRanges.removeAt(breakRangeIndex);
-                              if (breakRangeIndex < gridViewChildren.length) gridViewChildren.removeAt(breakRangeIndex);
-                              if (breakRangeIndex < breakTapGestureRecognizers.length) breakTapGestureRecognizers.removeAt(breakRangeIndex);
-                            });
-                            updateBreaks(context, widget.breakRanges);
-                            Navigator.of(context).pop();
-                          },
-                          title: Text("Delete"),
-                          leading: FittedBox(
-                            fit: BoxFit.contain,
-                            child: Icon(Icons.delete, color: Colors.red)
-                          ),
-                        ),
-                      ]
-                    ),
-                  ),
-                ),
-              );
-            }
-          );
-        };
-      breakTapGestureRecognizers.add(newTapGestureRecognizer);
-
+    sortedBreakMonths.forEach((month) {
+      List<int> breakDaysInMonth = widget.breaks[month];
+      // Loop through the days, Add the GridView child
       Widget gridViewChild;
-      if (breakRange.duration != Duration()) {
+      for (int day in breakDaysInMonth) {
         gridViewChild = Container(
-          decoration: BoxDecoration(
-            color: Color(0xFFF5F5F5),
-            borderRadius: BorderRadius.all(Radius.circular(7.5))
-          ),
-          width: 75,
-          height: 50,
-          child: Row(
-            children: [
-              Spacer(),
-              RichText(
+            decoration: BoxDecoration(
+                color: Color(0xFFF5F5F5),
+                borderRadius: BorderRadius.all(Radius.circular(7.5))
+            ),
+            child: Center(child:
+            RichText(
                 text: TextSpan(
-                  children: <TextSpan>[
-                    TextSpan(
-                      text: "${breakRange.start.month}/${breakRange.start.day}",
-                      style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20, color: Colors.black),
-                    ),
-                    // TextSpan(
-                    //   text: ' - ',
-                    //   style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20, color: Colors.black),
-                    //   recognizer: breakTapGestureRecognizers[widget.breakRanges.indexOf(breakRange)]
-                    // ),
-                    // TextSpan(
-                    //   text: "${breakRange.end.month}/${breakRange.end.day}",
-                    //   style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20, color: Colors.black),
-                    // )
-                  ]
-                ),
-              ),
-              Spacer(),
-            ]
-          ),
-        );
-      } else {
-        gridViewChild = Container(
-          decoration: BoxDecoration(
-              color: Color(0xFFF5F5F5),
-              borderRadius: BorderRadius.all(Radius.circular(7.5))
-          ),
-          child: Center(child:
-              RichText(
-                text: TextSpan(
-                  text: "${breakRange.start.month}/${breakRange.start.day}",
-                  style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20, color: Colors.black),
-                  recognizer: breakTapGestureRecognizers[widget.breakRanges.indexOf(breakRange)]
+                    text: "$month/$day",
+                    style: TextStyle(fontWeight: FontWeight.w400,
+                        fontSize: 20,
+                        color: Colors.black),
+                    // recognizer: breakTapGestureRecognizers[widget.breakRanges.indexOf(breakRange)]
                 )
-              )
-          )
+            )
+            )
         );
+        if (gridViewChild != null) {
+          setState(() {
+            gridViewChildren.add(gridViewChild);
+          });
+        }
       }
-      if (gridViewChild != null) {
-        setState(() {
-          gridViewChildren.add(gridViewChild);
-        });
-      }
-    }
+    });
+
+
+
+
+
+
     super.initState();
   }
 
-  @override
-  void dispose() {
-    for (TapGestureRecognizer tapGestureRecognizer in breakTapGestureRecognizers)
-      tapGestureRecognizer?.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   for (TapGestureRecognizer tapGestureRecognizer in breakTapGestureRecognizers)
+  //     tapGestureRecognizer?.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -500,16 +440,39 @@ class _DonationAvailabilityHourSettingsState extends State<DonationAvailabilityH
                           lastDate: DateTime(currentYear, 12, 31),
                           helpText: "Choose one day or a range of days that your organization will have a break."
                       );
-                      // TODO: - Prevent overlapping break ranges
-                      setState(() {
-                        widget.breakRanges.add(newBreakRange);
-                      });
+
+                      // Add new breaks
+                      if (newBreakRange != null) // If the user just didn't press cancel
+                        setState(() { // TODO: - Prevent overlapping break ranges
+                          if (newBreakRange.start.month == newBreakRange.end.month) { // Simplest case - same month
+                            if (!widget.breaks.keys.contains(newBreakRange.start.month)) // Adds month entry if needed
+                              widget.breaks[newBreakRange.start.month] = [];
+                            for (int day = newBreakRange.start.day; day <= newBreakRange.end.day; day++)
+                              widget.breaks[newBreakRange.start.month].add(day);
+                            widget.breaks[newBreakRange.start.month].sort(); // Sort them in order
+                          } else {
+                            // Iterate through each month
+                            for (int month = newBreakRange.start.month; month <= newBreakRange.end.month; month++) {
+                              if (!widget.breaks.keys.contains(month)) // Adds month entry if needed
+                                widget.breaks[month] = [];
+                              int numDaysInMonth = daysInMonth(month, isLeapYear(currentYear));
+                              for (int day = (month == newBreakRange.start.month ? newBreakRange.start.day : 1);
+                                  day <= (month == newBreakRange.end.month ? newBreakRange.end.day : numDaysInMonth);
+                                  day++) { // Then iterate through the days
+                                widget.breaks[month].add(day);
+                              }
+                              widget.breaks[month].sort();
+                            }
+                          }
+                        });
+
                       // This updates Firestore
                       Map<String, List<String>> updatedBreaksInFirestore = {};
-                      widget.breakRanges.forEach((element) {
-                        String startDateString = element.start.toString();
-                        String endDateString = element.end.toString();
-                        updatedBreaksInFirestore?.addAll({widget.breakRanges.indexOf(element).toString(): [startDateString, endDateString]});
+                      widget.breaks.forEach((month, days) {
+                        String monthString = month.toString();
+                        List<String> daysString = [];
+                        for (int day in days) daysString.add(day.toString());
+                        updatedBreaksInFirestore?.addAll({monthString: daysString});
                       });
                       FirestoreHelper.getCurrentOrganizationReference(context).updateData({
                         'breaks': updatedBreaksInFirestore
@@ -517,116 +480,9 @@ class _DonationAvailabilityHourSettingsState extends State<DonationAvailabilityH
                     }),
               ),
               SizedBox(height: 10),
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//              Text(
-//                'Specific Holiday Dates',
-//                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-//              ),
-//              SizedBox(height: 10),
-//              ListView.builder(
-//                physics: NeverScrollableScrollPhysics(),
-//                shrinkWrap: true,
-//                itemCount: organization.breaks.length,
-//                itemBuilder: (BuildContext context, int index) {
-//                  return Wrap(
-//                    alignment: WrapAlignment.start,
-//                    children: [
-//                      EditSpecificDate(month: organization.breaks[index], day: )
-//                    ],
-//                  );
-//                },
-//              ),
-//              EditSpecificDate(month: 1, day: 2),
-//              Align(
-//                  alignment: Alignment.centerRight,
-//                  child: IconButton(
-//                    icon: Icon(Icons.add),
-//                    onPressed:
-//                        () {}, //TODO Add a new group with the visible delete icon
-//                  )),
               SizedBox(
                 height: 10,
               ),
-//              InkWell(
-//                onTap: () async {
-//                  Map<String, List<TextEditingController>> controllerOpen = {};
-//                  Map<String, List<TextEditingController>> controllerClosed = {
-//                  };
-//
-//                  for (String key in organization.schedule.keys) {
-//                    List<TextEditingController> open = [];
-//                    List<TextEditingController> closed = [];
-//                    for (TimeOfDay time in organization.schedule[key]) {
-//                      open.add(new TextEditingController(
-//                          text: time.format(context)));
-//                      closed.add(new TextEditingController(
-//                          text: time.format(context)));
-//                    }
-//                    controllerOpen.addAll({key: open});
-//                    controllerClosed.addAll({key: closed});
-//                  };
-//                  bool updated = await Navigator.push(
-//                    context,
-//                    MaterialPageRoute(
-//                      builder: (context) =>
-//                          EditHours(organization: organization,
-//                            controllerClosed: controllerClosed,
-//                            controllerOpen: controllerOpen,),
-//                    ),
-//                  );
-//                  if (updated) {
-//                    FlushBar(
-//                        message: 'Your donation availability hours has been updated',
-//                        duration: Duration(seconds: 3)).build(context);
-//                  }
-//                },
-//                child: Container(
-//                  width: 140,
-//                  height: 37,
-//                  decoration: BoxDecoration(
-//                    color: purpleAccent,
-//                    borderRadius: BorderRadius.circular(21),
-//                  ),
-//                  child: Padding(
-//                    padding: const EdgeInsets.symmetric(
-//                        horizontal: 12.0, vertical: 8.0),
-//                    child: Row(
-//                      children: <Widget>[
-//                        Icon(Icons.edit, color: Colors.white, size: 25),
-//                        SizedBox(width: 2),
-//                        Text(
-//                          'Edit Hours', //TODO Change to : Update Business Hours
-//                          style: TextStyle(
-//                            color: colorScheme.onSecondary,
-//                            fontWeight: FontWeight.w500,
-//                            fontSize: 16.0,
-//                          ),
-//                        ),
-//                      ],
-//                    ),
-//                  ),
-//                ),
-//              ),
               SizedBox(height: 5),
             ],
           ),
@@ -821,7 +677,6 @@ void updateBreaks(BuildContext context, List<DateTimeRange> breaks) {
     String startDateString = element.start.toString();
     String endDateString = element.end.toString();
     updatedBreaksInFirestore?.addAll({breaks.indexOf(element).toString(): [startDateString, endDateString]});
-    // breakRanges.indexOf(element), (_) =>
   });
   FirestoreHelper.getCurrentOrganizationReference(context).updateData({
     'breaks': updatedBreaksInFirestore
@@ -856,5 +711,22 @@ extension DateTimeComparison on DateTime { // Adds greater than operator
       }
     }
     return true;
+  }
+}
+
+bool isLeapYear(int year) {
+  if (year % 4 == 0) {
+    if (year % 100 != 0) return true; // Most common case
+    else if (year % 400 == 0) return true; // For years divisible by 400 (and 100)
+    else return false; // Years divisible by 100 but NOT by 400
+  } else return false;
+}
+
+int daysInMonth(int month, bool isLeapYear) {
+  if ([4, 6, 9, 11].contains(month)) return 30; // 30 day months
+  else if ([1, 3, 5, 7, 8, 10, 12].contains(month)) return 31; // 31 day months
+  else { // February - Consider leap year
+    if (isLeapYear) return 29;
+    else return 28;
   }
 }
