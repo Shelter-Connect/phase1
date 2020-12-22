@@ -8,7 +8,6 @@ import 'package:phase1/models/organization.dart';
 import 'package:phase1/pages/organization/organization_edit_info_page.dart';
 import 'package:phase1/pages/organization/organization_preview_page.dart';
 import 'package:phase1/services/firestore_helper.dart';
-import 'package:flutter/gestures.dart';
 import '../../constants.dart';
 import '../navigation_tab.dart';
 import 'edit_hours_weekdays.dart';
@@ -352,10 +351,46 @@ class _DonationAvailabilityHourSettingsState extends State<DonationAvailabilityH
       }
     });
 
-
-
-
-
+    // The delete time range button
+    if (gridViewChildren != null) {
+      Widget trashButton = IconButton(
+          onPressed: () async {
+            int currentYear = DateTime.now().year;
+            DateTimeRange breakRangeToDelete = await showDateRangePicker(
+                context: context,
+                firstDate: DateTime(currentYear, 1, 1),
+                lastDate: DateTime(currentYear, 12, 31),
+                helpText: "Choose one day or a range of days to delete from your breaks."
+            );
+            if (breakRangeToDelete != null) {
+              // Iterate through the months with days that will be deleted
+              List<int> daysToBeDeleted = [];
+              for (int month = breakRangeToDelete.start.month; month <= breakRangeToDelete.end.month; month++) {
+                if (breakRangeToDelete.start.month == breakRangeToDelete.end.month) { // Simplest case - just one month
+                  for (int day = breakRangeToDelete.start.day; day <= breakRangeToDelete.end.day; day++)
+                    daysToBeDeleted.add(day);
+                } else {
+                  int numDaysInMonth = daysInMonth(month, isLeapYear(currentYear));
+                  for (int day = (month == breakRangeToDelete.start.month ? breakRangeToDelete.start.day : 1);
+                  day <= (month == breakRangeToDelete.end.month ? breakRangeToDelete.end.day : numDaysInMonth);
+                  day++) { // Then iterate through the days
+                    daysToBeDeleted.add(day);
+                  }
+                }
+                // After creating the list, DELETE
+                if (widget.breaks.keys.contains(month)) {
+                  setState(() {
+                    widget.breaks[month].removeWhere((day) => daysToBeDeleted.contains(day));
+                  });
+                }
+              }
+            updateBreaks(context: context, newBreaks: widget.breaks); // Update Firestore
+            }
+          },
+          icon: Icon(Icons.delete, color: Colors.red)
+      );
+      setState(() { gridViewChildren.add(trashButton); });
+    }
 
     super.initState();
   }
@@ -443,12 +478,14 @@ class _DonationAvailabilityHourSettingsState extends State<DonationAvailabilityH
 
                       // Add new breaks
                       if (newBreakRange != null) // If the user just didn't press cancel
-                        setState(() { // TODO: - Prevent overlapping break ranges
+                        setState(() {
                           if (newBreakRange.start.month == newBreakRange.end.month) { // Simplest case - same month
                             if (!widget.breaks.keys.contains(newBreakRange.start.month)) // Adds month entry if needed
                               widget.breaks[newBreakRange.start.month] = [];
-                            for (int day = newBreakRange.start.day; day <= newBreakRange.end.day; day++)
-                              widget.breaks[newBreakRange.start.month].add(day);
+                            for (int day = newBreakRange.start.day; day <= newBreakRange.end.day; day++) {
+                              if (!widget.breaks[newBreakRange.start.month].contains(day))
+                                widget.breaks[newBreakRange.start.month].add(day);
+                            }
                             widget.breaks[newBreakRange.start.month].sort(); // Sort them in order
                           } else {
                             // Iterate through each month
@@ -459,24 +496,24 @@ class _DonationAvailabilityHourSettingsState extends State<DonationAvailabilityH
                               for (int day = (month == newBreakRange.start.month ? newBreakRange.start.day : 1);
                                   day <= (month == newBreakRange.end.month ? newBreakRange.end.day : numDaysInMonth);
                                   day++) { // Then iterate through the days
-                                widget.breaks[month].add(day);
+                                if (!widget.breaks[newBreakRange.start.month].contains(day)) widget.breaks[month].add(day);
                               }
                               widget.breaks[month].sort();
                             }
                           }
                         });
 
-                      // This updates Firestore
-                      Map<String, List<String>> updatedBreaksInFirestore = {};
-                      widget.breaks.forEach((month, days) {
-                        String monthString = month.toString();
-                        List<String> daysString = [];
-                        for (int day in days) daysString.add(day.toString());
-                        updatedBreaksInFirestore?.addAll({monthString: daysString});
-                      });
-                      FirestoreHelper.getCurrentOrganizationReference(context).updateData({
-                        'breaks': updatedBreaksInFirestore
-                      });
+                      updateBreaks(context: context, newBreaks: widget.breaks); // This updates Firestore
+                      // Map<String, List<String>> updatedBreaksInFirestore = {};
+                      // widget.breaks.forEach((month, days) {
+                      //   String monthString = month.toString();
+                      //   List<String> daysString = [];
+                      //   for (int day in days) daysString.add(day.toString());
+                      //   updatedBreaksInFirestore?.addAll({monthString: daysString});
+                      // });
+                      // FirestoreHelper.getCurrentOrganizationReference(context).updateData({
+                      //   'breaks': updatedBreaksInFirestore
+                      // });
                     }),
               ),
               SizedBox(height: 10),
@@ -671,12 +708,25 @@ class EditSpecificDate extends StatelessWidget {
 }
 
 
-void updateBreaks(BuildContext context, List<DateTimeRange> breaks) {
+// void updateBreaks(BuildContext context, List<DateTimeRange> breaks) {
+//   Map<String, List<String>> updatedBreaksInFirestore = {};
+//   breaks.forEach((element) {
+//     String startDateString = element.start.toString();
+//     String endDateString = element.end.toString();
+//     updatedBreaksInFirestore?.addAll({breaks.indexOf(element).toString(): [startDateString, endDateString]});
+//   });
+//   FirestoreHelper.getCurrentOrganizationReference(context).updateData({
+//     'breaks': updatedBreaksInFirestore
+//   });
+// }
+
+void updateBreaks({BuildContext context, Map<int, List<int>> newBreaks}) {
   Map<String, List<String>> updatedBreaksInFirestore = {};
-  breaks.forEach((element) {
-    String startDateString = element.start.toString();
-    String endDateString = element.end.toString();
-    updatedBreaksInFirestore?.addAll({breaks.indexOf(element).toString(): [startDateString, endDateString]});
+  newBreaks.forEach((month, days) {
+    String monthString = month.toString();
+    List<String> daysString = [];
+    for (int day in days) daysString.add(day.toString());
+    updatedBreaksInFirestore?.addAll({monthString: daysString});
   });
   FirestoreHelper.getCurrentOrganizationReference(context).updateData({
     'breaks': updatedBreaksInFirestore
