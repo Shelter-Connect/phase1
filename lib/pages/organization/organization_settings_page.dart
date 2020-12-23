@@ -311,14 +311,12 @@ class DonationAvailabilityHourSettings extends StatefulWidget {
 class _DonationAvailabilityHourSettingsState extends State<DonationAvailabilityHourSettings> {
   List<Widget> gridViewChildren;
   List<int> sortedBreakMonths;
-  // List<TapGestureRecognizer> breakTapGestureRecognizers;
 
   @override
   void initState() {
     setState(() {
       gridViewChildren = [];
       sortedBreakMonths = widget.breaks.keys.toList()..sort();
-      // breakTapGestureRecognizers = [];
     });
 
     sortedBreakMonths.forEach((month) {
@@ -338,7 +336,6 @@ class _DonationAvailabilityHourSettingsState extends State<DonationAvailabilityH
                     style: TextStyle(fontWeight: FontWeight.w400,
                         fontSize: 20,
                         color: Colors.black),
-                    // recognizer: breakTapGestureRecognizers[widget.breakRanges.indexOf(breakRange)]
                 )
             )
             )
@@ -353,54 +350,53 @@ class _DonationAvailabilityHourSettingsState extends State<DonationAvailabilityH
 
     // The delete time range button
     if (gridViewChildren != null) {
-      Widget trashButton = IconButton(
-          onPressed: () async {
-            int currentYear = DateTime.now().year;
-            DateTimeRange breakRangeToDelete = await showDateRangePicker(
-                context: context,
-                firstDate: DateTime(currentYear, 1, 1),
-                lastDate: DateTime(currentYear, 12, 31),
-                helpText: "Choose one day or a range of days to delete from your breaks."
-            );
-            if (breakRangeToDelete != null) {
-              // Iterate through the months with days that will be deleted
-              List<int> daysToBeDeleted = [];
-              for (int month = breakRangeToDelete.start.month; month <= breakRangeToDelete.end.month; month++) {
-                if (breakRangeToDelete.start.month == breakRangeToDelete.end.month) { // Simplest case - just one month
-                  for (int day = breakRangeToDelete.start.day; day <= breakRangeToDelete.end.day; day++)
-                    daysToBeDeleted.add(day);
-                } else {
-                  int numDaysInMonth = daysInMonth(month, isLeapYear(currentYear));
-                  for (int day = (month == breakRangeToDelete.start.month ? breakRangeToDelete.start.day : 1);
-                  day <= (month == breakRangeToDelete.end.month ? breakRangeToDelete.end.day : numDaysInMonth);
-                  day++) { // Then iterate through the days
-                    daysToBeDeleted.add(day);
-                  }
+      Widget addBreakButton = IconButton(
+        icon: Icon(Icons.add, size: 24, color: purpleAccent),
+        onPressed: () async {
+          int currentYear = DateTime.now().year;
+          DateTimeRange newBreakRange = await showDateRangePicker(
+              context: context,
+              firstDate: DateTime(currentYear, 1, 1),
+              lastDate: DateTime(currentYear, 12, 31),
+              helpText: "Choose one day or a range of days that your organization will have a break."
+          );
+
+          // Add new breaks
+          if (newBreakRange != null) // If the user just didn't press cancel
+            setState(() {
+              if (newBreakRange.start.month == newBreakRange.end.month) { // Simplest case - same month
+                if (!widget.breaks.keys.contains(newBreakRange.start.month)) // Adds month entry if needed
+                  widget.breaks[newBreakRange.start.month] = [];
+                for (int day = newBreakRange.start.day; day <= newBreakRange.end.day; day++) {
+                  if (!widget.breaks[newBreakRange.start.month].contains(day))
+                    widget.breaks[newBreakRange.start.month].add(day);
                 }
-                // After creating the list, DELETE
-                if (widget.breaks.keys.contains(month)) {
-                  setState(() {
-                    widget.breaks[month].removeWhere((day) => daysToBeDeleted.contains(day));
-                  });
+                widget.breaks[newBreakRange.start.month].sort(); // Sort them in order
+              } else {
+                // Iterate through each month
+                for (int month = newBreakRange.start.month; month <= newBreakRange.end.month; month++) {
+                  if (!widget.breaks.keys.contains(month)) // Adds month entry if needed
+                    widget.breaks[month] = [];
+                  int numDaysInMonth = daysInMonth(month, isLeapYear(currentYear));
+                  for (int day = (month == newBreakRange.start.month ? newBreakRange.start.day : 1);
+                  day <= (month == newBreakRange.end.month ? newBreakRange.end.day : numDaysInMonth);
+                  day++) { // Then iterate through the days
+                    if (!widget.breaks[newBreakRange.start.month].contains(day)) widget.breaks[month].add(day);
+                  }
+                  widget.breaks[month].sort();
                 }
               }
-            updateBreaks(context: context, newBreaks: widget.breaks); // Update Firestore
-            }
-          },
-          icon: Icon(Icons.delete, color: Colors.red)
+            });
+
+          updateBreaks(context: context, newBreaks: widget.breaks); // This updates Firestore
+        }
       );
-      setState(() { gridViewChildren.add(trashButton); });
+
+      setState(() { gridViewChildren.add(addBreakButton); });
     }
 
     super.initState();
   }
-
-  // @override
-  // void dispose() {
-  //   for (TapGestureRecognizer tapGestureRecognizer in breakTapGestureRecognizers)
-  //     tapGestureRecognizer?.dispose();
-  //   super.dispose();
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -466,55 +462,41 @@ class _DonationAvailabilityHourSettingsState extends State<DonationAvailabilityH
               Align(
                 alignment: Alignment.centerRight,
                 child: IconButton(
-                    icon: Icon(Icons.add, size: 24, color: purpleAccent),
                     onPressed: () async {
                       int currentYear = DateTime.now().year;
-                      DateTimeRange newBreakRange = await showDateRangePicker(
+                      DateTimeRange breakRangeToDelete = await showDateRangePicker(
                           context: context,
                           firstDate: DateTime(currentYear, 1, 1),
                           lastDate: DateTime(currentYear, 12, 31),
-                          helpText: "Choose one day or a range of days that your organization will have a break."
+                          helpText: "Choose one day or a range of days to delete from your breaks."
                       );
-
-                      // Add new breaks
-                      if (newBreakRange != null) // If the user just didn't press cancel
-                        setState(() {
-                          if (newBreakRange.start.month == newBreakRange.end.month) { // Simplest case - same month
-                            if (!widget.breaks.keys.contains(newBreakRange.start.month)) // Adds month entry if needed
-                              widget.breaks[newBreakRange.start.month] = [];
-                            for (int day = newBreakRange.start.day; day <= newBreakRange.end.day; day++) {
-                              if (!widget.breaks[newBreakRange.start.month].contains(day))
-                                widget.breaks[newBreakRange.start.month].add(day);
-                            }
-                            widget.breaks[newBreakRange.start.month].sort(); // Sort them in order
+                      if (breakRangeToDelete != null) {
+                        // Iterate through the months with days that will be deleted
+                        List<int> daysToBeDeleted = [];
+                        for (int month = breakRangeToDelete.start.month; month <= breakRangeToDelete.end.month; month++) {
+                          if (breakRangeToDelete.start.month == breakRangeToDelete.end.month) { // Simplest case - just one month
+                            for (int day = breakRangeToDelete.start.day; day <= breakRangeToDelete.end.day; day++)
+                              daysToBeDeleted.add(day);
                           } else {
-                            // Iterate through each month
-                            for (int month = newBreakRange.start.month; month <= newBreakRange.end.month; month++) {
-                              if (!widget.breaks.keys.contains(month)) // Adds month entry if needed
-                                widget.breaks[month] = [];
-                              int numDaysInMonth = daysInMonth(month, isLeapYear(currentYear));
-                              for (int day = (month == newBreakRange.start.month ? newBreakRange.start.day : 1);
-                                  day <= (month == newBreakRange.end.month ? newBreakRange.end.day : numDaysInMonth);
-                                  day++) { // Then iterate through the days
-                                if (!widget.breaks[newBreakRange.start.month].contains(day)) widget.breaks[month].add(day);
-                              }
-                              widget.breaks[month].sort();
+                            int numDaysInMonth = daysInMonth(month, isLeapYear(currentYear));
+                            for (int day = (month == breakRangeToDelete.start.month ? breakRangeToDelete.start.day : 1);
+                            day <= (month == breakRangeToDelete.end.month ? breakRangeToDelete.end.day : numDaysInMonth);
+                            day++) { // Then iterate through the days
+                              daysToBeDeleted.add(day);
                             }
                           }
-                        });
-
-                      updateBreaks(context: context, newBreaks: widget.breaks); // This updates Firestore
-                      // Map<String, List<String>> updatedBreaksInFirestore = {};
-                      // widget.breaks.forEach((month, days) {
-                      //   String monthString = month.toString();
-                      //   List<String> daysString = [];
-                      //   for (int day in days) daysString.add(day.toString());
-                      //   updatedBreaksInFirestore?.addAll({monthString: daysString});
-                      // });
-                      // FirestoreHelper.getCurrentOrganizationReference(context).updateData({
-                      //   'breaks': updatedBreaksInFirestore
-                      // });
-                    }),
+                          // After creating the list, DELETE
+                          if (widget.breaks.keys.contains(month)) {
+                            setState(() {
+                              widget.breaks[month].removeWhere((day) => daysToBeDeleted.contains(day));
+                            });
+                          }
+                        }
+                        updateBreaks(context: context, newBreaks: widget.breaks); // Update Firestore
+                      }
+                    },
+                    icon: Icon(Icons.delete, color: Colors.red)
+                )
               ),
               SizedBox(height: 10),
               SizedBox(
