@@ -348,9 +348,8 @@ class _DonationAvailabilityHourSettingsState extends State<DonationAvailabilityH
       }
     });
 
-    // The delete time range button
-    if (gridViewChildren != null) {
-      Widget addBreakButton = IconButton(
+    // The add time range button
+    Widget addBreakButton = IconButton(
         icon: Icon(Icons.add, size: 24, color: purpleAccent),
         onPressed: () async {
           int currentYear = DateTime.now().year;
@@ -387,13 +386,10 @@ class _DonationAvailabilityHourSettingsState extends State<DonationAvailabilityH
                 }
               }
             });
-
           updateBreaks(context: context, newBreaks: widget.breaks); // This updates Firestore
         }
-      );
-
-      setState(() { gridViewChildren.add(addBreakButton); });
-    }
+    );
+    setState(() { gridViewChildren.add(addBreakButton); });
 
     super.initState();
   }
@@ -459,45 +455,49 @@ class _DonationAvailabilityHourSettingsState extends State<DonationAvailabilityH
                   shrinkWrap: true,
                   children: (gridViewChildren ?? [SizedBox.shrink()]),
               ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: IconButton(
-                    onPressed: () async {
-                      int currentYear = DateTime.now().year;
-                      DateTimeRange breakRangeToDelete = await showDateRangePicker(
-                          context: context,
-                          firstDate: DateTime(currentYear, 1, 1),
-                          lastDate: DateTime(currentYear, 12, 31),
-                          helpText: "Choose one day or a range of days to delete from your breaks."
-                      );
-                      if (breakRangeToDelete != null) {
-                        // Iterate through the months with days that will be deleted
-                        List<int> daysToBeDeleted = [];
-                        for (int month = breakRangeToDelete.start.month; month <= breakRangeToDelete.end.month; month++) {
-                          if (breakRangeToDelete.start.month == breakRangeToDelete.end.month) { // Simplest case - just one month
-                            for (int day = breakRangeToDelete.start.day; day <= breakRangeToDelete.end.day; day++)
-                              daysToBeDeleted.add(day);
-                          } else {
-                            int numDaysInMonth = daysInMonth(month, isLeapYear(currentYear));
-                            for (int day = (month == breakRangeToDelete.start.month ? breakRangeToDelete.start.day : 1);
-                            day <= (month == breakRangeToDelete.end.month ? breakRangeToDelete.end.day : numDaysInMonth);
-                            day++) { // Then iterate through the days
-                              daysToBeDeleted.add(day);
+
+              // Delete Time Range button
+              if (gridViewChildren.length > 1) // Note that gridViewChildren includes add button
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: IconButton(
+                      onPressed: () async {
+                        int currentYear = DateTime.now().year;
+                        DateTimeRange breakRangeToDelete = await showDateRangePicker(
+                            context: context,
+                            firstDate: DateTime(currentYear, 1, 1),
+                            lastDate: DateTime(currentYear, 12, 31),
+                            helpText: "Choose one day or a range of days to delete from your breaks."
+                        );
+                        if (breakRangeToDelete != null) {
+                          // Iterate through the months with days that will be deleted
+                          List<int> daysToBeDeleted = [];
+                          for (int month = breakRangeToDelete.start.month; month <= breakRangeToDelete.end.month; month++) {
+                            if (breakRangeToDelete.start.month == breakRangeToDelete.end.month) { // Simplest case - just one month
+                              for (int day = breakRangeToDelete.start.day; day <= breakRangeToDelete.end.day; day++)
+                                daysToBeDeleted.add(day);
+                            } else {
+                              int numDaysInMonth = daysInMonth(month, isLeapYear(currentYear));
+                              for (int day = (month == breakRangeToDelete.start.month ? breakRangeToDelete.start.day : 1);
+                              day <= (month == breakRangeToDelete.end.month ? breakRangeToDelete.end.day : numDaysInMonth);
+                              day++) { // Then iterate through the days
+                                daysToBeDeleted.add(day);
+                              }
+                            }
+                            // After creating the list, DELETE
+                            if (widget.breaks.keys.contains(month)) {
+                              setState(() {
+                                widget.breaks[month].removeWhere((day) => daysToBeDeleted.contains(day));
+                              });
                             }
                           }
-                          // After creating the list, DELETE
-                          if (widget.breaks.keys.contains(month)) {
-                            setState(() {
-                              widget.breaks[month].removeWhere((day) => daysToBeDeleted.contains(day));
-                            });
-                          }
+                          updateBreaks(context: context, newBreaks: widget.breaks); // Update Firestore
                         }
-                        updateBreaks(context: context, newBreaks: widget.breaks); // Update Firestore
-                      }
-                    },
-                    icon: Icon(Icons.delete, color: Colors.red)
-                )
-              ),
+                      },
+                      icon: Icon(Icons.delete, color: Colors.red)
+                  )
+                ),
+
               SizedBox(height: 10),
               SizedBox(
                 height: 10,
