@@ -22,7 +22,8 @@ class _PastDeliveryInformationPageState
   Widget build(BuildContext context) {
     return StandardLayout(
       title: 'Delivery Information',
-      helpText: 'This page shows information about a specific past delivery.',
+      helpText: 'This page shows information about a completed delivery. You can see the items deliveries, amount of each item, and a specific description. '
+          'Additionally, you can see the date received, the name of the donor, and their email.',
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[

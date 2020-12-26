@@ -80,7 +80,8 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
   Widget build(BuildContext context) {
     return StandardLayout(
       title: ' ',
-      helpText: 'This page shows a delivery you have signed up for. Here, you can edit or cancel this delivery. ',
+      helpText: 'This page shows a delivery you have signed up for. You can see the organization\'s information, location, and contact information. Underneath, '
+          'you can see the exact information on your delivery. Here, you can edit or cancel this delivery.',
       body: loading
           ? Center(child: CircularProgressIndicator())
           : SingleChildScrollView(

@@ -152,33 +152,26 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
       ),
       context: context,
       builder: (BuildContext bc) {
-        return Container(
-          height: MediaQuery.of(context).size.height * 0.6,
-          child: Padding(
-            padding: EdgeInsets.all(25.0),
-            child: Column(
+        return ListView(
+          padding: EdgeInsets.only(right: 33, bottom: 33, top: 25.0, left: 25),
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(right: 8, bottom: 8, top: 0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text('Help', style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
-                      IconButton(
-                        iconSize: 30,
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        icon: Icon(Icons.close),
-                      ),
-                    ],
-                  ),
+                Text('Help', style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
+                IconButton(
+                  iconSize: 30,
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: Icon(Icons.close),
                 ),
-                Text(_tabs[_selectedIndex].helpDescription, style: TextStyle(fontSize: 17)),
-                Spacer(),
               ],
             ),
-          ),
+            SizedBox(height: 5),
+            Text(_tabs[_selectedIndex].helpDescription, style: TextStyle(fontSize: 17)),
+            Spacer(),
+          ],
         );
       },
     );

@@ -61,26 +61,23 @@ class StandardLayout extends StatelessWidget {
       context: context,
       builder: (BuildContext bc) {
         return Container(
-          height: MediaQuery.of(context).size.height * 0.6,
           child: Padding(
             padding: EdgeInsets.all(25.0),
-            child: Column(
+            child: ListView(
+              padding: const EdgeInsets.only(right: 8, bottom: 8, top: 0),
               children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(right: 8, bottom: 8, top: 0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text('Help', style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
-                      IconButton(
-                        iconSize: 30,
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        icon: Icon(Icons.close),
-                      ),
-                    ],
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text('Help', style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
+                    IconButton(
+                      iconSize: 30,
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: Icon(Icons.close),
+                    ),
+                  ],
                 ),
                 Text(helpText, style: TextStyle(fontSize: 17)),
               ],

@@ -16,8 +16,12 @@ class CurrentRequestsPage extends StatefulWidget with NavigationTab {
 
   @override
   String get helpDescription =>
-      'This is your Current Requests page. Here, you can see items that you have requested that have not volunteers have not signed up for. '
-      'To see items that volunteers have committed to, check the Expected Deliveries page.';
+      'Here, you can see items that you have requested that volunteers have not signed up for. '
+      'Your requests are displayed in groups, based on categories such as \'Other\', \'Hygiene\', and \'Warmth\'. '
+      'Individual items are displayed with the name, amount, and specific description. '
+      'The red, yellow, and green circles are indicators that correspond to the item\'s urgency, which can be set in the Create Requests Menu. '
+      'To edit your requests, click the \'Edit\' button located at the top left of the page. '
+      'To see items that volunteers have committed to, check the Deliveries page.';
 
   @override
   Widget get icon => SvgPicture.asset("assets/jam_icons/task-list.svg", color: purpleAccent);

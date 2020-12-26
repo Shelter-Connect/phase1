@@ -16,7 +16,8 @@ class OrganizationDiscover extends StatefulWidget with NavigationTab {
   _OrganizationDiscoverState createState() => _OrganizationDiscoverState();
 
   @override
-  String get helpDescription => 'This is the Organization Discover page. Here, you can see nearby organizations in need of donations. '
+  String get helpDescription => 'This is the Organization discover page. Here, you can see nearby organizations in need of donations. Your organization feed will be sorted from closest to farthest, and you can see the exact distance under each organization'
+      '\'s name. Underneath the purple line, you can see a brief description, and the \"tags\" that summarize what type of donation the organization is requesting. '
       'To see more information about an organization, or to sign up for a donation, click on an organization. ';
 
   @override

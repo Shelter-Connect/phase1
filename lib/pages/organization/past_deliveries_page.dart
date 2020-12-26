@@ -13,7 +13,8 @@ class PastDeliveriesPage extends StatefulWidget with NavigationTab {
 
   @override
   String get helpDescription =>
-      'This is the Past Deliveries page. Here, you can see any items that the volunteers have already delivered to your organization. '
+      'This is the Past Deliveries page. Here, you can see any items that the volunteers have already delivered to your organization. At the top of each container, you '
+          'can see the volunteer\'s name and the date of delivery. Underneath, you can see the name of the individual items, the quantity of the donation, and a specific description.'
   ;
 
   @override

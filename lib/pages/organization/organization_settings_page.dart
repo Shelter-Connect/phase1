@@ -17,8 +17,11 @@ class OrganizationSettingsPage extends StatefulWidget with NavigationTab {
   _OrganizationSettingsPageState createState() => _OrganizationSettingsPageState();
 
   @override
-  String get helpDescription => 'This is your Account Settings page. Here, you can see and edit your account and sign out, if you\'d like. '
-      'In addition, you can preview your profile as volunteers will see it.';
+  String get helpDescription => 'This is your Account Settings page. Here, you can see and edit all your account information by clicking the \'Edit Account Information\' button. '
+      'In addition, you can change you donation availability hours, which are the time frames in which volunteers can drop off donations. To edit the donation hours for a day, click on the edit icon button on the right. From the Edit Hours pages,'
+      'you can add new time frames, delete old or unused time frames, and edit pre-existing time frames. Click the \'Save Changes for...\' to save changes. '
+      'Additionally, you can add breaks, which are days or weeks where your organization will not be receiving donations. To add new breaks, click the + button, and to delete breaks, click the red trashcan button. '
+      'Finally, you can preview your profile as volunteers will see it by clicking on the \'Preview Profile\' button.';
 
   @override
   Widget get icon => SvgPicture.asset("assets/jam_icons/user-f.svg", color: purpleAccent);

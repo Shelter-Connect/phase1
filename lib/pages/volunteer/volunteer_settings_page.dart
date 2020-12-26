@@ -18,7 +18,8 @@ class VolunteerSettingsPage extends StatefulWidget with NavigationTab {
 
   @override
   String get helpDescription =>
-      'This page shows your account settings and information. Here, you can edit your information, or sign out, if you\'d like. ';
+      'This page shows your account settings and information. Here, you can edit your name and email, and sign out. Additionally, you can reset your password by clicking'
+          ' the \'Reset Password\' button.';
 
   @override
   Widget get icon => SvgPicture.asset(
