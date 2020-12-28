@@ -107,14 +107,14 @@ class _EditCurrentRequestsPageState extends State<EditCurrentRequestsPage> {
                                                           showDialog(
                                                             context: context,
                                                             builder: (_) => SingleActionAlert(
-                                                              title: 'Confirm delete Request?',
+                                                              title: 'Delete This Request?',
                                                               subtitle:
                                                                   'This action cannot be undone, and expected deliveries with this request will still arrive.',
                                                               actionName: 'Delete Request',
                                                               action: () {
                                                                 FirestoreHelper.deleteRequest(context, itemCategories[category][index]);
                                                                 FlushBar(
-                                                                        title: 'Request Cancelled',
+                                                                        title: 'Request Deleted',
                                                                         message: 'You may create the request again using the create request button',
                                                                         duration: Duration(seconds: 3))
                                                                     .build(context);
@@ -212,7 +212,7 @@ class _EditCurrentRequestsPageState extends State<EditCurrentRequestsPage> {
                             }
                           }
                           FirestoreHelper.updateRequests(context: context, items: delta);
-                          FlushBar(message: 'Your request has been edited.', duration: Duration(seconds: 3)).build(context);
+                          FlushBar(message: 'Your requests have been updated', duration: Duration(seconds: 3)).build(context);
                         },
                         textColor: Colors.white,
                       )
