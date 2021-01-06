@@ -4,7 +4,7 @@ import 'package:geolocator/geolocator.dart';
 
 class LocationHelper {
   static Future<Position> getUserPosition() async {
-    return await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    return await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.low);
   }
 
   static double distance(double lat1, double lng1, double lat2, double lng2) {
