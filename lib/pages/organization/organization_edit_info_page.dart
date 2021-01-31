@@ -148,7 +148,7 @@ class _OrganizationEditInfoPageState extends State<OrganizationEditInfoPage> {
                   title: 'Update Information',
                   textColor: Colors.white,
                   onPressed: () {
-                    db.collection('organizations').document(organization.id).updateData({
+                    db.collection('organizations').doc(organization.id).update({
                       'description': organization.description,
                       'name': organization.name,
                       'location': location,

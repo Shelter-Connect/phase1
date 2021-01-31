@@ -13,14 +13,14 @@ class LoadingPage extends StatefulWidget {
 class _LoadingPageState extends State<LoadingPage> {
   @override
   void initState() {
-    auth.onAuthStateChanged.listen(
+    auth.authStateChanges().listen(
       (user) {
         Provider.of<User>(context, listen: false).user = user;
         if (user != null) {
-          db.collection('volunteers').document(user.uid).get().then(
+          db.collection('volunteers').doc(user.uid).get().then(
             (value) {
               if (value.data != null) {
-                if (user.isEmailVerified) {
+                if (user.emailVerified) {
                   Navigator.pushNamed(context, '/welcome');
                   Navigator.pushNamed(context, '/volunteer_navigation');
                 } else {
@@ -31,7 +31,7 @@ class _LoadingPageState extends State<LoadingPage> {
             },
           );
 
-          db.collection('organizations').document(user.uid).get().then(
+          db.collection('organizations').doc(user.uid).get().then(
             (value) {
               if (value.data != null) {
                 if (value['verified']) {

@@ -25,10 +25,10 @@ class _OrganizationPreviewPageState extends State<OrganizationPreviewPage> {
 
   @override
   void initState() {
-    DocumentReference organizationReference = db.collection('organizations').document(widget.organization.id);
-    organizationReference.collection('requests').getDocuments().then((documents) {
+    DocumentReference organizationReference = db.collection('organizations').doc(widget.organization.id);
+    organizationReference.collection('requests').get().then((documents) {
       widget.organization.requestedItems.clear();
-      for (DocumentSnapshot document in documents.documents) {
+      for (DocumentSnapshot document in documents.docs) {
         if (widget.organization.itemCategories.contains(document['category'])) {
           if (widget.organization.requestedItems[document['category']] == null) widget.organization.requestedItems[document['category']] = [];
           setState(() {

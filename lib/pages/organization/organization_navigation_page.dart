@@ -41,10 +41,10 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
       providers: [
         StreamProvider<List<Donation>>.value(
           value: FirestoreHelper.getCurrentOrganizationReference(context).collection('currentDonations').orderBy('date').snapshots().map((snapshot) {
-            if (snapshot.documents.length == 0) return [];
+            if (snapshot.docs.length == 0) return [];
             if (snapshot == null) return null;
             List<Donation> donations = [];
-            for (DocumentSnapshot document in snapshot.documents) {
+            for (DocumentSnapshot document in snapshot.docs) {
               donations.add(Donation.fromFirestoreMap(document));
             }
             return donations;
@@ -56,10 +56,10 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
               .orderBy('date', descending: true)
               .snapshots()
               .map((snapshot) {
-            if (snapshot.documents.length == 0) return [];
+            if (snapshot.docs.length == 0) return [];
             if (snapshot == null) return null;
             List<PastDonation> donations = [];
-            for (DocumentSnapshot document in snapshot.documents) {
+            for (DocumentSnapshot document in snapshot.docs) {
               donations.add(PastDonation.fromFirestoreMap(document));
             }
             return donations;

@@ -245,7 +245,7 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
                           loading = false;
                         });
                         if (newUser != null) {
-                          await db.collection('organizations').document(newUser.user.uid).setData({
+                          await db.collection('organizations').doc(newUser.user.uid).set({
                             'description': description,
                             'email': email,
                             'name': organizationName,

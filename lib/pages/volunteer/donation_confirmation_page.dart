@@ -232,7 +232,7 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                 child: FlatButton(
                   onPressed: () {
                     Navigator.popUntil(context, ModalRoute.withName('/volunteer_navigation'));
-                    List<Item> delta = List();
+                    List<Item> delta = [];
                     for (Item newItem in widget.donation.items) {
                       Item item = newItem.clone();
                       item.amount *= -1;

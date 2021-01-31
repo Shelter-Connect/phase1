@@ -60,20 +60,20 @@ class SyncCalendar extends StatelessWidget {
                             donation.sync = val.data;
                             await db
                                 .collection('organizations')
-                                .document(donation.organization.id)
+                                .doc(donation.organization.id)
                                 .collection('currentDonations')
-                                .document(donation.id)
-                                .updateData({'sync': val.data}).then((val) {
+                                .doc(donation.id)
+                                .update({'sync': val.data}).then((val) {
                               Navigator.of(context).pop();
                             });
                           } else if (donation.sync == '' || donation.sync == null) {
                             donation.sync = val.data;
                             await db
                                 .collection('volunteers')
-                                .document(donation.volunteerId)
+                                .doc(donation.volunteerId)
                                 .collection('currentDonations')
-                                .document(donation.id)
-                                .updateData({'sync': val.data}).then((val) {
+                                .doc(donation.id)
+                                .update({'sync': val.data}).then((val) {
                               Navigator.of(context).pop();
                             });
                           } else

@@ -44,11 +44,11 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
         providers: [
           StreamProvider<List<Organization>>.value(
             value: db.collection('organizations').snapshots().map((snapshot) {
-              if (snapshot.documents.length == 0) return [];
+              if (snapshot.docs.length == 0) return [];
               if (snapshot == null) return null;
               List<Organization> organizations = [];
-              for (DocumentSnapshot document in snapshot.documents) {
-                if (kReleaseMode && document.documentID == 'bVRQfZpizSQWty24zFgFqIrB60i2') // Skips over Test Linkare org if this is actual app
+              for (DocumentSnapshot document in snapshot.docs) {
+                if (kReleaseMode && document.id == 'bVRQfZpizSQWty24zFgFqIrB60i2') // Skips over Test Linkare org if this is actual app
                   continue;
                 organizations.add(Organization.fromFirestoreMap(context: context, organizationSnapshot: document, isVolunteer: false));
               }
@@ -57,11 +57,11 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
           ),
           StreamProvider<List<Donation>>.value(
             value: FirestoreHelper.getCurrentVolunteerReference(context).collection('currentDonations').orderBy('date').snapshots().map((snapshot) {
-              if (snapshot.documents.length == 0) return [];
+              if (snapshot.docs.length == 0) return [];
               if (snapshot == null) return null;
               List<Donation> donations = [];
-              for (DocumentSnapshot document in snapshot.documents) {
-                if (document.documentID == 'categories') continue;
+              for (DocumentSnapshot document in snapshot.docs) {
+                if (document.id == 'categories') continue;
                 donations.add(Donation.fromFirestoreMap(document));
               }
               return donations;
@@ -69,11 +69,11 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
           ),
           StreamProvider<List<PastDonation>>.value(
             value: FirestoreHelper.getCurrentVolunteerReference(context).collection('pastDonations').orderBy('date').snapshots().map((snapshot) {
-              if (snapshot.documents.length == 0) return [];
+              if (snapshot.docs.length == 0) return [];
               if (snapshot == null) return null;
               List<PastDonation> donations = [];
-              for (DocumentSnapshot document in snapshot.documents) {
-                if (document.documentID == 'categories') continue;
+              for (DocumentSnapshot document in snapshot.docs) {
+                if (document.id == 'categories') continue;
                 donations.add(PastDonation.fromFirestoreMap(document));
               }
               return donations;

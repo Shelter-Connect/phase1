@@ -164,7 +164,7 @@ class _ItemIncrementWithTextState extends State<ItemIncrementWithText> {
           isSnackBarActive = true;
         });
 
-        Scaffold.of(context)
+        ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text('You have reached the maximum amount of items this organization is requesting.')))
             .closed
             .then((SnackBarClosedReason reason) {
@@ -237,7 +237,7 @@ class _ItemIncrementWithTextState extends State<ItemIncrementWithText> {
                     isSnackBarActive = true;
                   });
 
-                  Scaffold.of(context)
+                  ScaffoldMessenger.of(context)
                       .showSnackBar(SnackBar(content: Text('You have reached the maximum amount of items this organization is requesting.')))
                       .closed
                       .then((SnackBarClosedReason reason) {

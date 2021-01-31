@@ -143,7 +143,7 @@ class _ConfirmDeliveryPageState extends State<ConfirmDeliveryPage> {
                 color: purpleAccent,
                 text: 'Confirm Items Delivered',
                 onPressed: () {
-                  List<Item> delta = List();
+                  List<Item> delta = [];
                   for (Item deliveredItem in items) {
                     for (Item oldItem in widget.donation.items) {
                       if ((deliveredItem.specificDescription == oldItem.specificDescription) &&

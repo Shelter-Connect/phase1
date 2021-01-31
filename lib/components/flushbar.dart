@@ -12,6 +12,7 @@ class FlushBar extends StatelessWidget {
   final EdgeInsets margin;
   final Color leftBarIndicatorColor;
   FlushBar({this.title, this.message, this.icon, this.duration, this.mainButton, this.onTap, this.isDismissible, this.margin, this.leftBarIndicatorColor});
+
   @override
   Widget build(BuildContext context) {
     Flushbar(
@@ -25,6 +26,6 @@ class FlushBar extends StatelessWidget {
       isDismissible: true,
       animationDuration: Duration(seconds: 0),
       flushbarStyle:  FlushbarStyle.GROUNDED,
-    ).show(context);
+    );
   }
 }

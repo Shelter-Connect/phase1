@@ -1,11 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../../components/alerts.dart';
 import '../../components/rounded_button.dart';
 import '../../constants.dart';
-import '../../models/user.dart';
 
 class VolunteerConfirmation extends StatefulWidget {
   @override
@@ -13,16 +10,6 @@ class VolunteerConfirmation extends StatefulWidget {
 }
 
 class _VolunteerConfirmationState extends State<VolunteerConfirmation> {
-  FirebaseUser user;
-
-  @override
-  void initState() {
-    auth.currentUser().then((value) {
-      user = value;
-    });
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +22,7 @@ class _VolunteerConfirmationState extends State<VolunteerConfirmation> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                'A verification email has been sent to ${Provider.of<User>(context, listen: false).user.email}',
+                'A verification email has been sent to ${auth.currentUser.email}',
                 style: headerStyle.copyWith(
                   fontSize: 23.0,
                 ),
@@ -46,8 +33,8 @@ class _VolunteerConfirmationState extends State<VolunteerConfirmation> {
                 textColor: Colors.white,
                 color: purpleAccent,
                 onPressed: () async {
-                  user.delete();
-                  db.collection('volunteers').document(user.uid).delete();
+                  auth.currentUser.delete();
+                  db.collection('volunteers').doc(auth.currentUser.uid).delete();
                 },
               ),
               RoundedButton(
@@ -56,7 +43,7 @@ class _VolunteerConfirmationState extends State<VolunteerConfirmation> {
                 color: purpleAccent,
                 onPressed: () {
                   try {
-                    user.sendEmailVerification().then((res) {
+                    auth.currentUser.sendEmailVerification().then((res) {
                       showDialog(
                         context: context,
                         builder: (_) => NoActionAlert(title: 'Verification Email Resent.'),
@@ -72,9 +59,8 @@ class _VolunteerConfirmationState extends State<VolunteerConfirmation> {
                 color: purpleAccent,
                 textColor: Colors.white,
                 onPressed: () async {
-                  await user.reload();
-                  user = await auth.currentUser();
-                  if (user.isEmailVerified) {
+                  await auth.currentUser.reload();
+                  if (auth.currentUser.emailVerified) {
                     print('verified');
                     Navigator.pushReplacementNamed(context, '/volunteer_navigation');
                   } else {

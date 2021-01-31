@@ -43,10 +43,10 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
     setState(() {
       loading = true;
     });
-    DocumentReference organizationReference = db.collection('organizations').document(donation.organization.id);
-    organizationReference.collection('requests').getDocuments().then((documents) {
+    DocumentReference organizationReference = db.collection('organizations').doc(donation.organization.id);
+    organizationReference.collection('requests').get().then((documents) {
       donation.organization.requestedItems = Map();
-      for (DocumentSnapshot document in documents.documents) {
+      for (DocumentSnapshot document in documents.docs) {
         if (donation.organization.requestedItems[document['category']] == null) donation.organization.requestedItems[document['category']] = [];
         setState(() {
           donation.organization.requestedItems[document['category']].add(
@@ -142,7 +142,7 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                                             setState(() {
                                               loading = true;
                                             });
-                                            List<Item> delta = List();
+                                            List<Item> delta = [];
                                             for (Item newItem in newDonation.items) {
                                               Item item = newItem.clone();
                                               item.amount *= -1;

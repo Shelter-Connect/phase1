@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:phase1/constants.dart';
 import 'package:phase1/pages/organization/organization_sign_up_page.dart';
 import 'package:phase1/pages/volunteer/volunteer_sign_up_page.dart';
-import 'package:ripple_effect/ripple_effect.dart';
 
 class WelcomePage extends StatefulWidget {
   @override

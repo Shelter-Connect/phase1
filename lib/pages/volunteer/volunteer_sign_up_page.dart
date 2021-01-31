@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart' hide TextButton;
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
@@ -136,14 +135,12 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
                             loading = true;
                           });
                           final newUser = await auth.createUserWithEmailAndPassword(email: email, password: password);
-                          UserUpdateInfo info = UserUpdateInfo();
-                          info.displayName = '$firstName $lastName';
-                          newUser.user.updateProfile(info);
+                          newUser.user.updateProfile(displayName: '$firstName $lastName');
                           setState(() {
                             loading = false;
                           });
                           if (newUser != null) {
-                            db.collection('volunteers').document(newUser.user.uid).setData(
+                            db.collection('volunteers').doc(newUser.user.uid).set(
                               {
                                 'email': email,
                                 'firstName': firstName,

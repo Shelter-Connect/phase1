@@ -69,7 +69,7 @@ class _FeedbackFormState extends State<FeedbackForm> {
               );
               bug.clear();
               improvement.clear();
-              FlushBar(message: 'Thank you for the feedback!', duration: Duration(seconds: 3)).build(context);
+              FlushBar(message: 'Thank you for the feedback!', duration: Duration(seconds: 3));
             },
             textColor: Colors.white,
           )

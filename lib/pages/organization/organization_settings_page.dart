@@ -700,7 +700,7 @@ class EditSpecificDate extends StatelessWidget {
 //     String endDateString = element.end.toString();
 //     updatedBreaksInFirestore?.addAll({breaks.indexOf(element).toString(): [startDateString, endDateString]});
 //   });
-//   FirestoreHelper.getCurrentOrganizationReference(context).updateData({
+//   FirestoreHelper.getCurrentOrganizationReference(context).update({
 //     'breaks': updatedBreaksInFirestore
 //   });
 // }
@@ -713,7 +713,7 @@ void updateBreaks({BuildContext context, Map<int, List<int>> newBreaks}) {
     for (int day in days) daysString.add(day.toString());
     updatedBreaksInFirestore?.addAll({monthString: daysString});
   });
-  FirestoreHelper.getCurrentOrganizationReference(context).updateData({
+  FirestoreHelper.getCurrentOrganizationReference(context).update({
     'breaks': updatedBreaksInFirestore
   });
 }

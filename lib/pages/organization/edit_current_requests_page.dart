@@ -38,7 +38,7 @@ class _EditCurrentRequestsPageState extends State<EditCurrentRequestsPage> {
                     );
                   }
                   Map<String, List<Item>> itemCategories = {};
-                  for (DocumentSnapshot document in snapshot.data.documents) {
+                  for (DocumentSnapshot document in snapshot.data.docs) {
                     if (!itemCategories.containsKey(document['category'])) {
                       itemCategories[document['category']] = [];
                     }
@@ -196,7 +196,7 @@ class _EditCurrentRequestsPageState extends State<EditCurrentRequestsPage> {
                         title: 'Confirm Edit',
                         onPressed: () {
                           Navigator.pop(context);
-                          List<Item> delta = List();
+                          List<Item> delta = [];
                           for (Item newItem in items) {
                             for (String category in itemCategories.keys) {
                               for (Item oldItem in itemCategories[category]) {

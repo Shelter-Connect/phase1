@@ -12,7 +12,7 @@ class Organization {
   Position location;
   double distance;
   Map<String, List<Item>> requestedItems = Map();
-  List<String> itemCategories = List();
+  List<String> itemCategories = [];
   Map<String, List<TimeOfDay>> schedule = Map();
   Map<int, List<int>> breaks = Map();
 
@@ -68,7 +68,7 @@ class Organization {
     donationLink = organizationSnapshot['donationLink'];
     number = organizationSnapshot['number'];
     email = organizationSnapshot['email'];
-    id = organizationSnapshot.documentID;
+    id = organizationSnapshot.id;
     description = organizationSnapshot['description'];
     name = organizationSnapshot['name'];
     itemCategories = organizationSnapshot['itemCategories']?.cast<String>();
@@ -76,7 +76,7 @@ class Organization {
     Map<String, List<Item>> items = {};
     if (organizationSnapshot['itemCategories'] != null) if (organizationSnapshot['itemCategories'].length != 0) {
       for (String category in organizationSnapshot['itemCategories']) {
-        items[category] = List<Item>();
+        items[category] = [];
       }
     }
     requestedItems = items;

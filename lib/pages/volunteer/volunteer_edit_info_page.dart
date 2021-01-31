@@ -1,9 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:phase1/components/flushbar.dart';
 import 'package:phase1/components/standard_layout.dart';
-import 'package:phase1/models/user.dart';
-import 'package:provider/provider.dart';
 
 import '../../components/floating_text_field.dart';
 import '../../components/rounded_button.dart';
@@ -57,18 +54,16 @@ class _VolunteerEditInfoPageState extends State<VolunteerEditInfoPage> {
                 title: 'Update Name',
                 textColor: Colors.white,
                 onPressed: () {
-                  db.collection('volunteers').document(Provider.of<User>(context, listen: false).user.uid).updateData({
+                  db.collection('volunteers').doc(auth.currentUser.uid).update({
                     'firstName': firstNameController.text.trim(),
                     'lastName': lastNameController.text.trim(),
                   });
-                  UserUpdateInfo info = UserUpdateInfo();
-                  info.displayName = '${firstNameController.text} ${lastNameController.text}';
-                  Provider.of<User>(context, listen: false).user.updateProfile(info);
+                  auth.currentUser.updateProfile(displayName: '${firstNameController.text} ${lastNameController.text}');
                   Navigator.pop(context, {
                     'firstName': firstNameController.text,
                     'lastName': lastNameController.text,
                   });
-                  FlushBar(message: 'Name Updated!', duration: Duration(seconds: 3)).build(context);
+                  FlushBar(message: 'Your name has been updated.', duration: Duration(seconds: 3)).build(context);
                 },
               ),
               SizedBox(height: 10.0),
