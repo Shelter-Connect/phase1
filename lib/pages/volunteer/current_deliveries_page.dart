@@ -78,9 +78,10 @@ class _CurrentDeliveriesPageState extends State<CurrentDeliveriesPage> {
                     }
                     if (donations.length == 0) {
                       return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'You have no items to deliver. Go make some donations!',
+                            'You have no items to deliver. Go sign up for some donations!',
                             style: TextStyle(
                               color: Colors.grey,
                               fontSize: 15.0,

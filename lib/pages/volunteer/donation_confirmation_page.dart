@@ -42,8 +42,7 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                 ],
               ),
               Text(
-                /*'on: ${DateFormat.yMMMd().add_jm().format(widget.donation.date)}',*/
-                'on: ${DateFormat.yMMMd().format(widget.donation.date)}',
+                'on ${DateFormat.yMMMd().format(widget.donation.date)}',
                 style: subTitleStyle,
               ),
               SizedBox(height: 20),
@@ -54,13 +53,13 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                       borderRadius: BorderRadius.circular(15.0),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            'Organization Information ',
+                            'Organization Information',
                             style: TextStyle(
                               fontSize: 20,
                             ),
@@ -175,28 +174,26 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                                                     ),
                                                   ],
                                                 ),
-                                              ),
-                                              if (item.category != 'Volunteering')
-                                                Align(
-                                                  alignment: Alignment.centerLeft,
-                                                  child: Column(
-                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                    children: [
-                                                      Text(
-                                                        '${item.name} - ${item.amount} ${item.unit}'.trim(),
-                                                        style: TextStyle(
-                                                          fontSize: 17.0,
-                                                          fontWeight: FontWeight.w400,
-                                                        ),
+                                              ) else Align(
+                                                alignment: Alignment.centerLeft,
+                                                child: Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      '${item.name} - ${item.amount} ${item.unit}'.trim(),
+                                                      style: TextStyle(
+                                                        fontSize: 17.0,
+                                                        fontWeight: FontWeight.w400,
                                                       ),
-                                                      if (item.specificDescription != null)
-                                                        Text(
-                                                          item.specificDescription,
-                                                          style: TextStyle(fontSize: 14, color: Colors.grey),
-                                                        ),
-                                                    ],
-                                                  ),
+                                                    ),
+                                                    if (item.specificDescription != null)
+                                                      Text(
+                                                        item.specificDescription,
+                                                        style: TextStyle(fontSize: 14, color: Colors.grey),
+                                                      ),
+                                                  ],
                                                 ),
+                                              ),
                                               Expanded(
                                                 child: Align(
                                                   alignment: Alignment.centerRight,
