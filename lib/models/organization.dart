@@ -81,19 +81,23 @@ class Organization {
     }
     requestedItems = items;
 
-    schedule = Map<String, List<dynamic>>.from(organizationSnapshot['schedule'])?.map(
-      (day, times) => MapEntry(
-        day,
-        times.map((time) => new TimeOfDay.fromDateTime(DateTime.fromMillisecondsSinceEpoch((time as Timestamp).millisecondsSinceEpoch))).toList(),
-      ),
-    );
-
-    organizationSnapshot['breaks']?.forEach((monthString, daysString) {
-      int month = int.parse(monthString);
-      List<int> days = [];
-      for (String dayString in daysString) days.add(int.parse(dayString));
-      breaks.addAll({month: days});
-    });
+    if (organizationSnapshot['schedule'] != null) {
+      schedule = Map<String, List<dynamic>>.from(organizationSnapshot['schedule'])?.map(
+            (day, times) => MapEntry(
+          day,
+          times.map((time) => new TimeOfDay.fromDateTime(DateTime.fromMillisecondsSinceEpoch((time as Timestamp).millisecondsSinceEpoch))).toList(),
+        ),
+      );
+    }
+    //
+    if (organizationSnapshot['breaks'] != null) {
+      organizationSnapshot['breaks'].forEach((monthString, daysString) {
+        int month = int.parse(monthString);
+        List<int> days = [];
+        for (String dayString in daysString) days.add(int.parse(dayString));
+        breaks.addAll({month: days});
+      });
+    }
 
     if (isVolunteer) {
       Position userPosition = Provider.of<UserPosition>(context, listen: false).position;

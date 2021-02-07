@@ -52,7 +52,6 @@ class _OrganizationDiscoverState extends State<OrganizationDiscover> {
 
   @override
   Widget build(BuildContext context) {
-    print(Provider.of<UserPosition>(context).position);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -64,27 +63,28 @@ class _OrganizationDiscoverState extends State<OrganizationDiscover> {
                     return Center(child: CircularProgressIndicator());
                   }
                   if (organizations.length == 0) {
-                    return Column(
-                      children: [
-                        Text(
-                          'There are no organizations on the app yet, but please stick around! There are many organizations eager to start requesting!',
-                          style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 15.0,
+                    return Padding(
+                      padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 0.0),
+                      child: Column(
+                        children: [
+                          Text(
+                            'There are no organizations on the app yet, but please stick around! There are many organizations eager to start requesting!',
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 15.0,
+                            ),
                           ),
-                        ),
-                        SizedBox(height: 40),
-                        Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                            child: Center(
-                              child: SvgPicture.asset(
-                                'assets/ui_svgs/searching.svg',
-                                semanticsLabel: 'Go Discover More Organizations to Help!',
-                                width: MediaQuery.of(context).size.width,
-                              ),
-                            )),
-                        SizedBox(height: 20),
-                      ],
+                          SizedBox(height: 40),
+                          Center(
+                            child: SvgPicture.asset(
+                              'assets/ui_svgs/searching.svg',
+                              semanticsLabel: 'Go Discover More Organizations to Help!',
+                              width: MediaQuery.of(context).size.width,
+                            ),
+                          ),
+                          SizedBox(height: 20),
+                        ],
+                      ),
                     );
                   }
                   List<Widget> widgets = [];

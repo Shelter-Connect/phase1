@@ -53,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       TextButton(
                         text: 'Forgot Password?',
-                        textColor: colorScheme.error,
+                        textColor: Colors.blueAccent,
                         onPressed: () {
                           if (email == '') {
                             showDialog(
