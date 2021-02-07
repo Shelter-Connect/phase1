@@ -125,7 +125,6 @@ class Donation {
       'organizationDescription': organization.description,
       'organizationDonationLink': organization.donationLink,
       'organizationSchedule': schedule,
-      'organizationBreaks': organization.breaks,
       'organizationEmail': organization.email,
       'organizationAddress': organization.address,
       'organizationLocation': GeoPoint(organization.location.latitude, organization.location.longitude),
