@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:phase1/constants.dart';
 import 'package:phase1/pages/organization/organization_sign_up_page.dart';
 import 'package:phase1/pages/volunteer/volunteer_sign_up_page.dart';
-import 'package:ripple_effect/ripple_effect.dart';
 
 class WelcomePage extends StatefulWidget {
   @override
@@ -143,6 +142,8 @@ class _WelcomePageState extends State<WelcomePage> {
                 child: ButtonTheme(
                   minWidth: 200.0,
                   height: 50.0,
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
                   child: FlatButton(
                     onPressed: () {
                       Navigator.pushNamed(context, '/login');
