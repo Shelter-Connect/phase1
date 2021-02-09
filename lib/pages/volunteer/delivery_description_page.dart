@@ -471,7 +471,7 @@ class _OrganizationInformationState extends State<OrganizationInformation> {
                                   color: Colors.black,
                                 ),
                               ),
-                              if (widget
+                              if (widget.schedule != null && widget
                                       .schedule[widget.dateTime.weekday == 1
                                           ? 'Monday'
                                           : widget.dateTime.weekday == 2

@@ -611,27 +611,27 @@ class EditHourContainer extends StatelessWidget {
           children: [
             Container(
                 child: Row(
-              children: [
-                SizedBox(width: 5),
-                Text(
-                    (day == 'Monday')
-                        ? 'M'
-                        : (day == 'Tuesday')
+                  children: [
+                    SizedBox(width: 5),
+                    Text(
+                        (day == 'Monday')
+                            ? 'M'
+                            : (day == 'Tuesday')
                             ? 'T'
                             : (day == 'Wednesday')
-                                ? 'W'
-                                : (day == 'Thursday')
-                                    ? 'Th'
-                                    : (day == 'Friday')
-                                        ? 'F'
-                                        : (day == 'Saturday')
-                                            ? 'S'
-                                            : (day == 'Sunday')
-                                                ? 'Su'
-                                                : (day == 'None'),
-                    style: subTitleStyle),
-              ],
-            )),
+                            ? 'W'
+                            : (day == 'Thursday')
+                            ? 'Th'
+                            : (day == 'Friday')
+                            ? 'F'
+                            : (day == 'Saturday')
+                            ? 'S'
+                            : (day == 'Sunday')
+                            ? 'Su'
+                            : (day == 'None'),
+                        style: subTitleStyle),
+                  ],
+                )),
             Spacer(),
             Column(children: [
               if (timeFrames.length == 0)
@@ -640,12 +640,12 @@ class EditHourContainer extends StatelessWidget {
                 for (int i = 0; i < timeFrames.length; i = i + 2)
                   Container(
                       child: Row(
-                    children: [
-                      Text(timeFrames[i].format(context), style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20, color: Colors.black)),
-                      Text('  -  ', style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20, color: Colors.black)),
-                      Text(timeFrames[i + 1].format(context), style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20, color: Colors.black)),
-                    ],
-                  )),
+                        children: [
+                          Text(timeFrames[i].format(context), style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20, color: Colors.black)),
+                          Text('  -  ', style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20, color: Colors.black)),
+                          Text(timeFrames[i + 1].format(context), style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20, color: Colors.black)),
+                        ],
+                      )),
             ]),
             Spacer(),
             IconButton(
@@ -692,19 +692,6 @@ class EditSpecificDate extends StatelessWidget {
   }
 }
 
-
-// void updateBreaks(BuildContext context, List<DateTimeRange> breaks) {
-//   Map<String, List<String>> updatedBreaksInFirestore = {};
-//   breaks.forEach((element) {
-//     String startDateString = element.start.toString();
-//     String endDateString = element.end.toString();
-//     updatedBreaksInFirestore?.addAll({breaks.indexOf(element).toString(): [startDateString, endDateString]});
-//   });
-//   FirestoreHelper.getCurrentOrganizationReference(context).updateData({
-//     'breaks': updatedBreaksInFirestore
-//   });
-// }
-
 void updateBreaks({BuildContext context, Map<int, List<int>> newBreaks}) {
   Map<String, List<String>> updatedBreaksInFirestore = {};
   newBreaks.forEach((month, days) {
@@ -716,37 +703,6 @@ void updateBreaks({BuildContext context, Map<int, List<int>> newBreaks}) {
   FirestoreHelper.getCurrentOrganizationReference(context).updateData({
     'breaks': updatedBreaksInFirestore
   });
-}
-
-extension DateTimeComparison on DateTime { // Adds greater than operator
-  bool operator >(DateTime other) {
-    if (this.year <= other.year) {
-      if (this.year < other.year) return false;
-      // If gets to here, then years are the same
-      if (this.month <= other.month) {
-        if (this.month < other.month) return false;
-        // Month must be the same
-        if (this.day <= other.day) {
-          if (this.day < other.day) return false;
-          // Day must be the same
-          if (this.hour <= other.hour) {
-            if (this.hour < other.hour) return false;
-            // Hour must be the same
-            if (this.minute <= other.minute) {
-              if (this.minute < other.minute) return false;
-              // Minute must be the same
-              if (this.second <= other.second) {
-                if (this.second < other.second) return false;
-                // Seconds must be the same
-                if (this.millisecond <= other.millisecond) return false; // Least unit possible
-              }
-            }
-          }
-        }
-      }
-    }
-    return true;
-  }
 }
 
 bool isLeapYear(int year) {

@@ -30,6 +30,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
   TapGestureRecognizer _addressTapGestureRecognizer;
   TapGestureRecognizer _websiteLinkTapGestureRecognizer;
   TapGestureRecognizer _donationLinkTapGestureRecognizer;
+  List<TapGestureRecognizer> _amazonLinkTapGestureRecognizers;
 
   bool websiteLinkLaunchable;
   bool donationLinkLaunchable;
@@ -76,6 +77,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
     super.initState();
     _addressTapGestureRecognizer = TapGestureRecognizer()..onTap = _addressHandleTap;
 
+    // Set up hyperlinks if the URLs are valid
     Future<bool> getWebsiteLinkLaunchableFuture = canLaunch(makeValidURL(widget.organization.website));
     getWebsiteLinkLaunchableFuture.then((bool canLaunch) {
       websiteLinkLaunchable = canLaunch;
@@ -88,6 +90,10 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
       _donationLinkTapGestureRecognizer = TapGestureRecognizer()
         ..onTap = (donationLinkLaunchable ? _donationLinkHandleTap : (){});
     });
+
+    // Set up links to Amazon for buying requested items
+    // TODO: Implement Amazon links
+
   }
 
   @override
@@ -568,7 +574,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                       ),
                                       Column(
                                         children: widget.organization.itemCategories.map((String category) {
-                                          List<Item> items = widget.organization.requestedItems[category];
+                                          List<Item> items = widget.organization.requestedItems[category] ?? [];
                                           if (category != "Volunteering")
                                             return Column(
                                               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -606,6 +612,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                                                           item.specificDescription,
                                                                           style: TextStyle(fontSize: 14, color: Colors.grey),
                                                                         ),
+
                                                                     ],
                                                                   ),
                                                                 ),

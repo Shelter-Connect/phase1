@@ -54,6 +54,19 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
               }
               return organizations;
             }),
+            catchError: (context, error) {
+              List<Organization> organizations = [];
+
+              db.collection('organizations')
+                .getDocuments()
+                .then((snapshots) {
+                  for (DocumentSnapshot document in snapshots.documents)
+                    organizations.add(Organization.fromFirestoreMap(context: context, organizationSnapshot: document, isVolunteer: false));
+                });
+
+              print("Error - $error");
+              return organizations;
+            },
           ),
           StreamProvider<List<Donation>>.value(
             value: FirestoreHelper.getCurrentVolunteerReference(context).collection('currentDonations').orderBy('date').snapshots().map((snapshot) {

@@ -81,12 +81,13 @@ class Organization {
     }
     requestedItems = items;
 
-    schedule = Map<String, List<dynamic>>.from(organizationSnapshot['schedule'])?.map(
-      (day, times) => MapEntry(
-        day,
-        times.map((time) => new TimeOfDay.fromDateTime(DateTime.fromMillisecondsSinceEpoch((time as Timestamp).millisecondsSinceEpoch))).toList(),
-      ),
-    );
+    if (organizationSnapshot['schedule'] != null)
+      schedule = Map<String, List<dynamic>>.from(organizationSnapshot['schedule'])?.map(
+        (day, times) => MapEntry(
+          day,
+          times.map((time) => new TimeOfDay.fromDateTime(DateTime.fromMillisecondsSinceEpoch((time as Timestamp).millisecondsSinceEpoch))).toList(),
+        ),
+      );
 
     organizationSnapshot['breaks']?.forEach((monthString, daysString) {
       int month = int.parse(monthString);

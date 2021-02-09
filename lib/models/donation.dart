@@ -72,6 +72,7 @@ class Donation {
             )
           : null,
       breaks: donationSnapshot['organizationBreaks'] != null ? (donationSnapshot['organizationBreaks'] as Map).map((key, value) {
+        print("Donation Snapshot");
         int month;
         List<int> days;
         donationSnapshot['organizationBreaks']?.forEach((monthString, daysString) {
