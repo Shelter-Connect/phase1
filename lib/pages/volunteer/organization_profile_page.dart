@@ -30,7 +30,6 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
   TapGestureRecognizer _addressTapGestureRecognizer;
   TapGestureRecognizer _websiteLinkTapGestureRecognizer;
   TapGestureRecognizer _donationLinkTapGestureRecognizer;
-  List<TapGestureRecognizer> _amazonLinkTapGestureRecognizers;
 
   bool websiteLinkLaunchable;
   bool donationLinkLaunchable;
@@ -90,10 +89,6 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
       _donationLinkTapGestureRecognizer = TapGestureRecognizer()
         ..onTap = (donationLinkLaunchable ? _donationLinkHandleTap : (){});
     });
-
-    // Set up links to Amazon for buying requested items
-    // TODO: Implement Amazon links
-
   }
 
   @override

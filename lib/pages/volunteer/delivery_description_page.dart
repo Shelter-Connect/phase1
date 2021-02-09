@@ -18,6 +18,7 @@ import 'package:phase1/services/firestore_helper.dart';
 import '../../components/standard_layout.dart';
 import '../../constants.dart';
 import 'edit_delivery_page.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DeliveryDescriptionPage extends StatefulWidget {
   final Donation donation;
@@ -31,6 +32,7 @@ class DeliveryDescriptionPage extends StatefulWidget {
 class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
   Donation donation;
   bool loading = false;
+  // List<TapGestureRecognizer> _amazonLinksTapGestureRecognizers;
 
   @override
   void initState() {
@@ -102,6 +104,8 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                       schedule: donation.organization.schedule,
                     ),
                     SizedBox(height: 2),
+
+                    // Card with the donations
                     Card(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5.0),
@@ -187,13 +191,28 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                                               child: Column(
                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
-                                                  Text(
-                                                    '${donation.items[index].name} - ${donation.items[index].amount} ${donation.items[index].unit ?? ''}'
-                                                        .trim(),
-                                                    style: TextStyle(
-                                                      fontSize: 17.0,
-                                                      fontWeight: FontWeight.w400,
-                                                    ),
+                                                  InkWell(
+                                                    onTap: () async {
+                                                      String itemName = donation.items[index].name;
+
+                                                      // Convert to Amazon URL
+                                                      String searchQuery = itemName.replaceAll(" ", "+");
+                                                      String amazonURL = "https://www.amazon.com/s?k=" + searchQuery;
+                                                      // Check that the Amazon URL will work
+                                                      bool amazonURLCanLaunch = await canLaunch(amazonURL);
+
+                                                      if (amazonURLCanLaunch) {
+                                                        launch(amazonURL);
+                                                      }
+                                                    },
+                                                    child: Text(
+                                                      '${donation.items[index].name} - ${donation.items[index].amount} ${donation.items[index].unit ?? ''}'
+                                                          .trim(),
+                                                      style: TextStyle(
+                                                        fontSize: 17.0,
+                                                        fontWeight: FontWeight.w400,
+                                                      ),
+                                                    )
                                                   ),
                                                   if (donation.items[index].specificDescription != null)
                                                     Text(
