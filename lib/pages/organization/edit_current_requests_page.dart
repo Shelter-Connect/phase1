@@ -61,12 +61,12 @@ class _EditCurrentRequestsPageState extends State<EditCurrentRequestsPage> {
                     requestContainers.add(
                       Padding(
                         padding: const EdgeInsets.only(bottom: 16.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15.0),
-                          ),
+                        child: Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
+                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
                             child: SingleChildScrollView(
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,

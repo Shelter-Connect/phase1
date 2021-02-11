@@ -23,7 +23,7 @@ class FlushBar extends StatelessWidget {
       mainButton: mainButton,
       onTap: onTap,
       isDismissible: true,
-      animationDuration: Duration(seconds: 0),
+      animationDuration: Duration(milliseconds: 1000),
       flushbarStyle:  FlushbarStyle.GROUNDED,
     ).show(context);
   }

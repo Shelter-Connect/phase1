@@ -186,7 +186,7 @@ class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
                         Navigator.pop(context);
                         FlushBar(
                           message: 'Your request has been received.',
-                          duration: Duration(seconds: 3),
+                          duration: Duration(milliseconds: 2000),
                           margin: EdgeInsets.all(0),
                           leftBarIndicatorColor: Colors.transparent,
                         ).build(context);

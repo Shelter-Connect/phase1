@@ -68,7 +68,7 @@ class _VolunteerEditInfoPageState extends State<VolunteerEditInfoPage> {
                     'firstName': firstNameController.text,
                     'lastName': lastNameController.text,
                   });
-                  FlushBar(message: 'Name Updated!', duration: Duration(seconds: 3)).build(context);
+                  FlushBar(message: 'Name Updated!', duration: Duration(milliseconds: 2000)).build(context);
                 },
               ),
               SizedBox(height: 10.0),

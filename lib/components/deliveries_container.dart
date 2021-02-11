@@ -170,7 +170,7 @@ class Items extends StatelessWidget {
               )
                   : Text(
                 'Deliver by: ${DateFormat('MMMMd').format(donation.date)}',
-                style: TextStyle(fontSize: 15, color: donation.date.isBefore(now) ? Colors.red : Colors.black),
+                style: TextStyle(fontSize: 15, color: donation.date.isBefore(now) ? darkPurpleAccent : Colors.black),
               ),
               SizedBox(height: 5),
               Divider(

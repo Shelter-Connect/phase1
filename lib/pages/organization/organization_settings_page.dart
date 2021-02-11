@@ -263,7 +263,7 @@ class OrganizationInfo extends StatelessWidget {
                     ),
                   );
                   if (updated) {
-                    FlushBar(message: 'Your organization information has been updated', duration: Duration(seconds: 3)).build(context);
+                    FlushBar(message: 'Your organization information has been updated', duration: Duration(milliseconds: 2500)).build(context);
                   }
                 },
                 child: Container(
@@ -360,7 +360,7 @@ class _DonationAvailabilityHourSettingsState extends State<DonationAvailabilityH
               context: context,
               firstDate: DateTime(currentYear, 1, 1),
               lastDate: DateTime(currentYear, 12, 31),
-              helpText: "Choose one day or a range of days that your organization will have a break."
+              // helpText: "Choose one day or a range of days that your organization will have a break."
           );
 
           // Add new breaks

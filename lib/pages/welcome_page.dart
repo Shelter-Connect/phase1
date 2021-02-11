@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:phase1/constants.dart';
 import 'package:phase1/pages/organization/organization_sign_up_page.dart';
 import 'package:phase1/pages/volunteer/volunteer_sign_up_page.dart';
+import 'driver/driver_signup.dart';
 
 class WelcomePage extends StatefulWidget {
   @override
@@ -10,7 +11,6 @@ class WelcomePage extends StatefulWidget {
 }
 
 class _WelcomePageState extends State<WelcomePage> {
-
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -46,8 +46,10 @@ class _WelcomePageState extends State<WelcomePage> {
         Column(
           children: [
             Expanded(
-              child: SvgPicture.asset('assets/logo_svgs/link.svg', //whitelogofinal2.png
-                  width: 100, color: Colors.white70,),
+              child: SvgPicture.asset(
+                'assets/logo_svgs/link.svg', //whitelogofinal2.png
+                width: 100, color: Colors.white70,
+              ),
               flex: 1,
             ),
             Expanded(
@@ -81,32 +83,33 @@ class _WelcomePageState extends State<WelcomePage> {
               flex: 0,
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 32.0),
-              child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 50.0,
-                    child: RaisedButton(
-                      onPressed: () {Navigator.push(
+                padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 50.0,
+                  child: RaisedButton(
+                    onPressed: () {
+                      Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => OrganizationSignUpPage(),
                         ),
-                      );},
-                      textColor: purpleAccent,
-                      color: Colors.white,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(40.0)),
-                      child: Container(
-                        child: Text(
-                          'Sign up as an Organization',
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.center,
-                        ),
+                      );
+                    },
+                    textColor: purpleAccent,
+                    color: Colors.white,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(40.0)),
+                    child: Container(
+                      child: Text(
+                        'Sign up as an Organization',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
                       ),
                     ),
-                  )
-              ),
+                  ),
+                )),
             SizedBox(height: 20),
             Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 32.0),
@@ -114,12 +117,14 @@ class _WelcomePageState extends State<WelcomePage> {
                   width: MediaQuery.of(context).size.width,
                   height: 50.0,
                   child: RaisedButton(
-                    onPressed: () {Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => VolunteerSignUp(),
-                      ),
-                    );},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => VolunteerSignUp(),
+                        ),
+                      );
+                    },
                     textColor: Colors.white,
                     color: purpleAccent,
                     shape: RoundedRectangleBorder(
@@ -133,8 +138,36 @@ class _WelcomePageState extends State<WelcomePage> {
                       ),
                     ),
                   ),
-                )
-            ),
+                )),
+            SizedBox(height: 20),
+            Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 50.0,
+                  child: RaisedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DriverSignUp(),
+                        ),
+                      );
+                    },
+                    textColor: Colors.white,
+                    color: darkPurpleAccent,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(40.0)),
+                    child: Container(
+                      child: Text(
+                        'Sign up as a Driver',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                )),
             SizedBox(height: 10),
             Expanded(
               child: Container(

@@ -443,7 +443,7 @@ class _OrganizationInformationState extends State<OrganizationInformation> {
                             ],
                           ),
                         ),
-                        RichText(
+                        if (widget.schedule != null) RichText(
                           text: TextSpan(
                             children: <TextSpan>[
                               TextSpan(
