@@ -167,7 +167,7 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 5.0),
-                    child: TextButton(
+                    child: TextButton1(
                       text: 'Not a Volunteer?',
                       textColor: Colors.white,
                       onPressed: () {

@@ -24,10 +24,10 @@ class OrganizationSettingsPage extends StatefulWidget with NavigationTab {
       'Finally, you can preview your profile as volunteers will see it by clicking on the \'Preview Profile\' button.';
 
   @override
-  Widget get icon => SvgPicture.asset("assets/jam_icons/user-f.svg", color: purpleAccent);
+  Widget get icon => Icon(Icons.account_circle, color: Color(0xFF6576EC));
 
   @override
-  Widget get activeIcon => SvgPicture.asset("assets/jam_icons/user.svg", color: purpleAccent);
+  Widget get activeIcon => Icon(Icons.account_circle, color: Color(0xFF6576EC));
 
   @override
   String get title => 'Account';
@@ -649,7 +649,7 @@ class EditHourContainer extends StatelessWidget {
             ]),
             Spacer(),
             IconButton(
-              icon: Icon(Feather.edit, color: purpleAccent, size: 20),
+              icon: Icon(Icons.edit, color: purpleAccent, size: 20),
               onPressed: () {
                 List<TextEditingController> controllers = [];
                 if (timeFrames != null) {

@@ -22,12 +22,10 @@ class VolunteerSettingsPage extends StatefulWidget with NavigationTab {
           ' the \'Reset Password\' button.';
 
   @override
-  Widget get icon => SvgPicture.asset(
-  "assets/jam_icons/user-f.svg", color: purpleAccent);
+  Widget get icon => Icon(Icons.account_circle, color: Color(0xFF6576EC));
 
   @override
-  Widget get activeIcon => SvgPicture.asset(
-      "assets/jam_icons/user.svg", color: purpleAccent);
+  Widget get activeIcon => Icon(Icons.account_circle, color: Color(0xFF6576EC));
 
   @override
   String get title => 'Account';

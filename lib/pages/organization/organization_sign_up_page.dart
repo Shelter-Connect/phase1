@@ -279,7 +279,7 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 5.0),
-                  child: TextButton(
+                  child: TextButton1(
                     text: 'Not an Organization?',
                     textColor: purpleAccent,
                     onPressed: () {

@@ -24,10 +24,10 @@ class CurrentRequestsPage extends StatefulWidget with NavigationTab {
       'To see items that volunteers have committed to, check the Deliveries page.';
 
   @override
-  Widget get icon => SvgPicture.asset("assets/jam_icons/task-list.svg", color: purpleAccent);
+  Widget get icon => Icon(Icons.list, color: Color(0xFF6576EC));
 
   @override
-  Widget get activeIcon => SvgPicture.asset("assets/jam_icons/task-list-f.svg", color: purpleAccent);
+  Widget get activeIcon => Icon(Icons.list, color: Color(0xFF6576EC));
 
   @override
   String get title => 'Requests';

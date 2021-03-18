@@ -36,7 +36,7 @@ class StandardLayout extends StatelessWidget {
         actions: <Widget>[
           Visibility(
             child: IconButton(
-              icon: Icon(Feather.help_circle),
+              icon: Icon(Icons.help),
               color: purpleAccent,
               onPressed: () {
                 _helpModalBottomSheet(context);

@@ -18,12 +18,10 @@ class PastDeliveriesPage extends StatefulWidget with NavigationTab {
   ;
 
   @override
-  Widget get icon => SvgPicture.asset(
-      "assets/jam_icons/clock.svg", color: purpleAccent);
+  Widget get icon => Icon(Icons.lock_clock, color: Color(0xFF6576EC),);
 
   @override
-  Widget get activeIcon => SvgPicture.asset(
-      "assets/jam_icons/clock-f.svg", color: purpleAccent);
+  Widget get activeIcon => Icon(Icons.lock_clock, color: Color(0xFF6576EC),);
 
   @override
   String get title => 'Past Deliveries';

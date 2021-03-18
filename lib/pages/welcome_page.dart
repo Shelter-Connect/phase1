@@ -140,34 +140,34 @@ class _WelcomePageState extends State<WelcomePage> {
                   ),
                 )),
             SizedBox(height: 20),
-            Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 32.0),
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 50.0,
-                  child: RaisedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => DriverSignUp(),
-                        ),
-                      );
-                    },
-                    textColor: Colors.white,
-                    color: darkPurpleAccent,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(40.0)),
-                    child: Container(
-                      child: Text(
-                        'Sign up as a Driver',
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ),
-                )),
+//            Padding(
+//                padding: const EdgeInsets.symmetric(horizontal: 32.0),
+//                child: Container(
+//                  width: MediaQuery.of(context).size.width,
+//                  height: 50.0,
+//                  child: RaisedButton(
+//                    onPressed: () {
+//                      Navigator.push(
+//                        context,
+//                        MaterialPageRoute(
+//                          builder: (context) => DriverSignUp(),
+//                        ),
+//                      );
+//                    },
+//                    textColor: Colors.white,
+//                    color: darkPurpleAccent,
+//                    shape: RoundedRectangleBorder(
+//                        borderRadius: BorderRadius.circular(40.0)),
+//                    child: Container(
+//                      child: Text(
+//                        'Sign up as a Driver',
+//                        style: TextStyle(
+//                            fontSize: 16, fontWeight: FontWeight.bold),
+//                        textAlign: TextAlign.center,
+//                      ),
+//                    ),
+//                  ),
+//                )),
             SizedBox(height: 10),
             Expanded(
               child: Container(

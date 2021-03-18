@@ -30,7 +30,7 @@ class SignupPage extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(left: 5.0),
-              child: TextButton(
+              child: TextButton1(
                 text: 'Existing User? Press here to sign in.',
                 onPressed: () {
                   Navigator.pop(context);

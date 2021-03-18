@@ -26,12 +26,10 @@ class CurrentDeliveriesPage extends StatefulWidget with NavigationTab {
       'or to edit or cancel the delivery. ';
 
   @override
-  Widget get icon => SvgPicture.asset(
-      "assets/jam_icons/car.svg", color: purpleAccent);
+  Widget get icon => Icon(Icons.directions_car, color: Color(0xFF6576EC));
 
   @override
-  Widget get activeIcon => SvgPicture.asset(
-      "assets/jam_icons/car-f.svg", color: purpleAccent);
+  Widget get activeIcon => Icon(Icons.directions_car, color: Color(0xFF6576EC));
 
   @override
   String get title => 'Deliver';
@@ -145,7 +143,7 @@ class _CurrentDeliveriesPageState extends State<CurrentDeliveriesPage> {
                                   Padding(
                                     padding: const EdgeInsets.only(right: 8.0),
                                     child: Icon(
-                                      Feather.upload_cloud,
+                                      Icons.cloud_upload,
                                       color: Colors.white,
                                     ),
                                   ),
