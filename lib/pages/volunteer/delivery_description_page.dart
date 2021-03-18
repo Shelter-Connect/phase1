@@ -19,6 +19,7 @@ import '../../components/standard_layout.dart';
 import '../../constants.dart';
 import 'edit_delivery_page.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter/services.dart';
 
 class DeliveryDescriptionPage extends StatefulWidget {
   final Donation donation;
@@ -202,6 +203,7 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                                                       bool amazonURLCanLaunch = await canLaunch(amazonURL);
 
                                                       if (amazonURLCanLaunch) {
+                                                        await Clipboard.setData(ClipboardData(text: donation.organization.address)); // Copy shipping address to clipboard
                                                         launch(amazonURL);
                                                       }
                                                     },
