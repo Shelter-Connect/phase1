@@ -203,7 +203,6 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                                                       bool amazonURLCanLaunch = await canLaunch(amazonURL);
 
                                                       if (amazonURLCanLaunch) {
-                                                        await Clipboard.setData(ClipboardData(text: donation.organization.address)); // Copy shipping address to clipboard
                                                         launch(amazonURL);
                                                       }
                                                     },
@@ -441,10 +440,24 @@ class _OrganizationInformationState extends State<OrganizationInformation> {
                                     fontWeight: FontWeight.w600,
                                     color: Colors.blue,
                                   ),
-                                  recognizer: _addressTapGestureRecognizer)
+                                  recognizer: _addressTapGestureRecognizer
+                              ),
                             ],
                           ),
                         ),
+
+                        // Copy address button
+                        IconButton(
+                          iconSize: 20.0,
+                          icon: Icon(Icons.content_copy),
+                          color: Colors.blue,
+                          onPressed: () async {
+                            await Clipboard.setData(ClipboardData(text: widget.orgAddress)); // Copy shipping address to clipboard
+                            FlushBar(message: 'The organization address has been copied to your clipboard', duration: Duration(seconds: 3)).build(context); // Show flushbar
+                          },
+                          tooltip: 'Copy organization address', // TODO: Tooltip not showing
+                        ),
+
                         if (widget.schedule != null) RichText(
                           text: TextSpan(
                             children: <TextSpan>[
