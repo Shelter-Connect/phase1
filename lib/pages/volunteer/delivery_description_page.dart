@@ -211,7 +211,9 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                                                           .trim(),
                                                       style: TextStyle(
                                                         fontSize: 17.0,
+                                                        color: Colors.blue,
                                                         fontWeight: FontWeight.w400,
+                                                          decoration: TextDecoration.underline
                                                       ),
                                                     )
                                                   ),

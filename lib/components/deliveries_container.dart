@@ -173,10 +173,10 @@ class Items extends StatelessWidget {
                 style: TextStyle(fontSize: 15, color: donation.date.isBefore(now) ? darkPurpleAccent : Colors.black),
               ),
               SizedBox(height: 5),
-              Divider(
-                height: 2,
-                thickness: 2,
-                color: purpleAccent,
+              Container(
+                height: 5,
+                width: 100,
+                decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
               ),
               SizedBox(height: 10),
               for (var item in donation.items) Column(
