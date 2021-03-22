@@ -381,7 +381,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                             padding: const EdgeInsets.all(4),
                                             child: Column(
                                               children: [
-                                                if (widget.organization.schedule[day].length == 0 || widget.organization.schedule[day] == null)
+                                                if (widget.organization.schedule[day].length == 0 || widget.organization.schedule[day] == null || widget.organization.schedule == null)
                                                   for (int i = 0; i < widget.organization.schedule[day].length; i = i + 2)
                                                     Text('${widget.organization.schedule[day][i].format(context)} - ${widget.organization.schedule[day][i + 1].format(context)}')
                                                 else

@@ -44,7 +44,7 @@ dependencies:
   flutter_launcher_icons: ^0.7.5
   intl: ^0.16.1
   simple_animations: ^2.2.1
-  flutter_svg: ^0.18.0
+  flutter_svg: ^0.19.3
   flushbar: ^1.10.4
   maps_launcher: ^1.2.2+1
   animated_splash: ^1.0.0
