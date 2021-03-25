@@ -6,6 +6,7 @@ import 'package:phase1/models/donation.dart';
 import 'package:phase1/models/item.dart';
 import 'package:phase1/models/organization.dart';
 import 'package:phase1/services/firestore_helper.dart';
+import 'package:phase1/services/local_notifications.dart';
 
 import '../../components/standard_layout.dart';
 import '../../constants.dart';
@@ -228,8 +229,15 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                 width: MediaQuery.of(context).size.width,
                 child: FlatButton(
                   onPressed: () {
+                    LocalNotificationsHelper.cancelNotification(id: 0);
+                    LocalNotificationsHelper.scheduleNotification(
+                      time: DateTime.now().add(new Duration(days: 30)),
+                      title: 'Donate Now!',
+                      body: 'We noticed you haven\'t donated in a while. Help change the community with a few clicks!',
+                      id: 0,
+                    );
                     Navigator.popUntil(context, ModalRoute.withName('/volunteer_navigation'));
-                    List<Item> delta = List();
+                    List<Item> delta = [];
                     for (Item newItem in widget.donation.items) {
                       Item item = newItem.clone();
                       item.amount *= -1;

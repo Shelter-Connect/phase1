@@ -3,7 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:phase1/components/floating_text_field.dart';
 import 'package:phase1/components/flushbar.dart';
 import 'package:phase1/components/rounded_button.dart';
@@ -16,6 +15,7 @@ import 'package:phase1/pages/navigation_tab.dart';
 import 'package:phase1/pages/volunteer/discover_page.dart';
 import 'package:phase1/pages/volunteer/volunteer_settings_page.dart';
 import 'package:phase1/services/firestore_helper.dart';
+import 'package:phase1/services/local_notifications.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants.dart';
@@ -35,6 +35,13 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
     CurrentDeliveriesPage(),
     VolunteerSettingsPage(),
   ];
+
+  @override
+  void initState() {
+    LocalNotificationsHelper.initialize();
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

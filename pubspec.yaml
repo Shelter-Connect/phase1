@@ -49,6 +49,7 @@ dependencies:
   maps_launcher: ^1.2.2+1
   animated_splash: ^1.0.0
   map_launcher: ^0.12.0
+  flutter_local_notifications: ^4.0.0
   flutter_speed_dial: ^1.2.5
   feather_icons_flutter: ^4.7.4
   flutter_vector_icons: ^0.2.1
