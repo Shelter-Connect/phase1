@@ -108,6 +108,7 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
 
                     // Card with the donations
                     Card(
+                      margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5.0),
                       ),
@@ -128,15 +129,11 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                                       'Selected Donations',
                                       style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                                     ),
-                                    FlatButton(
-                                      padding: EdgeInsets.all(0.0),
-                                      splashColor: transparent,
-                                      highlightColor: transparent,
+                                    TextButton(
                                       child: Text(
                                         'Edit',
                                         style: TextStyle(
-                                          decoration: TextDecoration.underline,
-                                          color: colorScheme.error,
+                                          color: purpleAccent,
                                           fontSize: 17.0,
                                         ),
                                       ),
@@ -147,7 +144,7 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                                             setState(() {
                                               loading = true;
                                             });
-                                            List<Item> delta = List();
+                                            List<Item> delta = [];
                                             for (Item newItem in newDonation.items) {
                                               Item item = newItem.clone();
                                               item.amount *= -1;
@@ -338,16 +335,17 @@ class _OrganizationInformationState extends State<OrganizationInformation> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5.0),
           ),
+          margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 8.0),
+                padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20.0),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   textDirection: ui.TextDirection.rtl,
                   children: [
-                    FlatButton(
+                    TextButton(
                         onPressed: () {
                           MapSheet().build(context);
                         },
@@ -355,37 +353,34 @@ class _OrganizationInformationState extends State<OrganizationInformation> {
                           Platform.isIOS ? "assets/random_svgs/applemaps.svg" : "assets/random_svgs/googlemaps.svg",
                           height: 28,
                         )),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 8.0, left: 10.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            height: 10,
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          'About this Organization',
+                          style: TextStyle(
+                            fontSize: Platform.isIOS ? 19 : 20,
+                            fontWeight: FontWeight.w600,
                           ),
-                          Text(
-                            'About this Organization',
-                            style: TextStyle(
-                              fontSize: Platform.isIOS ? 19 : 20,
-                              fontWeight: FontWeight.w600,
-                            ),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Container(
+                          height: 5,
+                          width: 100,
+                          decoration: BoxDecoration(
+                            color: purpleAccent,
+                            borderRadius: BorderRadius.circular(21),
                           ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Container(
-                            height: 5,
-                            width: 100,
-                            decoration: BoxDecoration(
-                              color: purpleAccent,
-                              borderRadius: BorderRadius.circular(21),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                        ],
-                      ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                      ],
                     ),
                   ],
                 ),

@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:map_launcher/map_launcher.dart';
 import 'package:phase1/components/maps_sheet.dart';
+import 'package:phase1/components/rounded_button.dart';
 import 'package:phase1/components/standard_layout.dart';
 import 'package:phase1/constants.dart';
 import 'package:phase1/models/item.dart';
@@ -148,17 +149,19 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                     ),
                   ),
                   SizedBox(height: 20),
-                  Container(
+                  Card(
+                    elevation: 2,
+                    margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
                     child: Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(top: 8.0, left: 20.0),
+                          padding: const EdgeInsets.only(top: 4.0, left: 20.0),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             textDirection: TextDirection.rtl,
                             children: [
-                              FlatButton(
+                              TextButton(
                                 onPressed: () {
                                   MapSheet().build(context);
                                 },
@@ -429,11 +432,11 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                       ],
                     ),
                   ),
-                  Divider(height: 10, thickness: 2),
                   if (widget.organization.itemCategories != null && widget.organization.itemCategories.length != 0)
                     if (widget.organization.itemCategories.contains('Volunteering'))
                       Card(
                         elevation: 2,
+                        margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
                         child: Column(
                           children: <Widget>[
                             Padding(
@@ -539,6 +542,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                   if (widget.organization.itemCategories != null && widget.organization.itemCategories.length != 0)
                     Card(
                       elevation: 2,
+                      margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
                       child: Column(
                         children: <Widget>[
                           Padding(
@@ -642,29 +646,18 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                   if (!noRequests)
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        child: FlatButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => DonationCreationPage(organization: widget.organization),
-                              ),
-                            );
-                          },
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0),
-                          ),
-                          color: purpleAccent,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 20),
-                            child: Text(
-                              'Make a Donation!',
-                              style: TextStyle(color: colorScheme.onSecondary, fontSize: 20),
+                      child: RoundedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => DonationCreationPage(organization: widget.organization),
                             ),
-                          ),
-                        ),
+                          );
+                        },
+                        color: purpleAccent,
+                        title: 'Make a Donation!',
+                        textColor: Colors.white,
                       ),
                     ),
                   SizedBox(height: 20),
