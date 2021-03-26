@@ -227,7 +227,8 @@ class ProfileDonation extends StatelessWidget {
                       ).toList(),
                     ),
                       SizedBox(height: 5),
-                      Container( //TODO Add if statement connected to firebase so that if that organization wants people to donate money through their link, the 'Cash' tag will appear on their discover page profile box
+                      if (organization.donationLink != null)
+                        Container( //TODO Add if statement connected to firebase so that if that organization wants people to donate money through their link, the 'Cash' tag will appear on their discover page profile box
                         decoration: BoxDecoration(
                           color: whiteBackground,
                           borderRadius: BorderRadius.circular(21),
@@ -235,7 +236,7 @@ class ProfileDonation extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
                           child: Text(
-                            'Cash',
+                            'Cash Donation',
                             style: TextStyle(color: Colors.green, fontWeight: FontWeight.w700),
                           ),
                         ),

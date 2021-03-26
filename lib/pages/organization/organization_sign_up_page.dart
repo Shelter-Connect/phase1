@@ -236,7 +236,7 @@ class _OrganizationSignUpPageState extends State<OrganizationSignUpPage> {
                           'Saturday': [],
                           'Sunday': [],
                         };
-                        List<DateTime> breaks = [];
+                        Map<int, List<int>> breaks = {};
                         setState(() {
                           loading = true;
                         });

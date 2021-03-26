@@ -380,18 +380,22 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                     TableRow(
                                       children: [
                                         ...['Monday', 'Tuesday', 'Wednesday'].map((day) {
-                                          return Padding(
-                                            padding: const EdgeInsets.all(4),
-                                            child: Column(
-                                              children: [
-                                                if (widget.organization.schedule[day].length == 0 || widget.organization.schedule[day] == null || widget.organization.schedule == null)
+                                          if (widget.organization.schedule == null || widget.organization.schedule[day] == null || widget.organization.schedule[day].length == 0) {
+                                            return Padding(
+                                              padding: const EdgeInsets.all(4),
+                                              child: Text('Open for the Whole Day!')
+                                            );
+                                          } else {
+                                            return Padding(
+                                              padding: const EdgeInsets.all(4.0),
+                                              child: Column(
+                                                children: [
                                                   for (int i = 0; i < widget.organization.schedule[day].length; i = i + 2)
                                                     Text('${widget.organization.schedule[day][i].format(context)} - ${widget.organization.schedule[day][i + 1].format(context)}')
-                                                else
-                                                  Text('Open for the Whole Day!'),
-                                              ],
-                                            ),
-                                          );
+                                                ]
+                                              ),
+                                            );
+                                          }
                                         }),
                                       ],
                                     ),
@@ -406,18 +410,22 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                     ]),
                                     TableRow(children: [
                                       ...['Thursday', 'Friday', 'Saturday', 'Sunday'].map((day) {
-                                        return Padding(
-                                          padding: const EdgeInsets.all(4),
-                                          child: Column(
-                                            children: [
-                                              if (widget.organization.schedule[day].length != 0 || widget.organization.schedule[day] == null)
-                                                for (int i = 0; i < widget.organization.schedule[day].length; i = i + 2)
-                                                  Text('${widget.organization.schedule[day][i].format(context)} - ${widget.organization.schedule[day][i + 1].format(context)}')
-                                              else
-                                                Text('Open for the Entire Day!'),
-                                            ],
-                                          ),
-                                        );
+                                        if (widget.organization.schedule == null || widget.organization.schedule[day] == null || widget.organization.schedule[day].length == 0) {
+                                          return Padding(
+                                              padding: const EdgeInsets.all(4),
+                                              child: Text('Open for the Whole Day!')
+                                          );
+                                        } else {
+                                          return Padding(
+                                            padding: const EdgeInsets.all(4.0),
+                                            child: Column(
+                                                children: [
+                                                  for (int i = 0; i < widget.organization.schedule[day].length; i = i + 2)
+                                                    Text('${widget.organization.schedule[day][i].format(context)} - ${widget.organization.schedule[day][i + 1].format(context)}')
+                                                ]
+                                            ),
+                                          );
+                                        }
                                       }),
                                     ]),
                                   ]),

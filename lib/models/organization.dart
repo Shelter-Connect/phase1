@@ -100,6 +100,7 @@ class Organization {
     if (organizationSnapshot['breaks'] != null) {
       organizationSnapshot['breaks'].forEach((monthString, daysString) {
         int month = int.parse(monthString);
+        print(monthString);
         List<int> days = [];
         for (String dayString in daysString) days.add(int.parse(dayString));
         breaks.addAll({month: days});

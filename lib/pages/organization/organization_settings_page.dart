@@ -44,7 +44,7 @@ class _OrganizationSettingsPageState extends State<OrganizationSettingsPage> {
     DocumentReference organizationReference = FirestoreHelper.getCurrentOrganizationReference(context);
     organizationReference.get().then((snapshot) {
       setState(() {
-        organization = Organization.fromFirestoreMap(context: context, organizationSnapshot: snapshot, isVolunteer: false);
+        organization = Organization.  fromFirestoreMap(context: context, organizationSnapshot: snapshot, isVolunteer: false);
       });
     });
     super.initState();

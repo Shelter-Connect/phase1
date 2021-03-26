@@ -90,7 +90,7 @@ class _OrganizationDiscoverState extends State<OrganizationDiscover> {
                   List<Widget> widgets = [];
                   Position userPosition = Provider.of<UserPosition>(context, listen: false).position;
                   for (Organization organization in organizations) {
-                    if (organization.itemCategories != null && organization.itemCategories.length != 0) {
+                    if (organization.itemCategories != null && organization.itemCategories.length != 0 && organization.name != "Linkare Test Organization") {
                       organization.distance = userPosition != null
                           ? LocationHelper.distance(
                               organization.location.latitude, organization.location.longitude, userPosition.latitude, userPosition.longitude)
