@@ -35,8 +35,7 @@ class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
   Widget build(BuildContext context) {
     return SecondaryLayout(
       title: '',
-      helpText:
-          'To create your request, enter the amount of items you need. You can also enter extra descriptions to get a specific type of item, or units for the item.',
+      helpText: 'To create your request, enter the amount of items you need. You can also enter extra descriptions to get a specific type of item, or units for the item.',
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
@@ -102,9 +101,9 @@ class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
                       SizedBox(height: 20),
                       DropDown(
                         onChanged: (val) {
-                            setState(() {
-                              urgency = val - 1;
-                            });
+                          setState(() {
+                            urgency = val - 1;
+                          });
                         },
                       ),
                       SizedBox(height: 20),
@@ -149,52 +148,60 @@ class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
               ),
               SizedBox(height: 20),
               ColoredButton(
-                color: colorScheme.onSecondary,
-                textColor: purpleAccent,
-                text: 'Create Request',
-                onPressed: () {
-                  if (amount == 0)
-                    showDialog(
-                        context: context,
-                        builder: (_) => SingleActionAlert(actionName: 'ok',
-                          action: (){},
-                          title: 'Please enter an amount',
-                        )
-                    );
-                  else
-                  showDialog(
-                    context: context,
-                    builder: (_) => SingleActionAlert(
-                      title: 'Confirm your request?',
-                      subtitle:
-                          'Make sure you are requesting the correct item and number of items. Requests can be edited in the \'Expected Deliveries\' tab.',
-                      actionName: 'Create Request',
-                      action: () {
-                        FirestoreHelper.updateRequests(
+                  color: colorScheme.onSecondary,
+                  textColor: purpleAccent,
+                  text: 'Create Request',
+                  onPressed: () {
+                    if (amount == 0)
+                      showDialog(
                           context: context,
-                          items: [
-                            Item(
-                                name: widget.itemName,
-                                amount: amount,
-                                specificDescription: specificDescription.trim() == '' ? 'No Description' : specificDescription,
-                                unit: itemUnit,
-                                category: widget.itemCategory,
-                                urgency: urgency)
-                          ],
-                        );
-                        Navigator.pop(context);
-                        Navigator.pop(context);
-                        FlushBar(
-                          message: 'Your request has been received.',
-                          duration: Duration(milliseconds: 2000),
-                          margin: EdgeInsets.all(0),
-                          leftBarIndicatorColor: Colors.transparent,
-                        ).build(context);
-                      },
-                    ),
-                  );
-                },
-              ),
+                          builder: (_) => SingleActionAlert(
+                                actionName: 'ok',
+                                action: () {},
+                                title: 'Please enter an amount',
+                              ));
+                    if (itemUnit == '')
+                      showDialog(
+                          context: context,
+                          builder: (_) => SingleActionAlert(
+                                actionName: 'ok',
+                                action: () {},
+                                title: 'Please enter unit',
+                              ));
+                    // ignore: unnecessary_statements
+                    else
+                      // ignore: unnecessary_statements
+                      (showDialog(
+                        context: context,
+                        builder: (_) => SingleActionAlert(
+                          title: 'Confirm your request?',
+                          subtitle: 'Make sure you are requesting the correct item and number of items. Requests can be edited in the \'Expected Deliveries\' tab.',
+                          actionName: 'Create Request',
+                          action: () {
+                            FirestoreHelper.updateRequests(
+                              context: context,
+                              items: [
+                                Item(
+                                    name: widget.itemName,
+                                    amount: amount,
+                                    specificDescription: specificDescription.trim() == '' ? 'No Description' : specificDescription,
+                                    unit: itemUnit,
+                                    category: widget.itemCategory,
+                                    urgency: urgency)
+                              ],
+                            );
+                            Navigator.pop(context);
+                            Navigator.pop(context);
+                            FlushBar(
+                              message: 'Your request has been received.',
+                              duration: Duration(milliseconds: 2000),
+                              margin: EdgeInsets.all(0),
+                              leftBarIndicatorColor: Colors.transparent,
+                            ).build(context);
+                          },
+                        ),
+                      ));
+                  }),
               SizedBox(height: 16.0),
             ],
           ),

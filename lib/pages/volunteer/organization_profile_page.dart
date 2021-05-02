@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:map_launcher/map_launcher.dart';
+import 'package:phase1/components/flushbar.dart';
 import 'package:phase1/components/maps_sheet.dart';
 import 'package:phase1/components/rounded_button.dart';
 import 'package:phase1/components/standard_layout.dart';
@@ -81,14 +82,12 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
     Future<bool> getWebsiteLinkLaunchableFuture = canLaunch(makeValidURL(widget.organization.website));
     getWebsiteLinkLaunchableFuture.then((bool canLaunch) {
       websiteLinkLaunchable = canLaunch;
-      _websiteLinkTapGestureRecognizer = TapGestureRecognizer()
-        ..onTap = (websiteLinkLaunchable ? _websiteLinkHandleTap : (){});
+      _websiteLinkTapGestureRecognizer = TapGestureRecognizer()..onTap = (websiteLinkLaunchable ? _websiteLinkHandleTap : () {});
     });
     Future<bool> getDonationLinkLaunchableFuture = canLaunch(makeValidURL(widget.organization.donationLink));
     getDonationLinkLaunchableFuture.then((bool canLaunch) {
       donationLinkLaunchable = canLaunch;
-      _donationLinkTapGestureRecognizer = TapGestureRecognizer()
-        ..onTap = (donationLinkLaunchable ? _donationLinkHandleTap : (){});
+      _donationLinkTapGestureRecognizer = TapGestureRecognizer()..onTap = (donationLinkLaunchable ? _donationLinkHandleTap : () {});
     });
   }
 
@@ -247,6 +246,17 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                         ],
                                       ),
                                     ),
+                                  RoundedButton(
+                                    title: 'Copy Address',
+                                    onPressed: () {
+                                      {
+                                        Clipboard.setData(ClipboardData(text: widget.organization.address)); // Copy shipping address to clipboard
+                                        FlushBar(message: 'The organization address has been copied to your clipboard', duration: Duration(seconds: 3)).build(context); // Show flushbar
+                                      }
+                                    },
+                                    color: purpleAccent,
+                                    textColor: Colors.white,
+                                  ),
                                   if (widget.organization.address != null)
                                     SizedBox(
                                       height: 10,
@@ -263,14 +273,13 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                             ),
                                           ),
                                           TextSpan(
-                                            text: widget.organization.website,
-                                            style: TextStyle(
-                                              fontSize: 17,
-                                              fontWeight: FontWeight.w600,
-                                              color: (websiteLinkLaunchable ? Colors.blue : colorScheme.onBackground),
-                                            ),
-                                            recognizer: _websiteLinkTapGestureRecognizer
-                                          ),
+                                              text: widget.organization.website,
+                                              style: TextStyle(
+                                                fontSize: 17,
+                                                fontWeight: FontWeight.w600,
+                                                color: (websiteLinkLaunchable ? Colors.blue : colorScheme.onBackground),
+                                              ),
+                                              recognizer: _websiteLinkTapGestureRecognizer),
                                         ],
                                       ),
                                     ),
@@ -290,14 +299,13 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                             ),
                                           ),
                                           TextSpan(
-                                            text: widget.organization.donationLink,
-                                            style: TextStyle(
-                                              fontSize: 17,
-                                              fontWeight: FontWeight.w600,
-                                              color: (donationLinkLaunchable ? Colors.blue : colorScheme.onBackground),
-                                            ),
-                                            recognizer: _donationLinkTapGestureRecognizer
-                                          ),
+                                              text: widget.organization.donationLink,
+                                              style: TextStyle(
+                                                fontSize: 17,
+                                                fontWeight: FontWeight.w600,
+                                                color: (donationLinkLaunchable ? Colors.blue : colorScheme.onBackground),
+                                              ),
+                                              recognizer: _donationLinkTapGestureRecognizer),
                                         ],
                                       ),
                                     ),
@@ -373,27 +381,22 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                   Table(border: TableBorder.all(), children: [
                                     TableRow(children: [
                                       ...['M', 'T', 'W'].map((day) => Padding(
-                                        padding: const EdgeInsets.all(4),
-                                        child: Text(day),
-                                      )),
+                                            padding: const EdgeInsets.all(4),
+                                            child: Text(day),
+                                          )),
                                     ]),
                                     TableRow(
                                       children: [
                                         ...['Monday', 'Tuesday', 'Wednesday'].map((day) {
                                           if (widget.organization.schedule == null || widget.organization.schedule[day] == null || widget.organization.schedule[day].length == 0) {
-                                            return Padding(
-                                              padding: const EdgeInsets.all(4),
-                                              child: Text('Open for the Whole Day!')
-                                            );
+                                            return Padding(padding: const EdgeInsets.all(4), child: Text('Open for the Whole Day!'));
                                           } else {
                                             return Padding(
                                               padding: const EdgeInsets.all(4.0),
-                                              child: Column(
-                                                children: [
-                                                  for (int i = 0; i < widget.organization.schedule[day].length; i = i + 2)
-                                                    Text('${widget.organization.schedule[day][i].format(context)} - ${widget.organization.schedule[day][i + 1].format(context)}')
-                                                ]
-                                              ),
+                                              child: Column(children: [
+                                                for (int i = 0; i < widget.organization.schedule[day].length; i = i + 2)
+                                                  Text('${widget.organization.schedule[day][i].format(context)} - ${widget.organization.schedule[day][i + 1].format(context)}')
+                                              ]),
                                             );
                                           }
                                         }),
@@ -404,26 +407,21 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                   Table(border: TableBorder.all(), children: [
                                     TableRow(children: [
                                       ...['Th', 'F', 'S', 'Su'].map((day) => Padding(
-                                        padding: const EdgeInsets.all(4),
-                                        child: Text(day),
-                                      )),
+                                            padding: const EdgeInsets.all(4),
+                                            child: Text(day),
+                                          )),
                                     ]),
                                     TableRow(children: [
                                       ...['Thursday', 'Friday', 'Saturday', 'Sunday'].map((day) {
                                         if (widget.organization.schedule == null || widget.organization.schedule[day] == null || widget.organization.schedule[day].length == 0) {
-                                          return Padding(
-                                              padding: const EdgeInsets.all(4),
-                                              child: Text('Open for the Whole Day!')
-                                          );
+                                          return Padding(padding: const EdgeInsets.all(4), child: Text('Open for the Whole Day!'));
                                         } else {
                                           return Padding(
                                             padding: const EdgeInsets.all(4.0),
-                                            child: Column(
-                                                children: [
-                                                  for (int i = 0; i < widget.organization.schedule[day].length; i = i + 2)
-                                                    Text('${widget.organization.schedule[day][i].format(context)} - ${widget.organization.schedule[day][i + 1].format(context)}')
-                                                ]
-                                            ),
+                                            child: Column(children: [
+                                              for (int i = 0; i < widget.organization.schedule[day].length; i = i + 2)
+                                                Text('${widget.organization.schedule[day][i].format(context)} - ${widget.organization.schedule[day][i + 1].format(context)}')
+                                            ]),
                                           );
                                         }
                                       }),
@@ -439,6 +437,11 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                         ),
                       ],
                     ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16.0),
+                    child: Text('You may also click the links below to donate via Amazon if you are unable to donate in person. Please make sure to click the "Make a Donation" button '
+                        'and input the number of items you donated after you are done.'),
                   ),
                   if (widget.organization.itemCategories != null && widget.organization.itemCategories.length != 0)
                     if (widget.organization.itemCategories.contains('Volunteering'))
@@ -502,9 +505,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                                                           ),
                                                                         ),
                                                                         Text(
-                                                                          (item.amount == 1)
-                                                                              ? '${item.amount} more volunteer needed'.trim()
-                                                                              : '${item.amount} more volunteers needed'.trim(),
+                                                                          (item.amount == 1) ? '${item.amount} more volunteer needed'.trim() : '${item.amount} more volunteers needed'.trim(),
                                                                           style: TextStyle(
                                                                             fontSize: 17.0,
                                                                             fontWeight: FontWeight.w400,
@@ -524,8 +525,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                                                       child: Container(
                                                                         height: 12,
                                                                         width: 12,
-                                                                        decoration: BoxDecoration(
-                                                                            color: item.urgencyColor, borderRadius: BorderRadius.circular(40)),
+                                                                        decoration: BoxDecoration(color: item.urgencyColor, borderRadius: BorderRadius.circular(40)),
                                                                       ),
                                                                     ),
                                                                   ),
@@ -607,11 +607,23 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                                                   child: Column(
                                                                     crossAxisAlignment: CrossAxisAlignment.start,
                                                                     children: [
-                                                                      Text(
-                                                                        '${item.name} - ${item.amount} volunteers'.trim(),
-                                                                        style: TextStyle(
-                                                                          fontSize: 17.0,
-                                                                          fontWeight: FontWeight.w400,
+                                                                      InkWell(
+                                                                        onTap: () async {
+                                                                          String itemName = item.name;
+
+                                                                          // Convert to Amazon URL
+                                                                          String searchQuery = itemName.replaceAll(" ", "+");
+                                                                          String amazonURL = "https://www.amazon.com/s?k=" + searchQuery;
+                                                                          // Check that the Amazon URL will work
+                                                                          bool amazonURLCanLaunch = await canLaunch(amazonURL);
+
+                                                                          if (amazonURLCanLaunch) {
+                                                                            launch(amazonURL);
+                                                                          }
+                                                                        },
+                                                                        child: Text(
+                                                                          '${item.name} - ${item.amount} ${item.unit}'.trim(),
+                                                                          style: TextStyle(fontSize: 17.0, color: Colors.blue, fontWeight: FontWeight.w400, decoration: TextDecoration.underline),
                                                                         ),
                                                                       ),
                                                                       if (item.specificDescription != null)
@@ -619,7 +631,6 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                                                           item.specificDescription,
                                                                           style: TextStyle(fontSize: 14, color: Colors.grey),
                                                                         ),
-
                                                                     ],
                                                                   ),
                                                                 ),
@@ -628,8 +639,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
                                                                   child: Container(
                                                                     height: 12,
                                                                     width: 12,
-                                                                    decoration: BoxDecoration(
-                                                                        color: item.urgencyColor, borderRadius: BorderRadius.circular(40)),
+                                                                    decoration: BoxDecoration(color: item.urgencyColor, borderRadius: BorderRadius.circular(40)),
                                                                   ),
                                                                 ),
                                                               ],
@@ -678,8 +688,7 @@ class _OrganizationProfilePageState extends State<OrganizationProfilePage> {
 
 String makeValidURL(String urlString) {
   String validURL;
-  if (urlString == null)
-    return ""; // A definitely invalid URL
+  if (urlString == null) return ""; // A definitely invalid URL
   if (urlString.startsWith(RegExp('https{0,1}://'))) {
     validURL = urlString;
   } else {
