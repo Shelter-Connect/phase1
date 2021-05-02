@@ -1,9 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:phase1/components/secondary_layout.dart';
 import 'package:phase1/constants.dart';
 import 'package:phase1/pages/organization/choose_item_page.dart';
 import 'package:phase1/pages/organization/other_item_page.dart';
+import 'package:phase1/pages/organization/volunteer_request_item_page.dart';
 
 import '../../components/category_icon_button.dart';
 
@@ -13,6 +15,31 @@ class CreateRequestPage extends StatefulWidget {
 }
 
 class _CreateRequestPageState extends State<CreateRequestPage> {
+  @override
+  void initState() {
+    DocumentReference categoriesReference = db.collection('constants').document('categories');
+    categoriesReference.get().then((value) {
+      categories.clear();
+      for (String category in value.data.keys) {
+        String asset, description, name;
+        Map<String, String> items = {};
+        asset = value.data[category]['asset'];
+        description = value.data[category]['description'];
+        name = value.data[category]['name'];
+        for (String item in value.data[category]['items'].keys) {
+          items[item] = value.data[category]['items'][item];
+        }
+        categories.add({
+          'asset': asset,
+          'description': description,
+          'name': name,
+          'items': items,
+        });
+      }
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Hero(
@@ -46,7 +73,7 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
                 GridView.builder(
                   physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  itemCount: categories.length + 1,
+                  itemCount: categories.length + 2,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3,
                     crossAxisSpacing: 4.0,
@@ -54,6 +81,19 @@ class _CreateRequestPageState extends State<CreateRequestPage> {
                   ),
                   itemBuilder: (BuildContext context, int index) {
                     if (index == categories.length) {
+                      return CategoryIconButton(
+                        asset: 'assets/random_svgs/volunteer.svg',
+                        name: 'Volunteer Opportunities',
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => VolunteerItemPage(),
+                            ),
+                          );
+                        },
+                      );
+                    } else if (index == categories.length + 1) {
                       return CategoryIconButton(
                         asset: 'assets/other_svgs/other.svg',
                         name: 'Other',

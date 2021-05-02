@@ -4,7 +4,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:phase1/components/requests_container.dart';
 import 'package:phase1/constants.dart';
 import 'package:phase1/models/item.dart';
-import 'package:phase1/services/firestore_helper.dart';
+import 'package:provider/provider.dart';
+import 'package:ripple_effect/ripple_effect.dart';
 
 import '../navigation_tab.dart';
 import 'edit_current_requests_page.dart';
@@ -15,11 +16,18 @@ class CurrentRequestsPage extends StatefulWidget with NavigationTab {
 
   @override
   String get helpDescription =>
-      'This is your Current Requests page. Here, you can see items that you have requested that have not volunteers have not signed up for. '
-      'To see items that volunteers have committed to, check the Expected Deliveries page.';
+      'Here, you can see items that you have requested that volunteers have not signed up for. '
+      'Your requests are displayed in groups, based on categories such as \'Other\', \'Hygiene\', and \'Warmth\'. '
+      'Individual items are displayed with the name, amount, and specific description. '
+      'The red, yellow, and green circles are indicators that correspond to the item\'s urgency, which can be set in the Create Requests Menu. '
+      'To edit your requests, click the \'Edit\' button located at the top left of the page. '
+      'To see items that volunteers have committed to, check the Deliveries page.';
 
   @override
-  IconData get icon => Icons.list;
+  Widget get icon => Icon(Icons.list, color: Color(0xFF6576EC));
+
+  @override
+  Widget get activeIcon => Icon(Icons.list, color: Color(0xFF6576EC));
 
   @override
   String get title => 'Requests';
@@ -29,127 +37,134 @@ class CurrentRequestsPage extends StatefulWidget with NavigationTab {
 }
 
 class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
+  final pageKey = RipplePage.createGlobalKey();
+  final effectKey = RippleEffect.createGlobalKey();
+
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          FlatButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => EditCurrentRequestsPage()),
-              );
-            },
-            color: purpleAccent,
-            padding: EdgeInsets.all(8.0),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30.0),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Wrap(
-                crossAxisAlignment: WrapCrossAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 8.0),
-                    child: Icon(
-                      Icons.edit,
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Row(
+              children: [
+                SizedBox(height: 60),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Container(
+                    width: 100,
+                    height: 40.0,
+                    child: RaisedButton(
+                      onPressed: () {Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => EditCurrentRequestsPage()),
+                      ); },
+                      textColor: purpleAccent,
                       color: Colors.white,
-                    ),
-                  ),
-                  Text('Edit', style: TextStyle(fontSize: 17, color: Colors.white))
-                ],
-              ),
-            ),
-          ),
-          SizedBox(height: 10),
-          StreamBuilder(
-            stream: FirestoreHelper.getCurrentOrganizationReference(context).collection('requests').snapshots(),
-            builder: (context, snapshot) {
-              if (!snapshot.hasData) {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              if (snapshot.data.documents.length == 0) {
-                return Column(
-                  children: [
-                    Text(
-                      'Your organization currently does not have any requests. Create a request with the \'New Request\' button at the bottom.',
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 15.0,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0)),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.edit,
+                            color: purpleAccent,
+                          ),
+                          SizedBox(width: 5),
+                          Text('Edit', style: TextStyle(fontSize: 17))
+                        ],
                       ),
                     ),
-                    SizedBox(height: 40),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 4),
-                      child: Center(
-                        child: SvgPicture.asset(
-                          'assets/ui_svgs/shopping.svg',
-                          semanticsLabel: 'Create an Item Request!',
-                          width: MediaQuery.of(context).size.width,
+                  ),
+                ),
+                SizedBox(width: MediaQuery.of(context).size.width / 3),
+              ],
+            ),
+            SizedBox(height: 10),
+            Consumer<QuerySnapshot>(
+              builder: (context, snapshot, widget) {
+                if (snapshot == null) {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                if (snapshot.documents.length == 0) {
+                  return Column(
+                    children: [
+                      Text(
+                        'Your organization currently does not have any requests. Create a request with the \'New Request\' button at the bottom.',
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 15.0,
                         ),
                       ),
-                    ),
-                    SizedBox(height: 60),
-                  ],
-                );
-              }
-              Map<String, List<Item>> itemCategories = {};
-              for (DocumentSnapshot document in snapshot.data.documents) {
-                if (!itemCategories.containsKey(document['category'])) {
-                  itemCategories[document['category']] = [];
+                      SizedBox(height: 40),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 4),
+                        child: Center(
+                          child: SvgPicture.asset(
+                            'assets/ui_svgs/shopping.svg',
+                            semanticsLabel: 'Create an Item Request!',
+                            width: MediaQuery.of(context).size.width,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 60),
+                    ],
+                  );
                 }
-                Color urgencyColor;
-                switch (document['urgency']) {
-                  case 0:
-                    urgencyColor = Colors.transparent;
-                    break;
-                  case 1:
-                    urgencyColor = Colors.green;
-                    break;
-                  case 2:
-                    urgencyColor = Colors.yellow;
-                    break;
-                  case 3:
-                    urgencyColor = Colors.red;
-                    break;
+                Map<String, List<Item>> itemCategories = {};
+                for (DocumentSnapshot document in snapshot.documents) {
+                  if (!itemCategories.containsKey(document['category'])) {
+                    itemCategories[document['category']] = [];
+                  }
+                  itemCategories[document['category']].add(
+                    Item(
+                        name: document['name'],
+                        category: document['category'],
+                        amount: document['amount'],
+                        specificDescription: document['specificDescription'],
+                        unit: document['unit'],
+                        urgency: document['urgency'],
+                        urgencyColor: (document['urgency'] == 0)
+                            ? Colors.transparent
+                            : (document['urgency'] == 1)
+                                ? Colors.green
+                                : (document['urgency'] == 2)
+                                    ? Colors.yellow
+                                    : Colors.red),
+                  );
                 }
-                ;
-                itemCategories[document['category']].add(
-                  Item(
-                    name: document['name'],
-                    category: document['category'],
-                    amount: document['amount'],
-                    specificDescription: document['specificDescription'],
-                    unit: document['unit'],
-                    urgency: document['urgency'],
-                    urgencyColor: urgencyColor,
-                  ),
-                );
-              }
 
-              List<Widget> requestContainers = [];
-              for (String category in itemCategories.keys) {
-                requestContainers.add(
-                  RequestContainer(
-                    items: itemCategories[category],
-                    category: category,
-                  ),
+                List<Widget> requestContainers = [];
+                for (String category in itemCategories.keys) {
+                  bool nonzero = false;
+                  for (Item item in itemCategories[category]) {
+                    if (item.amount > 0) {
+                      nonzero = true;
+                      break;
+                    }
+                  }
+                  if (nonzero) {
+                    requestContainers.add(
+                      RequestContainer(
+                        items: itemCategories[category],
+                        category: category,
+                      ),
+                    );
+                  }
+                }
+                return Column(
+                  children: requestContainers,
                 );
-              }
-              return Column(
-                children: requestContainers,
-              );
-            },
-          ),
-          SizedBox(height: 20),
-        ],
+              },
+            ),
+            SizedBox(height: 20),
+          ],
+        ),
       ),
     );
   }

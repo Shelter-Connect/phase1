@@ -1,17 +1,22 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:device_calendar/device_calendar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:map_launcher/map_launcher.dart';
 
 //Firebase
-FirebaseAuth auth = FirebaseAuth.instance;
-Firestore db = Firestore.instance;
+final FirebaseAuth auth = FirebaseAuth.instance;
+final Firestore db = Firestore.instance;
 
 //Maps
 final kGoogleApiKey = "AIzaSyDtBjj6ReiOlVtylupAx-wcLe2HmsJXXFs";
 List<AvailableMap> availableMaps = List();
 Coords coords = Coords(0, 0);
 String title = '';
+
+//Calendars
+List<Calendar> calendars;
+DeviceCalendarPlugin deviceCalendarPlugin = DeviceCalendarPlugin();
 
 //Styles
 //Text Styles
@@ -43,6 +48,8 @@ final appBarTitleStyle = TextStyle(fontWeight: FontWeight.w900, fontSize: 30, co
 final mainTitleStyle2 = TextStyle(fontWeight: FontWeight.w800, fontSize: 28, color: Colors.black);
 
 final subTitleStyle = TextStyle(fontSize: 25, fontWeight: FontWeight.w700, color: purpleLight);
+
+final subTitleStyle2 = TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: purpleAccent);
 
 final smallButtonStyle = TextStyle(fontWeight: FontWeight.w700, fontSize: 20, color: purpleAccent);
 
@@ -110,6 +117,7 @@ final colorScheme = ColorScheme(
 );
 
 Color purpleAccent = Color(0xFF6576EC);
+Color darkPurpleAccent = Color(0xFF4652a5);
 Color purpleLight = Color(0xFF919DEE);
 Color blueAccent = Color(0xff187CFF);
 Color whiteBackground = Color(0xFFDAE5F9);
@@ -119,7 +127,7 @@ Color grey = Colors.white24;
 Color lightGrey = Color(0xFFCCCCCC);
 
 //Categories
-final categories = [
+List categories = [
   {
     'asset': 'assets/hygiene_svgs/hygiene.svg',
     'name': 'Hygiene',
@@ -130,14 +138,14 @@ final categories = [
       'Soap': 'assets/hygiene_svgs/soap.svg',
       'Toilet Paper': 'assets/hygiene_svgs/toilet_paper.svg',
       'Toothbrushes': 'assets/hygiene_svgs/toothbrush.svg',
-      'Toothpastes': 'assets/hygiene_svgs/toothpaste.svg',
+      'Toothpaste': 'assets/hygiene_svgs/toothpaste.svg',
       'Bath Towels': 'assets/hygiene_svgs/bath_towel.svg',
       'Shaving Cream': 'assets/hygiene_svgs/shaving_cream.svg',
-      'Razors (Disposable)': 'assets/hygiene_svgs/razor.svg',
+      'Razors': 'assets/hygiene_svgs/razor.svg',
       'Deodorant': 'assets/hygiene_svgs/deodorant.svg',
       'Shampoo': 'assets/hygiene_svgs/shampoo.svg',
       'Diapers': 'assets/hygiene_svgs/diaper.svg',
-      'Laundry Soap': 'assets/hygiene_svgs/laundry_detergent.svg',
+      'Laundry Detergent': 'assets/hygiene_svgs/laundry_detergent.svg',
     },
     'description': ''
 //        'Hygiene is a very important part of a person\'s day. Staying clean is one way to brighten someone\'s day!'
@@ -150,10 +158,10 @@ final categories = [
       'Gloves': 'assets/clothing_svgs/gloves.svg',
       'Hats': 'assets/clothing_svgs/hats.svg',
       'Socks': 'assets/clothing_svgs/socks.svg',
-      'Underwear': 'assets/clothing_svgs/underwear.svg',
+      'Men\'s Underwear': 'assets/clothing_svgs/underwear.svg',
       'Women\'s Underwear': 'assets/clothing_svgs/women_underwear.svg',
-      'White T-Shirts': 'assets/clothing_svgs/shirt.svg',
-      'Elastic Waist Pants': 'assets/clothing_svgs/elastic_waist_pants.svg',
+      'T-Shirts': 'assets/clothing_svgs/shirt.svg',
+      'Waist Pants': 'assets/clothing_svgs/elastic_waist_pants.svg',
     },
     'description': ''
 //    'Clothes protect not only your body from physical harm, but strengthen your spirits and self-confidence.'
@@ -163,17 +171,17 @@ final categories = [
     'name': 'Nutrition',
     'items': {
       'Canned Beans': 'assets/nutrition_svgs/beans.svg',
-      'Canned Tomato Sauce': 'assets/nutrition_svgs/tomatosauce.svg',
+      'Tomato Sauce': 'assets/nutrition_svgs/tomatosauce.svg',
       'Rice': 'assets/nutrition_svgs/rice.svg',
       'Pasta': 'assets/nutrition_svgs/pasta.svg',
       'Ground Meats': 'assets/nutrition_svgs/groundbeef.svg',
       'Chicken': 'assets/nutrition_svgs/chicken.svg',
       'Tuna': 'assets/nutrition_svgs/tuna.svg',
-      'Vegetables (Variety)': 'assets/nutrition_svgs/vegetables.svg',
-      'Fruits (Variety)': 'assets/nutrition_svgs/fruits.svg',
+      'Vegetables': 'assets/nutrition_svgs/vegetables.svg',
+      'Fruits': 'assets/nutrition_svgs/fruits.svg',
       'Bread': 'assets/nutrition_svgs/bread.svg',
       'Eggs': 'assets/nutrition_svgs/eggs.svg',
-      'Energy bars': 'assets/nutrition_svgs/energy_bar.svg',
+      'Energy Bars': 'assets/nutrition_svgs/energy_bar.svg',
       'Potatoes': 'assets/nutrition_svgs/potato.svg',
       'Water': 'assets/nutrition_svgs/water.svg',
     },
@@ -182,12 +190,12 @@ final categories = [
   },
   {
     'asset': 'assets/covid-19_response_svg/covid_19.svg',
-    'name': 'COVID-19',
+    'name': 'COVID-19 Response',
     'items': {
       'Face Shields': 'assets/covid-19_response_svg/face_shield.svg',
       'Hand Sanitizers': 'assets/covid-19_response_svg/hand_sanitizer.svg',
       'Latex Gloves': 'assets/covid-19_response_svg/latex_gloves.svg',
-      'Surgical Masks': 'assets/covid-19_response_svg/mask.svg',
+      'Masks': 'assets/covid-19_response_svg/mask.svg',
       'Disinfecting Wipes': 'assets/covid-19_response_svg/wipes.svg',
       'Facial Tissues': 'assets/covid-19_response_svg/tissue_paper.svg',
       'Rubbing Alcohol': 'assets/covid-19_response_svg/rubbing_alcohol.svg',
@@ -199,9 +207,9 @@ final categories = [
     'asset': 'assets/warmth_svgs/warmth.svg',
     'name': 'Warmth',
     'items': {
-      'Twin-Sized Blankets': 'assets/warmth_svgs/blanket.svg',
+      'Blankets': 'assets/warmth_svgs/blanket.svg',
       'Pillows': 'assets/warmth_svgs/pillow.svg',
-      'Twin-Sized Bed Sheets': 'assets/warmth_svgs/bed_sheets.svg',
+      'Bed Sheets': 'assets/warmth_svgs/bed_sheets.svg',
       'Sleeping Bag': 'assets/warmth_svgs/sleeping_bag.svg',
       'Sleeping Pad': 'assets/warmth_svgs/sleeping_pad.svg',
     },
@@ -209,3 +217,24 @@ final categories = [
 //    'The need for warmth has been engraved into humans since the beginning of life, and has never disappeared'
   },
 ];
+
+class GreyLine extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Divider(color: Colors.black12, height: 20, thickness: 3, endIndent: 0);
+  }
+}
+
+class SmallGreyLine extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Divider(color: Colors.black12, height: 20, indent: 20, thickness: 3, endIndent: 20);
+  }
+}
+
+class SmallestGreyLine extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Divider(color: Colors.black12, height: 20, indent: 30, thickness: 2, endIndent: 30);
+  }
+}

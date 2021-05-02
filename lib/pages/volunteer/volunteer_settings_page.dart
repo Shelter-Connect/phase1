@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:phase1/components/alerts.dart';
-import 'package:phase1/components/flushbar.dart';
+import 'package:phase1/components/rounded_button.dart';
 import 'package:phase1/pages/navigation_tab.dart';
 import 'package:phase1/services/firestore_helper.dart';
 import 'package:provider/provider.dart';
@@ -17,16 +18,20 @@ class VolunteerSettingsPage extends StatefulWidget with NavigationTab {
 
   @override
   String get helpDescription =>
-      'This page shows your account settings and information. Here, you can edit your information, or sign out, if you\'d like. ';
+      'This page shows your account settings and information. Here, you can edit your name and email, and sign out. Additionally, you can reset your password by clicking'
+          ' the \'Reset Password\' button.';
 
   @override
-  IconData get icon => Icons.person;
+  Widget get icon => Icon(Icons.account_circle, color: Color(0xFF6576EC));
+
+  @override
+  Widget get activeIcon => Icon(Icons.account_circle, color: Color(0xFF6576EC));
 
   @override
   String get title => 'Account';
 
   @override
-  String get barTitle => 'Settings';
+  String get barTitle => 'Account';
 }
 
 class _VolunteerSettingsPageState extends State<VolunteerSettingsPage> {
@@ -55,8 +60,7 @@ class _VolunteerSettingsPageState extends State<VolunteerSettingsPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           UserInfo(email: Provider.of<User>(context, listen: false).user.email, firstName: firstName, lastName: lastName),
-          SizedBox(height: 20),
-          SignOut(),
+
           SizedBox(height: 20),
         ],
       ),
@@ -64,130 +68,130 @@ class _VolunteerSettingsPageState extends State<VolunteerSettingsPage> {
   }
 }
 
-class UserInfo extends StatelessWidget {
+class UserInfo extends StatefulWidget {
   final String email;
   final String firstName, lastName;
 
   UserInfo({this.email, this.firstName, this.lastName});
 
   @override
+  _UserInfoState createState() => _UserInfoState();
+}
+
+class _UserInfoState extends State<UserInfo> {
+  String _firstName, _lastName;
+
+  @override
+  void initState() {
+    _firstName = widget.firstName;
+    _lastName = widget.lastName;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Container(
-        width: MediaQuery.of(context).size.width,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              SizedBox(height: 10),
-              Text(
-                'User Information',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              Container(
-                height: 5,
-                width: 100,
-                decoration: BoxDecoration(
-                  color: purpleAccent,
-                  borderRadius: BorderRadius.circular(21),
-                ),
-              ),
-              SizedBox(height: 10),
-              RichText(
-                text: TextSpan(
-                  children: <TextSpan>[
-                    TextSpan(
-                      text: 'Name: ',
-                      style: TextStyle(
-                        fontSize: 17,
-                        color: colorScheme.onBackground,
-                      ),
-                    ),
-                    TextSpan(
-                      text: '$firstName $lastName',
-                      style: TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.w600,
-                        color: colorScheme.onBackground,
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              RichText(
-                text: TextSpan(
-                  children: <TextSpan>[
-                    TextSpan(
-                      text: 'Email Address: ',
-                      style: TextStyle(
-                        fontSize: 17,
-                        color: colorScheme.onBackground,
-                      ),
-                    ),
-                    TextSpan(
-                      text: email,
-                      style: TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.w600,
-                        color: colorScheme.onBackground,
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              InkWell(
-                onTap: () async {
-                  bool updated = await Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => VolunteerEditInfoPage(firstName, lastName),
-                    ),
-                  );
-                },
-                child: Container(
-                  height: 37,
-                  decoration: BoxDecoration(
-                    color: purpleAccent,
-                    borderRadius: BorderRadius.circular(21),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
-                    child: Wrap(
-                      children: <Widget>[
-                        Icon(Icons.edit, color: Colors.white, size: 25),
-                        SizedBox(width: 2),
-                        Text(
-                          'Change User Information',
+    return Container(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Material(
+              elevation: 2,
+              borderRadius: BorderRadius.circular(5),
+              child: Container(
+                width: double.infinity,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: RichText(
+                    text: TextSpan(
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: 'Name: ',
                           style: TextStyle(
-                            color: colorScheme.onSecondary,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 16.0,
+                            fontSize: 17,
+                            color: colorScheme.onBackground,
                           ),
                         ),
+                        TextSpan(
+                          text: '$_firstName $_lastName',
+                          style: TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.w600,
+                            color: colorScheme.onBackground,
+                          ),
+                        )
                       ],
                     ),
                   ),
                 ),
               ),
-              SizedBox(
-                height: 10,
+            ),
+            SizedBox(height: 20),
+            Material(
+              elevation: 2,
+              borderRadius: BorderRadius.circular(5),
+              child: Container(
+                width: double.infinity,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: RichText(
+                    text: TextSpan(
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: 'Email Address: ',
+                          style: TextStyle(
+                            fontSize: 17,
+                            color: colorScheme.onBackground,
+                          ),
+                        ),
+                        TextSpan(
+                          text: widget.email,
+                          style: TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.w600,
+                            color: colorScheme.onBackground,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
               ),
-            ],
-          ),
+            ),
+            SizedBox(height: 10),
+            RoundedButton(
+              onPressed: () {
+                FirestoreHelper.resetPassword(Provider.of<User>(context, listen: false).user.email);
+                showDialog(
+                  context: context,
+                  builder: (_) => NoActionAlert(
+                    title: 'Instructions to change your password have been sent to your email address.',
+                  ),
+                );
+              },
+              title: 'Reset Password',
+              color: purpleAccent,
+              textColor: Colors.white,
+            ),
+            RoundedButton(
+              color: purpleAccent,
+              title: 'Update Name',
+              textColor: Colors.white,
+              onPressed: () async {
+                var updatedName = await Navigator.push(context, MaterialPageRoute(builder: (context) => VolunteerEditInfoPage(_firstName, _lastName)));
+                if (updatedName != null) {
+                  setState(() {
+                    _firstName = updatedName['firstName'];
+                    _lastName = updatedName['lastName'];
+                  });
+                }
+              },
+            ),
+            SizedBox(height: 10.0),
+            SignOut(),
+          ],
         ),
       ),
     );
@@ -222,11 +226,10 @@ class SignOut extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Icon(Icons.exit_to_app, color: Colors.white, size: 28),
               SizedBox(width: 5),
               Text(
                 'Sign Out',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600, color: Colors.white),
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white),
               ),
             ],
           ),

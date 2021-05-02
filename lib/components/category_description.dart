@@ -7,14 +7,12 @@ class CategoryDescriptionContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Center(
-        child: Text(
-          info,
-          style: TextStyle(
-            fontSize: 17.0,
-            fontWeight: FontWeight.w400,
-          ),
+    return Center(
+      child: Text(
+        info,
+        style: TextStyle(
+          fontSize: 17.0,
+          fontWeight: FontWeight.w400,
         ),
       ),
     );

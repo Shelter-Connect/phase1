@@ -73,6 +73,9 @@ class _ConfirmDeliveryPageState extends State<ConfirmDeliveryPage> {
                                     (item) => Padding(
                                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                                       child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(15),
+                                        ),
                                         child: Row(
                                           children: [
                                             Column(
@@ -156,7 +159,7 @@ class _ConfirmDeliveryPageState extends State<ConfirmDeliveryPage> {
                   FirestoreHelper.updateRequests(context: context, items: delta);
                   widget.donation.items = items;
                   FirestoreHelper.confirmDelivery(context, widget.donation);
-                  Navigator.popUntil(context, ModalRoute.withName('/organization_bottom_navigation'));
+                  Navigator.popUntil(context, ModalRoute.withName('/organization_navigation'));
                   FlushBar(message: 'Items have been Confirmed. Thank you for using Linkare!', duration: Duration(seconds: 3)).build(context);
                 },
               ),

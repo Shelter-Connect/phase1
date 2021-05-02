@@ -1,7 +1,9 @@
+import 'dart:io' show Platform;
 import 'dart:ui' as ui;
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
@@ -16,6 +18,8 @@ import 'package:phase1/services/firestore_helper.dart';
 import '../../components/standard_layout.dart';
 import '../../constants.dart';
 import 'edit_delivery_page.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter/services.dart';
 
 class DeliveryDescriptionPage extends StatefulWidget {
   final Donation donation;
@@ -29,6 +33,7 @@ class DeliveryDescriptionPage extends StatefulWidget {
 class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
   Donation donation;
   bool loading = false;
+  // List<TapGestureRecognizer> _amazonLinksTapGestureRecognizers;
 
   @override
   void initState() {
@@ -47,32 +52,21 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
       for (DocumentSnapshot document in documents.documents) {
         if (donation.organization.requestedItems[document['category']] == null) donation.organization.requestedItems[document['category']] = [];
         setState(() {
-          Color urgencyColor;
-          switch (document['urgency']) {
-            case 0:
-              urgencyColor = Colors.transparent;
-              break;
-            case 1:
-              urgencyColor = Colors.green;
-              break;
-            case 2:
-              urgencyColor = Colors.yellow;
-              break;
-            case 3:
-              urgencyColor = Colors.red;
-              break;
-          }
-          ;
           donation.organization.requestedItems[document['category']].add(
             Item(
-              name: document['name'],
-              amount: document['amount'],
-              category: document['category'],
-              specificDescription: document['specificDescription'],
-              unit: document['unit'],
-              urgency: document['urgency'],
-              urgencyColor: urgencyColor,
-            ),
+                name: document['name'],
+                amount: document['amount'],
+                category: document['category'],
+                specificDescription: document['specificDescription'],
+                unit: document['unit'],
+                urgency: document['urgency'],
+                urgencyColor: (document['urgency'] == 0)
+                    ? Colors.transparent
+                    : (document['urgency'] == 1)
+                        ? Colors.green
+                        : (document['urgency'] == 2)
+                            ? Colors.yellow
+                            : Colors.red),
           );
         });
       }
@@ -89,24 +83,35 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
   Widget build(BuildContext context) {
     return StandardLayout(
       title: ' ',
-      helpText: 'This page shows a delivery you have signed up for. Here, you can edit or cancel this delivery. ',
+      helpText: 'This page shows a delivery you have signed up for. You can see the organization\'s information, location, and contact information. Underneath, '
+          'you can see the exact information on your delivery. Here, you can edit or cancel this delivery.',
       body: loading
           ? Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
+                padding: const EdgeInsets.symmetric(vertical: 4),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text('Delivery to ${donation.organization.name}', style: mainTitleStyle),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Text('Delivery to ${donation.organization.name}', style: mainTitleStyle),
+                    ),
                     SizedBox(height: 20),
                     OrganizationInformation(
                       orgEmail: donation.organization.email,
                       orgAddress: donation.organization.address,
                       dateTime: donation.date,
+                      schedule: donation.organization.schedule,
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 2),
+
+                    // Card with the donations
                     Card(
+                      margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5.0),
+                      ),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
                         child: Column(
@@ -124,15 +129,11 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                                       'Selected Donations',
                                       style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                                     ),
-                                    FlatButton(
-                                      padding: EdgeInsets.all(0.0),
-                                      splashColor: transparent,
-                                      highlightColor: transparent,
+                                    TextButton(
                                       child: Text(
                                         'Edit',
                                         style: TextStyle(
-                                          decoration: TextDecoration.underline,
-                                          color: colorScheme.error,
+                                          color: purpleAccent,
                                           fontSize: 17.0,
                                         ),
                                       ),
@@ -143,7 +144,7 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                                             setState(() {
                                               loading = true;
                                             });
-                                            List<Item> delta = List();
+                                            List<Item> delta = [];
                                             for (Item newItem in newDonation.items) {
                                               Item item = newItem.clone();
                                               item.amount *= -1;
@@ -188,13 +189,30 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                                               child: Column(
                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
-                                                  Text(
-                                                    '${donation.items[index].name} - ${donation.items[index].amount} ${donation.items[index].unit ?? ''}'
-                                                        .trim(),
-                                                    style: TextStyle(
-                                                      fontSize: 17.0,
-                                                      fontWeight: FontWeight.w400,
-                                                    ),
+                                                  InkWell(
+                                                    onTap: () async {
+                                                      String itemName = donation.items[index].name;
+
+                                                      // Convert to Amazon URL
+                                                      String searchQuery = itemName.replaceAll(" ", "+");
+                                                      String amazonURL = "https://www.amazon.com/s?k=" + searchQuery;
+                                                      // Check that the Amazon URL will work
+                                                      bool amazonURLCanLaunch = await canLaunch(amazonURL);
+
+                                                      if (amazonURLCanLaunch) {
+                                                        launch(amazonURL);
+                                                      }
+                                                    },
+                                                    child: Text(
+                                                      '${donation.items[index].name} - ${donation.items[index].amount} ${donation.items[index].unit ?? ''}'
+                                                          .trim(),
+                                                      style: TextStyle(
+                                                        fontSize: 17.0,
+                                                        color: Colors.blue,
+                                                        fontWeight: FontWeight.w400,
+                                                          decoration: TextDecoration.underline
+                                                      ),
+                                                    )
                                                   ),
                                                   if (donation.items[index].specificDescription != null)
                                                     Text(
@@ -229,40 +247,43 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
                       ),
                     ),
                     SizedBox(height: 20),
-                    InkWell(
-                      onTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (_) => SingleActionAlert(
-                            action: () {
-                              FirestoreHelper.cancelVolunteerDelivery(context, donation);
-                              Navigator.pop(context);
-                              FlushBar(message: 'Your delivery has been cancelled', duration: Duration(seconds: 3)).build(context);
-                            },
-                            actionName: 'Cancel Delivery',
-                            title: 'Cancel Delivery?',
-                            subtitle: 'You cannot revert this action',
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: InkWell(
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (_) => SingleActionAlert(
+                              action: () {
+                                FirestoreHelper.cancelVolunteerDelivery(context, donation);
+                                Navigator.pop(context);
+                                FlushBar(message: 'Your delivery has been cancelled', duration: Duration(seconds: 3)).build(context);
+                              },
+                              actionName: 'Cancel Delivery',
+                              title: 'Cancel Delivery?',
+                              subtitle: 'You cannot revert this action',
+                            ),
+                          );
+                        },
+                        child: Container(
+                          height: 45.0,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(21),
+                            color: colorScheme.error,
                           ),
-                        );
-                      },
-                      child: Container(
-                        height: 45.0,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(21),
-                          color: colorScheme.error,
-                        ),
-                        child: Center(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              Icon(Icons.cancel, color: Colors.white, size: 28),
-                              SizedBox(width: 5),
-                              Text(
-                                'Cancel Delivery',
-                                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600, color: Colors.white),
-                              ),
-                            ],
+                          child: Center(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                Icon(Icons.cancel, color: Colors.white, size: 28),
+                                SizedBox(width: 5),
+                                Text(
+                                  'Cancel Delivery',
+                                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600, color: Colors.white),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -275,33 +296,61 @@ class _DeliveryDescriptionPageState extends State<DeliveryDescriptionPage> {
   }
 }
 
-class OrganizationInformation extends StatelessWidget {
+class OrganizationInformation extends StatefulWidget {
   final String orgEmail;
   final String orgAddress;
   final DateTime dateTime;
+  final Map<String, List<TimeOfDay>> schedule;
 
-  OrganizationInformation({@required this.orgEmail, @required this.orgAddress, @required this.dateTime});
+  OrganizationInformation({@required this.orgEmail, @required this.orgAddress, @required this.dateTime, @required this.schedule});
+
+  @override
+  _OrganizationInformationState createState() => _OrganizationInformationState();
+}
+
+class _OrganizationInformationState extends State<OrganizationInformation> {
+  TapGestureRecognizer _addressTapGestureRecognizer;
+
+  @override
+  void initState() {
+    super.initState();
+    _addressTapGestureRecognizer = TapGestureRecognizer()..onTap = _addressHandleTap;
+  }
+
+  void _addressHandleTap() {
+    MapSheet().build(context);
+  }
+
+  @override
+  void dispose() {
+    _addressTapGestureRecognizer?.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(5.0),
+          ),
+          margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 8.0, left: 20.0),
+                padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20.0),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   textDirection: ui.TextDirection.rtl,
                   children: [
-                    FlatButton(
+                    TextButton(
                         onPressed: () {
                           MapSheet().build(context);
                         },
                         child: SvgPicture.asset(
-                          "assets/random_svgs/googlemaps.svg",
+                          Platform.isIOS ? "assets/random_svgs/applemaps.svg" : "assets/random_svgs/googlemaps.svg",
                           height: 28,
                         )),
                     Column(
@@ -311,9 +360,9 @@ class OrganizationInformation extends StatelessWidget {
                           height: 10,
                         ),
                         Text(
-                          'About This Organization',
+                          'About this Organization',
                           style: TextStyle(
-                            fontSize: 20,
+                            fontSize: Platform.isIOS ? 19 : 20,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -358,13 +407,12 @@ class OrganizationInformation extends StatelessWidget {
                                 ),
                               ),
                               TextSpan(
-                                text: orgEmail,
-                                style: TextStyle(
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.black,
-                                ),
-                              )
+                                  text: widget.orgEmail,
+                                  style: TextStyle(
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black,
+                                  ))
                             ],
                           ),
                         ),
@@ -383,17 +431,31 @@ class OrganizationInformation extends StatelessWidget {
                                 ),
                               ),
                               TextSpan(
-                                text: orgAddress,
-                                style: TextStyle(
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.black,
-                                ),
-                              )
+                                  text: widget.orgAddress,
+                                  style: TextStyle(
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.blue,
+                                  ),
+                                  recognizer: _addressTapGestureRecognizer
+                              ),
                             ],
                           ),
                         ),
-                        RichText(
+
+                        // Copy address button
+                        IconButton(
+                          iconSize: 20.0,
+                          icon: Icon(Icons.content_copy),
+                          color: Colors.blue,
+                          onPressed: () async {
+                            await Clipboard.setData(ClipboardData(text: widget.orgAddress)); // Copy shipping address to clipboard
+                            FlushBar(message: 'The organization address has been copied to your clipboard', duration: Duration(seconds: 3)).build(context); // Show flushbar
+                          },
+                          tooltip: 'Copy organization address', // TODO: Tooltip not showing
+                        ),
+
+                        if (widget.schedule != null) RichText(
                           text: TextSpan(
                             children: <TextSpan>[
                               TextSpan(
@@ -405,13 +467,93 @@ class OrganizationInformation extends StatelessWidget {
                                 ),
                               ),
                               TextSpan(
-                                text: '${DateFormat('MMMMd').format(dateTime)}',
+                                text: '${DateFormat('MMMMd').format(widget.dateTime)}',
                                 style: TextStyle(
                                   fontSize: 17,
                                   fontWeight: FontWeight.w600,
                                   color: Colors.black,
                                 ),
                               ),
+                              TextSpan(
+                                text: ' during ',
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              TextSpan(
+                                text: widget.dateTime.weekday == 1
+                                    ? 'Monday:\n'
+                                    : widget.dateTime.weekday == 2
+                                        ? 'Tuesday:\n'
+                                        : widget.dateTime.weekday == 3
+                                            ? 'Wednesday:\n'
+                                            : widget.dateTime.weekday == 4
+                                                ? 'Thursday:\n'
+                                                : widget.dateTime.weekday == 5
+                                                    ? 'Friday:\n'
+                                                    : widget.dateTime.weekday == 6
+                                                        ? 'Saturday:\n'
+                                                        : 'Sunday:\n',
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              if (widget.schedule != null && widget
+                                      .schedule[widget.dateTime.weekday == 1
+                                          ? 'Monday'
+                                          : widget.dateTime.weekday == 2
+                                              ? 'Tuesday'
+                                              : widget.dateTime.weekday == 3
+                                                  ? 'Wednesday'
+                                                  : widget.dateTime.weekday == 4
+                                                      ? 'Thursday'
+                                                      : widget.dateTime.weekday == 5
+                                                          ? 'Friday'
+                                                          : widget.dateTime.weekday == 6
+                                                              ? 'Saturday'
+                                                              : 'Sunday']
+                                      .length !=
+                                  0)
+                                for (int i = 0;
+                                    i <
+                                        widget
+                                            .schedule[widget.dateTime.weekday == 1
+                                                ? 'Monday'
+                                                : widget.dateTime.weekday == 2
+                                                    ? 'Tuesday'
+                                                    : widget.dateTime.weekday == 3
+                                                        ? 'Wednesday'
+                                                        : widget.dateTime.weekday == 4
+                                                            ? 'Thursday'
+                                                            : widget.dateTime.weekday == 5
+                                                                ? 'Friday'
+                                                                : widget.dateTime.weekday == 6
+                                                                    ? 'Saturday'
+                                                                    : 'Sunday']
+                                            .length;
+                                    i = i + 2)
+                                  TextSpan(
+                                    text:
+                                        ' ${widget.schedule[widget.dateTime.weekday == 1 ? 'Monday' : widget.dateTime.weekday == 2 ? 'Tuesday' : widget.dateTime.weekday == 3 ? 'Wednesday' : widget.dateTime.weekday == 4 ? 'Thursday' : widget.dateTime.weekday == 5 ? 'Friday' : widget.dateTime.weekday == 6 ? 'Saturday' : 'Sunday'][i].format(context)} to ${widget.schedule[widget.dateTime.weekday == 1 ? 'Monday' : widget.dateTime.weekday == 2 ? 'Tuesday' : widget.dateTime.weekday == 3 ? 'Wednesday' : widget.dateTime.weekday == 4 ? 'Thursday' : widget.dateTime.weekday == 5 ? 'Friday' : widget.dateTime.weekday == 6 ? 'Saturday' : 'Sunday'][i + 1].format(context)}\n',
+                                    style: TextStyle(
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.black,
+                                    ),
+                                  )
+                              else
+                                TextSpan(
+                                  text: 'The Entire Day!',
+                                  style: TextStyle(
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black,
+                                  ),
+                                )
                             ],
                           ),
                         ),

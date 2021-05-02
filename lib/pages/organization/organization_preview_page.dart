@@ -1,3 +1,5 @@
+import 'dart:io' show Platform;
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -48,6 +50,7 @@ class _OrganizationPreviewPageState extends State<OrganizationPreviewPage> {
   @override
   Widget build(BuildContext context) {
     return StandardLayout(
+      color: Color(0xFFF5F5F5),
       title: '',
       helpText: 'This page shows your organization profile as it will be seen by volunteers. ',
       body: loading
@@ -72,6 +75,9 @@ class _OrganizationPreviewPageState extends State<OrganizationPreviewPage> {
                       ),
                       SizedBox(height: 20),
                       Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
                         child: Column(
                           children: [
                             Padding(
@@ -86,37 +92,40 @@ class _OrganizationPreviewPageState extends State<OrganizationPreviewPage> {
                                         MapSheet().build(context);
                                       },
                                       child: SvgPicture.asset(
-                                        "assets/random_svgs/googlemaps.svg",
+                                        Platform.isIOS ? "assets/random_svgs/applemaps.svg" : "assets/random_svgs/googlemaps.svg",
                                         height: 28,
                                       )),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                      Text(
-                                        'About This Organization',
-                                        style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w600,
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 8.0),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                          height: 10,
                                         ),
-                                      ),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Container(
-                                        height: 5,
-                                        width: 100,
-                                        decoration: BoxDecoration(
-                                          color: purpleAccent,
-                                          borderRadius: BorderRadius.circular(21),
+                                        Text(
+                                          'About this Organization',
+                                          style: TextStyle(
+                                            fontSize: Platform.isIOS ? 19 : 20,
+                                            fontWeight: FontWeight.w600,
+                                          ),
                                         ),
-                                      ),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                    ],
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        Container(
+                                          height: 5,
+                                          width: 100,
+                                          decoration: BoxDecoration(
+                                            color: purpleAccent,
+                                            borderRadius: BorderRadius.circular(21),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ),
@@ -256,6 +265,9 @@ class _OrganizationPreviewPageState extends State<OrganizationPreviewPage> {
                       Column(
                         children: <Widget>[
                           Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
                             child: Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16.0),
                               child: Column(

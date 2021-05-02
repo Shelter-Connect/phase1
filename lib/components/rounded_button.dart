@@ -14,7 +14,7 @@ class RoundedButton extends StatelessWidget {
     this.color,
     @required this.onPressed,
     this.textColor,
-    this.width,
+    this.width
   });
 
   @override
@@ -33,7 +33,10 @@ class RoundedButton extends StatelessWidget {
           child: Center(
             child: Text(
               title,
-              style: TextStyle(color: textColor),
+              style: TextStyle(
+                color: textColor,
+                fontSize: 16.0,
+              ),
             ),
           ),
         ),

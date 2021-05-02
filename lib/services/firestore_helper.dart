@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -43,7 +45,7 @@ class FirestoreHelper {
       } else if (document.documents.length == 1) {
         DocumentSnapshot itemSnapshot = document.documents[0];
         await requestsReference.document(itemSnapshot.documentID).updateData({
-          'amount': item.amount + itemSnapshot['amount'],
+          'amount': max(item.amount + itemSnapshot['amount'], 0),
           'urgency': item.urgency,
         });
       } else {
@@ -98,13 +100,14 @@ class FirestoreHelper {
 
     await volunteerCurrentDonationCollection.document(donation.id).delete();
     await organizationCurrentDonationCollection.document(donation.id).delete();
+    donation.date = DateTime.now();
     await volunteerPastDonationCollection.document(donation.id).setData(donation.toFirestoreMap());
     await organizationPastDonationCollection.document(donation.id).setData(donation.toFirestoreMap());
   }
 
   //cancels delivery from volunteer side
   static Future<void> cancelVolunteerDelivery(BuildContext context, Donation donation) async {
-    CollectionReference volunteerDonationCollection = getCurrentVolunteerReference(context).collection('currentDonations');
+    CollectionReference volunteerDonationCollection = db.collection('volunteers').document(donation.volunteerId).collection('currentDonations');
     await volunteerDonationCollection.document(donation.id).delete();
 
     CollectionReference organizationDonationCollection =

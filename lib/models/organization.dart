@@ -1,22 +1,25 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:phase1/models/user_position.dart';
 import 'package:phase1/services/location_helper.dart';
 import 'package:provider/provider.dart';
-
 import 'item.dart';
 
 class Organization {
-  String address, website, number, email, id, description, name;
+  String address, website, donationLink, number, email, id, description, name;
   Position location;
   double distance;
   Map<String, List<Item>> requestedItems = Map();
   List<String> itemCategories = List();
+  Map<String, List<TimeOfDay>> schedule = Map();
+  Map<int, List<int>> breaks = Map();
 
   Organization(
       {this.address,
       this.website,
+      this.donationLink,
       this.email,
       this.id,
       this.description,
@@ -25,13 +28,16 @@ class Organization {
       this.distance,
       this.requestedItems,
       this.itemCategories,
-      this.number});
+      this.number,
+      this.schedule,
+      this.breaks});
 
   Organization clone() {
     return Organization(
       address: address,
       location: location,
       website: website,
+      donationLink: donationLink,
       number: number,
       email: email,
       id: id,
@@ -44,6 +50,13 @@ class Organization {
           items.map((item) => item.clone()).toList(),
         ),
       ),
+      schedule: schedule?.map(
+        (day, times) => MapEntry(
+          day,
+          times.map((time) => new TimeOfDay(hour: time.hour, minute: time.minute)).toList(),
+        ),
+      ),
+      breaks: breaks,
       distance: distance,
     );
   }
@@ -52,6 +65,7 @@ class Organization {
     address = organizationSnapshot['address'];
     location = Position(longitude: organizationSnapshot['location'].longitude, latitude: organizationSnapshot['location'].latitude);
     website = organizationSnapshot['website'];
+    donationLink = organizationSnapshot['donationLink'];
     number = organizationSnapshot['number'];
     email = organizationSnapshot['email'];
     id = organizationSnapshot.documentID;
@@ -66,6 +80,32 @@ class Organization {
       }
     }
     requestedItems = items;
+
+    if (organizationSnapshot['schedule'] != null) {
+      schedule =
+          Map<String, List<dynamic>>.from(organizationSnapshot['schedule'])
+              ?.map(
+                (day, times) =>
+                MapEntry(
+                  day,
+                  times.map((time) =>
+                  new TimeOfDay.fromDateTime(
+                      DateTime.fromMillisecondsSinceEpoch(
+                          (time as Timestamp).millisecondsSinceEpoch)))
+                      .toList(),
+                ),
+          );
+    }
+
+    if (organizationSnapshot['breaks'] != null) {
+      organizationSnapshot['breaks'].forEach((monthString, daysString) {
+        int month = int.parse(monthString);
+        print(monthString);
+        List<int> days = [];
+        for (String dayString in daysString) days.add(int.parse(dayString));
+        breaks.addAll({month: days});
+      });
+    }
 
     if (isVolunteer) {
       Position userPosition = Provider.of<UserPosition>(context, listen: false).position;

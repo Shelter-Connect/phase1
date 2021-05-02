@@ -22,7 +22,7 @@ class _DeliveryInformationPageState extends State<DeliveryInformationPage> {
   @override
   Widget build(BuildContext context) {
     return StandardLayout(
-      title: "Delivery Information",
+      title: 'Delivery Information',
       helpText: 'This page shows information about a specific delivery. If this delivery has been received, press the Confirm Delivery button.',
       body: SingleChildScrollView(
         child: Column(
@@ -31,6 +31,9 @@ class _DeliveryInformationPageState extends State<DeliveryInformationPage> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
               child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
                   child: Column(
@@ -161,7 +164,7 @@ class _DeliveryInformationPageState extends State<DeliveryInformationPage> {
                       FirestoreHelper.cancelVolunteerDelivery(context, widget.donation);
                       Navigator.pop(context);
                     },
-                    text: 'Cancel Order',
+                    text: 'Cancel Delivery',
                     color: purpleAccent,
                     textColor: Colors.white,
                   ),

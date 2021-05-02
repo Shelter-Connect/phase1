@@ -15,6 +15,9 @@ class RequestContainer extends StatelessWidget {
     return Column(
       children: [
         Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
             child: SingleChildScrollView(
@@ -55,7 +58,8 @@ class RequestContainer extends StatelessWidget {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          '${items[index].name} - ${items[index].amount.toString()} ${items[index].unit ?? ''}'.trim(),
+                                          '${items[index].name} - ${items[index].amount.toString()} ${items[index].unit ?? ''} ${items[index].category == 'Volunteering' ? 'people needed' : ''}'
+                                              .trim(),
                                           style: TextStyle(
                                             fontSize: 17,
                                           ),
@@ -74,16 +78,8 @@ class RequestContainer extends StatelessWidget {
                                     ),
                                   ),
                                 ],
-                              )
-                            else
-                              Text(
-                                'Request Completed!',
-                                style: TextStyle(
-                                  fontSize: 17,
-                                  color: Colors.green,
-                                ),
                               ),
-                            if (items[index].specificDescription != null)
+                            if (items[index].specificDescription != null && items[index].amount > 0)
                               Text(
                                 items[index].specificDescription,
                                 style: TextStyle(

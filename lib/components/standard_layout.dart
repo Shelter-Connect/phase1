@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 import '../constants.dart';
 
@@ -14,10 +15,10 @@ class StandardLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: color ?? Color(0xFFF5F5F5),
+      backgroundColor: Color(0xfff5f5f5),
       appBar: AppBar(
         brightness: Brightness.light,
-        backgroundColor: color ?? Color(0xFFF5F5F5),
+        backgroundColor: Color(0xFFF5F5F5),
         elevation: 0.0,
         leading: IconButton(
           onPressed: () {
@@ -25,11 +26,11 @@ class StandardLayout extends StatelessWidget {
           },
           icon: Icon(Icons.keyboard_arrow_left, size: 35, color: purpleAccent),
         ),
-        title: Text(
+        title: AutoSizeText(
           title,
           style: TextStyle(
-            fontWeight: FontWeight.w900, fontSize: 35,
-            color: titleColor ?? Color(0xFFF5F5F5),
+            fontWeight: FontWeight.w900, fontSize: 25,
+            color: purpleAccent ,
           ),
         ),
         actions: <Widget>[
@@ -60,26 +61,23 @@ class StandardLayout extends StatelessWidget {
       context: context,
       builder: (BuildContext bc) {
         return Container(
-          height: MediaQuery.of(context).size.height * 0.6,
           child: Padding(
             padding: EdgeInsets.all(25.0),
-            child: Column(
+            child: ListView(
+              padding: const EdgeInsets.only(right: 8, bottom: 8, top: 0),
               children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8, top: 0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text('Help', style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
-                      IconButton(
-                        iconSize: 30,
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        icon: Icon(Icons.help),
-                      ),
-                    ],
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text('Help', style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
+                    IconButton(
+                      iconSize: 30,
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: Icon(Icons.close),
+                    ),
+                  ],
                 ),
                 Text(helpText, style: TextStyle(fontSize: 17)),
               ],

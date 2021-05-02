@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:phase1/components/alerts.dart';
 import 'package:phase1/components/category_icon_button.dart';
 import 'package:phase1/components/colored_button.dart';
-import 'package:phase1/components/date_time_field.dart';
 import 'package:phase1/components/dropdownmenu.dart';
 import 'package:phase1/components/floating_text_field.dart';
 import 'package:phase1/components/flushbar.dart';
@@ -103,31 +102,47 @@ class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
                       SizedBox(height: 20),
                       DropDown(
                         onChanged: (val) {
-                          setState(() {
-                            urgency = val - 1;
-                          });
+                            setState(() {
+                              urgency = val - 1;
+                            });
                         },
                       ),
                       SizedBox(height: 20),
-                      Container(
-                        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(5)),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 15),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Donation Deadline Date (Option)',
-                                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: Colors.black54),
-                              ),
-                              BasicDateField(onChanged: (val) {
-                                print('Hello');
-                              } //TODO Add deadline date save feature
-                                  ),
-                            ],
-                          ),
-                        ),
+//                      Container(
+//                        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(5)),
+//                        child: Padding(
+//                          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 15),
+//                          child: Column(
+//                            crossAxisAlignment: CrossAxisAlignment.start,
+//                            children: [
+//                              Text(
+//                                'Donation Deadline Date (Option)',
+//                                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: Colors.black54),
+//                              ),
+//                              BasicDateField(onChanged: (val) {} //TODO Add deadline date save feature
+//                                  ),
+//                            ],
+//                          ),
+//                        ),
+//                      ),
+                      SizedBox(
+                        height: 10,
                       ),
+//                      MaterialButton(
+//                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+//                          color: Colors.white,
+//                          onPressed: () async {
+//                            final List<DateTime> picked = await DateRagePicker.showDatePicker(
+//                                context: context,
+//                                initialFirstDate: DateTime.now(),
+//                                initialLastDate: (DateTime.now()).add(Duration(days: 7)),
+//                                firstDate: DateTime(2015),
+//                                lastDate: DateTime(2021));
+//                            if (picked != null && picked.length == 2) {
+//                              print(picked);
+//                            }
+//                          },
+//                          child: Text('Pick date range (Optional)', style: TextStyle(color: purpleAccent, fontSize: 15)))
                     ],
                   ),
                 ],
@@ -138,6 +153,15 @@ class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
                 textColor: purpleAccent,
                 text: 'Create Request',
                 onPressed: () {
+                  if (amount == 0)
+                    showDialog(
+                        context: context,
+                        builder: (_) => SingleActionAlert(actionName: 'ok',
+                          action: (){},
+                          title: 'Please enter an amount',
+                        )
+                    );
+                  else
                   showDialog(
                     context: context,
                     builder: (_) => SingleActionAlert(
@@ -152,7 +176,7 @@ class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
                             Item(
                                 name: widget.itemName,
                                 amount: amount,
-                                specificDescription: specificDescription,
+                                specificDescription: specificDescription.trim() == '' ? 'No Description' : specificDescription,
                                 unit: itemUnit,
                                 category: widget.itemCategory,
                                 urgency: urgency)
@@ -162,7 +186,7 @@ class _ConfirmRequestPageState extends State<ConfirmRequestPage> {
                         Navigator.pop(context);
                         FlushBar(
                           message: 'Your request has been received.',
-                          duration: Duration(seconds: 3),
+                          duration: Duration(milliseconds: 2000),
                           margin: EdgeInsets.all(0),
                           leftBarIndicatorColor: Colors.transparent,
                         ).build(context);

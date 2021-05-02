@@ -165,7 +165,7 @@ class _ItemIncrementWithTextState extends State<ItemIncrementWithText> {
         });
 
         Scaffold.of(context)
-            .showSnackBar(SnackBar(content: Text('You have reached the maximum amount of items this shelter is requesting.')))
+            .showSnackBar(SnackBar(content: Text('You have reached the maximum amount of items this organization is requesting.')))
             .closed
             .then((SnackBarClosedReason reason) {
           setState(() {
@@ -218,7 +218,7 @@ class _ItemIncrementWithTextState extends State<ItemIncrementWithText> {
             ),
           ),
         ),
-        SizedBox(width: 25),
+        SizedBox(width: 5),
         Container(
           width: 50,
           height: 23,
@@ -238,7 +238,7 @@ class _ItemIncrementWithTextState extends State<ItemIncrementWithText> {
                   });
 
                   Scaffold.of(context)
-                      .showSnackBar(SnackBar(content: Text('You have reached the maximum amount of items this shelter is requesting.')))
+                      .showSnackBar(SnackBar(content: Text('You have reached the maximum amount of items this organization is requesting.')))
                       .closed
                       .then((SnackBarClosedReason reason) {
                     setState(() {
@@ -262,7 +262,7 @@ class _ItemIncrementWithTextState extends State<ItemIncrementWithText> {
             inputFormatters: <TextInputFormatter>[WhitelistingTextInputFormatter.digitsOnly],
           ),
         ),
-        SizedBox(width: 25),
+        SizedBox(width: 10),
         HoldDetector(
           onHold: _incrementCounter,
           holdTimeout: Duration(milliseconds: 150),

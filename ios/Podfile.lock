@@ -222,6 +222,8 @@ PODS:
     - Firebase/Core
     - Firebase/Firestore (~> 6.0)
     - Flutter
+  - device_calendar (0.0.1):
+    - Flutter
   - Firebase/Analytics (6.30.0):
     - Firebase/Core
   - Firebase/Auth (6.30.0):
@@ -289,7 +291,7 @@ PODS:
   - Flutter (1.0.0)
   - geocoder (0.0.1):
     - Flutter
-  - "geolocator (5.3.2+2)":
+  - "geolocator (6.0.0+4)":
     - Flutter
   - GoogleAppMeasurement (6.7.2):
     - GoogleUtilities/AppDelegateSwizzler (~> 6.7)
@@ -344,8 +346,6 @@ PODS:
   - gRPC-Core/Interface (1.28.2)
   - GTMSessionFetcher/Core (1.4.0)
   - leveldb-library (1.22)
-  - "location_permissions (3.0.0+1)":
-    - Flutter
   - map_launcher (0.0.1):
     - Flutter
   - maps_launcher (0.0.1):
@@ -355,21 +355,24 @@ PODS:
     - nanopb/encode (= 1.30905.0)
   - nanopb/decode (1.30905.0)
   - nanopb/encode (1.30905.0)
+  - "permission_handler (5.0.1+1)":
+    - Flutter
   - PromisesObjC (1.2.10)
   - url_launcher (0.0.1):
     - Flutter
 
 DEPENDENCIES:
   - cloud_firestore (from `.symlinks/plugins/cloud_firestore/ios`)
+  - device_calendar (from `.symlinks/plugins/device_calendar/ios`)
   - firebase_analytics (from `.symlinks/plugins/firebase_analytics/ios`)
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - Flutter (from `Flutter`)
   - geocoder (from `.symlinks/plugins/geocoder/ios`)
   - geolocator (from `.symlinks/plugins/geolocator/ios`)
-  - location_permissions (from `.symlinks/plugins/location_permissions/ios`)
   - map_launcher (from `.symlinks/plugins/map_launcher/ios`)
   - maps_launcher (from `.symlinks/plugins/maps_launcher/ios`)
+  - permission_handler (from `.symlinks/plugins/permission_handler/ios`)
   - url_launcher (from `.symlinks/plugins/url_launcher/ios`)
 
 SPEC REPOS:
@@ -396,6 +399,8 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   cloud_firestore:
     :path: ".symlinks/plugins/cloud_firestore/ios"
+  device_calendar:
+    :path: ".symlinks/plugins/device_calendar/ios"
   firebase_analytics:
     :path: ".symlinks/plugins/firebase_analytics/ios"
   firebase_auth:
@@ -408,12 +413,12 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/geocoder/ios"
   geolocator:
     :path: ".symlinks/plugins/geolocator/ios"
-  location_permissions:
-    :path: ".symlinks/plugins/location_permissions/ios"
   map_launcher:
     :path: ".symlinks/plugins/map_launcher/ios"
   maps_launcher:
     :path: ".symlinks/plugins/maps_launcher/ios"
+  permission_handler:
+    :path: ".symlinks/plugins/permission_handler/ios"
   url_launcher:
     :path: ".symlinks/plugins/url_launcher/ios"
 
@@ -421,6 +426,7 @@ SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
   BoringSSL-GRPC: 8edf627ee524575e2f8d19d56f068b448eea3879
   cloud_firestore: 2a4f8f802fb0b701cf809b283b6bec7477ebaa6f
+  device_calendar: 23b28a5f1ab3bf77e34542fb1167e1b8b29a98f5
   Firebase: 210f41ca352067d83b1ba4fd2e7fb49a0c017397
   firebase_analytics: 9118044ffb98bee71d84733fc594f5134fe4bc1b
   firebase_auth: af8784c4d8d87c36f730a305f97bfbcb24db024b
@@ -433,7 +439,7 @@ SPEC CHECKSUMS:
   FirebaseInstallations: 45f9d44d3a8d6f780fa337ee8987dad87210fcbc
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   geocoder: 3cfab70531a0b367e917bafe82df4c30f6d4c45a
-  geolocator: f7622e0e7e2a24718285b73916d60c4a54b9f5b6
+  geolocator: 1ae40084cc6c1586ce5ad12cfc3fd38c64d05f2f
   GoogleAppMeasurement: 3def7652b1f5b5a576178dc332e2a36a260fbef6
   GoogleDataTransport: 672fb0ce96fe7f7f31d43672fca62ad2c9c86f7b
   GoogleUtilities: 7f2f5a07f888cdb145101d6042bc4422f57e70b3
@@ -441,13 +447,13 @@ SPEC CHECKSUMS:
   gRPC-Core: 4afa11bfbedf7cdecd04de535a9e046893404ed5
   GTMSessionFetcher: 6f5c8abbab8a9bce4bb3f057e317728ec6182b10
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
-  location_permissions: 7e0f9aa0f60deb8ff93ddf0e2a164c7e8197bc94
   map_launcher: e325db1261d029ff33e08e03baccffe09593ffea
   maps_launcher: eae38ee13a9c3f210fa04e04bb4c073fa4c6ed92
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
+  permission_handler: eac8e15b4a1a3fba55b761d19f3f4e6b005d15b6
   PromisesObjC: b14b1c6b68e306650688599de8a45e49fae81151
   url_launcher: 6fef411d543ceb26efce54b05a0a40bfd74cbbef
 
-PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
+PODFILE CHECKSUM: 96f18cf118dfb17794c34ab0cac1d9223d9e4cb0
 
 COCOAPODS: 1.9.1

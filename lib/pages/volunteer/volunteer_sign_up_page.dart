@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide TextButton;
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 import '../../components/alerts.dart';
@@ -20,7 +20,7 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFF5F5F5),
+      backgroundColor: purpleAccent,
       body: ModalProgressHUD(
         inAsyncCall: loading,
         child: SafeArea(
@@ -32,7 +32,7 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   SizedBox(height: 20),
-                  Text('Volunteer Sign Up', style: largeTitleStyle),
+                  Text('Volunteer Sign Up', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 47.0, color: Colors.white)),
                   SizedBox(height: 40),
                   Row(
                     children: <Widget>[
@@ -85,9 +85,9 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
                   ),
                   SizedBox(height: 30),
                   RoundedButton(
-                    color: purpleAccent,
+                    color: Colors.white,
                     title: 'Sign Up',
-                    textColor: Colors.white,
+                    textColor: purpleAccent,
                     onPressed: () async {
                       if (firstName == '') {
                         showDialog(
@@ -167,9 +167,9 @@ class _VolunteerSignUpState extends State<VolunteerSignUp> {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 5.0),
-                    child: TextButton(
+                    child: TextButton1(
                       text: 'Not a Volunteer?',
-                      textColor: Colors.blueAccent,
+                      textColor: Colors.white,
                       onPressed: () {
                         Navigator.pop(context);
                       },

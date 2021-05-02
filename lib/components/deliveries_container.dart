@@ -1,3 +1,4 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' hide TextDirection;
@@ -15,12 +16,15 @@ class DeliveriesContainer extends StatelessWidget {
     DateTime now = DateTime.now();
 
     return Card(
-      child: RawMaterialButton(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15.0),
+      ),
+      child: MaterialButton(
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (context) => DeliveryDescriptionPage(donation)));
         },
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,14 +63,7 @@ class DeliveriesContainer extends StatelessWidget {
                       style: TextStyle(fontSize: 15, color: donation.date.isBefore(now) ? Colors.red : Colors.black),
                     ),
               SizedBox(height: 5),
-              Container(
-                height: 5,
-                width: 50,
-                decoration: BoxDecoration(
-                  color: purpleAccent,
-                  borderRadius: BorderRadius.circular(21),
-                ),
-              ),
+              Divider(),
               SizedBox(height: 10),
               ListView.builder(
                 physics: NeverScrollableScrollPhysics(),
@@ -119,6 +116,116 @@ class DeliveriesContainer extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class Items extends StatelessWidget {
+  final Donation donation;
+
+  Items({this.donation});
+
+  @override
+  Widget build(BuildContext context) {
+    DateTime now = DateTime.now();
+    return OpenContainer(
+      closedShape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
+      closedElevation: 1,
+      closedColor: Color(0xFFF5F5F5),
+      transitionDuration: Duration(milliseconds: 400),
+      closedBuilder: (context, openWidget) {
+        return MaterialButton(
+          onPressed: openWidget,
+          color: Colors.white,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                textDirection: TextDirection.rtl,
+                children: <Widget>[
+                  SizedBox(
+                    height: 30.0,
+                    width: 30.0,
+                    child: Icon(Icons.keyboard_arrow_right),
+                  ),
+                  Expanded(
+                    child: Text(
+                      donation.organization.name,
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              donation.date.year == now.year && donation.date.month == now.month && donation.date.day == now.day
+                  ? Text(
+                'Deliver by: Today',
+                style: TextStyle(fontSize: 15),
+              )
+                  : Text(
+                'Deliver by: ${DateFormat('MMMMd').format(donation.date)}',
+                style: TextStyle(fontSize: 15, color: donation.date.isBefore(now) ? darkPurpleAccent : Colors.black),
+              ),
+              SizedBox(height: 5),
+              Container(
+                height: 5,
+                width: 100,
+                decoration: BoxDecoration(color: purpleAccent, borderRadius: BorderRadius.circular(21)),
+              ),
+              SizedBox(height: 10),
+              for (var item in donation.items) Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                '${item.name} - ${item.amount} ${item.unit ?? ''}'.trim(),
+                                style: TextStyle(
+                                  fontSize: 17.0,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                              if (item.specificDescription != null)
+                                Text(
+                                  item.specificDescription,
+                                  style: TextStyle(fontSize: 14, color: Colors.grey),
+                                ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: Container(
+                          height: 12,
+                          width: 12,
+                          decoration: BoxDecoration(color: item.urgencyColor, borderRadius: BorderRadius.circular(40)),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+        );
+      },
+      openBuilder: (BuildContext context, closedWidget) {
+        return DeliveryDescriptionPage(donation);
+      },
     );
   }
 }

@@ -7,6 +7,8 @@
        FlutterApplication and put your custom class here. -->
   <uses-permission android:name="android.permission.INTERNET"/>
   <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+  <uses-permission android:name="android.permission.READ_CALENDAR" />
+  <uses-permission android:name="android.permission.WRITE_CALENDAR" />
   <application
       android:name="io.flutter.app.FlutterApplication"
       android:label="linkare"
@@ -41,6 +43,13 @@
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
         <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+      <!-- This notifies users about notifications while in app
+           if they click a notification in the system tray.
+           See https://medium.com/comerge/implementing-push-notifications-in-flutter-apps-aef98451e8f1 -->
+      <intent-filter>
+        <action android:name="FLUTTER_NOTIFICATION_CLICK" />
+        <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </activity>
     <!-- Don't delete the meta-data below.

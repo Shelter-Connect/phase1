@@ -6,6 +6,7 @@ import 'package:phase1/models/donation.dart';
 import 'package:phase1/models/item.dart';
 import 'package:phase1/models/organization.dart';
 import 'package:phase1/services/firestore_helper.dart';
+import 'package:phase1/services/local_notifications.dart';
 
 import '../../components/standard_layout.dart';
 import '../../constants.dart';
@@ -42,22 +43,24 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                 ],
               ),
               Text(
-                /*'on: ${DateFormat.yMMMd().add_jm().format(widget.donation.date)}',*/
-                'on: ${DateFormat.yMMMd().format(widget.donation.date)}',
+                'on ${DateFormat.yMMMd().format(widget.donation.date)}',
                 style: subTitleStyle,
               ),
               SizedBox(height: 20),
               Column(
                 children: <Widget>[
                   Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            'Organization Information ',
+                            'Organization Information',
                             style: TextStyle(
                               fontSize: 20,
                             ),
@@ -86,6 +89,9 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
               ),
               SizedBox(height: 20),
               Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 4.0),
                   child: Column(
@@ -141,13 +147,41 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                                           padding: const EdgeInsets.only(bottom: 5.0),
                                           child: Row(
                                             children: [
+                                              if (item.category == 'Volunteering')
                                               Align(
                                                 alignment: Alignment.centerLeft,
                                                 child: Column(
                                                   crossAxisAlignment: CrossAxisAlignment.start,
                                                   children: [
                                                     Text(
-                                                      '${item.name} - ${item.amount} ${item.unit ?? ''}'.trim(),
+                                                      '${item.name} - ${item.amount} volunteer(s)'.trim(),
+                                                      style: TextStyle(
+                                                        fontSize: 17.0,
+                                                        fontWeight: FontWeight.w400,
+                                                      ),
+                                                    ),
+                                                    if (item.specificDescription != null)
+                                                      Text(
+                                                        item.specificDescription,
+                                                        style: TextStyle(fontSize: 14, color: Colors.grey),
+                                                      ),
+                                                    Align(
+                                                      alignment: Alignment.centerRight,
+                                                      child: Container(
+                                                        height: 12,
+                                                        width: 12,
+                                                        decoration: BoxDecoration(color: item.urgencyColor, borderRadius: BorderRadius.circular(40)),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ) else Align(
+                                                alignment: Alignment.centerLeft,
+                                                child: Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      '${item.name} - ${item.amount} ${item.unit}'.trim(),
                                                       style: TextStyle(
                                                         fontSize: 17.0,
                                                         fontWeight: FontWeight.w400,
@@ -195,13 +229,21 @@ class _DonationConfirmationPageState extends State<DonationConfirmationPage> {
                 width: MediaQuery.of(context).size.width,
                 child: FlatButton(
                   onPressed: () {
-                    Navigator.popUntil(context, ModalRoute.withName('/volunteer_bottom_navigation'));
-                    List<Item> delta = List();
+                    LocalNotificationsHelper.cancelNotification(id: 0);
+                    LocalNotificationsHelper.scheduleNotification(
+                      time: DateTime.now().add(new Duration(days: 30)),
+                      title: 'Donate Now!',
+                      body: 'We noticed you haven\'t donated in a while. Help change the community with a few clicks!',
+                      id: 0,
+                    );
+                    Navigator.popUntil(context, ModalRoute.withName('/volunteer_navigation'));
+                    List<Item> delta = [];
                     for (Item newItem in widget.donation.items) {
                       Item item = newItem.clone();
                       item.amount *= -1;
                       delta.add(item);
                     }
+                    widget.donation.sync = '';
                     FirestoreHelper.updateRequests(context: context, items: delta, organizationId: widget.donation.organization.id);
                     FirestoreHelper.createDonation(context, widget.donation);
                     FlushBar(
