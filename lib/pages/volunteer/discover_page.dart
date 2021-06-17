@@ -54,6 +54,7 @@ class _OrganizationDiscoverState extends State<OrganizationDiscover> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
+        Center(child: Text('Food Drive', textAlign: TextAlign.center, style: subTitleStyle)),
         (Provider.of<UserPosition>(context).position == null && hasPosition)
             ? Center(child: CircularProgressIndicator())
             : Consumer<List<Organization>>(
@@ -106,6 +107,9 @@ class _OrganizationDiscoverState extends State<OrganizationDiscover> {
                   }
                   widgets.insert(
                       0, ProfileDonation(organization: organizations.firstWhere((organization) => organization.name == 'Loaves & Fishes Family Kitchen'))
+                  );
+                  widgets.insert(
+                      1, Text('Other Organizations', style: subTitleStyle),
                   );
                   for (int i = 1; i < widgets.length; i++) {
                     widgets.insert(
