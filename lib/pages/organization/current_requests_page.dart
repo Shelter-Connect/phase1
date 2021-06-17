@@ -16,12 +16,7 @@ class CurrentRequestsPage extends StatefulWidget with NavigationTab {
 
   @override
   String get helpDescription =>
-      'Here, you can see items that you have requested that volunteers have not signed up for. '
-      'Your requests are displayed in groups, based on categories such as \'Other\', \'Hygiene\', and \'Warmth\'. '
-      'Individual items are displayed with the name, amount, and specific description. '
-      'The red, yellow, and green circles are indicators that correspond to the item\'s urgency, which can be set in the Create Requests Menu. '
-      'To edit your requests, click the \'Edit\' button located at the top left of the page. '
-      'To see items that volunteers have committed to, check the Deliveries page.';
+      'This page shows your organization\'s requests which havent been signed up for.';
 
   @override
   Widget get icon => Icon(Icons.list, color: Color(0xFF6576EC));

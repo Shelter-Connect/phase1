@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart' hide TextButton;
 
 import '../components/rounded_button.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import '../components/text_button.dart';
 import '../constants.dart';
 

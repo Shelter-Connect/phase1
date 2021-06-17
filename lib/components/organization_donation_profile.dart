@@ -166,7 +166,7 @@ class ProfileDonation extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Container(child: Icon(Icons.star, color: Colors.yellow, size: 20)) //TODO if this organization is part of the PVSA program/school food drive program, star it. Use if-statement
+                    //Container(child: Icon(Icons.star, color: Colors.yellow, size: 20)) //TODO if this organization is part of the PVSA program/school food drive program, star it. Use if-statement
                   ],
                 ),
                 if (organization.distance != null)

@@ -4,6 +4,20 @@ const admin = require('firebase-admin');
 admin.initializeApp();
 const db = admin.firestore();
 
+//Sendgrid stuff
+import d-fd10329c591d4fab9bd3504c2289a4d0 as sgMail from '@sendgrid/mail'
+const API_KEY = functions.config();
+sgMail.setAPIKey(API_KEY);
+
+//send e-mail after sign-up
+export const welcomeEmail = functions.auth.user().onCreate(user => {
+    const msg = {
+    to: user.email,
+    from: 'linkare22@gmail.com'
+    templateId: API_KEY}
+})
+return sgMail.send(msg)
+
 exports.updateOrganizationInfo = functions.firestore.document('organizations/{uid}').onUpdate(async (doc, context) => {
     let updatedInfo = doc.after;
     let currentDonations = await db.collection('organizations').doc(context.params.uid).collection('currentDonations').get();

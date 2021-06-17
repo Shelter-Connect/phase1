@@ -223,6 +223,8 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
 }
 
 void _feedbackModalBottomSheet(BuildContext context) {
+  DateTime date  = new DateTime.now();
+  Map someMap = Map<String, String>();
   TextEditingController bug = TextEditingController(), improvement = TextEditingController();
   showModalBottomSheet(
     isScrollControlled: true,
@@ -288,7 +290,18 @@ void _feedbackModalBottomSheet(BuildContext context) {
                         title: 'Submit Feedback',
                         onPressed: () {
                           db.collection('feedback').add(
-                            {'bug': bug.text, 'improvement': improvement.text, 'email': Provider.of<User>(context, listen: false).user.email},
+                            {'bug': bug.text, 'improvement': improvement.text, 'email': Provider.of<User>(context, listen: false).user.email, 'date': date},
+
+                          );
+                          db.collection('mail').add({
+                            'message': {
+                              'html': 'This is the <code>HTML</code> section of the email body. asdf',
+                              'subject': 'natepal is bad',
+                              'text': 'idk',
+                            },
+                            'to': 'linkare22@gmail.com'
+                          }
+
                           );
                           bug.clear();
                           improvement.clear();

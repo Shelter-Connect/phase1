@@ -20,10 +20,7 @@ class CurrentDeliveriesPage extends StatefulWidget with NavigationTab {
 
   @override
   String get helpDescription =>
-      'This page shows all the donations you have signed up for. In each container, you can see the name of the organization you are donating to, the date by which you will be delivering the item(s), and the exact item. Each item will have a '
-          'name, amount, and specific description. '
-          'The circle on the right indicates the urgency of the delivery, and red circles are attached to overdue deliveries. Click on a delivery to see more information, '
-      'or to edit or cancel the delivery. ';
+      'This page shows the items you have committed to donating (overdue delivieries in red). Click on a delivery for more information or to edit or cancel your delivery. ';
 
   @override
   Widget get icon => Icon(Icons.directions_car, color: Color(0xFF6576EC));

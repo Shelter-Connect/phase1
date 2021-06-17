@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
@@ -16,9 +17,7 @@ class OrganizationDiscover extends StatefulWidget with NavigationTab {
   _OrganizationDiscoverState createState() => _OrganizationDiscoverState();
 
   @override
-  String get helpDescription => 'This is the Organization discover page. Here, you can see nearby organizations in need of donations. Your organization feed will be sorted from closest to farthest, and you can see the exact distance under each organization'
-      '\'s name. Underneath the purple line, you can see a brief description, and the \"tags\" that summarize what type of donation the organization is requesting. '
-      'To see more information about an organization, or to sign up for a donation, click on an organization. ';
+  String get helpDescription => 'You can find organizations to donate to and the items which they need. Click on an organization to see more information and sign up to donate.';
 
   @override
   Widget get icon => Icon(Icons.delivery_dining, color: Color(0xFF6576EC));
@@ -90,7 +89,7 @@ class _OrganizationDiscoverState extends State<OrganizationDiscover> {
                   List<Widget> widgets = [];
                   Position userPosition = Provider.of<UserPosition>(context, listen: false).position;
                   for (Organization organization in organizations) {
-                    if (organization.itemCategories != null && organization.itemCategories.length != 0 && organization.name != "Linkare Test Organization") {
+                    if (organization.itemCategories != null && organization.itemCategories.length != 0 && organization.name != "Linkare Test Organization" && organization.name != "Loaves & Fishes Family Kitchen") {
                       organization.distance = userPosition != null
                           ? LocationHelper.distance(
                               organization.location.latitude, organization.location.longitude, userPosition.latitude, userPosition.longitude)
@@ -105,6 +104,9 @@ class _OrganizationDiscoverState extends State<OrganizationDiscover> {
                       return (a as ProfileDonation).organization.distance.compareTo((b as ProfileDonation).organization.distance);
                     });
                   }
+                  widgets.insert(
+                      0, ProfileDonation(organization: organizations.firstWhere((organization) => organization.name == 'Loaves & Fishes Family Kitchen'))
+                  );
                   for (int i = 1; i < widgets.length; i++) {
                     widgets.insert(
                       i++,
