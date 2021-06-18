@@ -1,7 +1,13 @@
 import 'package:animations/animations.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:phase1/models/organization.dart';
+import 'package:phase1/services/firestore_helper.dart';
 import 'package:phase1/pages/volunteer/organization_profile_page.dart';
+import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 
 import '../constants.dart';
 
@@ -242,6 +248,28 @@ class ProfileDonation extends StatelessWidget {
                         ),
                       ),
                   ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Visibility(
+                  visible: organization.foodDrive == true,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'July 4th Food Drive!',
+                        style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+                      ),
+                      SizedBox(height: 10),
+                      // FAProgressBar(
+                      //   currentValue: (500 - organization.requestedItems['Nutrition'].firstWhere((item) => item.name == 'peanut butter').amount),
+                      //   //organization.collection('currentDonations')
+                      //   displayText: ' items',
+                      //   maxValue: 500,
+                      // ) //TODO Fix NoSuchMethodError for "firstWhere"
+                    ],
+                  ),
                 ),
               ],
             ),

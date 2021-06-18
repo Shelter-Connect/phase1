@@ -9,6 +9,7 @@ import 'item.dart';
 
 class Organization {
   String address, website, donationLink, number, email, id, description, name;
+  bool foodDrive;
   Position location;
   double distance;
   Map<String, List<Item>> requestedItems = Map();
@@ -30,7 +31,8 @@ class Organization {
       this.itemCategories,
       this.number,
       this.schedule,
-      this.breaks});
+      this.breaks,
+      this.foodDrive});
 
   Organization clone() {
     return Organization(
@@ -40,6 +42,7 @@ class Organization {
       donationLink: donationLink,
       number: number,
       email: email,
+      foodDrive: foodDrive,
       id: id,
       description: description,
       name: name,
@@ -68,6 +71,7 @@ class Organization {
     donationLink = organizationSnapshot['donationLink'];
     number = organizationSnapshot['number'];
     email = organizationSnapshot['email'];
+    foodDrive = organizationSnapshot['foodDrive'];
     id = organizationSnapshot.documentID;
     description = organizationSnapshot['description'];
     name = organizationSnapshot['name'];
