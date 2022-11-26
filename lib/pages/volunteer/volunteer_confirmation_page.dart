@@ -1,4 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' as firebase;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -13,13 +13,11 @@ class VolunteerConfirmation extends StatefulWidget {
 }
 
 class _VolunteerConfirmationState extends State<VolunteerConfirmation> {
-  FirebaseUser user;
+  firebase.User user;
 
   @override
   void initState() {
-    auth.currentUser().then((value) {
-      user = value;
-    });
+    user = auth.currentUser;
     super.initState();
   }
 
@@ -47,7 +45,7 @@ class _VolunteerConfirmationState extends State<VolunteerConfirmation> {
                 color: purpleAccent,
                 onPressed: () async {
                   user.delete();
-                  db.collection('volunteers').document(user.uid).delete();
+                  db.collection('volunteers').doc(user.uid).delete();
                 },
               ),
               RoundedButton(
@@ -73,8 +71,8 @@ class _VolunteerConfirmationState extends State<VolunteerConfirmation> {
                 textColor: Colors.white,
                 onPressed: () async {
                   await user.reload();
-                  user = await auth.currentUser();
-                  if (user.isEmailVerified) {
+                  user = auth.currentUser;
+                  if (user.emailVerified) {
                     print('verified');
                     Navigator.pushReplacementNamed(context, '/volunteer_navigation');
                   } else {

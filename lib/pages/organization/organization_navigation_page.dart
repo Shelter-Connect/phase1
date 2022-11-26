@@ -1,9 +1,7 @@
 import 'package:animations/animations.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:phase1/components/floating_text_field.dart';
 import 'package:phase1/components/flushbar.dart';
 import 'package:phase1/components/rounded_button.dart';
@@ -41,14 +39,15 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
       providers: [
         StreamProvider<List<Donation>>.value(
           value: FirestoreHelper.getCurrentOrganizationReference(context).collection('currentDonations').orderBy('date').snapshots().map((snapshot) {
-            if (snapshot.documents.length == 0) return [];
+            if (snapshot.docs.length == 0) return [];
             if (snapshot == null) return null;
             List<Donation> donations = [];
-            for (DocumentSnapshot document in snapshot.documents) {
+            for (DocumentSnapshot document in snapshot.docs) {
               donations.add(Donation.fromFirestoreMap(document));
             }
             return donations;
           }),
+          initialData: null,
         ),
         StreamProvider<List<PastDonation>>.value(
           value: FirestoreHelper.getCurrentOrganizationReference(context)
@@ -56,17 +55,19 @@ class _OrganizationNavigationPageState extends State<OrganizationNavigationPage>
               .orderBy('date', descending: true)
               .snapshots()
               .map((snapshot) {
-            if (snapshot.documents.length == 0) return [];
+            if (snapshot.docs.length == 0) return [];
             if (snapshot == null) return null;
             List<PastDonation> donations = [];
-            for (DocumentSnapshot document in snapshot.documents) {
+            for (DocumentSnapshot document in snapshot.docs) {
               donations.add(PastDonation.fromFirestoreMap(document));
             }
             return donations;
           }),
+          initialData: null,
         ),
         StreamProvider<QuerySnapshot>.value(
           value: FirestoreHelper.getCurrentOrganizationReference(context).collection('requests').snapshots(),
+          initialData: null,
         ),
       ],
       child: WillPopScope(

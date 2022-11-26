@@ -245,7 +245,7 @@ class _EditHoursWeekDayState extends State<EditHoursWeekDay> {
                       widget.temp[widget.day] = [];
                       for (TimeOfDay time in widget.timeFrames)
                         widget.temp[widget.day].add(new DateTime(now.year, now.month, now.day, time.hour, time.minute));
-                      FirestoreHelper.getCurrentOrganizationReference(context).updateData({
+                      FirestoreHelper.getCurrentOrganizationReference(context).update({
                         'schedule': widget.temp,
                       }).then((value) => Navigator.pop(context));
                     },

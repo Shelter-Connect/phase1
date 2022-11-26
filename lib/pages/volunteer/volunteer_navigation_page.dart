@@ -1,8 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:phase1/components/floating_text_field.dart';
 import 'package:phase1/components/flushbar.dart';
 import 'package:phase1/components/rounded_button.dart';
@@ -51,11 +49,11 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
         providers: [
           StreamProvider<List<Organization>>.value(
             value: db.collection('organizations').snapshots().map((snapshot) {
-              if (snapshot.documents.length == 0) return [];
+              if (snapshot.docs.length == 0) return [];
               if (snapshot == null) return null;
               List<Organization> organizations = [];
-              for (DocumentSnapshot document in snapshot.documents) {
-                if (kReleaseMode && document.documentID == 'bVRQfZpizSQWty24zFgFqIrB60i2') // Skips over Test Linkare org if this is actual app
+              for (DocumentSnapshot document in snapshot.docs) {
+                if (kReleaseMode && document.id == 'bVRQfZpizSQWty24zFgFqIrB60i2') // Skips over Test Linkare org if this is actual app
                   continue;
                 organizations.add(Organization.fromFirestoreMap(context: context, organizationSnapshot: document, isVolunteer: false));
               }
@@ -65,39 +63,42 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
               List<Organization> organizations = [];
 
               db.collection('organizations')
-                .getDocuments()
-                .then((snapshots) {
-                  for (DocumentSnapshot document in snapshots.documents)
+                .get()
+                .then((querySnapshot) {
+                  for (DocumentSnapshot document in querySnapshot.docs)
                     organizations.add(Organization.fromFirestoreMap(context: context, organizationSnapshot: document, isVolunteer: false));
                 });
 
               print("Error - $error");
               return organizations;
             },
+            initialData: null,
           ),
           StreamProvider<List<Donation>>.value(
             value: FirestoreHelper.getCurrentVolunteerReference(context).collection('currentDonations').orderBy('date').snapshots().map((snapshot) {
-              if (snapshot.documents.length == 0) return [];
+              if (snapshot.docs.length == 0) return [];
               if (snapshot == null) return null;
               List<Donation> donations = [];
-              for (DocumentSnapshot document in snapshot.documents) {
-                if (document.documentID == 'categories') continue;
+              for (DocumentSnapshot document in snapshot.docs) {
+                if (document.id == 'categories') continue;
                 donations.add(Donation.fromFirestoreMap(document));
               }
               return donations;
             }),
+            initialData: [],
           ),
           StreamProvider<List<PastDonation>>.value(
             value: FirestoreHelper.getCurrentVolunteerReference(context).collection('pastDonations').orderBy('date').snapshots().map((snapshot) {
-              if (snapshot.documents.length == 0) return [];
+              if (snapshot.docs.length == 0) return [];
               if (snapshot == null) return null;
               List<PastDonation> donations = [];
-              for (DocumentSnapshot document in snapshot.documents) {
-                if (document.documentID == 'categories') continue;
+              for (DocumentSnapshot document in snapshot.docs) {
+                if (document.id == 'categories') continue;
                 donations.add(PastDonation.fromFirestoreMap(document));
               }
               return donations;
             }),
+            initialData: [],
           ),
         ],
         child: WillPopScope(
@@ -224,7 +225,6 @@ class _VolunteerNavigationPageState extends State<VolunteerNavigationPage> {
 
 void _feedbackModalBottomSheet(BuildContext context) {
   DateTime date  = new DateTime.now();
-  Map someMap = Map<String, String>();
   TextEditingController bug = TextEditingController(), improvement = TextEditingController();
   showModalBottomSheet(
     isScrollControlled: true,

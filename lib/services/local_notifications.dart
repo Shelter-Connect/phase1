@@ -5,7 +5,7 @@ class LocalNotificationsHelper {
 
   static void initialize() async {
     var androidSettings = AndroidInitializationSettings('mipmap/ic_launcher');
-    var iosSettings = IOSInitializationSettings();
+    var iosSettings = DarwinInitializationSettings();
     var settings = InitializationSettings(android: androidSettings, iOS: iosSettings);
     await _localNotifications.initialize(settings);
   }
@@ -14,23 +14,24 @@ class LocalNotificationsHelper {
     var androidDetails = AndroidNotificationDetails(
       'cortex',
       'Task Reminders',
-      'Reminds you of upcoming tasks.',
+      channelDescription: 'Reminds you of upcoming tasks.',
       importance: Importance.high,
     );
-    var iosDetails = IOSNotificationDetails();
+    var iosDetails = DarwinNotificationDetails();
     var details = NotificationDetails(android: androidDetails, iOS: iosDetails);
 
     if (time.isBefore(DateTime.now())) return;
 
     var scheduled =  await _localNotifications.pendingNotificationRequests();
     if (!scheduled.any((notification) => notification.id == id)) {
-      await _localNotifications.schedule(
+      await _localNotifications.zonedSchedule(
         id,
         title,
         body,
         time,
         details,
         androidAllowWhileIdle: true,
+        uiLocalNotificationDateInterpretation: null,
       );
     }
   }

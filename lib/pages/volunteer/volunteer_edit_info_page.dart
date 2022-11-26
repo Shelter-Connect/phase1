@@ -1,4 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' as firebase;
 import 'package:flutter/material.dart';
 import 'package:phase1/components/flushbar.dart';
 import 'package:phase1/components/standard_layout.dart';
@@ -57,13 +57,12 @@ class _VolunteerEditInfoPageState extends State<VolunteerEditInfoPage> {
                 title: 'Update Name',
                 textColor: Colors.white,
                 onPressed: () {
-                  db.collection('volunteers').document(Provider.of<User>(context, listen: false).user.uid).updateData({
+                  db.collection('volunteers').doc(Provider.of<User>(context, listen: false).user.uid).update({
                     'firstName': firstNameController.text.trim(),
                     'lastName': lastNameController.text.trim(),
                   });
-                  UserUpdateInfo info = UserUpdateInfo();
-                  info.displayName = '${firstNameController.text} ${lastNameController.text}';
-                  Provider.of<User>(context, listen: false).user.updateProfile(info);
+                  final String displayName = '${firstNameController.text} ${lastNameController.text}';
+                  Provider.of<User>(context, listen: false).user.updateDisplayName(displayName);
                   Navigator.pop(context, {
                     'firstName': firstNameController.text,
                     'lastName': lastNameController.text,

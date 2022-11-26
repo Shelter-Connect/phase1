@@ -86,7 +86,7 @@ class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
                     child: CircularProgressIndicator(),
                   );
                 }
-                if (snapshot.documents.length == 0) {
+                if (snapshot.docs.length == 0) {
                   return Column(
                     children: [
                       Text(
@@ -112,7 +112,7 @@ class _CurrentRequestsPageState extends State<CurrentRequestsPage> {
                   );
                 }
                 Map<String, List<Item>> itemCategories = {};
-                for (DocumentSnapshot document in snapshot.documents) {
+                for (DocumentSnapshot document in snapshot.docs) {
                   if (!itemCategories.containsKey(document['category'])) {
                     itemCategories[document['category']] = [];
                   }

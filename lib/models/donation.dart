@@ -27,7 +27,7 @@ class Donation {
     volunteerId = donationSnapshot['volunteerId'];
     volunteerEmail = donationSnapshot['volunteerEmail'];
     volunteerName = donationSnapshot['volunteerName'];
-    id = donationSnapshot.documentID;
+    id = donationSnapshot.id;
     date = donationSnapshot['date'].toDate();
     sync = donationSnapshot['sync'];
     items = donationSnapshot['items']

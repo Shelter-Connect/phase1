@@ -1,12 +1,12 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' as firebase;
 import 'package:flutter/material.dart';
 
 class User extends ChangeNotifier {
-  FirebaseUser _user;
+  firebase.User _user;
 
-  FirebaseUser get user => _user;
+  firebase.User get user => _user;
 
-  set user(FirebaseUser newUser) {
+  set user(firebase.User newUser) {
     _user = newUser;
     notifyListeners();
   }

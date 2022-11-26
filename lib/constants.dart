@@ -6,11 +6,11 @@ import 'package:map_launcher/map_launcher.dart';
 
 //Firebase
 final FirebaseAuth auth = FirebaseAuth.instance;
-final Firestore db = Firestore.instance;
+final FirebaseFirestore db = FirebaseFirestore.instance;
 
 //Maps
 final kGoogleApiKey = "AIzaSyDtBjj6ReiOlVtylupAx-wcLe2HmsJXXFs";
-List<AvailableMap> availableMaps = List();
+List<AvailableMap> availableMaps = [];
 Coords coords = Coords(0, 0);
 String title = '';
 

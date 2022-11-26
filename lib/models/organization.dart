@@ -72,7 +72,7 @@ class Organization {
     number = organizationSnapshot['number'];
     email = organizationSnapshot['email'];
     foodDrive = organizationSnapshot['foodDrive'];
-    id = organizationSnapshot.documentID;
+    id = organizationSnapshot.id;
     description = organizationSnapshot['description'];
     name = organizationSnapshot['name'];
     itemCategories = organizationSnapshot['itemCategories']?.cast<String>();

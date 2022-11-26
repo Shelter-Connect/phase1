@@ -65,7 +65,7 @@ class _ExpectedDeliveriesPageState extends State<ExpectedDeliveriesPage> {
                               action: () {
                                 openAppSettings();
                               });
-                        } else if (status.isUndetermined) await Permission.calendar.request();
+                        } else if (!status.isGranted || !status.isLimited) await Permission.calendar.request(); // TODO: how to check if access request hasn't been made yet?
                         await _retrieveCalendars();
                         showModalBottomSheet(context: context, builder: (context) => SyncCalendar(donations, true));
                       },

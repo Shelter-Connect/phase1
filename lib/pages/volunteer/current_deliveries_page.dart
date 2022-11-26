@@ -123,7 +123,7 @@ class _CurrentDeliveriesPageState extends State<CurrentDeliveriesPage> {
                                     action: () {
                                       openAppSettings();
                                     });
-                              } else if (status.isUndetermined) await Permission.calendar.request();
+                              } else if (!status.isGranted || !status.isLimited) await Permission.calendar.request();
                               await _retrieveCalendars();
                               showModalBottomSheet(context: context, builder: (context) => SyncCalendar(donations, false));
                             },
